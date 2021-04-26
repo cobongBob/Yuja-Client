@@ -3,9 +3,9 @@ import { Container, Row, Col } from 'react-bootstrap';
 import Eboard from './Eboard';
 import Sboard from './Sboard';
 import Yboard from './Yboard';
-import './scss/Main_Board.scss';
+import './scss/MainBoard.scss';
 
-const Main_Board = () => {
+const MainBoard = () => {
   return (
     <Row className='Main_Board_Wrapper'>
       <Col sm>
@@ -21,4 +21,4 @@ const Main_Board = () => {
   );
 };
 
-export default Main_Board;
+export default MainBoard;
