@@ -1,0 +1,30 @@
+@font-face {
+  font-family: 'hopang';
+  src: url('./fonts/SDSamliphopangcheTTFOutline.ttf');
+}
+
+@font-face {
+  font-family: 'scdream4';
+  src: url('./fonts/SCDream4.otf');
+}
+
+.allBoard {
+  background-color: white;
+  margin-right: 10vw;
+  margin-left: 10vw;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
+::-webkit-scrollbar {
+  width:0.5em;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ffb963;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  display: none;
+}
