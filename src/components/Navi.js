@@ -1,15 +1,17 @@
 import React from 'react';
+import 'react-bootstrap/Nav';
 import './scss/Navi.scss';
 import 'react-bootstrap/Nav';
 import { Link } from 'react-router-dom';
+import SignButton from "./SignButton";
 
 const Navi = () => {
   return (
     <>
       <div className='nav'>
         <ul className='nav-pills' defaultValue='/home'>
-          <li className='nav-link' href='/home'>
-            <Link to='/'>메인</Link>
+          <li className='nav-link'>
+              <Link to='/'>메인</Link>
           </li>
           <li className='nav-link'>
             {' '}
@@ -31,6 +33,10 @@ const Navi = () => {
             {' '}
             <Link to='/Help'>고객센터</Link>{' '}
           </li>
+            <li className='nav-link'>
+                {' '}
+                <Link to='/SignUp'><SignButton/></Link>{' '}
+            </li>
         </ul>
       </div>
     </>
