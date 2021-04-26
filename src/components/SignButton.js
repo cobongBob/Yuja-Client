@@ -19,7 +19,7 @@ const SignButton = () => {
             {/* header 부분에 텍스트를 입력 */}
             <SignUp open={ modalOpen } close={ closeModal } header="Modal heading">
                 {/* SignUp.js <main> {props.children} </main>에 내용이 입력된다. */}
-                회원가입회원가입회원가입 커밋시험용
+                회원가입회원가입회원가입 커밋시험용1
             </SignUp>
         </>
     );
