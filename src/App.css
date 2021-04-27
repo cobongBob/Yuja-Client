@@ -7,6 +7,10 @@
   font-family: 'scdream4';
   src: url('./fonts/SCDream4.otf');
 }
+@font-face {
+  font-family: 'scdream5';
+  src: url('./fonts/SCDream5.otf');
+}
 
 .allBoard {
   background-color: white;
@@ -23,8 +27,8 @@
 ::-webkit-scrollbar-thumb {
   background-color: #ffb963;
   border-radius: 10px;
+  z-index: 0;
 }
-
 ::-webkit-scrollbar-track {
   display: none;
 }
