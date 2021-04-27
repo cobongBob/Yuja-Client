@@ -28,13 +28,13 @@
   margin:2em 0 1em 2em;
 }
 .SignUp > section {
-  width:25%;
-  height:70%;
-  margin:0 auto;
-  border-radius: .3rem;
+  width: 25%;
+  height: 70%;
+  margin: 0 auto;
+  border-radius: 0.3rem;
   background-color: #fff;
   /* 팝업이 열릴때 스르륵 열리는 효과 */
-  animation: modal-show .3s;
+  animation: modal-show 0.3s;
   overflow: hidden;
 }
 .close {
@@ -131,7 +131,7 @@ input::placeholder {
   display: flex;
   align-items: center;
   /* 팝업이 열릴때 스르륵 열리는 효과 */
-  animation: modal-bg-show .3s;
+  animation: modal-bg-show 0.3s;
 }
 @keyframes modal-show {
   from {
