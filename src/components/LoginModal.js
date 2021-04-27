@@ -47,7 +47,7 @@ const LoginModal = (props) => {
             <div className='loginLine'>
               회원이 아니신가요? <Link to='/signup'>회원가입</Link>
             </div>
-            <div className='noUser'>비회원 주문 조회</div>
+            <div className="noUser">무엇을적을까요</div>
           </footer>
         </section>
       ) : null}
