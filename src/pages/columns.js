@@ -2,39 +2,37 @@ import { format } from 'date-fns';
 
 export const COLUMNS = [
   {
-    Header: '글번호',
-    accessor: 'board_id',
+    Header: 'Id',
+    Footer: 'Id',
+    accessor: 'id',
     disableFilters: true,
   },
   {
-    Header: '작성자',
-    accessor: 'user_id',
+    Header: 'First Name',
+    Footer: 'First Name',
+    accessor: 'first_name',
   },
   {
-    Header: '제목',
-    accessor: 'title',
-    getProps: () => ({ someFunc: () => alert('clicked') }),
+    Header: 'Last Name',
+    Footer: 'Last Name',
+    accessor: 'last_name',
   },
   {
-    Header: '등록일',
-    accessor: 'create_date',
+    Header: 'Date of Birth',
+    Footer: 'Date of Birth',
+    accessor: 'date_of_birth',
     Cell: ({ value }) => {
       return format(new Date(value), 'yyyy/MM/dd');
     },
   },
   {
-    Header: '마감일',
-    accessor: 'update_date',
-    Cell: ({ value }) => {
-      return format(new Date(value), 'yyyy/MM/dd');
-    },
+    Header: 'Country',
+    Footer: 'Country',
+    accessor: 'country',
   },
   {
-    Header: '조회수',
-    accessor: 'vies',
-  },
-  {
-    Header: '좋아요',
-    accessor: 'hit',
+    Header: 'Phone',
+    Footer: 'Phone',
+    accessor: 'phone',
   },
 ];
