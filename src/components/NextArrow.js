@@ -8,5 +8,4 @@ function NextArrow(props) {
     </div>
   );
 }
-
 export default NextArrow;
