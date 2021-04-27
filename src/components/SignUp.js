@@ -1,35 +1,52 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './scss/SignUp.scss';
-import { Container, Overlay } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const SignUp = (props) => {
-  // 열기, 닫기, 헤더를 부모로부터 받아옴
+  // 열기, 닫기, 헤더 내용을 부모로부터 받아옴
   const { open, close, header } = props;
-
+  console.log(open);
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
-    <Container>
+    <div onClick={close}>
       <div className={open ? 'openModal SignUp' : 'SignUp'}>
         {open ? (
           <section>
-            <header>
-              {header}
-              <button className="close" onClick={close}>
-                {' '}
-                &times;{' '}
-              </button>
+            <header className="header">
+              <span className="close" onClick={close}>
+                &times;
+              </span>
+              <img className="signinIcon" src="/img/parts_pic/yuzu05.png" />{' '}
+              <div className="header-title">유자 로그인</div>
             </header>
-            <main>{props.children}</main>
-            <footer>
-              <button className="close" onClick={close}>
-                {' '}
-                close{' '}
-              </button>
-            </footer>
+            <main>
+              <input
+                name="email"
+                className="loginId"
+                type="text"
+                placeholder="아이디"
+              />
+              <input
+                name="password"
+                className="loginPw"
+                type="password"
+                placeholder="비밀번호"
+              />
+              <div className="loginMid">
+                <label className="autoLogin" htmlFor="hint">
+                  {' '}
+                  <input type="checkbox" id="hint" /> 로그인 유지하기
+                </label>
+                <div className="autoLogin">아이디/비밀번호 찾기</div>
+              </div>
+              <button className="loginBtn"> 로그인 </button>
+            </main>
+            <footer>footer</footer>
           </section>
         ) : null}
       </div>
-    </Container>
+    </div>
   );
 };
 

@@ -7,15 +7,29 @@
   left: 0;
   z-index: 99;
   background-color: rgba(0, 0, 0, 0.6);
+  cursor: auto;
+  color:#ffb963;
 }
 .SignUp button {
   outline: none;
   cursor: pointer;
   border: 0;
 }
+.header {
+  text-align: center;
+}
+
+.header-title {
+  font-size:2rem;
+  font-family: hopang;
+}
+.signinIcon {
+  width:15%;
+  margin:2em 0 1em 2em;
+}
 .SignUp > section {
-  width: 90%;
-  max-width: 450px;
+  width:25%;
+  height:70%;
   margin:0 auto;
   border-radius: .3rem;
   background-color: #fff;
@@ -23,38 +37,65 @@
   animation: modal-show .3s;
   overflow: hidden;
 }
-.SignUp > section > header {
-  position: relative;
-  padding: 16px 64px 16px 16px;
-  background-color: #f1f1f1;
-  font-weight: 700;
-}
-.SignUp > section > header button {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 30px;
-  font-size: 21px;
-  font-weight: 700;
-  text-align: center;
-  color: #999;
-  background-color: transparent;
+.close {
+  float: right;
+  font-size: 2em;
+  outline: none;
+  cursor: pointer;
+  margin-right: 0.2em;
 }
 .SignUp > section > main {
   padding: 16px;
-  border-bottom: 1px solid #dee2e6;
-  border-top: 1px solid #dee2e6;
+}
+.loginId {
+  margin-top: 30px;
+  border-radius: 2px;
+  width: 100%;
+  height: 40px;
+  border: 1px solid #e5e5e5;
+  padding: 9px 12px;
+  outline: none;
+  box-sizing: border-box;
+}
+input::placeholder {
+  color: #999999;
+}
+.loginPw {
+  margin-top: 15px;
+  border-radius: 2px;
+  width: 100%;
+  height: 40px;
+  border: 1px solid #e5e5e5;
+  padding: 9px 12px;
+  outline: none;
+  box-sizing: border-box;
+}
+.loginMid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .autoLogin {
+    font-size: 12px;
+    color: #8d8d8d;
+    line-height: 3;
+  }
+}
+.loginBtn {
+  height: 40px;
+  font-size: 14px;
+  padding: 13px 30px;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  line-height: 1px;
+  margin-top: 20px;
+  margin-bottom: 12px;
+  border-radius: 3px;
+  border-style: none;
 }
 .SignUp > section > footer {
   padding: 12px 16px;
-  text-align: right;
-}
-.SignUp > section > footer button {
-  padding: 6px 12px;
-  color: #fff;
-  background-color: #6c757d;
-  border-radius: 5px;
-  font-size: 13px;
+  text-align: center;
 }
 .SignUp.openModal {
   display: flex;
