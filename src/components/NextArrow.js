@@ -8,8 +8,4 @@ function NextArrow(props) {
     </div>
   );
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 13553af6f1a75be9c43c2fef8dd6abf3af476026
 export default NextArrow;
