@@ -9,7 +9,6 @@ const SignUp = (props) => {
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
     <Container>
-      <Overlay onClick={close} />
       <div className={open ? 'openModal SignUp' : 'SignUp'}>
         {open ? (
           <section>
