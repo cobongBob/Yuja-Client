@@ -20,7 +20,9 @@ const SignButton = () => {
 
   return (
     <>
-      <button onClick={openModal}>로그인</button>
+      <button className='button-login' onClick={openModal}>
+        로그인
+      </button>
       {/* header 부분에 텍스트를 입력 */}
       <LoginModal open={modalOpen} close={closeModal} header='Modal heading'>
         회원가입회원가입회원가입 커밋시험용1입니다
