@@ -37,7 +37,7 @@ const Ytable = () => {
   const { pageIndex, pageSize } = state;
 
   const rowProps = (row) => ({
-    onClick: () => alert(JSON.stringify(row.values)),
+    onClick: () => <Link onClick={} to='/Ydetail'></Link>,
     style: {
       cursor: 'pointer',
     },
@@ -45,7 +45,13 @@ const Ytable = () => {
 
   return (
     <>
-      <h1>유튜버 게시판</h1>
+      <div className='YtableHeader'>
+        <h1>유튜버 게시판</h1>
+        <Link className='LinkWrite' to='#'>
+          {' '}
+          글쓰기
+        </Link>
+      </div>
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -89,9 +95,6 @@ const Ytable = () => {
             disabled={!canNextPage}>
             {'>>'}
           </button>
-          <div className='WriteButton'>
-            <Link to='#'> 글쓰기</Link>
-          </div>
         </div>
         <span>
           현재
@@ -100,7 +103,7 @@ const Ytable = () => {
           </strong>
         </span>
         <span>
-          || Go to page:
+          || Go to page {''}
           <input
             type='number'
             defaultValue={pageIndex + 1}
