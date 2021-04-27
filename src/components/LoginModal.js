@@ -42,12 +42,13 @@ const LoginModal = (props) => {
               <div className="autoLogin">아이디/비밀번호 찾기</div>
             </div>
             <button className="loginBtn"> 로그인 </button>
+            <button className="googleLoginBtn"> 구글 로그인 </button>
           </main>
           <footer>
             <div className="loginLine">
               회원이 아니신가요? <Link to="/signup">회원가입</Link>
             </div>
-            <div className="noUser">무엇을적을까요</div>
+            <div className="noUser">무엇을적을까요???</div>
           </footer>
         </section>
       ) : null}

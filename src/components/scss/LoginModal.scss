@@ -20,7 +20,7 @@
 }
 
 .header-title {
-  font-size:2rem;
+  font-size:3rem;
   font-family: hopang;
 }
 .signinIcon {
@@ -90,6 +90,19 @@ input::placeholder {
   color: white;
   line-height: 1px;
   margin-top: 20px;
+  border-radius: 3px;
+  border-style: none;
+}
+.googleLoginBtn {
+  height: 40px;
+  width: 100%;
+  font-size: 14px;
+  padding: 13px 30px;
+  cursor: pointer;
+  background-color: orangered;
+  color: white;
+  line-height: 1px;
+  margin-top: 10px;
   margin-bottom: 12px;
   border-radius: 3px;
   border-style: none;
