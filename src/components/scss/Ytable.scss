@@ -40,49 +40,28 @@ tfoot td {
   margin-bottom: 2%;
 }
 
-.PagingWrapper,
-span,
-strong,
-input,
-select,
-button {
+.PagingWrapper > span,
+.PagingWrapper > strong,
+.PagingWrapper > input,
+.PagingWrapper > select {
   margin-left: 1%;
   font-family: 'scdream4';
   text-align: center;
 }
 
-.PagingWrapper > span {
-  margin-left: 1%;
-  font-family: 'scdream4';
-  text-align: center;
-}
-.PagingWrapper > i {
-  margin-left: 1%;
-  font-family: 'scdream4';
-  text-align: center;
-}
-.PagingWrapper > span {
-  margin-left: 1%;
-  font-family: 'scdream4';
-  text-align: center;
-}
-.PagingWrapper > span {
-  margin-left: 1%;
-  font-family: 'scdream4';
-  text-align: center;
-}
-
-.YtableButton button {
-  color: none;
+.ButtonWrapper > button {
   background: none;
   border: none;
+  margin-left: 1%;
+  font-family: 'scdream4';
+  text-align: center;
 }
 
 .ButtonWrapper {
   margin-bottom: 1%;
 }
 
-.PagingWrapper input {
+.PagingWrapper > span > input {
   width: 4%;
 }
 
