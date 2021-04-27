@@ -7,7 +7,7 @@ import './scss/MainBoard.scss';
 
 const MainBoard = () => {
   return (
-    <Row className='Main_Board_Wrapper'>
+    <Row className="Main_Board_Wrapper">
       <Col sm>
         <Yboard></Yboard>
       </Col>

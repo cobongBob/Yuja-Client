@@ -80,9 +80,7 @@ const Evideo = () => {
                   </h2>
                 </div>
                 <div className='item-content'>
-                  <p>
-                    더미텍스트를 찾아보려 했는데 영어밖에
-                  </p>
+                  <p>더미텍스트를 찾아보려 했는데 영어밖에</p>
                 </div>
               </div>
             </div>
