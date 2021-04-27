@@ -82,6 +82,7 @@ input::placeholder {
 }
 .loginBtn {
   height: 40px;
+  width: 100%;
   font-size: 14px;
   padding: 13px 30px;
   cursor: pointer;
@@ -97,6 +98,22 @@ input::placeholder {
   padding: 12px 16px;
   text-align: center;
 }
+
+.loginLine {
+  color: #bcbcbc;
+  font-size: 15px;
+  margin-bottom: 35px;
+  a {
+    color: black;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+.noUser {
+  text-decoration: underline;
+}
+
 .SignUp.openModal {
   display: flex;
   align-items: center;
