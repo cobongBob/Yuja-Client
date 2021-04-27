@@ -51,7 +51,29 @@ button {
   text-align: center;
 }
 
-.PagingWrapper button {
+.PagingWrapper > span {
+  margin-left: 1%;
+  font-family: 'scdream4';
+  text-align: center;
+}
+.PagingWrapper > i {
+  margin-left: 1%;
+  font-family: 'scdream4';
+  text-align: center;
+}
+.PagingWrapper > span {
+  margin-left: 1%;
+  font-family: 'scdream4';
+  text-align: center;
+}
+.PagingWrapper > span {
+  margin-left: 1%;
+  font-family: 'scdream4';
+  text-align: center;
+}
+
+.YtableButton button {
+  color: none;
   background: none;
   border: none;
 }
