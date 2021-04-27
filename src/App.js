@@ -9,6 +9,7 @@ import Editer from './pages/Editer';
 import Thumbnailer from './pages/Thumbnailer';
 import Winwin from './pages/Winwin';
 import Help from './pages/Help';
+import Wboard from './components/Wboard';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <div className='allBoard'>
           <VideoBox></VideoBox>
           <MainBoard></MainBoard>
+          <Wboard></Wboard>
         </div>
       </Route>
       <div>
