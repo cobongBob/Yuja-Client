@@ -1,0 +1,48 @@
+.nav {
+  position: fixed;
+  padding-left: 12rem;
+  list-style: none;
+  z-index: 3;
+  background-color: white;
+  font-family: 'scdream5';
+  width: 100%;
+  height: 3.5rem;
+  top:0;
+}
+
+.nav-login {
+  margin-left: auto;
+  margin-right: 14rem;
+  color: black;
+  margin-top: 12px;
+}
+
+.nav-pills {
+  font-size: 19px;
+  list-style-type: none;
+  display: contents;
+  text-decoration: none;
+
+  .nav-link {
+    margin-top: 5px;
+    color: #ff9411;
+    &.disabled {
+      color: gray;
+      background-color: transparent;
+      border-color: transparent;
+    }
+  }
+
+  .dropdown-menu {
+    // Make dropdown border overlap tab border
+    margin-top: 30rem;
+    // Remove the top rounded corners here since there is a hard edge above the menu
+  }
+}
+/*
+    @include border-top-radius($nav-tabs-border-radius);
+
+    @include hover-focus() {
+      border-color: $nav-tabs-link-hover-border-color;
+    }
+    */
