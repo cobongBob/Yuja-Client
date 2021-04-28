@@ -10,6 +10,7 @@ import Thumbnailer from './pages/Thumbnailer';
 import Winwin from './pages/Winwin';
 import Help from './pages/Help';
 import Wboard from './components/Wboard';
+import Ydetail from './pages/Ydetail';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path='/Thumbnailer' component={Thumbnailer} exact />
           <Route path='/Winwin' component={Winwin} exact />
           <Route path='/Help' component={Help} exact />
+          <Route path='/Ydetail/:board_id' component={Ydetail} exact />
         </switch>
       </div>
     </div>
