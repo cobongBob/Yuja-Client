@@ -62,9 +62,23 @@ tfoot td {
 }
 
 .PagingWrapper > span > input {
+  text-align: center;
   width: 4%;
 }
 
-.WriteButton {
+.YtableHeader {
+  padding-top: 1%;
+  align-items: center;
+  margin-bottom: 1.5%;
+}
+
+.YtableHeader > h1 {
+  display: inline;
+  border-bottom: 4px solid orangered;
+}
+
+.LinkWrite {
+  font-size: 20px;
+  font-weight: bold;
   float: right;
 }
