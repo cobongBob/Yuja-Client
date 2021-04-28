@@ -81,7 +81,7 @@ function LoginModal2(){
                 이메일로 회원가입
               </Link>
             </div>
-            <div className="noUser">무엇을적을까요???</div>
+            <div className="noUser">무엇이든물어보세요</div>
           </footer>
         </section>
 
