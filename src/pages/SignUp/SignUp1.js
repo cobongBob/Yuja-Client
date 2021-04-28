@@ -116,7 +116,7 @@ const SignUp1 = () => {
                     className='signUpYoutuber'
                     id='YoutuberCheck'
                     type='checkbox'
-                  /> 유튜버이신가요?
+                  /> 유튜버이신가요??????
                   </label>
                 </td>
               </tr>
