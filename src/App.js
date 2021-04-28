@@ -13,6 +13,7 @@ import Wboard from './components/Wboard';
 import Ydetail from './pages/Ydetail';
 import Footer from './components/Footer';
 import SignUp1 from './pages/SignUp/SignUp1';
+import YoutuberProfile from './pages/YoutuberProfile';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path='/Help' component={Help} exact />
           <Route path='/Ydetail/:board_id' component={Ydetail} exact />
           <Route path='/SignUp1' component={SignUp1} exact />
+          <Route path='/YouruberProfile' component={YoutuberProfile} exact />
         </switch>
       </div>
     </div>
