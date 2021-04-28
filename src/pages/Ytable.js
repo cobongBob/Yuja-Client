@@ -1,9 +1,15 @@
-import React, { useMemo } from 'react';
-import { usePagination, useSortBy, useTable } from 'react-table';
+import React, { useCallback, useMemo } from 'react';
+import {
+  useGlobalFilter,
+  usePagination,
+  useSortBy,
+  useTable,
+} from 'react-table';
 import { COLUMNS } from './columns';
 import MOCK_DATA from './MOCK_DATA.json';
 import '../components/scss/Ytable.scss';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import YtableTotalFilter from './YtableTotalFilter';
 
 const Ytable = () => {
   const columns = useMemo(() => COLUMNS, []);
@@ -24,20 +30,30 @@ const Ytable = () => {
     setPageSize,
     state,
     prepareRow,
+    setGlobalFilter,
   } = useTable(
     {
       columns,
       data,
       initialState: { pageIndex: 0 },
     },
+    useGlobalFilter,
     useSortBy,
     usePagination
   );
 
-  const { pageIndex, pageSize } = state;
+  const { pageIndex, pageSize, globalFilter } = state;
+  // <Link to={`/Ydetail/${row.values.board_id}`}></Link>
+
+  const history = useHistory();
+
+  let Yhistory = useCallback(
+    (row) => history.push(`/Ydetail/${row.values.board_id}`),
+    [history]
+  );
 
   const rowProps = (row) => ({
-    onClick: () => alert(JSON.stringify(row.values)),
+    onClick: () => Yhistory(row),
     style: {
       cursor: 'pointer',
     },
@@ -45,8 +61,15 @@ const Ytable = () => {
 
   return (
     <>
-      <h1>유튜버 게시판</h1>
-      <table {...getTableProps()}>
+      <div className='YtableHeader'>
+        <h1>유튜버 게시판</h1>
+        <Link className='LinkWrite' to='#'>
+          {' '}
+          글쓰기
+        </Link>
+        <YtableTotalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+      </div>
+      <table className='Ytable' {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
@@ -89,9 +112,6 @@ const Ytable = () => {
             disabled={!canNextPage}>
             {'>>'}
           </button>
-          <div className='WriteButton'>
-            <Link to='#'> 글쓰기</Link>
-          </div>
         </div>
         <span>
           현재
@@ -100,7 +120,7 @@ const Ytable = () => {
           </strong>
         </span>
         <span>
-          || Go to page:
+          || Go to page {''}
           <input
             type='number'
             defaultValue={pageIndex + 1}

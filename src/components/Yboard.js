@@ -1,8 +1,16 @@
 import React from 'react';
 import './scss/Yboard.scss';
+import Ynew from './Ynew';
 
 const Yboard = () => {
-  return <div className='Yboard_Wrapper'>유튜버 게시판</div>;
+  return (
+    <div className='Yboard-body'>
+      <div className='Yboard-title'>구인공고</div>
+      <div>
+        <Ynew />
+      </div>
+    </div>
+  );
 };
 
 export default Yboard;

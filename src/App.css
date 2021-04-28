@@ -2,7 +2,10 @@
   font-family: 'hopang';
   src: url('./fonts/SDSamliphopangcheTTFOutline.ttf');
 }
-
+@font-face {
+  font-family: 'scdream3';
+  src: url('./fonts/SCDream3.otf');
+}
 @font-face {
   font-family: 'scdream4';
   src: url('./fonts/SCDream4.otf');

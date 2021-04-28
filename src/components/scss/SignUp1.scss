@@ -1,0 +1,76 @@
+.SignUpFrag {
+  margin-right: 10vw;
+  margin-left: 10vw;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  font-family: 'scdream4';
+}
+
+.SignUpHeader {
+  text-align: center;
+}
+
+SignUp1 > header-title {
+  font-size:4rem;
+  font-family: hopang;
+  color:#ffb963;
+}
+.SignUpIcon {
+  width:10%;
+  margin:2em 0 1em 2em;
+}
+.signUpBar {
+  background-color: #ffb963;
+  width:60%;
+  height:10px;
+  margin-bottom: 1%;
+  margin-left: 20%;
+  text-align: center;
+  border-radius: 12px;
+}
+.contentBox {
+  border:2px solid red;
+  text-align: center;
+  align-content: center;
+}
+.contentBox2 {
+  border:2px solid green;
+  text-align: center;
+  align-content: center;
+}
+.contentBox3 {
+  border:2px solid blue;
+  text-align: center;
+  align-content: center;
+}
+.required {
+  margin: 1% 14% 0% 0;
+  font-size:1rem;
+  color:red;
+}
+.required2 {
+  margin: 1% 14% 0% 0;
+  font-size:1rem;
+  color:black;
+}
+input::placeholder {
+  color: #999999;
+}
+.signUpTable {
+  width:100%;
+}
+.signUpTable > tr > td > input {
+  margin-top: 15px;
+  border-radius: 2px;
+  width: 25%;
+  height: 40px;
+  border: 1px solid #e5e5e5;
+  padding: 9px 12px;
+  outline: none;
+  box-sizing: border-box;
+  font-size:0.85em;
+}
+.signUpProfilePic {
+  border:none;
+}
+
