@@ -4,6 +4,29 @@
   margin-right: 3%;
 }
 
+.DetailHeaderWrapper > h1 {
+  display: inline;
+  border-bottom: 3px solid #c4302b;
+}
+
 .DetailHeaderWrapper > table {
-  border-bottom: 2px solid orangered;
+  margin-top: 3%;
+  border-collapse: collapse;
+  width: 100%;
+  text-align: center;
+  font-family: 'scdream4';
+}
+
+.DetailHeaderWrapper > table > tr,
+.DetailHeaderWrapper > table > tr > td {
+  border: 2px solid black;
+}
+
+.DetailBodyWrapperTitle {
+  margin-top: 1%;
+  text-align: center;
+}
+
+.DetailBodyImg {
+  text-align: center;
 }

@@ -60,7 +60,7 @@ const Ytable = () => {
           글쓰기
         </Link>
       </div>
-      <table {...getTableProps()}>
+      <table className='Ytable' {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
