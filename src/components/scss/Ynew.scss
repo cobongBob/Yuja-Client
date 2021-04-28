@@ -4,6 +4,21 @@
   margin-top: 2%;
   margin-left: 2%;
   background-color: white;
+  display: inline-block;
 }
 .user-profile-pic {
+  display: inline-block;
+  line-height: 10vh;
+  vertical-align: middle;
+  margin-left: 3%;
+}
+.youtuber-profile {
+  border: 10px solid #c4302b;
+  border-radius: 50%;
+  background-color: #c4302b;
+  color: white;
+}
+.wanted-content {
+  display: inline-block;
+  font-family: scdream5;
 }
