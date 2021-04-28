@@ -11,6 +11,7 @@ import Winwin from './pages/Winwin';
 import Help from './pages/Help';
 import Wboard from './components/Wboard';
 import Ydetail from './pages/Ydetail';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -22,10 +23,11 @@ function App() {
           <MainBoard></MainBoard>
           <Wboard></Wboard>
         </div>
+        <Footer></Footer>
       </Route>
       <div>
         <switch>
-          <Route exact path='/Youtuber' component={Youtuber} />
+          <Route path='/Youtuber' component={Youtuber} exact />
           <Route path='/Editer' component={Editer} exact />
           <Route path='/Thumbnailer' component={Thumbnailer} exact />
           <Route path='/Winwin' component={Winwin} exact />
