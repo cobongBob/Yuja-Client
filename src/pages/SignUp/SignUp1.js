@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const SignUp1 = () => {
+function SignUp1() {
   return (
     <>
-      <header></header>
+      <header>와우~</header>
       <content></content>
       <footer></footer>
     </>

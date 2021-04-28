@@ -1,20 +1,4 @@
-.SignUp {
-  display: none;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 99;
-  background-color: rgba(0, 0, 0, 0.6);
-  cursor: auto;
-  color:#ffb963;
-}
-.SignUp button {
-  outline: none;
-  cursor: pointer;
-  border: 0;
-}
+
 .header {
   text-align: center;
 }
@@ -22,20 +6,14 @@
 .header-title {
   font-size:3rem;
   font-family: hopang;
+  color:#ffb963;
 }
 .signinIcon {
   width:15%;
   margin:2em 0 1em 2em;
 }
-.SignUp > section {
-  width: 25%;
-  height: 70%;
-  margin: 0 auto;
-  border-radius: 0.3rem;
-  background-color: #fff;
-  /* 팝업이 열릴때 스르륵 열리는 효과 */
-  animation: modal-show 0.3s;
-  overflow: hidden;
+section {
+  font-family: scdream4;
 }
 .close {
   float: right;
@@ -44,9 +22,7 @@
   cursor: pointer;
   margin-right: 0.2em;
 }
-.SignUp > section > main {
-  padding: 16px;
-}
+
 .loginId {
   margin-top: 30px;
   border-radius: 2px;
@@ -109,14 +85,15 @@ input::placeholder {
   border-radius: 3px;
   border-style: none;
 }
-.SignUp > section > footer {
+section > footer {
   padding: 12px 16px;
   text-align: center;
 }
 
 .loginLine {
   color: #bcbcbc;
-  font-size: 15px;
+  font-size: 14px;
+  margin-top: 15px;
   margin-bottom: 35px;
   a {
     color: black;
@@ -125,31 +102,20 @@ input::placeholder {
   }
 }
 
-.noUser {
-  text-decoration: underline;
+.ReactModal__Body--open,
+.ReactModal__Html--open {
+  overflow: hidden;
 }
 
-.SignUp.openModal {
-  display: flex;
-  align-items: center;
-  /* 팝업이 열릴때 스르륵 열리는 효과 */
-  animation: modal-bg-show 0.3s;
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity 500ms;
 }
-@keyframes modal-show {
-  from {
-    opacity: 0;
-    margin-top: -50px;
-  }
-  to {
-    opacity: 1;
-    margin-top: 0;
-  }
+
+.ReactModal__Overlay--after-open{
+  opacity: 1;
 }
-@keyframes modal-bg-show {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+
+.ReactModal__Overlay--before-close{
+  opacity: 0;
 }

@@ -1,20 +1,60 @@
-import React, { useEffect, useRef, useState } from "react";
-import "./scss/LoginModal.scss";
-import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import React from 'react';
+import Modal from 'react-modal';
+import "./scss/LoginModal2.scss";
+import "./scss/SignButton.scss"
+import { Link } from 'react-router-dom';
 
-const LoginModal = (props) => {
-  // 열기, 닫기, 헤더 내용을 부모로부터 받아옴
-  const { open, close, header } = props;
-  console.log(open);
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : '80%',
+    bottom                : '-12%',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)',
+    overflow: 'auto',
+    WebkitOverflowScrolling: 'touch',
+  }
+};
+
+function LoginModal2(){
+
+  const [modalIsOpen,setIsOpen] = React.useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function onAfterOpen() {
+
+  }
+
+  function onAfterClose() {
+
+  }
+
+  function afterOpenModal() {
+
+  }
+
+  function closeModal(){
+    setIsOpen(false);
+  }
+
   return (
-    // 모달이 열릴때 openModal 클래스가 생성된다.
-    //<div onClick={close}>
-    <div className={open ? "openModal SignUp" : "SignUp"}>
-      {open ? (
+    <>
+      <button className="button-login" onClick={openModal}>로그인</button>
+      <Modal
+        isOpen={modalIsOpen}
+        closeTimeoutMS={200}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+
         <section>
           <header className="header">
-            <span className="close" onClick={close}>
+            <span className="close" onClick={closeModal}>
               &times;
             </span>
             <img className="signinIcon" src="/img/parts_pic/yuzu05.png" />{" "}
@@ -47,17 +87,17 @@ const LoginModal = (props) => {
           <footer>
             <div className="loginLine">
               회원이 아니신가요?{" "}
-              <Link to="/SignUp1" onClick={close}>
+              <Link to="/SignUp1" onClick={closeModal}>
                 이메일로 회원가입
               </Link>
             </div>
-            <div className="noUser">무엇을적을까요???</div>
+            <div className="noUser"></div>
           </footer>
         </section>
-      ) : null}
-    </div>
-    //</div>
-  );
-};
 
-export default LoginModal;
+      </Modal>
+    </>
+  );
+}
+
+export default LoginModal2;
