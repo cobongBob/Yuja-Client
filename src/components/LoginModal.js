@@ -1,8 +1,8 @@
 import React from 'react';
 import Modal from 'react-modal';
-import "./scss/LoginModal2.scss";
+import "./scss/LoginModal.scss";
 import "./scss/SignButton.scss"
-import { Link } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 
 const customStyles = {
   content : {
@@ -17,7 +17,7 @@ const customStyles = {
   }
 };
 
-function LoginModal2(){
+function LoginModal(){
 
   const [modalIsOpen,setIsOpen] = React.useState(false);
 
@@ -44,6 +44,7 @@ function LoginModal2(){
   return (
     <>
       <button className="button-login" onClick={openModal}>로그인</button>
+
       <Modal
         isOpen={modalIsOpen}
         closeTimeoutMS={200}
@@ -100,4 +101,4 @@ function LoginModal2(){
   );
 }
 
-export default LoginModal2;
+export default LoginModal;

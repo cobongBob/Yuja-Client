@@ -1,10 +1,8 @@
 import React from 'react';
 import './scss/Navi.scss';
 import { Link } from 'react-router-dom';
-import SignButton from './SignButton';
 import './scss/SignButton.scss';
 import LoginModal from './LoginModal';
-import LoginModal2 from './LoginModal2';
 
 const Navi = () => {
   return (
@@ -30,7 +28,7 @@ const Navi = () => {
             <li className='nav-link'>고객센터</li>
           </Link>
           <div className='nav-login'>
-            <LoginModal2 />
+            <LoginModal />
           </div>
         </ul>
       </div>
