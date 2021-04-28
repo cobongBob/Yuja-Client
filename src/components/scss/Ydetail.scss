@@ -19,14 +19,24 @@
 
 .DetailHeaderWrapper > table > tr,
 .DetailHeaderWrapper > table > tr > td {
+  padding: 12px;
   border: 2px solid black;
 }
 
-.DetailBodyWrapperTitle {
+.DetailHeaderWrapper > table > tr > td > p {
+  text-align: left;
+}
+
+.DetailBodyContents {
   margin-top: 1%;
-  text-align: center;
+  border: 1px solid black;
+}
+
+.DetailBodyWrapperTitle {
+  margin: 1%;
 }
 
 .DetailBodyImg {
   text-align: center;
+  margin-bottom: 1.5%;
 }

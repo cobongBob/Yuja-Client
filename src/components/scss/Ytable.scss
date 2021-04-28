@@ -87,3 +87,14 @@
   font-weight: bold;
   float: right;
 }
+
+.YtableSearch {
+  display: inline;
+  float: right;
+  margin-right: 1%;
+  font-family: 'scdream4';
+}
+
+.YtableSearch > span > input {
+  border: 2px solid #c4302b;
+}
