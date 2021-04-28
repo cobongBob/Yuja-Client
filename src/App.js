@@ -39,7 +39,7 @@ function App({location}) {
           <Route path='/Help' component={Help} exact />
           <Route path='/Ydetail/:board_id' component={Ydetail} exact />
           <Route path='/SignUp1' component={SignUp1} exact />
-          <Route path='/YouruberProfile' component={YoutuberProfile} exact />
+          <Route path='/YoutuberProfile' component={YoutuberProfile} exact />
         </switch>
       </div>
     </div>
