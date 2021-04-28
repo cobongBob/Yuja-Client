@@ -1,3 +1,7 @@
+label {
+  margin-bottom: 0;
+}
+
 .SignUpFrag {
   margin-right: 10vw;
   margin-left: 10vw;
@@ -28,39 +32,64 @@ SignUp1 > header-title {
   text-align: center;
   border-radius: 12px;
 }
+/* 콘텐츠 박스 */
 .contentBox {
-  border:2px solid red;
+
+}
+.contentBox1 {
+
   text-align: center;
-  align-content: center;
+  align-items: center;
 }
 .contentBox2 {
-  border:2px solid green;
+
   text-align: center;
   align-content: center;
 }
 .contentBox3 {
-  border:2px solid blue;
-  text-align: center;
-  align-content: center;
+
 }
+/* 선택 /필수 입력 정보입니다, 제목 */
 .required {
-  margin: 1% 14% 0% 0;
+  margin: 1% 14% 1% 0;
   font-size:1rem;
   color:red;
 }
 .required2 {
-  margin: 1% 14% 0% 0;
+  margin: 1% 14% 1% 0;
   font-size:1rem;
   color:black;
+}
+.required3 {
+  margin: 1% 80.6% 1% 0;
+  font-size:1rem;
+  color:black;
+  border-bottom: 2px solid black;
 }
 input::placeholder {
   color: #999999;
 }
+/* 테이블, 테이블 내 요소들 */
 .signUpTable {
   width:100%;
 }
+.labelWrapper {
+  text-align: left;
+  width:25%;
+  margin:auto;
+  margin-bottom: 0 !important;
+}
+.signUpTable label {
+  font-size:14px;
+  display:block;
+}
+.signUpTable .signUpLabel {
+  margin-left: 0%;
+  display:block;
+}
 .signUpTable > tr > td > input {
-  margin-top: 15px;
+  margin-top: 5px;
+  margin-bottom: 12px;
   border-radius: 2px;
   width: 25%;
   height: 40px;
@@ -70,7 +99,35 @@ input::placeholder {
   box-sizing: border-box;
   font-size:0.85em;
 }
+.signUpTable > tr > td {
+  vertical-align: middle;
+}
+/* 프로필 사진 */
 .signUpProfilePic {
   border:none;
+}
+
+/* 약관동의 */
+
+.agreement {
+  position:relative;
+  margin:auto;
+  width:25%;
+}
+.agreementTitle {
+  font-size:0.9em;
+  margin-top:15px;
+}
+.agreementService {
+  font-size:0.9em;
+  margin-top:15px;
+}
+.agreementPrivate {
+  font-size:0.9em;
+  margin-top:15px;
+}
+.agreementMarketing {
+  font-size:0.9em;
+  margin-top:15px;
 }
 

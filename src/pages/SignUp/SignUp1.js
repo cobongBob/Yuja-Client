@@ -8,13 +8,13 @@ const SignUp1 = () => {
         <img className="SignUpIcon" src="/img/parts_pic/yuzu05.png" />{" "}
         <div className="header-title">유자 회원가입</div>
       </header>
-      <div className="signUpBar">
-        <div className="bar1"></div>
-        <div className="bar2"></div>
-        <div className="bar3"></div>
-        <div className="bar4"></div>
-        <div className="mvBar"></div>
-      </div>
+      {/*<div className="signUpBar">*/}
+      {/*  <div className="bar1"></div>*/}
+      {/*  <div className="bar2"></div>*/}
+      {/*  <div className="bar3"></div>*/}
+      {/*  <div className="bar4"></div>*/}
+      {/*  <div className="mvBar"></div>*/}
+      {/*</div>*/}
       <content>
         <div className="contentBox">
 
@@ -25,14 +25,22 @@ const SignUp1 = () => {
           <table className="signUpTable">
             <tr>
               <td>
+                <div className="labelWrapper">
+                <label htmlFor="signUpId">이메일</label>
+                </div>
                 <input
                 className="signUpId"
                 type="email"
                 placeholder="아이디(이메일)"
-              /></td>
+                required
+              />
+                </td>
             </tr>
             <tr>
               <td>
+                <div className="labelWrapper">
+                <label htmlFor="signUpPw">비밀번호</label>
+                </div>
                 <input
                 className="signUpPw"
                 type="password"
@@ -41,6 +49,9 @@ const SignUp1 = () => {
             </tr>
             <tr>
               <td>
+                <div className="labelWrapper">
+                  <label htmlFor="signUpPwCheck">비밀번호 확인</label>
+                </div>
                 <input
                   className="signUpPwCheck"
                   type="password"
@@ -50,6 +61,9 @@ const SignUp1 = () => {
             </tr>
             <tr>
               <td>
+                <div className="labelWrapper">
+                  <label htmlFor="signUpName">이름(실명)</label>
+                </div>
                 <input
                   className="signUpName"
                   type="text"
@@ -59,6 +73,9 @@ const SignUp1 = () => {
             </tr>
             <tr>
               <td>
+                <div className="labelWrapper">
+                  <label htmlFor="signUpBirthdate">생년월일</label>
+                </div>
                 <input
                   className="signUpBirthdate"
                   type="tel"
@@ -68,6 +85,9 @@ const SignUp1 = () => {
             </tr>
             <tr>
               <td>
+                <div className="labelWrapper">
+                  <label htmlFor="signUpNickname">닉네임</label>
+                </div>
                 <input
                   className="signUpNickname"
                   type="text"
@@ -85,6 +105,9 @@ const SignUp1 = () => {
             <table className="signUpTable">
               <tr>
                 <td>
+                  <div className="labelWrapper">
+                    <label htmlFor="signUpProfilePic">프로필 사진</label>
+                  </div>
                   <input
                   className='signUpProfilePic'
                   type='file'
@@ -93,6 +116,9 @@ const SignUp1 = () => {
               </tr>
               <tr>
                 <td>
+                  <div className="labelWrapper">
+                    <label htmlFor="signUpAddress">주소</label>
+                  </div>
                   <input
                   className='signUpAddress'
                   type='text'
@@ -101,6 +127,9 @@ const SignUp1 = () => {
               </tr>
               <tr>
                 <td>
+                  <div className="labelWrapper">
+                    <label htmlFor="signUpTel">연락처</label>
+                  </div>
                   <input
                     className='signUpTel'
                     type='tel'
@@ -111,22 +140,63 @@ const SignUp1 = () => {
               <tr>
                 <td>
                   <label className="signUpLabel" htmlFor="YoutuberCheck">
-                    {" "}
-                  <input
-                    className='signUpYoutuber'
-                    id='YoutuberCheck'
-                    type='checkbox'
-                  /> 유튜버이신가요??????
-                  </label>
+                    유튜버이신가요? {" "}
+                    <input
+                      className='signUpYoutuber'
+                      id='YoutuberCheck'
+                      type='checkbox'
+                    />
+                </label>
                 </td>
               </tr>
             </table>
           </div>
 
           <div className="contentBox3">
-
+            <div className="agreement">
+              <div className="required3">
+                * 약관동의
+              </div>
+              <div className="agreementBox">
+                <div className="agreementTitle">
+                  이용약관, 개인정보 수집 및 이용, 광고성 정보 수신(선택)에 모두 동의합니다.
+                  {' '}
+                  <input
+                    className='titleCheck'
+                    id='titleCheck'
+                    type='checkbox'
+                  />
+                </div>
+                <div className="agreementService">
+                  유자 서비스 이용약관 동의 (필수)
+                  {' '}
+                  <input
+                    className='serviceCheck'
+                    id='serviceCheck'
+                    type='checkbox'
+                  />
+                </div>
+                <div className="agreementPrivate">
+                  개인정보 수집 및 이용 동의 (필수)
+                  {' '}
+                  <input
+                    className='privateCheck'
+                    id='privateCheck'
+                    type='checkbox'
+                  />
+                </div>
+                  <div className="agreementMarketing">
+                    마케팅 정보 수신에 대한 동의 (선택)
+                    {' '}
+                    <input
+                      className='marketingCheck'
+                      id='marketingCheck'
+                      type='checkbox'
+                    />
+                </div>
+              </div>
+            </div>
           </div>
-
         </div>
       </content>
       <footer>

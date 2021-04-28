@@ -5,7 +5,6 @@ import Navi from './Navi.js';
 const Logo = ({ children }) => {
   return (
     <div className="Logo_Head">
-      <Navi></Navi>
       <div className="Logo_Body">
         <div className="Logo_Top">
           <div>
