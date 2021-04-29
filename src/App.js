@@ -1,27 +1,28 @@
-import React from 'react';
-import Logo from './components/Logo';
-import VideoBox from './components/VideoBox';
-import './App.css';
-import MainBoard from './components/MainBoard';
-import { Route } from 'react-router';
-import Youtuber from './pages/Youtuber';
-import Editer from './pages/Editer';
-import Thumbnailer from './pages/Thumbnailer';
-import Winwin from './pages/Winwin';
-import Help from './pages/Help';
-import Wboard from './components/Wboard';
-import Ydetail from './pages/Ydetail';
-import Footer from './components/Footer';
-import SignUp1 from './pages/SignUp/SignUp1';
-import {withRouter} from 'react-router';
-import Navi from './components/Navi';
-import YoutuberProfile from './pages/YoutuberProfile';
+import React from "react";
+import Logo from "./components/Logo";
+import VideoBox from "./components/VideoBox";
+import "./App.css";
+import MainBoard from "./components/MainBoard";
+import { Route, Switch } from "react-router";
+import Youtuber from "./pages/Youtuber";
+import Editer from "./pages/Editer";
+import Thumbnailer from "./pages/Thumbnailer";
+import Winwin from "./pages/Winwin";
+import Help from "./pages/Help";
+import Wboard from "./components/Wboard";
+import Ydetail from "./pages/Ydetail";
+import Footer from "./components/Footer";
+import SignUp1 from "./pages/SignUp/SignUp1";
+import { withRouter } from "react-router";
+import Navi from "./components/Navi";
+import YoutuberProfile from "./pages/YoutuberProfile";
+import YInsertBoard from "./pages/Youtuber/YInsertBoard";
 
-function App({location}) {
+function App({ location }) {
   return (
     <div>
       <Navi></Navi>
-      {location.pathname !== '/SignUp1' && <Logo/>}
+      {location.pathname !== "/SignUp1" && <Logo />}
       <Route path='/' exact>
         <div className='allBoard'>
           <VideoBox></VideoBox>
@@ -31,7 +32,7 @@ function App({location}) {
         <Footer></Footer>
       </Route>
       <div>
-        <switch>
+        <Switch>
           <Route path='/Youtuber' component={Youtuber} exact />
           <Route path='/Editer' component={Editer} exact />
           <Route path='/Thumbnailer' component={Thumbnailer} exact />
@@ -40,7 +41,8 @@ function App({location}) {
           <Route path='/Ydetail/:board_id' component={Ydetail} exact />
           <Route path='/SignUp1' component={SignUp1} exact />
           <Route path='/YoutuberProfile' component={YoutuberProfile} exact />
-        </switch>
+          <Route path='/YInsert' component={YInsertBoard} exact />
+        </Switch>
       </div>
     </div>
   );
