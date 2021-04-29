@@ -16,6 +16,7 @@ import SignUp1 from './pages/SignUp/SignUp1';
 import { withRouter } from 'react-router';
 import Navi from './components/Navi';
 import YoutuberProfile from './pages/YoutuberProfile';
+import Yregister from './pages/Yregister';
 
 function App({ location }) {
   return (
@@ -29,6 +30,7 @@ function App({ location }) {
           <Wboard></Wboard>
         </div>
         <Footer></Footer>
+        <Yregister></Yregister>
       </Route>
       <div>
         <switch>
