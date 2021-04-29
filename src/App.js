@@ -16,7 +16,7 @@ import SignUp1 from './pages/SignUp/SignUp1';
 import { withRouter } from 'react-router';
 import Navi from './components/Navi';
 import YoutuberProfile from './pages/YoutuberProfile';
-import Yregister from './pages/Yregister';
+import Switch from 'react-bootstrap/esm/Switch';
 
 function App({ location }) {
   return (
@@ -30,19 +30,18 @@ function App({ location }) {
           <Wboard></Wboard>
         </div>
         <Footer></Footer>
-        <Yregister></Yregister>
       </Route>
       <div>
-        <switch>
-          <Route path='/Youtuber' component={Youtuber} exact />
-          <Route path='/Editer' component={Editer} exact />
-          <Route path='/Thumbnailer' component={Thumbnailer} exact />
-          <Route path='/Winwin' component={Winwin} exact />
-          <Route path='/Help' component={Help} exact />
-          <Route path='/Ydetail/:board_id' component={Ydetail} exact />
-          <Route path='/SignUp1' component={SignUp1} exact />
-          <Route path='/YoutuberProfile' component={YoutuberProfile} exact />
-        </switch>
+        <Switch>
+          <Route path='/Youtuber' component={Youtuber} />
+          <Route path='/Editer' component={Editer} />
+          <Route path='/Thumbnailer' component={Thumbnailer} />
+          <Route path='/Winwin' component={Winwin} />
+          <Route path='/Help' component={Help} />
+          <Route path='/Ydetail/:board_id' component={Ydetail} />
+          <Route path='/SignUp1' component={SignUp1} />
+          <Route path='/YoutuberProfile' component={YoutuberProfile} />
+        </Switch>
       </div>
     </div>
   );

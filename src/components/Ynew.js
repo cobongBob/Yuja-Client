@@ -2,8 +2,11 @@ import React from 'react';
 import './scss/Ynew.scss';
 import { FaUserAstronaut } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import MOCK_DATA from '../pages/MOCK_DATA';
 
 const Ynew = () => {
+  console.log('MOCK_DATA: ', typeof MOCK_DATA);
+  console.log(MOCK_DATA);
   return (
     <>
       <div className='new-youtuber'>
