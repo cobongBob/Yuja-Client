@@ -22,4 +22,11 @@ export const COLUMNS = [
     Header: '좋아요',
     accessor: 'likes',
   },
+  {
+    Header: '수정일',
+    accessor: 'updatedDate',
+    Cell: ({ value }) => {
+      return format(new Date(value), 'yyyy-MM-dd');
+    },
+  },
 ];

@@ -18,12 +18,9 @@ import Navi from './components/Navi';
 import YoutuberProfile from './pages/YoutuberProfile';
 import Yregister from './pages/Yregister';
 import Switch from 'react-bootstrap/Switch';
+import YmodifyTest from './pages/YmodifyTest';
 
-const exceptArray = [
-  '/SignUp1',
-  '/SignUp1/Required',
-  '/SignUp1/NonRequired'
-]
+const exceptArray = ['/SignUp1', '/SignUp1/Required', '/SignUp1/NonRequired'];
 
 function App({ location }) {
   return (
@@ -49,6 +46,7 @@ function App({ location }) {
           <Route path='/SignUp1' component={SignUp1} />
           <Route path='/YoutuberProfile' component={YoutuberProfile} />
           <Route path='/Yregister' component={Yregister} />
+          <Route path='/YmodifyTest/:board_id' component={YmodifyTest} />
         </Switch>
       </div>
     </div>
