@@ -1,3 +1,7 @@
+.custom-switch {
+  padding-left:0;
+}
+
 label {
   margin-bottom: 0;
 }
@@ -50,12 +54,12 @@ SignUp1 > header-title {
 }
 /* 선택 /필수 입력 정보입니다, 제목 */
 .required {
-  margin: 1% 14% 1% 0;
+  margin: 1% 35% 1% 0;
   font-size:1rem;
   color:red;
 }
 .required2 {
-  margin: 1% 14% 1% 0;
+  margin: 1% 35% 1% 0;
   font-size:1rem;
   color:black;
 }
@@ -76,7 +80,7 @@ input::placeholder {
 }
 .labelWrapper {
   text-align: left;
-  width:25%;
+  width:20rem;
   margin:auto;
   margin-bottom: 0 !important;
 }
@@ -92,7 +96,7 @@ input::placeholder {
   margin-top: 5px;
   margin-bottom: 12px;
   border-radius: 2px;
-  width: 25%;
+  width: 20rem;
   height: 40px;
   border: 1px solid #e5e5e5;
   padding: 9px 12px;
@@ -104,8 +108,28 @@ input::placeholder {
   vertical-align: middle;
 }
 /* 프로필 사진 */
-.signUpProfilePic {
+.signUpTable .signUpProfilePic {
   border:none;
+}
+.ProfilePicPreview {
+  margin:2rem auto;
+  background-image: url('../../basicProfilePic.png');
+  width:10rem;
+  height:10rem;
+  background-size : cover;
+}
+.profile_preview {
+  height:100%;
+  width:100%;
+  border:1px solid gray;
+  box-shadow: 3px 3px darkgray;
+}
+.inputWrapper {
+  margin-top: 5px;
+  margin-bottom: 12px;
+  font-size:0.85em;
+  padding: 9px 12px;
+  margin-left: 6rem;
 }
 
 /* 약관동의 */
@@ -113,22 +137,79 @@ input::placeholder {
 .agreement {
   position:relative;
   margin:auto;
-  width:25%;
+  width:20rem;
 }
 .agreementTitle {
   font-size:0.9em;
-  margin-top:15px;
+  margin-top:25px;
 }
 .agreementService {
   font-size:0.9em;
-  margin-top:15px;
+  margin-top:25px;
 }
 .agreementPrivate {
   font-size:0.9em;
-  margin-top:15px;
+  margin-top:25px;
 }
 .agreementMarketing {
   font-size:0.9em;
-  margin-top:15px;
+  margin-top:25px;
 }
 
+/* Agreement */
+.agreementServiceContents, .agreementPrivateContents, .agreementMarketingContents {
+  margin-top: 3%;
+  font-size: 0.8em;
+  background-color: lightgray;
+  overflow-y:scroll;
+  overflow-x: hidden;
+  height: 10em;
+}
+/* 오버레이 (보더) */
+.overlay {
+  border:2px solid gray;
+  padding:2em;
+  margin:auto;
+  width:35%;
+  box-shadow: 5px 5px darkgray;
+}
+/* 사인업 버튼들 */
+.signUpNextBtnBox {
+  text-align: center;
+  margin-top:5%;
+}
+.signUpSubmitBtnBox {
+  margin-top:5%;
+}
+.signUpSubmitBtn {
+
+}
+
+/* 유튜버 체크시 나오는 디비전 */
+.youtuberDiv {
+  text-align: center;
+  align-content: center;
+  position: relative;
+  margin: 1rem auto;
+  width: 20rem;
+}
+.youtuberDiv_Title {
+  font-size:0.9em;
+}
+.companyRegNumLabel {
+  font-size:0.9em;
+  text-align: left;
+  margin-top: 2rem;
+}
+.companyRegNumInput {
+  margin-top: 5px;
+  margin-bottom: 12px;
+  border-radius: 2px;
+  width: 20rem;
+  height: 40px;
+  border: 1px solid #e5e5e5;
+  padding: 9px 12px;
+  outline: none;
+  box-sizing: border-box;
+  font-size:0.85em;
+}

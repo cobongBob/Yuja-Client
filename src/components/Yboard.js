@@ -8,8 +8,6 @@ const Yboard = () => {
       <div className='Yboard-title'>구인공고</div>
       <div>
         <Ynew />
-        <Ynew />
-        <Ynew />
       </div>
     </div>
   );
