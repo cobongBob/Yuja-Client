@@ -6,7 +6,6 @@ import {
   useTable,
 } from 'react-table';
 import { COLUMNS } from './columns';
-import MOCK_DATA from './MOCK_DATA.json';
 import '../components/scss/Ytable.scss';
 import { Link, useHistory } from 'react-router-dom';
 import YtableTotalFilter from './YtableTotalFilter';
@@ -55,7 +54,7 @@ const Ytable = () => {
   const history = useHistory();
 
   let Yhistory = useCallback(
-    (row) => history.push(`/Ydetail/${row.values.board_id}`),
+    (row) => history.push(`/Ydetail/${row.original.id}`),
     [history]
   );
 
