@@ -17,6 +17,7 @@ import { withRouter } from 'react-router';
 import Navi from './components/Navi';
 import YoutuberProfile from './pages/YoutuberProfile';
 import Switch from 'react-bootstrap/Switch';
+import Yregister from './pages/Yregister';
 
 function App({ location }) {
   return (
@@ -41,6 +42,7 @@ function App({ location }) {
           <Route path='/Ydetail/:board_id' component={Ydetail} />
           <Route path='/SignUp1' component={SignUp1} />
           <Route path='/YoutuberProfile' component={YoutuberProfile} />
+          <Route path='/Yregister' component={Yregister} />
         </Switch>
       </div>
     </div>

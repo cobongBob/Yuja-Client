@@ -43,7 +43,6 @@ const Ytable = () => {
   );
 
   const { pageIndex, pageSize, globalFilter } = state;
-  // <Link to={`/Ydetail/${row.values.board_id}`}></Link>
 
   const history = useHistory();
 
@@ -63,7 +62,7 @@ const Ytable = () => {
     <>
       <div className='YtableHeader'>
         <h1>유튜버 게시판</h1>
-        <Link className='LinkWrite' to='#'>
+        <Link className='LinkWrite' to='/Yregister'>
           {' '}
           글쓰기
         </Link>
