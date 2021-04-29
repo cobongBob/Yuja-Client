@@ -13,15 +13,23 @@ import Wboard from './components/Wboard';
 import Ydetail from './pages/Ydetail';
 import Footer from './components/Footer';
 import SignUp1 from './pages/SignUp/SignUp1';
-import {withRouter} from 'react-router';
+import { withRouter } from 'react-router';
 import Navi from './components/Navi';
 import YoutuberProfile from './pages/YoutuberProfile';
+import Yregister from './pages/Yregister';
+import Switch from 'react-bootstrap/Switch';
 
-function App({location}) {
+const exceptArray = [
+  '/SignUp1',
+  '/SignUp1/Required',
+  '/SignUp1/NonRequired'
+]
+
+function App({ location }) {
   return (
     <div>
       <Navi></Navi>
-      {location.pathname !== '/SignUp1' && <Logo/>}
+      {exceptArray.indexOf(location.pathname) < 0 && <Logo />}
       <Route path='/' exact>
         <div className='allBoard'>
           <VideoBox></VideoBox>
@@ -31,16 +39,17 @@ function App({location}) {
         <Footer></Footer>
       </Route>
       <div>
-        <switch>
-          <Route path='/Youtuber' component={Youtuber} exact />
-          <Route path='/Editer' component={Editer} exact />
-          <Route path='/Thumbnailer' component={Thumbnailer} exact />
-          <Route path='/Winwin' component={Winwin} exact />
-          <Route path='/Help' component={Help} exact />
-          <Route path='/Ydetail/:board_id' component={Ydetail} exact />
-          <Route path='/SignUp1' component={SignUp1} exact />
-          <Route path='/YoutuberProfile' component={YoutuberProfile} exact />
-        </switch>
+        <Switch>
+          <Route path='/Youtuber' component={Youtuber} />
+          <Route path='/Editer' component={Editer} />
+          <Route path='/Thumbnailer' component={Thumbnailer} />
+          <Route path='/Winwin' component={Winwin} />
+          <Route path='/Help' component={Help} />
+          <Route path='/Ydetail/:board_id' component={Ydetail} />
+          <Route path='/SignUp1' component={SignUp1} />
+          <Route path='/YoutuberProfile' component={YoutuberProfile} />
+          <Route path='/Yregister' component={Yregister} />
+        </Switch>
       </div>
     </div>
   );

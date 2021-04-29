@@ -36,3 +36,8 @@
 ::-webkit-scrollbar-track {
   display: none;
 }
+
+.custom-switch {
+  padding-left: 0;
+  min-height: 0;
+}

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   useGlobalFilter,
   usePagination,
@@ -10,10 +10,18 @@ import MOCK_DATA from './MOCK_DATA.json';
 import '../components/scss/Ytable.scss';
 import { Link, useHistory } from 'react-router-dom';
 import YtableTotalFilter from './YtableTotalFilter';
+import YapiService from './YapiService';
 
 const Ytable = () => {
   const columns = useMemo(() => COLUMNS, []);
-  const data = useMemo(() => MOCK_DATA, []);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    YapiService.fetchBoards().then((res) => {
+      console.log(res.data);
+      setData(res.data);
+    });
+  }, []);
 
   const {
     getTableProps,
@@ -43,7 +51,6 @@ const Ytable = () => {
   );
 
   const { pageIndex, pageSize, globalFilter } = state;
-  // <Link to={`/Ydetail/${row.values.board_id}`}></Link>
 
   const history = useHistory();
 
@@ -63,7 +70,7 @@ const Ytable = () => {
     <>
       <div className='YtableHeader'>
         <h1>유튜버 게시판</h1>
-        <Link className='LinkWrite' to='#'>
+        <Link className='LinkWrite' to='/Yregister'>
           {' '}
           글쓰기
         </Link>
@@ -83,6 +90,7 @@ const Ytable = () => {
         </thead>
         <tbody {...getTableBodyProps()}>
           {page.map((row) => {
+            console.log(row);
             prepareRow(row);
             return (
               <tr {...row.getRowProps(rowProps(row))}>
