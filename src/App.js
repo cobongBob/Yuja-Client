@@ -13,15 +13,16 @@ import Wboard from './components/Wboard';
 import Ydetail from './pages/Ydetail';
 import Footer from './components/Footer';
 import SignUp1 from './pages/SignUp/SignUp1';
-import {withRouter} from 'react-router';
+import { withRouter } from 'react-router';
 import Navi from './components/Navi';
 import YoutuberProfile from './pages/YoutuberProfile';
+import Yregister from './pages/Yregister';
 
-function App({location}) {
+function App({ location }) {
   return (
     <div>
       <Navi></Navi>
-      {location.pathname !== '/SignUp1' && <Logo/>}
+      {location.pathname !== '/SignUp1' && <Logo />}
       <Route path='/' exact>
         <div className='allBoard'>
           <VideoBox></VideoBox>
@@ -29,6 +30,7 @@ function App({location}) {
           <Wboard></Wboard>
         </div>
         <Footer></Footer>
+        <Yregister></Yregister>
       </Route>
       <div>
         <switch>
