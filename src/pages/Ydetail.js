@@ -38,7 +38,9 @@ const Ydetail = (props) => {
             <td>서연호</td>
             <td>YouTube 채널</td>
             <td>
-              <a href='https://www.youtube.com/channel/UCVrhnbfe78ODeQglXtT1Elw'>
+              <a
+                target='_blank'
+                href='https://www.youtube.com/channel/UCVrhnbfe78ODeQglXtT1Elw'>
                 채널 바로가기
               </a>
             </td>
