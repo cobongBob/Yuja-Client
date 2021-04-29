@@ -16,6 +16,7 @@ import SignUp1 from './pages/SignUp/SignUp1';
 import { withRouter } from 'react-router';
 import Navi from './components/Navi';
 import YoutuberProfile from './pages/YoutuberProfile';
+import Yregister from './pages/Yregister';
 import Switch from 'react-bootstrap/Switch';
 
 const exceptArray = [
@@ -23,7 +24,6 @@ const exceptArray = [
   '/SignUp1/Required',
   '/SignUp1/NonRequired'
 ]
-import Yregister from './pages/Yregister';
 
 function App({ location }) {
   return (
