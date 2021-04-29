@@ -16,7 +16,7 @@ import SignUp1 from './pages/SignUp/SignUp1';
 import { withRouter } from 'react-router';
 import Navi from './components/Navi';
 import YoutuberProfile from './pages/YoutuberProfile';
-import Switch from 'react-bootstrap/esm/Switch';
+import Switch from 'react-bootstrap/Switch';
 
 function App({ location }) {
   return (
@@ -33,7 +33,7 @@ function App({ location }) {
       </Route>
       <div>
         <Switch>
-          <Route path='/Youtuber' component={Youtuber} exact />
+          <Route path='/Youtuber' component={Youtuber} />
           <Route path='/Editer' component={Editer} />
           <Route path='/Thumbnailer' component={Thumbnailer} />
           <Route path='/Winwin' component={Winwin} />
