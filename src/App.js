@@ -18,12 +18,17 @@ import Navi from './components/Navi';
 import YoutuberProfile from './pages/YoutuberProfile';
 import Switch from 'react-bootstrap/Switch';
 
+const exceptArray = [
+  '/SignUp1',
+  '/SignUp1/Required',
+  '/SignUp1/NonRequired'
+]
 
 function App({ location }) {
   return (
     <div>
       <Navi></Navi>
-      {location.pathname !== '/SignUp1' && <Logo />}
+      {exceptArray.indexOf(location.pathname) < 0 && <Logo />}
       <Route path='/' exact>
         <div className='allBoard'>
           <VideoBox></VideoBox>
@@ -31,7 +36,6 @@ function App({ location }) {
           <Wboard></Wboard>
         </div>
         <Footer></Footer>
-        <Yregister></Yregister>
       </Route>
       <div>
         <Switch>
