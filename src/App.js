@@ -16,8 +16,7 @@ import SignUp1 from './pages/SignUp/SignUp1';
 import { withRouter } from 'react-router';
 import Navi from './components/Navi';
 import YoutuberProfile from './pages/YoutuberProfile';
-import Switch from 'react-bootstrap/esm/Switch';
-
+import Switch from 'react-bootstrap/Switch';
 function App({ location }) {
   return (
     <div>

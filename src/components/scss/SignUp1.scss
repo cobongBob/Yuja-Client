@@ -37,17 +37,16 @@ SignUp1 > header-title {
 
 }
 .contentBox1 {
-
   text-align: center;
   align-items: center;
 }
 .contentBox2 {
-
+  margin-top:2%;
   text-align: center;
   align-content: center;
 }
 .contentBox3 {
-
+  margin-top:2%;
 }
 /* 선택 /필수 입력 정보입니다, 제목 */
 .required {
@@ -65,6 +64,8 @@ SignUp1 > header-title {
   font-size:1rem;
   color:black;
   border-bottom: 2px solid black;
+  width:100%;
+  padding-bottom: 1%;
 }
 input::placeholder {
   color: #999999;
