@@ -1,8 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import '../../components/scss/SignUp1.scss';
+import Agreement from './Agreement';
+import Filter from './Filter';
 
 const SignUp1 = () => {
+
   return (
+
     <div className="SignUpFrag">
       <header className="SignUpHeader">
         <img className="SignUpIcon" src="/img/parts_pic/yuzu05.png" />{" "}
@@ -153,54 +157,11 @@ const SignUp1 = () => {
           </div>
 
           <div className="contentBox3">
-            <div className="agreement">
-              <div className="required3">
-                * 약관동의
-              </div>
-              <div className="agreementBox">
-                <div className="agreementTitle">
-                  이용약관, 개인정보 수집 및 이용, 광고성 정보 수신(선택)에 모두 동의합니다.
-                  {' '}
-                  <input
-                    className='titleCheck'
-                    id='titleCheck'
-                    type='checkbox'
-                  />
-                </div>
-                <div className="agreementService">
-                  유자 서비스 이용약관 동의 (필수)
-                  {' '}
-                  <input
-                    className='serviceCheck'
-                    id='serviceCheck'
-                    type='checkbox'
-                  />
-                </div>
-                <div className="agreementPrivate">
-                  개인정보 수집 및 이용 동의 (필수)
-                  {' '}
-                  <input
-                    className='privateCheck'
-                    id='privateCheck'
-                    type='checkbox'
-                  />
-                </div>
-                  <div className="agreementMarketing">
-                    마케팅 정보 수신에 대한 동의 (선택)
-                    {' '}
-                    <input
-                      className='marketingCheck'
-                      id='marketingCheck'
-                      type='checkbox'
-                    />
-                </div>
-              </div>
-            </div>
+            <Agreement/>
           </div>
         </div>
       </content>
       <footer>
-
       </footer>
     </div>
   );
