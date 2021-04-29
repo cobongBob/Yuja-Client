@@ -1,10 +1,15 @@
 .footer {
+  bottom: 0;
   background-color: #0e2f44;
   width: 100%;
   height: 40vh;
+  padding-left: 0 ip !important;
 }
 .footer-title {
   text-align: center;
   font-family: scdream4;
   color: white;
+}
+.custom-switch {
+  padding-left: 0;
 }
