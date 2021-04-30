@@ -38,6 +38,8 @@
 }
 
 .custom-switch {
-  padding-left: 0;
-  min-height: 0;
+  padding-left: 0 !important;
+}
+.custom-control {
+  min-height: 0 !important;
 }
