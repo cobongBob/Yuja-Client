@@ -1,38 +1,58 @@
-import React, { useEffect, useState } from 'react';
-import YapiService from './YapiService';
-import '../components/scss/Ydetail.scss';
-import { FcLike, FcOk } from 'react-icons/fc';
-import Footer from '../components/Footer';
+import React, { useEffect, useState } from "react";
+import YapiService from "./YapiService";
+import "../components/scss/Ydetail.scss";
+import { FcLike, FcOk } from "react-icons/fc";
+import Footer from "../components/Footer";
+import { format } from "date-fns";
+import { Link } from "react-router-dom";
 
 const Ydetail = (props) => {
-  console.log(props.match.params.board_id);
+  // console.log(props.match);
+  // let updatedDate = new Date();
+
+  const [data, setData] = useState({
+    updatedDate: "",
+    title: "여기 제목",
+    content: "여긴 내용",
+    hit: 3,
+    likes: 2,
+  });
+
   useEffect(() => {
-    YapiService.fetchUsers(props.match.params.board_id).then((res) => {
-      console.log(res.data.title);
-      console.log(res.data.content);
-      console.log(res.data.thumbnail);
+    YapiService.fetchBoard(props.match.params.board_id).then((res) => {
+      setData(res.data);
     });
   }, []);
+
+  const deleteBoard = () => {
+    YapiService.deleteBoard(props.match.params.board_id).then((res) => {
+      alert(res.data);
+      props.history.push("/Youtuber");
+    });
+  };
+
   return (
     <div>
       <div className='DetailWrapper'>
         <div className='DetailHeaderWrapper'>
           <div className='DetailTop'>공고내용</div>
+          <Link to={`/YmodifyTest/${data.id}`}>수정</Link>
+          <button onClick={deleteBoard}>삭제</button>
           <div></div>
           <div className='detail-title'>
-            여기에 글 제목 넣을거임
+            {data.title}
             <div className='detail-show'>
               <p>
-                <FcLike size={20} /> 15
+                <FcLike size={20} /> {data.likes}
               </p>
               <p>
-                <FcOk size={20} /> 113
+                <FcOk size={20} /> {data.hit}
               </p>
             </div>
           </div>
-          <div className='detail-date'>수정일 - 마감일</div>
+          <div className='detail-date'>{data.updatedDate !== null ? data.updatedDate.substr(0, 10) : ""} ~ 마감일</div>
           <div className='detail-content'>
-            <p>여기에 모집내용 들어감</p>
+            <p>여기에 {data.content} 들어감</p>
             <input type='checkbox' id='python' />
             <label htmlFor='python'>파이썬</label>
             <input type='checkbox' id='java' />

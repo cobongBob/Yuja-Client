@@ -3,7 +3,6 @@ import { FaUserAstronaut } from 'react-icons/fa';
 import '../../components/scss/SignUp1.scss';
 
 const NonRequired = () => {
-
   const [file, setFile] = useState();
   const [previewURL, setpreviewUrl] = useState();
 
@@ -12,15 +11,15 @@ const NonRequired = () => {
     let reader = new FileReader();
     let file = e.target.files[0];
     reader.onloadend = () => {
-      setFile(file)
-        setpreviewUrl(reader.result)
-    }
-    reader.readAsDataURL(file)
-  }
+      setFile(file);
+      setpreviewUrl(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
 
   let profile_preview = null;
-  if(file !== '') {
-    profile_preview = <img className='profile_preview' src={previewURL}/>
+  if (file !== '') {
+    profile_preview = <img className='profile_preview' src={previewURL} />;
   }
 
   return (
@@ -91,7 +90,7 @@ const NonRequired = () => {
           유튜버 분들은 원활한 서비스 이용을 위해<br/>추가 정보를 입력해주세요!
         </div>
           <div className='companyRegNumBox'>
-            <label className="companyRegNumLabel" htmlFor="companyRegNumInput">
+            <label className='companyRegNumLabel' htmlFor='companyRegNumInput'>
               사업자등록번호
             <input
               className='companyRegNumInput'

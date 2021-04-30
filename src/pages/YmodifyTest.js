@@ -1,11 +1,19 @@
-import React, { Component, useState } from "react";
+import React, { Component, useEffect, useMemo, useState } from "react";
 import { Button } from "react-bootstrap";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "../components/scss/QuillComponents.scss";
 import YapiService from "./YapiService";
 
-const QuillComponents = () => {
+const YmodifyTest = (props) => {
+  const [duta, setDuta] = useState({});
+
+  useEffect(() => {
+    YapiService.fetchBoard(props.match.params.board_id).then((res) => {
+      setDuta(res.data);
+    });
+  }, []);
+
   const modules = {
     toolbar: [
       [{ header: [1, 2, false] }],
@@ -34,32 +42,35 @@ const QuillComponents = () => {
     "color",
     "background",
   ];
-  const [data, setData] = useState("");
 
-  const insertBoard = () => {
-    const dita = {
+  const [udata, setUdata] = useState();
+
+  const modifyBoard = () => {
+    const mail = {
       userId: 1,
-      title: "제목1",
-      content: data,
-      thumbnail: "썸네일",
+      title: "수정제목1",
+      content: udata,
+      thumbnail: "수정썸네일",
     };
-    YapiService.addBoards(dita);
+    YapiService.modifyBoard(props.match.params.board_id, mail).then((res) => {
+      console.log(res.data);
+      props.history.push("/Youtuber");
+    });
   };
 
   return (
     <div style={{ height: "650px" }}>
       <form action=''>
-        <Button onClick={insertBoard}>전송</Button>
+        <Button onClick={modifyBoard}>전송</Button>
 
         <ReactQuill
           style={{ height: "600px" }}
           theme='snow'
           modules={modules}
           formats={formats}
-          value={data || ""}
+          value={udata || duta.content}
           onChange={(content, delta, source, editor) => {
-            setData(editor.getHTML());
-            console.log(editor.getHTML());
+            setUdata(editor.getHTML());
           }}
         ></ReactQuill>
       </form>
@@ -67,4 +78,4 @@ const QuillComponents = () => {
   );
 };
 
-export default QuillComponents;
+export default YmodifyTest;
