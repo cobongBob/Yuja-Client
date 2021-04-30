@@ -88,7 +88,7 @@ const NonRequired = () => {
       </table>
         <div className='youtuberDiv'>
           <div className='youtuberDiv_Title'>
-          유튜버 분들은 원활한 서비스 이용을 위해 추가 정보를 입력해주세요!
+          유튜버 분들은 원활한 서비스 이용을 위해<br/>추가 정보를 입력해주세요!
         </div>
           <div className='companyRegNumBox'>
             <label className="companyRegNumLabel" htmlFor="companyRegNumInput">
@@ -99,6 +99,17 @@ const NonRequired = () => {
               type='tel'
               placeholder='-을 제외한 10자리 숫자'
             />
+            </label>
+          </div>
+          <div className='youtuberPicBox'>
+            <label className="youtuberPicLabel" htmlFor="youtuberPicInput">
+              유튜브 계정 스크린샷을 올려주세요
+              <input
+                className='youtuberPicInput'
+                id='youtuberPicInput'
+                type='file'
+                accept="image/jpeg, image/jpg, img/png"
+              />
             </label>
           </div>
         </div>
