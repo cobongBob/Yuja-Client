@@ -1,9 +1,4 @@
 
-NonRequired > label {
-  margin-bottom: 0;
-  background-color: red;
-}
-
 .SignUpFrag {
   margin-right: 10vw;
   margin-left: 10vw;
@@ -140,7 +135,7 @@ input::placeholder {
 }
 .agreementTitle {
   font-size:0.9em;
-  margin-top:25px;
+  margin-top:10px;
 }
 .agreementService {
   font-size:0.9em;
@@ -157,12 +152,12 @@ input::placeholder {
 
 /* Agreement */
 .agreementServiceContents, .agreementPrivateContents, .agreementMarketingContents {
-  margin-top: 3%;
+  margin-top: 1%;
   font-size: 0.8em;
   background-color: lightgray;
   overflow-y:scroll;
   overflow-x: hidden;
-  height: 10em;
+  height: 9em;
 }
 /* 오버레이 (보더) */
 .overlay {
