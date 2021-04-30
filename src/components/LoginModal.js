@@ -67,7 +67,7 @@ function LoginModal(){
               name="email"
               className="loginId"
               type="text"
-              placeholder="아이디"
+              placeholder="아이디(이메일)"
             />
             <input
               name="password"
