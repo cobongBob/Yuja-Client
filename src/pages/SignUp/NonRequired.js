@@ -4,6 +4,7 @@ import '../../components/scss/SignUp1.scss';
 
 const NonRequired = () => {
   const [file, setFile] = useState();
+  const [file2, setFile2] = useState();
   const [previewURL, setpreviewUrl] = useState();
 
   const handleFileOnChange = (e) => {
@@ -17,7 +18,7 @@ const NonRequired = () => {
     reader.readAsDataURL(file);
   };
 
-  let profile_preview = null;
+  let profile_preview, youtuberPic_preview = null;
   if (file !== '') {
     profile_preview = <img className='profile_preview' src={previewURL} />;
   }
@@ -103,13 +104,19 @@ const NonRequired = () => {
           <div className='youtuberPicBox'>
             <label className="youtuberPicLabel" htmlFor="youtuberPicInput">
               유튜브 계정 스크린샷을 올려주세요
+            </label>
+            <div className="youtuberPic_PreviewBox">
+              {youtuberPic_preview}
+            </div>
+              <div className='youtuberPicInputWrapper'>
               <input
                 className='youtuberPicInput'
                 id='youtuberPicInput'
                 type='file'
                 accept="image/jpeg, image/jpg, img/png"
+                onChange={handleFileOnChange}
               />
-            </label>
+              </div>
           </div>
         </div>
       <div className="signUpSubmitBtnBox">

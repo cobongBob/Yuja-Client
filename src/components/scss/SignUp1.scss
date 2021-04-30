@@ -1,9 +1,7 @@
-.custom-switch {
-  padding-left:0;
-}
 
-label {
+NonRequired > label {
   margin-bottom: 0;
+  background-color: red;
 }
 
 .SignUpFrag {
@@ -87,6 +85,7 @@ input::placeholder {
 .signUpTable label {
   font-size:14px;
   display:block;
+  margin-bottom: 0;
 }
 .signUpTable .signUpLabel {
   margin-left: 0%;
@@ -212,4 +211,16 @@ input::placeholder {
   outline: none;
   box-sizing: border-box;
   font-size:0.85em;
+}
+.youtuberPicLabel {
+  font-size:0.9em;
+  text-align: left;
+  margin-top: 2rem;
+}
+.youtuberPicInputWrapper {
+  margin-top: 5px;
+  margin-bottom: 12px;
+  font-size:0.85em;
+  padding: 9px 12px;
+  margin-left: 20%;
 }

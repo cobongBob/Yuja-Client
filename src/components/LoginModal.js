@@ -14,7 +14,8 @@ const customStyles = {
     transform             : 'translate(-50%, -50%)',
     overflow: 'auto',
     WebkitOverflowScrolling: 'touch',
-  }
+  },
+  overlay: {zIndex: 9999}
 };
 
 function LoginModal(){
