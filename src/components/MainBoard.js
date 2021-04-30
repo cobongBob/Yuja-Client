@@ -7,17 +7,20 @@ import './scss/MainBoard.scss';
 
 const MainBoard = () => {
   return (
-    <Row className="Main_Board_Wrapper">
-      <Col sm>
-        <Yboard></Yboard>
-      </Col>
-      <Col sm>
-        <Eboard></Eboard>
-      </Col>
-      <Col sm>
-        <Sboard></Sboard>
-      </Col>
-    </Row>
+    <>
+      <div className='new-board'> 신규공고 / 신입소개 </div>
+      <Row className='Main_Board_Wrapper'>
+        <Col sm>
+          <Yboard></Yboard>
+        </Col>
+        <Col sm>
+          <Eboard></Eboard>
+        </Col>
+        <Col sm>
+          <Sboard></Sboard>
+        </Col>
+      </Row>
+    </>
   );
 };
 
