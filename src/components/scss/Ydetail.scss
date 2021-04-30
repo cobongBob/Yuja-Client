@@ -7,12 +7,71 @@
 .DetailHeaderWrapper {
   display: contents;
 }
+
+.youtube-top {
+  display: inline-block;
+  font-family: scdream5;
+  font-size: 30px;
+  border-bottom: 3px solid #c4302b;
+  margin-top: 3%;
+  margin-bottom: 20px;
+}
+.channel-box {
+  border: 2px solid #c4302b;
+  height: 35vh;
+  margin-bottom: 5%;
+}
+
+.detail-box {
+  margin-bottom: 5%;
+}
 .DetailTop {
   display: inline-block;
   font-family: scdream5;
   font-size: 30px;
   border-bottom: 3px solid #c4302b;
   margin-bottom: 20px;
+}
+
+.detail-btn {
+  display: flex;
+}
+.detail-btn-box {
+  display: inline-block;
+  margin-left: auto;
+  font-family: scdream5;
+  font-size: 15px;
+  color: black;
+  margin-bottom: 1rem;
+}
+.detail-update-btn {
+  border: 1px solid #008744;
+  color: #008744;
+  border-radius: 20px;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  &:hover {
+    text-decoration: none;
+    background-color: #008744;
+    color: white;
+  }
+}
+
+.detail-btn-box > button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: inline-block;
+  margin-left: auto;
+  border: 1px solid #d62d20;
+  padding: 0.5rem;
+  border-radius: 20px;
+  background-color: white;
+  color: #d62d20;
+  &:hover {
+    background-color: #d62d20;
+    color: white;
+  }
 }
 
 .detail-title {
@@ -41,19 +100,4 @@
   color: gray;
   font-family: scdream4;
   margin-bottom: 10px;
-}
-
-.youtube-top {
-  display: inline-block;
-  font-family: scdream5;
-  font-size: 30px;
-  border-bottom: 3px solid #c4302b;
-  margin-top: 3%;
-  margin-bottom: 20px;
-}
-
-.channel-box {
-  border: 2px solid #c4302b;
-  height: 50vh;
-  margin-bottom: 5%;
 }
