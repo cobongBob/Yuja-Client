@@ -1,4 +1,4 @@
-ul, h2, p {
+Evideo > ul, h2, p {
   margin:0;
   padding:0;
   font-family:'scdream4';
@@ -75,13 +75,14 @@ ul, h2, p {
 .thumbnails-item:hover .item-title {
   background-color: black;
   opacity: 0.8;
-  bottom:4em;
+  bottom:4.5em;
   transition: all .4s;
   transition-delay: .4s;
 }
 
-.item-title h2 {
+.item-title > h2 {
   font-size: 22px;
+  margin-bottom: 0px;
 }
 
 .item-title h2 span {
@@ -98,14 +99,14 @@ ul, h2, p {
   right:0;
   bottom:0;
   padding:5px;
-  margin: 10px 5px -3rem;
+  margin: 10px 5px -2rem;
   color:white;
   background-color: black;
   opacity: 0.8;
 }
 
 .thumbnails-item:hover .item-content {
-  margin: -0.6rem 5px;
+  margin: -0.2rem 5px;
   transition: all .4s;
   transition-delay: .4s;
 }
