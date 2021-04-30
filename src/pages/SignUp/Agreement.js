@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import '../../components/scss/SignUp1.scss';
 import { Link, NavLink } from 'react-router-dom';
 
-const Agreement = () => {
+const Agreement = ({ history }) => {
 
   // 체크박스 상태 확인용, 아래 배열 요소 펼칠시 텍스트 쏟아지니 주의!
   const [checkBoxes, setCheckBoxes] = useState([
@@ -530,11 +530,9 @@ const Agreement = () => {
         "\n" +
         "Yuja Web 서비스를 통해 마케팅 정보 수신동의를 변경(동의/철회)할 수 있습니다.", label: "마케팅 정보 수신에 대한 동의 (선택)", isChecked: false}
   ])
-
   const [mainCheckbox, setMainCheckbox] = useState({
     id: 'all', isChecked: false
   })
-
   const allCheckBoxesChange = ({ target : { checked } }) => {
     const newMainCheckbox = {
       ...mainCheckbox,
@@ -549,8 +547,8 @@ const Agreement = () => {
     })
     setCheckBoxes(allCheckBoxes)
   }
-
   const checkBoxChange = ({ target : { name, checked } }) => {
+
     let newCheckBoxes = [...checkBoxes]
     newCheckBoxes.forEach(item => {
       if (item.id === name) {
@@ -562,6 +560,29 @@ const Agreement = () => {
     // 메인체크박스 상태확인
     const isEveryBoxChecked = newCheckBoxes.every((value) => value.isChecked)
     setMainCheckbox({...mainCheckbox, isChecked: isEveryBoxChecked})
+    console.log(mainCheckbox)
+    console.log(checkBoxes)
+    console.log(isEveryBoxChecked)
+  }
+  // 체크박스 끝
+
+  /* 선택 데이터 넘겨주기 */
+  const next = checkBoxes[2].isChecked
+
+  /* 유효성 검사 */
+  let requiredOneIsChecked = checkBoxes[0].isChecked
+  let requiredTwoIsChecked = checkBoxes[1].isChecked
+  const isAllRequiredChecked = (e) => {
+    if(true !== requiredOneIsChecked || true !== requiredTwoIsChecked) {
+      alert("필수 항목에 모두 동의 해주세요.")
+      e.preventDefault();
+    } else if(next === true) {
+      let date = new Date();
+      let year = date.getFullYear();
+      let month = 1+date.getMonth();
+      let day = date.getDate();
+      alert(year+"년 "+month+"월 "+day+"일 "+"마케팅 정보 수신에 동의 하셨습니다.")
+    }
   }
 
   return (
@@ -572,9 +593,9 @@ const Agreement = () => {
         * 약관동의
       </div>
       <div className="agreementBox">
-        <div className="agreementTitle">
-          이용약관, 개인정보 수집 및 이용, 광고성 정보 수신(선택)에 모두 동의합니다.
-          {' '}
+        <label className="agreementTitle">
+          이용약관, 개인정보 수집 및 이용,
+          광고성 정보 수신(선택)에 모두 동의합니다.{' '}
           <input
             type="checkbox"
             id={mainCheckbox.id}
@@ -582,7 +603,7 @@ const Agreement = () => {
             checked={mainCheckbox.isChecked}
             onChange={allCheckBoxesChange}
           />
-        </div>
+        </label>
           {checkBoxes.map(item => (
             <CheckBox
               key={item.id}
@@ -598,7 +619,17 @@ const Agreement = () => {
         </div>
     </div>
         <div className="signUpNextBtnBox">
-        <Link to='/SignUp1/Required' className="btn btn-warning">다음</Link>
+        <Link
+          onClick={isAllRequiredChecked}
+          to={{
+            pathname: '/SignUp1/Required',
+            state: {
+                next:next
+            },
+        }}
+          className="btn btn-warning"
+        >
+          다음</Link>
         </div>
       </div>
     </div>

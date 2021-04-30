@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import UserApiService from './UserApiService';
 import '../../components/scss/SignUp1.scss';
 
-const NonRequired = ({ location }) => {
+const NonRequired = ({ location, history }) => {
 
   /* 파일 업로드 미리보기 관련 */
   const [file, setFile] = useState();
@@ -43,7 +43,7 @@ const NonRequired = ({ location }) => {
 
   /* 회원가입 데이터 넘겨주기 시작 */
   /* required 페이지 데이터 담은 변수 */
-  const requiredData = location.state;
+  const requiredData = location.state.requiredData;
 
   /* 이 페이지(nonRequired) 데이터 담기 시작 */
   const [nonRequiredData, setNonRequiredData] = useState({
@@ -65,8 +65,14 @@ const NonRequired = ({ location }) => {
     Object.assign(requiredData, nonRequiredData)
     const data = requiredData
     UserApiService.addUser(data).then(r => {
-      console.log(r.data)
-    })
+      console.log(r)
+      if(r){
+        alert("회원가입을 축하합니다!")
+        history.push("/")
+      } else {
+        alert("비어있는 항목이 있습니다! 나가!")
+      }
+    }).catch(() => {alert("오류가 발생했습니다. 나가!")})
   }
   /* 이 페이지(nonRequired) 데이터 담기 끝 */
   /* 회원가입 데이터 넘겨주기 끝 */
