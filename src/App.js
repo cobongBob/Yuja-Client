@@ -1,26 +1,26 @@
-import React from "react";
-import Logo from "./components/Logo";
-import VideoBox from "./components/VideoBox";
-import "./App.css";
-import MainBoard from "./components/MainBoard";
-import { Route } from "react-router";
-import Youtuber from "./pages/Youtuber";
-import Editer from "./pages/Editer";
-import Thumbnailer from "./pages/Thumbnailer";
-import Winwin from "./pages/Winwin";
-import Help from "./pages/Help";
-import Wboard from "./components/Wboard";
-import Ydetail from "./pages/Ydetail";
-import Footer from "./components/Footer";
-import SignUp1 from "./pages/SignUp/SignUp1";
-import { withRouter } from "react-router";
-import Navi from "./components/Navi";
-import YoutuberProfile from "./pages/YoutuberProfile";
-import Yregister from "./pages/Yregister";
-import Switch from "react-bootstrap/Switch";
-import YmodifyTest from "./pages/YmodifyTest";
+import React from 'react';
+import Logo from './components/Logo';
+import VideoBox from './components/VideoBox';
+import './App.css';
+import MainBoard from './components/MainBoard';
+import { Route } from 'react-router';
+import Youtuber from './pages/Youtuber';
+import Editer from './pages/Editer';
+import Thumbnailer from './pages/Thumbnailer';
+import Winwin from './pages/Winwin';
+import Help from './pages/Help';
+import Wboard from './components/Wboard';
+import Ydetail from './pages/Ydetail';
+import Footer from './components/Footer';
+import SignUp1 from './pages/SignUp/SignUp1';
+import { withRouter } from 'react-router';
+import Navi from './components/Navi';
+import YoutuberProfile from './pages/YoutuberProfile';
+import Yregister from './pages/Yregister';
+import Switch from 'react-bootstrap/Switch';
+import YmodifyTest from './pages/YmodifyTest';
 
-const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
+const exceptArray = ['/SignUp1', '/SignUp1/Required', '/SignUp1/NonRequired'];
 
 function App({ location }) {
   return (

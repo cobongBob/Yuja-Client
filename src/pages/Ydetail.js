@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import YapiService from "./YapiService";
-import "../components/scss/Ydetail.scss";
-import { FcLike, FcOk } from "react-icons/fc";
-import Footer from "../components/Footer";
-import { format } from "date-fns";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import YapiService from './YapiService';
+import '../components/scss/Ydetail.scss';
+import { FcLike, FcOk } from 'react-icons/fc';
+import Footer from '../components/Footer';
+import { format } from 'date-fns';
+import { Link } from 'react-router-dom';
 
 const Ydetail = (props) => {
   // console.log(props.match);
   // let updatedDate = new Date();
 
   const [data, setData] = useState({
-    updatedDate: "",
-    title: "여기 제목",
-    content: "여긴 내용",
+    updatedDate: '',
+    title: '여기 제목',
+    content: '여긴 내용',
     hit: 3,
     likes: 2,
   });
@@ -27,7 +27,7 @@ const Ydetail = (props) => {
   const deleteBoard = () => {
     YapiService.deleteBoard(props.match.params.board_id).then((res) => {
       alert(res.data);
-      props.history.push("/Youtuber");
+      props.history.push('/Youtuber');
     });
   };
 
@@ -50,7 +50,10 @@ const Ydetail = (props) => {
               </p>
             </div>
           </div>
-          <div className='detail-date'>{data.updatedDate !== null ? data.updatedDate.substr(0, 10) : ""} ~ 마감일</div>
+          <div className='detail-date'>
+            {data.updatedDate !== null ? data.updatedDate.substr(0, 10) : ''} ~
+            마감일
+          </div>
           <div className='detail-content'>
             <p>여기에 {data.content} 들어감</p>
             <input type='checkbox' id='python' />
