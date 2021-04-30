@@ -47,6 +47,7 @@ const Svideo = () => {
 
   return (
     <React.Fragment className='SvideoWrapper'>
+      <div className='best-thumbnailer'> 인기 썸네일러 </div>
       <Slider {...settings}>
         <div className='wrapper'>
           <div className='thumbnails'>

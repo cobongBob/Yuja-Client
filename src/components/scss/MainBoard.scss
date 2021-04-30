@@ -2,3 +2,12 @@
   margin: 0;
   padding: 0;
 }
+.new-board {
+  padding: 0.5em;
+  display: inline-block;
+  border-bottom: 2px solid #c4302b;
+  font-family: scdream5;
+  font-size: 23px;
+  color: white;
+  text-shadow: -2px 0 #c4302b, 0 2px #c4302b, 2px 0 #c4302b, 0 -2px #c4302b;
+}

@@ -4,7 +4,7 @@
   margin-top: 2%;
   margin-left: 2%;
   background-color: white;
-  border-radius: 20px;
+  border-radius: 10px;
   display: inline-block;
 }
 .user-profile-pic {
@@ -26,11 +26,23 @@
   font-family: scdream5;
 }
 .wanted-name {
+  display: inline-block;
+  margin-right: 1rem;
   font-size: 23px;
 }
-.wanted-type {
+
+.wanted-type-editer {
+  display: inline-block;
   font-family: scdream4;
   background-color: #3d5ba5;
+  color: white;
+  border-radius: 7px;
+  padding: 2px;
+  margin-right: 0.5rem;
+}
+.wanted-type-thumbnail {
+  font-family: scdream4;
+  background-color: #ff7c7c;
   color: white;
   border-radius: 7px;
   padding: 2px;

@@ -3,7 +3,6 @@ import YapiService from './YapiService';
 import '../components/scss/Ydetail.scss';
 import { FcLike, FcOk } from 'react-icons/fc';
 import Footer from '../components/Footer';
-import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 
 const Ydetail = (props) => {
@@ -69,19 +68,8 @@ const Ydetail = (props) => {
               ~ 마감일
             </div>
             <div className='detail-content'>
-              <p>여기에 {data.content} 들어감</p>
-              <input type='checkbox' id='python' />
-              <label htmlFor='python'>파이썬</label>
-              <input type='checkbox' id='java' />
-              <label htmlFor='java'>JAVA</label>
-              <input type='checkbox' id='javascripts' />
-              <label htmlFor='javascripts'>JavaScripts</label>
-              <input type='checkbox' id='react' />
-              <label htmlFor='react'>React</label>
-              <input type='checkbox' id='css' />
-              <label htmlFor='css'>CSS</label>
-              <input type='checkbox' id='view' />
-              <label htmlFor='view'>View</label>
+              <div className='detail-content-default'> 기본내용 </div>
+              <div className='detail-content-detail'> 추가내용 </div>
             </div>
           </div>
         </div>

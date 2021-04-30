@@ -48,6 +48,7 @@ const Evideo = () => {
 
   return (
     <React.Fragment className='EvideoWrapper'>
+      <div className='best-editor'> 인기 편집자 </div>
       <Slider {...settings}>
         <div className='wrapper'>
           <div className='thumbnails'>
