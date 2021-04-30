@@ -3,9 +3,12 @@ import { FaUserAstronaut } from 'react-icons/fa';
 import '../../components/scss/SignUp1.scss';
 
 const NonRequired = () => {
+
+  /* 파일 업로드 미리보기 관련 */
   const [file, setFile] = useState();
   const [file2, setFile2] = useState();
   const [previewURL, setpreviewUrl] = useState();
+  const [previewURL2, setpreviewUrl2] = useState();
 
   const handleFileOnChange = (e) => {
     e.preventDefault();
@@ -18,9 +21,23 @@ const NonRequired = () => {
     reader.readAsDataURL(file);
   };
 
+  const handleFileOnChange2 = (e) => {
+    e.preventDefault();
+    let reader2 = new FileReader();
+    let file2 = e.target.files[0];
+    reader2.onloadend = () => {
+      setFile2(file2);
+      setpreviewUrl2(reader2.result);
+    };
+    reader2.readAsDataURL(file2);
+  };
+
   let profile_preview, youtuberPic_preview = null;
   if (file !== '') {
     profile_preview = <img className='profile_preview' src={previewURL} />;
+  }
+  if (file2 !== '') {
+    youtuberPic_preview = <img className='youtuberPic_PreviewBox' src={previewURL2} />;
   }
 
   return (
@@ -114,7 +131,7 @@ const NonRequired = () => {
                 id='youtuberPicInput'
                 type='file'
                 accept="image/jpeg, image/jpg, img/png"
-                onChange={handleFileOnChange}
+                onChange={handleFileOnChange2}
               />
               </div>
           </div>
