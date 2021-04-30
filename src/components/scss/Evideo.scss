@@ -98,14 +98,14 @@ ul, h2, p {
   right:0;
   bottom:0;
   padding:5px;
-  margin: 10px 5px -10px;
+  margin: 10px 5px -3rem;
   color:white;
   background-color: black;
   opacity: 0.8;
 }
 
 .thumbnails-item:hover .item-content {
-  margin: 5px 5px;
+  margin: -0.6rem 5px;
   transition: all .4s;
   transition-delay: .4s;
 }
