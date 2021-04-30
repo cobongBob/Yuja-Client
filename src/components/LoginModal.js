@@ -14,7 +14,8 @@ const customStyles = {
     transform             : 'translate(-50%, -50%)',
     overflow: 'auto',
     WebkitOverflowScrolling: 'touch',
-  }
+  },
+  overlay: {zIndex: 9999}
 };
 
 function LoginModal(){
@@ -66,7 +67,7 @@ function LoginModal(){
               name="email"
               className="loginId"
               type="text"
-              placeholder="아이디"
+              placeholder="아이디(이메일)"
             />
             <input
               name="password"
