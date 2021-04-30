@@ -1,29 +1,35 @@
 import axios from 'axios';
 
-const USER_API_BASE_URL = 'http://localhost:8888/api';
+const USER_API_BASE_URL = 'http://localhost:8888/api/';
+const BoardType = 1;
 
 class YapiService {
-  fetchUsers(board_id) {
-    return axios.get(USER_API_BASE_URL + '/' + board_id);
-  }
-  addBoards(dita) {
-    return axios.post(USER_API_BASE_URL + '/board', dita);
+  async addBoards(dita) {
+    return await axios.post(USER_API_BASE_URL + BoardType + '/board', dita);
   }
 
-  fetchBoards() {
-    return axios.get(USER_API_BASE_URL + '/board');
+  async fetchBoards() {
+    return await axios.get(USER_API_BASE_URL + BoardType + '/board');
   }
 
-  fetchBoard(board_id) {
-    return axios.get('http://localhost:8888/' + board_id);
+  // 상세보기 1개만
+  async fetchBoard(board_id) {
+    return await axios.get(
+      USER_API_BASE_URL + BoardType + '/board/' + board_id
+    );
   }
 
-  modifyBoard(board_id, data) {
-    return axios.put('http://localhost:8888/' + board_id, data);
+  async modifyBoard(board_id, data) {
+    return await axios.put(
+      USER_API_BASE_URL + BoardType + '/board/' + board_id,
+      data
+    );
   }
 
-  deleteBoard(board_id) {
-    return axios.delete('http://localhost:8888/' + board_id);
+  async deleteBoard(board_id) {
+    return await axios.delete(
+      USER_API_BASE_URL + BoardType + '/board/' + board_id
+    );
   }
 }
 

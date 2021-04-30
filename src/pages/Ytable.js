@@ -1,10 +1,15 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { useGlobalFilter, usePagination, useSortBy, useTable } from "react-table";
-import { COLUMNS } from "./columns";
-import "../components/scss/Ytable.scss";
-import { Link, useHistory } from "react-router-dom";
-import YtableTotalFilter from "./YtableTotalFilter";
-import YapiService from "./YapiService";
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  useGlobalFilter,
+  usePagination,
+  useSortBy,
+  useTable,
+} from 'react-table';
+import { COLUMNS } from './columns';
+import '../components/scss/Ytable.scss';
+import { Link, useHistory } from 'react-router-dom';
+import YtableTotalFilter from './YtableTotalFilter';
+import YapiService from './YapiService';
 
 const Ytable = () => {
   const columns = useMemo(() => COLUMNS, []);
@@ -36,7 +41,15 @@ const Ytable = () => {
     {
       columns,
       data,
-      initialState: { pageIndex: 0 },
+      initialState: {
+        pageIndex: 0,
+        sortBy: [
+          {
+            id: '글번호',
+            desc: true,
+          },
+        ],
+      },
     },
     useGlobalFilter,
     useSortBy,
@@ -47,12 +60,15 @@ const Ytable = () => {
 
   const history = useHistory();
 
-  let Yhistory = useCallback((row) => history.push(`/Ydetail/${row.original.id}`), [history]);
+  let Yhistory = useCallback(
+    (row) => history.push(`/Ydetail/${row.original.id}`),
+    [history]
+  );
 
   const rowProps = (row) => ({
     onClick: () => Yhistory(row),
     style: {
-      cursor: "pointer",
+      cursor: 'pointer',
     },
   });
 
@@ -61,7 +77,7 @@ const Ytable = () => {
       <div className='YtableHeader'>
         <h1>유튜버 게시판</h1>
         <Link className='LinkWrite' to='/Yregister'>
-          {" "}
+          {' '}
           글쓰기
         </Link>
         <YtableTotalFilter filter={globalFilter} setFilter={setGlobalFilter} />
@@ -71,7 +87,12 @@ const Ytable = () => {
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps(column.getSortByToggleProps())}>{column.render("Header")}</th>
+                <th
+                  {...column.getHeaderProps(
+                    column.getSortByToggleProps({ title: undefined })
+                  )}>
+                  {column.render('Header')}
+                </th>
               ))}
             </tr>
           ))}
@@ -82,7 +103,9 @@ const Ytable = () => {
             return (
               <tr {...row.getRowProps(rowProps(row))}>
                 {row.cells.map((cell) => {
-                  return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+                  return (
+                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                  );
                 })}
               </tr>
             );
@@ -92,7 +115,7 @@ const Ytable = () => {
       <div className='PagingWrapper'>
         <div className='ButtonWrapper'>
           <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-            {"<<"}
+            {'<<'}
           </button>
           <button onClick={() => previousPage()} disabled={!canPreviousPage}>
             이전
@@ -100,8 +123,10 @@ const Ytable = () => {
           <button onClick={() => nextPage()} disabled={!canNextPage}>
             다음
           </button>
-          <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-            {">>"}
+          <button
+            onClick={() => gotoPage(pageCount - 1)}
+            disabled={!canNextPage}>
+            {'>>'}
           </button>
         </div>
         <span>
@@ -111,18 +136,22 @@ const Ytable = () => {
           </strong>
         </span>
         <span>
-          || Go to page {""}
+          || Go to page {''}
           <input
             type='number'
             defaultValue={pageIndex + 1}
             onChange={(e) => {
-              const pageNumber = e.target.value ? Number(e.target.value) - 1 : 0;
+              const pageNumber = e.target.value
+                ? Number(e.target.value) - 1
+                : 0;
               gotoPage(pageNumber);
             }}
           />
         </span>
 
-        <select value={pageSize} onChange={(e) => setPageSize(Number(e.target.value))}>
+        <select
+          value={pageSize}
+          onChange={(e) => setPageSize(Number(e.target.value))}>
           {[10, 25, 50].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
               {pageSize} 개씩 보기
