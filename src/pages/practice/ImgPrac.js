@@ -36,9 +36,10 @@ const ImgPrac = () => {
             // 로딩 이미지를 지운다
             quill.deleteText(range.index, 1);
             // 업로드된 이미지를 서버에서 받아서 넣어준다
-            console.log(response.data[0].uploadPath);
-            quill.insertEmbed(range.index, "image", "http://localhost:8888/imgs/test.png");
-            // quill.insertEmbed(range.index, "image", response.data[0].uploadPath);
+            console.log(response.data[0]);
+            quill.insertEmbed(range.index, "image", `http://localhost:8888/files/temp/${response.data[0].fileName}`);
+            // quill.insertEmbed(range.index, "image", "http://localhost:8888/static/imgs/test.png");
+            // quill.insertEmbed(range.index, "image", `http://localhost:8888/imgs/${response.data[0].fileName}`);
             // 서버가 켜있으므로 서버의 주소 정적 폴더 밑 파일을 가져올수있다!
           }
         })
@@ -89,7 +90,7 @@ const ImgPrac = () => {
   const [data, setData] = useState();
 
   //클래스형 으론 써본적 없지만
-  //React Quill을 함수형으로 쓰기위해서는 Quill 객체를 선언해서 그걸 div안에 넣어줘야한다.
+  //React Quill을 함수형으로 쓰기 위해서는 Quill 객체를 선언해서 그걸 div안에 넣어줘야한다.
   //react에서 div에 접근할때 바로 접근하면 rendering이 되기전에 해당 div를 접근하려하기때문에
   //render가 끝난뒤에 해당 div의 id값을 잡을수 있게끔 useEffect로 접근한다.
   useEffect(() => {
@@ -121,15 +122,3 @@ const ImgPrac = () => {
 };
 
 export default ImgPrac;
-// {/* <ReactQuill
-// style={{ height: "600px" }}
-// theme='snow'
-// modules={modules}
-// formats={formats}
-// placeholder='Add a description of your event'
-// id='ReactQuill'
-// value={data || ""}
-// onChange={(content, delta, source, editor) => {
-//   setData(editor.getHTML());
-// }}
-// /> */}
