@@ -10,10 +10,14 @@ let quill;
 const ImgPrac = () => {
   //imageHandler같은 함수는 useCallback로 감싸서 렌더링될때 한번만 실행되게 해야한다.
   const imageHandler = useCallback(() => {
+    //Quill 기존의 이미지 업로드는 base64인코딩후 그걸 그대로 텍스트 안에 삽입하게 되는데
+    //서버단에서 그걸 받기에는 너무나 긴 문장이 되어 처리하기 힘들다
+    //그래서 자체적으로 customize 시켜 서버단에 가벼운 이미지로 넘겨준다
     const input = document.createElement("input");
 
     input.setAttribute("type", "file");
     input.setAttribute("accept", "image/png, image/jpeg, image/gif");
+    //모든파일을 클릭해 이상한 파일을 삽입할수 있으므로 정규식으로 xss공격에 대비해야한다.
     input.click();
 
     input.onchange = async () => {
@@ -22,7 +26,7 @@ const ImgPrac = () => {
       formData.append("file", file);
       const config = {
         headers: {
-          "content-type": "multipart/form-data",
+          "content-type": "multipart/form-data", // 파일을 보낼때는 type이 multipart여야한다.
         },
       };
       const res = await ImgApiService.addImgs(formData, config)
@@ -38,6 +42,7 @@ const ImgPrac = () => {
             // 업로드된 이미지를 서버에서 받아서 넣어준다
             console.log(response.data[0]);
             quill.insertEmbed(range.index, "image", `http://localhost:8888/files/temp/${response.data[0].fileName}`);
+            // 파일을 서버단의 static에 저장할거라면
             // quill.insertEmbed(range.index, "image", "http://localhost:8888/static/imgs/test.png");
             // quill.insertEmbed(range.index, "image", `http://localhost:8888/imgs/${response.data[0].fileName}`);
             // 서버가 켜있으므로 서버의 주소 정적 폴더 밑 파일을 가져올수있다!
@@ -100,12 +105,12 @@ const ImgPrac = () => {
       formats: formats,
       theme: "snow",
       placeholder: "내용입력",
-      value: "hi",
+      value: data,
     });
     quill.on("text-change", (delta, oldDelta, source) => {
       setData(quill.root.innerHTML);
     });
-  }, [setData, modules, formats]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div>
