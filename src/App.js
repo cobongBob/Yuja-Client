@@ -47,6 +47,7 @@ function App({ location }) {
           <Route path='/YoutuberProfile' component={YoutuberProfile} />
           <Route path='/Yregister' component={Yregister} />
           <Route path='/YmodifyTest/:board_id' component={YmodifyTest} />
+          <Route path='/Practice' component={ImgPrac} />
         </Switch>
       </div>
     </div>
