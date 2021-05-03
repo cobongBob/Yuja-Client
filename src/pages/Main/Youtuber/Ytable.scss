@@ -1,0 +1,97 @@
+.Ytable {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  text-align: center;
+  font-family: 'scdream4';
+}
+
+.YtableHeader > h1 {
+  text-align: left;
+  font-family: 'scdream4';
+  margin-bottom: 1%;
+  display: inline;
+  border-bottom: 4px solid #c4302b;
+}
+
+.Ytable > tbody > tr > td,
+.Ytable > thead > tr > th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.Ytable > thead > tr:nth-child(even),
+.Ytable > tbody > tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.Ytable > tbody > tr:hover {
+  background-color: #ddd;
+}
+
+.Ytable > thead > tr > th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #c4302b;
+  color: white;
+}
+
+.Ytable > tbody > tr > td {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.PagingWrapper {
+  text-align: center;
+  margin-top: 1%;
+  margin-bottom: 2%;
+}
+
+.PagingWrapper > span,
+.PagingWrapper > strong,
+.PagingWrapper > input,
+.PagingWrapper > select {
+  margin-left: 1%;
+  font-family: 'scdream4';
+  text-align: center;
+}
+
+.ButtonWrapper > button {
+  background: none;
+  border: none;
+  margin-left: 1%;
+  font-family: 'scdream4';
+  text-align: center;
+}
+
+.ButtonWrapper {
+  margin-bottom: 1%;
+}
+
+.PagingWrapper > span > input {
+  text-align: center;
+  width: 4%;
+}
+
+.YtableHeader {
+  padding-top: 1%;
+  align-items: center;
+  margin-bottom: 1.5%;
+}
+
+.LinkWrite {
+  font-size: 20px;
+  font-weight: bold;
+  float: right;
+}
+
+.YtableSearch {
+  display: inline;
+  float: right;
+  margin-right: 1%;
+  font-family: 'scdream4';
+}
+
+.YtableSearch > span > input {
+  border: 2px solid #c4302b;
+}
