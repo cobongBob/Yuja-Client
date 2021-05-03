@@ -120,15 +120,17 @@ const ImgPrac = () => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const testCheking = () => {
+    setData(
+      data.replaceAll(`src="http://localhost:8888/files/temp/`, `src="http://localhost:8888/files/YoutuberBoard/`)
+    );
     const sendingData = {
       userId: 1,
       title: "제목테스트1",
       content: data,
       thumbnail: "썸네일테스트",
-      boardAttachIds: [59, 60, 61],
+      boardAttachIds: [68, 69, 70],
     };
     YapiService.addBoards(sendingData);
-    setData(data.replaceAll(`src="http://localhost:8888/files/temp/`, `src="http://localhost:8888/files/dens`));
   };
 
   return (
