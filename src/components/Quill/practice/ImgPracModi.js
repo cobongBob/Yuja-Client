@@ -8,7 +8,7 @@ let Image = Quill.import("formats/image");
 Image.className = "custom-class-to-image";
 Quill.register(Image, true);
 let quill;
-const ImgPrac = () => {
+const ImgPracModi = () => {
   //imageHandler같은 함수는 useCallback로 감싸서 렌더링될때 한번만 실행되게 해야한다.
   const imageHandler = useCallback(() => {
     //Quill 기존의 이미지 업로드는 base64인코딩후 그걸 그대로 텍스트 안에 삽입하게 되는데
@@ -98,7 +98,14 @@ const ImgPrac = () => {
   //React Quill을 함수형으로 쓰기 위해서는 Quill 객체를 선언해서 그걸 div안에 넣어줘야한다.
   //react에서 div에 접근할때 바로 접근하면 rendering이 되기전에 해당 div를 접근하려하기때문에
   //render가 끝난뒤에 해당 div의 id값을 잡을수 있게끔 useEffect로 접근한다.
+  const fileList = useRef([]);
   useEffect(() => {
+    YapiService.fetchBoard(100).then((res) => {
+      setData(res.data);
+      console.log("====", data.boardAttachFileNames);
+      fileList.current = data.boardAttachFileNames;
+      console.log(fileList);
+    });
     let container = document.getElementById("ReactQuill");
     quill = new Quill(container, {
       modules: modules,
@@ -108,8 +115,21 @@ const ImgPrac = () => {
       value: data,
     });
     quill.on("text-change", (delta, oldDelta, source) => {
+      // if (source === "user") {
+      //   let currrentContents = quill.getContents();
+      //   let diff = currrentContents.diff(oldDelta);
+      //   console.log(1, diff);
+      //   try {
+      //     console.log(2, diff.ops[0].insert.image);
+      //   } catch (_error) {
+      //     console.log("not a image");
+      //   }
+      // }
       const inserted = getImgUrls(delta);
       const deleted = getImgUrls(quill.getContents().diff(oldDelta));
+      // console.log(1, delta);
+      // console.log(2, oldDelta);
+      // console.log(3, quill.getContents().diff(oldDelta));
       inserted.length && console.log("insert", inserted);
       deleted.length && console.log("delete", deleted);
       setData(quill.root.innerHTML);
@@ -120,15 +140,15 @@ const ImgPrac = () => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const testCheking = () => {
-    const sendingData = {
-      userId: 1,
-      title: "제목테스트1",
-      content: data,
-      thumbnail: "썸네일테스트",
-      boardAttachIds: [59, 60, 61],
-    };
-    YapiService.addBoards(sendingData);
-    setData(data.replaceAll(`src="http://localhost:8888/files/temp/`, `src="http://localhost:8888/files/dens`));
+    let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
+    let imgSrcArr = String(data).match(reg);
+    console.log(imgSrcArr);
+    imgSrcArr.forEach((src) => {
+      console.log(src.substr(src.indexOf("files/temp") + 11));
+    });
+    // console.log(
+    //   data.replaceAll(`src="http://localhost:8888/files/temp/`, `src="http://localhost:8888/files/dens`)
+    // );
   };
 
   return (
@@ -145,4 +165,4 @@ const ImgPrac = () => {
   );
 };
 
-export default ImgPrac;
+export default ImgPracModi;
