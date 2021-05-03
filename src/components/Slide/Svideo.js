@@ -13,7 +13,7 @@ const Svideo = () => {
     prevArrow: <PrevArrow></PrevArrow>,
     nextArrow: <NextArrow></NextArrow>,
     infinite: true,
-    autoplay: true,
+    autoplay: false,
     speed: 3000,
     autoplaySpeed: 5000,
     pauseOnHover: true,
@@ -47,6 +47,7 @@ const Svideo = () => {
 
   return (
     <React.Fragment className='SvideoWrapper'>
+      <div className='best-thumbnailer'> 인기 썸네일러 </div>
       <Slider {...settings}>
         <div className='wrapper'>
           <div className='thumbnails'>
