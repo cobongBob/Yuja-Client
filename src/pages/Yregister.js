@@ -10,6 +10,9 @@ const NoticeWriteComponent = () => {
 
   return (
     <div className='YregisterWrapper'>
+      <div>
+        <h1>공고등록</h1>
+      </div>
       <div className='YregisterTitleWrapper'>
         <input id='YregisterWriter' placeholder='제목' type='text' />
       </div>
