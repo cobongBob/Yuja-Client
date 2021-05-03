@@ -1,10 +1,15 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { useGlobalFilter, usePagination, useSortBy, useTable } from "react-table";
-import { COLUMNS } from "./columns";
-import "./Ytable.scss";
-import { Link, useHistory } from "react-router-dom";
-import YtableTotalFilter from "./YtableTotalFilter";
-import YapiService from "./YapiService";
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  useGlobalFilter,
+  usePagination,
+  useSortBy,
+  useTable,
+} from 'react-table';
+import { COLUMNS } from './columns';
+import './Ytable.scss';
+import { Link, useHistory } from 'react-router-dom';
+import YtableTotalFilter from './YtableTotalFilter';
+import YapiService from './YapiService';
 
 const Ytable = () => {
   const columns = useMemo(() => COLUMNS, []);

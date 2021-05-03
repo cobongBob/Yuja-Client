@@ -1,4 +1,23 @@
 .YregisterWrapper {
   margin-left: 5%;
   margin-right: 5%;
+  margin-top: 2%;
+}
+
+.YregisterHeader {
+  margin-bottom: 1%;
+}
+
+.YregisterHeader > h1 {
+  text-align: left;
+  font-family: 'scdream4';
+  display: inline;
+  border-bottom: 4px solid #c4302b;
+}
+
+#YregisterChannel {
+  background: none;
+  border: none;
+  border-bottom: 3px solid black;
+  margin-bottom: 1%;
 }
