@@ -40,7 +40,6 @@ const ImgPrac = () => {
             // 로딩 이미지를 지운다
             quill.deleteText(range.index, 1);
             // 업로드된 이미지를 서버에서 받아서 넣어준다
-            console.log(response.data[0]);
             quill.insertEmbed(range.index, "image", `http://localhost:8888/files/temp/${response.data[0].fileName}`);
             // 파일을 서버단의 static에 저장할거라면
             // quill.insertEmbed(range.index, "image", "http://localhost:8888/static/imgs/test.png");
@@ -108,8 +107,28 @@ const ImgPrac = () => {
       value: data,
     });
     quill.on("text-change", (delta, oldDelta, source) => {
+      // if (source === "user") {
+      //   let currrentContents = quill.getContents();
+      //   let diff = currrentContents.diff(oldDelta);
+      //   console.log(1, diff);
+      //   try {
+      //     console.log(2, diff.ops[0].insert.image);
+      //   } catch (_error) {
+      //     console.log("not a image");
+      //   }
+      // }
+      const inserted = getImgUrls(delta);
+      const deleted = getImgUrls(quill.getContents().diff(oldDelta));
+      // console.log(1, delta);
+      // console.log(2, oldDelta);
+      // console.log(3, quill.getContents().diff(oldDelta));
+      inserted.length && console.log("insert", inserted);
+      deleted.length && console.log("delete", deleted);
       setData(quill.root.innerHTML);
     });
+    function getImgUrls(delta) {
+      return delta.ops.filter((i) => i.insert && i.insert.image).map((i) => i.insert.image);
+    }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -119,7 +138,21 @@ const ImgPrac = () => {
       </div>
       <div>
         <div>
-          <button onClick={() => console.log(data)}>확인</button>
+          <button
+            onClick={() => {
+              let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
+              let imgSrcArr = String(data).match(reg);
+              console.log(imgSrcArr);
+              imgSrcArr.forEach((src) => {
+                console.log(src.substr(src.indexOf("files/temp") + 11));
+              });
+              // console.log(
+              //   data.replaceAll(`src="http://localhost:8888/files/temp/`, `src="http://localhost:8888/files/dens`)
+              // );
+            }}
+          >
+            확인
+          </button>
         </div>
       </div>
     </div>
