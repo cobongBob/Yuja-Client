@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Editor from '../../../components/Quill/QuillComponents';
+import './Yregister.scss';
 
 const NoticeWriteComponent = () => {
   const [desc, setDesc] = useState('');

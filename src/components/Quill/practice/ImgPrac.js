@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import ReactQuill, { Quill } from "react-quill";
 import ImgApiService from "./ImgApiService";
 import "react-quill/dist/quill.snow.css";
-import "../../components/scss/QuillComponents.scss";
+import "../QuillComponents.scss";
 let Image = Quill.import("formats/image");
 Image.className = "custom-class-to-image";
 Quill.register(Image, true);
