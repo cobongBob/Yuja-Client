@@ -45,14 +45,18 @@ SignUp1 > header-title {
 }
 /* 선택 /필수 입력 정보입니다, 제목 */
 .required {
-  margin: 1% 35% 1% 0;
+  margin: auto auto 5% auto;
   font-size: 1rem;
   color: red;
+  width: 100%;
+  text-align: left;
 }
 .required2 {
-  margin: 1% 35% 1% 0;
+  margin: auto auto 5% auto;
   font-size: 1rem;
   color: black;
+  width: 100%;
+  text-align: left;
 }
 .required3 {
   margin: 1% 80.6% 1% 0;
@@ -68,10 +72,11 @@ input::placeholder {
 /* 테이블, 테이블 내 요소들 */
 .signUpTable {
   width: 100%;
+  position:relative;
 }
 .labelWrapper {
   text-align: left;
-  width: 20rem;
+  width: 100%;
   margin: auto;
   margin-bottom: 0 !important;
 }
@@ -88,7 +93,7 @@ input::placeholder {
   margin-top: 5px;
   margin-bottom: 12px;
   border-radius: 2px;
-  width: 20rem;
+  width: 100%;
   height: 40px;
   border: 1px solid #e5e5e5;
   padding: 9px 12px;
@@ -102,6 +107,7 @@ input::placeholder {
 /* 프로필 사진 */
 .signUpTable .signUpProfilePic {
   border: none;
+  width:100%;
 }
 .ProfilePicPreview {
   margin: 2rem auto;
@@ -129,7 +135,7 @@ input::placeholder {
 .agreement {
   position: relative;
   margin: auto;
-  width: 20rem;
+  width: 100%
 }
 .agreementTitle {
   font-size: 0.9em;
@@ -164,7 +170,7 @@ input::placeholder {
   border: 2px solid gray;
   padding: 2em;
   margin: auto;
-  width: 35%;
+  width: 30%;
   box-shadow: 5px 5px darkgray;
 }
 /* 사인업 버튼들 */
@@ -184,7 +190,7 @@ input::placeholder {
   align-content: center;
   position: relative;
   margin: 1rem auto;
-  width: 20rem;
+  width: 100%;
 }
 .youtuberDiv_Title {
   font-size: 0.9em;
@@ -198,7 +204,7 @@ input::placeholder {
   margin-top: 5px;
   margin-bottom: 12px;
   border-radius: 2px;
-  width: 20rem;
+  width: 100%;
   height: 40px;
   border: 1px solid #e5e5e5;
   padding: 9px 12px;
@@ -218,11 +224,19 @@ input::placeholder {
   padding: 9px 12px;
   margin-left: 20%;
 }
+.youtuberPicInput {
+  width:100%;
+}
+.signUpProfilePic {
+  width:100%;
+}
 
-/* Number input 화살표 삭제용 */
+  /* Number input 화살표 삭제용 */
 
 SignUp1 > input[type='number']::-webkit-outer-spin-button,
 input[type='number']::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+/* Wrapper들 */
