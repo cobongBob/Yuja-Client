@@ -1,7 +1,8 @@
 .nav {
+  display: inline-block !important;
   position: fixed;
   padding-left: 12rem !important;
-  list-style: none;
+  list-style: none !important;
   z-index: 3;
   background-color: white;
   font-family: 'scdream5';
@@ -11,44 +12,70 @@
   border-bottom: 1px solid #ff9411;
 }
 
-.nav-login {
-  margin-left: auto;
-  margin-right: 14rem;
-  color: black;
-  margin-top: 12px;
-  .button-login {
+.nav-pills {
+  font-size: 19px;
+  display: inline-block;
+  text-decoration: none !important;
+  .nav-link {
+    display: inline-block;
+    margin-top: 5px;
     color: #ff9411;
-    background-color: white;
-    border: 2px solid #ff9411;
-    border-radius: 10px;
-
     &:hover {
       background-color: #ff9411;
       color: white;
     }
   }
 }
-
-.nav-pills {
-  font-size: 19px;
-  list-style-type: none;
-  display: contents;
-  text-decoration: none;
-
-  .nav-link {
-    margin-top: 5px;
-    color: #ff9411;
-  }
-  .dropdown-menu {
-    // Make dropdown border overlap tab border
-    margin-top: 30rem;
-    // Remove the top rounded corners here since there is a hard edge above the menu
+@media only screen and (max-width: 1140px) {
+  .nav-pills {
+    position: absolute;
+    font-size: 19px;
+    display: flex;
+    text-decoration: none !important;
+    flex-direction: column;
+    width: 10rem;
+    .nav-link {
+      margin-top: 5px;
+      color: #ff9411;
+    }
   }
 }
-/*
-    @include border-top-radius($nav-tabs-border-radius);
 
-    @include hover-focus() {
-      border-color: $nav-tabs-link-hover-border-color;
+.nav-login {
+  display: inline;
+  float: right;
+  color: black;
+  text-align: end;
+  .button-login {
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    color: #ff9411;
+    background-color: white;
+    border: none;
+    &:hover {
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+      background-color: #ff9411;
+      color: white;
     }
-    */
+  }
+}
+
+@media only screen and (max-width: 1275px) {
+  .nav-login {
+    margin-left: auto;
+    color: black;
+    margin-top: 12px;
+    .button-login {
+      color: #ff9411;
+      background-color: white;
+      &:hover {
+        background-color: #ff9411;
+        color: white;
+      }
+    }
+  }
+}
+.nav-login > button {
+  margin: 0;
+}
