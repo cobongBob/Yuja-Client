@@ -1,27 +1,28 @@
-import React from 'react';
-import Logo from './components/Logo/Logo';
-import VideoBox from './pages/VideoBox/VideoBox';
-import './App.css';
-import MainBoard from './pages/Main/MainBoard';
-import { Route } from 'react-router';
-import Youtuber from './pages/Main/Youtuber/Youtuber';
-import Editer from './pages/Main/Editor/Editer';
-import Thumbnailer from './pages/Main/Thumbnailer/Thumbnailer';
-import Winwin from './pages/Main/Winwin/Winwin';
-import Help from './pages/Main/Help/Help';
-import Wboard from './components/MainBoard/Wboard';
-import Ydetail from './pages/Main/Youtuber/Ydetail';
-import Footer from './components/Footer';
-import SignUp1 from './components/Login-SignUp/SignUp/SignUp1';
-import { withRouter } from 'react-router';
-import Navi from './components/Navi/Navi';
-import YoutuberProfile from './pages/Profile/YoutuberProfile';
-import Yregister from './pages/Main/Youtuber/Yregister';
-import Switch from 'react-bootstrap/Switch';
-import YmodifyTest from './pages/Main/Modify/YmodifyTest';
-import ImgPrac from './components/Quill/practice/ImgPrac';
+import React from "react";
+import Logo from "./components/Logo/Logo";
+import VideoBox from "./pages/VideoBox/VideoBox";
+import "./App.css";
+import MainBoard from "./pages/Main/MainBoard";
+import { Route } from "react-router";
+import Youtuber from "./pages/Main/Youtuber/Youtuber";
+import Editer from "./pages/Main/Editor/Editer";
+import Thumbnailer from "./pages/Main/Thumbnailer/Thumbnailer";
+import Winwin from "./pages/Main/Winwin/Winwin";
+import Help from "./pages/Main/Help/Help";
+import Wboard from "./components/MainBoard/Wboard";
+import Ydetail from "./pages/Main/Youtuber/Ydetail";
+import Footer from "./components/Footer";
+import SignUp1 from "./components/Login-SignUp/SignUp/SignUp1";
+import { withRouter } from "react-router";
+import Navi from "./components/Navi/Navi";
+import YoutuberProfile from "./pages/Profile/YoutuberProfile";
+import Yregister from "./pages/Main/Youtuber/Yregister";
+import Switch from "react-bootstrap/Switch";
+import YmodifyTest from "./pages/Main/Modify/YmodifyTest";
+import ImgPrac from "./components/Quill/practice/ImgPrac";
+import ImgPracModi from "./components/Quill/practice/ImgPracModi";
 
-const exceptArray = ['/SignUp1', '/SignUp1/Required', '/SignUp1/NonRequired'];
+const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
 
 function App({ location }) {
   return (
@@ -49,6 +50,7 @@ function App({ location }) {
           <Route path='/Yregister' component={Yregister} />
           <Route path='/YmodifyTest/:board_id' component={YmodifyTest} />
           <Route path='/Practice' component={ImgPrac} />
+          <Route path='/PracticeModi/:board_id' component={ImgPracModi} />
         </Switch>
       </div>
     </div>
