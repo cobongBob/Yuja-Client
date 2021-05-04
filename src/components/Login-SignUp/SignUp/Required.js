@@ -37,8 +37,11 @@ const Required = ({ location }) => {
     let nick = requiredData.nickname
 
     const emailCheck = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-    const passCheck = /^(?=.*?[a-z])(?=.*?[#?!@$%^&*-])(?=.*?[0-9]).{8,}$/;
-    const nameCheck = /[a-zA-Z가-힣]/;
+    const testPassCheck = /^[a-zA-Z0-9]{4,10}$/; /* (4자~10자, 숫자랑 영어만) 테스트용 비밀번호 정규식 */
+    const passCheck = /^(?=.*?[a-z])(?=.*?[#?!@$%^&*-])(?=.*?[0-9]).{8,}$/; /* 비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다. */
+    const nameCheck = /^[a-zA-Z가-힣]{2,10}$/;
+    const birthCheck = /^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/;
+    const nickCheck = /^[a-zA-Z0-9가-힣ㄱ-ㅎ]{2,20}$/; /* 특수문자 제외 영문, 숫자, 한글 2~20자 */
 
     if([id, pass, name, birth, nick].includes('')) {
       alert('빈칸을 모두 입력해주세요.');
@@ -46,14 +49,20 @@ const Required = ({ location }) => {
     } else if(false === emailCheck.test(id)) {
       alert('올바른 이메일 형식이 아닙니다.')
       e.preventDefault();
-    } else if(false === passCheck.test(pass)) {
-      alert('비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.')
+    } else if(false === testPassCheck.test(pass)) {
+      alert('4~10자, 숫자랑 영어만 / 테스트용 비밀번호')
       e.preventDefault();
     } else if(pass !== passCheckNum) {
       alert('비밀번호를 확인해주세요!')
       e.preventDefault();
     } else if(false === nameCheck.test(name)) {
       alert('이름은 영문자, 한글만 입력 가능합니다!')
+      e.preventDefault();
+    } else if(false === birthCheck.test(birth)) {
+      alert('생년월일 형식을 확인해주세요. ')
+      e.preventDefault();
+    } else if(false === nickCheck.test(nick)) {
+      alert('닉네임은 특수문자를 제외한 2~20자만 입력 가능합니다.')
       e.preventDefault();
     }
 
@@ -137,7 +146,8 @@ const Required = ({ location }) => {
             <input
               className="signUpBirthdate"
               name='bday'
-              type="tel"
+              type="text"
+              maxLength='6'
               placeholder="생년월일(-을 제외한 6자리)"
               onChange={changeValue}
               required
@@ -153,6 +163,7 @@ const Required = ({ location }) => {
               className="signUpNickname"
               name='nickname'
               type="text"
+              maxLength='20'
               placeholder="닉네임"
               onChange={changeValue}
               required
@@ -169,7 +180,7 @@ const Required = ({ location }) => {
               },
             }}
             className="btn btn-warning"
-            onClick={checkRequiredUserData}
+            /* onClick={checkRequiredUserData} 유효성 검사 하시려면 살려주세요 */
           >
             다음</Link>
         </div>
