@@ -19,7 +19,8 @@ import YoutuberProfile from "./pages/Profile/YoutuberProfile";
 import Yregister from "./pages/Main/Youtuber/Yregister";
 import Switch from "react-bootstrap/Switch";
 import YmodifyTest from "./pages/Main/Modify/YmodifyTest";
-import ImgPrac from './components/Quill/practice/ImgPrac';
+import ImgPrac from "./components/Quill/practice/ImgPrac";
+import ImgPracModi from "./components/Quill/practice/ImgPracModi";
 
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
 
@@ -49,6 +50,7 @@ function App({ location }) {
           <Route path='/Yregister' component={Yregister} />
           <Route path='/YmodifyTest/:board_id' component={YmodifyTest} />
           <Route path='/Practice' component={ImgPrac} />
+          <Route path='/PracticeModi/:board_id' component={ImgPracModi} />
         </Switch>
       </div>
     </div>

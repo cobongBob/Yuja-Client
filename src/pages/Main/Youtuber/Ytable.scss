@@ -10,6 +10,8 @@
   text-align: left;
   font-family: 'scdream4';
   margin-bottom: 1%;
+  display: inline;
+  border-bottom: 4px solid #c4302b;
 }
 
 .Ytable > tbody > tr > td,
@@ -75,11 +77,6 @@
   padding-top: 1%;
   align-items: center;
   margin-bottom: 1.5%;
-}
-
-.YtableHeader > h1 {
-  display: inline;
-  border-bottom: 4px solid #c4302b;
 }
 
 .LinkWrite {
