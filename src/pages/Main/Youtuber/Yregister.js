@@ -281,10 +281,10 @@ const NoticeWriteComponent = () => {
         />
         <label htmlFor='deadline'>채용시 마감</label>
       </div>
-      <div>
+      {/* <div>
         <input id='Ycontact' placeholder='연락방법' type='text' />
         이메일 / 온라인 접수 / 직접 방문 / 우편 접수 / 팩스 / 당사 홈페이지
-      </div>
+      </div> */}
       <div>
         <label htmlFor='YregisterService'>담당자:</label>
         <input
