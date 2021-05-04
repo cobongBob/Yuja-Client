@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, CardDeck, Container } from 'react-bootstrap';
 import EditorApiService from './EditorApiService';
 
-const Editor = () => {
+const EditorTable = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -34,4 +34,4 @@ const Editor = () => {
   );
 };
 
-export default Editor;
+export default EditorTable();

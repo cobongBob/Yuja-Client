@@ -159,3 +159,15 @@ p {
 }
 
 /* END OF CONTENT */
+
+/* 화살표 css 덮어쓰기 */
+.slick-next {
+  right:-2% !important;
+  top:35% !important;
+}
+
+.slick-prev {
+  left: -3.5% !important;
+  top:35% !important;
+}
+/* 화살표 css 덮어쓰기 끝 */

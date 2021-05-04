@@ -1,25 +1,18 @@
-import { useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import Editor from '../../../components/Quill/QuillComponents';
 import './Yregister.scss';
 
 const NoticeWriteComponent = () => {
+  const checkedlist = useRef([]);
+
   const [input, setInput] = useState({
     title: '',
     channelname: '',
     worker: '',
     workercount: '',
     careervalue: '',
-    ypremiere: '',
-    yaftereffect: '',
-    yfinalcut: '',
-    yvegas: '',
-    ypowerdirector: '',
-    yphotoshop: '',
-    yillustrater: '',
-    yblender: '',
-    ymaya: '',
-    yenddate: '',
     ywhen: '',
+    tools: checkedlist.current,
   });
 
   const onChange = (e) => {
@@ -40,11 +33,13 @@ const NoticeWriteComponent = () => {
 
   const checkboxCheck = (e) => {
     const { name, value, checked } = e.target;
-    setInput((prevInput) => ({
-      ...prevInput,
-      [name]: checked,
-    }));
-    console.log(input);
+    if (e.target.checked) {
+      checkedlist.current.push(e.target.value);
+    } else {
+      const index = checkedlist.current.indexOf(e.target.value);
+      console.log(index);
+      checkedlist.current.splice(index, 1);
+    }
   };
 
   const onSubmit = (e) => {
@@ -76,6 +71,7 @@ const NoticeWriteComponent = () => {
           name='title'
           onChange={onChange}
           placeholder='제목'
+          maxLength='200'
           type='text'
         />
       </div>
@@ -127,6 +123,7 @@ const NoticeWriteComponent = () => {
             onChange={onChange}
             name='workercount'
             type='text'
+            maxLength='3'
             onKeyPress={(event) => {
               if (!/[0-9]/.test(event.key)) {
                 event.preventDefault();
@@ -303,6 +300,7 @@ const NoticeWriteComponent = () => {
       <button
         onClick={() => {
           console.log(input);
+          console.log(checkedlist);
         }}>
         테스트 버튼
       </button>
