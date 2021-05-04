@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Navi.scss';
 import { Link } from 'react-router-dom';
 import './SignButton.scss';
@@ -6,6 +6,10 @@ import LoginModal from '../Login-SignUp/Login/LoginModal';
 import { FiMenu } from 'react-icons/fi';
 
 const Navi = () => {
+  const [menuOpen, setNav] = useState(false);
+  const menuToggle = () => {
+    setNav((menuOpen) => !menuOpen);
+  };
   return (
     <div className='nav'>
       <ul className='nav-pills' defaultValue='/'>
@@ -31,9 +35,9 @@ const Navi = () => {
           <LoginModal />
         </li>
       </ul>
-      <div>
-        <FiMenu className='menu-icon'></FiMenu>
-      </div>
+      <button className='menu-icon' onClick={menuToggle}>
+        <FiMenu className='menu-icon-style'></FiMenu>
+      </button>
     </div>
   );
 };
