@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 import Editor from '../../../components/Quill/QuillComponents';
+import Yquill from './Yquill';
 import './Yregister.scss';
 
 const NoticeWriteComponent = () => {
@@ -297,6 +298,7 @@ const NoticeWriteComponent = () => {
       </div>
       <br />
       <h2>상세 내용</h2>
+      <Yquill></Yquill>
       <button
         onClick={() => {
           console.log(input);
