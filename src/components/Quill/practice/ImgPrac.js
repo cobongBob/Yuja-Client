@@ -1,20 +1,10 @@
-<<<<<<< HEAD:src/pages/practice/ImgPrac.js
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import ImgApiService from './ImgApiService';
 import 'react-quill/dist/quill.snow.css';
-import '../../components/scss/QuillComponents.scss';
+import '../QuillComponents.scss';
 let Image = Quill.import('formats/image');
 Image.className = 'custom-class-to-image';
-=======
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import ReactQuill, { Quill } from "react-quill";
-import ImgApiService from "./ImgApiService";
-import "react-quill/dist/quill.snow.css";
-import "../QuillComponents.scss";
-let Image = Quill.import("formats/image");
-Image.className = "custom-class-to-image";
->>>>>>> 3e5b6f8ccc0a5909c9ccf280e5038eae4db8d3bc:src/components/Quill/practice/ImgPrac.js
 Quill.register(Image, true);
 let quill;
 const ImgPrac = () => {
