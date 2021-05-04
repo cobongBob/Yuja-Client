@@ -61,7 +61,8 @@ const NonRequired = ({ location, history }) => {
     });
   };
 
-  const insertUserData = () => {
+  const insertUserData = (e) => {
+
     Object.assign(requiredData, nonRequiredData);
     const data = requiredData;
     UserApiService.addUser(data)
@@ -80,6 +81,65 @@ const NonRequired = ({ location, history }) => {
   };
   /* 이 페이지(nonRequired) 데이터 담기 끝 */
   /* 회원가입 데이터 넘겨주기 끝 */
+
+  /* 이 페이지(nonRequired) 유효성 검사 */
+  const checkNonRequiredUserData = (e) => {
+
+    let address = nonRequiredData.address
+    let phone = nonRequiredData.phone
+    let userIp = nonRequiredData.userIp
+
+    const addressCheck = /^[a-zA-Z0-9가-힣ㄱ-ㅎ ]{2,20}$/;
+    const phoneCheck = /^(01[016789]{1})\d{3,4}\d{4}$/;
+    const userIpCheck = /^(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}$/;
+
+      if(address.length !== 0 && false === addressCheck.test(address)) {
+        alert('주소를 확인해주세요!')
+        e.preventDefault();
+        return false;
+      } else if(phone.length !== 0 && false === phoneCheck.test(phone)) {
+        alert('연락처를 확인해주세요!')
+        e.preventDefault();
+        return false;
+      } else {
+        return true;
+      }
+  }
+
+  /* 사업자 등록번호 확인식 */
+  const bsnCheck = (e) => {
+    let bsn = nonRequiredData.bsn
+    const checkId = new Array(1, 3, 7, 1, 3, 7, 1, 3, 5, 1);
+    let sum = 0;
+
+    if (bsn.length !== 0) {
+      for (let i = 0; i < 9; i++) {
+        sum += (checkId[i] * Number(bsn[i]));
+      }
+      let checkSum = 0;
+      checkSum = Math.floor(checkId[8] * Number(bsn[8]) / 10);
+      sum += checkSum;
+      let reminder = (10 - (sum % 10)) % 10;
+      if (reminder === Number(bsn[9])) {
+        alert("사업자등록번호 일치")
+        return true;
+      } else {
+        alert("유효한 사업자 등록번호를 입력해주세요!")
+        e.preventDefault();
+        return false;
+      }
+    }
+    return true;
+  }
+  /* 사업자 등록번호 확인식 끝 */
+
+  const totalAction = (e) => {
+    if(checkNonRequiredUserData(e) === true && bsnCheck(e) === true) {
+      insertUserData(e);
+    }
+  }
+
+  /* 이 페이지(nonRequired) 유효성 끝 */
 
   return (
     <div className='contentBox2'>
@@ -109,7 +169,12 @@ const NonRequired = ({ location, history }) => {
               <div className='labelWrapper'>
                 <label htmlFor='signUpAddress'>주소</label>
               </div>
-              <input className='signUpAddress' name='address' type='text' placeholder='주소' onChange={changeValue} />
+              <input
+                className='signUpAddress'
+                name='address' type='text'
+                placeholder='주소'
+                onChange={changeValue}
+              />
             </td>
           </tr>
           <tr>
@@ -132,7 +197,7 @@ const NonRequired = ({ location, history }) => {
                 유튜버이신가요?{" "}
                 <input
                   className='signUpYoutuber'
-                  name='address'
+                  name='isYoutuber'
                   id='isYoutuber'
                   type='checkbox'
                   onChange={changeValue}
@@ -155,6 +220,7 @@ const NonRequired = ({ location, history }) => {
                 name='bsn'
                 id='companyRegNumInput'
                 type='tel'
+                maxLength={10}
                 placeholder='-을 제외한 10자리 숫자'
                 onChange={changeValue}
               />
@@ -177,7 +243,11 @@ const NonRequired = ({ location, history }) => {
           </div>
         </div>
         <div className='signUpSubmitBtnBox'>
-          <button type='submit' className='btn btn-warning' onClick={insertUserData}>
+          <button
+            type='submit'
+            className='btn btn-warning'
+            onClick={totalAction}
+          >
             회원가입
           </button>
         </div>
