@@ -3,22 +3,25 @@ import Editor from '../../../components/Quill/QuillComponents';
 import './Yregister.scss';
 
 const NoticeWriteComponent = () => {
+  const [tools, setTools] = useState({
+    ypremiere: false,
+    yaftereffect: false,
+    yfinalcut: false,
+    yvegas: false,
+    ypowerdirector: false,
+    yphotoshop: false,
+    yillustrater: false,
+    yblender: false,
+    ymaya: false,
+    yenddate: false,
+  });
+
   const [input, setInput] = useState({
     title: '',
     channelname: '',
     worker: '',
     workercount: '',
     careervalue: '',
-    ypremiere: '',
-    yaftereffect: '',
-    yfinalcut: '',
-    yvegas: '',
-    ypowerdirector: '',
-    yphotoshop: '',
-    yillustrater: '',
-    yblender: '',
-    ymaya: '',
-    yenddate: '',
     ywhen: '',
   });
 
@@ -40,11 +43,11 @@ const NoticeWriteComponent = () => {
 
   const checkboxCheck = (e) => {
     const { name, value, checked } = e.target;
-    setInput((prevInput) => ({
-      ...prevInput,
+    setTools((prevTools) => ({
+      ...prevTools,
       [name]: checked,
     }));
-    console.log(input);
+    console.log(tools);
   };
 
   const onSubmit = (e) => {
@@ -303,6 +306,7 @@ const NoticeWriteComponent = () => {
       <button
         onClick={() => {
           console.log(input);
+          console.log(tools);
         }}>
         테스트 버튼
       </button>
