@@ -4,9 +4,13 @@ import ImgApiService from "./ImgApiService";
 import "react-quill/dist/quill.snow.css";
 import "../QuillComponents.scss";
 import YapiService from "../../../pages/Main/Youtuber/YapiService";
+import ImageResize from "@looop/quill-image-resize-module-react";
+Quill.register("modules/imageResize", ImageResize);
+
 let Image = Quill.import("formats/image");
 Image.className = "custom-class-to-image";
 Quill.register(Image, true);
+
 let quill;
 const ImgPrac = () => {
   //단순 안의 변수의 값만 바뀌는 거라면 useRef와 useRef.current도 괜찮다.
@@ -72,6 +76,7 @@ const ImgPrac = () => {
         ],
         handlers: { image: imageHandler },
       },
+      imageResize: { modules: ["Resize"] },
     }),
     [imageHandler]
   );
@@ -112,15 +117,8 @@ const ImgPrac = () => {
       value: data,
     });
     quill.on("text-change", (delta, oldDelta, source) => {
-      const inserted = getImgUrls(delta);
-      const deleted = getImgUrls(quill.getContents().diff(oldDelta));
-      inserted.length && console.log("insert", inserted);
-      deleted.length && console.log("delete", deleted);
       setData(quill.root.innerHTML);
     });
-    function getImgUrls(delta) {
-      return delta.ops.filter((i) => i.insert && i.insert.image).map((i) => i.insert.image);
-    }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const testCheking = () => {

@@ -16,3 +16,4 @@
 - yarn add react-table
 - yarn add date-fns
 - yarn add react-quill
+- yarn add @looop/quill-image-resize-module-react
