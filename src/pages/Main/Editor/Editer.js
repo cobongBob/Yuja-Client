@@ -1,11 +1,37 @@
-import React from 'react';
-// navi에서 편집자를 누르면 보이는 전체 컴포넌트
-const Editer = () => {
-    return (
-        <div>
-            <h1>편집자 게시판</h1>
-        </div>
-    );
+import React, { useEffect, useState } from 'react';
+import { Card, CardDeck, Container } from 'react-bootstrap';
+import EditorApiService from './EditorApiService';
+
+const Editor = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    EditorApiService.getAllBoard().then((res) => {
+      //   editorBoardList.current.push(res.data);
+      setData(res.data);
+      console.log(res.data);
+    });
+  }, []);
+
+  return (
+    <div>
+      <Container>
+        {data.map((data) => (
+          <CardDeck>
+            <Card key={data.id}>
+              <Card.Img
+                variant='top'
+                src='/img/board_pic/editor_pic/thum1.png'
+              ></Card.Img>
+              <Card.Title> {data.user.title} </Card.Title>
+              <Card.Text> 희망급여 </Card.Text>
+              <Card.Footer> 좋아요 수 </Card.Footer>
+            </Card>
+          </CardDeck>
+        ))}
+      </Container>
+    </div>
+  );
 };
 
-export default Editer;
+export default Editor;
