@@ -107,7 +107,7 @@ const ImgPracModi = (props) => {
       console.log(src.substr(src.indexOf("files/temp") + 11));
     });
     // console.log(
-    //   data.replaceAll(`src="http://localhost:8888/files/temp/`, `src="http://localhost:8888/files/dens`)
+    //   data.replaceAll(`src="http://localhost:8888/files/temp/`, `src="http://localhost:8888/files/YoutuberBoard/`)
     // );
   };
 
