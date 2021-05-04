@@ -304,7 +304,6 @@ const NoticeWriteComponent = () => {
         }}>
         테스트 버튼
       </button>
-      <Editor value={desc} onChange={onEditorChange} />
     </div>
   );
 };
