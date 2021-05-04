@@ -5,6 +5,7 @@ import { FcLike, FcOk } from "react-icons/fc";
 import Footer from "../../../components/Footer";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
+import ReactQuill from "react-quill";
 
 const Ydetail = (props) => {
   // console.log(props.match);
@@ -12,6 +13,7 @@ const Ydetail = (props) => {
 
   const [data, setData] = useState({
     updatedDate: "",
+    expiredDate: "",
     title: "여기 제목",
     content: "여긴 내용",
     hit: 3,
@@ -21,6 +23,7 @@ const Ydetail = (props) => {
   useEffect(() => {
     YapiService.fetchBoard(props.match.params.board_id).then((res) => {
       setData(res.data);
+      console.log(data);
     });
   }, []);
 
@@ -62,10 +65,17 @@ const Ydetail = (props) => {
               </div>
             </div>
             <div className='detail-date'>
-              {data.updatedDate !== null ? data.updatedDate.substr(0, 10) : ""} ~ 마감일
+              {data.updatedDate !== null ? data.updatedDate.substr(0, 10) : ""} ~{" "}
+              {data.expiredDate !== null ? data.expiredDate.substr(0, 10) : "상시채용"}
             </div>
             <div className='detail-content'>
-              <div className='detail-content-default'> 기본내용 </div>
+              <div className='detail-content-default'>
+                {" "}
+                기본내용{" "}
+                <div>
+                  <ReactQuill value={data.content} readOnly={true} theme={"bubble"} />
+                </div>{" "}
+              </div>
               <div className='detail-content-detail'> 추가내용 </div>
             </div>
           </div>

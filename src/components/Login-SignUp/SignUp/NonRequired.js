@@ -1,6 +1,6 @@
-import React, { useCallback, useRef, useState } from 'react';
-import UserApiService from './UserApiService';
-import './SignUp1.scss';
+import React, { useCallback, useRef, useState } from "react";
+import UserApiService from "./UserApiService";
+import "./SignUp1.scss";
 
 const NonRequired = ({ location, history }) => {
   /* 파일 업로드 미리보기 관련 */

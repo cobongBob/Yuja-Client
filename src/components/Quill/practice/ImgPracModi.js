@@ -9,6 +9,8 @@ Image.className = "custom-class-to-image";
 Quill.register(Image, true);
 let quill;
 const ImgPracModi = (props) => {
+  const addingFileList = useRef([]);
+  const deletedFileList = useRef([]);
   const imageHandler = useCallback(() => {
     const input = document.createElement("input");
 
@@ -33,6 +35,7 @@ const ImgPracModi = (props) => {
             quill.setSelection(range.index + 1);
             quill.deleteText(range.index, 1);
             quill.insertEmbed(range.index, "image", `http://localhost:8888/files/temp/${response.data[0].fileName}`);
+            addingFileList.current.push(response.data[0].attachId);
           }
         })
         .catch((error) => {
@@ -84,7 +87,8 @@ const ImgPracModi = (props) => {
     YapiService.fetchBoard(props.match.params.board_id).then((res) => {
       fileList.current = res.data.boardAttachFileNames;
       quill.root.innerHTML = res.data.content;
-      console.log(res);
+      setNewData(res.data.content);
+      console.log(res.data);
     });
 
     let container = document.getElementById("ReactQuill");
@@ -100,15 +104,28 @@ const ImgPracModi = (props) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const testCheking = () => {
-    let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
-    let imgSrcArr = String(newData).match(reg);
-    console.log(imgSrcArr);
-    imgSrcArr.forEach((src) => {
-      console.log(src.substr(src.indexOf("files/temp") + 11));
+    let currentBoardType = "YoutuberBoard/";
+    let reg = /http:\/\/localhost:8888\/files\/YoutuberBoard\/[0-9]+.[a-z]+/g;
+    let imgSrcArr = String(newData).match(reg); // 현재 쓰인 글에 존재하는 이미지 태그들의 src
+    // 서버에서 날아온 이미지 이름과 비교한다. 없으면 삭제된것이므로 삭제 리스트에 담아준다.
+    fileList.current.forEach((src) => {
+      if (!imgSrcArr.includes(`http://localhost:8888/files/${currentBoardType}${src}`)) {
+        deletedFileList.current.push(src);
+      }
     });
-    // console.log(
-    //   data.replaceAll(`src="http://localhost:8888/files/temp/`, `src="http://localhost:8888/files/YoutuberBoard/`)
-    // );
+
+    const modifyingData = {
+      title: "수정테스트1",
+      content: newData.replaceAll(
+        `src="http://localhost:8888/files/temp/`,
+        `src="http://localhost:8888/files/YoutuberBoard/`
+      ),
+      thumbnail: "썸네일 수정 테스트",
+      expiredDate: "2021-06-24",
+      boardAttachIds: addingFileList.current,
+      boardAttachToBeDeleted: deletedFileList.current,
+    };
+    YapiService.modifyBoard(props.match.params.board_id, modifyingData);
   };
 
   return (
