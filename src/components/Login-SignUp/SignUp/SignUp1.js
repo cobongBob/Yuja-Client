@@ -11,7 +11,7 @@ const SignUp1 = () => {
   return (
     <div className="SignUpFrag">
       <header className="SignUpHeader">
-        <img className="SignUpIcon" src="/img/parts_pic/yuzu05.png" />{" "}
+        {/*<img className="SignUpIcon" src="/img/parts_pic/yuzu05.png" />{" "}*/}
         <div className="header-title">유자 회원가입</div>
         {/*<div className="signUpBar">*/}
         {/*  <div className="bar1"></div>*/}

@@ -62,6 +62,7 @@ const NonRequired = ({ location, history }) => {
   };
 
   const insertUserData = (e) => {
+
     Object.assign(requiredData, nonRequiredData);
     const data = requiredData;
     UserApiService.addUser(data)
@@ -89,16 +90,20 @@ const NonRequired = ({ location, history }) => {
     let userIp = nonRequiredData.userIp
 
     const addressCheck = /^[a-zA-Z0-9가-힣ㄱ-ㅎ ]{2,20}$/;
-    const phoneCheck =  /^\d{3}\d{3,4}\d{4}$/;
+    const phoneCheck = /^(01[016789]{1})\d{3,4}\d{4}$/;
     const userIpCheck = /^(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}$/;
 
-    if(false === addressCheck.test(address)) {
-      alert('주소를 확인해주세요!')
-      e.preventDefault();
-    } else if(false === phoneCheck.test(phone)) {
-      alert('연락처를 확인해주세요!')
-      e.preventDefault();
-    }
+      if(address.length !== 0 && false === addressCheck.test(address)) {
+        alert('주소를 확인해주세요!')
+        e.preventDefault();
+        return false;
+      } else if(phone.length !== 0 && false === phoneCheck.test(phone)) {
+        alert('연락처를 확인해주세요!')
+        e.preventDefault();
+        return false;
+      } else {
+        return true;
+      }
   }
 
   /* 사업자 등록번호 확인식 */
@@ -124,8 +129,15 @@ const NonRequired = ({ location, history }) => {
         return false;
       }
     }
+    return true;
   }
   /* 사업자 등록번호 확인식 끝 */
+
+  const totalAction = (e) => {
+    if(checkNonRequiredUserData(e) === true && bsnCheck(e) === true) {
+      insertUserData(e);
+    }
+  }
 
   /* 이 페이지(nonRequired) 유효성 끝 */
 
@@ -185,7 +197,7 @@ const NonRequired = ({ location, history }) => {
                 유튜버이신가요?{" "}
                 <input
                   className='signUpYoutuber'
-                  name='address'
+                  name='isYoutuber'
                   id='isYoutuber'
                   type='checkbox'
                   onChange={changeValue}
@@ -234,9 +246,7 @@ const NonRequired = ({ location, history }) => {
           <button
             type='submit'
             className='btn btn-warning'
-            onClick={insertUserData}
-            onClick={bsnCheck}
-            onClick={checkNonRequiredUserData}
+            onClick={totalAction}
           >
             회원가입
           </button>

@@ -573,6 +573,7 @@ const Agreement = ({ history }) => {
   let requiredOneIsChecked = checkBoxes[0].isChecked
   let requiredTwoIsChecked = checkBoxes[1].isChecked
   const isAllRequiredChecked = (e) => {
+    console.log(next)
     if(true !== requiredOneIsChecked || true !== requiredTwoIsChecked) {
       alert("필수 항목에 모두 동의 해주세요.")
       e.preventDefault();
@@ -587,6 +588,12 @@ const Agreement = ({ history }) => {
 
   return (
     <div className="contentBox3">
+      <div className='dotBox'>
+        <div className='dot1'/>
+        <div className='dot2'/>
+        <div className='dot3'/>
+        <div className='dot4'/>
+      </div>
       <div className="overlay">
     <div className="agreement">
       <div className="required3">

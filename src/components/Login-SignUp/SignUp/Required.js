@@ -13,6 +13,7 @@ const Required = ({ location }) => {
     bday: '',
     nickname: ''
   });
+
   const changeValue = (e) => {
     setrequiredData({
       ...requiredData,
