@@ -142,7 +142,7 @@ const ImgPrac = () => {
       </div>
       <div>
         <div>
-          <button onClick={testCheking}>확인</button>
+          <button onClick={testCheking}>전송</button>
         </div>
       </div>
     </div>
