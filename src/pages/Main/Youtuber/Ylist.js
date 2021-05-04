@@ -31,7 +31,7 @@ const Ylist = () => {
           </Card.Header>
           <Card.Body>
             <Card.Title>
-              <Link to='/Ydetail/:id'>{data.title}</Link>
+              <Link to='/Ydetail/'>{data.title}</Link>
             </Card.Title>
             <hr />
             <ol>

@@ -5,11 +5,13 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import YapiService from '../../../pages/Main/Youtuber/YapiService';
 import { Quill } from 'react-quill';
-import ImgApiService from './ImgApiService';
 import 'react-quill/dist/quill.snow.css';
 import '../QuillComponents.scss';
-import YapiService from '../../../pages/Main/Youtuber/YapiService';
+import ImgApiService from './ImgApiService';
+import ImageResize from '@looop/quill-image-resize-module-react';
+Quill.register('modules/imageResize', ImageResize);
 let Image = Quill.import('formats/image');
 Image.className = 'custom-class-to-image';
 Quill.register(Image, true);
