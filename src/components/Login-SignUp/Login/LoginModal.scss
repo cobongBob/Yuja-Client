@@ -107,6 +107,10 @@ section > footer {
   overflow: hidden;
 }
 
+.ReactModal__Body--after-open {
+  overflow-y:hidden;
+}
+
 .ReactModal__Overlay {
   opacity: 0;
   transition: opacity 500ms;
@@ -114,6 +118,7 @@ section > footer {
 
 .ReactModal__Overlay--after-open{
   opacity: 1;
+  overflow-y:hidden;
 }
 
 .ReactModal__Overlay--before-close{
