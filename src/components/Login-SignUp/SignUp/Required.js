@@ -69,9 +69,10 @@ const Required = ({ location }) => {
   /* 유효성 검사 끝*/
 
   return (
-    <div className='contentBox1'>
+    <div className='contentBox2'>
       <div className='overlay'>
-        <div className='required'>* 필수입력 정보입니다.</div>
+        <div className='required'>* 필수입력 정보입니다.
+        </div>
         <table className='signUpTable'>
           <tr>
             <td>
