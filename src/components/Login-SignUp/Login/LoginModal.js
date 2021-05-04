@@ -14,6 +14,7 @@ const customStyles = {
     transform: 'translate(-50%, -50%)',
     overflow: 'auto',
     WebkitOverflowScrolling: 'touch',
+    preventScroll: 'true'
   },
   overlay: { zIndex: 9999 },
 };
