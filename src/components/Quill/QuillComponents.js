@@ -1,9 +1,9 @@
-import React, { Component, useState } from "react";
-import { Button } from "react-bootstrap";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import "./QuillComponents.scss";
-import YapiService from "../../pages/Main/Youtuber/YapiService";
+import React, { Component, useState } from 'react';
+import { Button } from 'react-bootstrap';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import './QuillComponents.scss';
+import YapiService from '../../pages/Main/Youtuber/YapiService';
 
 const QuillComponents = () => {
   const modules = {
