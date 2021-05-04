@@ -75,7 +75,7 @@ const Ytable = () => {
   return (
     <>
       <div className='YtableHeader'>
-        <h1>유튜버 게시판</h1>
+        <h1>공고보기</h1>
         <Link className='LinkWrite' to='/Yregister'>
           {' '}
           글쓰기
@@ -90,7 +90,8 @@ const Ytable = () => {
                 <th
                   {...column.getHeaderProps(
                     column.getSortByToggleProps({ title: undefined })
-                  )}>
+                  )}
+                >
                   {column.render('Header')}
                 </th>
               ))}
@@ -125,7 +126,8 @@ const Ytable = () => {
           </button>
           <button
             onClick={() => gotoPage(pageCount - 1)}
-            disabled={!canNextPage}>
+            disabled={!canNextPage}
+          >
             {'>>'}
           </button>
         </div>
@@ -151,7 +153,8 @@ const Ytable = () => {
 
         <select
           value={pageSize}
-          onChange={(e) => setPageSize(Number(e.target.value))}>
+          onChange={(e) => setPageSize(Number(e.target.value))}
+        >
           {[10, 25, 50].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
               {pageSize} 개씩 보기
