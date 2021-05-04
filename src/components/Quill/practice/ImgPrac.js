@@ -15,6 +15,8 @@ Image.className = 'custom-class-to-image';
 Quill.register(Image, true);
 let quill;
 const ImgPrac = () => {
+  //단순 안의 변수의 값만 바뀌는 거라면 useRef와 useRef.current도 괜찮다.
+  const addingFileList = useRef([]);
   //imageHandler같은 함수는 useCallback로 감싸서 렌더링될때 한번만 실행되게 해야한다.
   const imageHandler = useCallback(() => {
     //Quill 기존의 이미지 업로드는 base64인코딩후 그걸 그대로 텍스트 안에 삽입하게 되는데
@@ -24,6 +26,7 @@ const ImgPrac = () => {
 
     input.setAttribute('type', 'file');
     input.setAttribute('accept', 'image/png, image/jpeg, image/gif');
+
     //모든파일을 클릭해 이상한 파일을 삽입할수 있으므로 정규식으로 xss공격에 대비해야한다.
     input.click();
 
@@ -57,6 +60,8 @@ const ImgPrac = () => {
               'image',
               `http://localhost:8888/files/temp/${response.data[0].fileName}`
             );
+            // console.log(response.data[0]);
+            addingFileList.current.push(response.data[0].attachId);
             // 파일을 서버단의 static에 저장할거라면
             // quill.insertEmbed(range.index, "image", "http://localhost:8888/static/imgs/test.png");
             // quill.insertEmbed(range.index, "image", `http://localhost:8888/imgs/${response.data[0].fileName}`);
@@ -142,18 +147,15 @@ const ImgPrac = () => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const testCheking = () => {
-    setData(
-      data.replaceAll(
-        `src="http://localhost:8888/files/temp/`,
-        `src="http://localhost:8888/files/YoutuberBoard/`
-      )
-    );
     const sendingData = {
       userId: 1,
       title: '제목테스트1',
-      content: data,
+      content: data.replaceAll(
+        `src="http://localhost:8888/files/temp/`,
+        `src="http://localhost:8888/files/YoutuberBoard/`
+      ), //업로드된 이미지들은 temp가 아닌 YoutuberBoard에 저장된다.
       thumbnail: '썸네일테스트',
-      boardAttachIds: [68, 69, 70],
+      boardAttachIds: addingFileList.current,
     };
     YapiService.addBoards(sendingData);
   };

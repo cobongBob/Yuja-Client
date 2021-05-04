@@ -176,7 +176,8 @@ const Required = ({ location }) => {
               },
             }}
             className='btn btn-warning'
-            onClick={checkRequiredUserData}>
+            // onClick={checkRequiredUserData}
+          >
             다음
           </Link>
         </div>
