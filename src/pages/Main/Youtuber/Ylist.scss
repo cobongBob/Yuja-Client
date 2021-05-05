@@ -1,3 +1,30 @@
 .YlistWrapper {
   text-align: center;
 }
+
+.card-body {
+  display: block;
+}
+
+.card-body > ol {
+  padding: 0;
+  margin: 0;
+}
+
+.card-body > hr {
+  border-bottom: 3px double #bbb;
+}
+
+.YlistWrapper > .card {
+  margin-top: 2%;
+  padding: 0;
+}
+
+.card > .card-footer {
+  padding: 0;
+  padding-top: 5%;
+}
+
+.card-footer > p {
+  margin: 0;
+}
