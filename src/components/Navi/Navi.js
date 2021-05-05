@@ -6,10 +6,6 @@ import LoginModal from '../Login-SignUp/Login/LoginModal';
 import { FiMenu } from 'react-icons/fi';
 
 const Navi = () => {
-  const [menuOpen, setNav] = useState(false);
-  const menuToggle = () => {
-    setNav((menuOpen) => !menuOpen);
-  };
   return (
     <div className='nav'>
       <ul className='nav-pills' defaultValue='/'>
@@ -35,7 +31,7 @@ const Navi = () => {
           <LoginModal />
         </li>
       </ul>
-      <button className='menu-icon' onClick={menuToggle}>
+      <button className='menu-icon'>
         <FiMenu className='menu-icon-style'></FiMenu>
       </button>
     </div>
