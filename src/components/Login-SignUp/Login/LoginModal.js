@@ -65,12 +65,12 @@ function LoginModal() {
       <button className='button-login' id='button-login' onClick={openModal}>
         로그인/회원가입
       </button>
-      <button className='button-login' onClick={checkLogin}>
+      {/* <button className='button-login' onClick={checkLogin}>
         로그인체크
       </button>
       <button className='button-login' onClick={logout}>
         로그아웃
-      </button>
+      </button> */}
 
       <Modal
         isOpen={modalIsOpen}
