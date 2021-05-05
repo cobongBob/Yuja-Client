@@ -14,35 +14,36 @@ import './Ylist.scss';
 
 const Ylist = () => {
   const [data, setData] = useState([]);
+
   const [currentPage, setCurrentPage] = useState(1);
-  const [dataPerPage] = useState(11);
+  const [dataPerPage, setDataPerPage] = useState(5);
 
   const [pageNumberLimit, setPageNumberLimit] = useState(5);
   const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(5);
   const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
+
+  const indexOfLastData = currentPage * dataPerPage;
+  const indexOfFirstData = indexOfLastData - dataPerPage;
+  const currentData = data.slice(indexOfFirstData, indexOfLastData);
 
   const handleClick = (event) => {
     setCurrentPage(Number(event.target.id));
   };
 
   const pages = [];
-  for (let i = 1; i < Math.ceil(data.length / dataPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(data.length / dataPerPage); i++) {
     pages.push(i);
   }
 
-  const indexOfLastData = currentPage * dataPerPage;
-  const indexOfFirstData = indexOfLastData - dataPerPage;
-  const currentData = data.slice(indexOfFirstData, indexOfLastData);
-
   const renderPageNumbers = pages.map((number) => {
+    console.log(pages);
     if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
       return (
         <li
           key={number}
           id={number}
           onClick={handleClick}
-          className={currentPage == number ? 'active' : null}
-        >
+          className={currentPage == number ? 'active' : null}>
           {number}
         </li>
       );
@@ -50,8 +51,6 @@ const Ylist = () => {
       return null;
     }
   });
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     YapiService.fetchBoards().then((res) => {
@@ -125,8 +124,7 @@ const Ylist = () => {
           <li>
             <button
               onClick={handlePrevbtn}
-              disabled={currentPage == pages[0] ? true : false}
-            >
+              disabled={currentPage == pages[0] ? true : false}>
               {/* 호버시 이미지 바꾸기 해야함..... */}
               <RiArrowLeftCircleLine className='icon-arrow' />
               <RiArrowLeftCircleFill className='icon-arrow-hover' />
@@ -138,11 +136,10 @@ const Ylist = () => {
           <li>
             <button
               onClick={handleNextbtn}
-              disabled={currentPage == pages[pages.length - 1] ? true : false}
-            >
+              disabled={currentPage == pages[pages.length - 1] ? true : false}>
               <div>
-                <RiArrowRightCircleLine className='icon-arrow' />
                 <RiArrowRightCircleFill className='icon-arrow-hover' />
+                <RiArrowRightCircleLine className='icon-arrow' />
               </div>
             </button>
           </li>
