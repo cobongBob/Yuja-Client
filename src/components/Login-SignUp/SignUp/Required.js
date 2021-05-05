@@ -36,7 +36,6 @@ const Required = ({ location }) => {
     let nick = requiredData.nickname;
 
     const emailCheck = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-    const testPassCheck = /^[a-zA-Z0-9]{4,10}$/; /* (4자~10자, 숫자랑 영어만) 테스트용 비밀번호 정규식 */
     const passCheck = /^(?=.*?[a-z])(?=.*?[#?!@$%^&*-])(?=.*?[0-9]).{8,}$/; /* 비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다. */
     const nameCheck = /^[a-zA-Z가-힣]{2,10}$/;
     const birthCheck = /^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/;
@@ -69,9 +68,10 @@ const Required = ({ location }) => {
   /* 유효성 검사 끝*/
 
   return (
-    <div className='contentBox1'>
+    <div className='contentBox2'>
       <div className='overlay'>
-        <div className='required'>* 필수입력 정보입니다.</div>
+        <div className='required'>* 필수입력 정보입니다.
+        </div>
         <table className='signUpTable'>
           <tr>
             <td>

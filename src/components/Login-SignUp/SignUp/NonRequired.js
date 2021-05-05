@@ -1,6 +1,7 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import UserApiService from './UserApiService';
 import './SignUp1.scss';
+import axios from 'axios';
 
 const NonRequired = ({ location, history }) => {
   /* 파일 업로드 미리보기 관련 */
@@ -8,17 +9,42 @@ const NonRequired = ({ location, history }) => {
   const [file2, setFile2] = useState();
   const [previewURL, setpreviewUrl] = useState();
   const [previewURL2, setpreviewUrl2] = useState();
+  const profilePicId = useRef("");
 
   const handleFileOnChange = (e) => {
     e.preventDefault();
     let reader = new FileReader();
     let file = e.target.files[0];
+    console.log(file)
+
     reader.onloadend = () => {
       setFile(file);
       setpreviewUrl(reader.result);
     };
+
     reader.readAsDataURL(file);
+
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+      }
+    };
+
+    if(e.target.files !== null) {
+      console.log("파일 업로드 시작")
+      const fd = new FormData();
+      fd.append('file', file);
+      const res = UserApiService.addProfileImg(fd, config)
+        .then(
+          (response) => {
+            profilePicId.current = response.data.profilePicId;
+            console.log(1,response.data.profilePicId)
+            console.log(profilePicId.current)
+          }
+        )
+    }
   };
+
   const handleFileOnChange2 = (e) => {
     e.preventDefault();
     let reader2 = new FileReader();
@@ -54,6 +80,7 @@ const NonRequired = ({ location, history }) => {
     isYoutuber: '',
     bsn: '',
     userIp: '127.5.0.5',
+    profilePicId: profilePicId.current
   });
 
   const changeValue = (e) => {
@@ -64,8 +91,9 @@ const NonRequired = ({ location, history }) => {
   };
 
   const insertUserData = (e) => {
-    Object.assign(requiredData, nonRequiredData);
-    const data = requiredData;
+    // Object.assign({...requiredData, ...nonRequiredData,profilePicId: profilePicId.current});
+    const data = {...requiredData, ...nonRequiredData,profilePicId: profilePicId.current};
+    console.log(data)
     UserApiService.addUser(data)
       .then((r) => {
         console.log(r);
