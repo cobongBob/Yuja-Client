@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
-import "./LoginModal.scss";
-import "../../Navi/SignButton.scss"
+import './LoginModal.scss';
+import '../../Navi/Navi.scss';
 import { Route, Link } from 'react-router-dom';
 
 const customStyles = {
@@ -16,7 +16,7 @@ const customStyles = {
     WebkitOverflowScrolling: 'touch',
     preventScroll: 'true'
   },
-  overlay: {zIndex: 9999}
+  overlay: { zIndex: 9999 },
 };
 
 function LoginModal() {

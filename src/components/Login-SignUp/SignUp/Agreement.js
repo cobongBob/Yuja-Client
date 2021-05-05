@@ -639,6 +639,9 @@ const Agreement = ({ history }) => {
           다음</Link>
         </div>
       </div>
+      <footer>
+        이미 회원이신가요? 로그인
+      </footer>
     </div>
   );
 };

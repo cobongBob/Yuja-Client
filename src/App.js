@@ -55,6 +55,6 @@ function App({ location }) {
       </div>
     </div>
   );
-}
+};
 
 export default withRouter(App);
