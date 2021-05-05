@@ -28,3 +28,35 @@
 .card-footer > p {
   margin: 0;
 }
+
+.YpageNumbers {
+  list-style: none;
+  display: flex;
+}
+
+.YpageNumbers > li {
+  padding: 10px;
+  border: 2px solid powderblue;
+  cursor: pointer;
+}
+
+.YpageNumbers > li.active {
+  background-color: powderblue;
+  color: black;
+}
+
+.YpageNumbers > li > button {
+  background-color: white;
+  border: none;
+  color: black;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.YpageNumbers > li > button:hover {
+  background-color: black;
+  color: white;
+}
+
+.YpageNumbers > li > button:focus {
+  outline: none;
+}
