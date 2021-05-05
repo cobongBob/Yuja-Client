@@ -1,38 +1,31 @@
-import React, { useCallback, useState } from "react";
+import React, { useState, useCallback } from "react";
 import Modal from "react-modal";
 import "./LoginModal.scss";
 import "../../Navi/Navi.scss";
-import { Route, Link } from "react-router-dom";
-import axios from "axios";
+import { Link } from "react-router-dom";
 import AuthenticationService from "./AuthenticationService";
 
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "80%",
-    bottom: "-12%",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    overflow: "auto",
-    WebkitOverflowScrolling: "touch",
-    preventScroll: "true",
-  },
-  overlay: { zIndex: 9999 },
-};
-
 function LoginModal() {
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "80%",
+      bottom: "-12%",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      overflow: "auto",
+      WebkitOverflowScrolling: "touch",
+      preventScroll: "true",
+    },
+    overlay: { zIndex: 9999 },
+  };
+
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
     setIsOpen(true);
   }
-
-  function onAfterOpen() {}
-
-  function onAfterClose() {}
-
-  function afterOpenModal() {}
 
   function closeModal() {
     setIsOpen(false);
@@ -69,7 +62,7 @@ function LoginModal() {
 
   return (
     <>
-      <button className='button-login' onClick={openModal}>
+      <button className='button-login' id='button-login' onClick={openModal}>
         로그인/회원가입
       </button>
       <button className='button-login' onClick={checkLogin}>

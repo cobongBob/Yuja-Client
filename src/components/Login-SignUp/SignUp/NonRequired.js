@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import UserApiService from './UserApiService';
 import './SignUp1.scss';
-import axios from 'axios';
 
 const NonRequired = ({ location, history }) => {
   /* 파일 업로드 미리보기 관련 */

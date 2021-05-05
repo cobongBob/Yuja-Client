@@ -231,16 +231,14 @@ input::placeholder {
   width:100%;
 }
 
-  /* Number input 화살표 삭제용 */
-
+/* Number input 화살표 삭제용 */
 SignUp1 > input[type='number']::-webkit-outer-spin-button,
 input[type='number']::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-/* Wrapper들 */
-
+/* 회원가입 전체 페이지 반응형 */
 @media screen and (max-width: 1480px) {
   .overlay {
     width:350px;
@@ -251,4 +249,10 @@ input[type='number']::-webkit-inner-spin-button {
       margin-top: 1%;
       margin-bottom: 1%;
   }
+}
+
+/* footer */
+.SignUpFooter {
+  text-align: center;
+  margin-top: 2%;
 }

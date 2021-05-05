@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from 'react';
 import Logo from "./components/Logo/Logo";
 import VideoBox from "./pages/VideoBox/VideoBox";
 import "./App.css";
@@ -21,14 +21,41 @@ import Switch from "react-bootstrap/Switch";
 import YmodifyTest from "./pages/Main/Modify/YmodifyTest";
 import ImgPrac from "./components/Quill/practice/ImgPrac";
 import ImgPracModi from "./components/Quill/practice/ImgPracModi";
+import { useHistory, useLocation  } from 'react-router-dom'
+import LoginModal from './components/Login-SignUp/Login/LoginModal';
 
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
 
-function App({ location }) {
+function App() {
+
+  /* history 관련 */
+  const usePrevious = (value) => {
+    const ref = React.useRef()
+    React.useEffect(() => { ref.current = value })
+
+    return ref.current
+  }
+  const location = useLocation()
+  const prevLocation = usePrevious(location.pathname)
+
+  console.log(location.pathname)
+
+  function forcedClickEvent() {
+    console.log("강제클릭실행")
+    document.getElementById('nav-login').click();
+  }
+
+  const modalRef = useRef();
+
   return (
     <div>
-      <Navi></Navi>
-      {exceptArray.indexOf(location.pathname) < 0 && <Logo />}
+      {exceptArray.indexOf(location.pathname) < 0 && <Navi/>}
+      {exceptArray.indexOf(location.pathname) < 0 && <Logo/>}
+      {console.log("전페이지", prevLocation)}
+      {console.log("포함?", exceptArray.includes(prevLocation))}
+      {exceptArray.includes(prevLocation) === true && location.pathname === '/' ?
+        modalRef.current.open() : console.log('그냥 왔군')}
+      <LoginModal ref={modalRef}></LoginModal>
       <Route path='/' exact>
         <div className='allBoard'>
           <VideoBox></VideoBox>
