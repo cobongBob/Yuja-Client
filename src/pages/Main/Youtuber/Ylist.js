@@ -16,7 +16,7 @@ const Ylist = () => {
   const [data, setData] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [dataPerPage, setDataPerPage] = useState(5);
+  const [dataPerPage, setDataPerPage] = useState(10);
 
   const [pageNumberLimit, setPageNumberLimit] = useState(5);
   const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(5);
