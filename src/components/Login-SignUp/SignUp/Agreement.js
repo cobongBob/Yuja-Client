@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import './SignUp1.scss';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Agreement = ({ history }) => {
 
@@ -639,8 +639,11 @@ const Agreement = ({ history }) => {
           다음</Link>
         </div>
       </div>
-      <footer>
-        이미 회원이신가요? 로그인
+      <footer className='SignUpFooter'>
+          <Link
+            to='/'
+          >이미 회원이신가요? 로그인
+        </Link>
       </footer>
     </div>
   );
