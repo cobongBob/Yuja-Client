@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef } from "react";
 import Logo from "./components/Logo/Logo";
 import VideoBox from "./pages/VideoBox/VideoBox";
 import "./App.css";
@@ -21,30 +21,33 @@ import Switch from "react-bootstrap/Switch";
 import YmodifyTest from "./pages/Main/Modify/YmodifyTest";
 import ImgPrac from "./components/Quill/practice/ImgPrac";
 import ImgPracModi from "./components/Quill/practice/ImgPracModi";
-import { useHistory, useLocation  } from 'react-router-dom'
-import LoginModal from './components/Login-SignUp/Login/LoginModal';
+import instance from "./AxiosConfig.js";
+import { useHistory, useLocation } from "react-router-dom";
+import LoginModal from "./components/Login-SignUp/Login/LoginModal";
 
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
 
 function App() {
-
   /* history 관련 */
   const usePrevious = (value) => {
-    const ref = React.useRef()
-    React.useEffect(() => { ref.current = value })
-    return ref.current
-  }
+    const ref = React.useRef();
+    React.useEffect(() => {
+      ref.current = value;
+    });
+    return ref.current;
+  };
 
-  const location = useLocation()
-  const prevLocation = usePrevious(location.pathname)
+  const location = useLocation();
+  const prevLocation = usePrevious(location.pathname);
 
   return (
     <div>
-      {exceptArray.indexOf(location.pathname) < 0 && <Navi/>}
-      {exceptArray.indexOf(location.pathname) < 0 && <Logo/>}
+      {exceptArray.indexOf(location.pathname) < 0 && <Navi />}
+      {exceptArray.indexOf(location.pathname) < 0 && <Logo />}
       {console.log("전페이지", prevLocation)}
-      {exceptArray.includes(prevLocation) === true && location.pathname === '/' ?
-        console.log('회원가입에서 왔군') : console.log('그냥 왔군')}
+      {exceptArray.includes(prevLocation) === true && location.pathname === "/"
+        ? console.log("회원가입에서 왔군")
+        : console.log("그냥 왔군")}
       <Route path='/' exact>
         <div className='allBoard'>
           <VideoBox></VideoBox>
@@ -71,6 +74,6 @@ function App() {
       </div>
     </div>
   );
-};
+}
 
 export default withRouter(App);

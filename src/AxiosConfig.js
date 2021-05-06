@@ -11,12 +11,22 @@ instance.interceptors.request.use(
     const token = localStorage.getItem("token");
     if (token) {
       config.headers["Authorization"] = "Bearer " + token;
-      console.log(token);
     }
     return config;
   },
   (error) => {
     Promise.reject(error);
+  }
+);
+
+instance.interceptors.response.use(
+  (response) => {
+    // 응답 데이터를 가공
+    return response;
+  },
+  (error) => {
+    // 로그인으로 이동
+    return Promise.reject(error);
   }
 );
 

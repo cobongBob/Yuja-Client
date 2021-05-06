@@ -10,30 +10,10 @@ class AuthenticationService {
     console.log("===registerSuccessfulLoginForJwt===");
     localStorage.setItem("token", token);
     localStorage.setItem("authenticatedUser", username);
-    this.setupAxiosInterceptors();
   }
 
   createJWTToken(token) {
     return "Bearer " + token;
-  }
-
-  setupAxiosInterceptors() {
-    console.log(11111);
-    axios.interceptors.request.use(
-      (config) => {
-        console.log(22222, config);
-        const token = localStorage.getItem("token");
-        if (token) {
-          config.headers["Authorization"] = "Bearer " + token;
-          console.log(333333, config);
-        }
-        return config;
-      },
-      (error) => {
-        console.log(333333, error);
-        Promise.reject(error);
-      }
-    );
   }
 
   logout() {
