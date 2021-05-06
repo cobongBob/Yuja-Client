@@ -23,15 +23,15 @@ class YapiService {
   }
 
   async modifyBoard(board_id, data) {
-    return await instance.put({
-      url: BoardType + '/board',
+    return await instance({
+      url: BoardType + '/board/' + board_id,
       method: 'put',
       data: data,
     });
   }
 
   async deleteBoard(board_id) {
-    return await instance.delete({
+    return await instance({
       url: BoardType + '/board/' + board_id,
       method: 'delete',
     });
