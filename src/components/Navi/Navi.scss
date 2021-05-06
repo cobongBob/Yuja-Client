@@ -10,46 +10,45 @@
   height: 3.5rem;
   top: 0;
   border-bottom: 1px solid #ff9411;
-}
 
-.nav-pills {
-  font-size: 19px;
-  display: inline;
-  float: left;
-  text-decoration: none !important;
-  .nav-link {
-    display: inline-block;
-    margin-top: 5px;
-    color: #ff9411;
-    &:hover {
-      background-color: #ff9411;
-      color: white;
+  .nav-pills {
+    font-size: 19px;
+    display: inline;
+    float: left;
+    text-decoration: none !important;
+    .nav-link {
+      display: inline-block;
+      margin-top: 5px;
+      color: #ff9411;
+      &:hover {
+        background-color: #ff9411;
+        color: white;
+      }
     }
   }
-}
 
-.nav-login {
-  display: inline;
-  float: right;
-  color: black;
-  .button-login {
-    display: inline-block;
-    margin-right: 22vh;
-    margin-top: 5px;
-    border-radius: 0.25rem;
-    padding: 0.5rem 1rem;
-    color: #ff9411;
-    background-color: transparent;
-    border: none;
-    &:hover {
-      padding: 0.5rem 1rem;
+  .nav-login {
+    display: inline;
+    float: right;
+    color: black;
+    .button-login {
+      display: inline-block;
+      margin-right: 22vh;
+      margin-top: 5px;
       border-radius: 0.25rem;
-      background-color: #ff9411;
-      color: white;
+      padding: 0.5rem 1rem;
+      color: #ff9411;
+      background-color: transparent;
+      border: none;
+      &:hover {
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        background-color: #ff9411;
+        color: white;
+      }
     }
   }
 }
-
 .nav-login > button {
   margin: 0;
 }
@@ -80,7 +79,6 @@
     display: grid !important;
     position: fixed;
     padding-left: 1rem !important;
-    list-style: none !important;
     z-index: 3;
     background-color: white;
     font-family: 'scdream5';
@@ -88,44 +86,40 @@
     height: 3.5rem;
     top: 0;
     border-bottom: 1px solid #ff9411;
-  }
 
-  .nav-pills {
-    position: absolute;
-    font-size: 19px;
-    display: block;
-    text-decoration: none !important;
-    flex-direction: column;
-    width: 10rem;
-    opacity: 0;
-    .nav-link {
-      margin-top: 5px;
-      color: #ff9411;
-    }
-  }
-  .nav-login {
-    display: inline;
-    color: black;
-    width: 30rem;
-    .button-login {
+    .nav-pills {
+      position: absolute;
+      padding-left: 3rem;
+      padding-top: 3.5rem;
+      font-size: 19px;
+      flex-direction: column;
+      text-decoration: none !important;
       display: inline-block;
-      margin-top: 5px;
-      border-radius: 0.25rem;
-      padding: 0.5rem 1rem;
-      color: #ff9411;
-      background-color: transparent;
-      border: none;
-      &:hover {
-        padding: 0.5rem 1rem;
-        border-radius: 0.25rem;
-        background-color: #ff9411;
-        color: white;
+      .nav-link {
+        list-style: none !important;
+        display: block;
+        margin-top: 5px;
+        color: #ff9411;
+      }
+      .nav-login {
+        display: inline-block;
+        float: none;
+        color: black;
+        .button-login {
+          margin-top: 5px;
+          border-radius: 0.25rem;
+          color: #ff9411;
+          border: none;
+          &:hover {
+            border-radius: 0.25rem;
+            background-color: #ff9411;
+            color: white;
+          }
+        }
       }
     }
-  }
-  .menu-icon {
-    display: block;
-    @keyframes menu-list {
+    .menu-icon {
+      display: inline-block;
     }
   }
 }
