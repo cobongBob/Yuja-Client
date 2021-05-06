@@ -1,26 +1,40 @@
-import instance from "../../../AxiosConfig.js";
+import instance from '../../../AxiosConfig.js';
 const BoardType = 1;
 
 class YapiService {
   async addBoards(data) {
-    return await instance({ url: BoardType + "/board", method: "post", data: data });
+    return await instance({
+      url: BoardType + '/board',
+      method: 'post',
+      data: data,
+    });
   }
 
   async fetchBoards() {
-    return await instance({ url: BoardType + "/board", method: "get" });
+    return await instance({ url: BoardType + '/board', method: 'get' });
   }
 
   // 상세보기 1개만
   async fetchBoard(board_id) {
-    return await instance({ url: BoardType + "/board/" + board_id, method: "get" });
+    return await instance({
+      url: BoardType + '/board/' + board_id,
+      method: 'get',
+    });
   }
 
   async modifyBoard(board_id, data) {
-    return await instance.put({ url: BoardType + "/board", method: "put", data: data });
+    return await instance.put({
+      url: BoardType + '/board',
+      method: 'put',
+      data: data,
+    });
   }
 
   async deleteBoard(board_id) {
-    return await instance.delete({ url: BoardType + "/board/" + board_id, method: "delete" });
+    return await instance.delete({
+      url: BoardType + '/board/' + board_id,
+      method: 'delete',
+    });
   }
 }
 

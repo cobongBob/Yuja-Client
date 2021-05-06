@@ -14,6 +14,7 @@ import './Ylist.scss';
 
 const Ylist = () => {
   const [data, setData] = useState([]);
+  const [searchData, setSearchData] = useState('');
 
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage, setDataPerPage] = useState(10);
@@ -36,7 +37,6 @@ const Ylist = () => {
   }
 
   const renderPageNumbers = pages.map((number) => {
-    console.log(pages);
     if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
       return (
         <li
@@ -87,38 +87,83 @@ const Ylist = () => {
 
   return (
     <div className='card-container'>
-      {currentData.map((data) => (
-        <Card key={data.id}>
-          <Card.Img src='/img/board_pic/thumbnailer_pic/thum3.PNG'></Card.Img>
-          <Card.Header>
-            <Card.Title>
-              <Link to={`/YoutuberProfile/`} className='card-link'>
-                {data.user.username}
-              </Link>
-              {/* YoutuberProfile/뒤에 user_name or user_id(번호) 붙여줘야함 */}
-              <Link to={`/Ydetail/${data.id}`} className='card-link'>
-                {data.title}
-              </Link>
-            </Card.Title>
-          </Card.Header>
-          <Card.Body>
-            {/* 기본값 중에서 경력, 급여 등의 중요내용 넣기 */}
-            <Card.Text>
-              {data.content} 이거 테스트 내용 길어지면 어떻게 되는지 실험하려고
-              쓰는 글자들~~
-            </Card.Text>
-          </Card.Body>
-          <Card.Footer>
-            <span>
-              <strong>마감일 </strong>
-            </span>
-            <strong>{format(new Date(data.updatedDate), 'yyyy-MM-dd')}</strong>
-            <div className='card-like'>
-              <FcLike size={20} /> {data.likes}
-            </div>
-          </Card.Footer>
-        </Card>
-      ))}
+      <div>
+        검색:
+        <input
+          type='text'
+          placeholder='유저, 제목, 툴 검색'
+          onChange={(e) => {
+            setSearchData(e.target.value);
+          }}
+        />
+        <Link to='/Yregister'>등록하기</Link>
+      </div>
+      {currentData
+        .filter((data) => {
+          if (searchData == '') {
+            return data;
+          } else if (
+            data.user.username.toLowerCase().includes(searchData.toLowerCase())
+          ) {
+            return data;
+          } else if (
+            data.title.toLowerCase().includes(searchData.toLowerCase())
+          ) {
+            return data;
+          } else if (
+            data.tools.toLowerCase().includes(searchData.toLowerCase())
+          ) {
+            return data;
+          }
+        })
+        .map((data) => (
+          <Card key={data.id}>
+            <Card.Img src='/img/board_pic/thumbnailer_pic/thum3.PNG'></Card.Img>
+            <Card.Header>
+              <Card.Title>
+                <Link to={`/YoutuberProfile/`} className='card-link'>
+                  {data.user.username}
+                </Link>
+                {/* YoutuberProfile/뒤에 user_name or user_id(번호) 붙여줘야함 */}
+                <Link to={`/Ydetail/${data.id}`} className='card-link'>
+                  {data.channelName}
+                </Link>
+              </Card.Title>
+            </Card.Header>
+            <Card.Body>
+              {/* 기본값 중에서 경력, 급여 등의 중요내용 넣기 */}
+              <Card.Text>
+                {data.payType} {''}pay:{data.payAmount}원
+                <br />
+                tools:
+                {data.tools[0]}
+                <br />
+                {data.worker}
+              </Card.Text>
+            </Card.Body>
+            <Card.Footer>
+              <div>
+                <span>
+                  <strong>수정일 </strong>
+                </span>
+                <strong>
+                  {format(new Date(data.updatedDate), 'yyyy-MM-dd')}
+                </strong>
+              </div>
+              <div>
+                <span>
+                  <strong>마감일 </strong>
+                </span>
+                <strong>
+                  {format(new Date(data.expiredDate), 'yyyy-MM-dd')}
+                </strong>
+              </div>
+              <div className='card-like'>
+                <FcLike size={20} /> {data.likes}
+              </div>
+            </Card.Footer>
+          </Card>
+        ))}
       <div className='card-paging'>
         <ul>
           <li>
