@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import AuthCodeTimer from './AuthCodeTimer';
+import AuthBtnBox from './AuthBtnBox';
 
 const Required = ({ location }) => {
   /* 값 넘겨주기 */
@@ -13,7 +14,6 @@ const Required = ({ location }) => {
     bday: '',
     nickname: '',
   });
-
   const changeValue = (e) => {
     setrequiredData({
       ...requiredData,
@@ -67,10 +67,28 @@ const Required = ({ location }) => {
   /* 유효성 검사 끝*/
 
   /* 인증 코드 발송 */
+  const [timerSet, setTimerSet] = useState(false);
+  const [startTimer, setStartTimer] = useState(false);
 
+  console.log("timerSet의 값", timerSet)
+  console.log("startTimer의 값", startTimer)
 
+  const CodeTimer = () => {
+    if(timerSet) {
+      return <AuthCodeTimer start={startTimer} setStart={setStartTimer} />
+    } else {
+      return;
+    }
+  }
+
+  const changeStartTimer = () => {
+    return setStartTimer(!startTimer)
+  }
+
+  const changeTimeSet = () => {
+    return setTimerSet(!timerSet)
+  }
   /* 인증 코드 발송 끝 */
-
 
   return (
     <div className='contentBox2'>
@@ -99,22 +117,27 @@ const Required = ({ location }) => {
               <div className='labelWrapper'>
                 <label htmlFor='authenticationCodeCheck'>이메일 인증번호 입력</label>
               </div>
+              {CodeTimer()}
               <input
                 className='authenticationCodeCheck'
                 name='authenticationCode'
                 type='text'
-                maxLength='10'
+                maxLength='6'
                 placeholder='인증번호를 입력해주세요'
                 onChange={changeValue}
               />
-              <AuthCodeTimer/>
               <div className='authenticationCodeSendBox'>
-              <button
+              <AuthBtnBox
                 className='btn btn-warning'
                 id='authenticationCodeSend'
+                timerSet={timerSet}
+                setTimerSet={setTimerSet}
+                startTimer={startTimer}
+                setStartTimer={setStartTimer}
+                changeTimeSet={changeTimeSet}
+                changeStartTimer={changeStartTimer}
               >
-                인증번호 발송
-              </button>
+              </AuthBtnBox>
               </div>
             </td>
           </tr>
@@ -205,7 +228,7 @@ const Required = ({ location }) => {
               },
             }}
             className='btn btn-warning'
-            onClick={checkRequiredUserData}
+            //onClick={checkRequiredUserData}
           >
             다음
           </Link>
