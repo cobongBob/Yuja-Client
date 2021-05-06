@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardDeck, Container } from 'react-bootstrap';
 import EditorApiService from './EditorApiService';
+import EditorTable from './EditorTable';
+import '../Youtuber/Youtuber.scss';
 
 const Editor = () => {
   const [data, setData] = useState([]);
@@ -14,22 +16,8 @@ const Editor = () => {
   }, []);
 
   return (
-    <div>
-      <Container>
-        {data.map((data) => (
-          <CardDeck>
-            <Card key={data.id}>
-              <Card.Img
-                variant='top'
-                src='/img/board_pic/editor_pic/thum1.png'
-              ></Card.Img>
-              <Card.Title> {data.user.title} </Card.Title>
-              <Card.Text> 희망급여 </Card.Text>
-              <Card.Footer> 좋아요 수 </Card.Footer>
-            </Card>
-          </CardDeck>
-        ))}
-      </Container>
+    <div className='YtableWrapper'>
+      <EditorTable />
     </div>
   );
 };

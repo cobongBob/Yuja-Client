@@ -90,8 +90,7 @@ const Ytable = () => {
                 <th
                   {...column.getHeaderProps(
                     column.getSortByToggleProps({ title: undefined })
-                  )}
-                >
+                  )}>
                   {column.render('Header')}
                 </th>
               ))}
@@ -126,8 +125,7 @@ const Ytable = () => {
           </button>
           <button
             onClick={() => gotoPage(pageCount - 1)}
-            disabled={!canNextPage}
-          >
+            disabled={!canNextPage}>
             {'>>'}
           </button>
         </div>
@@ -153,8 +151,7 @@ const Ytable = () => {
 
         <select
           value={pageSize}
-          onChange={(e) => setPageSize(Number(e.target.value))}
-        >
+          onChange={(e) => setPageSize(Number(e.target.value))}>
           {[10, 25, 50].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
               {pageSize} 개씩 보기

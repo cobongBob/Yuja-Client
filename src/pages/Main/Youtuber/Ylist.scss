@@ -1,30 +1,107 @@
-.YlistWrapper {
+.card-link {
+  text-decoration: none;
+  color: black;
+}
+
+.card-container {
   text-align: center;
 }
 
-.card-body {
+.card-container .card {
+  display: inline-block;
+  width: 20rem;
+  height: 15rem;
+  margin: 1rem !important;
+  padding: 0.5rem;
+  border: 1px solid black;
+  text-align: left;
+  &:hover {
+    height: 25rem;
+    opacity: 1;
+  }
+}
+
+.card-container .card .card-header {
   display: block;
+  padding-left: 0;
+  padding-top: 0.5rem;
+  padding-bottom: 0;
+  background-color: transparent;
+  font-family: scdream5;
+  font-size: 18px;
+  border-bottom: none;
 }
 
-.card-body > ol {
-  padding: 0;
+.card-container .card .card-title {
+  display: inline-block;
+  font-size: 18px;
+  width: 11rem;
+  padding: 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-bottom: 0;
+}
+
+.card-container .card .card-body {
+  padding-left: 0 !important;
+  padding: 0.5rem;
+  display: block;
+  width: 19rem;
+  height: 5rem;
+}
+
+.card-container .card .card-body .card-text {
+  background-color: transparent;
+  border-bottom: none;
+  font-family: scdream5;
+}
+.card-container .card .card-footer {
+  background-color: transparent;
+  display: inline;
   margin: 0;
-}
-
-.card-body > hr {
-  border-bottom: 3px double #bbb;
-}
-
-.YlistWrapper > .card {
-  margin-top: 2%;
   padding: 0;
+  border-top: none;
 }
 
-.card > .card-footer {
-  padding: 0;
-  padding-top: 5%;
+.card-paging {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+  font-family: scdream4;
 }
 
-.card-footer > p {
-  margin: 0;
+.card-paging ul {
+  text-align: center;
+  list-style: none;
+  display: inline;
+}
+
+.card-paging ul li {
+  display: inline-block;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.card-paging li.active {
+  background-color: #c4302b;
+  border-radius: 50%;
+  color: white;
+}
+
+.card-paging li button {
+  background-color: white;
+  border: none;
+  color: black;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.icon-arrow {
+  font-size: 40px;
+  color: #c4302b;
+}
+
+.icon-arrow-hover {
+  font-size: 40px;
+  color: #c4302b;
 }

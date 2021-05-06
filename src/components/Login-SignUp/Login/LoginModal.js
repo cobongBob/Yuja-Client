@@ -1,46 +1,81 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import Modal from 'react-modal';
 import './LoginModal.scss';
 import '../../Navi/Navi.scss';
-import { Route, Link } from 'react-router-dom';
-
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: '80%',
-    bottom: '-12%',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    overflow: 'auto',
-    WebkitOverflowScrolling: 'touch',
-    preventScroll: 'true'
-  },
-  overlay: { zIndex: 9999 },
-};
+import { Link } from 'react-router-dom';
+import AuthenticationService from './AuthenticationService';
 
 function LoginModal() {
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: '80%',
+      bottom: '-12%',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      overflow: 'auto',
+      WebkitOverflowScrolling: 'touch',
+      preventScroll: 'true',
+    },
+    overlay: { zIndex: 9999 },
+  };
+
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
     setIsOpen(true);
   }
 
-  function onAfterOpen() {}
-
-  function onAfterClose() {}
-
-  function afterOpenModal() {}
-
   function closeModal() {
     setIsOpen(false);
   }
 
+  const logout = useCallback(() => {
+    AuthenticationService.logout();
+  }, []);
+
+  const checkLogin = useCallback(() => {
+    AuthenticationService.isUserLoggedIn();
+  }, []);
+
+  const [loginData, setLoginData] = useState({
+    username: '',
+    password: '',
+  });
+  const inputHandler = useCallback(
+    (e) => {
+      setLoginData({
+        ...loginData,
+        [e.target.name]: e.target.value,
+      });
+    },
+    [loginData]
+  );
+
+  const logInHandler = useCallback(() => {
+    AuthenticationService.executeJwtAuthenticationService(loginData).then(
+      (res) => {
+        console.log(res.data);
+        AuthenticationService.registerSuccessfulLoginForJwt(
+          loginData.username,
+          res.data.accessToken
+        );
+      }
+    );
+  }, [loginData]);
+
   return (
     <>
-      <button className='button-login' onClick={openModal}>
+      <button className='button-login' id='button-login' onClick={openModal}>
         로그인/회원가입
       </button>
+      {/* <button className='button-login' onClick={checkLogin}>
+        로그인체크
+      </button>
+      <button className='button-login' onClick={logout}>
+        로그아웃
+      </button> */}
 
       <Modal
         isOpen={modalIsOpen}
@@ -59,16 +94,18 @@ function LoginModal() {
           </header>
           <main>
             <input
-              name='email'
+              name='username'
               className='loginId'
               type='text'
               placeholder='아이디'
+              onChange={inputHandler}
             />
             <input
               name='password'
               className='loginPw'
               type='password'
               placeholder='비밀번호'
+              onChange={inputHandler}
             />
             <div className='loginMid'>
               <label className='autoLogin' htmlFor='hint'>
@@ -78,7 +115,10 @@ function LoginModal() {
               </label>
               <div className='autoLogin'>아이디/비밀번호 찾기</div>
             </div>
-            <button className='loginBtn'> 로그인 </button>
+            <button className='loginBtn' onClick={logInHandler}>
+              {' '}
+              로그인{' '}
+            </button>
             <button className='googleLoginBtn'> 구글 로그인 </button>
           </main>
           <footer>

@@ -16,6 +16,8 @@
 - yarn add react-table
 - yarn add date-fns
 - yarn add react-quill
+- yarn add quill-image-drop-and-paste
+- yarn add @looop/quill-image-resize-module-react
 
 ## 이미지 및 썸네일러 사이즈
 
