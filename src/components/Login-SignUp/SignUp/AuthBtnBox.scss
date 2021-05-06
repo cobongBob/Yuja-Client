@@ -1,0 +1,36 @@
+.authenticationCodeSendBox > .btn-warning {
+  width:100%;
+}
+.authCodeResendBtn {
+  display: inline-block;
+  margin-top: 5px;
+  margin-right:10px;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  color: #ff9411;
+  background-color: transparent;
+  border: none;
+  &:hover {
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    background-color: #ff9411;
+    color: white;
+  }
+}
+.authBtn {
+  display: inline-block;
+  margin-top: 5px;
+  margint-left:10px;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  color: #ff9411;
+  background-color: transparent;
+  border: none;
+  &:hover {
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    background-color: #ff9411;
+    color: white;
+  }
+}
+
