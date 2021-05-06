@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
+import AuthCodeTimer from './AuthCodeTimer';
 
 const Required = ({ location }) => {
   /* 값 넘겨주기 */
@@ -22,12 +23,11 @@ const Required = ({ location }) => {
   /* 값 넘겨주기 끝 */
 
   /* 유효성 검사 */
-
   let [passCheckNum, setpassCheckNum] = useState();
+
   const getPassCheckNum = (e) => {
     setpassCheckNum(e.target.value);
   };
-
   const checkRequiredUserData = (e) => {
     let id = requiredData.username;
     let pass = requiredData.password;
@@ -41,7 +41,7 @@ const Required = ({ location }) => {
     const birthCheck = /^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/;
     const nickCheck = /^[a-zA-Z0-9가-힣ㄱ-ㅎ]{2,20}$/; /* 특수문자 제외 영문, 숫자, 한글 2~20자 */
 
-    if ([id, pass, name, birth, nick].includes('')) {
+    if ([id, pass, name, birth, nick].includes('') || [id, pass, name, birth, nick].includes('{')) {
       alert('빈칸을 모두 입력해주세요.');
       e.preventDefault();
     } else if (false === emailCheck.test(id)) {
@@ -64,8 +64,13 @@ const Required = ({ location }) => {
       e.preventDefault();
     }
   };
-
   /* 유효성 검사 끝*/
+
+  /* 인증 코드 발송 */
+
+
+  /* 인증 코드 발송 끝 */
+
 
   return (
     <div className='contentBox2'>
@@ -87,6 +92,30 @@ const Required = ({ location }) => {
                 required
                 autoFocus
               />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div className='labelWrapper'>
+                <label htmlFor='authenticationCodeCheck'>이메일 인증번호 입력</label>
+              </div>
+              <input
+                className='authenticationCodeCheck'
+                name='authenticationCode'
+                type='text'
+                maxLength='10'
+                placeholder='인증번호를 입력해주세요'
+                onChange={changeValue}
+              />
+              <AuthCodeTimer/>
+              <div className='authenticationCodeSendBox'>
+              <button
+                className='btn btn-warning'
+                id='authenticationCodeSend'
+              >
+                인증번호 발송
+              </button>
+              </div>
             </td>
           </tr>
           <tr>
@@ -176,7 +205,7 @@ const Required = ({ location }) => {
               },
             }}
             className='btn btn-warning'
-            // onClick={checkRequiredUserData}
+            onClick={checkRequiredUserData}
           >
             다음
           </Link>
