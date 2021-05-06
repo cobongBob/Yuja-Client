@@ -639,12 +639,6 @@ const Agreement = ({ history }) => {
           다음</Link>
         </div>
       </div>
-      <footer className='SignUpFooter'>
-          <Link
-            to='/'
-          >이미 회원이신가요? 로그인
-        </Link>
-      </footer>
     </div>
   );
 };

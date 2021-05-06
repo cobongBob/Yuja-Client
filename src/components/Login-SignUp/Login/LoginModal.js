@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import AuthenticationService from './AuthenticationService';
 
 function LoginModal() {
+
+  /* 모달 설정 */
   const customStyles = {
     content: {
       top: '50%',
@@ -14,23 +16,23 @@ function LoginModal() {
       bottom: '-12%',
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
-      overflow: 'auto',
+      overflow: 'hidden',
       WebkitOverflowScrolling: 'touch',
       preventScroll: 'true',
     },
     overlay: { zIndex: 9999 },
   };
-
   const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
     setIsOpen(true);
   }
-
   function closeModal() {
     setIsOpen(false);
   }
+  /* 모달 설정 끝 */
 
+  /* 로그인 관련 */
   const logout = useCallback(() => {
     AuthenticationService.logout();
   }, []);
@@ -52,7 +54,6 @@ function LoginModal() {
     },
     [loginData]
   );
-
   const logInHandler = useCallback(() => {
     AuthenticationService.executeJwtAuthenticationService(loginData).then(
       (res) => {
@@ -64,6 +65,7 @@ function LoginModal() {
       }
     );
   }, [loginData]);
+  /* 로그인 관련 끝 */
 
   return (
     <>

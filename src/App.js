@@ -32,30 +32,19 @@ function App() {
   const usePrevious = (value) => {
     const ref = React.useRef()
     React.useEffect(() => { ref.current = value })
-
     return ref.current
   }
+
   const location = useLocation()
   const prevLocation = usePrevious(location.pathname)
-
-  console.log(location.pathname)
-
-  function forcedClickEvent() {
-    console.log("강제클릭실행")
-    document.getElementById('nav-login').click();
-  }
-
-  const modalRef = useRef();
 
   return (
     <div>
       {exceptArray.indexOf(location.pathname) < 0 && <Navi/>}
       {exceptArray.indexOf(location.pathname) < 0 && <Logo/>}
       {console.log("전페이지", prevLocation)}
-      {console.log("포함?", exceptArray.includes(prevLocation))}
       {exceptArray.includes(prevLocation) === true && location.pathname === '/' ?
-        modalRef.current.open() : console.log('그냥 왔군')}
-      <LoginModal ref={modalRef}></LoginModal>
+        console.log('회원가입에서 왔군') : console.log('그냥 왔군')}
       <Route path='/' exact>
         <div className='allBoard'>
           <VideoBox></VideoBox>
