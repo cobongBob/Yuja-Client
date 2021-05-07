@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 
 const AuthCodeTimer = (props) => {
 
-  const [minutes, setMinutes] = useState(3);
-  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(10);
   const start = props.start;
   const setStart = props.setStart;
+
+  let total = minutes + seconds
 
   useEffect(() => {
     if(start) {
@@ -31,9 +33,14 @@ const AuthCodeTimer = (props) => {
   }, [minutes, seconds, start]);
 
   return (
-    <div className='authCodeTimerBox'>
+  total !== 0 ?
+    <>
       {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-    </div>
+    </>
+    :
+    <>
+        만료
+    </>
   );
 };
 

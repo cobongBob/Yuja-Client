@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import './AuthBtnBox.scss';
+import './SignUp1.scss';
 
 const AuthBtnBox = (props) => {
 
   if(props.timerSet === false) {
     return (
       <>
+        <div className='authenticationCodeSend'>
         <button
           className='btn btn-warning'
           id='authenticationCodeSend'
@@ -13,23 +14,30 @@ const AuthBtnBox = (props) => {
         >
           인증번호 발송
         </button>
+        </div>
       </>
     )
   } else {
     return (
       <>
+        <div className='authenticationCodeResend'>
         <button
-          className='authCodeResendBtn'
+          className='btn btn-warning'
+          id='authenticationCodeResend'
           onClick={props.changeStartTimer}
         >
           재발송
         </button>
+      </div>
+        <div className='authenticationBtn'>
         <button
-          className='authBtn'
-          onClick={props.changeTimeSet}
+          className='btn btn-warning'
+          id='authenticationBtn'
+          onClick={props.checkCodes}
         >
           인증
         </button>
+        </div>
       </>
     )
   }
