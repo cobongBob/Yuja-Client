@@ -55,8 +55,8 @@ function LoginModal() {
   );
   const logInHandler = useCallback(() => {
     AuthenticationService.executeJwtAuthenticationService(loginData).then((res) => {
-      console.log(res.data);
-      AuthenticationService.registerSuccessfulLoginForJwt(loginData.username, res.data.accessToken);
+      console.log(res);
+      AuthenticationService.registerSuccessfulLoginForJwt(loginData.username, res.data);
     });
   }, [loginData]);
   /* 로그인 관련 끝 */

@@ -3,7 +3,7 @@ const USER_API_BASE_URL = "http://localhost:8888/api/auth";
 
 class AuthenticationService {
   executeJwtAuthenticationService(data) {
-    return axios.post(USER_API_BASE_URL + "/signin", data);
+    return axios.post(USER_API_BASE_URL + "/signin", data, { withCredentials: true });
   }
 
   registerSuccessfulLoginForJwt(username, token) {
