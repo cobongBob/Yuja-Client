@@ -1,26 +1,18 @@
 @font-face {
-  font-family: 'hopang';
-  src: url('./fonts/SDSamliphopangcheTTFOutline.ttf');
+  font-family: "hopang";
+  src: url("./fonts/SDSamliphopangcheTTFOutline.ttf");
 }
 @font-face {
-  font-family: 'scdream3';
-  src: url('./fonts/SCDream3.otf');
+  font-family: "scdream3";
+  src: url("./fonts/SCDream3.otf");
 }
 @font-face {
-  font-family: 'scdream4';
-  src: url('./fonts/SCDream4.otf');
+  font-family: "scdream4";
+  src: url("./fonts/SCDream4.otf");
 }
 @font-face {
-  font-family: 'scdream5';
-  src: url('./fonts/SCDream5.otf');
-}
-
-.allBoard {
-  background-color: white;
-  margin-right: 10vw;
-  margin-left: 10vw;
-  margin-top: 1%;
-  margin-bottom: 1%;
+  font-family: "scdream5";
+  src: url("./fonts/SCDream5.otf");
 }
 
 ::-webkit-scrollbar {

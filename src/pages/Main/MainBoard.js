@@ -1,9 +1,9 @@
-import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import Eboard from '../../components/MainBoard/Eboard';
-import Thboard from '../../components/MainBoard/Thboard';
-import Yboard from '../../components/MainBoard/Yboard';
-import './MainBoard.scss';
+import React from "react";
+import { Row, Col } from "react-bootstrap";
+import Eboard from "../../components/MainBoard/Eboard";
+import Thboard from "../../components/MainBoard/Thboard";
+import Yboard from "../../components/MainBoard/Yboard";
+import "./MainBoard.scss";
 
 const MainBoard = () => {
   return (

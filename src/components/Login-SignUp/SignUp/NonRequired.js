@@ -1,6 +1,6 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
-import UserApiService from './UserApiService';
-import './SignUp1.scss';
+import React, { useRef, useState } from "react";
+import UserApiService from "./UserApiService";
+import "./SignUp1.scss";
 
 const NonRequired = ({ location, history }) => {
   /* 파일 업로드 미리보기 관련 */
@@ -25,15 +25,15 @@ const NonRequired = ({ location, history }) => {
 
     const config = {
       headers: {
-        'content-type': 'multipart/form-data',
+        "content-type": "multipart/form-data",
       },
     };
 
     if (e.target.files !== null) {
-      console.log('파일 업로드 시작');
+      console.log("파일 업로드 시작");
       const fd = new FormData();
-      fd.append('file', file);
-      const res = UserApiService.addProfileImg(fd, config).then((response) => {
+      fd.append("file", file);
+      UserApiService.addProfileImg(fd, config).then((response) => {
         profilePicId.current = response.data.profilePicId;
         console.log(1, response.data.profilePicId);
         console.log(profilePicId.current);
@@ -55,13 +55,11 @@ const NonRequired = ({ location, history }) => {
   let profile_preview,
     youtuberPic_preview = null;
 
-  if (file !== '') {
-    profile_preview = <img className='profile_preview' src={previewURL} />;
+  if (file !== "") {
+    profile_preview = <img className='profile_preview' src={previewURL} alt='previewProfile' />;
   }
-  if (file2 !== '') {
-    youtuberPic_preview = (
-      <img className='youtuberPic_PreviewBox' src={previewURL2} />
-    );
+  if (file2 !== "") {
+    youtuberPic_preview = <img className='youtuberPic_PreviewBox' src={previewURL2} alt='previewYoutuberPic' />;
   }
   /* 파일 업로드 미리보기 끝 */
 
@@ -71,11 +69,11 @@ const NonRequired = ({ location, history }) => {
 
   /* 이 페이지(nonRequired) 데이터 담기 시작 */
   const [nonRequiredData, setNonRequiredData] = useState({
-    address: '',
-    phone: '',
-    isYoutuber: '',
-    bsn: '',
-    userIp: '127.5.0.5',
+    address: "",
+    phone: "",
+    isYoutuber: "",
+    bsn: "",
+    userIp: "127.5.0.5",
     profilePicId: profilePicId.current,
   });
 
@@ -98,14 +96,14 @@ const NonRequired = ({ location, history }) => {
       .then((r) => {
         console.log(r);
         if (r) {
-          alert('회원가입을 축하합니다!');
-          history.push('/');
+          alert("회원가입을 축하합니다!");
+          history.push("/");
         } else {
-          alert('비어있는 항목이 있습니다! 나가!');
+          alert("비어있는 항목이 있습니다! 나가!");
         }
       })
       .catch(() => {
-        alert('오류가 발생했습니다. 나가!');
+        alert("오류가 발생했습니다. 나가!");
       });
   };
   /* 이 페이지(nonRequired) 데이터 담기 끝 */
@@ -122,11 +120,11 @@ const NonRequired = ({ location, history }) => {
     const userIpCheck = /^(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}$/;
 
     if (address.length !== 0 && false === addressCheck.test(address)) {
-      alert('주소를 확인해주세요!');
+      alert("주소를 확인해주세요!");
       e.preventDefault();
       return false;
     } else if (phone.length !== 0 && false === phoneCheck.test(phone)) {
-      alert('연락처를 확인해주세요!');
+      alert("연락처를 확인해주세요!");
       e.preventDefault();
       return false;
     } else {
@@ -137,7 +135,7 @@ const NonRequired = ({ location, history }) => {
   /* 사업자 등록번호 확인식 */
   const bsnCheck = (e) => {
     let bsn = nonRequiredData.bsn;
-    const checkId = new Array(1, 3, 7, 1, 3, 7, 1, 3, 5, 1);
+    const checkId = [1, 3, 7, 1, 3, 7, 1, 3, 5, 1];
     let sum = 0;
 
     if (bsn.length !== 0) {
@@ -149,10 +147,10 @@ const NonRequired = ({ location, history }) => {
       sum += checkSum;
       let reminder = (10 - (sum % 10)) % 10;
       if (reminder === Number(bsn[9])) {
-        alert('사업자등록번호 일치');
+        alert("사업자등록번호 일치");
         return true;
       } else {
-        alert('유효한 사업자 등록번호를 입력해주세요!');
+        alert("유효한 사업자 등록번호를 입력해주세요!");
         e.preventDefault();
         return false;
       }
@@ -197,13 +195,7 @@ const NonRequired = ({ location, history }) => {
               <div className='labelWrapper'>
                 <label htmlFor='signUpAddress'>주소</label>
               </div>
-              <input
-                className='signUpAddress'
-                name='address'
-                type='text'
-                placeholder='주소'
-                onChange={changeValue}
-              />
+              <input className='signUpAddress' name='address' type='text' placeholder='주소' onChange={changeValue} />
             </td>
           </tr>
           <tr>
@@ -223,7 +215,7 @@ const NonRequired = ({ location, history }) => {
           <tr>
             <td>
               <label className='signUpLabel' htmlFor='YoutuberCheck'>
-                유튜버이신가요?{' '}
+                유튜버이신가요?{" "}
                 <input
                   className='signUpYoutuber'
                   name='isYoutuber'
@@ -272,10 +264,7 @@ const NonRequired = ({ location, history }) => {
           </div>
         </div>
         <div className='signUpSubmitBtnBox'>
-          <button
-            type='submit'
-            className='btn btn-warning'
-            onClick={totalAction}>
+          <button type='submit' className='btn btn-warning' onClick={totalAction}>
             회원가입
           </button>
         </div>

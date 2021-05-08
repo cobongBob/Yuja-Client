@@ -1,20 +1,20 @@
-import { format } from 'date-fns';
-import React, { useEffect, useState } from 'react';
-import { Card, Container } from 'react-bootstrap';
-import { FcLike, FcOk } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
-import YapiService from './YapiService';
+import { format } from "date-fns";
+import React, { useEffect, useState } from "react";
+import { Card, Container } from "react-bootstrap";
+import { FcLike, FcOk } from "react-icons/fc";
+import { Link } from "react-router-dom";
+import YapiService from "./YapiService";
 import {
   RiArrowLeftCircleFill,
   RiArrowLeftCircleLine,
   RiArrowRightCircleFill,
   RiArrowRightCircleLine,
-} from 'react-icons/ri';
-import './Ylist.scss';
+} from "react-icons/ri";
+import "./Ylist.scss";
 
 const Ylist = () => {
   const [data, setData] = useState([]);
-  const [searchData, setSearchData] = useState('');
+  const [searchData, setSearchData] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage, setDataPerPage] = useState(10);
@@ -39,11 +39,7 @@ const Ylist = () => {
   const renderPageNumbers = pages.map((number) => {
     if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
       return (
-        <li
-          key={number}
-          id={number}
-          onClick={handleClick}
-          className={currentPage == number ? 'active' : null}>
+        <li key={number} id={number} onClick={handleClick} className={currentPage === number ? "active" : null}>
           {number}
         </li>
       );
@@ -55,9 +51,7 @@ const Ylist = () => {
   useEffect(() => {
     YapiService.fetchBoards().then((res) => {
       res.data.sort((a, b) => {
-        return (
-          new Date(b.expiredDate).getTime() - new Date(a.expiredDate).getTime()
-        );
+        return new Date(b.expiredDate).getTime() - new Date(a.expiredDate).getTime();
       });
       setData(res.data);
       console.log(res.data);
@@ -74,7 +68,7 @@ const Ylist = () => {
 
   const handlePrevbtn = () => {
     setCurrentPage(currentPage - 1);
-    if ((currentPage - 1) % pageNumberLimit == 0) {
+    if ((currentPage - 1) % pageNumberLimit === 0) {
       setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
       setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
     }
@@ -97,9 +91,7 @@ const Ylist = () => {
   };
 
   const sortExpiredData = () => {
-    const sortedExpiredData = data
-      .sort((a, b) => b.expiredDate - a.expiredDate)
-      .reverse();
+    const sortedExpiredData = data.sort((a, b) => b.expiredDate - a.expiredDate).reverse();
     setData(sortedExpiredData);
     console.log(data);
   };
@@ -121,21 +113,16 @@ const Ylist = () => {
       </div>
       {currentData
         .filter((data) => {
-          if (searchData === '') {
+          if (searchData === "") {
             return data;
-          } else if (
-            data.user.username.toLowerCase().includes(searchData.toLowerCase())
-          ) {
+          } else if (data.user.username.toLowerCase().includes(searchData.toLowerCase())) {
             return data;
-          } else if (
-            data.title.toLowerCase().includes(searchData.toLowerCase())
-          ) {
+          } else if (data.title.toLowerCase().includes(searchData.toLowerCase())) {
             return data;
-          } else if (
-            data.tools[0].toLowerCase().includes(searchData.toLowerCase())
-          ) {
+          } else if (data.tools[0].toLowerCase().includes(searchData.toLowerCase())) {
             return data;
           }
+          return data;
         })
         .map((data) => (
           <Card key={data.id}>
@@ -166,17 +153,13 @@ const Ylist = () => {
                 <span>
                   <strong>수정일 </strong>
                 </span>
-                <strong>
-                  {format(new Date(data.updatedDate), 'yyyy-MM-dd')}
-                </strong>
+                <strong>{format(new Date(data.updatedDate), "yyyy-MM-dd")}</strong>
               </div>
               <div>
                 <span>
                   <strong>마감일 </strong>
                 </span>
-                <strong>
-                  {format(new Date(data.expiredDate), 'yyyy-MM-dd')}
-                </strong>
+                <strong>{format(new Date(data.expiredDate), "yyyy-MM-dd")}</strong>
               </div>
               <div className='card-like'>
                 <FcLike size={20} /> {data.likes}
@@ -187,9 +170,7 @@ const Ylist = () => {
       <div className='card-paging'>
         <ul>
           <li>
-            <button
-              onClick={handlePrevbtn}
-              disabled={currentPage == pages[0] ? true : false}>
+            <button onClick={handlePrevbtn} disabled={currentPage === pages[0] ? true : false}>
               {/* 호버시 이미지 바꾸기 해야함..... */}
               <RiArrowLeftCircleLine className='icon-arrow' />
               <RiArrowLeftCircleFill className='icon-arrow-hover' />
@@ -199,9 +180,7 @@ const Ylist = () => {
           {renderPageNumbers}
           {pageIncrementBtn}
           <li>
-            <button
-              onClick={handleNextbtn}
-              disabled={currentPage == pages[pages.length - 1] ? true : false}>
+            <button onClick={handleNextbtn} disabled={currentPage === pages[pages.length - 1] ? true : false}>
               <div>
                 <RiArrowRightCircleFill className='icon-arrow-hover' />
                 <RiArrowRightCircleLine className='icon-arrow' />

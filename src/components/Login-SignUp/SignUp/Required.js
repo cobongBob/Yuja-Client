@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import axios from "axios";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import AuthCodeTimer from "./AuthCodeTimer";
 import AuthBtnBox from "./AuthBtnBox";
 import AuthenticationService from "../Login/AuthenticationService";

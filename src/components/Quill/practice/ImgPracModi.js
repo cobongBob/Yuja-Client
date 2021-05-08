@@ -1,55 +1,40 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import { Quill } from 'react-quill';
-import ImgApiService from './ImgApiService';
-import 'react-quill/dist/quill.snow.css';
-import '../QuillComponents.scss';
-import YapiService from '../../../pages/Main/Youtuber/YapiService';
-let Image = Quill.import('formats/image');
-Image.className = 'custom-class-to-image';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Quill } from "react-quill";
+import ImgApiService from "./ImgApiService";
+import "react-quill/dist/quill.snow.css";
+import "../QuillComponents.scss";
+import YapiService from "../../../pages/Main/Youtuber/YapiService";
+let Image = Quill.import("formats/image");
+Image.className = "custom-class-to-image";
 Quill.register(Image, true);
 let quill;
 const ImgPracModi = (props) => {
   const addingFileList = useRef([]);
   const deletedFileList = useRef([]);
   const imageHandler = useCallback(() => {
-    const input = document.createElement('input');
+    const input = document.createElement("input");
 
-    input.setAttribute('type', 'file');
-    input.setAttribute('accept', 'image/png, image/jpeg, image/gif');
+    input.setAttribute("type", "file");
+    input.setAttribute("accept", "image/png, image/jpeg, image/gif");
     input.click();
 
     input.onchange = async () => {
       const file = input.files[0];
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append("file", file);
       const config = {
         headers: {
-          'content-type': 'multipart/form-data', // 파일을 보낼때는 type이 multipart여야한다.
+          "content-type": "multipart/form-data", // 파일을 보낼때는 type이 multipart여야한다.
         },
       };
-      const res = await ImgApiService.addImgs(formData, config)
+      await ImgApiService.addImgs(formData, config)
         .then((response) => {
           if (response.status === 200) {
-            const range =
-              quill.getSelection(true) !== null ? quill.getSelection(true) : 0;
-            quill.insertEmbed(
-              range.index,
-              'image',
-              `http://localhost:8888/imgs/placeholder.gif`
-            );
+            const range = quill.getSelection(true) !== null ? quill.getSelection(true) : 0;
+            quill.insertEmbed(range.index, "image", `http://localhost:8888/imgs/placeholder.gif`);
             quill.setSelection(range.index + 1);
             quill.deleteText(range.index, 1);
-            quill.insertEmbed(
-              range.index,
-              'image',
-              `http://localhost:8888/files/temp/${response.data[0].fileName}`
-            );
+            quill.insertEmbed(range.index, "image", `http://localhost:8888/files/temp/${response.data[0].fileName}`);
             addingFileList.current.push(response.data[0].attachId);
           }
         })
@@ -64,16 +49,11 @@ const ImgPracModi = (props) => {
       toolbar: {
         container: [
           [{ header: [1, 2, false] }],
-          ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-          [
-            { list: 'ordered' },
-            { list: 'bullet' },
-            { indent: '-1' },
-            { indent: '+1' },
-          ],
-          ['link', 'image', 'video'],
+          ["bold", "italic", "underline", "strike", "blockquote"],
+          [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
+          ["link", "image", "video"],
           [{ align: [] }, { color: [] }, { background: [] }],
-          ['clean'],
+          ["clean"],
         ],
         handlers: { image: imageHandler },
       },
@@ -83,21 +63,21 @@ const ImgPracModi = (props) => {
 
   const formats = useMemo(
     () => [
-      'header',
-      'bold',
-      'italic',
-      'underline',
-      'strike',
-      'blockquote',
-      'list',
-      'bullet',
-      'indent',
-      'link',
-      'image',
-      'align',
-      'video',
-      'color',
-      'background',
+      "header",
+      "bold",
+      "italic",
+      "underline",
+      "strike",
+      "blockquote",
+      "list",
+      "bullet",
+      "indent",
+      "link",
+      "image",
+      "align",
+      "video",
+      "color",
+      "background",
     ],
     []
   );
@@ -111,41 +91,37 @@ const ImgPracModi = (props) => {
       console.log(res.data);
     });
 
-    let container = document.getElementById('ReactQuill');
+    let container = document.getElementById("ReactQuill");
     quill = new Quill(container, {
       modules: modules,
       formats: formats,
-      theme: 'snow',
-      placeholder: '내용입력',
+      theme: "snow",
+      placeholder: "내용입력",
     });
-    quill.on('text-change', (delta, oldDelta, source) => {
+    quill.on("text-change", (delta, oldDelta, source) => {
       setNewData(quill.root.innerHTML);
     });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const testCheking = () => {
-    let currentBoardType = 'YoutuberBoard/';
+    let currentBoardType = "YoutuberBoard/";
     let reg = /http:\/\/localhost:8888\/files\/YoutuberBoard\/[0-9]+.[a-z]+/g;
     let imgSrcArr = String(newData).match(reg); // 현재 쓰인 글에 존재하는 이미지 태그들의 src
     // 서버에서 날아온 이미지 이름과 비교한다. 없으면 삭제된것이므로 삭제 리스트에 담아준다.
     fileList.current.forEach((src) => {
-      if (
-        !imgSrcArr.includes(
-          `http://localhost:8888/files/${currentBoardType}${src}`
-        )
-      ) {
+      if (!imgSrcArr.includes(`http://localhost:8888/files/${currentBoardType}${src}`)) {
         deletedFileList.current.push(src);
       }
     });
 
     const modifyingData = {
-      title: '수정테스트1',
+      title: "수정테스트1",
       content: newData.replaceAll(
         `src="http://localhost:8888/files/temp/`,
         `src="http://localhost:8888/files/YoutuberBoard/`
       ),
-      thumbnail: '썸네일 수정 테스트',
-      expiredDate: '2021-06-24',
+      thumbnail: "썸네일 수정 테스트",
+      expiredDate: "2021-06-24",
       boardAttachIds: addingFileList.current,
       boardAttachToBeDeleted: deletedFileList.current,
     };
@@ -155,7 +131,7 @@ const ImgPracModi = (props) => {
   return (
     <div>
       <div>
-        <div style={{ height: '350px' }} id='ReactQuill'></div>
+        <div style={{ height: "350px" }} id='ReactQuill'></div>
       </div>
       <div>
         <div>
