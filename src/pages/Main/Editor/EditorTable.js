@@ -1,16 +1,16 @@
-import { format } from 'date-fns';
-import React, { useEffect, useState } from 'react';
-import { Card, CardDeck, Container } from 'react-bootstrap';
-import { FcLike } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
-import EditorApiService from './EditorApiService';
+import { format } from "date-fns";
+import React, { useEffect, useState } from "react";
+import { Card, CardDeck, Container } from "react-bootstrap";
+import { FcLike } from "react-icons/fc";
+import { Link } from "react-router-dom";
+import EditorApiService from "./EditorApiService";
 import {
   RiArrowLeftCircleFill,
   RiArrowLeftCircleLine,
   RiArrowRightCircleFill,
   RiArrowRightCircleLine,
-} from 'react-icons/ri';
-import '../Youtuber/Ylist.scss';
+} from "react-icons/ri";
+import "../Youtuber/Ylist.scss";
 
 const EditorTable = () => {
   const [data, setData] = useState([]);
@@ -36,12 +36,7 @@ const EditorTable = () => {
   const renderPageNumbers = pages.map((number) => {
     if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
       return (
-        <li
-          key={number}
-          id={number}
-          onClick={handleClick}
-          className={currentPage == number ? 'active' : null}
-        >
+        <li key={number} id={number} onClick={handleClick} className={currentPage === number ? "active" : null}>
           {number}
         </li>
       );
@@ -69,7 +64,7 @@ const EditorTable = () => {
 
   const handlePrevbtn = () => {
     setCurrentPage(currentPage - 1);
-    if ((currentPage - 1) % pageNumberLimit == 0) {
+    if ((currentPage - 1) % pageNumberLimit === 0) {
       setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
       setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
     }
@@ -110,16 +105,13 @@ const EditorTable = () => {
           </Card.Header>
           <Card.Body>
             {/* 기본값 중에서 경력, 급여 등의 중요내용 넣기 */}
-            <Card.Text>
-              {data.content} 이거 테스트 내용 길어지면 어떻게 되는지 실험하려고
-              쓰는 글자들~~
-            </Card.Text>
+            <Card.Text>{data.content} 이거 테스트 내용 길어지면 어떻게 되는지 실험하려고 쓰는 글자들~~</Card.Text>
           </Card.Body>
           <Card.Footer>
             <span>
               <strong>마감일 </strong>
             </span>
-            <strong>{format(new Date(data.updatedDate), 'yyyy-MM-dd')}</strong>
+            <strong>{format(new Date(data.updatedDate), "yyyy-MM-dd")}</strong>
             <div className='card-like'>
               <FcLike size={20} /> {data.likes}
             </div>
@@ -129,10 +121,7 @@ const EditorTable = () => {
       <div className='card-paging'>
         <ul>
           <li>
-            <button
-              onClick={handlePrevbtn}
-              disabled={currentPage == pages[0] ? true : false}
-            >
+            <button onClick={handlePrevbtn} disabled={currentPage === pages[0] ? true : false}>
               {/* 호버시 이미지 바꾸기 해야함..... */}
               <RiArrowLeftCircleLine className='icon-arrow' />
               <RiArrowLeftCircleFill className='icon-arrow-hover' />
@@ -142,10 +131,7 @@ const EditorTable = () => {
           {renderPageNumbers}
           {pageIncrementBtn}
           <li>
-            <button
-              onClick={handleNextbtn}
-              disabled={currentPage == pages[pages.length - 1] ? true : false}
-            >
+            <button onClick={handleNextbtn} disabled={currentPage === pages[pages.length - 1] ? true : false}>
               <div>
                 <RiArrowRightCircleLine className='icon-arrow' />
                 <RiArrowRightCircleFill className='icon-arrow-hover' />
