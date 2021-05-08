@@ -102,25 +102,35 @@ section > footer {
   }
 }
 
+/* 모달창 제어 */
 .ReactModal__Body--open,
 .ReactModal__Html--open {
   overflow: hidden;
 }
-
 .ReactModal__Body--after-open {
   overflow-y:hidden;
 }
-
 .ReactModal__Overlay {
   opacity: 0;
   transition: opacity 500ms;
 }
-
 .ReactModal__Overlay--after-open{
   opacity: 1;
   overflow-y:hidden;
 }
-
 .ReactModal__Overlay--before-close{
   opacity: 0;
+}
+.ReactModal__Content {
+  overflow-x:hidden;
+}
+
+/* 모달 반응형 */
+@media screen and (max-width: 4000px) {
+
+  .ReactModal__Content {
+    min-width:360px;
+    min-height: 380px;
+  }
+
 }

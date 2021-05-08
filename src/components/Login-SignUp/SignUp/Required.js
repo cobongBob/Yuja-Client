@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import axios from "axios";
+import AuthCodeTimer from "./AuthCodeTimer";
+import AuthBtnBox from "./AuthBtnBox";
+import AuthenticationService from "../Login/AuthenticationService";
 
 const Required = ({ location }) => {
   /* 값 넘겨주기 */
   const [requiredData, setrequiredData] = useState({
     isMarketingChecked: location.state.next,
-    username: '',
-    password: '',
-    realName: '',
-    bday: '',
-    nickname: '',
+    username: "",
+    password: "",
+    realName: "",
+    bday: "",
+    nickname: "",
   });
-
   const changeValue = (e) => {
     setrequiredData({
       ...requiredData,
@@ -22,12 +24,11 @@ const Required = ({ location }) => {
   /* 값 넘겨주기 끝 */
 
   /* 유효성 검사 */
-
   let [passCheckNum, setpassCheckNum] = useState();
+
   const getPassCheckNum = (e) => {
     setpassCheckNum(e.target.value);
   };
-
   const checkRequiredUserData = (e) => {
     let id = requiredData.username;
     let pass = requiredData.password;
@@ -41,37 +42,85 @@ const Required = ({ location }) => {
     const birthCheck = /^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/;
     const nickCheck = /^[a-zA-Z0-9가-힣ㄱ-ㅎ]{2,20}$/; /* 특수문자 제외 영문, 숫자, 한글 2~20자 */
 
-    if ([id, pass, name, birth, nick].includes('')) {
-      alert('빈칸을 모두 입력해주세요.');
+    if ([id, pass, name, birth, nick].includes("") || [id, pass, name, birth, nick].includes("{")) {
+      alert("빈칸을 모두 입력해주세요.");
       e.preventDefault();
     } else if (false === emailCheck.test(id)) {
-      alert('올바른 이메일 형식이 아닙니다.');
+      alert("올바른 이메일 형식이 아닙니다.");
       e.preventDefault();
     } else if (false === passCheck.test(pass)) {
-      alert('4~10자, 숫자랑 영어만 / 테스트용 비밀번호');
+      alert("4~10자, 숫자랑 영어만 / 테스트용 비밀번호");
       e.preventDefault();
     } else if (pass !== passCheckNum) {
-      alert('비밀번호를 확인해주세요!');
+      alert("비밀번호를 확인해주세요!");
       e.preventDefault();
     } else if (false === nameCheck.test(name)) {
-      alert('이름은 영문자, 한글만 입력 가능합니다!');
+      alert("이름은 영문자, 한글만 입력 가능합니다!");
       e.preventDefault();
     } else if (false === birthCheck.test(birth)) {
-      alert('생년월일 형식을 확인해주세요. ');
+      alert("생년월일 형식을 확인해주세요. ");
       e.preventDefault();
     } else if (false === nickCheck.test(nick)) {
-      alert('닉네임은 특수문자를 제외한 2~20자만 입력 가능합니다.');
+      alert("닉네임은 특수문자를 제외한 2~20자만 입력 가능합니다.");
       e.preventDefault();
     }
   };
-
   /* 유효성 검사 끝*/
+
+  /* 인증 코드 발송 */
+  const [timerSet, setTimerSet] = useState(false);
+  const [startTimer, setStartTimer] = useState(false);
+
+  console.log("timerSet의 값", timerSet);
+  console.log("startTimer의 값", startTimer);
+
+  const CodeTimer = () => {
+    if (timerSet) {
+      return <AuthCodeTimer start={startTimer} setStart={setStartTimer} />;
+    } else {
+      return;
+    }
+  };
+
+  const changeStartTimer = () => {
+    AuthenticationService.verifyEmailSend(requiredData.username).then((res) => {
+      setSecurityCode(res.data);
+    });
+    return setStartTimer(!startTimer);
+  };
+
+  const changeTimeSet = () => {
+    return setTimerSet(!timerSet);
+  };
+  /* 인증 코드 발송 끝 */
+
+  /* 인증코드 통신 및 확인 */
+  const [authCode, setAuthCode] = useState();
+  const [securityCode, setSecurityCode] = useState("초기값이라 맞출수없다");
+
+  console.log("authCode의 값", authCode);
+
+  const getAuthCode = (e) => {
+    setAuthCode(e.target.value);
+  };
+
+  const changeDisable = (e) => {};
+
+  const checkCodes = (e) => {
+    if (securityCode === authCode) {
+      console.log("인증성공");
+      changeTimeSet();
+      return true;
+    } else {
+      console.log("인증실패");
+      return false;
+    }
+  };
 
   return (
     <div className='contentBox2'>
       <div className='overlay'>
-        <div className='required'>* 필수입력 정보입니다.
-        </div>
+        <div className='required'>* 필수입력 정보입니다.</div>
         <table className='signUpTable'>
           <tr>
             <td>
@@ -87,6 +136,38 @@ const Required = ({ location }) => {
                 required
                 autoFocus
               />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div className='labelWrapper'>
+                <label htmlFor='authenticationCodeCheck'>이메일 인증번호 입력</label>
+              </div>
+              <div className='authCodeCheckBox'>
+                <div className='authenticationCodeBox'>
+                  <input
+                    className='authenticationCodeCheck'
+                    name='authenticationCode'
+                    type='text'
+                    maxLength='8'
+                    placeholder='인증번호 입력'
+                    onChange={getAuthCode}
+                  />
+                </div>
+                <div className='codeTimerBox'>{CodeTimer()}</div>
+                <div className='authenticationCodeSendBox'>
+                  <AuthBtnBox
+                    className='authenticationCodeSend'
+                    timerSet={timerSet}
+                    setTimerSet={setTimerSet}
+                    startTimer={startTimer}
+                    setStartTimer={setStartTimer}
+                    changeTimeSet={changeTimeSet}
+                    changeStartTimer={changeStartTimer}
+                    checkCodes={checkCodes}
+                  ></AuthBtnBox>
+                </div>
+              </div>
             </td>
           </tr>
           <tr>
@@ -170,13 +251,13 @@ const Required = ({ location }) => {
         <div className='signUpNextBtnBox'>
           <Link
             to={{
-              pathname: '/SignUp1/NonRequired',
+              pathname: "/SignUp1/NonRequired",
               state: {
                 requiredData: requiredData,
               },
             }}
             className='btn btn-warning'
-            // onClick={checkRequiredUserData}
+            //onClick={checkRequiredUserData}
           >
             다음
           </Link>

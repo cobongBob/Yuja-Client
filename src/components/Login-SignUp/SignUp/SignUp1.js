@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import './SignUp1.scss';
 import Agreement from './Agreement';
 import Switch from 'react-bootstrap/Switch';
-import { Route } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import NonRequired from './NonRequired';
 import Required from './Required';
 
@@ -30,8 +30,13 @@ const SignUp1 = () => {
           </Switch>
         </div>
       </content>
-      <footer>
-      </footer>
+        <footer className='SignUpFooter'>
+          <Link
+            className='linkToMain'
+            to='/'
+          >이미 회원이신가요? <span>로그인</span>
+          </Link>
+        </footer>
     </div>
   );
 };

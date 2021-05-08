@@ -2,38 +2,22 @@ import axios from "axios";
 const USER_API_BASE_URL = "http://localhost:8888/api/auth";
 
 class AuthenticationService {
+  verifyEmailSend(username) {
+    return axios.post(USER_API_BASE_URL + "/verify", { username: username });
+  }
+
   executeJwtAuthenticationService(data) {
-    return axios.post(USER_API_BASE_URL + "/signin", data);
+    return axios.post(USER_API_BASE_URL + "/signin", data, { withCredentials: true });
   }
 
   registerSuccessfulLoginForJwt(username, token) {
     console.log("===registerSuccessfulLoginForJwt===");
     localStorage.setItem("token", token);
     localStorage.setItem("authenticatedUser", username);
-    this.setupAxiosInterceptors();
   }
 
   createJWTToken(token) {
     return "Bearer " + token;
-  }
-
-  setupAxiosInterceptors() {
-    console.log(11111);
-    axios.interceptors.request.use(
-      (config) => {
-        console.log(22222, config);
-        const token = localStorage.getItem("token");
-        if (token) {
-          config.headers["Authorization"] = "Bearer " + token;
-          console.log(333333, config);
-        }
-        return config;
-      },
-      (error) => {
-        console.log(333333, error);
-        Promise.reject(error);
-      }
-    );
   }
 
   logout() {
