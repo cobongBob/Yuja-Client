@@ -90,6 +90,34 @@ const Required = ({ location }) => {
   }
   /* 인증 코드 발송 끝 */
 
+  /* 인증코드 통신 및 확인 */
+  const [authCode, setAuthCode] = useState();
+  let securityCode = 'a12345'
+
+  console.log("authCode의 값", authCode)
+
+  const getAuthCode = (e) => {
+    setAuthCode(e.target.value)
+  }
+
+  const changeDisable = (e) => {
+
+  }
+
+  const checkCodes = (e) => {
+
+    if(securityCode === authCode)  {
+      console.log('인증성공')
+      changeTimeSet()
+      return true;
+    } else {
+      console.log('인증실패')
+      return false;
+    }
+
+  }
+
+
   return (
     <div className='contentBox2'>
       <div className='overlay'>
@@ -117,27 +145,33 @@ const Required = ({ location }) => {
               <div className='labelWrapper'>
                 <label htmlFor='authenticationCodeCheck'>이메일 인증번호 입력</label>
               </div>
-              {CodeTimer()}
+              <div className='authCodeCheckBox'>
+                <div className='authenticationCodeBox'>
               <input
                 className='authenticationCodeCheck'
                 name='authenticationCode'
                 type='text'
                 maxLength='6'
-                placeholder='인증번호를 입력해주세요'
-                onChange={changeValue}
+                placeholder='인증번호 입력'
+                onChange={getAuthCode}
               />
+                </div>
+                <div className='codeTimerBox'>
+                  {CodeTimer()}
+                </div>
               <div className='authenticationCodeSendBox'>
               <AuthBtnBox
-                className='btn btn-warning'
-                id='authenticationCodeSend'
+                className='authenticationCodeSend'
                 timerSet={timerSet}
                 setTimerSet={setTimerSet}
                 startTimer={startTimer}
                 setStartTimer={setStartTimer}
                 changeTimeSet={changeTimeSet}
                 changeStartTimer={changeStartTimer}
+                checkCodes={checkCodes}
               >
               </AuthBtnBox>
+              </div>
               </div>
             </td>
           </tr>
