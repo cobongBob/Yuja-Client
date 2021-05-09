@@ -55,20 +55,19 @@ function LoginModal() {
   );
   const logInHandler = useCallback(() => {
     AuthenticationService.executeJwtAuthenticationService(loginData).then((res) => {
-      console.log(res.data);
-      AuthenticationService.registerSuccessfulLoginForJwt(loginData.username, res.data.accessToken);
+      AuthenticationService.registerSuccessfulLoginForJwt(loginData.username, res.data);
     });
   }, [loginData]);
   /* 로그인 관련 끝 */
 
   return (
     <>
-      {/* <button className='button-login' onClick={checkLogin}>
+      <button className='button-login' onClick={checkLogin}>
         로그인체크
       </button>
       <button className='button-login' onClick={logout}>
         로그아웃
-      </button> */}
+      </button>
       <button className='button-login' id='button-login' onClick={openModal}>
         로그인/회원가입
       </button>
@@ -84,7 +83,7 @@ function LoginModal() {
             <span className='close' onClick={closeModal}>
               &times;
             </span>
-            <img className='signinIcon' src='/img/parts_pic/yuzu05.png' />{" "}
+            <img className='signinIcon' src='/img/parts_pic/yuzu05.png' alt='logo' />{" "}
             <div className='header-title'>유자 로그인</div>
           </header>
           <main>

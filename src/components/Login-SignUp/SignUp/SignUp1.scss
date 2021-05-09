@@ -108,24 +108,60 @@ input::placeholder {
   vertical-align: middle;
 }
 /* 이메일 인증 요소 */
-.signUpTable > tr > td > .authenticationCodeCheck {
+.authCodeCheckBox {
+  text-align: left;
+}
+.signUpTable > tr > td > .authCodeCheckBox > .authenticationCodeBox > .authenticationCodeCheck {
   margin-top: 5px;
   margin-bottom: 12px;
-  margin-left:-12%;
   border-radius: 2px;
-  width: 50%;
-  height: 40px;
   border: 1px solid #e5e5e5;
   padding: 9px 12px;
   outline: none;
   box-sizing: border-box;
   font-size: 0.85em;
+  width:120%;
+}
+.authenticationCodeBox {
+  width:50%;
+  display:inline-block;
+  position:relative;
 }
 .authenticationCodeSendBox {
-  margin-right:-15%;
-  width: 51%;
+  right:-20%;
   display:inline-block;
   position: relative;
+}
+.authenticationCodeSend {
+  font-size: 1em;
+  width:100%;
+}
+.authenticationCodeResend {
+  display: inline-block;
+  margin-left:-40%;
+}
+.authenticationBtn {
+  display: inline-block;
+  margin-left: 25%;
+}
+.authenticationCodeResend > button {
+  font-size: 0.85em;
+  padding:5px;
+}
+.authenticationBtn > button {
+  font-size: 0.85em;
+  padding:5px;
+}
+.authenticationCodeSend > .btn {
+  font-size:0.85em;
+  padding:5px;
+}
+.codeTimerBox {
+  display: inline-block;
+  z-index: 1;
+  position:relative;
+  left:-0.8em;
+  color:red;
 }
 
 /* 이메일 인증 끝 */

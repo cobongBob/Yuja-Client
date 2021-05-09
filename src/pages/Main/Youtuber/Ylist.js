@@ -53,7 +53,7 @@ const Ylist = () => {
           key={number}
           id={number}
           onClick={handleClick}
-          className={currentPage == number ? 'active' : null}>
+          className={currentPage === number ? 'active' : null}>
           {number}
         </li>
       );
@@ -86,7 +86,7 @@ const Ylist = () => {
 
   const handlePrevbtn = () => {
     setCurrentPage(currentPage - 1);
-    if ((currentPage - 1) % pageNumberLimit == 0) {
+    if ((currentPage - 1) % pageNumberLimit === 0) {
       setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
       setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
     }
@@ -148,6 +148,7 @@ const Ylist = () => {
           ) {
             return data;
           }
+          return data;
         })
         .map((data) => (
           <Card key={data.id}>
@@ -200,7 +201,7 @@ const Ylist = () => {
           <li>
             <button
               onClick={handlePrevbtn}
-              disabled={currentPage == pages[0] ? true : false}>
+              disabled={currentPage === pages[0] ? true : false}>
               {/* 호버시 이미지 바꾸기 해야함..... */}
               <RiArrowLeftCircleLine className='icon-arrow' />
               <RiArrowLeftCircleFill className='icon-arrow-hover' />
@@ -212,7 +213,7 @@ const Ylist = () => {
           <li>
             <button
               onClick={handleNextbtn}
-              disabled={currentPage == pages[pages.length - 1] ? true : false}>
+              disabled={currentPage === pages[pages.length - 1] ? true : false}>
               <div>
                 <RiArrowRightCircleFill className='icon-arrow-hover' />
                 <RiArrowRightCircleLine className='icon-arrow' />

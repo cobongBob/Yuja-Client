@@ -1,29 +1,26 @@
-import React, { useRef } from "react";
+import React from "react";
 import Logo from "./components/Logo/Logo";
-import VideoBox from "./pages/VideoBox/VideoBox";
 import "./App.css";
-import MainBoard from "./pages/Main/MainBoard";
-import { Route } from "react-router";
+import { Redirect, Route } from "react-router";
 import Youtuber from "./pages/Main/Youtuber/Youtuber";
 import Editer from "./pages/Main/Editor/Editer";
 import Thumbnailer from "./pages/Main/Thumbnailer/Thumbnailer";
 import Winwin from "./pages/Main/Winwin/Winwin";
 import Help from "./pages/Main/Help/Help";
-import Wboard from "./components/MainBoard/Wboard";
 import Ydetail from "./pages/Main/Youtuber/Ydetail";
-import Footer from "./components/Footer";
 import SignUp1 from "./components/Login-SignUp/SignUp/SignUp1";
 import { withRouter } from "react-router";
 import Navi from "./components/Navi/Navi";
 import YoutuberProfile from "./pages/Profile/YoutuberProfile";
 import Yregister from "./pages/Main/Youtuber/Yregister";
 import Switch from "react-bootstrap/Switch";
-import YmodifyTest from "./pages/Main/Modify/YmodifyTest";
+import YmodifyTest from "./pages/Main/Youtuber/YmodifyTest";
 import ImgPrac from "./components/Quill/practice/ImgPrac";
 import ImgPracModi from "./components/Quill/practice/ImgPracModi";
-import instance from "./AxiosConfig.js";
-import { useHistory, useLocation } from "react-router-dom";
-import LoginModal from "./components/Login-SignUp/Login/LoginModal";
+import { useLocation } from "react-router-dom";
+import MainWrapper from "./MainWrapper";
+import PageNotFound from "./pages/Error/PageNotFound";
+import Footer from "./components/Footer";
 
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
 
@@ -48,30 +45,25 @@ function App() {
       {exceptArray.includes(prevLocation) === true && location.pathname === "/"
         ? console.log("회원가입에서 왔군")
         : console.log("그냥 왔군")}
-      <Route path='/' exact>
-        <div className='allBoard'>
-          <VideoBox></VideoBox>
-          <MainBoard></MainBoard>
-          <Wboard></Wboard>
-        </div>
-        <Footer></Footer>
-      </Route>
       <div>
         <Switch>
+          <Route exact path='/' component={MainWrapper} />
           <Route path='/Youtuber' component={Youtuber} />
           <Route path='/Editer' component={Editer} />
           <Route path='/Thumbnailer' component={Thumbnailer} />
           <Route path='/Winwin' component={Winwin} />
           <Route path='/Help' component={Help} />
-          <Route path='/Ydetail/:board_id' component={Ydetail} />
           <Route path='/SignUp1' component={SignUp1} />
           <Route path='/YoutuberProfile' component={YoutuberProfile} />
+          <Route path='/Ydetail/:board_id' component={Ydetail} />
           <Route path='/Yregister' component={Yregister} />
           <Route path='/YmodifyTest/:board_id' component={YmodifyTest} />
           <Route path='/Practice' component={ImgPrac} />
           <Route path='/PracticeModi/:board_id' component={ImgPracModi} />
+          {/* <Route component={PageNotFound} /> 이게 왜 나올까요? */}
         </Switch>
       </div>
+      <Footer />
     </div>
   );
 }
