@@ -55,7 +55,6 @@ function LoginModal() {
   );
   const logInHandler = useCallback(() => {
     AuthenticationService.executeJwtAuthenticationService(loginData).then((res) => {
-      console.log(res);
       AuthenticationService.registerSuccessfulLoginForJwt(loginData.username, res.data);
     });
   }, [loginData]);
