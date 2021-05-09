@@ -21,6 +21,7 @@ class AuthenticationService {
   }
 
   logout() {
+    axios.post(USER_API_BASE_URL + "/signout", { withCredentials: true });
     localStorage.removeItem("authenticatedUser");
     localStorage.removeItem("token");
   }
