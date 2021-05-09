@@ -25,7 +25,17 @@ const Ylist = () => {
 
   const indexOfLastData = currentPage * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
-  const currentData = data.slice(indexOfFirstData, indexOfLastData);
+
+  // const currentData = data.slice(indexOfFirstData, indexOfLastData);
+
+  // 지금 현재 전체 데이터를 날짜순(최신순)으로 솔팅해서 default로 뿌려줌
+  // 문제1. 현재 페이징한다고 한페이지에 뿌려주는 갯수를 정의하는 currentData가 전체 data를 10개단위로 짜르고있음
+  //  ㄴ 여기서 문제가 전체데이터를 slice하기때문에 검색(filtering) 할때 뒤쪽 데이터가지 접근을 못함
+  //  ㄴ 즉 현제 페이지에서만 검색이 가능함
+  // 문제2. 현재 페이징한다고 currentData때문에 정렬(좋아요 / 날짜순) 정렬을 해도 currentData로 지금 뿌려주고있기때문에 반응을 안함
+  //  ㄴ 이것도 위에랑 마찬가지로 currentData를 정렬하면 그 한페이지내에서 솔팅은 됨...
+  //  ㄴ 즉, 전체 데이터를 sorting 하거나 filtering 해야하는데 이걸 그럼 전체 데이터를 기준으로 하는건 되냐? 이것도 안됨...
+  //  ㄴ 그래서 전체 데이터를 먼저 sorting filtering 하고 여기서 paging을 해야하는것인가...
 
   const handleClick = (event) => {
     setCurrentPage(Number(event.target.id));
@@ -64,6 +74,8 @@ const Ylist = () => {
     });
   }, []);
 
+  const [testSorLikesData, setTestSortLikesData] = useState();
+
   const handleNextbtn = () => {
     setCurrentPage(currentPage + 1);
     if (currentPage + 1 > maxPageNumberLimit) {
@@ -97,10 +109,10 @@ const Ylist = () => {
   };
 
   const sortExpiredData = () => {
-    const sortedExpiredData = data
+    const sortedData = data
       .sort((a, b) => b.expiredDate - a.expiredDate)
       .reverse();
-    setData(sortedExpiredData);
+    setData(sortedData);
     console.log(data);
   };
 
@@ -119,7 +131,7 @@ const Ylist = () => {
         <button onClick={() => sortExpiredData()}>마감일</button>
         <button onClick={() => sortLikesData()}>인기순</button>
       </div>
-      {currentData
+      {data
         .filter((data) => {
           if (searchData === '') {
             return data;
@@ -145,7 +157,6 @@ const Ylist = () => {
                 <Link to={`/YoutuberProfile/`} className='card-link'>
                   {data.user.username}
                 </Link>
-                {/* YoutuberProfile/뒤에 user_name or user_id(번호) 붙여줘야함 */}
                 <Link to={`/Ydetail/${data.id}`} className='card-link'>
                   {data.title}
                 </Link>
