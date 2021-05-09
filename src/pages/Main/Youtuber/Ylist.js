@@ -26,7 +26,7 @@ const Ylist = () => {
   const indexOfLastData = currentPage * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
 
-  // const currentData = data.slice(indexOfFirstData, indexOfLastData);
+  const currentData = data.slice(indexOfFirstData, indexOfLastData);
 
   // 지금 현재 전체 데이터를 날짜순(최신순)으로 솔팅해서 default로 뿌려줌
   // 문제1. 현재 페이징한다고 한페이지에 뿌려주는 갯수를 정의하는 currentData가 전체 data를 10개단위로 짜르고있음
@@ -131,7 +131,7 @@ const Ylist = () => {
         <button onClick={() => sortExpiredData()}>마감일</button>
         <button onClick={() => sortLikesData()}>인기순</button>
       </div>
-      {data
+      {currentData
         .filter((data) => {
           if (searchData === '') {
             return data;

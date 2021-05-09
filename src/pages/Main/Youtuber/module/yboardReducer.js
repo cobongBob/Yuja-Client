@@ -1,44 +1,69 @@
-import React, { useEffect, useState } from 'react';
 import YapiService from '../YapiService';
 
 const MODE_SORT_EXPIRED_DATE = 'sortExpiredDate';
 const MODE_SORT_LIKES = 'sortLikes';
+const MODE_GET_DATA = 'getData';
 
-const [data, setData] = useState([]);
+const initialState = {
+  data: [],
+};
 
-export const sortExpiredDate = (sortedData) => ({
+export const sortExpiredDate = () => ({
   type: MODE_SORT_EXPIRED_DATE,
-  sortedData: setData({ sortedData }),
 });
 
-export const sortLikes = (sortedData) => ({
+export const sortLikes = () => ({
   type: MODE_SORT_LIKES,
-  sortedData: setData({ sortedData }),
 });
 
-const initialState = useEffect(() => {
-  YapiService.fetchBoards().then((res) => {
-    res.data.sort((a, b) => {
-      return (
-        new Date(b.expiredDate).getTime() - new Date(a.expiredDate).getTime()
-      );
-    });
-    console.log(initialState);
-  });
-}, []);
+export const getData = async () => {
+  const axiosData = await YapiService.fetchBoards();
+  return {
+    type: MODE_GET_DATA,
+    payload: axiosData.data,
+  };
+};
 
-export function YboardReducer(state = initialState, action) {
+export default function YboardReducer(state = initialState, action) {
+  console.log(action.type);
+  console.log(action.payload);
   switch (action.type) {
+    case MODE_GET_DATA:
+      return {
+        ...state,
+        data: action.payload
+          .sort((a, b) => b.updatedDate - a.updatedDate)
+          .reverse(),
+      };
     case MODE_SORT_EXPIRED_DATE:
       return {
-        data: initialState.sort((a, b) =>
-          (b.expiredDate.getTime() - a.expiredDate.getTime()).reverse()
-        ), // setData를 써야할꺼같긴함
+        ...state,
+        data: action.payload
+          .sort((a, b) => b.expiredDate - a.expiredDate)
+          .reverse(),
       };
     case MODE_SORT_LIKES:
       return {
-        data: initialState.sort((a, b) => b.likes - a.likes),
-        // setData를 써야할꺼같긴함
+        ...state,
+        data: action.payload.sort((a, b) => b.likes - a.likes),
       };
+    default:
+      return state;
   }
 }
+
+// export function YboardReducer(state = initialState, action) {
+//   switch (action.type) {
+//     case MODE_SORT_EXPIRED_DATE:
+//       return {
+//         data: initialState.sort((a, b) =>
+//           (b.expiredDate.getTime() - a.expiredDate.getTime()).reverse()
+//         ), // setData를 써야할꺼같긴함
+//       };
+//     case MODE_SORT_LIKES:
+//       return {
+//         data: initialState.sort((a, b) => b.likes - a.likes),
+//         // setData를 써야할꺼같긴함
+//       };
+//   }
+// }
