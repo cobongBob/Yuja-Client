@@ -8,6 +8,8 @@
 - yarn add react-router-dom
 - yarn add redux react-redux
 - yarn add redux-devtools-extension
+- yarn add redux-logger
+- yanr add redux-thunk
 - yarn add react-bootstrap bootstrap
 - yarn add axios
 - yarn add node-sass
