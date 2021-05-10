@@ -7,6 +7,9 @@
 - yarn add create-react-app
 - yarn add react-router-dom
 - yarn add redux react-redux
+- yarn add redux-devtools-extension
+- yarn add redux-logger
+- yanr add redux-thunk
 - yarn add react-bootstrap bootstrap
 - yarn add axios
 - yarn add node-sass
@@ -18,6 +21,8 @@
 - yarn add react-quill
 - yarn add quill-image-drop-and-paste
 - yarn add @looop/quill-image-resize-module-react
+- yarn add react-youtube
+- yarn add get-youtube-channel-id
 
 ## 이미지 및 썸네일러 사이즈
 

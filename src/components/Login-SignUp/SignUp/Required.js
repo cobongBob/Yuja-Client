@@ -95,7 +95,9 @@ const Required = ({ location }) => {
 
   /* 인증코드 통신 및 확인 */
   const [authCode, setAuthCode] = useState();
-  const [securityCode, setSecurityCode] = useState("초기값이라 맞출수없다");
+  const [securityCode, setSecurityCode] = useState("a12345");
+  const [disabledHandler, setDisabledHandler] = useState(false);
+  const [btnTextHandler, setBtnTextHandler] = useState('인증번호 발송');
 
   console.log("authCode의 값", authCode);
 
@@ -103,11 +105,11 @@ const Required = ({ location }) => {
     setAuthCode(e.target.value);
   };
 
-  const changeDisable = (e) => {};
-
   const checkCodes = (e) => {
     if (securityCode === authCode) {
       console.log("인증성공");
+      setDisabledHandler(true);
+      setBtnTextHandler('인증완료')
       changeTimeSet();
       return true;
     } else {
@@ -151,6 +153,7 @@ const Required = ({ location }) => {
                     maxLength='8'
                     placeholder='인증번호 입력'
                     onChange={getAuthCode}
+                    disabled={disabledHandler}
                   />
                 </div>
                 <div className='codeTimerBox'>{CodeTimer()}</div>
@@ -164,6 +167,8 @@ const Required = ({ location }) => {
                     changeTimeSet={changeTimeSet}
                     changeStartTimer={changeStartTimer}
                     checkCodes={checkCodes}
+                    btnTextHandler={btnTextHandler}
+                    disabledHandler={disabledHandler}
                   ></AuthBtnBox>
                 </div>
               </div>

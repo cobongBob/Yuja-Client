@@ -1,9 +1,9 @@
 import React from "react";
 import Logo from "./components/Logo/Logo";
 import "./App.css";
-import { Redirect, Route } from "react-router";
+import { Route } from "react-router";
 import Youtuber from "./pages/Main/Youtuber/Youtuber";
-import Editer from "./pages/Main/Editor/Editer";
+import Editer from "./pages/Main/Editer/Editer";
 import Thumbnailer from "./pages/Main/Thumbnailer/Thumbnailer";
 import Winwin from "./pages/Main/Winwin/Winwin";
 import Help from "./pages/Main/Help/Help";
@@ -22,6 +22,7 @@ import MainWrapper from "./MainWrapper";
 import PageNotFound from "./pages/Error/PageNotFound";
 import Footer from "./components/Footer";
 
+/* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
 
 function App() {
@@ -33,9 +34,9 @@ function App() {
     });
     return ref.current;
   };
-
   const location = useLocation();
   const prevLocation = usePrevious(location.pathname);
+  /* history 관련 끝 */
 
   return (
     <div>
@@ -60,6 +61,7 @@ function App() {
           <Route path='/YmodifyTest/:board_id' component={YmodifyTest} />
           <Route path='/Practice' component={ImgPrac} />
           <Route path='/PracticeModi/:board_id' component={ImgPracModi} />
+          <Route path='/PageNotFound' component={PageNotFound} />
           {/* <Route component={PageNotFound} /> 이게 왜 나올까요? */}
         </Switch>
       </div>

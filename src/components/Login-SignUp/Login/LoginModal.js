@@ -4,6 +4,7 @@ import "./LoginModal.scss";
 import "../../Navi/Navi.scss";
 import { Link } from "react-router-dom";
 import AuthenticationService from "./AuthenticationService";
+import loginReducer, { userStatus } from "../../../redux/redux-login/loginReducer";
 
 function LoginModal() {
   /* 모달 설정 */
@@ -31,6 +32,11 @@ function LoginModal() {
   }
   /* 모달 설정 끝 */
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+    closeModal();
+  };
+
   /* 로그인 관련 */
   const logout = useCallback(() => {
     AuthenticationService.logout();
@@ -53,6 +59,7 @@ function LoginModal() {
     },
     [loginData]
   );
+
   const logInHandler = useCallback(() => {
     AuthenticationService.executeJwtAuthenticationService(loginData).then((res) => {
       AuthenticationService.registerSuccessfulLoginForJwt(loginData.username, res.data);
@@ -65,12 +72,15 @@ function LoginModal() {
       <button className='button-login' onClick={checkLogin}>
         로그인체크
       </button>
-      <button className='button-login' onClick={logout}>
-        로그아웃
-      </button>
-      <button className='button-login' id='button-login' onClick={openModal}>
-        로그인/회원가입
-      </button>
+      {loginReducer.userLoginStatus !== true ? (
+        <button className='button-login' id='button-login' onClick={openModal}>
+          로그인/회원가입
+        </button>
+      ) : (
+        <button className='button-login' onClick={logout}>
+          로그아웃
+        </button>
+      )}
       <Modal
         isOpen={modalIsOpen}
         closeTimeoutMS={200}
@@ -87,20 +97,25 @@ function LoginModal() {
             <div className='header-title'>유자 로그인</div>
           </header>
           <main>
-            <input name='username' className='loginId' type='text' placeholder='아이디' onChange={inputHandler} />
-            <input name='password' className='loginPw' type='password' placeholder='비밀번호' onChange={inputHandler} />
-            <div className='loginMid'>
-              <label className='autoLogin' htmlFor='hint'>
-                {" "}
-                <input type='checkbox' name='maintainLogin' id='hint' /> 로그인 유지하기
-              </label>
-              <div className='autoLogin'>아이디/비밀번호 찾기</div>
-            </div>
-            <button className='loginBtn' onClick={logInHandler}>
-              {" "}
-              로그인{" "}
-            </button>
-            <button className='googleLoginBtn'> 구글 로그인 </button>
+            <form onSubmit={onSubmit}>
+              <input name='username' className='loginId' type='text' placeholder='아이디' onChange={inputHandler} />
+              <input
+                name='password'
+                className='loginPw'
+                type='password'
+                placeholder='비밀번호'
+                onChange={inputHandler}
+              />
+              <div className='loginMid'>
+                <label className='autoLogin' htmlFor='hint'>
+                  {" "}
+                  <input type='checkbox' name='maintainLogin' id='hint' /> 로그인 유지하기
+                </label>
+                <div className='autoLogin'>아이디/비밀번호 찾기</div>
+              </div>
+              <input type='submit' className='loginBtn' value='로그인' onClick={logInHandler}></input>
+              <button className='googleLoginBtn'> 구글 로그인 </button>
+            </form>
           </main>
           <footer>
             <div className='loginLine'>
