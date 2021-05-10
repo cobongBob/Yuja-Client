@@ -30,6 +30,7 @@ class AuthenticationService {
     const token = localStorage.getItem("token");
     console.log("===UserloggedInCheck===");
     console.log(token);
+    console.log(localStorage.getItem)
 
     if (token) {
       return true;
