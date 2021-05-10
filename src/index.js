@@ -8,7 +8,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
-import rootReducer from './pages/Main/Youtuber/module/rootReducer';
+import rootReducer from './redux/rootReducer';
 import ScrollToTop from './ScrollToTop';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import logger from 'redux-logger';
