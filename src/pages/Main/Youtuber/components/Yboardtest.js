@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getData } from '../module/yboardReducer';
 import React from 'react';
@@ -10,15 +10,29 @@ import { FcLike } from 'react-icons/fc';
 export default function Yboardtest() {
   const boardData = useSelector((state) => state.YboardReducer.data);
   const dispatch = useDispatch();
-  console.log('여기여기여기', boardData);
+  const [searchData, setSearchData] = useState();
+  // console.log('여기여기여기', boardData);
   useEffect(() => {
     getData().then((res) => {
       dispatch(res);
-      console.log('여긴 유즈이펙트', res);
+      // console.log('여긴 유즈이펙트', res);
     });
   }, []);
   return (
     <div className='card-container'>
+      {/* <div>
+        검색:
+        <input
+          type='text'
+          placeholder='유저, 제목, 툴 검색'
+          onChange={(e) => {
+            setSearchData(e.target.value);
+          }}
+        />
+        <Link to='/Yregister'>등록하기</Link>
+        <button onClick={() => sortExpiredData()}>마감일</button>
+        <button onClick={() => sortLikesData()}>인기순</button>
+      </div> */}
       {boardData?.map((data) => (
         <Card key={data.id}>
           <Card.Img src='/img/board_pic/thumbnailer_pic/thum3.PNG'></Card.Img>

@@ -1,13 +1,11 @@
 import YapiService from '../YapiService';
 
+// 액션
 const MODE_SORT_EXPIRED_DATE = 'sortExpiredDate';
 const MODE_SORT_LIKES = 'sortLikes';
 const MODE_GET_DATA = 'getData';
 
-const initialState = {
-  data: [],
-};
-
+// 액션함수
 export const sortExpiredDate = () => ({
   type: MODE_SORT_EXPIRED_DATE,
 });
@@ -24,6 +22,12 @@ export const getData = async () => {
   };
 };
 
+// 초기값
+const initialState = {
+  data: [],
+};
+
+// 리듀서
 export default function YboardReducer(state = initialState, action) {
   console.log(action.type);
   console.log(action.payload);
