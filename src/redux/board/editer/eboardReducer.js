@@ -1,4 +1,4 @@
-import EditorApiService from '../../../pages/Main/Editor/EditorApiService';
+import EditerApiService from '../../../pages/Main/Editer/EditerApiService';
 
 // 액션
 const MODE_SORT_EXPIRED_DATE = 'sortExpiredDate';
@@ -6,16 +6,26 @@ const MODE_SORT_LIKES = 'sortLikes';
 const MODE_GET_DATA = 'getData';
 
 // 액션함수
-export const sortExpiredDate = () => ({
-  type: MODE_SORT_EXPIRED_DATE,
-});
+// 마감순 정렬
+export const sortExpiredDate = async () => {
+  const expiredData = await EditerApiService.fetchBoards();
+  return {
+    type: MODE_SORT_EXPIRED_DATE,
+    payload: expiredData.data,
+  };
+};
 
-export const sortLikes = () => ({
-  type: MODE_SORT_LIKES,
-});
+// 인기순 정렬
+export const sortLikes = async () => {
+  const likesData = await EditerApiService.fetchBoards();
+  return {
+    type: MODE_SORT_LIKES,
+    payload: likesData.data,
+  };
+};
 
 export const getData = async () => {
-  const axiosData = await EditorApiService.fetchBoards();
+  const axiosData = await EditerApiService.fetchBoards();
   return {
     type: MODE_GET_DATA,
     payload: axiosData.data,

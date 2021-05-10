@@ -6,14 +6,26 @@ const MODE_SORT_LIKES = 'sortLikes';
 const MODE_GET_DATA = 'getData';
 
 // 액션함수
-export const sortExpiredDate = () => ({
-  type: MODE_SORT_EXPIRED_DATE,
-});
 
-export const sortLikes = () => ({
-  type: MODE_SORT_LIKES,
-});
+// 마감순 정렬
+export const sortExpiredDate = async () => {
+  const expiredData = await YapiService.fetchBoards();
+  return {
+    type: MODE_SORT_EXPIRED_DATE,
+    payload: expiredData.data,
+  };
+};
 
+// 인기순 정렬
+export const sortLikes = async () => {
+  const likesData = await YapiService.fetchBoards();
+  return {
+    type: MODE_SORT_LIKES,
+    payload: likesData.data,
+  };
+};
+
+// 전체데이터 가져오기
 export const getData = async () => {
   const axiosData = await YapiService.fetchBoards();
   return {
@@ -51,6 +63,7 @@ export default function YboardReducer(state = initialState, action) {
         ...state,
         data: action.payload.sort((a, b) => b.likes - a.likes),
       };
+
     default:
       return state;
   }

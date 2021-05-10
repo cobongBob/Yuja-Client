@@ -1,26 +1,37 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getData } from '../../../../redux/board/youtube/yboardReducer';
+import {
+  sortExpiredDate,
+  sortLikes,
+} from '../../../redux/board/editer/eboardReducer';
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import { FcLike } from 'react-icons/fc';
+import '../Youtuber/Ylist.scss';
 
-export default function Yboardtest() {
-  const boardData = useSelector((state) => state.YboardReducer.data);
+export default function EditorTable({ boardData }) {
   const dispatch = useDispatch();
-  const [searchData, setSearchData] = useState();
-  // console.log('여기여기여기', boardData);
-  useEffect(() => {
-    getData().then((res) => {
+  const expiredData = useCallback(() => {
+    sortExpiredDate().then((res) => {
       dispatch(res);
-      // console.log('여긴 유즈이펙트', res);
+      console.log('마감순', res);
     });
-  }, []);
+  }, [boardData]);
+
+  //인기순 정렬하기
+  const likesData = useCallback(() => {
+    sortLikes().then((res) => {
+      dispatch(res);
+      console.log('인기순', res);
+    });
+  }, [boardData]);
+
   return (
     <div className='card-container'>
-      {/* <div>
+      <div>
+        {/* 
         검색:
         <input
           type='text'
@@ -29,13 +40,14 @@ export default function Yboardtest() {
             setSearchData(e.target.value);
           }}
         />
+        */}
         <Link to='/Yregister'>등록하기</Link>
-        <button onClick={() => sortExpiredData()}>마감일</button>
-        <button onClick={() => sortLikesData()}>인기순</button>
-      </div> */}
+        <button onClick={expiredData}>마감일</button>
+        <button onClick={likesData}>인기순</button>
+      </div>
       {boardData?.map((data) => (
         <Card key={data.id}>
-          <Card.Img src='/img/board_pic/thumbnailer_pic/thum3.PNG'></Card.Img>
+          <Card.Img src='/img/board_pic/editor_pic/thum4.png'></Card.Img>
           <Card.Header>
             <Card.Title>
               <Link to={`/YoutuberProfile/`} className='card-link'>

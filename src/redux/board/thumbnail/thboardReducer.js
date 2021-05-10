@@ -6,13 +6,23 @@ const MODE_SORT_LIKES = 'sortLikes';
 const MODE_GET_DATA = 'getData';
 
 // 액션함수
-export const sortExpiredDate = () => ({
-  type: MODE_SORT_EXPIRED_DATE,
-});
+// 마감순 정렬
+export const sortExpiredDate = async () => {
+  const expiredData = await ThumbnailerApiService.fetchBoards();
+  return {
+    type: MODE_SORT_EXPIRED_DATE,
+    payload: expiredData.data,
+  };
+};
 
-export const sortLikes = () => ({
-  type: MODE_SORT_LIKES,
-});
+// 인기순 정렬
+export const sortLikes = async () => {
+  const likesData = await ThumbnailerApiService.fetchBoards();
+  return {
+    type: MODE_SORT_LIKES,
+    payload: likesData.data,
+  };
+};
 
 export const getData = async () => {
   const axiosData = await ThumbnailerApiService.fetchBoards();

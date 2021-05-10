@@ -65,34 +65,40 @@
 }
 
 .card-paging {
+  text-align: center;
   margin-top: 5rem;
   margin-bottom: 5rem;
   font-family: scdream4;
 }
 
 .card-paging ul {
-  text-align: center;
   list-style: none;
   display: inline;
 }
 
 .card-paging ul li {
+  color: black;
   display: inline-block;
   padding: 1rem;
   cursor: pointer;
 }
 
-.card-paging li.active {
+.card-paging ul li.active > button:active {
   background-color: #c4302b;
   border-radius: 50%;
   color: white;
+  &::selection {
+    background-color: #c4302b;
+    border-radius: 50%;
+    color: white;
+  }
 }
 
 .card-paging li button {
   background-color: white;
   border: none;
   color: black;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   cursor: pointer;
 }
 

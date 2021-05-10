@@ -3,7 +3,7 @@ import Logo from './components/Logo/Logo';
 import './App.css';
 import { Redirect, Route } from 'react-router';
 import Youtuber from './pages/Main/Youtuber/Youtuber';
-import Editer from './pages/Main/Editor/Editer';
+import Editer from './pages/Main/Editer/Editer';
 import Thumbnailer from './pages/Main/Thumbnailer/Thumbnailer';
 import Winwin from './pages/Main/Winwin/Winwin';
 import Help from './pages/Main/Help/Help';
@@ -21,8 +21,6 @@ import { useLocation } from 'react-router-dom';
 import MainWrapper from './MainWrapper';
 import PageNotFound from './pages/Error/PageNotFound';
 import Footer from './components/Footer';
-import Yboardtest from './pages/Main/Youtuber/components/Yboardtest';
-import ThumbnailerTable from './pages/Main/Thumbnailer/ThumbnailerTable';
 
 const exceptArray = ['/SignUp1', '/SignUp1/Required', '/SignUp1/NonRequired'];
 
@@ -62,7 +60,7 @@ function App() {
           <Route path='/YmodifyTest/:board_id' component={YmodifyTest} />
           <Route path='/Practice' component={ImgPrac} />
           <Route path='/PracticeModi/:board_id' component={ImgPracModi} />
-          <Route path='/PageNotFound' component={Yboardtest} />
+          <Route path='/PageNotFound' component={PageNotFound} />
           {/* <Route component={PageNotFound} /> 이게 왜 나올까요? */}
         </Switch>
       </div>
