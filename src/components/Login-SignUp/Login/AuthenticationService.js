@@ -21,7 +21,7 @@ class AuthenticationService {
   }
 
   logout() {
-    axios.post(USER_API_BASE_URL + "/signout", { withCredentials: true });
+    axios.get(USER_API_BASE_URL + "/signout", { withCredentials: true });
     localStorage.removeItem("authenticatedUser");
     localStorage.removeItem("token");
   }
@@ -30,7 +30,7 @@ class AuthenticationService {
     const token = localStorage.getItem("token");
     console.log("===UserloggedInCheck===");
     console.log(token);
-    console.log(localStorage.getItem)
+    console.log(localStorage.getItem("authenticatedUser"));
 
     if (token) {
       return true;
