@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getData } from '../../../../redux/board/youtube/yboardReducer';
+import { getData } from '../../../redux/board/thumbnail/thboardReducer';
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import { FcLike } from 'react-icons/fc';
+import '../Youtuber/Ylist.scss';
 
-export default function Yboardtest() {
-  const boardData = useSelector((state) => state.YboardReducer.data);
+export default function ThumbnailerTable() {
+  const boardData = useSelector((state) => state.ThboardReducer.data);
   const dispatch = useDispatch();
   const [searchData, setSearchData] = useState();
   // console.log('여기여기여기', boardData);
@@ -35,7 +36,7 @@ export default function Yboardtest() {
       </div> */}
       {boardData?.map((data) => (
         <Card key={data.id}>
-          <Card.Img src='/img/board_pic/thumbnailer_pic/thum3.PNG'></Card.Img>
+          <Card.Img src='/img/board_pic/editor_pic/thum2.png'></Card.Img>
           <Card.Header>
             <Card.Title>
               <Link to={`/YoutuberProfile/`} className='card-link'>

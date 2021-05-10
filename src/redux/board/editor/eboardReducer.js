@@ -1,4 +1,4 @@
-import YapiService from '../pages/Main/Youtuber/YapiService';
+import EditorApiService from '../../../pages/Main/Editor/EditorApiService';
 
 // 액션
 const MODE_SORT_EXPIRED_DATE = 'sortExpiredDate';
@@ -15,7 +15,7 @@ export const sortLikes = () => ({
 });
 
 export const getData = async () => {
-  const axiosData = await YapiService.fetchBoards();
+  const axiosData = await EditorApiService.fetchBoards();
   return {
     type: MODE_GET_DATA,
     payload: axiosData.data,
@@ -28,7 +28,7 @@ const initialState = {
 };
 
 // 리듀서
-export default function YboardReducer(state = initialState, action) {
+export default function EboardReducer(state = initialState, action) {
   console.log(action.type);
   console.log(action.payload);
   switch (action.type) {
@@ -55,19 +55,3 @@ export default function YboardReducer(state = initialState, action) {
       return state;
   }
 }
-
-// export function YboardReducer(state = initialState, action) {
-//   switch (action.type) {
-//     case MODE_SORT_EXPIRED_DATE:
-//       return {
-//         data: initialState.sort((a, b) =>
-//           (b.expiredDate.getTime() - a.expiredDate.getTime()).reverse()
-//         ), // setData를 써야할꺼같긴함
-//       };
-//     case MODE_SORT_LIKES:
-//       return {
-//         data: initialState.sort((a, b) => b.likes - a.likes),
-//         // setData를 써야할꺼같긴함
-//       };
-//   }
-// }

@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getData } from '../../../../redux/board/youtube/yboardReducer';
+import { getData } from '../../../redux/board/youtube/yboardReducer';
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import { FcLike } from 'react-icons/fc';
+import '../Youtuber/Ylist.scss';
 
-export default function Yboardtest() {
+export default function YoutuberTable() {
   const boardData = useSelector((state) => state.YboardReducer.data);
   const dispatch = useDispatch();
   const [searchData, setSearchData] = useState();

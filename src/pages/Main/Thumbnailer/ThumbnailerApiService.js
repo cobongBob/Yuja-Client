@@ -1,7 +1,7 @@
 import instance from '../../../AxiosConfig.js';
-const BoardType = 2;
+const BoardType = 3;
 
-class EditorApiService {
+class ThumbnailerApiService {
   async addBoards(data) {
     return await instance({
       url: BoardType + '/board',
@@ -38,4 +38,4 @@ class EditorApiService {
   }
 }
 
-export default new EditorApiService();
+export default new ThumbnailerApiService();

@@ -22,6 +22,7 @@ import MainWrapper from './MainWrapper';
 import PageNotFound from './pages/Error/PageNotFound';
 import Footer from './components/Footer';
 import Yboardtest from './pages/Main/Youtuber/components/Yboardtest';
+import ThumbnailerTable from './pages/Main/Thumbnailer/ThumbnailerTable';
 
 const exceptArray = ['/SignUp1', '/SignUp1/Required', '/SignUp1/NonRequired'];
 

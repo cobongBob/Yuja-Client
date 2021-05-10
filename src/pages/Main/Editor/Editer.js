@@ -5,18 +5,8 @@ import EditorTable from './EditorTable';
 import '../Youtuber/Youtuber.scss';
 
 const Editor = () => {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    EditorApiService.getAllBoard().then((res) => {
-      //   editorBoardList.current.push(res.data);
-      setData(res.data);
-      console.log(res.data);
-    });
-  }, []);
-
   return (
-    <div className='YtableWrapper'>
+    <div className='tableWrapper'>
       <EditorTable />
     </div>
   );
