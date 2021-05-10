@@ -2,6 +2,10 @@ import axios from "axios";
 const USER_API_BASE_URL = "http://localhost:8888/api/auth";
 
 class AuthenticationService {
+  verifyEmailSend(username) {
+    return axios.post(USER_API_BASE_URL + "/verify", { username: username });
+  }
+
   executeJwtAuthenticationService(data) {
     return axios.post(USER_API_BASE_URL + "/signin", data, { withCredentials: true });
   }
@@ -17,6 +21,7 @@ class AuthenticationService {
   }
 
   logout() {
+    axios.post(USER_API_BASE_URL + "/signout", { withCredentials: true });
     localStorage.removeItem("authenticatedUser");
     localStorage.removeItem("token");
   }

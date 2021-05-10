@@ -1,38 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import './AuthBtnBox.scss';
+import React from "react";
+import "./SignUp1.scss";
 
 const AuthBtnBox = (props) => {
-
-  if(props.timerSet === false) {
+  if (props.timerSet === false) {
     return (
       <>
-        <button
-          className='btn btn-warning'
-          id='authenticationCodeSend'
-          onClick={props.changeTimeSet}
-        >
-          인증번호 발송
-        </button>
+        <div className='authenticationCodeSend'>
+          <button className='btn btn-warning' id='authenticationCodeSend' onClick={props.changeTimeSet}>
+            인증번호 발송
+          </button>
+        </div>
       </>
-    )
+    );
   } else {
     return (
       <>
-        <button
-          className='authCodeResendBtn'
-          onClick={props.changeStartTimer}
-        >
-          재발송
-        </button>
-        <button
-          className='authBtn'
-          onClick={props.changeTimeSet}
-        >
-          인증
-        </button>
+        <div className='authenticationCodeResend'>
+          <button className='btn btn-warning' id='authenticationCodeResend' onClick={props.changeStartTimer}>
+            재발송
+          </button>
+        </div>
+        <div className='authenticationBtn'>
+          <button className='btn btn-warning' id='authenticationBtn' onClick={props.checkCodes}>
+            인증
+          </button>
+        </div>
       </>
-    )
+    );
   }
-}
+};
 
 export default AuthBtnBox;
