@@ -53,7 +53,8 @@ const Ylist = () => {
           key={number}
           id={number}
           onClick={handleClick}
-          className={currentPage === number ? 'active' : null}>
+          className={currentPage === number ? 'active' : null}
+        >
           {number}
         </li>
       );
@@ -201,7 +202,8 @@ const Ylist = () => {
           <li>
             <button
               onClick={handlePrevbtn}
-              disabled={currentPage === pages[0] ? true : false}>
+              disabled={currentPage === pages[0] ? true : false}
+            >
               {/* 호버시 이미지 바꾸기 해야함..... */}
               <RiArrowLeftCircleLine className='icon-arrow' />
               <RiArrowLeftCircleFill className='icon-arrow-hover' />
@@ -213,7 +215,8 @@ const Ylist = () => {
           <li>
             <button
               onClick={handleNextbtn}
-              disabled={currentPage === pages[pages.length - 1] ? true : false}>
+              disabled={currentPage === pages[pages.length - 1] ? true : false}
+            >
               <div>
                 <RiArrowRightCircleFill className='icon-arrow-hover' />
                 <RiArrowRightCircleLine className='icon-arrow' />

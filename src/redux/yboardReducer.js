@@ -1,4 +1,4 @@
-import YapiService from '../YapiService';
+import YapiService from '../pages/Main/Youtuber/YapiService';
 
 // 액션
 const MODE_SORT_EXPIRED_DATE = 'sortExpiredDate';
