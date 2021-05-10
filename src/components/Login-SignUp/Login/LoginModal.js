@@ -4,6 +4,7 @@ import './LoginModal.scss';
 import '../../Navi/Navi.scss';
 import { Link } from 'react-router-dom';
 import AuthenticationService from './AuthenticationService';
+import loginReducer, { userStatus } from '../../../redux/redux-login/loginReducer';
 
 function LoginModal() {
   /* 모달 설정 */
@@ -31,6 +32,11 @@ function LoginModal() {
   }
   /* 모달 설정 끝 */
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+    closeModal()
+  }
+
   /* 로그인 관련 */
   const logout = useCallback(() => {
     AuthenticationService.logout();
@@ -53,7 +59,9 @@ function LoginModal() {
     },
     [loginData]
   );
+
   const logInHandler = useCallback(() => {
+    console.log("로그인핸들러 실행")
     AuthenticationService.executeJwtAuthenticationService(loginData).then(
       (res) => {
         AuthenticationService.registerSuccessfulLoginForJwt(
@@ -70,12 +78,22 @@ function LoginModal() {
       <button className='button-login' onClick={checkLogin}>
         로그인체크
       </button>
-      <button className='button-login' onClick={logout}>
-        로그아웃
-      </button>
-      <button className='button-login' id='button-login' onClick={openModal}>
-        로그인/회원가입
-      </button>
+      {loginReducer.userLoginStatus !== true ?
+        <button
+          className='button-login'
+          id='button-login'
+          onClick={openModal}
+        >
+          로그인/회원가입
+        </button>
+        :
+        <button
+          className='button-login'
+          onClick={logout}
+        >
+          로그아웃
+        </button>
+      }
       <Modal
         isOpen={modalIsOpen}
         closeTimeoutMS={200}
@@ -96,6 +114,7 @@ function LoginModal() {
             <div className='header-title'>유자 로그인</div>
           </header>
           <main>
+            <form onSubmit={onSubmit}>
             <input
               name='username'
               className='loginId'
@@ -118,11 +137,14 @@ function LoginModal() {
               </label>
               <div className='autoLogin'>아이디/비밀번호 찾기</div>
             </div>
-            <button className='loginBtn' onClick={logInHandler}>
-              {' '}
-              로그인{' '}
-            </button>
+            <input type='submit'
+                   className='loginBtn'
+                   value='로그인'
+                   onClick={logInHandler}
+            >
+            </input>
             <button className='googleLoginBtn'> 구글 로그인 </button>
+            </form>
           </main>
           <footer>
             <div className='loginLine'>
@@ -137,6 +159,6 @@ function LoginModal() {
       </Modal>
     </>
   );
-}
+};
 
 export default LoginModal;

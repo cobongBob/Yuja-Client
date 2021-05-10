@@ -11,7 +11,7 @@ const SignUp1 = () => {
     <div className='SignUpFrag'>
       <header className='SignUpHeader'>
         {/*<img className="SignUpIcon" src="/img/parts_pic/yuzu05.png" />{" "}*/}
-        <div className='header-title'>유자 회원가입</div>
+        <Link className='header-title' to='/'>유자 회원가입</Link>
         {/*<div className="signUpBar">*/}
         {/*  <div className="bar1"></div>*/}
         {/*  <div className="bar2"></div>*/}

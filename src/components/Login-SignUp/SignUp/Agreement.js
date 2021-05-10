@@ -593,18 +593,18 @@ const Agreement = ({ history }) => {
       alert('필수 항목에 모두 동의 해주세요.');
       e.preventDefault();
     } else if (next === true) {
-      let date = new Date();
-      let year = date.getFullYear();
-      let month = 1 + date.getMonth();
-      let day = date.getDate();
-      alert(
-        year +
-          '년 ' +
-          month +
-          '월 ' +
-          day +
-          '일 마케팅 정보 수신에 동의 하셨습니다.'
-      );
+      // let date = new Date();
+      // let year = date.getFullYear();
+      // let month = 1 + date.getMonth();
+      // let day = date.getDate();
+      // alert(
+      //   year +
+      //     '년 ' +
+      //     month +
+      //     '월 ' +
+      //     day +
+      //     '일 마케팅 정보 수신에 동의 하셨습니다.'
+      // );
     }
   };
 

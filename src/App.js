@@ -23,6 +23,7 @@ import PageNotFound from './pages/Error/PageNotFound';
 import Footer from './components/Footer';
 import Yboardtest from './pages/Main/Youtuber/components/Yboardtest';
 
+/* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ['/SignUp1', '/SignUp1/Required', '/SignUp1/NonRequired'];
 
 function App() {
@@ -34,9 +35,9 @@ function App() {
     });
     return ref.current;
   };
-
   const location = useLocation();
   const prevLocation = usePrevious(location.pathname);
+  /* history 관련 끝 */
 
   return (
     <div>
