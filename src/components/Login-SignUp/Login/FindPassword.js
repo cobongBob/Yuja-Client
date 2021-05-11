@@ -3,10 +3,19 @@ import "./FindPassword.scss";
 import { Link } from "react-router-dom";
 
 const FindPassword = () => {
-  const [username, setUsername] = useState("");
-  const handleInput = useCallback((e) => {
-    [e.target.name] = e.target.value;
-  }, []);
+  const [username, setUsername] = useState({
+    username: "",
+  });
+  const handleInput = useCallback(
+    (e) => {
+      setUsername({
+        ...username,
+        [e.target.name]: e.target.value,
+      });
+    },
+    [username]
+  );
+  const sendEmail = useCallback(() => {}, []);
   return (
     <div className='PasswordFrag'>
       <header className='PasswordHeader'>
@@ -28,6 +37,9 @@ const FindPassword = () => {
             required
             autoFocus
           />
+        </div>
+        <div>
+          <button onClick={sendEmail}>Reset Password</button>
         </div>
       </content>
       <footer className='PasswordFooter'>
