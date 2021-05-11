@@ -18,7 +18,6 @@ window.Quill = Quill;
 let quill;
 const Yregister = () => {
   const addingFileList = useRef([]);
-  const currFileList = useRef([]);
   const imageHandler = useCallback(() => {
     const input = document.createElement("input");
 
@@ -143,18 +142,9 @@ const Yregister = () => {
 
   const testCheking = () => {
     console.log(input);
-    let currentBoardType = "YoutuberBoard/";
-    let reg = /http:\/\/localhost:8888\/files\/test\/[0-9]+.[a-z]+/g;
+    let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
     let imgSrcArr = String(data).match(reg);
-    if (imgSrcArr) {
-      addingFileList.current.forEach((src) => {
-        if (!imgSrcArr.includes(`http://localhost:8888/files/${currentBoardType}${src}`)) {
-          currFileList.current.push(src);
-        }
-      });
-    } else {
-      currFileList.current = addingFileList.current;
-    }
+
     const sendingData = {
       ...input,
       userId: 1, //글쓰고있는 사람의 아이디로 변경요망
@@ -163,7 +153,7 @@ const Yregister = () => {
         `src="http://localhost:8888/files/YoutuberBoard/`
       ), //업로드된 이미지들은 temp가 아닌 YoutuberBoard에 저장된다.
       thumbnail: "썸네일테스트", //썸네일 서버쪽 만들어지면 변경 필
-      boardAttachNames: currFileList.current,
+      boardAttachNames: imgSrcArr,
     };
     YapiService.addBoards(sendingData).then((res) => {
       Yhistory(res.data.id);
