@@ -8,11 +8,15 @@ import {
   getDetailData,
 } from '../../../redux/board/youtube/yboardReducer';
 import Pagination from '../components/Pagination';
+import Search from '../components/Search';
 // nav에서 유튜버를 누르면 보이는 전체 컴포넌트
 const Youtuber = () => {
   // Youtuber의 전체 데이터 불러오기
   const boardData = useSelector((state) => state.YboardReducer.data);
   const dispatch = useDispatch();
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
   //페이징 처리하기
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,6 +30,22 @@ const Youtuber = () => {
     setCurrentPage(pages);
   };
 
+  const searchHandler = (searchTerm) => {
+    setSearchTerm(searchTerm);
+    if (searchTerm !== '') {
+      const newBoardList = boardData.filter((data) => {
+        return Object.values(data.worker)
+          .join('')
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
+      });
+      setSearchResults(newBoardList);
+    } else {
+      setSearchResults(boardData);
+    }
+  };
+
+  // 전체 데이터 끌어오기
   useEffect(() => {
     getData().then((res) => {
       dispatch(res);
@@ -36,10 +56,16 @@ const Youtuber = () => {
 
   return (
     <div className='tableWrapper'>
+      <Search
+        boardData={searchTerm.length < 1 ? boardData : searchResults}
+        term={searchTerm}
+        searchKeyword={searchHandler}
+      />
       <YoutuberTable boardData={currentData} />
       <Pagination
         boardPerPage={boardPerPage}
         totalBoards={boardData.length}
+        currentPage={currentPage}
         clickPage={clickPage}
       />
     </div>
