@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from 'react';
 import { Link } from "react-router-dom";
 import AuthCodeTimer from "./AuthCodeTimer";
 import AuthBtnBox from "./AuthBtnBox";
-import AuthenticationService from "../Login/AuthenticationService";
+import * as auth from "../Login/AuthenticationService";
+import axios from 'axios';
 
 const Required = ({ location }) => {
   /* 값 넘겨주기 */
@@ -82,7 +83,7 @@ const Required = ({ location }) => {
   };
 
   const changeStartTimer = () => {
-    AuthenticationService.verifyEmailSend(requiredData.username).then((res) => {
+    auth.verifyEmailSend(requiredData.username).then((res) => {
       setSecurityCode(res.data);
     });
     return setStartTimer(!startTimer);
@@ -118,6 +119,19 @@ const Required = ({ location }) => {
     }
   };
 
+  const checkEmailValidate = useCallback(()=>{
+    axios.post("http://localhost:8888/api/auth/checkemail",requiredData).then(res=>{
+      console.log(res.data);
+    })
+  })
+
+  const checkNicknameValidate = useCallback(()=>{
+    axios.post("http://localhost:8888/api/auth/checknickname",requiredData).then(res=>{
+      console.log(res.data);
+    })
+  })
+
+
   return (
     <div className='contentBox2'>
       <div className='overlay'>
@@ -134,6 +148,7 @@ const Required = ({ location }) => {
                 type='email'
                 placeholder='아이디(이메일)'
                 onChange={changeValue}
+                onKeyUp={checkEmailValidate}
                 required
                 autoFocus
               />
@@ -247,6 +262,7 @@ const Required = ({ location }) => {
                 maxLength='20'
                 placeholder='닉네임'
                 onChange={changeValue}
+                onKeyUp={checkNicknameValidate}
                 required
               />
             </td>

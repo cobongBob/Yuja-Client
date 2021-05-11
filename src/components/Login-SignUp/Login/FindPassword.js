@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import "./FindPassword.scss";
 import { Link } from "react-router-dom";
-import AuthenticationService from "./AuthenticationService";
+import * as auth from "./AuthenticationService";
 
 const FindPassword = () => {
   const [username, setUsername] = useState({
@@ -16,8 +16,8 @@ const FindPassword = () => {
     },
     [username]
   );
-  const sendEmail = useCallback(() => {
-    AuthenticationService.resetPasswordConfirmationService(username);
+  const sendEmail = useCallback(async () => {
+    await auth.resetPasswordConfirmationService(username);
   }, [username]);
   return (
     <div className='PasswordFrag'>
