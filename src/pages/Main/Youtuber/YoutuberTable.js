@@ -35,17 +35,10 @@ export default function YoutuberTable({ boardData }) {
 
   return (
     <div className='card-container'>
-      <div>
-        {/*검색:
-        <input
-          type='text'
-          placeholder='유저, 제목, 툴 검색'
-          onChange={(e) => {
-            setSearchData(e.target.value);
-          }}
-        />
-        */}
-        <Link to='/Yregister'>등록하기</Link>
+      <div className='card-options'>
+        <div>
+          <Link to='/Yregister'>등록하기</Link>
+        </div>
         <button onClick={expiredData}>마감일</button>
         <button onClick={likesData}>인기순</button>
       </div>

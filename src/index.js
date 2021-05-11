@@ -11,6 +11,7 @@ import ScrollToTop from "./ScrollToTop";
 import { composeWithDevTools } from "redux-devtools-extension";
 import logger from "redux-logger";
 import thunk from "redux-thunk";
+import GlobalLoading from './components/Loading/GlobalLoading';
 
 const middleware = [logger, thunk];
 

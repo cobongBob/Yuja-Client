@@ -1,6 +1,4 @@
-/* 토큰 값 */
-const authenticatedUser = localStorage.getItem("authenticatedUser");
-const isUserAlive = authenticatedUser !== null ? true : false;
+/* 유저 id 값 */
 
 /* 액션 */
 const USER_LOGIN = "redux-login/USER_LOGIN";
@@ -23,23 +21,27 @@ export const userLogout = () => (
     userLoginStatus: false,
   }
 );
-export const userStatus = () => (
-  console.log("액션함수 userStatus 실행"),
-  {
-    type: USER_STATUS,
-    userLoginStatus: isUserAlive,
-  }
-);
 export const userId = () => (
   console.log("액션함수 userId 실행"),
   {
     type: USER_ID,
+    userId: "",
+    nickname: "",
+  }
+);
+export const userStatus = () => (
+  console.log("액션함수 userStatus 실행"),
+  {
+    type: USER_STATUS,
+    userLoginStatus: initialState,
   }
 );
 
 /* 초기값 */
 const initialState = {
-  userLoginStatus: isUserAlive,
+  userLoginStatus: false,
+  userId: "기본id1",
+  nickname: "기본닉네임",
 };
 
 /* 리듀서 */
@@ -49,17 +51,23 @@ export default function loginReducer(state = initialState, action) {
     case USER_LOGIN:
       return {
         ...state,
-        userLoginStatus: (state.userLoginStatus = true),
+        userLoginStatus: true,
       };
     case USER_LOGOUT:
       return {
         ...state,
-        userLoginStatus: (state.userLoginStatus = false),
+        userLoginStatus: false,
       };
     case USER_STATUS:
       return {
         ...state,
-        userLoginStatus: isUserAlive,
+        userLoginStatus: state,
+      };
+    case USER_ID:
+      return {
+        ...state,
+        userId: "기본id1",
+        nickname: "기본닉네임",
       };
     default:
       return state;

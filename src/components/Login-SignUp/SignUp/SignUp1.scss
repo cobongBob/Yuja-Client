@@ -120,6 +120,9 @@ input::placeholder {
     background-color: darkgray;
     opacity: .65;
   }
+  &:focus {
+    box-shadow: 1px 1px 3px 2px #ffb963;
+  }
 }
 .authenticationCodeBox {
   width:50%;

@@ -62,6 +62,15 @@ input::placeholder {
     line-height: 3;
   }
 }
+.findPasswordBox {
+  margin: auto 0px auto auto;
+}
+.findPassword {
+  font-size: 14px;
+  color: #8d8d8d;
+  line-height: 3;
+  left:50%;
+}
 .loginBtn {
   height: 40px;
   width: 100%;
@@ -71,17 +80,18 @@ input::placeholder {
   background-color: black;
   color: white;
   line-height: 1px;
-  margin-top: 20px;
+  margin-top: 5px;
   border-radius: 3px;
   border-style: none;
 }
+/* 구글 로그인 관련 */
 .googleLoginBtn {
   height: 40px;
   width: 100%;
   font-size: 14px;
   padding: 13px 30px;
   cursor: pointer;
-  background-color: orangered;
+  background-color: blue;
   color: white;
   line-height: 1px;
   margin-top: 10px;
@@ -89,6 +99,12 @@ input::placeholder {
   border-radius: 3px;
   border-style: none;
 }
+.googleIcon {
+  height: 40px;
+  margin-left: -20px;
+  margin-right: 10px;
+}
+/* 구글 로그인 끝 */
 section > footer {
   padding: 12px 16px;
   text-align: center;
@@ -106,6 +122,13 @@ section > footer {
   }
 }
 
+/* nav 로그인 전/후 변하는 컴포넌트들 */
+.navChangeBox {
+  display:inline-block;
+}
+.welcomeBox {
+  display:inline-block;
+}
 /* 모달창 제어 */
 .ReactModal__Body--open,
 .ReactModal__Html--open {
@@ -130,11 +153,15 @@ section > footer {
 }
 
 /* 모달 반응형 */
-@media screen and (max-width: 4000px) {
+@media screen and (max-width: 4000px) and (max-height:4000px){
 
   .ReactModal__Content {
     min-width:360px;
-    min-height: 380px;
+    height:1em;
+  }
+  .ReactModal__Content--after-open {
+    min-width:360px;
+    min-height:560px;
   }
 
 }

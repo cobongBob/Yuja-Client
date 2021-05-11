@@ -1,32 +1,33 @@
 import axios from "axios";
+import { useDispatch, useSelector } from 'react-redux';
+import { userLogin, userLogout } from '../../../redux/redux-login/loginReducer';
 const USER_API_BASE_URL = "http://localhost:8888/api/auth";
 
-class AuthenticationService {
-  verifyEmailSend(username) {
-    return axios.post(USER_API_BASE_URL + "/verify", { username: username });
+  export const verifyEmailSend = async (username) =>{
+    return await axios.post(USER_API_BASE_URL + "/verify", { username: username });
   }
 
-  executeJwtAuthenticationService(data) {
-    return axios.post(USER_API_BASE_URL + "/signin", data, { withCredentials: true });
+export const executeJwtAuthenticationService = async (data) => {
+    return await axios.post(USER_API_BASE_URL + "/signin", data, { withCredentials: true });
   }
 
-  registerSuccessfulLoginForJwt(username, token) {
+export const registerSuccessfulLoginForJwt = async (username, token) => {
     console.log("===registerSuccessfulLoginForJwt===");
     localStorage.setItem("token", token);
     localStorage.setItem("authenticatedUser", username);
   }
 
-  createJWTToken(token) {
+export const createJWTToken = (token) => {
     return "Bearer " + token;
   }
 
-  logout() {
+export const authLogout = () => {
     axios.get(USER_API_BASE_URL + "/signout", { withCredentials: true });
     localStorage.removeItem("authenticatedUser");
     localStorage.removeItem("token");
   }
 
-  isUserLoggedIn() {
+export const isUserLoggedIn = () => {
     const token = localStorage.getItem("token");
     console.log("===UserloggedInCheck===");
     console.log(token);
@@ -39,12 +40,12 @@ class AuthenticationService {
     return false;
   }
 
-  getLoggedInUserName() {
+export const getLoggedInUserName = () => {
     let user = localStorage.getItem("authenticatedUser");
     if (user === null) return "";
     return user;
   }
-  async googleLoginService(response) {
+export const googleLoginService = async (response) => {
     const resFromServer = await axios.post(USER_API_BASE_URL + "/oauth/google", JSON.stringify(response), {
       headers: { "Content-Type": "application/json; charset=utf-8" },
     });
@@ -66,6 +67,11 @@ class AuthenticationService {
       // 이 데이터를 가지고 로그인으로 이동 후 자동 로그인
     }
   }
-}
 
-export default new AuthenticationService();
+export const resetPasswordConfirmationService = async (username) => {
+    await axios.post(USER_API_BASE_URL + "/resetPassword", username).then((res) => {
+      alert(res.data);
+    });
+  }
+
+
