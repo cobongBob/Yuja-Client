@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import "./FindPassword.scss";
 import { Link } from "react-router-dom";
+import AuthenticationService from "./AuthenticationService";
 
 const FindPassword = () => {
   const [username, setUsername] = useState({
@@ -15,15 +16,12 @@ const FindPassword = () => {
     },
     [username]
   );
-  const sendEmail = useCallback(() => {}, []);
+  const sendEmail = useCallback(() => {
+    AuthenticationService.resetPasswordConfirmationService(username);
+  }, [username]);
   return (
     <div className='PasswordFrag'>
-      <header className='PasswordHeader'>
-        <Link className='header-title' to='/'>
-          유자 비밀번호 찾기
-        </Link>
-      </header>
-      <content>
+      <div>
         <div className='contentBox'>
           <div className='labelWrapper'>
             <label htmlFor='email'>이메일</label>
@@ -32,16 +30,16 @@ const FindPassword = () => {
             className='email'
             name='username'
             type='email'
-            placeholder='아이디(이메일)'
+            placeholder='email'
             onChange={handleInput}
             required
             autoFocus
           />
         </div>
         <div>
-          <button onClick={sendEmail}>Reset Password</button>
+          <button onClick={sendEmail}>Send New Password</button>
         </div>
-      </content>
+      </div>
       <footer className='PasswordFooter'>
         <Link className='linkToMain' to='/'>
           이미 회원이신가요? <span>로그인</span>

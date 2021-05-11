@@ -2,12 +2,12 @@ import axios from "axios";
 const USER_API_BASE_URL = "http://localhost:8888/api/auth";
 
 class AuthenticationService {
-  verifyEmailSend(username) {
-    return axios.post(USER_API_BASE_URL + "/verify", { username: username });
+  async verifyEmailSend(username) {
+    return await axios.post(USER_API_BASE_URL + "/verify", { username: username });
   }
 
-  executeJwtAuthenticationService(data) {
-    return axios.post(USER_API_BASE_URL + "/signin", data, { withCredentials: true });
+  async executeJwtAuthenticationService(data) {
+    return await axios.post(USER_API_BASE_URL + "/signin", data, { withCredentials: true });
   }
 
   registerSuccessfulLoginForJwt(username, token) {
@@ -65,6 +65,12 @@ class AuthenticationService {
       return loginData;
       // 이 데이터를 가지고 로그인으로 이동 후 자동 로그인
     }
+  }
+
+  async resetPasswordConfirmationService(username) {
+    await axios.post(USER_API_BASE_URL + "/resetPassword", username).then((res) => {
+      alert(res.data);
+    });
   }
 }
 
