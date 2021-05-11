@@ -11,36 +11,37 @@ export const userLogin = () => (
   console.log("액션함수 userLogin 실행"),
   {
     type: USER_LOGIN,
-    userLoginStatus: true
+    userLoginStatus: true,
   }
 );
 export const userLogout = () => (
   console.log("액션함수 userLogout 실행"),
   {
     type: USER_LOGOUT,
-    userLoginStatus: false
+    userLoginStatus: false,
   }
 );
 export const userId = () => (
   console.log("액션함수 userId 실행"),
   {
     type: USER_ID,
-    userId: '',
-    nickname: '',
+    userId: "",
+    nickname: "",
   }
 );
 export const userStatus = () => (
-  console.log('액션함수 userStatus 실행'), {
+  console.log("액션함수 userStatus 실행"),
+  {
     type: USER_STATUS,
-    userLoginStatus: initialState
+    userLoginStatus: initialState,
   }
-)
+);
 
 /* 초기값 */
 const initialState = {
   userLoginStatus: false,
-  userId: '기본id1',
-  nickname: '기본닉네임',
+  userId: "기본id1",
+  nickname: "기본닉네임",
 };
 
 /* 리듀서 */
@@ -50,24 +51,24 @@ export default function loginReducer(state = initialState, action) {
     case USER_LOGIN:
       return {
         ...state,
-        userLoginStatus: true
+        userLoginStatus: true,
       };
     case USER_LOGOUT:
       return {
         ...state,
-        userLoginStatus: false
+        userLoginStatus: false,
       };
     case USER_STATUS:
       return {
         ...state,
-        userLoginStatus: state
-      }
+        userLoginStatus: state,
+      };
     case USER_ID:
       return {
         ...state,
-        userId: '기본id1',
-        nickname: '기본닉네임',
-      }
+        userId: "기본id1",
+        nickname: "기본닉네임",
+      };
     default:
       return state;
   }

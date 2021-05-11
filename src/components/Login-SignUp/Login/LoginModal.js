@@ -5,10 +5,10 @@ import "../../Navi/Navi.scss";
 import { Link } from "react-router-dom";
 import * as auth from "./AuthenticationService";
 import GoogleLogin from "react-google-login";
-import { useDispatch, useSelector } from 'react-redux';
-import { DiVim } from 'react-icons/all';
-import { userLogin, userLogout } from '../../../redux/redux-login/loginReducer';
-import googleLoginIcon from './googleLoginIcon2.svg'
+import { useDispatch, useSelector } from "react-redux";
+import { DiVim } from "react-icons/all";
+import { userLogin, userLogout } from "../../../redux/redux-login/loginReducer";
+import googleLoginIcon from "./googleLoginIcon2.svg";
 
 function LoginModal() {
   /* 모달 설정 */
@@ -44,21 +44,20 @@ function LoginModal() {
   /* form, submit 새로고침 방지용 끝 */
 
   /* 리덕스 관련 */
-  const {userLoginStatus, nickname} = useSelector(state => state.loginReducer)
-  const dispatch = useDispatch()
+  const { userLoginStatus, nickname } = useSelector((state) => state.loginReducer);
+  const dispatch = useDispatch();
   /* 리덕스 관련 끝 */
-
 
   /* 로그인 관련 */
   const logout = useCallback(() => {
     auth.authLogout();
-    dispatch(userLogout())
+    dispatch(userLogout());
   }, []);
 
   // const status = useSelector(state => state.loginReducer.userLoginStatus)
 
   const checkLogin = useCallback(() => {
-    auth.isUserLoggedIn()
+    auth.isUserLoggedIn();
   }, []);
 
   const [loginData, setLoginData] = useState({
@@ -75,12 +74,15 @@ function LoginModal() {
     [loginData]
   );
   const logInHandler = useCallback(async () => {
-   await auth.executeJwtAuthenticationService(loginData).then((res) => {
-      auth.registerSuccessfulLoginForJwt(loginData.username, res.data);
-     dispatch(userLogin())
-    }).catch(e => {
-      alert(e.response.data.message)
-   });
+    await auth
+      .executeJwtAuthenticationService(loginData)
+      .then((res) => {
+        auth.registerSuccessfulLoginForJwt(loginData.username, res.data);
+        dispatch(userLogin());
+      })
+      .catch((e) => {
+        alert(e.response.data.message);
+      });
   }, [loginData]);
 
   const resGoogle = useCallback(async (response) => {
@@ -94,17 +96,17 @@ function LoginModal() {
   /* 로그인 관련 끝 */
 
   const customStyle = {
-    background:'royalblue',
-    height:'40px',
-    width: '100%',
-    fontSize:'14px',
-    color: 'white',
-    lineHeight: '1px',
-    marginTop: '10px',
-    marginBottom: '12PX',
-    borderRadius: '3px',
-    borderStyle: 'none',
-  }
+    background: "royalblue",
+    height: "40px",
+    width: "100%",
+    fontSize: "14px",
+    color: "white",
+    lineHeight: "1px",
+    marginTop: "10px",
+    marginBottom: "12PX",
+    borderRadius: "3px",
+    borderStyle: "none",
+  };
 
   return (
     <>
@@ -112,27 +114,18 @@ function LoginModal() {
         로그인체크
       </button>
       <div className='navChangeBox'>
-      {userLoginStatus === false ?
-        <button
-          className='button-login'
-          id='button-login'
-          onClick={openModal}
-        >
-          로그인/회원가입
-        </button>
-        :
-        <div>
-        <div className='welcomeBox'>
-          안녕하세요, {nickname}님!
-        </div>
-        <button
-        className='button-login'
-        onClick={logout}
-        >
-        로그아웃
-        </button>
-        </div>
-      }
+        {userLoginStatus === false ? (
+          <button className='button-login' id='button-login' onClick={openModal}>
+            로그인/회원가입
+          </button>
+        ) : (
+          <div>
+            <div className='welcomeBox'>안녕하세요, {nickname}님!</div>
+            <button className='button-login' onClick={logout}>
+              로그아웃
+            </button>
+          </div>
+        )}
       </div>
       <Modal
         isOpen={modalIsOpen}
@@ -161,22 +154,12 @@ function LoginModal() {
               />
               <div className='loginMid'>
                 <div className='findPasswordBox'>
-                  <Link
-                    className='findPassword'
-                    to='/FindPassword'
-                    onClick={closeModal}
-                  >
+                  <Link className='findPassword' to='/FindPassword' onClick={closeModal}>
                     비밀번호 찾기
                   </Link>
                 </div>
               </div>
-              <input
-                type='submit'
-                className='loginBtn'
-                value='로그인'
-                onClick={logInHandler}
-              >
-              </input>
+              <input type='submit' className='loginBtn' value='로그인' onClick={logInHandler}></input>
               <GoogleLogin
                 className='googleLoginBtn'
                 clientId=''
@@ -184,16 +167,9 @@ function LoginModal() {
                 onSuccess={resGoogle}
                 onFailure={resGoogle}
                 cookiePolicy={"single_host_origin"}
-                render={renderProps => (
-                  <button
-                    onClick={renderProps.onClick}
-                    style={customStyle}
-                  >
-                    <img
-                      src={googleLoginIcon}
-                      alt='안보임'
-                      className='googleIcon'
-                    />
+                render={(renderProps) => (
+                  <button onClick={renderProps.onClick} style={customStyle}>
+                    <img src={googleLoginIcon} alt='안보임' className='googleIcon' />
                     구글 로그인
                   </button>
                 )}
@@ -211,8 +187,8 @@ function LoginModal() {
           </footer>
         </section>
       </Modal>
-      </>
+    </>
   );
-};
+}
 
 export default LoginModal;
