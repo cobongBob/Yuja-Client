@@ -1,25 +1,27 @@
-import React, { useState, useCallback } from "react";
-import Modal from "react-modal";
-import "./LoginModal.scss";
-import "../../Navi/Navi.scss";
-import { Link } from "react-router-dom";
-import AuthenticationService from "./AuthenticationService";
-import loginReducer, { userStatus } from "../../../redux/redux-login/loginReducer";
-import GoogleLogin from "react-google-login";
+import React, { useState, useCallback } from 'react';
+import Modal from 'react-modal';
+import './LoginModal.scss';
+import '../../Navi/Navi.scss';
+import { Link } from 'react-router-dom';
+import AuthenticationService from './AuthenticationService';
+import loginReducer, {
+  userStatus,
+} from '../../../redux/redux-login/loginReducer';
+import GoogleLogin from 'react-google-login';
 
 function LoginModal() {
   /* 모달 설정 */
   const customStyles = {
     content: {
-      top: "50%",
-      left: "50%",
-      right: "80%",
-      bottom: "-12%",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-      overflow: "hidden",
-      WebkitOverflowScrolling: "touch",
-      preventScroll: "true",
+      top: '50%',
+      left: '50%',
+      right: '80%',
+      bottom: '-12%',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      overflow: 'hidden',
+      WebkitOverflowScrolling: 'touch',
+      preventScroll: 'true',
     },
     overlay: { zIndex: 9999 },
   };
@@ -48,8 +50,8 @@ function LoginModal() {
   }, []);
 
   const [loginData, setLoginData] = useState({
-    username: "",
-    password: "",
+    username: '',
+    password: '',
   });
   const inputHandler = useCallback(
     (e) => {
@@ -62,17 +64,27 @@ function LoginModal() {
   );
 
   const logInHandler = useCallback(() => {
-    AuthenticationService.executeJwtAuthenticationService(loginData).then((res) => {
-      AuthenticationService.registerSuccessfulLoginForJwt(loginData.username, res.data);
-    });
+    AuthenticationService.executeJwtAuthenticationService(loginData).then(
+      (res) => {
+        AuthenticationService.registerSuccessfulLoginForJwt(
+          loginData.username,
+          res.data
+        );
+      }
+    );
   }, [loginData]);
 
   const resGoogle = useCallback(async (response) => {
     await AuthenticationService.googleLoginService(response).then((res) => {
-      AuthenticationService.executeJwtAuthenticationService(res).then((resFromserver) => {
-        AuthenticationService.registerSuccessfulLoginForJwt(res.username, resFromserver.data);
-        closeModal();
-      });
+      AuthenticationService.executeJwtAuthenticationService(res).then(
+        (resFromserver) => {
+          AuthenticationService.registerSuccessfulLoginForJwt(
+            res.username,
+            resFromserver.data
+          );
+          closeModal();
+        }
+      );
     });
   }, []);
 
@@ -83,7 +95,7 @@ function LoginModal() {
       <button className='button-login' onClick={checkLogin}>
         로그인체크
       </button>
-      {loginReducer.userLoginStatus === true ? (
+      {loginReducer.userLoginStatus !== true ? (
         <button className='button-login' id='button-login' onClick={openModal}>
           로그인/회원가입
         </button>
@@ -97,19 +109,28 @@ function LoginModal() {
         closeTimeoutMS={200}
         onRequestClose={closeModal}
         style={customStyles}
-        contentLabel='Example Modal'
-      >
+        contentLabel='Example Modal'>
         <section>
           <header className='header'>
             <span className='close' onClick={closeModal}>
               &times;
             </span>
-            <img className='signinIcon' src='/img/parts_pic/yuzu05.png' alt='logo' />{" "}
+            <img
+              className='signinIcon'
+              src='/img/parts_pic/yuzu05.png'
+              alt='logo'
+            />{' '}
             <div className='header-title'>유자 로그인</div>
           </header>
           <main>
             <form onSubmit={onSubmit}>
-              <input name='username' className='loginId' type='text' placeholder='아이디' onChange={inputHandler} />
+              <input
+                name='username'
+                className='loginId'
+                type='text'
+                placeholder='아이디'
+                onChange={inputHandler}
+              />
               <input
                 name='password'
                 className='loginPw'
@@ -119,25 +140,30 @@ function LoginModal() {
               />
               <div className='loginMid'>
                 <label className='autoLogin' htmlFor='hint'>
-                  {" "}
-                  <input type='checkbox' name='maintainLogin' id='hint' /> 로그인 유지하기
+                  {' '}
+                  <input type='checkbox' name='maintainLogin' id='hint' />{' '}
+                  로그인 유지하기
                 </label>
                 <div className='autoLogin'>아이디/비밀번호 찾기</div>
               </div>
-              <input type='submit' className='loginBtn' value='로그인' onClick={logInHandler}></input>
+              <input
+                type='submit'
+                className='loginBtn'
+                value='로그인'
+                onClick={logInHandler}></input>
               <GoogleLogin
                 className='googleLoginBtn'
                 clientId=''
                 buttonText='구글 로그인'
                 onSuccess={resGoogle}
                 onFailure={resGoogle}
-                cookiePolicy={"single_host_origin"}
+                cookiePolicy={'single_host_origin'}
               />
             </form>
           </main>
           <footer>
             <div className='loginLine'>
-              회원이 아니신가요?{" "}
+              회원이 아니신가요?{' '}
               <Link to='/SignUp1' onClick={closeModal}>
                 이메일로 회원가입
               </Link>

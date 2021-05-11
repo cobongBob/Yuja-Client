@@ -3,7 +3,10 @@ import './Youtuber.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import YoutuberTable from './YoutuberTable';
 import './Youtuber.scss';
-import { getData } from '../../../redux/board/youtube/yboardReducer';
+import {
+  getData,
+  getDetailData,
+} from '../../../redux/board/youtube/yboardReducer';
 import Pagination from '../components/Pagination';
 // nav에서 유튜버를 누르면 보이는 전체 컴포넌트
 const Youtuber = () => {

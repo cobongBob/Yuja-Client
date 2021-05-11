@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import youtubeChannelId from 'get-youtube-channel-id';
+import { getDetailData } from '../../../../redux/board/youtube/yboardReducer';
 
-const Practice = () => {
+const Practice = (data) => {
   // null 대신 " " 이렇게 주기
 
-  const [url, setUrl] = useState(null);
-  const [subscribers, setSubscribers] = useState(null);
-  const [views, setViews] = useState(null);
-  const [videos, setVideos] = useState(null);
+  const [url, setUrl] = useState('');
+  const [subscribers, setSubscribers] = useState('');
+  const [views, setViews] = useState('');
+  const [videos, setVideos] = useState('');
   const [bannerimage, setImageBannerImage] = useState(' ');
-  const [desc, setDesc] = useState(null);
-  const [thumb, setThumb] = useState(null);
+  const [desc, setDesc] = useState('');
+  const [thumb, setThumb] = useState('');
 
   const API_KEY = 'AIzaSyDLR47w8ZGLifW0rikkDVKP68TMYIu5ywQ';
 
@@ -61,20 +62,24 @@ const Practice = () => {
           submit
         </Button>
       </Form>
-      구독자수 {subscribers}
-      <br />
-      조회수 {views}
-      <br />
-      비디오갯수 {videos}
-      <br />
-      베너이미지
-      <img src={bannerimage} alt='' />
-      <br />
-      채널소개
-      {desc}
-      <br />
-      섬네일 이미지
-      <img src={thumb} alt='' />
+      <div>
+        <div>구독자수 {subscribers}</div>
+        <div>조회수 {views}</div>
+        <div>비디오갯수 {videos}</div>
+        <div>
+          베너이미지
+          <img src={bannerimage} alt='' />
+        </div>
+        <div>
+          {data.title}
+          채널소개
+          {desc}
+        </div>
+        <div>
+          섬네일 이미지
+          <img src={thumb} alt='' />
+        </div>
+      </div>
     </div>
   );
 };

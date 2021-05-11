@@ -1,37 +1,37 @@
 /* 토큰 값 */
-const authenticatedUser = localStorage.getItem("authenticatedUser");
+const authenticatedUser = localStorage.getItem('authenticatedUser');
 const isUserAlive = authenticatedUser !== null ? true : false;
 
 /* 액션 */
-const USER_LOGIN = "redux-login/USER_LOGIN";
-const USER_LOGOUT = "redux-login/USER_LOGOUT";
-const USER_STATUS = "redux-login/USER_STATUS";
-const USER_ID = "redux-login/USER_ID";
+const USER_LOGIN = 'redux-login/USER_LOGIN';
+const USER_LOGOUT = 'redux-login/USER_LOGOUT';
+const USER_STATUS = 'redux-login/USER_STATUS';
+const USER_ID = 'redux-login/USER_ID';
 
 /* 액션 함수 */
 export const userLogin = () => (
-  console.log("액션함수 userLogin 실행"),
+  console.log('액션함수 userLogin 실행'),
   {
     type: USER_LOGIN,
     userLoginStatus: true,
   }
 );
 export const userLogout = () => (
-  console.log("액션함수 userLogout 실행"),
+  console.log('액션함수 userLogout 실행'),
   {
     type: USER_LOGOUT,
     userLoginStatus: false,
   }
 );
 export const userStatus = () => (
-  console.log("액션함수 userStatus 실행"),
+  console.log('액션함수 userStatus 실행'),
   {
     type: USER_STATUS,
     userLoginStatus: isUserAlive,
   }
 );
 export const userId = () => (
-  console.log("액션함수 userId 실행"),
+  console.log('액션함수 userId 실행'),
   {
     type: USER_ID,
   }
