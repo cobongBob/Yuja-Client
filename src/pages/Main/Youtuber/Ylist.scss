@@ -83,15 +83,10 @@
   cursor: pointer;
 }
 
-.card-paging ul li.active > button:active {
+.card-paging ul li > button:target {
   background-color: #c4302b;
   border-radius: 50%;
   color: white;
-  &::selection {
-    background-color: #c4302b;
-    border-radius: 50%;
-    color: white;
-  }
 }
 
 .card-paging li button {

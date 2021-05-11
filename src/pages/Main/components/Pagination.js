@@ -75,8 +75,9 @@ export default function Pagination({ boardPerPage, totalBoards, clickPage }) {
           <RiArrowLeftCircleFill className='icon-arrow-hover' />
         </li>
         {pages.map((number) => (
-          <li key={number}>
+          <li>
             <button
+              key={number}
               onClick={() => clickPage(number)}
               disabled={boardPerPage === pages[0] ? true : false}
             >
@@ -84,6 +85,7 @@ export default function Pagination({ boardPerPage, totalBoards, clickPage }) {
             </button>
           </li>
         ))}
+
         <li>
           <div>
             <RiArrowRightCircleFill className='icon-arrow-hover' />
