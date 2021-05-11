@@ -18,6 +18,7 @@ window.Quill = Quill;
 let quill;
 const Yregister = () => {
   const addingFileList = useRef([]);
+  const currFileList = useRef([]);
   const imageHandler = useCallback(() => {
     const input = document.createElement("input");
 
@@ -42,7 +43,7 @@ const Yregister = () => {
             const range = quill.getSelection(true) !== null ? quill.getSelection(true) : 0;
             quill.insertEmbed(range.index, "image", `http://localhost:8888/files/temp/${response.data[0].fileName}`);
             quill.setSelection(range.index + 1);
-            addingFileList.current.push(response.data[0].attachId);
+            addingFileList.current.push(response.data[0].fileName);
           }
         })
         .catch((error) => {
@@ -70,7 +71,7 @@ const Yregister = () => {
           const range = quill.getSelection(true) !== null ? quill.getSelection(true) : 0;
           quill.insertEmbed(range.index, "image", `http://localhost:8888/files/temp/${response.data[0].fileName}`);
           quill.setSelection(range.index + 1);
-          addingFileList.current.push(response.data[0].attachId);
+          addingFileList.current.push(response.data[0].fileName);
         }
       })
       .catch((error) => {
@@ -142,6 +143,17 @@ const Yregister = () => {
 
   const testCheking = () => {
     console.log(input);
+    let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
+    let imgSrcArr = String(data).match(reg);
+    if (imgSrcArr) {
+      addingFileList.current.forEach((src) => {
+        if (imgSrcArr.includes(`http://localhost:8888/files/temp/${src}`)) {
+          currFileList.current.push(src);
+        }
+      });
+    } else {
+      currFileList.current = [];
+    }
     const sendingData = {
       ...input,
       userId: 1, //글쓰고있는 사람의 아이디로 변경요망
@@ -150,7 +162,7 @@ const Yregister = () => {
         `src="http://localhost:8888/files/YoutuberBoard/`
       ), //업로드된 이미지들은 temp가 아닌 YoutuberBoard에 저장된다.
       thumbnail: "썸네일테스트", //썸네일 서버쪽 만들어지면 변경 필
-      boardAttachIds: addingFileList.current,
+      boardAttachNames: currFileList.current,
     };
     YapiService.addBoards(sendingData).then((res) => {
       Yhistory(res.data.id);
