@@ -29,6 +29,7 @@ const Ydetail = (props) => {
         alert(e.response.data.message);
         console.log(e.response.data);
         // props.history.goBack(-1);
+        return Promise.reject(e.response);
       });
   }, [props.match.params.board_id, props.history]);
 
