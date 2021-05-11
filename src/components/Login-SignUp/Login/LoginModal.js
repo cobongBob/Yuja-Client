@@ -4,8 +4,9 @@ import "./LoginModal.scss";
 import "../../Navi/Navi.scss";
 import { Link } from "react-router-dom";
 import AuthenticationService from "./AuthenticationService";
-import loginReducer, { userStatus } from "../../../redux/redux-login/loginReducer";
+import loginReducer, { userLogin, userLogout, userStatus } from '../../../redux/redux-login/loginReducer';
 import GoogleLogin from "react-google-login";
+import { useDispatch, useSelector } from 'react-redux';
 
 function LoginModal() {
   /* 모달 설정 */
@@ -38,10 +39,16 @@ function LoginModal() {
     closeModal();
   };
 
+  const dispatch = useDispatch()
+  const {userLoginStatus} = useSelector(state => state.loginReducer)
+
   /* 로그인 관련 */
   const logout = useCallback(() => {
+    dispatch(userLogout())
     AuthenticationService.logout();
   }, []);
+
+  // const status = useSelector(state => state.loginReducer.userLoginStatus)
 
   const checkLogin = useCallback(() => {
     AuthenticationService.isUserLoggedIn();
@@ -62,6 +69,7 @@ function LoginModal() {
   );
 
   const logInHandler = useCallback(() => {
+    dispatch(userLogin())
     AuthenticationService.executeJwtAuthenticationService(loginData).then((res) => {
       AuthenticationService.registerSuccessfulLoginForJwt(loginData.username, res.data);
     });
@@ -83,15 +91,22 @@ function LoginModal() {
       <button className='button-login' onClick={checkLogin}>
         로그인체크
       </button>
-      {loginReducer.userLoginStatus !== true ? (
-        <button className='button-login' id='button-login' onClick={openModal}>
+      {userLoginStatus === false ?
+        <button
+          className='button-login'
+          id='button-login'
+          onClick={openModal}
+        >
           로그인/회원가입
         </button>
-      ) : (
-        <button className='button-login' onClick={logout}>
-          로그아웃
+        :
+        <button
+        className='button-login'
+        onClick={logout}
+        >
+        로그아웃
         </button>
-      )}
+      }
       <Modal
         isOpen={modalIsOpen}
         closeTimeoutMS={200}
@@ -156,6 +171,6 @@ function LoginModal() {
       </Modal>
     </>
   );
-}
+};
 
 export default LoginModal;
