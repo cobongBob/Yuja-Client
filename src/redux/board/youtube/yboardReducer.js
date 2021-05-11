@@ -1,9 +1,9 @@
-import YapiService from "../../../pages/Main/Youtuber/YapiService";
+import YapiService from '../../../pages/Main/Youtuber/YapiService';
 
 // 액션
-const MODE_SORT_EXPIRED_DATE = "sortExpiredDate";
-const MODE_SORT_LIKES = "sortLikes";
-const MODE_GET_DATA = "getData";
+const MODE_SORT_EXPIRED_DATE = 'sortExpiredDate';
+const MODE_SORT_LIKES = 'sortLikes';
+const MODE_GET_DATA = 'getData';
 
 // 액션함수
 
@@ -47,12 +47,16 @@ export default function YboardReducer(state = initialState, action) {
     case MODE_GET_DATA:
       return {
         ...state,
-        data: action.payload.sort((a, b) => b.updatedDate - a.updatedDate).reverse(),
+        data: action.payload
+          .sort((a, b) => b.updatedDate - a.updatedDate)
+          .reverse(),
       };
     case MODE_SORT_EXPIRED_DATE:
       return {
         ...state,
-        data: action.payload.sort((a, b) => b.expiredDate - a.expiredDate).reverse(),
+        data: action.payload
+          .sort((a, b) => b.expiredDate - a.expiredDate)
+          .reverse(),
       };
     case MODE_SORT_LIKES:
       return {

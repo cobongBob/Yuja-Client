@@ -1,97 +1,48 @@
 import React, { useState } from 'react';
-import {
-  RiArrowLeftCircleFill,
-  RiArrowLeftCircleLine,
-  RiArrowRightCircleFill,
-  RiArrowRightCircleLine,
-} from 'react-icons/ri';
+import { RiArrowLeftCircleLine, RiArrowRightCircleLine } from 'react-icons/ri';
 import '../Youtuber/Ylist.scss';
 
-export default function Pagination({ boardPerPage, totalBoards, clickPage }) {
-  // const [pageNumberLimit, setPageNumberLimit] = useState(5);
-  // const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(5);
-  // const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
+export default function Pagination(props) {
+  const { boardPerPage, totalBoards, currentPage, clickPage } = props;
 
   const pages = [];
-  for (let i = 1; i <= Math.ceil(totalBoards / boardPerPage); i++) {
-    pages.push(i);
+  const endPages = Math.ceil(totalBoards / boardPerPage); // 페이지 수
+  let lastPage = Math.ceil(currentPage / 5) * 5; // 현재의 마지막 페이지
+  let startPage = lastPage - 4;
+  for (let i = startPage; i <= lastPage; i++) {
+    if (i <= endPages) {
+      pages.push(i);
+    }
+    if (pages === 1) return null;
   }
 
-  {
-    /*
-  const renderPageNumbers = pages.map((number) => {
-    if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
-      return (
-        <li
-          key={number}
-          id={number}
-          onClick={handleClick}
-          className={currentPage === number ? 'active' : null}
-        >
-          {number}
-        </li>
-      );
-    } else {
-      return null;
-    }
-  });
-*/
-  }
-
-  {
-    /* const handleNextbtn = () => {
-    setCurrentPage(currentPage + 1);
-    if (currentPage + 1 > maxPageNumberLimit) {
-      setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
-      setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
-    }
+  const prevBtn = () => {
+    if (currentPage === 1) return;
+    clickPage(currentPage - 1);
   };
 
-  const handlePrevbtn = () => {
-    setCurrentPage(currentPage - 1);
-    if ((currentPage - 1) % pageNumberLimit === 0) {
-      setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
-      setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
-    }
+  const nextBtn = () => {
+    if (currentPage === endPages) return;
+    clickPage(currentPage + 1);
   };
-
-  let pageIncrementBtn = null;
-  if (pages.length > maxPageNumberLimit) {
-    pageIncrementBtn = <li onClick={handleNextbtn}>&hellip;</li>;
-  }
-
-  let pageDecrementBtn = null;
-  if (minPageNumberLimit >= 1) {
-    pageDecrementBtn = <li onClick={handlePrevbtn}>&hellip;</li>;
-  }
-*/
-  }
 
   return (
     <div className='card-paging'>
       <ul>
-        <li>
+        <button onClick={prevBtn}>
           <RiArrowLeftCircleLine className='icon-arrow' />
-          <RiArrowLeftCircleFill className='icon-arrow-hover' />
-        </li>
+        </button>
         {pages.map((number) => (
-          <li>
-            <button
-              key={number}
-              onClick={() => clickPage(number)}
-              disabled={boardPerPage === pages[0] ? true : false}
-            >
-              {number}
-            </button>
+          <li
+            key={number}
+            className={number === currentPage ? 'focus' : 'null'}
+          >
+            <div onClick={() => clickPage(number)}>{number}</div>
           </li>
         ))}
-
-        <li>
-          <div>
-            <RiArrowRightCircleFill className='icon-arrow-hover' />
-            <RiArrowRightCircleLine className='icon-arrow' />
-          </div>
-        </li>
+        <button onClick={nextBtn}>
+          <RiArrowRightCircleLine className='icon-arrow' />
+        </button>
       </ul>
     </div>
   );
