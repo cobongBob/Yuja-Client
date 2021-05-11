@@ -44,6 +44,28 @@ class AuthenticationService {
     if (user === null) return "";
     return user;
   }
+  async googleLoginService(response) {
+    const resFromServer = await axios.post(USER_API_BASE_URL + "/oauth/google", JSON.stringify(response), {
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+    });
+    if (resFromServer.status === 201) {
+      const userDetail = {
+        username: resFromServer.data.email,
+        password: resFromServer.data.password,
+        realName: resFromServer.data.name,
+        provider: resFromServer.data.provider,
+        providerId: resFromServer.data.providerId,
+      };
+      // 이 데이터를 가지고 회원가입으로 이동
+    } else if (resFromServer.status === 200) {
+      const loginData = {
+        username: resFromServer.data.email,
+        password: resFromServer.data.password,
+      };
+      return loginData;
+      // 이 데이터를 가지고 로그인으로 이동 후 자동 로그인
+    }
+  }
 }
 
 export default new AuthenticationService();

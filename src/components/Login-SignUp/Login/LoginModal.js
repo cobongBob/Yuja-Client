@@ -5,6 +5,7 @@ import "../../Navi/Navi.scss";
 import { Link } from "react-router-dom";
 import AuthenticationService from "./AuthenticationService";
 import loginReducer, { userStatus } from "../../../redux/redux-login/loginReducer";
+import GoogleLogin from "react-google-login";
 
 function LoginModal() {
   /* 모달 설정 */
@@ -65,6 +66,16 @@ function LoginModal() {
       AuthenticationService.registerSuccessfulLoginForJwt(loginData.username, res.data);
     });
   }, [loginData]);
+
+  const resGoogle = useCallback(async (response) => {
+    await AuthenticationService.googleLoginService(response).then((res) => {
+      AuthenticationService.executeJwtAuthenticationService(res).then((resFromserver) => {
+        AuthenticationService.registerSuccessfulLoginForJwt(res.username, resFromserver.data);
+        closeModal();
+      });
+    });
+  }, []);
+
   /* 로그인 관련 끝 */
 
   return (
@@ -72,7 +83,7 @@ function LoginModal() {
       <button className='button-login' onClick={checkLogin}>
         로그인체크
       </button>
-      {loginReducer.userLoginStatus !== true ? (
+      {loginReducer.userLoginStatus === true ? (
         <button className='button-login' id='button-login' onClick={openModal}>
           로그인/회원가입
         </button>
@@ -114,7 +125,14 @@ function LoginModal() {
                 <div className='autoLogin'>아이디/비밀번호 찾기</div>
               </div>
               <input type='submit' className='loginBtn' value='로그인' onClick={logInHandler}></input>
-              <button className='googleLoginBtn'> 구글 로그인 </button>
+              <GoogleLogin
+                className='googleLoginBtn'
+                clientId=''
+                buttonText='구글 로그인'
+                onSuccess={resGoogle}
+                onFailure={resGoogle}
+                cookiePolicy={"single_host_origin"}
+              />
             </form>
           </main>
           <footer>
