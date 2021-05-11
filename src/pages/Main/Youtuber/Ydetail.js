@@ -27,7 +27,7 @@ const Ydetail = (props) => {
       })
       .catch((e) => {
         alert("접근불가");
-        props.history.goBack(-1);
+        // props.history.goBack(-1);
       });
   }, [props.match.params.board_id, props.history]);
 
@@ -69,8 +69,8 @@ const Ydetail = (props) => {
               </div>
             </div>
             <div className='detail-date'>
-              {data.updatedDate !== null ? data.updatedDate.substr(0, 10) : ""} ~{" "}
-              {data.expiredDate !== null ? data.expiredDate.substr(0, 10) : "상시채용"}
+              {data.updatedDate !== undefined ? data.updatedDate.substr(0, 10) : ""} ~{" "}
+              {data.expiredDate !== undefined ? data.expiredDate.substr(0, 10) : "상시채용"}
             </div>
             <div className='detail-content'>
               <div className='detail-content-default'>
