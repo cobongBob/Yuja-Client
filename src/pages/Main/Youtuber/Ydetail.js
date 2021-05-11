@@ -26,7 +26,8 @@ const Ydetail = (props) => {
         console.log(res.data);
       })
       .catch((e) => {
-        alert("접근불가");
+        alert(e.response.data.message);
+        console.log(e.response.data);
         // props.history.goBack(-1);
       });
   }, [props.match.params.board_id, props.history]);
