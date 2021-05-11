@@ -19,6 +19,7 @@ const FindPassword = () => {
   const sendEmail = useCallback(async () => {
     await auth.resetPasswordConfirmationService(username);
   }, [username]);
+
   return (
     <div className='PasswordFrag'>
       <div>

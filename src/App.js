@@ -78,7 +78,7 @@ function App() {
 
   return (
     <div>
-      <GlobalLoading/>
+      {/*<GlobalLoading/>*/}
       {exceptArray.indexOf(location.pathname) < 0 && <Navi />}
       {exceptArray.indexOf(location.pathname) < 0 && <Logo />}
       {console.log("전페이지", prevLocation)}

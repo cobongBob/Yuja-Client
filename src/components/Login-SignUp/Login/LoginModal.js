@@ -8,6 +8,7 @@ import GoogleLogin from "react-google-login";
 import { useDispatch, useSelector } from 'react-redux';
 import { DiVim } from 'react-icons/all';
 import { userLogin, userLogout } from '../../../redux/redux-login/loginReducer';
+import googleLoginIcon from './googleLoginIcon2.svg'
 
 function LoginModal() {
   /* 모달 설정 */
@@ -92,6 +93,19 @@ function LoginModal() {
   }, []);
   /* 로그인 관련 끝 */
 
+  const customStyle = {
+    background:'royalblue',
+    height:'40px',
+    width: '100%',
+    fontSize:'14px',
+    color: 'white',
+    lineHeight: '1px',
+    marginTop: '10px',
+    marginBottom: '12PX',
+    borderRadius: '3px',
+    borderStyle: 'none',
+  }
+
   return (
     <>
       <button className='button-login' onClick={checkLogin}>
@@ -147,7 +161,11 @@ function LoginModal() {
               />
               <div className='loginMid'>
                 <div className='findPasswordBox'>
-                  <Link className='findPassword' to='/FindPassword'>
+                  <Link
+                    className='findPassword'
+                    to='/FindPassword'
+                    onClick={closeModal}
+                  >
                     비밀번호 찾기
                   </Link>
                 </div>
@@ -166,6 +184,19 @@ function LoginModal() {
                 onSuccess={resGoogle}
                 onFailure={resGoogle}
                 cookiePolicy={"single_host_origin"}
+                render={renderProps => (
+                  <button
+                    onClick={renderProps.onClick}
+                    style={customStyle}
+                  >
+                    <img
+                      src={googleLoginIcon}
+                      alt='안보임'
+                      className='googleIcon'
+                    />
+                    구글 로그인
+                  </button>
+                )}
               />
             </form>
           </main>
