@@ -102,8 +102,8 @@ const NonRequired = ({ location, history }) => {
           alert("비어있는 항목이 있습니다! 나가!");
         }
       })
-      .catch(() => {
-        alert("오류가 발생했습니다. 나가!");
+      .catch((e) => {
+        alert(e.response.data.message);
       });
   };
   /* 이 페이지(nonRequired) 데이터 담기 끝 */
