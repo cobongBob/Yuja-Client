@@ -2,7 +2,6 @@ import React from "react";
 import "./Ynew.scss";
 import { FaUserAstronaut } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import MOCK_DATA from "../../pages/MOCK_DATA.json";
 
 const Ynew = () => {
   return (
@@ -13,11 +12,11 @@ const Ynew = () => {
         </div>
         <div className='wanted-content'>
           <span className='wanted-name'>
-            <Link to='/YoutuberProfile'>{MOCK_DATA[0].user_id}</Link>
+            <Link to='/YoutuberProfile'>유저아이디</Link>
           </span>
           <span className='wanted-type-editer'>편집자</span> <br />
           <span className='wanted-content-detail'>
-            <Link to='/Ydetail/:board_id'>{MOCK_DATA[0].title}</Link>
+            <Link to='/Ydetail/:board_id'>제목</Link>
           </span>
         </div>
       </div>
@@ -27,11 +26,11 @@ const Ynew = () => {
         </div>
         <div className='wanted-content'>
           <span className='wanted-name'>
-            <Link to='/YoutuberProfile'>{MOCK_DATA[1].user_id}</Link>
+            <Link to='/YoutuberProfile'>유저아이디</Link>
           </span>
           <span className='wanted-type-editer'>편집자</span> <br />
           <span className='wanted-content-detail'>
-            <Link to='/Ydetail/:board_id'>{MOCK_DATA[1].title}</Link>
+            <Link to='/Ydetail/:board_id'>제목</Link>
           </span>
         </div>
       </div>
@@ -46,7 +45,7 @@ const Ynew = () => {
           <span className='wanted-type-editer'>편집자</span>
           <span className='wanted-type-thumbnail'>썸네일러</span> <br />
           <span className='wanted-content-detail'>
-            <Link to='/Ydetail/:board_id'>{MOCK_DATA[2].title}</Link>
+            <Link to='/Ydetail/:board_id'>제목</Link>
           </span>
         </div>
       </div>
@@ -61,7 +60,7 @@ const Ynew = () => {
           <span className='wanted-type-editer'>편집자</span>
           <span className='wanted-type-thumbnail'>썸네일러</span> <br />
           <span className='wanted-content-detail'>
-            <Link to='/Ydetail/:board_id'>{MOCK_DATA[2].title}</Link>
+            <Link to='/Ydetail/:board_id'>제목</Link>
           </span>
         </div>
       </div>
