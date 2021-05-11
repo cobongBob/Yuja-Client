@@ -83,7 +83,7 @@ function LoginModal() {
       <button className='button-login' onClick={checkLogin}>
         로그인체크
       </button>
-      {loginReducer.userLoginStatus === true ? (
+      {loginReducer.userLoginStatus !== true ? (
         <button className='button-login' id='button-login' onClick={openModal}>
           로그인/회원가입
         </button>
@@ -118,13 +118,21 @@ function LoginModal() {
                 onChange={inputHandler}
               />
               <div className='loginMid'>
-                <label className='autoLogin' htmlFor='hint'>
-                  {" "}
-                  <input type='checkbox' name='maintainLogin' id='hint' /> 로그인 유지하기
-                </label>
-                <div className='autoLogin'>아이디/비밀번호 찾기</div>
+                <div className='findPasswordBox'>
+                  <Link
+                    className='findPassword'
+                    to='/FindPassword'
+                  >
+                    비밀번호 찾기
+                  </Link>
+                </div>
               </div>
-              <input type='submit' className='loginBtn' value='로그인' onClick={logInHandler}></input>
+              <input
+                type='submit'
+                className='loginBtn'
+                value='로그인'
+                onClick={logInHandler}>
+              </input>
               <GoogleLogin
                 className='googleLoginBtn'
                 clientId=''
