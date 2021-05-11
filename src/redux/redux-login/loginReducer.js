@@ -39,8 +39,8 @@ export const userStatus = () => (
 /* 초기값 */
 const initialState = {
   userLoginStatus: false,
-  userId: '',
-  nickname: '',
+  userId: '기본id1',
+  nickname: '기본닉네임',
 };
 
 /* 리듀서 */
@@ -65,8 +65,8 @@ export default function loginReducer(state = initialState, action) {
     case USER_ID:
       return {
         ...state,
-        userId: '',
-        nickname: '',
+        userId: '기본id1',
+        nickname: '기본닉네임',
       }
     default:
       return state;

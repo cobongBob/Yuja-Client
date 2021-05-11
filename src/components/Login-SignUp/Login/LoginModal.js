@@ -7,6 +7,7 @@ import AuthenticationService from "./AuthenticationService";
 import loginReducer, { userLogin, userLogout, userStatus } from '../../../redux/redux-login/loginReducer';
 import GoogleLogin from "react-google-login";
 import { useDispatch, useSelector } from 'react-redux';
+import { DiVim } from 'react-icons/all';
 
 function LoginModal() {
   /* 모달 설정 */
@@ -34,13 +35,17 @@ function LoginModal() {
   }
   /* 모달 설정 끝 */
 
+  /* form, submit 새로고침 방지용 */
   const onSubmit = (e) => {
     e.preventDefault();
     closeModal();
   };
+  /* form, submit 새로고침 방지용 끝 */
 
+  /* 리덕스 관련 */
   const dispatch = useDispatch()
-  const {userLoginStatus} = useSelector(state => state.loginReducer)
+  const {userLoginStatus, nickname} = useSelector(state => state.loginReducer)
+  /* 리덕스 관련 끝 */
 
   /* 로그인 관련 */
   const logout = useCallback(() => {
@@ -83,7 +88,6 @@ function LoginModal() {
       });
     });
   }, []);
-
   /* 로그인 관련 끝 */
 
   return (
@@ -91,6 +95,7 @@ function LoginModal() {
       <button className='button-login' onClick={checkLogin}>
         로그인체크
       </button>
+      <div className='navChangeBox'>
       {userLoginStatus === false ?
         <button
           className='button-login'
@@ -100,13 +105,19 @@ function LoginModal() {
           로그인/회원가입
         </button>
         :
+        <div>
+        <div className='welcomeBox'>
+          안녕하세요, {nickname}님!
+        </div>
         <button
         className='button-login'
         onClick={logout}
         >
         로그아웃
         </button>
+        </div>
       }
+      </div>
       <Modal
         isOpen={modalIsOpen}
         closeTimeoutMS={200}
@@ -161,7 +172,7 @@ function LoginModal() {
           </footer>
         </section>
       </Modal>
-    </>
+      </>
   );
 };
 
