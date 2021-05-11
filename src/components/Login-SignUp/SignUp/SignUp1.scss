@@ -10,11 +10,6 @@
   text-align: center;
 }
 
-.SignUp1 > header-title {
-  font-size: 4rem;
-  font-family: hopang;
-  color: #ffb963;
-}
 .SignUpIcon {
   width: 10%;
   margin: 2em 0 1em 2em;
@@ -121,6 +116,10 @@ input::placeholder {
   box-sizing: border-box;
   font-size: 0.85em;
   width:120%;
+  &:disabled {
+    background-color: darkgray;
+    opacity: .65;
+  }
 }
 .authenticationCodeBox {
   width:50%;
@@ -155,6 +154,17 @@ input::placeholder {
 .authenticationCodeSend > .btn {
   font-size:0.85em;
   padding:5px;
+  &:disabled {
+    background-color: darkgray;
+  }
+}
+.authenticationCodeSend > .btn-warning {
+  font-size:0.85em;
+  padding:5px;
+  &:disabled {
+    background-color: darkgray;
+    border:none;
+  }
 }
 .codeTimerBox {
   display: inline-block;

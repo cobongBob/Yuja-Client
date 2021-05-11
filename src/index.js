@@ -1,25 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
-import { Container, Row, Col } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { applyMiddleware, createStore } from 'redux';
-import { Provider } from 'react-redux';
-import rootReducer from './redux/rootReducer';
-import ScrollToTop from './ScrollToTop';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import logger from 'redux-logger';
-import thunk from 'redux-thunk';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import { BrowserRouter } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { applyMiddleware, createStore } from "redux";
+import { Provider } from "react-redux";
+import rootReducer from "./redux/rootReducer";
+import ScrollToTop from "./ScrollToTop";
+import { composeWithDevTools } from "redux-devtools-extension";
+import logger from "redux-logger";
+import thunk from "redux-thunk";
 
 const middleware = [logger, thunk];
 
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(...middleware))
-);
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(...middleware)));
+
+console.log(store.getState());
 
 ReactDOM.render(
   <Provider store={store}>
@@ -28,10 +25,5 @@ ReactDOM.render(
       <App />
     </BrowserRouter>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

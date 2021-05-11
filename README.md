@@ -21,6 +21,8 @@
 - yarn add react-quill
 - yarn add quill-image-drop-and-paste
 - yarn add @looop/quill-image-resize-module-react
+- yarn add react-youtube
+- yarn add get-youtube-channel-id
 
 ## 이미지 및 썸네일러 사이즈
 
