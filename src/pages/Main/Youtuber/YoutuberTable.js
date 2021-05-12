@@ -9,13 +9,6 @@ import SortingToLiked from '../components/SortingToLiked';
 import { useDispatch } from 'react-redux';
 
 export default function YoutuberTable({ boardData }) {
-  const boardData = useSelector((state) => state.YboardReducer.data);
-  // 검색기능 해야함
-  // const [searchData, setSearchData] = useState();
-  // console.log('여기여기여기', boardData);
-
-  const dispatch = useDispatch();
-
   return (
     <div className='card-container'>
       <div className='card-options'>

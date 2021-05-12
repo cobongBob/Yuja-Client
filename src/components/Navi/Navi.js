@@ -1,11 +1,13 @@
-import React from "react";
-import "./Navi.scss";
-import { Link } from "react-router-dom";
-import "./SignButton.scss";
-import LoginModal from "../Login-SignUp/Login/LoginModal";
-import { FiMenu } from "react-icons/fi";
+import React from 'react';
+import './Navi.scss';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import './SignButton.scss';
+import LoginModal from '../Login-SignUp/Login/LoginModal';
+import { FiMenu } from 'react-icons/fi';
 
 const Navi = () => {
+  const history = useHistory();
+  console.log(1111111111111111111111111111, history.location.pathname);
   return (
     <div className='nav'>
       <ul className='nav-pills' defaultValue='/'>
