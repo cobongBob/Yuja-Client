@@ -52,6 +52,7 @@ export const userCheck = async () => {
 const initialState = {
   userLoginStatus: false,
   userData: {},
+
 };
 
 /* 리듀서 */
