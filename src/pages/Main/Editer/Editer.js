@@ -14,6 +14,7 @@ const Editor = () => {
   const { eBoardData, filterData } = useSelector(
     (state) => state.EboardReducer
   );
+  const { userData } = useSelector((state) => state.loginReducer);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [boardPerPage] = useState(12);
@@ -30,14 +31,22 @@ const Editor = () => {
   };
 
   useEffect(() => {
-    getData().then((res) => {
-      dispatch(res);
-      getFilterData('').then((res) => {
+    if (userData.id) {
+      getData(userData.id).then((res) => {
         dispatch(res);
+        getFilterData('').then((res) => {
+          dispatch(res);
+        });
       });
-      // console.log('여긴 유즈이펙트', res);
-    });
-  }, []);
+    } else {
+      getData(0).then((res) => {
+        dispatch(res);
+        getFilterData('').then((res) => {
+          dispatch(res);
+        });
+      });
+    }
+  }, [userData]);
 
   const searchHandler = (searchTerm) => {
     setSearchTerm(searchTerm);
