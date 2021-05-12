@@ -13,6 +13,7 @@ import Search from '../components/Search';
 const Youtuber = () => {
   // Youtuber의 전체 데이터 불러오기
   const boardData = useSelector((state) => state.YboardReducer.data);
+  const { userData } = useSelector((state) => state.loginReducer);
   const dispatch = useDispatch();
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -34,7 +35,7 @@ const Youtuber = () => {
     setSearchTerm(searchTerm);
     if (searchTerm !== '') {
       const newBoardList = boardData.filter((data) => {
-        return Object.values(data.worker)
+        return Object.values(data.title)
           .join('')
           .toLowerCase()
           .includes(searchTerm.toLowerCase());
@@ -47,11 +48,15 @@ const Youtuber = () => {
 
   // 전체 데이터 끌어오기
   useEffect(() => {
-    getData().then((res) => {
-      dispatch(res);
-      console.log('게시판데이터', res);
-      // console.log('여긴 유즈이펙트', res);
-    });
+    if (userData.id) {
+      getData(userData.id).then((res) => {
+        dispatch(res);
+      });
+    } else {
+      getData(0).then((res) => {
+        dispatch(res);
+      });
+    }
   }, []);
 
   return (

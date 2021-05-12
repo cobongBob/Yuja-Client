@@ -19,6 +19,7 @@ class YapiService {
 
   // 상세보기 1개만
   async fetchBoard(board_id, user_id) {
+    console.log(10101010101010, user_id);
     return await instance({
       url: BoardType + '/board/' + board_id + '/' + user_id,
       method: 'get',

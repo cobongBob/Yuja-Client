@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import YapiService from './YapiService';
 import './Ydetail.scss';
 import { FcLike, FcOk } from 'react-icons/fc';
-import Footer from '../../../components/Footer';
 import { Link } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import Practice from './api_practice/Practice';
@@ -30,14 +29,6 @@ const Ydetail = (props) => {
   });
   const { countLikes, isLiked } = useSelector((state) => state.likedReducer);
   const { userData } = useSelector((state) => state.loginReducer);
-  useEffect(() => {
-    const board_id = props.match.params.board_id;
-    getLiked(board_id).then((res) => {
-      console.log('likes왔니?', res);
-      dispatch(res);
-    });
-  }, []);
-
   // const _getDetailData = () => dispatch(getDetailData());
   // getDetailData().then((res) => {
   //   dispatch(res);
@@ -58,15 +49,23 @@ const Ydetail = (props) => {
   useEffect(() => {
     const board_id = props.match.params.board_id;
     if (userData.id) {
+      getLiked(board_id, userData.id).then((res) => {
+        console.log('likes왔니?', res);
+        dispatch(res);
+      });
       getDetailData(board_id, userData.id).then((res) => {
         setData(res.data);
       });
     } else {
+      getLiked(board_id, 0).then((res) => {
+        console.log('000000왔니?', res);
+        dispatch(res);
+      });
       getDetailData(board_id, 0).then((res) => {
         setData(res.data);
       });
     }
-  }, []);
+  }, [userData.id]);
 
   const deleteBoard = () => {
     YapiService.deleteBoard(props.match.params.board_id).then((res) => {
@@ -89,7 +88,7 @@ const Ydetail = (props) => {
     } else {
       //로그인 창으로
     }
-  }, []);
+  }, [userData.id, isLiked]);
 
   return (
     <div>

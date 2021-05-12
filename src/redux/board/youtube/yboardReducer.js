@@ -5,12 +5,21 @@ const MODE_SORT_EXPIRED_DATE = 'sortExpiredDate';
 const MODE_SORT_LIKES = 'sortLikes';
 const MODE_GET_DATA = 'getData';
 const MODE_GET_DETAIL_DATA = 'getDetailData';
+const MODE_FILTER_DATA = 'getFilterDatas';
 
 // 액션함수
 
+// 필터로 보여줄 데이터
+export const getFilterData = async () => {
+  const filterData = await YapiService.fetchBoard(0);
+  return {
+    type: MODE_FILTER_DATA,
+    payload: filterData.data,
+  };
+};
 // 마감순 정렬
 export const sortExpiredDate = async () => {
-  const expiredData = await YapiService.fetchBoards();
+  const expiredData = await YapiService.fetchBoards(0);
   return {
     type: MODE_SORT_EXPIRED_DATE,
     payload: expiredData.data,
@@ -19,7 +28,7 @@ export const sortExpiredDate = async () => {
 
 // 인기순 정렬
 export const sortLikes = async () => {
-  const likesData = await YapiService.fetchBoards();
+  const likesData = await YapiService.fetchBoards(0);
   return {
     type: MODE_SORT_LIKES,
     payload: likesData.data,
@@ -27,8 +36,8 @@ export const sortLikes = async () => {
 };
 
 // 전체데이터 가져오기
-export const getData = async () => {
-  const axiosData = await YapiService.fetchBoards();
+export const getData = async (user_id) => {
+  const axiosData = await YapiService.fetchBoards(user_id);
   return {
     type: MODE_GET_DATA,
     payload: axiosData.data,

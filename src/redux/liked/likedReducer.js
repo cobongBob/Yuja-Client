@@ -10,8 +10,8 @@ const DELETE_LIKE = 'DELETE_LIKE';
 
 // 액션 함수
 
-export const getLiked = async (board_id) => {
-  const likesData = await YapiService.fetchBoard(board_id);
+export const getLiked = async (board_id, user_id) => {
+  const likesData = await YapiService.fetchBoard(board_id, user_id);
   return {
     type: GET_LIKE,
     countLikes: likesData.data.likes,
