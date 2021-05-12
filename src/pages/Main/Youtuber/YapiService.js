@@ -10,14 +10,18 @@ class YapiService {
     });
   }
 
-  async fetchBoards() {
-    return await instance({ url: BoardType + '/board', method: 'get' });
+  async fetchBoards(user_id) {
+    return await instance({
+      url: BoardType + '/board/' + user_id,
+      method: 'get',
+    });
   }
 
   // 상세보기 1개만
-  async fetchBoard(board_id) {
+  async fetchBoard(board_id, user_id) {
+    console.log(10101010101010, user_id);
     return await instance({
-      url: BoardType + '/board/' + board_id,
+      url: BoardType + '/board/' + board_id + '/' + user_id,
       method: 'get',
     });
   }
@@ -34,6 +38,13 @@ class YapiService {
     return await instance({
       url: BoardType + '/board/' + board_id,
       method: 'delete',
+    });
+  }
+
+  async getliked() {
+    return await instance({
+      url: '/api/board/liked',
+      method: 'post',
     });
   }
 }

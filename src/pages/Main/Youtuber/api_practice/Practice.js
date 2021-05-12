@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import youtubeChannelId from 'get-youtube-channel-id';
-import { getDetailData } from '../../../../redux/board/youtube/yboardReducer';
 
 const Practice = (data) => {
   // null 대신 " " 이렇게 주기
