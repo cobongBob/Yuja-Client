@@ -19,17 +19,9 @@ const Ydetail = (props) => {
 
   const dispatch = useDispatch();
 
-  const [data, setData] = useState({
-    updatedDate: '',
-    expiredDate: '',
-    title: '',
-    content: '',
-    hit: '',
-    likes: '',
-  });
   const { countLikes, isLiked } = useSelector((state) => state.likedReducer);
   const { userData } = useSelector((state) => state.loginReducer);
-  console.log('잘넘어왔니?', data);
+  const { detailData } = useSelector((state) => state.YboardReducer);
   // const _getDetailData = () => dispatch(getDetailData());
   // getDetailData().then((res) => {
   //   dispatch(res);
@@ -51,19 +43,18 @@ const Ydetail = (props) => {
     const board_id = props.match.params.board_id;
     if (userData.id) {
       getLiked(board_id, userData.id).then((res) => {
-        console.log('likes왔니?', res);
         dispatch(res);
       });
       getDetailData(board_id, userData.id).then((res) => {
-        setData(res.data);
+        dispatch(res);
+        console.log(11111111111111111111111, res);
       });
     } else {
       getLiked(board_id, 0).then((res) => {
-        console.log('000000왔니?', res);
         dispatch(res);
       });
       getDetailData(board_id, 0).then((res) => {
-        setData(res.data);
+        dispatch(res);
       });
     }
   }, [userData.id]);
@@ -98,14 +89,18 @@ const Ydetail = (props) => {
           <div className='youtube-top'>채널소개</div>
           <div></div>
           <div className='channel-box'>
-            <Practice></Practice>
+            {!detailData ? (
+              <span>loading..</span>
+            ) : (
+              <Practice user={detailData.user}></Practice>
+            )}
           </div>
           <div className='detail-box'>
             <div className='DetailTop'>공고내용</div>
             <div className='detail-btn'>
               <div className='detail-btn-box'>
                 <Link
-                  to={`/YmodifyTest/${data.id}`}
+                  to={`/YmodifyTest/${detailData.id}`}
                   className='detail-update-btn'>
                   공고 수정하기
                 </Link>
@@ -114,7 +109,7 @@ const Ydetail = (props) => {
             </div>
             <div></div>
             <div className='detail-title'>
-              {data.title}
+              {detailData.title}
               <div className='detail-show'>
                 <span>
                   {isLiked === true ? (
@@ -131,17 +126,17 @@ const Ydetail = (props) => {
                 </span>
                 <br />
                 <span>
-                  <FcOk size={20} /> {data.hit}
+                  <FcOk size={20} /> {detailData.hit}
                 </span>
               </div>
             </div>
             <div className='detail-date'>
-              {data.updatedDate !== undefined
-                ? data.updatedDate.substr(0, 10)
+              {detailData.updatedDate !== undefined
+                ? detailData.updatedDate.substr(0, 10)
                 : ''}{' '}
               ~{' '}
-              {data.expiredDate !== undefined
-                ? data.expiredDate.substr(0, 10)
+              {detailData.expiredDate !== undefined
+                ? detailData.expiredDate.substr(0, 10)
                 : '상시채용'}
             </div>
             <div className='detail-content'>
@@ -151,22 +146,22 @@ const Ydetail = (props) => {
                 <div>
                   <ul>
                     <li>
-                      <label htmlFor=''>모십니다:</label> {data.worker}
+                      <label htmlFor=''>모십니다:</label> {detailData.worker}
                     </li>
                     <li>
-                      <label htmlFor=''>경력:</label> {data.career}
+                      <label htmlFor=''>경력:</label> {detailData.career}
                     </li>
                     <li>
-                      <label htmlFor=''>급여종류:</label> {data.payType}
+                      <label htmlFor=''>급여종류:</label> {detailData.payType}
                     </li>
                     <li>
-                      <label htmlFor=''>급여:</label> {data.payAmount}원
+                      <label htmlFor=''>급여:</label> {detailData.payAmount}원
                     </li>
                     <li>
-                      <label htmlFor=''>원하는 툴:</label> {data.tools}
+                      <label htmlFor=''>원하는 툴:</label> {detailData.tools}
                     </li>
                     <li>
-                      <label htmlFor=''>담당자:</label> {data.manager}
+                      <label htmlFor=''>담당자:</label> {detailData.manager}
                     </li>
                   </ul>
                   <br />
@@ -176,7 +171,7 @@ const Ydetail = (props) => {
                 {' '}
                 추가내용
                 <ReactQuill
-                  value={data.content}
+                  value={detailData.content || ''}
                   readOnly={true}
                   theme={'bubble'}
                 />{' '}
