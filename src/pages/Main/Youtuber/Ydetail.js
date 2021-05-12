@@ -29,6 +29,7 @@ const Ydetail = (props) => {
   });
   const { countLikes, isLiked } = useSelector((state) => state.likedReducer);
   const { userData } = useSelector((state) => state.loginReducer);
+  console.log('잘넘어왔니?', data);
   // const _getDetailData = () => dispatch(getDetailData());
   // getDetailData().then((res) => {
   //   dispatch(res);
@@ -97,7 +98,7 @@ const Ydetail = (props) => {
           <div className='youtube-top'>채널소개</div>
           <div></div>
           <div className='channel-box'>
-            <Practice data={data}></Practice>
+            <Practice></Practice>
           </div>
           <div className='detail-box'>
             <div className='DetailTop'>공고내용</div>
@@ -105,8 +106,7 @@ const Ydetail = (props) => {
               <div className='detail-btn-box'>
                 <Link
                   to={`/YmodifyTest/${data.id}`}
-                  className='detail-update-btn'
-                >
+                  className='detail-update-btn'>
                   공고 수정하기
                 </Link>
                 <button onClick={deleteBoard}>공고 삭제하기</button>

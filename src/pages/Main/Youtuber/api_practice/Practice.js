@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import youtubeChannelId from 'get-youtube-channel-id';
+import { getDetailData } from '../../../../redux/board/youtube/yboardReducer';
+import { useDispatch } from 'react-redux';
 
 const Practice = (data) => {
   // null 대신 " " 이렇게 주기
@@ -15,10 +17,19 @@ const Practice = (data) => {
 
   const API_KEY = 'AIzaSyDLR47w8ZGLifW0rikkDVKP68TMYIu5ywQ';
 
+  const dispatch = useDispatch();
+
   const handleChange = (e) => {
     console.log(e.target.value);
     setUrl(e.target.value);
   };
+
+  // useEffect(() => {
+  //   const board_id = props.match.params.board_id;
+  //   getDetailData(board_id, user_id).then((res) => {
+  //     dispatch(res);
+  //   });
+  // });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,8 +66,7 @@ const Practice = (data) => {
             onChange={handleChange}
             value={url}
             required
-            placeholder='URL'
-          ></Form.Control>
+            placeholder='URL'></Form.Control>
         </Form.Group>
         <Button variant='primary' type='submit'>
           submit
