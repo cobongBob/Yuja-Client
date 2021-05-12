@@ -63,7 +63,7 @@ const Editor = () => {
         setTerm={setSearchTerm}
         searchKeyword={searchHandler}
       />
-      <EditerTable boardData={currentData} />
+      <EditerTable boardData={currentData} userData={userData} />
       <Pagination
         boardPerPage={boardPerPage}
         totalBoards={filterData.length}

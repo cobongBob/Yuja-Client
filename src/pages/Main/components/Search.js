@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import '../Youtuber/Ylist.scss';
+import './Components.scss';
 
 export default function Search({ boardData, term, setTerm, searchKeyword }) {
   const inputEl = useRef('');

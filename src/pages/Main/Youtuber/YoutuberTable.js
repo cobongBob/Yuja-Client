@@ -1,46 +1,21 @@
-import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import {
-  sortExpiredDate,
-  sortLikes,
-} from '../../../redux/board/youtube/yboardReducer';
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import { FcLike } from 'react-icons/fc';
 import '../Youtuber/Ylist.scss';
+import SortingToDeadline from '../components/SortingToDeadline';
+import SortingToLiked from '../components/SortingToLiked';
 
 export default function YoutuberTable({ boardData }) {
-  // 검색기능 해야함
-  // const [searchData, setSearchData] = useState();
-  // console.log('여기여기여기', boardData);
-
-  // 마감순 정렬하기
-  const dispatch = useDispatch();
-  const expiredData = useCallback(() => {
-    sortExpiredDate().then((res) => {
-      dispatch(res);
-      console.log('마감순', res);
-    });
-  }, [boardData]);
-
-  //인기순 정렬하기
-  const likesData = useCallback(() => {
-    sortLikes().then((res) => {
-      dispatch(res);
-      console.log('인기순', res);
-    });
-  }, [boardData]);
-
   return (
     <div className='card-container'>
       <div className='card-options'>
         <div>
           <Link to='/Yregister'>등록하기</Link>
         </div>
-        <button onClick={expiredData}>마감일</button>
-        <button onClick={likesData}>인기순</button>
+        <SortingToDeadline boardData={boardData} />
+        <SortingToLiked boardData={boardData} />
       </div>
       {boardData?.map((data) => (
         <Card key={data.id}>
