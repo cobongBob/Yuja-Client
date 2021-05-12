@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './Youtuber.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import YoutuberTable from './YoutuberTable';
@@ -57,7 +57,7 @@ const Youtuber = () => {
         dispatch(res);
       });
     }
-  }, []);
+  }, [userData]);
 
   return (
     <div className='tableWrapper'>

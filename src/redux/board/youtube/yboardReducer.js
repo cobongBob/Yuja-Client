@@ -17,6 +17,7 @@ export const getFilterData = async () => {
     payload: filterData.data,
   };
 };
+
 // 마감순 정렬
 export const sortExpiredDate = async () => {
   const expiredData = await YapiService.fetchBoards(0);

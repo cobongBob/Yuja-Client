@@ -6,7 +6,6 @@ import { FcLike } from 'react-icons/fc';
 import '../Youtuber/Ylist.scss';
 import SortingToDeadline from '../components/SortingToDeadline';
 import SortingToLiked from '../components/SortingToLiked';
-import { useDispatch } from 'react-redux';
 
 export default function YoutuberTable({ boardData }) {
   return (
