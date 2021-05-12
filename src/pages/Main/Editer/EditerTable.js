@@ -1,9 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  sortExpiredDate,
-  sortLikes,
-} from '../../../redux/board/editer/eboardReducer';
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -13,20 +9,14 @@ import '../Youtuber/Ylist.scss';
 
 export default function EditorTable({ boardData }) {
   const dispatch = useDispatch();
-  const expiredData = useCallback(() => {
-    sortExpiredDate().then((res) => {
-      dispatch(res);
-      console.log('마감순', res);
-    });
-  }, [boardData]);
 
   //인기순 정렬하기
-  const likesData = useCallback(() => {
-    sortLikes().then((res) => {
-      dispatch(res);
-      console.log('인기순', res);
-    });
-  }, [boardData]);
+  // const likesData = useCallback(() => {
+  //   sortLikes().then((res) => {
+  //     dispatch(res);
+  //     console.log('인기순', res);
+  //   });
+  // }, [boardData]);
 
   return (
     <div className='card-container'>
@@ -42,8 +32,8 @@ export default function EditorTable({ boardData }) {
         />
         */}
         <Link to='/Yregister'>등록하기</Link>
-        <button onClick={expiredData}>마감일</button>
-        <button onClick={likesData}>인기순</button>
+        {/* <button onClick={expiredData}>마감일</button>
+        <button onClick={likesData}>인기순</button> */}
       </div>
       {boardData?.map((data) => (
         <Card key={data.id}>

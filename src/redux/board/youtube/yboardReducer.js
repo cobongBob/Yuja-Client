@@ -1,14 +1,23 @@
-import YapiService from "../../../pages/Main/Youtuber/YapiService";
+import YapiService from '../../../pages/Main/Youtuber/YapiService';
 
 // 액션
-const MODE_SORT_EXPIRED_DATE = "sortExpiredDate";
-const MODE_SORT_LIKES = "sortLikes";
-const MODE_GET_DATA = "getData";
-const MODE_GET_DETAIL_DATA = "getDetailData";
-const MODE_COUNT_LIKES = "countLikes";
+const MODE_SORT_EXPIRED_DATE = 'sortExpiredDate';
+const MODE_SORT_LIKES = 'sortLikes';
+const MODE_GET_DATA = 'getData';
+const MODE_GET_DETAIL_DATA = 'getDetailData';
+const MODE_COUNT_LIKES = 'countLikes';
+const MODE_FILTER_DATA = 'getFilterDatas';
 
 // 액션함수
 
+// 필터로 보여줄 데이터
+export const getFilterData = async () => {
+  const filterData = await YapiService.fetchBoard();
+  return {
+    type: MODE_FILTER_DATA,
+    payload: filterData.data,
+  };
+};
 // 마감순 정렬
 export const sortExpiredDate = async () => {
   const expiredData = await YapiService.fetchBoards();
@@ -69,12 +78,16 @@ export default function YboardReducer(state = initialState, action) {
     case MODE_GET_DATA:
       return {
         ...state,
-        data: action.payload.sort((a, b) => b.updatedDate - a.updatedDate).reverse(),
+        data: action.payload
+          .sort((a, b) => b.updatedDate - a.updatedDate)
+          .reverse(),
       };
     case MODE_SORT_EXPIRED_DATE:
       return {
         ...state,
-        data: action.payload.sort((a, b) => b.expiredDate - a.expiredDate).reverse(),
+        data: action.payload
+          .sort((a, b) => b.expiredDate - a.expiredDate)
+          .reverse(),
       };
     case MODE_SORT_LIKES:
       return {

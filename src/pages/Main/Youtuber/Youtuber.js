@@ -34,7 +34,7 @@ const Youtuber = () => {
     setSearchTerm(searchTerm);
     if (searchTerm !== '') {
       const newBoardList = boardData.filter((data) => {
-        return Object.values(data.worker)
+        return Object.values(data.title)
           .join('')
           .toLowerCase()
           .includes(searchTerm.toLowerCase());
@@ -49,7 +49,6 @@ const Youtuber = () => {
   useEffect(() => {
     getData().then((res) => {
       dispatch(res);
-      console.log('게시판데이터', res);
       // console.log('여긴 유즈이펙트', res);
     });
   }, []);
