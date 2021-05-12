@@ -9,7 +9,6 @@ const Editor = () => {
   const boardData = useSelector((state) => state.EboardReducer.data);
   const dispatch = useDispatch();
 
-  //페이징 처리하기
   const [currentPage, setCurrentPage] = useState(1);
   const [boardPerPage] = useState(12);
 
@@ -34,6 +33,7 @@ const Editor = () => {
       <Pagination
         boardPerPage={boardPerPage}
         totalBoards={boardData.length}
+        currentPage={currentPage}
         clickPage={clickPage}
       />
     </div>

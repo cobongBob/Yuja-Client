@@ -5,6 +5,9 @@ import { FcLike, FcOk } from "react-icons/fc";
 import Footer from "../../../components/Footer";
 import { Link } from "react-router-dom";
 import ReactQuill from "react-quill";
+import Practice from "./api_practice/Practice";
+import { countLikes, getDetailData } from "../../../redux/board/youtube/yboardReducer";
+import { useDispatch } from "react-redux";
 
 const Ydetail = (props) => {
   // console.log(props.match);
@@ -13,25 +16,45 @@ const Ydetail = (props) => {
   const [data, setData] = useState({
     updatedDate: "",
     expiredDate: "",
-    title: "여기 제목",
-    content: "여긴 내용",
-    hit: 3,
-    likes: 2,
+    title: "",
+    content: "",
+    hit: "",
+    likes: "",
   });
 
+  const [likes, setLikes] = useState({});
+
+  console.log("여기니?", data);
+
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   YapiService.fetchBoard(props.match.params.board_id)
+  //     .then((res) => {
+  //       setData(res.data);
+  //       console.log(res.data);
+  //     })
+  //     .catch((e) => {
+  //       alert('접근불가');
+  //       // props.history.goBack(-1);
+  //     });
+  // }, [props.match.params.board_id, props.history]);
+
   useEffect(() => {
-    YapiService.fetchBoard(props.match.params.board_id)
-      .then((res) => {
-        setData(res.data);
-        console.log(res.data);
-      })
-      .catch((e) => {
-        alert(e.response.data.message);
-        console.log(e.response.data);
-        // props.history.goBack(-1);
-        return Promise.reject(e.response);
-      });
-  }, [props.match.params.board_id, props.history]);
+    const board_id = props.match.params.board_id;
+    getDetailData(board_id).then((res) => {
+      console.log("왔니?", res);
+      setData(res.data);
+      console.log("했니?", data);
+    });
+  }, []);
+
+  useEffect(() => {
+    const board_id = props.match.params.board_id;
+    countLikes(board_id).then((res) => {
+      console.log("좋아요 왔니?", res);
+    });
+  });
 
   const deleteBoard = () => {
     YapiService.deleteBoard(props.match.params.board_id).then((res) => {
@@ -46,7 +69,9 @@ const Ydetail = (props) => {
         <div className='DetailHeaderWrapper'>
           <div className='youtube-top'>채널소개</div>
           <div></div>
-          <div className='channel-box'>{data.channelName}</div>
+          <div className='channel-box'>
+            <Practice data={data}></Practice>
+          </div>
           <div className='detail-box'>
             <div className='DetailTop'>공고내용</div>
             <div className='detail-btn'>

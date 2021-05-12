@@ -1,73 +1,82 @@
-/* 유저 id 값 */
+import * as auth from "../../components/Login-SignUp/Login/AuthenticationService";
 
 /* 액션 */
-const USER_LOGIN = "redux-login/USER_LOGIN";
-const USER_LOGOUT = "redux-login/USER_LOGOUT";
-const USER_STATUS = "redux-login/USER_STATUS";
-const USER_ID = "redux-login/USER_ID";
+const USER_LOGIN = "userLogin";
+const USER_LOGOUT = "userLogout";
+const USER_CHECK = "userCheck";
+const USER_STATUS = "userStatus";
 
 /* 액션 함수 */
-export const userLogin = () => (
-  console.log("액션함수 userLogin 실행"),
-  {
+export const userLogin = async (loginData) => {
+  let userData = null;
+  let result = false;
+  await auth
+    .executeJwtAuthenticationService(loginData)
+    .then(async (res) => {
+      userData = await auth.registerSuccessfulLoginForJwt(res.data);
+      result = true;
+    })
+    .catch((e) => {
+      alert(e.response.data.message);
+      result = false;
+    });
+  return {
     type: USER_LOGIN,
-    userLoginStatus: true
-  }
-);
-export const userLogout = () => (
-  console.log("액션함수 userLogout 실행"),
-  {
+    payload: userData,
+    userLoginStatus: result,
+  };
+};
+export const userLogout = async () => {
+  await auth.authLogout();
+  return {
     type: USER_LOGOUT,
-    userLoginStatus: false
-  }
-);
-export const userId = () => (
-  console.log("액션함수 userId 실행"),
-  {
-    type: USER_ID,
-    userId: '',
-    nickname: '',
-  }
-);
-export const userStatus = () => (
-  console.log('액션함수 userStatus 실행'), {
+    userLoginStatus: false,
+  };
+};
+export const userStatus = async () => {
+  return {
     type: USER_STATUS,
-    userLoginStatus: initialState
-  }
-)
+  };
+};
+export const userCheck = async () => {
+  const userData = await auth.getLoggedInUserData();
+  const isUserLoggedIn = await auth.isUserLoggedIn();
+  return {
+    type: USER_CHECK,
+    payload: userData,
+    userLoginStatus: isUserLoggedIn,
+  };
+};
 
 /* 초기값 */
 const initialState = {
   userLoginStatus: false,
-  userId: '기본id1',
-  nickname: '기본닉네임',
+  userData: {},
 };
 
 /* 리듀서 */
 export default function loginReducer(state = initialState, action) {
-  console.log(action.type);
   switch (action.type) {
     case USER_LOGIN:
       return {
         ...state,
-        userLoginStatus: true
+        userData: action.payload,
+        userLoginStatus: action.userLoginStatus,
       };
     case USER_LOGOUT:
       return {
-        ...state,
-        userLoginStatus: false
+        ...initialState,
       };
     case USER_STATUS:
       return {
         ...state,
-        userLoginStatus: state
-      }
-    case USER_ID:
+      };
+    case USER_CHECK:
       return {
         ...state,
-        userId: '기본id1',
-        nickname: '기본닉네임',
-      }
+        userData: action.payload,
+        userLoginStatus: action.userLoginStatus,
+      };
     default:
       return state;
   }
