@@ -1,10 +1,10 @@
-import * as auth from "../../components/Login-SignUp/Login/AuthenticationService";
+import * as auth from '../../components/Login-SignUp/Login/AuthenticationService';
 
 /* 액션 */
-const USER_LOGIN = "userLogin";
-const USER_LOGOUT = "userLogout";
-const USER_CHECK = "userCheck";
-const USER_STATUS = "userStatus";
+const USER_LOGIN = 'userLogin';
+const USER_LOGOUT = 'userLogout';
+const USER_CHECK = 'userCheck';
+const USER_STATUS = 'userStatus';
 
 /* 액션 함수 */
 export const userLogin = async (loginData) => {

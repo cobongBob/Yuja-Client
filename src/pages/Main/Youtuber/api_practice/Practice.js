@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import youtubeChannelId from 'get-youtube-channel-id';
-import { getDetailData } from '../../../../redux/board/youtube/yboardReducer';
 
 const Practice = (data) => {
   // null 대신 " " 이렇게 주기
@@ -56,7 +55,8 @@ const Practice = (data) => {
             onChange={handleChange}
             value={url}
             required
-            placeholder='URL'></Form.Control>
+            placeholder='URL'
+          ></Form.Control>
         </Form.Group>
         <Button variant='primary' type='submit'>
           submit
