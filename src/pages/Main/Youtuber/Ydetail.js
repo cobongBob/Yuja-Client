@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import YapiService from './YapiService';
 import './Ydetail.scss';
 import { FcLike, FcOk } from 'react-icons/fc';
@@ -8,10 +8,17 @@ import ReactQuill from 'react-quill';
 import Practice from './api_practice/Practice';
 import { getDetailData } from '../../../redux/board/youtube/yboardReducer';
 import { useDispatch, useSelector } from 'react-redux';
+import {
+  getLiked,
+  addLike,
+  deleteLike,
+} from '../../../redux/liked/likedReducer';
 
 const Ydetail = (props) => {
   // console.log(props.match);
   // let updatedDate = new Date();
+
+  const dispatch = useDispatch();
 
   const [data, setData] = useState({
     updatedDate: '',
@@ -21,16 +28,20 @@ const Ydetail = (props) => {
     hit: '',
     likes: '',
   });
+  const { countLikes, isLiked } = useSelector((state) => state.likedReducer);
+  const { userData } = useSelector((state) => state.loginReducer);
+  useEffect(() => {
+    const board_id = props.match.params.board_id;
+    getLiked(board_id).then((res) => {
+      console.log('likes왔니?', res);
+      dispatch(res);
+    });
+  }, []);
 
-  const { liked } = useSelector((state) => ({
-    liked: state.liked,
-  }));
-
-  const dispatch = useDispatch();
-
-  const _getDetailData = () => dispatch(getDetailData());
-
-  console.log('setData했니?', data);
+  // const _getDetailData = () => dispatch(getDetailData());
+  // getDetailData().then((res) => {
+  //   dispatch(res);
+  // });
 
   // useEffect(() => {
   //   YapiService.fetchBoard(props.match.params.board_id)
@@ -46,11 +57,15 @@ const Ydetail = (props) => {
 
   useEffect(() => {
     const board_id = props.match.params.board_id;
-    getDetailData(board_id).then((res) => {
-      console.log('왔니?', res);
-      console.log('좋아요 왔니?', res.data.liked);
-      setData(res.data);
-    });
+    if (userData.id) {
+      getDetailData(board_id, userData.id).then((res) => {
+        setData(res.data);
+      });
+    } else {
+      getDetailData(board_id, 0).then((res) => {
+        setData(res.data);
+      });
+    }
   }, []);
 
   const deleteBoard = () => {
@@ -59,6 +74,22 @@ const Ydetail = (props) => {
       props.history.push('/Youtuber');
     });
   };
+
+  const likeHandler = useCallback(() => {
+    if (userData.id) {
+      if (isLiked) {
+        deleteLike(props.match.params.board_id, userData.id).then((res) => {
+          dispatch(res);
+        });
+      } else {
+        addLike(props.match.params.board_id, userData.id).then((res) => {
+          dispatch(res);
+        });
+      }
+    } else {
+      //로그인 창으로
+    }
+  }, []);
 
   return (
     <div>
@@ -86,8 +117,13 @@ const Ydetail = (props) => {
               {data.title}
               <div className='detail-show'>
                 <span>
-                  <button onClick={_getDetailData}>
-                    <FcLike size={20} /> {data.likes}
+                  <button>
+                    {isLiked === true ? (
+                      <FcLike size={20} onClick={likeHandler} />
+                    ) : (
+                      <FcLike size={20} onClick={likeHandler} />
+                    )}
+                    {countLikes}
                   </button>
                 </span>
                 <br />
@@ -146,7 +182,6 @@ const Ydetail = (props) => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };
