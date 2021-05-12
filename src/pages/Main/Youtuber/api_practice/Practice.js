@@ -55,7 +55,8 @@ const Practice = (data) => {
             onChange={handleChange}
             value={url}
             required
-            placeholder='URL'></Form.Control>
+            placeholder='URL'
+          ></Form.Control>
         </Form.Group>
         <Button variant='primary' type='submit'>
           submit

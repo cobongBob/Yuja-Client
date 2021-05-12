@@ -105,7 +105,8 @@ const Ydetail = (props) => {
               <div className='detail-btn-box'>
                 <Link
                   to={`/YmodifyTest/${data.id}`}
-                  className='detail-update-btn'>
+                  className='detail-update-btn'
+                >
                   공고 수정하기
                 </Link>
                 <button onClick={deleteBoard}>공고 삭제하기</button>
@@ -116,14 +117,17 @@ const Ydetail = (props) => {
               {data.title}
               <div className='detail-show'>
                 <span>
-                  <button>
-                    {isLiked === true ? (
-                      <FcLike size={20} onClick={likeHandler} />
-                    ) : (
-                      <FcLike size={20} onClick={likeHandler} />
-                    )}
-                    {countLikes}
-                  </button>
+                  {isLiked === true ? (
+                    <button onClick={likeHandler}>
+                      <FcLike size={20} />
+                      {countLikes}
+                    </button>
+                  ) : (
+                    <button onClick={likeHandler}>
+                      <FcLike size={20} />
+                      {countLikes}
+                    </button>
+                  )}
                 </span>
                 <br />
                 <span>

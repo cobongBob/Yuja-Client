@@ -9,14 +9,17 @@ export const addBoards = async (data) => {
   });
 };
 
-export const fetchBoards = async () => {
-  return await instance({ url: BoardType + '/board', method: 'get' });
+export const fetchBoards = async (user_id) => {
+  return await instance({
+    url: BoardType + '/board/' + user_id,
+    method: 'get',
+  });
 };
 
 // 상세보기 1개만
-export const fetchBoard = async (board_id) => {
+export const fetchBoard = async (board_id, user_id) => {
   return await instance({
-    url: BoardType + '/board/' + board_id,
+    url: BoardType + '/board/' + board_id + '/' + user_id,
     method: 'get',
   });
 };

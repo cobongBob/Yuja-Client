@@ -5,8 +5,8 @@ const MODE_GET_DATA = 'MODE_GET_DATA';
 const MODE_FILTER_DATA = 'MODE_FILTER_DATA';
 // 액션함수
 // 마감순 정렬
-export const getData = async () => {
-  const EBoard = await eService.fetchBoards();
+export const getData = async (user_id) => {
+  const EBoard = await eService.fetchBoards(user_id);
   return {
     type: MODE_GET_DATA,
     payload: EBoard.data,
