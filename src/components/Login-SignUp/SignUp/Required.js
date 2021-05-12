@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { Link } from "react-router-dom";
 import AuthCodeTimer from "./AuthCodeTimer";
 import AuthBtnBox from "./AuthBtnBox";
@@ -118,19 +118,56 @@ const Required = ({ location }) => {
       return false;
     }
   };
+  /* 인증코드 통신 및 끝 */
+
+  /* new 유효성 검사 */
+  const [currentFocusedClassName, setCurrentFocusedClassName] = useState();
+  const [EmailValidateResData, setEmailValidateResData] = useState();
+  const [nicknameValidateResData, setNicknameValidateResData] = useState();
+  const [passwordValidateDesc, setPasswordValidateDesc] = useState();
+
+
+  let id = requiredData.username;
+  let pass = requiredData.password;
+  let name = requiredData.realName;
+  let birth = requiredData.bday;
+  let nick = requiredData.nickname;
+
+  const emailCheck = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+  const passCheck = /^(?=.*?[a-z])(?=.*?[#?!@$%^&*-])(?=.*?[0-9]).{8,}$/; /* 비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다. */
+  const nameCheck = /^[a-zA-Z가-힣]{2,10}$/;
+  const birthCheck = /^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/;
+  const nickCheck = /^[a-zA-Z0-9가-힣ㄱ-ㅎ]{2,20}$/; /* 특수문자 제외 영문, 숫자, 한글 2~20자 */
 
   const checkEmailValidate = useCallback(()=>{
     axios.post("http://localhost:8888/api/auth/checkemail",requiredData).then(res=>{
       console.log(res.data);
+      res.data !== '' ?
+        setEmailValidateResData(res.data)
+        :
+        setEmailValidateResData('')
     })
   })
 
   const checkNicknameValidate = useCallback(()=>{
     axios.post("http://localhost:8888/api/auth/checknickname",requiredData).then(res=>{
       console.log(res.data);
+      res.data !== '' ?
+        setNicknameValidateResData(res.data)
+        :
+        setNicknameValidateResData('')
     })
   })
 
+  const checkPasswordValidate = useCallback(()=> {
+    passCheck.test(pass) === false ?
+      setPasswordValidateDesc('비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.')
+
+      :
+      setPasswordValidateDesc('')
+  })
+
+  /* new 유효성 검사 끝 */
 
   return (
     <div className='contentBox2'>
@@ -149,9 +186,17 @@ const Required = ({ location }) => {
                 placeholder='아이디(이메일)'
                 onChange={changeValue}
                 onKeyUp={checkEmailValidate}
-                required
+                onFocus={()=>setCurrentFocusedClassName('email')}
+                onBlur={()=>setCurrentFocusedClassName('')}
                 autoFocus
               />
+              { currentFocusedClassName === 'email' ?
+                <div className='warningBox'>
+                  {EmailValidateResData}
+                </div>
+                :
+                ''
+              }
             </td>
           </tr>
           <tr>
@@ -184,7 +229,8 @@ const Required = ({ location }) => {
                     checkCodes={checkCodes}
                     btnTextHandler={btnTextHandler}
                     disabledHandler={disabledHandler}
-                  ></AuthBtnBox>
+                  >
+                  </AuthBtnBox>
                 </div>
               </div>
             </td>
@@ -200,8 +246,18 @@ const Required = ({ location }) => {
                 type='password'
                 placeholder='비밀번호'
                 onChange={changeValue}
+                onKeyUp={checkPasswordValidate}
                 required
+                onFocus={()=>setCurrentFocusedClassName('password')}
+                onBlur={()=>setCurrentFocusedClassName('')}
               />
+              { currentFocusedClassName === 'password' ?
+                <div className='warningBox'>
+                  {passwordValidateDesc}
+                </div>
+                :
+                ''
+              }
             </td>
           </tr>
           <tr>
@@ -215,7 +271,8 @@ const Required = ({ location }) => {
                 type='password'
                 placeholder='비밀번호 확인'
                 onChange={getPassCheckNum}
-                required
+                onFocus={()=>setCurrentFocusedClassName('passwordCheck')}
+                onBlur={()=>setCurrentFocusedClassName('')}
               />
             </td>
           </tr>
@@ -230,7 +287,8 @@ const Required = ({ location }) => {
                 type='text'
                 placeholder='이름(실명)'
                 onChange={changeValue}
-                required
+                onFocus={()=>setCurrentFocusedClassName('passwordCheck')}
+                onBlur={()=>setCurrentFocusedClassName('')}
               />
             </td>
           </tr>
@@ -246,7 +304,8 @@ const Required = ({ location }) => {
                 maxLength='6'
                 placeholder='생년월일(-을 제외한 6자리)'
                 onChange={changeValue}
-                required
+                onFocus={()=>setCurrentFocusedClassName('passwordCheck')}
+                onBlur={()=>setCurrentFocusedClassName('')}
               />
             </td>
           </tr>
@@ -263,8 +322,16 @@ const Required = ({ location }) => {
                 placeholder='닉네임'
                 onChange={changeValue}
                 onKeyUp={checkNicknameValidate}
-                required
+                onFocus={()=>setCurrentFocusedClassName('nickname')}
+                onBlur={()=>setCurrentFocusedClassName('')}
               />
+              { currentFocusedClassName === 'nickname' ?
+                <div className='warningBox'>
+                  {nicknameValidateResData}
+                </div>
+                :
+                ''
+              }
             </td>
           </tr>
         </table>
