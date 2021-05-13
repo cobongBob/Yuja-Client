@@ -588,7 +588,6 @@ const Agreement = ({ history }) => {
   let requiredOneIsChecked = checkBoxes[0].isChecked;
   let requiredTwoIsChecked = checkBoxes[1].isChecked;
   const isAllRequiredChecked = (e) => {
-    console.log(next);
     if (true !== requiredOneIsChecked || true !== requiredTwoIsChecked) {
       alert('필수 항목에 모두 동의 해주세요.');
       e.preventDefault();

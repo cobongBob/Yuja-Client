@@ -7,9 +7,7 @@ import { format } from 'date-fns';
 import { FcLike } from 'react-icons/fc';
 import '../Youtuber/Ylist.scss';
 
-export default function EditorTable({ boardData }) {
-  const dispatch = useDispatch();
-
+export default function EditorTable({ boardData, userData }) {
   //인기순 정렬하기
   // const likesData = useCallback(() => {
   //   sortLikes().then((res) => {

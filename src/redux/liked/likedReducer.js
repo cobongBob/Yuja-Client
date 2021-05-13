@@ -1,12 +1,12 @@
-import YapiService from '../../pages/Main/Youtuber/YapiService';
-import * as likeService from '../../pages/Main/likeService';
+import * as YapiService from "../../pages/Main/Youtuber/YapiService";
+import * as likeService from "../../pages/Main/likeService";
 // 액션
-const GET_LIKE = 'GET_LIKE';
-const ADD_LIKE = 'ADD_LIKE';
-const GET_LIKE_REQUEST = 'GET_LIKE_REQUEST';
-const GET_LIKE_SUCCESS = 'GET_LIKE_SUCCESS';
-const GET_LIKE_FAIL = 'GET_LIKE_FAIL';
-const DELETE_LIKE = 'DELETE_LIKE';
+const GET_LIKE = "GET_LIKE";
+const ADD_LIKE = "ADD_LIKE";
+const GET_LIKE_REQUEST = "GET_LIKE_REQUEST";
+const GET_LIKE_SUCCESS = "GET_LIKE_SUCCESS";
+const GET_LIKE_FAIL = "GET_LIKE_FAIL";
+const DELETE_LIKE = "DELETE_LIKE";
 
 // 액션 함수
 

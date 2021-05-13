@@ -1,12 +1,10 @@
 import React, { useRef } from 'react';
 import '../Youtuber/Ylist.scss';
+import './Components.scss';
 
 export default function Search({ boardData, term, setTerm, searchKeyword }) {
   const inputEl = useRef('');
 
-  const getSearchTerm = () => {
-    searchKeyword(inputEl.current.value);
-  };
   const submit = (e) => {
     e.preventDefault();
     searchKeyword(inputEl.current.value);
