@@ -1,4 +1,4 @@
-import * as eService from '../../../pages/Main/Editer/EditerApiService';
+import * as eService from '../../../apiService/EditerApiService';
 
 // 액션
 const MODE_GET_DATA = 'MODE_GET_DATA';

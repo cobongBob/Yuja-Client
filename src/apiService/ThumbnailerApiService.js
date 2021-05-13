@@ -1,4 +1,4 @@
-import instance from '../../../AxiosConfig.js';
+import instance from '../AxiosConfig.js';
 const BoardType = 3;
 
 export const addBoards = async (data) => {

@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import "./FindPassword.scss"
 import { Link } from "react-router-dom";
-import * as auth from "./AuthenticationService";
+import * as auth from "../../../apiService/AuthenticationService";
 
 const FindPassword = () => {
   const [username, setUsername] = useState({

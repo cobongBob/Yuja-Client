@@ -1,4 +1,4 @@
-import instance from "../../../AxiosConfig.js";
+import instance from "../AxiosConfig.js";
 
 class ImgApiService {
   async addImgs(data, config) {

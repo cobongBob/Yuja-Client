@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import UserApiService from "./UserApiService";
+import UserApiService from "../../../apiService/UserApiService";
 import "./SignUp1.scss";
 
 const NonRequired = ({ location, history }) => {

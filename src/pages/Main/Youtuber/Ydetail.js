@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import * as YapiService from './YapiService';
+import * as YapiService from '../../../apiService/YapiService';
 import './Ydetail.scss';
 import { FcLike, FcOk } from 'react-icons/fc';
 import { Link } from 'react-router-dom';

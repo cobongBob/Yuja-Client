@@ -1,5 +1,5 @@
-import * as YapiService from "../../pages/Main/Youtuber/YapiService";
-import * as likeService from "../../pages/Main/likeService";
+import * as YapiService from "../../apiService/YapiService";
+import * as likeService from "../../apiService/likeService";
 // 액션
 const GET_LIKE = "GET_LIKE";
 const ADD_LIKE = "ADD_LIKE";
