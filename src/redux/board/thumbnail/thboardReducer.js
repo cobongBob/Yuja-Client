@@ -1,9 +1,9 @@
-import * as thService from '../../../apiService/ThumbnailerApiService';
+import * as thService from "../../../apiService/ThumbnailerApiService";
 
 // 액션
-const MODE_GET_DATA = 'MODE_GET_DATA';
-const MODE_FILTER_DATA = 'MODE_FILTER_DATA';
-const MODE_SORT_LIKES = 'MODE_SORT_LIKES';
+const MODE_GET_DATA = "MODE_GET_DATA";
+const MODE_FILTER_DATA = "MODE_FILTER_DATA";
+const MODE_SORT_LIKES = "MODE_SORT_LIKES";
 
 // 액션함수
 
@@ -41,40 +41,22 @@ const initialState = {
 
 // 리듀서
 export default function ThboardReducer(state = initialState, action) {
-  console.log(action.type);
-  console.log(action.payload);
   switch (action.type) {
     case MODE_GET_DATA:
       return {
         ...state,
-        thBoardData: action.payload
-          .sort((a, b) => b.updatedDate - a.updatedDate)
-          .reverse(),
+        thBoardData: action.payload.sort((a, b) => b.updatedDate - a.updatedDate).reverse(),
       };
     case MODE_FILTER_DATA:
       return {
         ...state,
+        // eslint-disable-next-line array-callback-return
         filterData: state.thBoardData.filter((data) => {
-          if (
-            Object.values(data.title)
-              .join('')
-              .toLowerCase()
-              .includes(action.keyword.toLowerCase())
-          ) {
+          if (Object.values(data.title).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
             return data;
-          } else if (
-            Object.values(data.worker)
-              .join('')
-              .toLowerCase()
-              .includes(action.keyword.toLowerCase())
-          ) {
+          } else if (Object.values(data.worker).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
             return data;
-          } else if (
-            Object.values(data.user.username)
-              .join('')
-              .toLowerCase()
-              .includes(action.keyword.toLowerCase())
-          ) {
+          } else if (Object.values(data.user.username).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
             return data;
           }
         }),

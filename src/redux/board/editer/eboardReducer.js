@@ -1,9 +1,9 @@
-import * as eService from '../../../apiService/EditerApiService';
+import * as eService from "../../../apiService/EditerApiService";
 
 // 액션
-const MODE_GET_DATA = 'MODE_GET_DATA';
-const MODE_FILTER_DATA = 'MODE_FILTER_DATA';
-const MODE_SORT_LIKES = 'MODE_SORT_LIKES';
+const MODE_GET_DATA = "MODE_GET_DATA";
+const MODE_FILTER_DATA = "MODE_FILTER_DATA";
+const MODE_SORT_LIKES = "MODE_SORT_LIKES";
 
 // 액션함수
 
@@ -45,34 +45,18 @@ export default function EboardReducer(state = initialState, action) {
     case MODE_GET_DATA:
       return {
         ...state,
-        eBoardData: action.payload
-          .sort((a, b) => b.updatedDate - a.updatedDate)
-          .reverse(),
+        eBoardData: action.payload.sort((a, b) => b.updatedDate - a.updatedDate).reverse(),
       };
     case MODE_FILTER_DATA:
       return {
         ...state,
+        // eslint-disable-next-line array-callback-return
         filterData: state.eBoardData.filter((data) => {
-          if (
-            Object.values(data.title)
-              .join('')
-              .toLowerCase()
-              .includes(action.keyword.toLowerCase())
-          ) {
+          if (Object.values(data.title).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
             return data;
-          } else if (
-            Object.values(data.worker)
-              .join('')
-              .toLowerCase()
-              .includes(action.keyword.toLowerCase())
-          ) {
+          } else if (Object.values(data.worker).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
             return data;
-          } else if (
-            Object.values(data.user.username)
-              .join('')
-              .toLowerCase()
-              .includes(action.keyword.toLowerCase())
-          ) {
+          } else if (Object.values(data.user.username).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
             return data;
           }
         }),
