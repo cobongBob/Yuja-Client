@@ -62,7 +62,7 @@ const initialState = {
 // 리듀서
 export default function YboardReducer(state = initialState, action) {
   console.log(action.type);
-  console.log(action.payload);
+  console.log(action.data);
   switch (action.type) {
     case MODE_GET_DATA:
       return {
