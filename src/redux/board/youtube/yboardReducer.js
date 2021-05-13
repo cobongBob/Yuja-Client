@@ -5,16 +5,14 @@ const MODE_SORT_EXPIRED_DATE = 'sortExpiredDate';
 const MODE_SORT_LIKES = 'sortLikes';
 const MODE_GET_DATA = 'getData';
 const MODE_GET_DETAIL_DATA = 'getDetailData';
-const MODE_FILTER_DATA = 'getFilterDatas';
-
+const MODE_FILTER_DATA = 'MODE_FILTER_DATA';
 // 액션함수
 
 // 필터로 보여줄 데이터
-export const getFilterData = async () => {
-  const filterData = await YapiService.fetchBoard(0);
+export const getFilterData = async (keyword) => {
   return {
     type: MODE_FILTER_DATA,
-    payload: filterData.data,
+    keyword: keyword,
   };
 };
 
@@ -58,6 +56,7 @@ export const getDetailData = async (board_id, user_id) => {
 const initialState = {
   data: [],
   detailData: [],
+  filterData: [],
 };
 
 // 리듀서
@@ -89,6 +88,34 @@ export default function YboardReducer(state = initialState, action) {
         ...state,
         detailData: action.data,
         count: state.detailData.liked === true ? true : false,
+      };
+    case MODE_FILTER_DATA:
+      return {
+        ...state,
+        filterData: state.data.filter((data) => {
+          if (
+            Object.values(data.title)
+              .join('')
+              .toLowerCase()
+              .includes(action.keyword.toLowerCase())
+          ) {
+            return data;
+          } else if (
+            Object.values(data.worker)
+              .join('')
+              .toLowerCase()
+              .includes(action.keyword.toLowerCase())
+          ) {
+            return data;
+          } else if (
+            Object.values(data.user.username)
+              .join('')
+              .toLowerCase()
+              .includes(action.keyword.toLowerCase())
+          ) {
+            return data;
+          }
+        }),
       };
     default:
       return state;

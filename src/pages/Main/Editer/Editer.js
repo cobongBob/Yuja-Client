@@ -8,6 +8,7 @@ import {
   getFilterData,
 } from '../../../redux/board/editer/eboardReducer';
 import Search from '../components/Search';
+import BackToList from '../components/BackToList';
 
 const Editor = () => {
   const dispatch = useDispatch();
@@ -16,11 +17,11 @@ const Editor = () => {
   );
   const { userData } = useSelector((state) => state.loginReducer);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [boardPerPage] = useState(12);
-
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [boardPerPage] = useState(12);
 
   const indexOfLastData = currentPage * boardPerPage;
   const indexOfFirstData = indexOfLastData - boardPerPage;
@@ -57,6 +58,7 @@ const Editor = () => {
 
   return (
     <div className='tableWrapper'>
+      <BackToList />
       <Search
         boardData={searchTerm.length < 1 ? filterData : searchResults}
         term={searchTerm}

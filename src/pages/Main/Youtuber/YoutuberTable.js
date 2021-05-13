@@ -6,6 +6,7 @@ import { FcLike } from 'react-icons/fc';
 import '../Youtuber/Ylist.scss';
 import SortingToDeadline from '../components/SortingToDeadline';
 import SortingToLiked from '../components/SortingToLiked';
+import BackToList from '../components/BackToList';
 
 export default function YoutuberTable({ boardData }) {
   return (
@@ -14,6 +15,7 @@ export default function YoutuberTable({ boardData }) {
         <div>
           <Link to='/Yregister'>등록하기</Link>
         </div>
+        <BackToList />
         <SortingToDeadline boardData={boardData} />
         <SortingToLiked boardData={boardData} />
       </div>

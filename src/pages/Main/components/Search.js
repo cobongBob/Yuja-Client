@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import '../Youtuber/Ylist.scss';
 import './Components.scss';
 
-export default function Search({ term, setTerm, searchKeyword }) {
+export default function Search({ boardData, term, setTerm, searchKeyword }) {
   const inputEl = useRef('');
 
   const submit = (e) => {

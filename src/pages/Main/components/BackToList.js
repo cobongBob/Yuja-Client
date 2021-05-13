@@ -1,6 +1,7 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getData } from '../../../redux/board/editer/eboardReducer';
+import { getFilterData } from '../../../redux/board/youtube/yboardReducer';
 
 const BackToList = () => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -9,7 +10,16 @@ const BackToList = () => {
     if (userData.id) {
       getData(userData.id).then((res) => {
         dispatch(res);
-        console.log(333333333333, res);
+        getFilterData('').then((res) => {
+          dispatch(res);
+        });
+      });
+    } else {
+      getData(0).then((res) => {
+        dispatch(res);
+        getFilterData('').then((res) => {
+          dispatch(res);
+        });
       });
     }
   }, [userData]);
