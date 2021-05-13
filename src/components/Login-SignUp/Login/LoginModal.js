@@ -3,7 +3,7 @@ import Modal from "react-modal";
 import "./LoginModal.scss";
 import "../../Navi/Navi.scss";
 import { Link } from "react-router-dom";
-import * as auth from "./AuthenticationService";
+import * as auth from "../../../apiService/AuthenticationService";
 import GoogleLogin from "react-google-login";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin, userLogout, userStatus, userCheck } from "../../../redux/redux-login/loginReducer";

@@ -1,4 +1,4 @@
-import instance from '../../AxiosConfig.js';
+import instance from '../AxiosConfig.js';
 
 export const addLike = async (data) => {
   return await instance({

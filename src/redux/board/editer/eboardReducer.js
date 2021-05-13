@@ -1,12 +1,12 @@
-import * as eService from '../../../pages/Main/Editer/EditerApiService';
+import * as eService from '../../../apiService/EditerApiService';
 
 // 액션
 const MODE_GET_DATA = 'MODE_GET_DATA';
 const MODE_FILTER_DATA = 'MODE_FILTER_DATA';
 // 액션함수
 // 마감순 정렬
-export const getData = async (user_id) => {
-  const EBoard = await eService.fetchBoards(user_id);
+export const getData = async (user_id, boardtype) => {
+  const EBoard = await eService.fetchBoards(user_id, boardtype);
   return {
     type: MODE_GET_DATA,
     payload: EBoard.data,

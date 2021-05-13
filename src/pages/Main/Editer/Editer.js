@@ -32,14 +32,14 @@ const Editor = () => {
 
   useEffect(() => {
     if (userData.id) {
-      getData(userData.id).then((res) => {
+      getData(userData.id, 2).then((res) => {
         dispatch(res);
         getFilterData('').then((res) => {
           dispatch(res);
         });
       });
     } else {
-      getData(0).then((res) => {
+      getData(0, 2).then((res) => {
         dispatch(res);
         getFilterData('').then((res) => {
           dispatch(res);

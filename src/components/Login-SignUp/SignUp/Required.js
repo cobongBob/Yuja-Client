@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from "react-router-dom";
 import AuthCodeTimer from "./AuthCodeTimer";
 import AuthBtnBox from "./AuthBtnBox";
-import * as auth from "../Login/AuthenticationService";
+import * as auth from "../../../apiService/AuthenticationService";
 import axios from 'axios';
 
 const Required = ({ location }) => {
@@ -106,7 +106,9 @@ const Required = ({ location }) => {
       birthValidateDesc === '' &&
       isValidateInput.nick !== '' &&
       isValidateInput.birth !== '' &&
-      isValidateInput.id !== '') {
+      isValidateInput.id !== '' &&
+      isValidateInput.name !== '' &&
+      isValidateInput.pass !== '') {
       setNextBtnDisabledHandler(false)
     } else {
       setNextBtnDisabledHandler(true)

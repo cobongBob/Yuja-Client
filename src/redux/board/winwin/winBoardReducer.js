@@ -1,4 +1,4 @@
-import { getWinBoards } from "../../../pages/Main/Winwin/winBoardApiService";
+import { getWinBoards } from "../../../apiService/winBoardApiService";
 
 const GET_WINBOARD_REQUEST = "GET_WINBOARD_REQUEST";
 const GET_WINBOARD_SUCCESS = "GET_WINBOARD_SUCCESS";

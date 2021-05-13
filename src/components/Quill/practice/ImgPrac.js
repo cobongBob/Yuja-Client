@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import * as YapiService from "../../../pages/Main/Youtuber/YapiService";
+import * as YapiService from "../../../apiService/YapiService";
 import { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "../QuillComponents.scss";

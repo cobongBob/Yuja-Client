@@ -1,4 +1,4 @@
-import * as YapiService from "../../../pages/Main/Youtuber/YapiService";
+import * as YapiService from "../../../apiService/YapiService";
 
 // 액션
 const MODE_GET_DETAIL_DATA = "getDetailData";

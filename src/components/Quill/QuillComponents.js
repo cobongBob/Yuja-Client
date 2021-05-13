@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './QuillComponents.scss';
-import YapiService from '../../pages/Main/Youtuber/YapiService';
+import YapiService from '../../apiService/YapiService';
 
 const QuillComponents = () => {
   const modules = {
