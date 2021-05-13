@@ -12,15 +12,15 @@
 
 .sortingBtn > button {
   display: inline-block;
-  border: 2px solid cornflowerblue;
+  border: 2px solid #ff9411;
   background-color: white;
   border-radius: 20px;
   width: 5rem;
-  color: cornflowerblue;
+  color: #ff9411;
   margin: 0.25rem;
   cursor: pointer;
   &:focus {
-    background-color: cornflowerblue;
+    background-color: #ff9411;
     color: white;
   }
 }
