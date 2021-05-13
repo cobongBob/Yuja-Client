@@ -1,17 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import YapiService from './YapiService';
-import './Ydetail.scss';
-import { FcLike, FcOk } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
-import ReactQuill from 'react-quill';
-import Practice from './api_practice/Practice';
-import { getDetailData } from '../../../redux/board/youtube/yboardReducer';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  getLiked,
-  addLike,
-  deleteLike,
-} from '../../../redux/liked/likedReducer';
+import React, { useCallback, useEffect, useState } from "react";
+import * as YapiService from "./YapiService";
+import "./Ydetail.scss";
+import { FcLike, FcOk } from "react-icons/fc";
+import { Link } from "react-router-dom";
+import ReactQuill from "react-quill";
+import Practice from "./api_practice/Practice";
+import { getDetailData } from "../../../redux/board/youtube/yboardReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { getLiked, addLike, deleteLike } from "../../../redux/liked/likedReducer";
 
 const Ydetail = (props) => {
   // console.log(props.match);
@@ -62,7 +58,7 @@ const Ydetail = (props) => {
   const deleteBoard = () => {
     YapiService.deleteBoard(props.match.params.board_id).then((res) => {
       alert(res.data);
-      props.history.push('/Youtuber');
+      props.history.push("/Youtuber");
     });
   };
 
@@ -89,19 +85,13 @@ const Ydetail = (props) => {
           <div className='youtube-top'>채널소개</div>
           <div></div>
           <div className='channel-box'>
-            {!detailData ? (
-              <span>loading..</span>
-            ) : (
-              <Practice user={detailData.user}></Practice>
-            )}
+            {!detailData ? <span>loading..</span> : <Practice user={detailData.user}></Practice>}
           </div>
           <div className='detail-box'>
             <div className='DetailTop'>공고내용</div>
             <div className='detail-btn'>
               <div className='detail-btn-box'>
-                <Link
-                  to={`/YmodifyTest/${detailData.id}`}
-                  className='detail-update-btn'>
+                <Link to={`/YmodifyTest/${detailData.id}`} className='detail-update-btn'>
                   공고 수정하기
                 </Link>
                 <button onClick={deleteBoard}>공고 삭제하기</button>
@@ -131,18 +121,13 @@ const Ydetail = (props) => {
               </div>
             </div>
             <div className='detail-date'>
-              {detailData.updatedDate !== undefined
-                ? detailData.updatedDate.substr(0, 10)
-                : ''}{' '}
-              ~{' '}
-              {detailData.expiredDate !== undefined
-                ? detailData.expiredDate.substr(0, 10)
-                : '상시채용'}
+              {detailData.updatedDate !== undefined ? detailData.updatedDate.substr(0, 10) : ""} ~{" "}
+              {detailData.expiredDate !== undefined ? detailData.expiredDate.substr(0, 10) : "상시채용"}
             </div>
             <div className='detail-content'>
               <div className='detail-content-default'>
-                {' '}
-                기본내용{' '}
+                {" "}
+                기본내용{" "}
                 <div>
                   <ul>
                     <li>
@@ -165,16 +150,12 @@ const Ydetail = (props) => {
                     </li>
                   </ul>
                   <br />
-                </div>{' '}
+                </div>{" "}
               </div>
               <div className='detail-content-detail'>
-                {' '}
+                {" "}
                 추가내용
-                <ReactQuill
-                  value={detailData.content || ''}
-                  readOnly={true}
-                  theme={'bubble'}
-                />{' '}
+                <ReactQuill value={detailData.content || ""} readOnly={true} theme={"bubble"} />{" "}
               </div>
             </div>
           </div>
