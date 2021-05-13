@@ -43,42 +43,42 @@ function App() {
   const prevLocation = usePrevious(location.pathname);
   /* history 관련 끝 */
 
-  /* 로딩 */
-  const dispatch = useDispatch();
-  useEffect(() => {
-    axios.interceptors.request.use(
-      function (config) {
-        //로딩 호출
-        dispatch({
-          type: GLOBAL_LOADING,
-        });
-        return config;
-      },
-      function (error) {
-        //실패시 로딩창 종료
-        dispatch({
-          type: GLOBAL_LOADED,
-        });
-        return Promise.reject(error);
-      }
-    );
-    axios.interceptors.response.use(
-      (config) => {
-        //완료시 로딩창 종료
-        dispatch({
-          type: GLOBAL_LOADED,
-        });
-        return config;
-      },
-      (error) => {
-        //실패시 로딩창 종료
-        dispatch({
-          type: GLOBAL_LOADED,
-        });
-        return Promise.reject(error);
-      }
-    );
-  }, []);
+  // /* 로딩 */
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   axios.interceptors.request.use(
+  //     function (config) {
+  //       //로딩 호출
+  //       dispatch({
+  //         type: GLOBAL_LOADING,
+  //       });
+  //       return config;
+  //     },
+  //     function (error) {
+  //       //실패시 로딩창 종료
+  //       dispatch({
+  //         type: GLOBAL_LOADED,
+  //       });
+  //       return Promise.reject(error);
+  //     }
+  //   );
+  //   axios.interceptors.response.use(
+  //     (config) => {
+  //       //완료시 로딩창 종료
+  //       dispatch({
+  //         type: GLOBAL_LOADED,
+  //       });
+  //       return config;
+  //     },
+  //     (error) => {
+  //       //실패시 로딩창 종료
+  //       dispatch({
+  //         type: GLOBAL_LOADED,
+  //       });
+  //       return Promise.reject(error);
+  //     }
+  //   );
+  // }, []);
 
   /* 로딩 끝 */
 
