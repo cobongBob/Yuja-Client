@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import { FcLike } from 'react-icons/fc';
 import '../Youtuber/Ylist.scss';
+import BackToList from '../components/BackToList';
 
 export default function EditorTable({ boardData, userData }) {
   //인기순 정렬하기
@@ -30,6 +31,7 @@ export default function EditorTable({ boardData, userData }) {
         />
         */}
         <Link to='/Yregister'>등록하기</Link>
+        <BackToList />
         {/* <button onClick={expiredData}>마감일</button>
         <button onClick={likesData}>인기순</button> */}
       </div>

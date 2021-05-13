@@ -1,4 +1,4 @@
-import ThumbnailerApiService from '../../../pages/Main/Thumbnailer/ThumbnailerApiService';
+import * as ThumbnailerApiService from '../../../pages/Main/Thumbnailer/ThumbnailerApiService';
 
 // 액션
 const MODE_SORT_EXPIRED_DATE = 'sortExpiredDate';

@@ -6,6 +6,19 @@ import LoginModal from '../Login-SignUp/Login/LoginModal';
 import { FiMenu } from 'react-icons/fi';
 
 const Navi = () => {
+  {
+    /*
+  const history = useHistory();
+  const current = useHistory().location.pathname;
+
+  const handelClick = (e) => {
+    if (current) {
+      e.preventDefault();
+    }
+  };
+*/
+  }
+
   return (
     <div className='nav'>
       <ul className='nav-pills' defaultValue='/'>
