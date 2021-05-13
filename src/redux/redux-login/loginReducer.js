@@ -1,4 +1,4 @@
-import * as auth from '../../components/Login-SignUp/Login/AuthenticationService';
+import * as auth from '../../apiService/AuthenticationService';
 
 /* 액션 */
 const USER_LOGIN = 'userLogin';

@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import '../Youtuber/Ylist.scss';
 import './Components.scss';
+import { AiOutlineSearch } from 'react-icons/ai';
 
 export default function Search({ boardData, term, setTerm, searchKeyword }) {
   const inputEl = useRef('');
@@ -15,13 +16,15 @@ export default function Search({ boardData, term, setTerm, searchKeyword }) {
       <div className='search-form'>
         <form onSubmit={(e) => submit(e)}>
           <input
-            ref={inputEl}
             type='text'
+            ref={inputEl}
             placeholder='검색어를 입력해주세요.'
             value={term}
             onChange={(e) => setTerm(e.target.value)}
           />
-          <input value='검색' type='submit' />
+          <AiOutlineSearch className='search-icon'>
+            <input type='submit' />
+          </AiOutlineSearch>
         </form>
       </div>
     </div>

@@ -8,7 +8,6 @@ import {
   getFilterData,
 } from '../../../redux/board/editer/eboardReducer';
 import Search from '../components/Search';
-import BackToList from '../components/BackToList';
 
 const Editor = () => {
   const dispatch = useDispatch();
@@ -33,14 +32,14 @@ const Editor = () => {
 
   useEffect(() => {
     if (userData.id) {
-      getData(userData.id).then((res) => {
+      getData(userData.id, 2).then((res) => {
         dispatch(res);
         getFilterData('').then((res) => {
           dispatch(res);
         });
       });
     } else {
-      getData(0).then((res) => {
+      getData(0, 2).then((res) => {
         dispatch(res);
         getFilterData('').then((res) => {
           dispatch(res);
@@ -58,7 +57,6 @@ const Editor = () => {
 
   return (
     <div className='tableWrapper'>
-      <BackToList />
       <Search
         boardData={searchTerm.length < 1 ? filterData : searchResults}
         term={searchTerm}

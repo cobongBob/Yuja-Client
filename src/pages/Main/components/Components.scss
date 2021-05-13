@@ -77,21 +77,33 @@
 }
 
 .search-form {
-  border-radius: 20px;
-  border: 2px solid #ff9411;
-  width: 25rem;
+  display: block;
+  width: 30rem;
   height: 3rem;
   margin: auto;
+  border: 2px solid #ff9411;
+  border-radius: 20px;
 }
 
-.search-form > input[type='text'] {
+.search-form > form > input[type='text'] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   vertical-align: middle;
   width: 25rem;
   height: 3rem;
   margin-left: 1rem;
   font-size: 1rem;
-  text-align: left;
+  text-align: center;
   background-color: transparent;
-  border: none;
   outline-style: none;
+  border: none;
+}
+
+.search-icon {
+  font-size: 2rem;
+  color: lightgrey;
+  &:hover {
+    color: gray;
+  }
 }

@@ -1,4 +1,4 @@
-import instance from "../../../AxiosConfig.js";
+import instance from "../AxiosConfig.js";
 const BoardType = 4;
 
 export const getWinBoards = async (user_id) => {

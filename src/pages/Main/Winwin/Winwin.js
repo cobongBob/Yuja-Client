@@ -8,7 +8,6 @@ const Winwin = () => {
   const { userData } = useSelector((state) => state.loginReducer);
 
   useEffect(() => {
-    console.log("hihi");
     if (userData.id) {
       dispatch(getWinBoard(userData.id));
     } else {

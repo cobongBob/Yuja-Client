@@ -1,14 +1,14 @@
-import React from 'react';
-import { Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { format } from 'date-fns';
-import { FcLike } from 'react-icons/fc';
-import '../Youtuber/Ylist.scss';
-import SortingToDeadline from '../components/SortingToDeadline';
-import SortingToLiked from '../components/SortingToLiked';
-import BackToList from '../components/BackToList';
+import React from "react";
+import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { format } from "date-fns";
+import { FcLike } from "react-icons/fc";
+import "../Youtuber/Ylist.scss";
+import SortingToDeadline from "../components/SortingToDeadline";
+import SortingToLiked from "../components/SortingToLiked";
+import BackToList from "../components/BackToList";
 
-export default function YoutuberTable({ boardData }) {
+const YoutuberTable = ({ boardData }) => {
   return (
     <div className='card-container'>
       <div className='card-options'>
@@ -47,17 +47,13 @@ export default function YoutuberTable({ boardData }) {
               <span>
                 <strong>수정일 </strong>
               </span>
-              <strong>
-                {format(new Date(data.updatedDate), 'yyyy-MM-dd')}
-              </strong>
+              <strong>{format(new Date(data.updatedDate), "yyyy-MM-dd")}</strong>
             </div>
             <div>
               <span>
                 <strong>마감일</strong>
               </span>
-              <strong>
-                {format(new Date(data.expiredDate), 'yyyy-MM-dd')}
-              </strong>
+              <strong>{format(new Date(data.expiredDate), "yyyy-MM-dd")}</strong>
             </div>
             <div className='card-like'>
               <FcLike size={20} /> {data.likes}
@@ -67,4 +63,5 @@ export default function YoutuberTable({ boardData }) {
       ))}
     </div>
   );
-}
+};
+export default YoutuberTable;
