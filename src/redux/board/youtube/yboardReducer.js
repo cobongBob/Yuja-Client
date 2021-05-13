@@ -1,17 +1,24 @@
-import YapiService from "../../../pages/Main/Youtuber/YapiService";
+import * as YapiService from "../../../pages/Main/Youtuber/YapiService";
 
 // 액션
 const MODE_SORT_EXPIRED_DATE = "sortExpiredDate";
 const MODE_SORT_LIKES = "sortLikes";
 const MODE_GET_DATA = "getData";
 const MODE_GET_DETAIL_DATA = "getDetailData";
-const MODE_COUNT_LIKES = "countLikes";
-
+const MODE_FILTER_DATA = "MODE_FILTER_DATA";
 // 액션함수
+
+// 필터로 보여줄 데이터
+export const getFilterData = async (keyword) => {
+  return {
+    type: MODE_FILTER_DATA,
+    keyword: keyword,
+  };
+};
 
 // 마감순 정렬
 export const sortExpiredDate = async () => {
-  const expiredData = await YapiService.fetchBoards();
+  const expiredData = await YapiService.fetchBoards(0);
   return {
     type: MODE_SORT_EXPIRED_DATE,
     payload: expiredData.data,
@@ -20,7 +27,7 @@ export const sortExpiredDate = async () => {
 
 // 인기순 정렬
 export const sortLikes = async () => {
-  const likesData = await YapiService.fetchBoards();
+  const likesData = await YapiService.fetchBoards(0);
   return {
     type: MODE_SORT_LIKES,
     payload: likesData.data,
@@ -28,29 +35,20 @@ export const sortLikes = async () => {
 };
 
 // 전체데이터 가져오기
-export const getData = async () => {
-  const axiosData = await YapiService.fetchBoards();
+export const getData = async (user_id) => {
+  const axiosData = await YapiService.fetchBoards(user_id);
   return {
     type: MODE_GET_DATA,
     payload: axiosData.data,
   };
 };
 
-export const getDetailData = async (board_id) => {
-  const detailData = await YapiService.fetchBoard(board_id); // id를 넣어야 가져올꺼같긴한데...
+export const getDetailData = async (board_id, user_id) => {
+  const detailData = await YapiService.fetchBoard(board_id, user_id); // id를 넣어야 가져올꺼같긴한데...
   return {
     type: MODE_GET_DETAIL_DATA,
     data: detailData.data,
-  };
-};
-
-export const countLikes = async (board_id) => {
-  const countLikes = await YapiService.fetchBoard(board_id);
-  const pressLikes = false;
-  return {
-    type: MODE_COUNT_LIKES,
-    data: countLikes.data.likes,
-    boolean: pressLikes,
+    count: detailData.data.liked,
   };
 };
 
@@ -58,13 +56,13 @@ export const countLikes = async (board_id) => {
 const initialState = {
   data: [],
   detailData: [],
-  countLikes: 0,
+  filterData: [],
 };
 
 // 리듀서
 export default function YboardReducer(state = initialState, action) {
   console.log(action.type);
-  console.log(action.payload);
+  console.log(action.data);
   switch (action.type) {
     case MODE_GET_DATA:
       return {
@@ -85,11 +83,20 @@ export default function YboardReducer(state = initialState, action) {
       return {
         ...state,
         detailData: action.data,
+        count: state.detailData.liked === true ? true : false,
       };
-    case MODE_COUNT_LIKES:
+    case MODE_FILTER_DATA:
       return {
         ...state,
-        countLikes: action.boolean === false ? action.data : action.data + 1,
+        filterData: state.data.filter((data) => {
+          if (Object.values(data.title).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
+            return data;
+          } else if (Object.values(data.worker).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
+            return data;
+          } else if (Object.values(data.user.username).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
+            return data;
+          }
+        }),
       };
     default:
       return state;

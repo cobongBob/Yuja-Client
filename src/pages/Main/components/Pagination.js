@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { RiArrowLeftCircleLine, RiArrowRightCircleLine } from 'react-icons/ri';
-import '../Youtuber/Ylist.scss';
+import './Components.scss';
 
 export default function Pagination(props) {
   const { boardPerPage, totalBoards, currentPage, clickPage } = props;

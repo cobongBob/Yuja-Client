@@ -3,11 +3,12 @@ import { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./YQuillComponents.scss";
 import "./Yregister.scss";
-import YapiService from "./YapiService";
+import * as YapiService from "./YapiService";
 import YImgApiService from "./YImgApiService";
 import ImageResize from "@looop/quill-image-resize-module-react";
 import QuillImageDropAndPaste from "quill-image-drop-and-paste";
 import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
 Quill.register("modules/imageResize", ImageResize);
 Quill.register("modules/imageDropAndPaste", QuillImageDropAndPaste);
 let Image = Quill.import("formats/image");
@@ -17,6 +18,7 @@ window.Quill = Quill;
 
 let quill;
 const Yregister = () => {
+  const { userData } = useSelector((state) => state.loginReducer);
   const addingFileList = useRef([]);
   const currFileList = useRef([]);
   const imageHandler = useCallback(() => {
@@ -141,7 +143,7 @@ const Yregister = () => {
 
   let Yhistory = useCallback((board_id) => history.push(`/YDetail/${board_id}`), [history]);
 
-  const testCheking = () => {
+  const testCheking = useCallback(() => {
     console.log(input);
     let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
     let imgSrcArr = String(data).match(reg);
@@ -156,7 +158,7 @@ const Yregister = () => {
     }
     const sendingData = {
       ...input,
-      userId: 1, //글쓰고있는 사람의 아이디로 변경요망
+      userId: userData.id, //글쓰고있는 사람의 아이디로 변경요망
       content: data.replaceAll(
         `src="http://localhost:8888/files/temp/`,
         `src="http://localhost:8888/files/YoutuberBoard/`
@@ -167,7 +169,7 @@ const Yregister = () => {
     YapiService.addBoards(sendingData).then((res) => {
       Yhistory(res.data.id);
     });
-  };
+  }, [userData, data]);
 
   const checkboxCheck = (e) => {
     if (e.target.checked) {

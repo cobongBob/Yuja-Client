@@ -1,32 +1,27 @@
-import React, { useEffect, useState } from "react";
-import YapiService from "./YapiService";
+import React, { useCallback, useEffect, useState } from "react";
+import * as YapiService from "./YapiService";
 import "./Ydetail.scss";
 import { FcLike, FcOk } from "react-icons/fc";
-import Footer from "../../../components/Footer";
 import { Link } from "react-router-dom";
 import ReactQuill from "react-quill";
 import Practice from "./api_practice/Practice";
-import { countLikes, getDetailData } from "../../../redux/board/youtube/yboardReducer";
-import { useDispatch } from "react-redux";
+import { getDetailData } from "../../../redux/board/youtube/yboardReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { getLiked, addLike, deleteLike } from "../../../redux/liked/likedReducer";
 
 const Ydetail = (props) => {
   // console.log(props.match);
   // let updatedDate = new Date();
 
-  const [data, setData] = useState({
-    updatedDate: "",
-    expiredDate: "",
-    title: "",
-    content: "",
-    hit: "",
-    likes: "",
-  });
-
-  const [likes, setLikes] = useState({});
-
-  console.log("여기니?", data);
-
   const dispatch = useDispatch();
+
+  const { countLikes, isLiked } = useSelector((state) => state.likedReducer);
+  const { userData } = useSelector((state) => state.loginReducer);
+  const { detailData } = useSelector((state) => state.YboardReducer);
+  // const _getDetailData = () => dispatch(getDetailData());
+  // getDetailData().then((res) => {
+  //   dispatch(res);
+  // });
 
   // useEffect(() => {
   //   YapiService.fetchBoard(props.match.params.board_id)
@@ -42,19 +37,23 @@ const Ydetail = (props) => {
 
   useEffect(() => {
     const board_id = props.match.params.board_id;
-    getDetailData(board_id).then((res) => {
-      console.log("왔니?", res);
-      setData(res.data);
-      console.log("했니?", data);
-    });
-  }, []);
-
-  useEffect(() => {
-    const board_id = props.match.params.board_id;
-    countLikes(board_id).then((res) => {
-      console.log("좋아요 왔니?", res);
-    });
-  });
+    if (userData.id) {
+      getLiked(board_id, userData.id).then((res) => {
+        dispatch(res);
+      });
+      getDetailData(board_id, userData.id).then((res) => {
+        dispatch(res);
+        console.log(11111111111111111111111, res);
+      });
+    } else {
+      getLiked(board_id, 0).then((res) => {
+        dispatch(res);
+      });
+      getDetailData(board_id, 0).then((res) => {
+        dispatch(res);
+      });
+    }
+  }, [userData.id]);
 
   const deleteBoard = () => {
     YapiService.deleteBoard(props.match.params.board_id).then((res) => {
@@ -63,6 +62,22 @@ const Ydetail = (props) => {
     });
   };
 
+  const likeHandler = useCallback(() => {
+    if (userData.id) {
+      if (isLiked) {
+        deleteLike(props.match.params.board_id, userData.id).then((res) => {
+          dispatch(res);
+        });
+      } else {
+        addLike(props.match.params.board_id, userData.id).then((res) => {
+          dispatch(res);
+        });
+      }
+    } else {
+      //로그인 창으로
+    }
+  }, [userData.id, isLiked]);
+
   return (
     <div>
       <div className='DetailWrapper'>
@@ -70,13 +85,13 @@ const Ydetail = (props) => {
           <div className='youtube-top'>채널소개</div>
           <div></div>
           <div className='channel-box'>
-            <Practice data={data}></Practice>
+            {!detailData ? <span>loading..</span> : <Practice user={detailData.user}></Practice>}
           </div>
           <div className='detail-box'>
             <div className='DetailTop'>공고내용</div>
             <div className='detail-btn'>
               <div className='detail-btn-box'>
-                <Link to={`/YmodifyTest/${data.id}`} className='detail-update-btn'>
+                <Link to={`/YmodifyTest/${detailData.id}`} className='detail-update-btn'>
                   공고 수정하기
                 </Link>
                 <button onClick={deleteBoard}>공고 삭제하기</button>
@@ -84,20 +99,30 @@ const Ydetail = (props) => {
             </div>
             <div></div>
             <div className='detail-title'>
-              {data.title}
+              {detailData.title}
               <div className='detail-show'>
                 <span>
-                  <FcLike size={20} /> {data.likes}
+                  {isLiked === true ? (
+                    <button onClick={likeHandler}>
+                      <FcLike size={20} />
+                      {countLikes}
+                    </button>
+                  ) : (
+                    <button onClick={likeHandler}>
+                      <FcLike size={20} />
+                      {countLikes}
+                    </button>
+                  )}
                 </span>
                 <br />
                 <span>
-                  <FcOk size={20} /> {data.hit}
+                  <FcOk size={20} /> {detailData.hit}
                 </span>
               </div>
             </div>
             <div className='detail-date'>
-              {data.updatedDate !== undefined ? data.updatedDate.substr(0, 10) : ""} ~{" "}
-              {data.expiredDate !== undefined ? data.expiredDate.substr(0, 10) : "상시채용"}
+              {detailData.updatedDate !== undefined ? detailData.updatedDate.substr(0, 10) : ""} ~{" "}
+              {detailData.expiredDate !== undefined ? detailData.expiredDate.substr(0, 10) : "상시채용"}
             </div>
             <div className='detail-content'>
               <div className='detail-content-default'>
@@ -106,22 +131,22 @@ const Ydetail = (props) => {
                 <div>
                   <ul>
                     <li>
-                      <label htmlFor=''>모십니다:</label> {data.worker}
+                      <label htmlFor=''>모십니다:</label> {detailData.worker}
                     </li>
                     <li>
-                      <label htmlFor=''>경력:</label> {data.career}
+                      <label htmlFor=''>경력:</label> {detailData.career}
                     </li>
                     <li>
-                      <label htmlFor=''>급여종류:</label> {data.payType}
+                      <label htmlFor=''>급여종류:</label> {detailData.payType}
                     </li>
                     <li>
-                      <label htmlFor=''>급여:</label> {data.payAmount}원
+                      <label htmlFor=''>급여:</label> {detailData.payAmount}원
                     </li>
                     <li>
-                      <label htmlFor=''>원하는 툴:</label> {data.tools}
+                      <label htmlFor=''>원하는 툴:</label> {detailData.tools}
                     </li>
                     <li>
-                      <label htmlFor=''>담당자:</label> {data.manager}
+                      <label htmlFor=''>담당자:</label> {detailData.manager}
                     </li>
                   </ul>
                   <br />
@@ -130,13 +155,12 @@ const Ydetail = (props) => {
               <div className='detail-content-detail'>
                 {" "}
                 추가내용
-                <ReactQuill value={data.content} readOnly={true} theme={"bubble"} />{" "}
+                <ReactQuill value={detailData.content || ""} readOnly={true} theme={"bubble"} />{" "}
               </div>
             </div>
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

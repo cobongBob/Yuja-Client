@@ -3,36 +3,72 @@ import EditerTable from './EditerTable';
 import '../Youtuber/Youtuber.scss';
 import Pagination from '../components/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
-import { getData } from '../../../redux/board/editer/eboardReducer';
+import {
+  getData,
+  getFilterData,
+} from '../../../redux/board/editer/eboardReducer';
+import Search from '../components/Search';
+import BackToList from '../components/BackToList';
 
 const Editor = () => {
-  const boardData = useSelector((state) => state.EboardReducer.data);
   const dispatch = useDispatch();
+  const { eBoardData, filterData } = useSelector(
+    (state) => state.EboardReducer
+  );
+  const { userData } = useSelector((state) => state.loginReducer);
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [boardPerPage] = useState(12);
 
   const indexOfLastData = currentPage * boardPerPage;
   const indexOfFirstData = indexOfLastData - boardPerPage;
-  const currentData = boardData.slice(indexOfFirstData, indexOfLastData);
+  const currentData = filterData.slice(indexOfFirstData, indexOfLastData);
 
   const clickPage = (pages) => {
     setCurrentPage(pages);
   };
 
   useEffect(() => {
-    getData().then((res) => {
+    if (userData.id) {
+      getData(userData.id).then((res) => {
+        dispatch(res);
+        getFilterData('').then((res) => {
+          dispatch(res);
+        });
+      });
+    } else {
+      getData(0).then((res) => {
+        dispatch(res);
+        getFilterData('').then((res) => {
+          dispatch(res);
+        });
+      });
+    }
+  }, [userData]);
+
+  const searchHandler = (searchTerm) => {
+    setSearchTerm(searchTerm);
+    getFilterData(searchTerm).then((res) => {
       dispatch(res);
-      console.log('게시판데이터', res);
-      // console.log('여긴 유즈이펙트', res);
     });
-  }, []);
+  };
+
   return (
     <div className='tableWrapper'>
-      <EditerTable boardData={currentData} />
+      <BackToList />
+      <Search
+        boardData={searchTerm.length < 1 ? filterData : searchResults}
+        term={searchTerm}
+        setTerm={setSearchTerm}
+        searchKeyword={searchHandler}
+      />
+      <EditerTable boardData={currentData} userData={userData} />
       <Pagination
         boardPerPage={boardPerPage}
-        totalBoards={boardData.length}
+        totalBoards={filterData.length}
         currentPage={currentPage}
         clickPage={clickPage}
       />

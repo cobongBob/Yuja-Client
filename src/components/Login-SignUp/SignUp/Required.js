@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from "react-router-dom";
 import AuthCodeTimer from "./AuthCodeTimer";
 import AuthBtnBox from "./AuthBtnBox";
@@ -6,6 +6,7 @@ import * as auth from "../Login/AuthenticationService";
 import axios from 'axios';
 
 const Required = ({ location }) => {
+
   /* 값 넘겨주기 */
   const [requiredData, setrequiredData] = useState({
     isMarketingChecked: location.state.next,
@@ -15,57 +16,17 @@ const Required = ({ location }) => {
     bday: "",
     nickname: "",
   });
-  const changeValue = (e) => {
-    setrequiredData({
+  const changeValue = async (e) => {
+    console.log('======changeValue실행')
+    await setrequiredData({
       ...requiredData,
       [e.target.name]: e.target.value,
     });
+    console.log('======requiredNextBtnHandler실행')
+    await requiredNextBtnHandler()
+    console.log(requiredData)
   };
   /* 값 넘겨주기 끝 */
-
-  /* 유효성 검사 */
-  let [passCheckNum, setpassCheckNum] = useState();
-
-  const getPassCheckNum = (e) => {
-    setpassCheckNum(e.target.value);
-  };
-  const checkRequiredUserData = (e) => {
-    let id = requiredData.username;
-    let pass = requiredData.password;
-    let name = requiredData.realName;
-    let birth = requiredData.bday;
-    let nick = requiredData.nickname;
-
-    const emailCheck = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-    const passCheck = /^(?=.*?[a-z])(?=.*?[#?!@$%^&*-])(?=.*?[0-9]).{8,}$/; /* 비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다. */
-    const nameCheck = /^[a-zA-Z가-힣]{2,10}$/;
-    const birthCheck = /^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/;
-    const nickCheck = /^[a-zA-Z0-9가-힣ㄱ-ㅎ]{2,20}$/; /* 특수문자 제외 영문, 숫자, 한글 2~20자 */
-
-    if ([id, pass, name, birth, nick].includes("") || [id, pass, name, birth, nick].includes("{")) {
-      alert("빈칸을 모두 입력해주세요.");
-      e.preventDefault();
-    } else if (false === emailCheck.test(id)) {
-      alert("올바른 이메일 형식이 아닙니다.");
-      e.preventDefault();
-    } else if (false === passCheck.test(pass)) {
-      alert("4~10자, 숫자랑 영어만 / 테스트용 비밀번호");
-      e.preventDefault();
-    } else if (pass !== passCheckNum) {
-      alert("비밀번호를 확인해주세요!");
-      e.preventDefault();
-    } else if (false === nameCheck.test(name)) {
-      alert("이름은 영문자, 한글만 입력 가능합니다!");
-      e.preventDefault();
-    } else if (false === birthCheck.test(birth)) {
-      alert("생년월일 형식을 확인해주세요. ");
-      e.preventDefault();
-    } else if (false === nickCheck.test(nick)) {
-      alert("닉네임은 특수문자를 제외한 2~20자만 입력 가능합니다.");
-      e.preventDefault();
-    }
-  };
-  /* 유효성 검사 끝*/
 
   /* 인증 코드 발송 */
   const [timerSet, setTimerSet] = useState(false);
@@ -118,19 +79,118 @@ const Required = ({ location }) => {
       return false;
     }
   };
+  /* 인증코드 통신 및 끝 */
+
+  /* new 유효성 검사 */
+  const [currentFocusedClassName, setCurrentFocusedClassName] = useState();
+  const [EmailValidateResData, setEmailValidateResData] = useState();
+  const [nicknameValidateResData, setNicknameValidateResData] = useState();
+  const [passwordValidateDesc, setPasswordValidateDesc] = useState();
+  const [checkPasswordValidateDesc, setCheckPasswordValidateDesc] = useState();
+  const [nameValidateDesc, setNameValidateDesc] = useState();
+  const [birthValidateDesc, setBirthValidateDesc] = useState();
+  const [passCheckNum, setpassCheckNum] = useState();
+  const [nextBtnDisabledHandler, setNextBtnDisabledHandler] = useState();
+
+  const isValidateInput = useMemo(()=> ({
+    id : requiredData.username,
+    pass : requiredData.password,
+    name : requiredData.realName,
+    birth : requiredData.bday,
+    nick : requiredData.nickname
+  }),[requiredData])
+
+
+  const emailCheck = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+  const passCheck = /^(?=.*?[a-z])(?=.*?[#?!@$%^&*-])(?=.*?[0-9]).{8,}$/; /* 비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다. */
+  const nameCheck = /^[a-zA-Z가-힣]{2,10}$/;
+  const birthCheck = /^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/;
+  const nickCheck = /^[a-zA-Z0-9가-힣ㄱ-ㅎ]{2,20}$/; /* 특수문자 제외 영문, 숫자, 한글 2~20자 */
+
+  const getPassCheckNum = (e) => {
+    setpassCheckNum(e.target.value);
+    requiredNextBtnHandler()
+  };
 
   const checkEmailValidate = useCallback(()=>{
     axios.post("http://localhost:8888/api/auth/checkemail",requiredData).then(res=>{
       console.log(res.data);
+      res.data !== '' ?
+        setEmailValidateResData(res.data)
+        :
+        setEmailValidateResData('')
     })
   })
 
   const checkNicknameValidate = useCallback(()=>{
     axios.post("http://localhost:8888/api/auth/checknickname",requiredData).then(res=>{
       console.log(res.data);
+      res.data !== '' ?
+        setNicknameValidateResData(res.data)
+        :
+        setNicknameValidateResData('')
     })
   })
 
+  const checkPasswordValidate = useCallback(()=> {
+    passCheck.test(isValidateInput.pass) === false && isValidateInput.pass !== ''?
+      setPasswordValidateDesc('비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.')
+      :
+      setPasswordValidateDesc('')
+  })
+
+  const checkPasswordCheckValidate = useCallback(()=> {
+    isValidateInput.pass !== passCheckNum && passCheckNum !== '' ?
+      setCheckPasswordValidateDesc('비밀번호를 확인해주세요.')
+      :
+      setCheckPasswordValidateDesc('')
+  })
+
+  const checkNameValidate = useCallback(()=> {
+    nameCheck.test(isValidateInput.name) === false && isValidateInput.name !== '' ?
+      setNameValidateDesc('이름은 2글자 이상의 영문자, 한글만 입력 가능합니다.')
+      :
+      setNameValidateDesc('')
+  })
+
+  const checkBirthValidate = useCallback(()=> {
+    birthCheck.test(isValidateInput.birth) === false && isValidateInput.birth !== '' ?
+      setBirthValidateDesc('-을 제외한 생년월일 6자리만 입력해주세요.')
+      :
+      setBirthValidateDesc('')
+  })
+
+  const requiredNextBtnHandler = useCallback(()=> {
+    console.log('!!!!!nextBtnHandler 실행')
+    if ([isValidateInput.id,isValidateInput.nick,isValidateInput.birth,isValidateInput.name,isValidateInput.pass].includes("")) {
+      console.log('1')
+      setNextBtnDisabledHandler(true)
+    } else if (EmailValidateResData !== '사용가능한 이메일 입니다') {
+      console.log('2')
+      setNextBtnDisabledHandler(true)
+      } else if (false === passCheck.test(isValidateInput.pass)) {
+      console.log('3')
+      setNextBtnDisabledHandler(true)
+    } else if (isValidateInput.pass !== passCheckNum) {
+      console.log('4')
+      setNextBtnDisabledHandler(true)
+    } else if (false === nameCheck.test(isValidateInput.name)) {
+      console.log('5')
+      setNextBtnDisabledHandler(true)
+    } else if (false === birthCheck.test(isValidateInput.birth)) {
+      console.log('6')
+      setNextBtnDisabledHandler(true)
+    } else if (false === nickCheck.test(isValidateInput.nick)) {
+      console.log('7')
+      setNextBtnDisabledHandler(true)
+    } else {
+      console.log('8')
+      setNextBtnDisabledHandler(false)
+    }
+    console.log('btnhandler값 ', nextBtnDisabledHandler)
+  },[isValidateInput, EmailValidateResData, passCheckNum, nextBtnDisabledHandler]);
+
+  /* new 유효성 검사 끝 */
 
   return (
     <div className='contentBox2'>
@@ -149,9 +209,11 @@ const Required = ({ location }) => {
                 placeholder='아이디(이메일)'
                 onChange={changeValue}
                 onKeyUp={checkEmailValidate}
-                required
                 autoFocus
               />
+                <div className='warningBox'>
+                  {EmailValidateResData}
+                </div>
             </td>
           </tr>
           <tr>
@@ -184,7 +246,8 @@ const Required = ({ location }) => {
                     checkCodes={checkCodes}
                     btnTextHandler={btnTextHandler}
                     disabledHandler={disabledHandler}
-                  ></AuthBtnBox>
+                  >
+                  </AuthBtnBox>
                 </div>
               </div>
             </td>
@@ -200,8 +263,12 @@ const Required = ({ location }) => {
                 type='password'
                 placeholder='비밀번호'
                 onChange={changeValue}
+                onKeyUp={checkPasswordValidate}
                 required
               />
+                <div className='warningBox'>
+                  {passwordValidateDesc}
+                </div>
             </td>
           </tr>
           <tr>
@@ -215,8 +282,11 @@ const Required = ({ location }) => {
                 type='password'
                 placeholder='비밀번호 확인'
                 onChange={getPassCheckNum}
-                required
+                onKeyUp={checkPasswordCheckValidate}
               />
+                <div className='warningBox'>
+                  {checkPasswordValidateDesc}
+                </div>
             </td>
           </tr>
           <tr>
@@ -230,8 +300,11 @@ const Required = ({ location }) => {
                 type='text'
                 placeholder='이름(실명)'
                 onChange={changeValue}
-                required
+                onKeyUp={checkNameValidate}
               />
+                <div className='warningBox'>
+                  {nameValidateDesc}
+                </div>
             </td>
           </tr>
           <tr>
@@ -246,8 +319,11 @@ const Required = ({ location }) => {
                 maxLength='6'
                 placeholder='생년월일(-을 제외한 6자리)'
                 onChange={changeValue}
-                required
+                onKeyUp={checkBirthValidate}
               />
+                <div className='warningBox'>
+                  {birthValidateDesc}
+                </div>
             </td>
           </tr>
           <tr>
@@ -263,24 +339,36 @@ const Required = ({ location }) => {
                 placeholder='닉네임'
                 onChange={changeValue}
                 onKeyUp={checkNicknameValidate}
-                required
               />
+                <div className='warningBox'>
+                  {nicknameValidateResData}
+                </div>
             </td>
           </tr>
         </table>
         <div className='signUpNextBtnBox'>
-          <Link
-            to={{
-              pathname: "/SignUp1/NonRequired",
-              state: {
-                requiredData: requiredData,
-              },
-            }}
-            className='btn btn-warning'
-            //onClick={checkRequiredUserData}
-          >
-            다음
-          </Link>
+          {
+            nextBtnDisabledHandler === false ?
+            <Link
+              to={{
+                pathname: "/SignUp1/NonRequired",
+                state: {
+                  requiredData: requiredData,
+                },
+              }}
+              className='btn btn-warning'
+              //onClick={checkRequiredUserData}
+            >
+              다음
+            </Link>
+              :
+              <button
+                className='btn btn-warning'
+                disabled={true}
+              >
+                다음
+              </button>
+          }
         </div>
       </div>
     </div>
