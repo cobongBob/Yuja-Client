@@ -1,0 +1,61 @@
+.ChannelBigWrapper {
+}
+
+.ChannelBoxWrapper {
+  font-family: 'scdream5';
+}
+
+.TitleWrapper {
+  text-align: center;
+}
+
+.ChannelTitle {
+  text-align: center;
+  padding-top: 1%;
+  display: inline-block;
+}
+
+.SVWrapper {
+  text-align: center;
+  margin-bottom: 1%;
+}
+
+.SubscribeCount {
+  font-size: 1rem;
+  color: black;
+  margin-left: 2%;
+}
+
+.ChannelThumbnail {
+  padding-top: 1%;
+  text-align: center;
+}
+
+.ChannelThumbnail > img {
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.VideoCount {
+  margin-left: 1%;
+}
+
+.DCWraapper {
+  text-align: center;
+  width: 25vw;
+  margin-top: 2%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.DescWrapper {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  line-height: 1.5;
+  width: 20vw;
+}
+
+.DescWrapper > p {
+  font-size: 1rem;
+}
