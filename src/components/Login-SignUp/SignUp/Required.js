@@ -7,6 +7,17 @@ import axios from 'axios';
 
 const Required = ({ location }) => {
 
+  /* 인풋에 딜레이 */
+
+  const waitInterval = 3000;
+  const [timer, setTimer] = useState(null);
+
+  useEffect(()=> {
+    setTimer(null);
+  })
+
+  /* 인풋에 딜레이 끝 */
+
   /* 값 넘겨주기 */
   const [requiredData, setrequiredData] = useState({
     isMarketingChecked: location.state.next,
@@ -18,6 +29,8 @@ const Required = ({ location }) => {
   });
   const changeValue = async (e) => {
     console.log('======changeValue실행')
+    clearTimeout(timer)
+    setTimer(setTimeout(waitInterval))
     await setrequiredData({
       ...requiredData,
       [e.target.name]: e.target.value,
@@ -165,7 +178,7 @@ const Required = ({ location }) => {
     if ([isValidateInput.id,isValidateInput.nick,isValidateInput.birth,isValidateInput.name,isValidateInput.pass].includes("")) {
       console.log('1')
       setNextBtnDisabledHandler(true)
-    } else if (EmailValidateResData !== '사용가능한 이메일 입니다') {
+    } else if (EmailValidateResData !== '') {
       console.log('2')
       setNextBtnDisabledHandler(true)
       } else if (false === passCheck.test(isValidateInput.pass)) {
