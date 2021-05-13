@@ -3,11 +3,12 @@ import { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./YQuillComponents.scss";
 import "./Yregister.scss";
-import YapiService from "./YapiService";
+import * as YapiService from "./YapiService";
 import YImgApiService from "./YImgApiService";
 import ImageResize from "@looop/quill-image-resize-module-react";
 import QuillImageDropAndPaste from "quill-image-drop-and-paste";
 import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
 Quill.register("modules/imageResize", ImageResize);
 Quill.register("modules/imageDropAndPaste", QuillImageDropAndPaste);
 let Image = Quill.import("formats/image");
@@ -17,6 +18,7 @@ window.Quill = Quill;
 
 let quill;
 const YmodifyTest = (props) => {
+  const { userData } = useSelector((state) => state.loginReducer);
   const addingFileList = useRef([]);
   const deletedFileList = useRef([]);
   const imageHandler = useCallback(() => {
@@ -137,7 +139,7 @@ const YmodifyTest = (props) => {
     tools: checkedlist.current,
   });
   useEffect(() => {
-    YapiService.fetchBoard(props.match.params.board_id).then((res) => {
+    YapiService.fetchBoard(props.match.params.board_id, userData.id).then((res) => {
       fileList.current = res.data.boardAttachFileNames;
       quill.root.innerHTML = res.data.content;
       setNewData(res.data.content);
@@ -154,7 +156,7 @@ const YmodifyTest = (props) => {
     quill.on("text-change", (delta, oldDelta, source) => {
       setNewData(quill.root.innerHTML);
     });
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [userData]); // eslint-disable-line react-hooks/exhaustive-deps
   const history = useHistory();
 
   let Yhistory = useCallback((board_id) => history.push(`/Ydetail/${board_id}`), [history]);

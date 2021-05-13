@@ -3,7 +3,7 @@ import { Quill } from "react-quill";
 import ImgApiService from "./ImgApiService";
 import "react-quill/dist/quill.snow.css";
 import "../QuillComponents.scss";
-import YapiService from "../../../pages/Main/Youtuber/YapiService";
+import * as YapiService from "../../../pages/Main/Youtuber/YapiService";
 let Image = Quill.import("formats/image");
 Image.className = "custom-class-to-image";
 Quill.register(Image, true);
