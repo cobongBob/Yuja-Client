@@ -9,7 +9,6 @@ const Navi = () => {
   const current = useHistory().location.state;
   const pathname = useLocation().pathname;
   const [match, setMatch] = useState(current);
-  console.log(1231243125123123, pathname);
   const clickLink = () => {};
 
   return (
