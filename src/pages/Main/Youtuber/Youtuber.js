@@ -3,7 +3,7 @@ import "./Youtuber.scss";
 import { useDispatch, useSelector } from "react-redux";
 import YoutuberTable from "./YoutuberTable";
 import "./Youtuber.scss";
-import { getData, getFilterData } from "../../../redux/board/youtube/yboardReducer";
+import { getYBoards, getFilterData } from "../../../redux/board/youtube/yboardReducer";
 import Pagination from "../components/Pagination";
 import Search from "../components/Search";
 import BackToList from "../components/BackToList";
@@ -11,7 +11,7 @@ import BackToList from "../components/BackToList";
 const Youtuber = () => {
   const dispatch = useDispatch();
   // Youtuber의 전체 데이터 불러오기
-  const { yBoardData, filterData } = useSelector((state) => state.YboardReducer);
+  const yBoardData = useSelector((state) => state.YboardReducer);
   const { userData } = useSelector((state) => state.loginReducer);
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -23,7 +23,7 @@ const Youtuber = () => {
 
   const indexOfLastData = currentPage * boardPerPage;
   const indexOfFirstData = indexOfLastData - boardPerPage;
-  const currentData = filterData.slice(indexOfFirstData, indexOfLastData);
+  const currentData = yBoardData.filterData.slice(indexOfFirstData, indexOfLastData);
 
   const clickPage = (pages) => {
     setCurrentPage(pages);
@@ -31,20 +31,10 @@ const Youtuber = () => {
 
   // 전체 데이터 끌어오기
   useEffect(() => {
-    if (userData.id) {
-      getData(userData.id).then((res) => {
-        dispatch(res);
-        getFilterData("").then((res) => {
-          dispatch(res);
-        });
-      });
+    if (userData) {
+      dispatch(getYBoards(userData.id));
     } else {
-      getData(0).then((res) => {
-        dispatch(res);
-        getFilterData("").then((res) => {
-          dispatch(res);
-        });
-      });
+      dispatch(getYBoards(0));
     }
   }, [userData]);
 
@@ -55,10 +45,14 @@ const Youtuber = () => {
     });
   };
 
-  return (
+  return yBoardData.loading ? (
+    <h2>Loading...</h2>
+  ) : yBoardData.err ? (
+    <h2>{yBoardData.err}</h2>
+  ) : (
     <div className='tableWrapper'>
       <Search
-        boardData={searchTerm.length < 1 ? filterData : searchResults}
+        boardData={searchTerm.length < 1 ? yBoardData.filterData : searchResults}
         term={searchTerm}
         setTerm={setSearchTerm}
         searchKeyword={searchHandler}
@@ -66,7 +60,7 @@ const Youtuber = () => {
       <YoutuberTable boardData={currentData} />
       <Pagination
         boardPerPage={boardPerPage}
-        totalBoards={filterData.length}
+        totalBoards={yBoardData.filterData.length}
         currentPage={currentPage}
         clickPage={clickPage}
       />
