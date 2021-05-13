@@ -45,9 +45,9 @@ const Evideo = () => {
       },
     ],
   };
-
+  // className='EvideoWrapper'
   return (
-    <React.Fragment className='EvideoWrapper'>
+    <React.Fragment>
       <div className='best-editor'> 인기 편집자 </div>
       <Slider {...settings}>
         <div className='wrapper'>

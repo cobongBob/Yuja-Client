@@ -63,88 +63,26 @@
   padding: 0;
   border-top: none;
 }
-
-/*
 .card-options {
-  font-family: scdream4;
   display: block;
   text-align: right;
   margin-right: 12rem;
-}
-.card-options > div {
-  display: inline-block;
-  text-decoration: none;
-  color: black;
+  height: 2.5rem;
 }
 
-.card-paging {
-  text-align: center;
-  margin-top: 5rem;
-  margin-bottom: 5rem;
-  font-family: scdream4;
-  vertical-align: middle;
-}
-
-.card-paging ul {
-  list-style: none;
-  display: inline;
-  text-align: center;
-}
-
-.card-paging li {
-  color: black;
-  display: inline-block;
-  cursor: pointer;
-  font-size: 1.25rem;
-  width: 2rem;
-  height: 2rem;
-  margin: 0.5rem;
-}
-.card-paging li.focus {
-  background-color: #ff9411;
-  border-radius: 50%;
-  color: white;
-}
-.card-paging button {
-  background-color: transparent;
-  border: none;
-  margin: 0.5rem;
-  padding: 0;
-}
-.icon-arrow {
-  font-size: 40px;
-  color: #ff9411;
-}
-
-.icon-arrow-hover {
-  font-size: 40px;
-  color: #ff9411;
-}
-
-.search-box {
+.card-options > .registerBtn {
   font-family: scdream5;
-  display: block;
-  margin: 1rem;
-  padding: 0.25rem;
-}
-
-.search-form {
-  border-radius: 20px;
-  border: 2px solid #ff9411;
-  width: 25rem;
-  height: 3rem;
-  margin: auto;
-}
-
-.search-form > input[type='text'] {
   vertical-align: middle;
-  width: 25rem;
-  height: 3rem;
-  margin-left: 1rem;
-  font-size: 1rem;
-  text-align: left;
-  background-color: transparent;
-  border: none;
-  outline-style: none;
+  border: 2px solid green;
+  border-radius: 20px;
+  text-decoration: none;
+  color: green;
+  font-size: 20;
+  padding: 0.5rem;
+  margin-right: 0.25rem;
+  &:hover {
+    background-color: green;
+    color: white;
+    text-decoration: none;
+  }
 }
-*/

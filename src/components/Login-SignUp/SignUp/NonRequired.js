@@ -73,7 +73,6 @@ const NonRequired = ({ location, history }) => {
     phone: "",
     isYoutuber: "",
     bsn: "",
-    userIp: "127.5.0.5",
     profilePicId: profilePicId.current,
   });
 
@@ -113,11 +112,9 @@ const NonRequired = ({ location, history }) => {
   const checkNonRequiredUserData = (e) => {
     let address = nonRequiredData.address;
     let phone = nonRequiredData.phone;
-    let userIp = nonRequiredData.userIp;
 
     const addressCheck = /^[a-zA-Z0-9가-힣ㄱ-ㅎ ]{2,20}$/;
     const phoneCheck = /^(01[016789]{1})\d{3,4}\d{4}$/;
-    const userIpCheck = /^(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}$/;
 
     if (address.length !== 0 && false === addressCheck.test(address)) {
       alert("주소를 확인해주세요!");

@@ -13,7 +13,7 @@ const Winwin = () => {
     } else {
       dispatch(getWinBoard(0));
     }
-  }, [userData]);
+  }, [userData, dispatch]);
 
   return winBoard.loading ? (
     <h2>Loading...</h2>

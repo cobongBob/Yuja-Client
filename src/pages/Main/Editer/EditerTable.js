@@ -5,33 +5,21 @@ import { format } from 'date-fns';
 import { FcLike } from 'react-icons/fc';
 import '../Youtuber/Ylist.scss';
 import BackToList from '../components/BackToList';
+import SortingToDeadline from '../components/SortingToDeadline';
+import SortingToLiked from '../components/SortingToLiked';
 
-export default function EditorTable({ boardData, userData }) {
-  //인기순 정렬하기
-  // const likesData = useCallback(() => {
-  //   sortLikes().then((res) => {
-  //     dispatch(res);
-  //     console.log('인기순', res);
-  //   });
-  // }, [boardData]);
-
+export default function EditorTable({ boardData }) {
   return (
     <div className='card-container'>
-      <div>
-        {/* 
-        검색:
-        <input
-          type='text'
-          placeholder='유저, 제목, 툴 검색'
-          onChange={(e) => {
-            setSearchData(e.target.value);
-          }}
-        />
-        */}
-        <Link to='/Yregister'>등록하기</Link>
+      <div className='card-options'>
+        <Link to='/Yregister' className='registerBtn'>
+          이력서 등록하기
+        </Link>
+      </div>
+      <div className='card-options'>
         <BackToList />
-        {/* <button onClick={expiredData}>마감일</button>
-        <button onClick={likesData}>인기순</button> */}
+        <SortingToDeadline boardData={boardData} />
+        <SortingToLiked boardData={boardData} />
       </div>
       {boardData?.map((data) => (
         <Card key={data.id}>

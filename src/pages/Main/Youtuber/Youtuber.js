@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Youtuber.scss";
 import { useDispatch, useSelector } from "react-redux";
 import YoutuberTable from "./YoutuberTable";
@@ -6,7 +6,6 @@ import "./Youtuber.scss";
 import { getYBoards, getFilterData } from "../../../redux/board/youtube/yboardReducer";
 import Pagination from "../components/Pagination";
 import Search from "../components/Search";
-import BackToList from "../components/BackToList";
 // nav에서 유튜버를 누르면 보이는 전체 컴포넌트
 const Youtuber = () => {
   const dispatch = useDispatch();
@@ -31,12 +30,12 @@ const Youtuber = () => {
 
   // 전체 데이터 끌어오기
   useEffect(() => {
-    if (userData) {
-      dispatch(getYBoards(userData.id));
-    } else {
+    if (!userData || userData !== "") {
       dispatch(getYBoards(0));
+    } else {
+      dispatch(getYBoards(userData.id));
     }
-  }, [userData]);
+  }, [userData, dispatch]);
 
   const searchHandler = (searchTerm) => {
     setSearchTerm(searchTerm);

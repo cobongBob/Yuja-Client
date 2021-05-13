@@ -15,7 +15,7 @@ export const getYBoards = (user_id) => {
     dispatch(getYBoardsRequest());
     YapiService.fetchBoards(user_id)
       .then((res) => dispatch(getYBoardsSuccess(res.data)))
-      .catch((err) => dispatch(getYBoardsFailure(err.response.massage)));
+      .catch((err) => dispatch(getYBoardsFailure(err.response)));
   };
 };
 const getYBoardsRequest = () => {
@@ -71,7 +71,7 @@ export const getDetailData = async (board_id, user_id) => {
 // 초기값
 const initialState = {
   data: [],
-  detailData: [],
+  detailData: { id: 0 },
   filterData: [],
   loading: false,
   sortedExpired: false,
@@ -102,7 +102,7 @@ const YboardReducer = (state = initialState, action) => {
     case GET_YBOARD_FAILURE:
       return {
         data: [],
-        detailData: [],
+        detailData: { id: 0 },
         filterData: [],
         loading: false,
         sortedExpired: false,
