@@ -1,13 +1,17 @@
-import React, { useCallback, useEffect, useState } from "react";
-import * as YapiService from "./YapiService";
-import "./Ydetail.scss";
-import { FcLike, FcOk } from "react-icons/fc";
-import { Link } from "react-router-dom";
-import ReactQuill from "react-quill";
-import Practice from "./api_practice/Practice";
-import { getDetailData } from "../../../redux/board/youtube/yboardReducer";
-import { useDispatch, useSelector } from "react-redux";
-import { getLiked, addLike, deleteLike } from "../../../redux/liked/likedReducer";
+import React, { useCallback, useEffect, useState } from 'react';
+import * as YapiService from './YapiService';
+import './Ydetail.scss';
+import { FcLike, FcOk } from 'react-icons/fc';
+import { Link } from 'react-router-dom';
+import ReactQuill from 'react-quill';
+import ChannelBox from './api_practice/ChannelBox';
+import { getDetailData } from '../../../redux/board/youtube/yboardReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getLiked,
+  addLike,
+  deleteLike,
+} from '../../../redux/liked/likedReducer';
 
 const Ydetail = (props) => {
   // console.log(props.match);
@@ -43,7 +47,6 @@ const Ydetail = (props) => {
       });
       getDetailData(board_id, userData.id).then((res) => {
         dispatch(res);
-        console.log(11111111111111111111111, res);
       });
     } else {
       getLiked(board_id, 0).then((res) => {
@@ -58,7 +61,7 @@ const Ydetail = (props) => {
   const deleteBoard = () => {
     YapiService.deleteBoard(props.match.params.board_id).then((res) => {
       alert(res.data);
-      props.history.push("/Youtuber");
+      props.history.push('/Youtuber');
     });
   };
 
@@ -82,80 +85,105 @@ const Ydetail = (props) => {
     <div>
       <div className='DetailWrapper'>
         <div className='DetailHeaderWrapper'>
-          <div className='youtube-top'>채널소개</div>
-          <div></div>
-          <div className='channel-box'>
-            {!detailData ? <span>loading..</span> : <Practice user={detailData.user}></Practice>}
+          <div className='youtube-top-wrapper'>
+            {''}
+            <div className='youtube-top'>채널 및 기본공고</div>
           </div>
-          <div className='detail-box'>
-            <div className='DetailTop'>공고내용</div>
-            <div className='detail-btn'>
-              <div className='detail-btn-box'>
-                <Link to={`/YmodifyTest/${detailData.id}`} className='detail-update-btn'>
-                  공고 수정하기
-                </Link>
-                <button onClick={deleteBoard}>공고 삭제하기</button>
+          <div className='youtube_top_DefaultInfo'>
+            <div className='channel-box'>
+              {!detailData ? (
+                <span>loading..</span>
+              ) : (
+                <ChannelBox detailData={detailData}></ChannelBox>
+              )}
+            </div>
+            <div className='DefaultInfoWrapper'>
+              <div className='DefaultInfo'>
+                <ul>
+                  <li>
+                    <label htmlFor=''>모십니다:</label> {detailData.worker}
+                  </li>
+                  <li>
+                    <label htmlFor=''>경력:</label> {detailData.career}
+                  </li>
+                  <li>
+                    <label htmlFor=''>급여종류:</label> {detailData.payType}
+                  </li>
+                  <li>
+                    <label htmlFor=''>급여:</label> {detailData.payAmount}원
+                  </li>
+                  <li>
+                    <label htmlFor=''>원하는 툴:</label> {detailData.tools}
+                  </li>
+                  <li>
+                    <label htmlFor=''>담당자:</label> {detailData.manager}
+                  </li>
+                </ul>
               </div>
             </div>
-            <div></div>
-            <div className='detail-title'>
-              {detailData.title}
-              <div className='detail-show'>
-                <span>
-                  {isLiked === true ? (
-                    <button onClick={likeHandler}>
-                      <FcLike size={20} />
-                      {countLikes}
-                    </button>
-                  ) : (
-                    <button onClick={likeHandler}>
-                      <FcLike size={20} />
-                      {countLikes}
-                    </button>
-                  )}
-                </span>
-                <br />
-                <span>
-                  <FcOk size={20} /> {detailData.hit}
-                </span>
+          </div>
+          <div className='detail-box'>
+            <div>
+              <div className='DetailTop'>상세내용</div>
+              <div className='detail-btn'>
+                <div className='detail-btn-box'>
+                  <Link
+                    to={`/YmodifyTest/${detailData.id}`}
+                    className='detail-update-btn'>
+                    공고 수정하기
+                  </Link>
+                  <button onClick={deleteBoard}>공고 삭제하기</button>
+                </div>
+              </div>
+              <div className='detail-title'>
+                {detailData.title}
+                <div className='detail-show'>
+                  <span>
+                    {isLiked === true ? (
+                      <button onClick={likeHandler}>
+                        <FcLike size={20} />
+                        {countLikes}
+                      </button>
+                    ) : (
+                      <button onClick={likeHandler}>
+                        <FcLike size={20} />
+                        {countLikes}
+                      </button>
+                    )}
+                  </span>
+                  <br />
+                  <span>
+                    <FcOk size={20} /> {detailData.hit}
+                  </span>
+                </div>
               </div>
             </div>
             <div className='detail-date'>
-              {detailData.updatedDate !== undefined ? detailData.updatedDate.substr(0, 10) : ""} ~{" "}
-              {detailData.expiredDate !== undefined ? detailData.expiredDate.substr(0, 10) : "상시채용"}
+              {detailData.updatedDate !== undefined
+                ? detailData.updatedDate.substr(0, 10)
+                : ''}{' '}
+              ~{' '}
+              {detailData.expiredDate !== undefined
+                ? detailData.expiredDate.substr(0, 10)
+                : '상시채용'}
             </div>
             <div className='detail-content'>
               <div className='detail-content-default'>
-                {" "}
-                기본내용{" "}
+                {' '}
+                기본내용{' '}
                 <div>
-                  <ul>
-                    <li>
-                      <label htmlFor=''>모십니다:</label> {detailData.worker}
-                    </li>
-                    <li>
-                      <label htmlFor=''>경력:</label> {detailData.career}
-                    </li>
-                    <li>
-                      <label htmlFor=''>급여종류:</label> {detailData.payType}
-                    </li>
-                    <li>
-                      <label htmlFor=''>급여:</label> {detailData.payAmount}원
-                    </li>
-                    <li>
-                      <label htmlFor=''>원하는 툴:</label> {detailData.tools}
-                    </li>
-                    <li>
-                      <label htmlFor=''>담당자:</label> {detailData.manager}
-                    </li>
-                  </ul>
+                  <ul></ul>
                   <br />
-                </div>{" "}
+                </div>{' '}
               </div>
               <div className='detail-content-detail'>
-                {" "}
+                {' '}
                 추가내용
-                <ReactQuill value={detailData.content || ""} readOnly={true} theme={"bubble"} />{" "}
+                <ReactQuill
+                  value={detailData.content || ''}
+                  readOnly={true}
+                  theme={'bubble'}
+                />{' '}
               </div>
             </div>
           </div>
