@@ -122,10 +122,11 @@ const Yregister = () => {
               id='recruitingNum'
               onChange={onChange}
               name='recruitingNum'
-              type='number'
+              type='text'
               maxLength='3'
               onInput={({ target }) => {
-                if (target.value.length > target.maxLength) target.value = target.value.slice(0, target.maxLength);
+                target.value = target.value.replace(/[^0-9]/g, "");
+                target.value = target.value.replace(/,/g, "");
               }}
             />
             명
