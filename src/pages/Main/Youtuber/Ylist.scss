@@ -6,22 +6,42 @@
 .card-container {
   text-align: center;
 }
-
-.card-container .card {
+.card-container > ul {
   display: inline-block;
-  width: 20rem;
-  height: 15rem;
-  margin: 1rem !important;
+  list-style: none;
+  text-align: left;
+  margin: 0.5rem;
+  padding: 2rem;
+}
+.card-container > ul > li {
+  position: relative;
+  float: left;
+  list-style: none;
+  margin: 1rem;
+}
+
+.card-container > ul > li > .card {
+  margin: 0;
   padding: 0.5rem;
   border: 1px solid black;
   text-align: left;
   &:hover {
     height: 25rem;
+    z-index: 3;
+  }
+  &:hover ul > li > .card > .card-body {
+    position: absolute;
+    z-index: 3;
+    opacity: 1;
+  }
+  &:hover ul > li > .card > .card-footer {
+    position: absolute;
+    margin-top: 5rem;
     opacity: 1;
   }
 }
 
-.card-container .card .card-header {
+.card-container > ul > li > .card > .card-header {
   display: block;
   padding-left: 0;
   padding-top: 0.5rem;
@@ -32,7 +52,7 @@
   border-bottom: none;
 }
 
-.card-container .card .card-title {
+.card-container > ul > li > .card > .card-title {
   display: inline-block;
   font-size: 18px;
   width: 11rem;
@@ -43,22 +63,22 @@
   padding-bottom: 0;
 }
 
-.card-container .card .card-body {
+.card-container > ul > li > .card > .card-body {
   padding-left: 0 !important;
   padding: 0.5rem;
-  display: block;
+  display: none;
   width: 19rem;
   height: 5rem;
 }
 
-.card-container .card .card-body .card-text {
+.card-container > ul > li > .card > .card-body > .card-text {
   background-color: transparent;
   border-bottom: none;
   font-family: scdream5;
 }
-.card-container .card .card-footer {
+.card-container > ul > li > .card > .card-footer {
   background-color: transparent;
-  display: inline;
+  display: none;
   margin: 0;
   padding: 0;
   border-top: none;
