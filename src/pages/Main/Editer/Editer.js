@@ -1,17 +1,22 @@
-import React, { useEffect, useState } from "react";
-import EditerTable from "./EditerTable";
-import "../Youtuber/Youtuber.scss";
-import Pagination from "../components/Pagination";
-import { useDispatch, useSelector } from "react-redux";
-import { getData, getFilterData } from "../../../redux/board/editer/eboardReducer";
-import Search from "../components/Search";
+import React, { useEffect, useState } from 'react';
+import EditerTable from './EditerTable';
+import '../Youtuber/Youtuber.scss';
+import Pagination from '../components/Pagination';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getEBoards,
+  getFilterData,
+} from '../../../redux/board/editer/eboardReducer';
+import Search from '../components/Search';
 
 const Editor = () => {
   const dispatch = useDispatch();
-  const { filterData } = useSelector((state) => state.EboardReducer);
+
+  // Youtuber의 전체 데이터 불러오기
+  const eBoardData = useSelector((state) => state.EboardReducer);
   const { userData } = useSelector((state) => state.loginReducer);
 
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,27 +24,20 @@ const Editor = () => {
 
   const indexOfLastData = currentPage * boardPerPage;
   const indexOfFirstData = indexOfLastData - boardPerPage;
-  const currentData = filterData.slice(indexOfFirstData, indexOfLastData);
+  const currentData = eBoardData.filterData.slice(
+    indexOfFirstData,
+    indexOfLastData
+  );
 
   const clickPage = (pages) => {
     setCurrentPage(pages);
   };
 
   useEffect(() => {
-    if (userData.id) {
-      getData(userData.id, 2).then((res) => {
-        dispatch(res);
-        getFilterData("").then((res) => {
-          dispatch(res);
-        });
-      });
+    if (!userData || userData !== '') {
+      dispatch(getEBoards(0, 3));
     } else {
-      getData(0, 2).then((res) => {
-        dispatch(res);
-        getFilterData("").then((res) => {
-          dispatch(res);
-        });
-      });
+      dispatch(getEBoards(userData.id, 3));
     }
   }, [userData, dispatch]);
 
@@ -50,10 +48,16 @@ const Editor = () => {
     });
   };
 
-  return (
+  return eBoardData.loading ? (
+    <h2>Loading...</h2>
+  ) : eBoardData.err ? (
+    <h2>{eBoardData.err}</h2>
+  ) : (
     <div className='tableWrapper'>
       <Search
-        boardData={searchTerm.length < 1 ? filterData : searchResults}
+        boardData={
+          searchTerm.length < 1 ? eBoardData.filterData : searchResults
+        }
         term={searchTerm}
         setTerm={setSearchTerm}
         searchKeyword={searchHandler}
@@ -61,7 +65,7 @@ const Editor = () => {
       <EditerTable boardData={currentData} userData={userData} />
       <Pagination
         boardPerPage={boardPerPage}
-        totalBoards={filterData.length}
+        totalBoards={eBoardData.filterData.length}
         currentPage={currentPage}
         clickPage={clickPage}
       />
