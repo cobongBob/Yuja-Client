@@ -23,7 +23,11 @@ const AuthBtnBox = (props) => {
     return (
       <>
         <div className='authenticationCodeResend'>
-          <button className='btn btn-warning' id='authenticationCodeResend' onClick={props.changeStartTimer}>
+          <button
+            className='btn btn-warning'
+            id='authenticationCodeResend'
+            onClick={props.changeStartTimer}
+          >
             재발송
           </button>
         </div>

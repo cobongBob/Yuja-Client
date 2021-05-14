@@ -37,46 +37,60 @@ const Required = ({ location }) => {
   /* 인증 코드 발송 */
   const [timerSet, setTimerSet] = useState(false);
   const [startTimer, setStartTimer] = useState(false);
-
   const CodeTimer = () => {
     if (timerSet) {
       return <AuthCodeTimer start={startTimer} setStart={setStartTimer} />;
     }
   };
-
   const changeStartTimer = () => {
+    clearTimeout(setSecurityCode())
     auth.verifyEmailSend(requiredData.username).then((res) => {
       setSecurityCode(res.data);
     });
+    setTimeout(setSecurityCode('내일점심은부대찌개!'),1000*60*3)
     return setStartTimer(!startTimer);
   };
-
   const changeTimeSet = () => {
-    return setTimerSet(!timerSet);
+    if(isValidateInput.id === '' || EmailValidateResData !== '') {
+      console.log('비어있음!')
+      setSecurityCodeValidateDesc('이메일을 확인 해주세요.')
+      return '';
+    }
+    setTimerSet(!timerSet)
+    changeStartTimer()
+    setSecurityCodeValidateDesc('');
   };
   /* 인증 코드 발송 끝 */
 
   /* 인증코드 통신 및 확인 */
   const [authCode, setAuthCode] = useState();
-  const [securityCode, setSecurityCode] = useState("a12345");
+  const [securityCode, setSecurityCode] = useState("내일점심은부대찌개!");
   const [disabledHandler, setDisabledHandler] = useState(false);
+  const [emailDisableHandler, setEmailDisableHandler] = useState(false);
   const [btnTextHandler, setBtnTextHandler] = useState('인증번호 발송');
 
-  // console.log("authCode의 값", authCode);
+
 
   const getAuthCode = (e) => {
     setAuthCode(e.target.value);
   };
 
   const checkCodes = () => {
-    if (securityCode === authCode) {
+    if(isValidateInput.id === '' || EmailValidateResData !== '') {
+      console.log('비어있음!')
+      setSecurityCodeValidateDesc('이메일을 확인 해주세요.')
+    } else if (securityCode === authCode) {
       console.log("인증성공");
+      clearTimeout(setSecurityCode())
       setDisabledHandler(true);
       setBtnTextHandler('인증완료')
       changeTimeSet();
+      setSecurityCodeValidateDesc('')
+      setEmailDisableHandler(true)
       return true;
     } else {
       console.log("인증실패");
+      setSecurityCodeValidateDesc('인증번호를 확인 해주세요.')
       return false;
     }
   };
@@ -89,6 +103,7 @@ const Required = ({ location }) => {
   const [checkPasswordValidateDesc, setCheckPasswordValidateDesc] = useState();
   const [nameValidateDesc, setNameValidateDesc] = useState();
   const [birthValidateDesc, setBirthValidateDesc] = useState();
+  const [securityCodeValidateDesc, setSecurityCodeValidateDesc] = useState();
   const [passCheckNum, setpassCheckNum] = useState();
 
   const [nextBtnDisabledHandler, setNextBtnDisabledHandler] = useState(true);
@@ -206,6 +221,7 @@ const Required = ({ location }) => {
                 placeholder='아이디(이메일)'
                 onChange={changeValue}
                 onKeyUp={checkEmailValidate}
+                disabled={emailDisableHandler}
                 autoFocus
               />
                 <div className='warningBox'>
@@ -216,7 +232,9 @@ const Required = ({ location }) => {
           <tr>
             <td>
               <div className='labelWrapper'>
-                <label htmlFor='authenticationCodeCheck'>이메일 인증번호 입력</label>
+                <label htmlFor='authenticationCodeCheck'>
+                  이메일 인증번호 입력
+                </label>
               </div>
               <div className='authCodeCheckBox'>
                 <div className='authenticationCodeBox'>
@@ -245,6 +263,9 @@ const Required = ({ location }) => {
                     disabledHandler={disabledHandler}
                   >
                   </AuthBtnBox>
+                </div>
+                <div className='warningBox'>
+                  {securityCodeValidateDesc}
                 </div>
               </div>
             </td>
