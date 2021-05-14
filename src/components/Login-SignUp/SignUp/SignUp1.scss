@@ -148,7 +148,7 @@ input::placeholder {
   display: inline-block;
   margin-left:-55%;
 }
-authenticationBtn {
+.authenticationBtn {
   display: inline-block;
   margin-left: 25%;
 }
@@ -206,12 +206,38 @@ authenticationBtn {
   border: 1px solid gray;
   box-shadow: 3px 3px darkgray;
 }
+.youtuberPicLabel {
+  text-align: left;
+  width: 100%;
+  margin: auto;
+  margin-bottom: 0 !important;
+}
+.youtuberPic_PreviewBox {
+  margin: 1rem auto;
+  background-image: url('./222222222222222.png');
+  width: 100%;
+  height: 13rem;
+  background-size: contain;
+}
+.youtuberPic_preview {
+  height: 100%;
+  width: 100%;
+  border: 1px solid gray;
+  box-shadow: 3px 3px darkgray;
+}
 .inputWrapper {
   margin-top: 5px;
   margin-bottom: 12px;
   font-size: 0.85em;
   padding: 9px 12px;
   margin-left: 6rem;
+}
+.youtuberInputBox {
+  width:100%;
+}
+.youtuberPicDesc {
+  margin-top:8px;
+  font-size: 0.9em;
 }
 
 /* 약관동의 */
@@ -279,6 +305,29 @@ authenticationBtn {
 .youtuberDiv_Title {
   font-size: 0.9em;
 }
+.youtuberUrlBoxLabel {
+  font-size: 0.9em;
+  text-align: left;
+  margin-top: 1rem;
+}
+.youtuberUrlBoxInput{
+  margin-top: 5px;
+  margin-bottom: 12px;
+  border-radius: 2px;
+  width: 100%;
+  height: 40px;
+  border: 1px solid #e5e5e5;
+  padding: 9px 12px;
+  outline: none;
+  box-sizing: border-box;
+  font-size: 0.9em;
+  &:focus {
+    box-shadow: 1px 1px 3px 2px #ffb963;
+  }
+}
+.companyRegNumBox {
+  width:100%;
+}
 .companyRegNumLabel {
   font-size: 0.9em;
   text-align: left;
@@ -294,7 +343,7 @@ authenticationBtn {
   padding: 9px 12px;
   outline: none;
   box-sizing: border-box;
-  font-size: 0.85em;
+  font-size: 0.9em;
 }
 .companyRegNumInput:focus {
   box-shadow: 1px 1px 3px 2px #ffb963;
