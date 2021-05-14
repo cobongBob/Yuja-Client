@@ -1,20 +1,22 @@
-import React from "react";
-import { Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { format } from "date-fns";
-import { FcLike } from "react-icons/fc";
-import "../Youtuber/Ylist.scss";
-import SortingToDeadline from "../components/SortingToDeadline";
-import SortingToLiked from "../components/SortingToLiked";
-import BackToList from "../components/BackToList";
+import React from 'react';
+import { Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
+import { FcLike } from 'react-icons/fc';
+import '../Youtuber/Ylist.scss';
+import SortingToDeadline from '../components/SortingToDeadline';
+import SortingToLiked from '../components/SortingToLiked';
+import BackToList from '../components/BackToList';
 
 const YoutuberTable = ({ boardData }) => {
   return (
     <div className='card-container'>
       <div className='card-options'>
-        <div>
-          <Link to='/Yregister'>등록하기</Link>
-        </div>
+        <Link to='/Yregister' className='registerBtn'>
+          공고 등록하기
+        </Link>
+      </div>
+      <div className='card-options'>
         <BackToList />
         <SortingToDeadline boardData={boardData} />
         <SortingToLiked boardData={boardData} />
@@ -47,13 +49,17 @@ const YoutuberTable = ({ boardData }) => {
               <span>
                 <strong>수정일 </strong>
               </span>
-              <strong>{format(new Date(data.updatedDate), "yyyy-MM-dd")}</strong>
+              <strong>
+                {format(new Date(data.updatedDate), 'yyyy-MM-dd')}
+              </strong>
             </div>
             <div>
               <span>
                 <strong>마감일</strong>
               </span>
-              <strong>{format(new Date(data.expiredDate), "yyyy-MM-dd")}</strong>
+              <strong>
+                {format(new Date(data.expiredDate), 'yyyy-MM-dd')}
+              </strong>
             </div>
             <div className='card-like'>
               <FcLike size={20} /> {data.likes}

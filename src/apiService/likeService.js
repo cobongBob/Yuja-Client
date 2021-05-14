@@ -7,6 +7,7 @@ export const addLike = async (data) => {
     data: data,
   });
 };
+
 export const deleteLike = async (data) => {
   return await instance({
     url: 'board/liked',

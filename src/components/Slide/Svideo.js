@@ -44,9 +44,9 @@ const Svideo = () => {
       },
     ],
   };
-
+  // className='SvideoWrapper'
   return (
-    <React.Fragment className='SvideoWrapper'>
+    <React.Fragment>
       <div className='best-thumbnailer'> 인기 썸네일러 </div>
       <Slider {...settings}>
         <div className='wrapper'>
