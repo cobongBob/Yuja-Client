@@ -100,6 +100,14 @@ input::placeholder {
 .signUpTable > tr > td {
   vertical-align: middle;
 }
+.signUpId {
+
+  &:disabled {
+    background-color: darkgray;
+    opacity: .85;
+  }
+}
+
 /* 이메일 인증 요소 */
 .authCodeCheckBox {
   text-align: left;
@@ -116,7 +124,7 @@ input::placeholder {
   width:120%;
   &:disabled {
     background-color: darkgray;
-    opacity: .65;
+    opacity: .85;
   }
   &:focus {
     box-shadow: 1px 1px 3px 2px #ffb963;
@@ -128,7 +136,7 @@ input::placeholder {
   position:relative;
 }
 .authenticationCodeSendBox {
-  right:-20%;
+  right:-22%;
   display:inline-block;
   position: relative;
 }
@@ -138,9 +146,9 @@ input::placeholder {
 }
 .authenticationCodeResend {
   display: inline-block;
-  margin-left:-40%;
+  margin-left:-55%;
 }
-.authenticationBtn {
+authenticationBtn {
   display: inline-block;
   margin-left: 25%;
 }
@@ -157,6 +165,7 @@ input::placeholder {
   padding:5px;
   &:disabled {
     background-color: darkgray;
+    opacity: .85;
   }
 }
 .authenticationCodeSend > .btn-warning {
@@ -165,6 +174,7 @@ input::placeholder {
   &:disabled {
     background-color: darkgray;
     border:none;
+    opacity: .85;
   }
 }
 .codeTimerBox {

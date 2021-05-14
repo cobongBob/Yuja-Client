@@ -36,42 +36,12 @@ const Required = ({ location }) => {
 
   /* 값 넘겨주기 끝 */
 
-  /* 인증 코드 발송 */
-  const [timerSet, setTimerSet] = useState(false);
-  const [startTimer, setStartTimer] = useState(false);
-  const CodeTimer = () => {
-    if (timerSet) {
-      return <AuthCodeTimer start={startTimer} setStart={setStartTimer} />;
-    }
-  };
-  const changeStartTimer = () => {
-    clearTimeout(setSecurityCode())
-    auth.verifyEmailSend(requiredData.username).then((res) => {
-      setSecurityCode(res.data);
-    });
-    setTimeout(setSecurityCode('내일점심은부대찌개!'),1000*60*3)
-    return setStartTimer(!startTimer);
-  };
-  const changeTimeSet = () => {
-    if(isValidateInput.id === '' || EmailValidateResData !== '') {
-      console.log('비어있음!')
-      setSecurityCodeValidateDesc('이메일을 확인 해주세요.')
-      return '';
-    }
-    setTimerSet(!timerSet)
-    changeStartTimer()
-    setSecurityCodeValidateDesc('');
-  };
-  /* 인증 코드 발송 끝 */
-
   /* 인증코드 통신 및 확인 */
   const [authCode, setAuthCode] = useState();
-  const [securityCode, setSecurityCode] = useState("내일점심은부대찌개!");
+  const [securityCode, setSecurityCode] = useState("오늘점심은부대찌개!!");
   const [disabledHandler, setDisabledHandler] = useState(false);
   const [emailDisableHandler, setEmailDisableHandler] = useState(false);
   const [btnTextHandler, setBtnTextHandler] = useState('인증번호 발송');
-
-
 
   const getAuthCode = (e) => {
     setAuthCode(e.target.value);
@@ -83,10 +53,10 @@ const Required = ({ location }) => {
       setSecurityCodeValidateDesc('이메일을 확인 해주세요.')
     } else if (securityCode === authCode) {
       console.log("인증성공");
-      clearTimeout(setSecurityCode())
+      clearTimeout(setSecurityCode)
+      changeTimeSet();
       setDisabledHandler(true);
       setBtnTextHandler('인증완료')
-      changeTimeSet();
       setSecurityCodeValidateDesc('')
       setEmailDisableHandler(true)
       return true;
@@ -97,6 +67,42 @@ const Required = ({ location }) => {
     }
   };
   /* 인증코드 통신 및 끝 */
+
+  /* 인증 코드 발송 */
+  const [timerSet, setTimerSet] = useState(false);
+  const [startTimer, setStartTimer] = useState(false);
+  const securityCodeDelay = 1000 * 60 * 3;
+
+  const CodeTimer = () => {
+    if (timerSet) {
+      return <AuthCodeTimer
+        start={startTimer}
+        setStart={setStartTimer}
+      />;
+    }
+  };
+  const changeStartTimer = () => {
+    console.log('===================== changeStartTimer 실행')
+    auth.verifyEmailSend(requiredData.username).then((res) => {
+      console.log('받자마자 res.data의 값 ', res.data)
+      setSecurityCode(res.data);
+      console.log('res.data를 sc에 넣은 후 sc의 값', securityCode)
+      setTimeout(() => {
+        setSecurityCode('내일점심은부대찌개!')
+      }, securityCodeDelay);
+    });
+    return setStartTimer(!startTimer);
+  };
+  const changeTimeSet = () => {
+    if(isValidateInput.id === '' || EmailValidateResData !== '') {
+      setSecurityCodeValidateDesc('이메일을 확인 해주세요.')
+      return '';
+    }
+    setTimerSet(!timerSet)
+    changeStartTimer()
+    setSecurityCodeValidateDesc('');
+  };
+  /* 인증 코드 발송 끝 */
 
   /* new 유효성 검사 */
   const [EmailValidateResData, setEmailValidateResData] = useState();
@@ -217,7 +223,8 @@ const Required = ({ location }) => {
 
   useEffect(() => {
     totalCheck();
-  }, [requiredData, passCheckNum, nextBtnDisabledHandler, totalCheck]);
+    console.log('useEffect의 sc값', securityCode)
+  }, [requiredData, passCheckNum, nextBtnDisabledHandler, totalCheck, securityCode]);
 
   /* new 유효성 검사 끝 */
 
@@ -239,6 +246,7 @@ const Required = ({ location }) => {
                 onChange={changeValue}
                 onKeyUp={checkEmailValidate}
                 disabled={emailDisableHandler}
+                autoComplete='off'
                 autoFocus
               />
               <div className='warningBox'>{EmailValidateResData}</div>
@@ -261,6 +269,7 @@ const Required = ({ location }) => {
                     placeholder='인증번호 입력'
                     onChange={getAuthCode}
                     disabled={disabledHandler}
+                    autoComplete='off'
                   />
                 </div>
                 <div className='codeTimerBox'>{CodeTimer()}</div>
@@ -276,6 +285,7 @@ const Required = ({ location }) => {
                     checkCodes={checkCodes}
                     btnTextHandler={btnTextHandler}
                     disabledHandler={disabledHandler}
+                    autoComplete='off'
                   >
                   </AuthBtnBox>
                 </div>
@@ -297,7 +307,7 @@ const Required = ({ location }) => {
                 placeholder='비밀번호'
                 onChange={changeValue}
                 onKeyUp={checkPasswordValidate}
-                required
+                autoComplete='off'
               />
                 <div className='warningBox'>
                   {passwordValidateDesc}
@@ -316,6 +326,7 @@ const Required = ({ location }) => {
                 placeholder='비밀번호 확인'
                 onChange={getPassCheckNum}
                 onKeyUp={checkPasswordCheckValidate}
+                autoComplete='off'
               />
                 <div className='warningBox'>
                   {checkPasswordValidateDesc}
@@ -334,6 +345,7 @@ const Required = ({ location }) => {
                 placeholder='이름(실명)'
                 onChange={changeValue}
                 onKeyUp={checkNameValidate}
+                autoComplete='off'
               />
                 <div className='warningBox'>
                   {nameValidateDesc}
@@ -353,6 +365,7 @@ const Required = ({ location }) => {
                 placeholder='생년월일(-을 제외한 6자리)'
                 onChange={changeValue}
                 onKeyUp={checkBirthValidate}
+                autoComplete='off'
               />
                 <div className='warningBox'>
                   {birthValidateDesc}
@@ -373,6 +386,7 @@ const Required = ({ location }) => {
                 onChange={changeValue}
                 onKeyUp={checkNicknameValidate}
                 onKeyDown={backSpaceCheck}
+                autoComplete='off'
               />
                 <div className='warningBox'>
                   {nicknameValidateResData}

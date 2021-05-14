@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from 'react';
 import UserApiService from "../../../apiService/UserApiService";
 import "./SignUp1.scss";
 
@@ -164,6 +164,20 @@ const NonRequired = ({ location, history }) => {
 
   /* 이 페이지(nonRequired) 유효성 끝 */
 
+  /* 유튜버 박스 */
+
+  const isYoutuberRef = useRef();
+  const [isYoutuberChecked, setIsYoutuberChecked] = useState();
+
+  const youtuberCheckHandler = useCallback(() => {
+    isYoutuberRef.current.checked === true ?
+      setIsYoutuberChecked(true)
+      :
+      setIsYoutuberChecked(false)
+  })
+
+  /* 유튜버 박스 끝 */
+
   return (
     <div className='contentBox2'>
       <div className='overlay'>
@@ -218,12 +232,15 @@ const NonRequired = ({ location, history }) => {
                   name='isYoutuber'
                   id='isYoutuber'
                   type='checkbox'
+                  ref={isYoutuberRef}
                   onChange={changeValue}
+                  onClick={youtuberCheckHandler}
                 />
               </label>
             </td>
           </tr>
         </table>
+        { isYoutuberChecked === true ?
         <div className='youtuberDiv'>
           <div className='youtuberDiv_Title'>
             유튜버 분들은 원활한 서비스 이용을 위해
@@ -260,6 +277,9 @@ const NonRequired = ({ location, history }) => {
             </div>
           </div>
         </div>
+          :
+          ''
+          }
         <div className='signUpSubmitBtnBox'>
           <button type='submit' className='btn btn-warning' onClick={totalAction}>
             회원가입

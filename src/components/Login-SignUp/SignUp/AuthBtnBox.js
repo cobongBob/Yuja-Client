@@ -30,7 +30,11 @@ const AuthBtnBox = (props) => {
           </button>
         </div>
         <div className='authenticationBtn'>
-          <button className='btn btn-warning' id='authenticationBtn' onClick={props.checkCodes}>
+          <button
+            className='btn btn-warning'
+            id='authenticationBtn'
+            onClick={props.checkCodes}
+          >
             인증
           </button>
         </div>
