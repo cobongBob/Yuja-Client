@@ -8,10 +8,6 @@
   display: contents;
 }
 
-.youtube_top_DefaultInfo {
-  line-height: 1;
-}
-
 .youtube-top-wrapper {
   display: block;
 }
@@ -24,25 +20,17 @@
   margin-top: 3%;
   margin-bottom: 3%;
 }
+
+.youtube_top_DefaultInfo {
+  text-align: center;
+}
+
 .channel-box {
   border: 3px solid #c4302b;
   margin-bottom: 3%;
-  background-color: #fffbdb;
-  width: 40%;
+  background-color: #feffe6;
+  min-width: 70vw;
   display: inline-block;
-}
-
-.DefaultInfoWrapper {
-  margin-left: 3%;
-  border: 3px solid black;
-  background-color: gray;
-  display: inline-block;
-  width: 50%;
-  font-family: 'scdream5';
-}
-
-.DefaultInfo {
-  font-size: large;
 }
 
 .detail-box {
