@@ -1,23 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import EditerTable from './EditerTable';
-import '../Youtuber/Youtuber.scss';
-import Pagination from '../components/Pagination';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  getData,
-  getFilterData,
-} from '../../../redux/board/editer/eboardReducer';
-import Search from '../components/Search';
-import BackToList from '../components/BackToList';
+import React, { useEffect, useState } from "react";
+import EditerTable from "./EditerTable";
+import "../Youtuber/Youtuber.scss";
+import Pagination from "../components/Pagination";
+import { useDispatch, useSelector } from "react-redux";
+import { getData, getFilterData } from "../../../redux/board/editer/eboardReducer";
+import Search from "../components/Search";
 
 const Editor = () => {
   const dispatch = useDispatch();
-  const { eBoardData, filterData } = useSelector(
-    (state) => state.EboardReducer
-  );
+  const { filterData } = useSelector((state) => state.EboardReducer);
   const { userData } = useSelector((state) => state.loginReducer);
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,21 +27,21 @@ const Editor = () => {
 
   useEffect(() => {
     if (userData.id) {
-      getData(userData.id).then((res) => {
+      getData(userData.id, 2).then((res) => {
         dispatch(res);
-        getFilterData('').then((res) => {
+        getFilterData("").then((res) => {
           dispatch(res);
         });
       });
     } else {
-      getData(0).then((res) => {
+      getData(0, 2).then((res) => {
         dispatch(res);
-        getFilterData('').then((res) => {
+        getFilterData("").then((res) => {
           dispatch(res);
         });
       });
     }
-  }, [userData]);
+  }, [userData, dispatch]);
 
   const searchHandler = (searchTerm) => {
     setSearchTerm(searchTerm);
@@ -58,7 +52,6 @@ const Editor = () => {
 
   return (
     <div className='tableWrapper'>
-      <BackToList />
       <Search
         boardData={searchTerm.length < 1 ? filterData : searchResults}
         term={searchTerm}

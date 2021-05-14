@@ -3,10 +3,10 @@ import Modal from "react-modal";
 import "./LoginModal.scss";
 import "../../Navi/Navi.scss";
 import { Link } from "react-router-dom";
-import * as auth from "./AuthenticationService";
+import * as auth from "../../../apiService/AuthenticationService";
 import GoogleLogin from "react-google-login";
 import { useDispatch, useSelector } from "react-redux";
-import { userLogin, userLogout, userStatus, userCheck } from "../../../redux/redux-login/loginReducer";
+import { userLogin, userLogout, userCheck } from "../../../redux/redux-login/loginReducer";
 import googleLoginIcon from "./googleLoginIcon2.svg";
 
 function LoginModal() {
@@ -63,12 +63,6 @@ function LoginModal() {
     });
   }, [dispatch]);
 
-  const checkLogin = useCallback(() => {
-    userStatus().then((res) => {
-      dispatch(res);
-    });
-  }, [dispatch]);
-
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
@@ -113,9 +107,6 @@ function LoginModal() {
 
   return (
     <>
-      <button className='button-login' onClick={checkLogin}>
-        로그인체크
-      </button>
       <div className='navChangeBox'>
         {userLoginStatus === false ? (
           <button className='button-login' id='button-login' onClick={openModal}>

@@ -1,4 +1,4 @@
-import instance from '../../AxiosConfig.js';
+import instance from '../AxiosConfig.js';
 
 export const addLike = async (data) => {
   return await instance({
@@ -7,6 +7,7 @@ export const addLike = async (data) => {
     data: data,
   });
 };
+
 export const deleteLike = async (data) => {
   return await instance({
     url: 'board/liked',

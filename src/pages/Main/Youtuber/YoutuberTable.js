@@ -8,13 +8,15 @@ import SortingToDeadline from '../components/SortingToDeadline';
 import SortingToLiked from '../components/SortingToLiked';
 import BackToList from '../components/BackToList';
 
-export default function YoutuberTable({ boardData }) {
+const YoutuberTable = ({ boardData }) => {
   return (
     <div className='card-container'>
       <div className='card-options'>
-        <div>
-          <Link to='/Yregister'>등록하기</Link>
-        </div>
+        <Link to='/Yregister' className='registerBtn'>
+          공고 등록하기
+        </Link>
+      </div>
+      <div className='card-options'>
         <BackToList />
         <SortingToDeadline boardData={boardData} />
         <SortingToLiked boardData={boardData} />
@@ -67,4 +69,5 @@ export default function YoutuberTable({ boardData }) {
       ))}
     </div>
   );
-}
+};
+export default YoutuberTable;

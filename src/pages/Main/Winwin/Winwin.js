@@ -8,13 +8,12 @@ const Winwin = () => {
   const { userData } = useSelector((state) => state.loginReducer);
 
   useEffect(() => {
-    console.log("hihi");
     if (userData.id) {
       dispatch(getWinBoard(userData.id));
     } else {
       dispatch(getWinBoard(0));
     }
-  }, [userData]);
+  }, [userData, dispatch]);
 
   return winBoard.loading ? (
     <h2>Loading...</h2>

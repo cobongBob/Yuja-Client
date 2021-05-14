@@ -3,8 +3,8 @@ import { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./YQuillComponents.scss";
 import "./Yregister.scss";
-import * as YapiService from "./YapiService";
-import YImgApiService from "./YImgApiService";
+import * as YapiService from "../../../apiService/YapiService";
+import YImgApiService from "../../../apiService/YImgApiService";
 import ImageResize from "@looop/quill-image-resize-module-react";
 import QuillImageDropAndPaste from "quill-image-drop-and-paste";
 import { useHistory } from "react-router";
@@ -144,7 +144,6 @@ const Yregister = () => {
   let Yhistory = useCallback((board_id) => history.push(`/YDetail/${board_id}`), [history]);
 
   const testCheking = useCallback(() => {
-    console.log(input);
     let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
     let imgSrcArr = String(data).match(reg);
     if (imgSrcArr) {
@@ -169,7 +168,8 @@ const Yregister = () => {
     YapiService.addBoards(sendingData).then((res) => {
       Yhistory(res.data.id);
     });
-  }, [userData, data]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userData, data, Yhistory]);
 
   const checkboxCheck = (e) => {
     if (e.target.checked) {

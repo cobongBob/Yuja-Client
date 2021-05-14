@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { RiArrowLeftCircleLine, RiArrowRightCircleLine } from 'react-icons/ri';
-import './Components.scss';
+import React from "react";
+import { RiArrowLeftCircleLine, RiArrowRightCircleLine } from "react-icons/ri";
+import "./Components.scss";
 
 export default function Pagination(props) {
   const { boardPerPage, totalBoards, currentPage, clickPage } = props;
@@ -33,10 +33,7 @@ export default function Pagination(props) {
           <RiArrowLeftCircleLine className='icon-arrow' />
         </button>
         {pages.map((number) => (
-          <li
-            key={number}
-            className={number === currentPage ? 'focus' : 'null'}
-          >
+          <li key={number} className={number === currentPage ? "focus" : "null"}>
             <div onClick={() => clickPage(number)}>{number}</div>
           </li>
         ))}

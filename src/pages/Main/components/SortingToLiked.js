@@ -1,16 +1,15 @@
-import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { sortLikes } from '../../../redux/board/youtube/yboardReducer';
-import './Components.scss';
+import React, { useCallback } from "react";
+import { useDispatch } from "react-redux";
+import { getSortLikeData } from "../../../redux/board/youtube/yboardReducer";
+import "./Components.scss";
 
-const SortingToLiked = ({ boardData }) => {
+const SortingToLiked = () => {
   const dispatch = useDispatch();
   const likesData = useCallback(() => {
-    sortLikes().then((res) => {
+    getSortLikeData().then((res) => {
       dispatch(res);
-      console.log('인기순', res);
     });
-  }, [boardData]);
+  }, [dispatch]);
   return (
     <div className='sortingBtn'>
       <button onClick={likesData}>인기순</button>

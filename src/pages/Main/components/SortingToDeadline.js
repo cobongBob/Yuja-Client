@@ -1,16 +1,15 @@
-import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { sortExpiredDate } from '../../../redux/board/youtube/yboardReducer';
-import './Components.scss';
+import React, { useCallback } from "react";
+import { useDispatch } from "react-redux";
+import { getSortExData } from "../../../redux/board/youtube/yboardReducer";
+import "./Components.scss";
 
-const SortingToDeadline = ({ boardData }) => {
+const SortingToDeadline = () => {
   const dispatch = useDispatch();
   const expiredData = useCallback(() => {
-    sortExpiredDate().then((res) => {
+    getSortExData().then((res) => {
       dispatch(res);
-      console.log('마감순', res);
     });
-  }, [boardData]);
+  }, [dispatch]);
 
   return (
     <div className='sortingBtn'>
