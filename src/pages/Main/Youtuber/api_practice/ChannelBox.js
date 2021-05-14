@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import './ChannelBox.scss';
+import React, { useEffect, useState } from "react";
+import "./ChannelBox.scss";
 const ChannelBox = ({ detailData }) => {
   // console.log("여긴 youtubeAPI data", detailData);
 
-  const [title, setTitle] = useState('');
-  const [subscribers, setSubscribers] = useState('');
-  const [videos, setVideos] = useState('');
+  const [title, setTitle] = useState("");
+  const [subscribers, setSubscribers] = useState("");
+  const [videos, setVideos] = useState("");
   // const [views, setViews] = useState('');
   // const [bannerimage, setImageBannerImage] = useState(' ');
-  const [desc, setDesc] = useState('');
-  const [thumb, setThumb] = useState('');
+  const [desc, setDesc] = useState("");
+  const [thumb, setThumb] = useState("");
 
-  const API_KEY = 'AIzaSyDLR47w8ZGLifW0rikkDVKP68TMYIu5ywQ';
+  const API_KEY = "AIzaSyDLR47w8ZGLifW0rikkDVKP68TMYIu5ywQ";
 
   useEffect(() => {
-    if (detailData.id !== 0) {
+    if (detailData && detailData.id !== 0) {
       const url = detailData.user.youtubeUrl;
       if (url) {
-        const lastIdx = url.lastIndexOf('/');
+        const lastIdx = url.lastIndexOf("/");
         const utubeId = url.substr(lastIdx + 1);
         fetch(
           `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,contentDetails,brandingSettings&id=${utubeId}&key=${API_KEY}`
@@ -28,38 +28,30 @@ const ChannelBox = ({ detailData }) => {
               const brand = res.items[0].brandingSettings;
               const statis = res.items[0].statistics;
               const snip = res.items[0].snippet;
-              Object.keys(statis).includes('subscriberCount')
+              Object.keys(statis).includes("subscriberCount")
                 ? setSubscribers(statis.subscriberCount)
-                : setSubscribers('');
-              Object.keys(snip).includes('title')
-                ? setTitle(snip.title)
-                : setTitle('');
+                : setSubscribers("");
+              Object.keys(snip).includes("title") ? setTitle(snip.title) : setTitle("");
               // Object.keys(statis).includes('viewCount')
               //   ? setViews(statis.viewCount)
               //   : setViews('');
-              Object.keys(statis).includes('videoCount')
-                ? setVideos(statis.videoCount)
-                : setVideos('');
+              Object.keys(statis).includes("videoCount") ? setVideos(statis.videoCount) : setVideos("");
               // Object.keys(brand).includes('image')
               //   ? setImageBannerImage(brand.image.bannerExternalUrl)
               //   : setImageBannerImage('');
-              Object.keys(snip).includes('thumbnails')
-                ? setThumb(snip.thumbnails.medium.url)
-                : setThumb('');
-              Object.keys(brand).includes('channel')
-                ? setDesc(brand.channel.description)
-                : setDesc('');
+              Object.keys(snip).includes("thumbnails") ? setThumb(snip.thumbnails.medium.url) : setThumb("");
+              Object.keys(brand).includes("channel") ? setDesc(brand.channel.description) : setDesc("");
               // 전부 삼항연산자로 해당 컨텐트가 없는 사람일수도있으니 확인해야함
             }
           });
       } else {
-        setSubscribers('');
-        setTitle('');
+        setSubscribers("");
+        setTitle("");
         // setViews('');
-        setVideos('');
+        setVideos("");
         // setImageBannerImage('');
-        setThumb('');
-        setDesc('');
+        setThumb("");
+        setDesc("");
       }
     }
   }, [detailData]);
@@ -106,11 +98,7 @@ const ChannelBox = ({ detailData }) => {
                 detailData.tools &&
                 detailData.tools.map((tool, idx) => (
                   <label key={idx} htmlFor=''>
-                    {idx < detailData.tools.length - 1 ? (
-                      <span> {tool} /&nbsp;</span>
-                    ) : (
-                      <span>{tool}</span>
-                    )}
+                    {idx < detailData.tools.length - 1 ? <span> {tool} /&nbsp;</span> : <span>{tool}</span>}
                   </label>
                 ))}
             </li>
