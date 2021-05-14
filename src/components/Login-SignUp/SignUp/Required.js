@@ -103,7 +103,8 @@ const Required = ({ location }) => {
       isValidateInput.birth !== "" &&
       isValidateInput.id !== "" &&
       isValidateInput.name !== "" &&
-      isValidateInput.pass !== ""
+      isValidateInput.pass !== "" &&
+      btnTextHandler === "인증완료"
     ) {
       setNextBtnDisabledHandler(false);
     } else {
@@ -117,6 +118,7 @@ const Required = ({ location }) => {
     nameValidateDesc,
     birthValidateDesc,
     isValidateInput,
+    btnTextHandler,
   ]);
 
   const backSpaceCheck = useCallback(() => {
