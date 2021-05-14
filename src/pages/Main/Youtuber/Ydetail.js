@@ -34,7 +34,7 @@ const Ydetail = (props) => {
 
   useEffect(() => {
     const board_id = props.match.params.board_id;
-    if (userData.id) {
+    if (userData && userData.id) {
       getLiked(board_id, userData.id).then((res) => {
         dispatch(res);
       });
@@ -49,7 +49,7 @@ const Ydetail = (props) => {
         dispatch(res);
       });
     }
-  }, [userData.id, dispatch, props.match.params.board_id]);
+  }, [userData, dispatch, props.match.params.board_id]);
 
   const deleteBoard = () => {
     YapiService.deleteBoard(props.match.params.board_id).then((res) => {
@@ -59,7 +59,7 @@ const Ydetail = (props) => {
   };
 
   const likeHandler = useCallback(() => {
-    if (userData.id) {
+    if (userData && userData.id) {
       if (isLiked) {
         deleteLike(props.match.params.board_id, userData.id).then((res) => {
           dispatch(res);
@@ -72,7 +72,7 @@ const Ydetail = (props) => {
     } else {
       //로그인 창으로
     }
-  }, [userData.id, isLiked, dispatch, props.match.params.board_id]);
+  }, [userData, isLiked, dispatch, props.match.params.board_id]);
 
   return (
     <div>
@@ -80,35 +80,11 @@ const Ydetail = (props) => {
         <div className='DetailHeaderWrapper'>
           <div className='youtube-top-wrapper'>
             {""}
-            <div className='youtube-top'>채널 및 기본공고</div>
+            <div className='youtube-top'>채널소개 및 기본공고</div>
           </div>
           <div className='youtube_top_DefaultInfo'>
             <div className='channel-box'>
               {!detailData ? <span>loading..</span> : <ChannelBox detailData={detailData}></ChannelBox>}
-            </div>
-            <div className='DefaultInfoWrapper'>
-              <div className='DefaultInfo'>
-                <ul>
-                  <li>
-                    <label htmlFor=''>모십니다:</label> {detailData.worker}
-                  </li>
-                  <li>
-                    <label htmlFor=''>경력:</label> {detailData.career}
-                  </li>
-                  <li>
-                    <label htmlFor=''>급여종류:</label> {detailData.payType}
-                  </li>
-                  <li>
-                    <label htmlFor=''>급여:</label> {detailData.payAmount}원
-                  </li>
-                  <li>
-                    <label htmlFor=''>원하는 툴:</label> {detailData.tools}
-                  </li>
-                  <li>
-                    <label htmlFor=''>담당자:</label> {detailData.manager}
-                  </li>
-                </ul>
-              </div>
             </div>
           </div>
           <div className='detail-box'>
@@ -150,18 +126,13 @@ const Ydetail = (props) => {
               {detailData.expiredDate !== undefined ? detailData.expiredDate.substr(0, 10) : "상시채용"}
             </div>
             <div className='detail-content'>
-              <div className='detail-content-default'>
-                {" "}
-                기본내용{" "}
-                <div>
-                  <ul></ul>
-                  <br />
-                </div>{" "}
-              </div>
-              <div className='detail-content-detail'>
-                {" "}
-                추가내용
-                <ReactQuill value={detailData.content || ""} readOnly={true} theme={"bubble"} />{" "}
+              <div className='DetailQuill'>
+                <ReactQuill
+                  className='QuillContent'
+                  value={detailData.content || ""}
+                  readOnly={true}
+                  theme={"bubble"}
+                />
               </div>
             </div>
           </div>

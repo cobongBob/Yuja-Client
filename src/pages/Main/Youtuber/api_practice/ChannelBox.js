@@ -14,7 +14,7 @@ const ChannelBox = ({ detailData }) => {
   const API_KEY = "AIzaSyDLR47w8ZGLifW0rikkDVKP68TMYIu5ywQ";
 
   useEffect(() => {
-    if (detailData.id !== 0) {
+    if (detailData && detailData.id !== 0) {
       const url = detailData.user.youtubeUrl;
       if (url) {
         const lastIdx = url.lastIndexOf("/");
@@ -74,10 +74,40 @@ const ChannelBox = ({ detailData }) => {
             <p className='ChannelDesc'>{desc}</p>
           </div>
         </div>
-        {/* <div className='ChannelBannerImage'>
-          <img src={bannerimage} alt='' />
-        </div> */}
-        {/* <div className='ChannelHit'>조회수 {views}</div> */}
+      </div>
+      <div className='DefaultInfoWrapper'>
+        <div className='DefaultInfo'>
+          <ul>
+            <li>
+              <span>
+                <strong>"{detailData.worker}" </strong>
+              </span>
+              <label htmlFor=''>구합니다.</label>
+            </li>
+            <li>
+              <span>{detailData.career}</span>
+            </li>
+            <li>
+              <span>{detailData.payType} / </span>
+              <span>{detailData.payAmount}원</span>
+            </li>
+            <li>
+              <span>편집tool</span>
+              <br />
+              {detailData &&
+                detailData.tools &&
+                detailData.tools.map((tool, idx) => (
+                  <label key={idx} htmlFor=''>
+                    {idx < detailData.tools.length - 1 ? <span> {tool} /&nbsp;</span> : <span>{tool}</span>}
+                  </label>
+                ))}
+            </li>
+            <li>
+              <span>담당자 : </span>
+              <span>{detailData.manager}</span>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );
