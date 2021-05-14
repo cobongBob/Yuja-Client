@@ -141,22 +141,13 @@ const Ydetail = (props) => {
                 : '상시채용'}
             </div>
             <div className='detail-content'>
-              <div className='detail-content-default'>
-                {' '}
-                기본내용{' '}
-                <div>
-                  <ul></ul>
-                  <br />
-                </div>{' '}
-              </div>
-              <div className='detail-content-detail'>
-                {' '}
-                추가내용
+              <div className='DetailQuill'>
                 <ReactQuill
+                  className='QuillContent'
                   value={detailData.content || ''}
                   readOnly={true}
                   theme={'bubble'}
-                />{' '}
+                />
               </div>
             </div>
           </div>
