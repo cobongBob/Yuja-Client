@@ -39,34 +39,32 @@ export default function EditorTable({ boardData }) {
               <Card.Body>
                 {/* 기본값 중에서 경력, 급여 등의 중요내용 넣기 */}
                 <Card.Text>
-                  {data.payType} : {data.payAmount}원
-                  <br />
-                  {data.worker}
-                  <br />
-                  tools: {data.tools[0]}
+                  <strong>
+                    {data.payType} : {data.payAmount}원
+                    <br />
+                    {data.worker}
+                    <br />
+                    tools: {data.tools[0]}
+                  </strong>
                 </Card.Text>
+                <Card.Footer>
+                  <div>
+                    <strong>
+                      <span>수정일</span>
+                      {format(new Date(data.updatedDate), 'yyyy-MM-dd')}
+                    </strong>
+                  </div>
+                  <div>
+                    <strong>
+                      <span>마감일</span>
+                      {format(new Date(data.expiredDate), 'yyyy-MM-dd')}
+                    </strong>
+                  </div>
+                  <div className='card-like'>
+                    <FcLike size={20} /> {data.likes}
+                  </div>
+                </Card.Footer>
               </Card.Body>
-              <Card.Footer>
-                <div>
-                  <span>
-                    <strong>수정일 </strong>
-                  </span>
-                  <strong>
-                    {format(new Date(data.updatedDate), 'yyyy-MM-dd')}
-                  </strong>
-                </div>
-                <div>
-                  <span>
-                    <strong>마감일 </strong>
-                  </span>
-                  <strong>
-                    {format(new Date(data.expiredDate), 'yyyy-MM-dd')}
-                  </strong>
-                </div>
-                <div className='card-like'>
-                  <FcLike size={20} /> {data.likes}
-                </div>
-              </Card.Footer>
             </Card>
           </li>
         ))}

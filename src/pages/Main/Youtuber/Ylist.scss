@@ -14,6 +14,8 @@
 }
 
 .card-container > ul > li {
+  width: 20rem;
+  height: 15rem;
   margin: 1rem;
   padding: 0.5rem;
   position: relative;
@@ -27,10 +29,34 @@
   border: 1px solid black;
   text-align: left;
   &:hover {
+    transition: box-shadow 250ms;
+    border: none;
+    box-shadow: -15px 15px #ff9411;
+  }
+  &:hover .card-img {
+    transition: opacity 250ms;
+    opacity: 0.2;
+  }
+  &:hover .card-body {
+    opacity: 1;
     display: block;
   }
-  &:hover + .card-footer {
-    display: block;
+}
+
+.card-container > ul > li > .card > .card-body {
+  width: 20rem;
+  font-family: scdream5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1rem;
+  display: none;
+  background-color: transparent;
+  & .card-footer {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    font-family: scdream4;
   }
 }
 
@@ -53,30 +79,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  padding-bottom: 0;
+  margin-bottom: 0;
 }
 
-.card-container > ul > li > .card > .card-body {
-  background-color: palevioletred;
-  padding-left: 0 !important;
-  padding: 0.5rem;
-  display: none;
-  width: 19rem;
-  height: 5rem;
-}
-
-.card-container > ul > li > .card > .card-body > .card-text {
-  background-color: transparent;
-  border-bottom: none;
-  font-family: scdream5;
-}
-.card-container > ul > li > .card > .card-footer {
-  background-color: palevioletred;
-  display: none;
-  margin: 0;
-  padding: 0;
-  border-top: none;
-}
 .card-options {
   display: block;
   text-align: right;
