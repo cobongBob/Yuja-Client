@@ -2,18 +2,8 @@ import React, { useEffect } from 'react';
 import './Ynew.scss';
 import { FaUserAstronaut } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { getYBoards } from '../../redux/board/youtube/yboardReducer';
 
 const Ynew = () => {
-  const dispatch = useDispatch();
-  const yBoardData = useSelector((state) => state.YboardReducer);
-
-  // 전체 데이터 끌어오기
-  useEffect(() => {
-    dispatch(getYBoards());
-  }, [dispatch]);
-
   return (
     <div>
       <ul>
