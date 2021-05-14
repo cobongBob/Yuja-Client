@@ -1,24 +1,192 @@
-.YregisterBigWrapper {
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-top: 2%;
-  margin-bottom: 2%;
+.register-container {
+  margin-top: 3rem !important;
+  margin-left: 5rem;
+  margin-right: 5rem;
+  margin-bottom: 3rem !important;
+  font-family: scdream5;
+}
+.register-header {
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
-.YregisterHeader {
-  margin-bottom: 1%;
+.register-default-input {
+  margin-left: 15rem;
+  margin-right: 15rem;
 }
-
-.YregisterHeader > h1 {
+.register-header > h1 {
   text-align: left;
-  font-family: 'scdream4';
+  font-family: 'scdream5';
   display: inline;
   border-bottom: 4px solid #c4302b;
 }
 
-#YregisterChannel {
-  background: none;
+.register-title > input[type='text'] {
+  font-size: 30px;
+  width: 30rem;
+  height: 3rem;
   border: none;
-  border-bottom: 3px solid black;
-  margin-bottom: 1%;
+  border-bottom: 4px solid #c4302b;
+  margin-bottom: 1rem;
+  float: left;
+  &:focus {
+    outline: 0;
+    border: none;
+    border-bottom: 4px solid #c4302b;
+  }
+}
+
+.register-channelname > input[type='text'] {
+  margin-left: 2rem;
+  font-size: 20px;
+  width: 15rem;
+  height: 3rem;
+  border: none;
+  border-bottom: 4px solid #c4302b;
+  margin-bottom: 1rem;
+  &:focus {
+    outline: 0;
+    border: none;
+    border-bottom: 4px solid #c4302b;
+  }
+}
+
+.wanted-part {
+  margin-bottom: 1rem;
+}
+
+.wanted-part > div {
+  margin-right: 1rem;
+  font-size: 20px;
+  display: inline-block;
+  border-bottom: 4px solid #c4302b;
+}
+
+.wanted-part > input[type='radio'] {
+  cursor: pointer;
+}
+
+.wanted-part > label {
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.wanted-career {
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.wanted-career > div {
+  margin-right: 1rem;
+  font-size: 20px;
+  display: inline-block;
+  border-bottom: 4px solid #c4302b;
+}
+
+.wanted-career > input[type='radio'] {
+  cursor: pointer;
+}
+
+.wanted-career > label {
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.wanted-number {
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.wanted-number > input[type='text'] {
+  font-size: 20px;
+  width: 5rem;
+  border: none;
+  border-bottom: 4px solid #c4302b;
+  &:focus {
+    outline: 0;
+    border: none;
+    border-bottom: 4px solid #c4302b;
+  }
+}
+
+.wanted-number > div {
+  display: inline-block;
+  font-size: 20px;
+}
+
+.wanted-pay {
+  display: block;
+  margin-bottom: 1rem;
+}
+.wanted-pay > div {
+  margin-right: 1rem;
+  display: inline-block;
+  font-size: 20px;
+  border-bottom: 4px solid #c4302b;
+}
+
+.wanted-pay > select {
+  border: none;
+  font-size: 15px;
+  padding: 0.25rem;
+  margin: 0.25rem;
+  margin-right: 0.5rem !important;
+  &:hover {
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.25s;
+    background-color: lightblue;
+    border-radius: 10px;
+  }
+}
+
+.wanted-pay > select > option {
+  border: none;
+}
+
+.wanted-pay > input[type='text'] {
+  text-align: right;
+  width: 10rem;
+  font-size: 15px;
+  border: none;
+  border-bottom: 4px solid #c4302b;
+  &:focus {
+    outline: 0;
+    border: none;
+    border-bottom: 4px solid #c4302b;
+  }
+}
+
+.wanted-tools {
+  margin-bottom: 1rem;
+}
+
+.watned-tools > div {
+  display: inline-block;
+  font-size: 20px;
+  margin-right: 1rem;
+  border-bottom: 4px solid #c4302b;
+}
+
+.wanted-tools > label {
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.wanted-deadline {
+  margin-bottom: 1rem;
+}
+
+.wanted-deadline > label {
+  margin-right: 1rem;
+  font-size: 15px;
+}
+
+.QuillWrapper {
+  width: 100%;
+}
+
+#ReactQuill {
+  width: 100%;
+  min-height: 30vh;
 }

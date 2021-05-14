@@ -5,66 +5,26 @@ import { Link } from "react-router-dom";
 
 const Ynew = () => {
   return (
-    <>
-      <div className='new-youtuber'>
-        <div className='user-profile-pic'>
-          <FaUserAstronaut size={60} className='youtuber-profile' />
+    <div>
+      <ul>
+        <div className='new-youtuber'>
+          <li>
+            <div className='user-profile-pic'>
+              <FaUserAstronaut size={60} className='youtuber-profile' />
+            </div>
+            <div className='wanted-content'>
+              <span className='wanted-name'>
+                <Link to='/YoutuberProfile'>유저아이디</Link>
+              </span>
+              <span className='wanted-type-editer'>편집자</span> <br />
+              <span className='wanted-content-detail'>
+                <Link to='/Ydetail/:board_id'>제목</Link>
+              </span>
+            </div>
+          </li>
         </div>
-        <div className='wanted-content'>
-          <span className='wanted-name'>
-            <Link to='/YoutuberProfile'>유저아이디</Link>
-          </span>
-          <span className='wanted-type-editer'>편집자</span> <br />
-          <span className='wanted-content-detail'>
-            <Link to='/Ydetail/:board_id'>제목</Link>
-          </span>
-        </div>
-      </div>
-      <div className='new-youtuber'>
-        <div className='user-profile-pic'>
-          <FaUserAstronaut size={60} className='youtuber-profile' />
-        </div>
-        <div className='wanted-content'>
-          <span className='wanted-name'>
-            <Link to='/YoutuberProfile'>유저아이디</Link>
-          </span>
-          <span className='wanted-type-editer'>편집자</span> <br />
-          <span className='wanted-content-detail'>
-            <Link to='/Ydetail/:board_id'>제목</Link>
-          </span>
-        </div>
-      </div>
-      <div className='new-youtuber'>
-        <div className='user-profile-pic'>
-          <FaUserAstronaut size={60} className='youtuber-profile' />
-        </div>
-        <div className='wanted-content'>
-          <span className='wanted-name'>
-            <Link to='/YoutuberProfile'>닉네임길면안됨...</Link>
-          </span>
-          <span className='wanted-type-editer'>편집자</span>
-          <span className='wanted-type-thumbnail'>썸네일러</span> <br />
-          <span className='wanted-content-detail'>
-            <Link to='/Ydetail/:board_id'>제목</Link>
-          </span>
-        </div>
-      </div>
-      <div className='new-youtuber'>
-        <div className='user-profile-pic'>
-          <FaUserAstronaut size={60} className='youtuber-profile' />
-        </div>
-        <div className='wanted-content'>
-          <span className='wanted-name'>
-            <Link to='/YoutuberProfile'>4개적당?</Link>
-          </span>
-          <span className='wanted-type-editer'>편집자</span>
-          <span className='wanted-type-thumbnail'>썸네일러</span> <br />
-          <span className='wanted-content-detail'>
-            <Link to='/Ydetail/:board_id'>제목</Link>
-          </span>
-        </div>
-      </div>
-    </>
+      </ul>
+    </div>
   );
 };
 

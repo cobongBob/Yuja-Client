@@ -1,128 +1,20 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Quill } from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import "./YQuillComponents.scss";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./Yregister.scss";
 import * as YapiService from "../../../apiService/YapiService";
-import YImgApiService from "../../../apiService/YImgApiService";
-import ImageResize from "@looop/quill-image-resize-module-react";
-import QuillImageDropAndPaste from "quill-image-drop-and-paste";
 import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
-Quill.register("modules/imageResize", ImageResize);
-Quill.register("modules/imageDropAndPaste", QuillImageDropAndPaste);
-let Image = Quill.import("formats/image");
-Image.className = "custom-class-to-image";
-Quill.register(Image, true);
-window.Quill = Quill;
+import QuillModify from "../../../components/Quill/QuillModify";
 
-let quill;
 const YmodifyTest = (props) => {
   const { userData } = useSelector((state) => state.loginReducer);
   const addingFileList = useRef([]);
   const deletedFileList = useRef([]);
-  const imageHandler = useCallback(() => {
-    const input = document.createElement("input");
-
-    input.setAttribute("type", "file");
-    input.setAttribute("accept", "image/png, image/jpeg, image/gif, image/jpg");
-    input.click();
-
-    input.onchange = async () => {
-      const file = input.files[0];
-      const formData = new FormData();
-      formData.append("file", file);
-      const config = {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      };
-      await YImgApiService.addImgs(formData, config)
-        .then((response) => {
-          if (response.status === 200) {
-            const range = quill.getSelection(true) !== null ? quill.getSelection(true) : 0;
-            quill.insertEmbed(range.index, "image", `http://localhost:8888/files/temp/${response.data[0].fileName}`);
-            quill.setSelection(range.index + 1);
-            addingFileList.current.push(response.data[0].attachId);
-          }
-        })
-        .catch((error) => {
-          alert(error);
-        });
-    };
-  }, []);
-  // end of imageHandler
-  const dropHandler = useCallback((imageDataUrl, type, imageData) => {
-    let filename = "my_cool_image.png";
-    let file = imageData.toFile(filename);
-
-    const formData = new FormData();
-
-    formData.append("file", file);
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    };
-    YImgApiService.addImgs(formData, config)
-      .then((response) => {
-        if (response.status === 200) {
-          const range = quill.getSelection(true) !== null ? quill.getSelection(true) : 0;
-          quill.insertEmbed(range.index, "image", `http://localhost:8888/files/temp/${response.data[0].fileName}`);
-          quill.setSelection(range.index + 1);
-          addingFileList.current.push(response.data[0].attachId);
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }, []);
-  //end of drop handler
-
-  const modules = useMemo(
-    () => ({
-      toolbar: {
-        container: [
-          [{ header: [1, 2, false] }],
-          ["bold", "italic", "underline", "strike", "blockquote"],
-          [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
-          ["link", "image", "video"],
-          [{ align: [] }, { color: [] }, { background: [] }],
-          ["clean"],
-        ],
-        handlers: { image: imageHandler },
-      },
-      imageResize: { modules: ["Resize", "DisplaySize"] },
-      imageDropAndPaste: {
-        handler: dropHandler,
-      },
-    }),
-    [imageHandler, dropHandler]
-  );
-
-  const formats = useMemo(
-    () => [
-      "header",
-      "bold",
-      "italic",
-      "underline",
-      "strike",
-      "blockquote",
-      "list",
-      "bullet",
-      "indent",
-      "link",
-      "image",
-      "align",
-      "video",
-      "color",
-      "background",
-    ],
-    []
-  );
-  const [newData, setNewData] = useState();
+  const [qModiData, setQModiData] = useState();
   const fileList = useRef([]);
   const checkedlist = useRef([]);
+  const history = useHistory();
+  let Yhistory = useCallback((board_id) => history.push(`/Ydetail/${board_id}`), [history]);
+
   const [input, setInput] = useState({
     title: "",
     channelName: "",
@@ -136,34 +28,19 @@ const YmodifyTest = (props) => {
     receptionType: "",
     manager: "",
     receptionMethod: "",
-    tools: checkedlist.current,
   });
   useEffect(() => {
-    YapiService.fetchBoard(props.match.params.board_id, userData.id).then((res) => {
+    YapiService.fetchBoard(props.match.params.board_id).then((res) => {
       fileList.current = res.data.boardAttachFileNames;
-      quill.root.innerHTML = res.data.content;
-      setNewData(res.data.content);
+      setQModiData(res.data.content);
       setInput(res.data);
     });
-
-    let container = document.getElementById("ReactQuill");
-    quill = new Quill(container, {
-      modules: modules,
-      formats: formats,
-      theme: "snow",
-      placeholder: "내용입력",
-    });
-    quill.on("text-change", (delta, oldDelta, source) => {
-      setNewData(quill.root.innerHTML);
-    });
   }, [userData]); // eslint-disable-line react-hooks/exhaustive-deps
-  const history = useHistory();
 
-  let Yhistory = useCallback((board_id) => history.push(`/Ydetail/${board_id}`), [history]);
   const testCheking = () => {
     let currentBoardType = "YoutuberBoard/";
     let reg = /http:\/\/localhost:8888\/files\/YoutuberBoard\/[0-9]+.[a-z]+/g;
-    let imgSrcArr = String(newData).match(reg); // 불러왔던 글에 존재했던 이미지 태그들의 src
+    let imgSrcArr = String(qModiData).match(reg); // 불러왔던 글에 존재했던 이미지 태그들의 src
     // 서버에서 날아온 이미지 이름과 비교한다. 없으면 삭제된것이므로 삭제 리스트에 담아준다.
     if (imgSrcArr) {
       fileList.current.forEach((src) => {
@@ -177,7 +54,8 @@ const YmodifyTest = (props) => {
 
     const modifyingData = {
       ...input,
-      content: newData.replaceAll(
+      tools: checkedlist.current,
+      content: qModiData.replaceAll(
         `src="http://localhost:8888/files/temp/`,
         `src="http://localhost:8888/files/YoutuberBoard/`
       ),
@@ -189,6 +67,7 @@ const YmodifyTest = (props) => {
       Yhistory(res.data.id);
     });
   };
+
   const checkboxCheck = (e) => {
     if (e.target.checked) {
       checkedlist.current.push(e.target.value);
@@ -196,6 +75,7 @@ const YmodifyTest = (props) => {
       const index = checkedlist.current.indexOf(e.target.value);
       checkedlist.current.splice(index, 1);
     }
+    console.log(checkedlist.current);
   };
 
   const radioCheck = (e) => {
@@ -211,6 +91,7 @@ const YmodifyTest = (props) => {
       ...input,
       [e.target.name]: e.target.value,
     });
+    console.log(input);
   };
 
   return (
@@ -281,12 +162,12 @@ const YmodifyTest = (props) => {
               id='recruitingNum'
               onChange={onChange}
               name='recruitingNum'
-              type='number'
+              type='text'
               maxLength='3'
               onInput={({ target }) => {
-                if (target.value.length > target.maxLength) target.value = target.value.slice(0, target.maxLength);
+                target.value = target.value.replace(/[^0-9]/g, "");
+                target.value = target.value.replace(/,/g, "");
               }}
-              value={input.recruitingNum || ""}
             />
             명
           </label>
@@ -352,44 +233,16 @@ const YmodifyTest = (props) => {
 
         <div>
           <label htmlFor=''>편집 가능 툴:</label>
-          <input
-            id='Ypremiere'
-            name='ypremiere'
-            value='프리미어 프로'
-            type='checkbox'
-            onChange={checkboxCheck}
-            defaultChecked={input.tools.includes("프리미어 프로")}
-          />
+          <input id='Ypremiere' name='ypremiere' value='프리미어 프로' type='checkbox' onChange={checkboxCheck} />
           <label htmlFor='Ypremiere'>프리미어 프로</label>
 
-          <input
-            id='Yaftereffect'
-            name='yaftereffect'
-            value='애프터이펙트'
-            type='checkbox'
-            onChange={checkboxCheck}
-            defaultChecked={input.tools.includes("애프터이펙트")}
-          />
+          <input id='Yaftereffect' name='yaftereffect' value='애프터이펙트' type='checkbox' onChange={checkboxCheck} />
           <label htmlFor='Yaftereffect'>애프터이펙트</label>
 
-          <input
-            id='Yfinalcut'
-            name='yfinalcut'
-            value='파이널컷'
-            type='checkbox'
-            onChange={checkboxCheck}
-            defaultChecked={input.tools.includes("파이널컷")}
-          />
+          <input id='Yfinalcut' name='yfinalcut' value='파이널컷' type='checkbox' onChange={checkboxCheck} />
           <label htmlFor='Yfinalcut'>파이널컷</label>
 
-          <input
-            id='Yvegas'
-            name='yvegas'
-            onChange={checkboxCheck}
-            value='베가스'
-            type='checkbox'
-            defaultChecked={input.tools.includes("베가스")}
-          />
+          <input id='Yvegas' name='yvegas' onChange={checkboxCheck} value='베가스' type='checkbox' />
           <label htmlFor='Yvegas'>베가스</label>
 
           <input
@@ -398,48 +251,19 @@ const YmodifyTest = (props) => {
             value='파워 디렉터'
             type='checkbox'
             onChange={checkboxCheck}
-            defaultChecked={input.tools.includes("파워 디렉터")}
           />
           <label htmlFor='Ypowerdirector'>파워 디렉터</label>
 
-          <input
-            id='Yphotoshop'
-            name='yphotoshop'
-            value='포토샵'
-            type='checkbox'
-            onChange={checkboxCheck}
-            defaultChecked={input.tools.includes("포토샵")}
-          />
+          <input id='Yphotoshop' name='yphotoshop' value='포토샵' type='checkbox' onChange={checkboxCheck} />
           <label htmlFor='Yphotoshop'>포토샵</label>
 
-          <input
-            id='Yillustrater'
-            name='yillustrater'
-            value='일러스트'
-            type='checkbox'
-            onChange={checkboxCheck}
-            defaultChecked={input.tools.includes("일러스트")}
-          />
+          <input id='Yillustrater' name='yillustrater' value='일러스트' type='checkbox' onChange={checkboxCheck} />
           <label htmlFor='Yillustrater'>일러스트</label>
 
-          <input
-            id='Yblender'
-            onChange={checkboxCheck}
-            name='yblender'
-            value='블렌더'
-            type='checkbox'
-            defaultChecked={input.tools.includes("블렌더")}
-          />
+          <input id='Yblender' onChange={checkboxCheck} name='yblender' value='블렌더' type='checkbox' />
           <label htmlFor='Yblender'>블렌더</label>
 
-          <input
-            id='Ymaya'
-            onChange={checkboxCheck}
-            name='ymaya'
-            value='마야'
-            type='checkbox'
-            defaultChecked={input.tools.includes("마야")}
-          />
+          <input id='Ymaya' onChange={checkboxCheck} name='ymaya' value='마야' type='checkbox' />
           <label htmlFor='Ymaya'>마야</label>
         </div>
         <div>
@@ -449,7 +273,7 @@ const YmodifyTest = (props) => {
             onChange={onChange}
             name='expiredDate'
             type='date'
-            value={input.expiredDate.substr(0, 10) || new Date()}
+            value={input && input.expiredDate ? input.expiredDate.substr(0, 10) : null}
           />
 
           <input
@@ -484,14 +308,12 @@ const YmodifyTest = (props) => {
         <br />
         <h2>상세 내용</h2>
       </div>
-      <div>
-        <div style={{ height: "350px" }} id='ReactQuill'></div>
-      </div>
-      <div>
-        <div>
-          <button onClick={testCheking}>확인</button>
-        </div>
-      </div>
+      <QuillModify
+        modify={testCheking}
+        addingFileList={addingFileList}
+        qModiData={qModiData}
+        setQModiData={setQModiData}
+      />
     </div>
   );
 };

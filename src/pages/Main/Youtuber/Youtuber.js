@@ -30,11 +30,7 @@ const Youtuber = () => {
 
   // 전체 데이터 끌어오기
   useEffect(() => {
-    if (!userData || userData !== "") {
-      dispatch(getYBoards(0));
-    } else {
-      dispatch(getYBoards(userData.id));
-    }
+    dispatch(getYBoards());
   }, [userData, dispatch]);
 
   const searchHandler = (searchTerm) => {

@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import Modal from "react-modal";
 import "./LoginModal.scss";
 import "../../Navi/Navi.scss";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import * as auth from "../../../apiService/AuthenticationService";
 import GoogleLogin from "react-google-login";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +10,7 @@ import { userLogin, userLogout, userCheck } from "../../../redux/redux-login/log
 import googleLoginIcon from "./googleLoginIcon2.svg";
 
 function LoginModal() {
+  const history = useHistory();
   /* 모달 설정 */
   const customStyles = {
     content: {
@@ -60,8 +61,9 @@ function LoginModal() {
   const logout = useCallback(() => {
     userLogout().then((res) => {
       dispatch(res);
+      history.push("/");
     });
-  }, [dispatch]);
+  }, [dispatch, history]);
 
   const [loginData, setLoginData] = useState({
     username: "",

@@ -1,6 +1,8 @@
 import * as YapiService from "../../../apiService/YapiService";
-
+import * as likeService from "../../../apiService/likeService";
 // 액션
+const ADD_LIKE = "ADD_LIKE";
+const DELETE_LIKE = "DELETE_LIKE";
 const MODE_GET_DETAIL_DATA = "getDetailData";
 const MODE_FILTER_DATA = "MODE_FILTER_DATA";
 const MODE_SORTEXDATE_DATA = "MODE_SORTEXDATE_DATA";
@@ -10,10 +12,10 @@ const GET_YBOARD_SUCCESS = "GET_YBOARD_SUCCESS";
 const GET_YBOARD_FAILURE = "GET_YBOARD_FAILURE";
 const MODE_RESET_DATA = "MODE_RESET_DATA";
 // 액션함수
-export const getYBoards = (user_id) => {
+export const getYBoards = () => {
   return (dispatch) => {
     dispatch(getYBoardsRequest());
-    YapiService.fetchBoards(user_id)
+    YapiService.fetchBoards()
       .then((res) => dispatch(getYBoardsSuccess(res.data)))
       .catch((err) => dispatch(getYBoardsFailure(err.response)));
   };
@@ -59,8 +61,8 @@ export const getResetData = async () => {
   };
 };
 
-export const getDetailData = async (board_id, user_id) => {
-  const detailData = await YapiService.fetchBoard(board_id, user_id); // id를 넣어야 가져올꺼같긴한데...
+export const getDetailData = async (board_id) => {
+  const detailData = await YapiService.fetchBoard(board_id); // id를 넣어야 가져올꺼같긴한데...
   return {
     type: MODE_GET_DETAIL_DATA,
     data: detailData.data,
@@ -68,10 +70,23 @@ export const getDetailData = async (board_id, user_id) => {
   };
 };
 
+export const addLike = async (board_id) => {
+  await likeService.addLike(board_id);
+  return {
+    type: ADD_LIKE,
+  };
+};
+export const deleteLike = async (board_id) => {
+  await likeService.deleteLike(board_id);
+  return {
+    type: DELETE_LIKE,
+  };
+};
+
 // 초기값
 const initialState = {
   data: [],
-  detailData: { id: 0 },
+  detailData: { id: 0, likes: 0, liked: false },
   filterData: [],
   loading: false,
   sortedExpired: false,
@@ -92,6 +107,7 @@ const YboardReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         data: action.payload,
+        detailData: { id: 0, likes: 0, liked: false },
         // eslint-disable-next-line array-callback-return
         filterData: action.payload.sort((a, b) => {
           if (a.updatedDate < b.updatedDate) return 1;
@@ -99,6 +115,7 @@ const YboardReducer = (state = initialState, action) => {
           if (a.updatedDate === b.updatedDate) return 0;
         }),
       };
+
     case GET_YBOARD_FAILURE:
       return {
         data: [],
@@ -109,12 +126,14 @@ const YboardReducer = (state = initialState, action) => {
         sortedLike: false,
         error: action.payload,
       };
+
     case MODE_GET_DETAIL_DATA:
       return {
         ...state,
         detailData: action.data,
         count: state.detailData.liked === true ? true : false,
       };
+
     case MODE_RESET_DATA:
       return {
         ...state,
@@ -125,25 +144,33 @@ const YboardReducer = (state = initialState, action) => {
           if (a.updatedDate === b.updatedDate) return 0;
         }),
       };
+
     case MODE_SORTEXDATE_DATA:
       return {
         ...state,
         filterData: state.sortedExpired
-          ? // eslint-disable-next-line array-callback-return
-            state.filterData.sort((a, b) => {
-              if (a.expiredDate < b.expiredDate) return 1;
-              if (a.expiredDate > b.expiredDate) return -1;
-              if (a.expiredDate === b.expiredDate) return 0;
+          ? state.filterData.sort((a, b) => {
+              if (a.expiredDate) {
+                a = a.expiredDate.substr(0, 10).split("-").join("");
+              }
+              if (b.expiredDate) {
+                b = b.expiredDate.substr(0, 10).split("-").join("");
+              }
+              return a > b ? 1 : a < b ? -1 : 0;
             })
-          : // eslint-disable-next-line array-callback-return
-            state.filterData.sort((a, b) => {
-              if (a.expiredDate < b.expiredDate) return -1;
-              if (a.expiredDate > b.expiredDate) return 1;
-              if (a.expiredDate === b.expiredDate) return 0;
+          : state.filterData.sort((a, b) => {
+              if (a.expiredDate) {
+                a = a.expiredDate.substr(0, 10).split("-").join("");
+              }
+              if (b.expiredDate) {
+                b = b.expiredDate.substr(0, 10).split("-").join("");
+              }
+              return a > b ? -1 : a < b ? 1 : 0;
             }),
         sortedExpired: !state.sortedExpired,
         sortedLike: false,
       };
+
     case MODE_SORTLIKE_DATA:
       return {
         ...state,
@@ -166,6 +193,16 @@ const YboardReducer = (state = initialState, action) => {
             return data;
           }
         }),
+      };
+    case ADD_LIKE:
+      return {
+        ...state,
+        detailData: { ...state.detailData, likes: state.detailData.likes + 1, liked: true },
+      };
+    case DELETE_LIKE:
+      return {
+        ...state,
+        detailData: { ...state.detailData, likes: state.detailData.likes - 1, liked: false },
       };
     default:
       return state;
