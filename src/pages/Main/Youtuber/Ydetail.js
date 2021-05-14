@@ -42,14 +42,14 @@ const Ydetail = (props) => {
       getLiked(board_id, userData.id).then((res) => {
         dispatch(res);
       });
-      getDetailData(board_id, userData.id).then((res) => {
+      getDetailData(board_id).then((res) => {
         dispatch(res);
       });
     } else {
       getLiked(board_id, 0).then((res) => {
         dispatch(res);
       });
-      getDetailData(board_id, 0).then((res) => {
+      getDetailData(board_id).then((res) => {
         dispatch(res);
       });
     }

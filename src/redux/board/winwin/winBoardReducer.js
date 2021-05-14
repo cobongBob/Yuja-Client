@@ -4,10 +4,10 @@ const GET_WINBOARD_REQUEST = "GET_WINBOARD_REQUEST";
 const GET_WINBOARD_SUCCESS = "GET_WINBOARD_SUCCESS";
 const GET_WINBOARD_FAILURE = "GET_WINBOARD_FAILURE";
 
-export const getWinBoard = (user_id) => {
+export const getWinBoard = () => {
   return (dispatch) => {
     dispatch(getWinBoardRequest());
-    getWinBoards(user_id)
+    getWinBoards()
       .then((res) => dispatch(getWinBoardSuccess(res.data)))
       .catch((err) => dispatch(getWinBoardFailure(err.response.massage)));
   };
@@ -47,7 +47,7 @@ const winBoardReducer = (state = initialState, action) => {
     case GET_WINBOARD_SUCCESS:
       return {
         loading: false,
-        wBoards: action.payload,
+        wBoards: action.payload.sort((a, b) => b.id - a.id),
         error: "",
       };
     case GET_WINBOARD_FAILURE:

@@ -49,7 +49,7 @@ const Yregister = () => {
           }
         })
         .catch((error) => {
-          alert(error);
+          alert(error.response.data.message);
         });
     };
   }, []);
@@ -77,7 +77,7 @@ const Yregister = () => {
         }
       })
       .catch((error) => {
-        alert(error);
+        alert(error.response.data.message);
       });
   }, []);
   //end of drop handler
@@ -165,9 +165,13 @@ const Yregister = () => {
       thumbnail: "썸네일테스트", //썸네일 서버쪽 만들어지면 변경 필
       boardAttachNames: currFileList.current,
     };
-    YapiService.addBoards(sendingData).then((res) => {
-      Yhistory(res.data.id);
-    });
+    YapiService.addBoards(sendingData)
+      .then((res) => {
+        Yhistory(res.data.id);
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData, data, Yhistory]);
 
