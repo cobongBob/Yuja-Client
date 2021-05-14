@@ -1,6 +1,9 @@
 import * as YapiService from "../../../apiService/YapiService";
-
+import * as likeService from "../../../apiService/likeService";
 // 액션
+const GET_LIKE = "GET_LIKE";
+const ADD_LIKE = "ADD_LIKE";
+const DELETE_LIKE = "DELETE_LIKE";
 const MODE_GET_DETAIL_DATA = "getDetailData";
 const MODE_FILTER_DATA = "MODE_FILTER_DATA";
 const MODE_SORTEXDATE_DATA = "MODE_SORTEXDATE_DATA";
@@ -68,10 +71,23 @@ export const getDetailData = async (board_id) => {
   };
 };
 
+export const addLike = async (board_id) => {
+  await likeService.addLike(board_id);
+  return {
+    type: ADD_LIKE,
+  };
+};
+export const deleteLike = async (board_id) => {
+  await likeService.deleteLike(board_id);
+  return {
+    type: DELETE_LIKE,
+  };
+};
+
 // 초기값
 const initialState = {
   data: [],
-  detailData: { id: 0 },
+  detailData: { id: 0, likes: 0, liked: false },
   filterData: [],
   loading: false,
   sortedExpired: false,
@@ -171,6 +187,16 @@ const YboardReducer = (state = initialState, action) => {
             return data;
           }
         }),
+      };
+    case ADD_LIKE:
+      return {
+        ...state,
+        detailData: { ...state.detailData, likes: state.detailData.likes + 1, liked: true },
+      };
+    case DELETE_LIKE:
+      return {
+        ...state,
+        detailData: { ...state.detailData, likes: state.detailData.likes - 1, liked: false },
       };
     default:
       return state;

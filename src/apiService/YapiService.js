@@ -18,6 +18,7 @@ export const fetchBoards = async () => {
 
 // 상세보기 1개만
 export const fetchBoard = async (board_id) => {
+  console.log("11111111111111111111111111111", board_id, "22222");
   return await instance({
     url: BoardType + "/board/" + board_id,
     method: "get",
