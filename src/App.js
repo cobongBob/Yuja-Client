@@ -15,8 +15,6 @@ import YoutuberProfile from "./pages/Profile/YoutuberProfile";
 import Yregister from "./pages/Main/Youtuber/Yregister";
 import Switch from "react-bootstrap/Switch";
 import YmodifyTest from "./pages/Main/Youtuber/YmodifyTest";
-import ImgPrac from "./components/Quill/practice/ImgPrac";
-import ImgPracModi from "./components/Quill/practice/ImgPracModi";
 import { useLocation } from "react-router-dom";
 import MainWrapper from "./MainWrapper";
 import PageNotFound from "./pages/Error/PageNotFound";
@@ -24,6 +22,8 @@ import Footer from "./components/Footer";
 import FindPassword from "./components/Login-SignUp/Login/FindPassword";
 import { GLOBAL_LOADED, GLOBAL_LOADING } from "./redux/loading/loadingReducer";
 import GlobalLoading from "./components/Loading/GlobalLoading";
+import Wdetail from "./pages/Main/Winwin/Wdetail";
+import Wregister from "./pages/Main/Winwin/Wregister";
 
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
@@ -96,14 +96,14 @@ function App() {
           <Route path='/Editer' component={Editer} />
           <Route path='/Thumbnailer' component={Thumbnailer} />
           <Route path='/Winwin' component={Winwin} />
+          <Route path='/Wdetail/:board_id' component={Wdetail} />
+          <Route path='/Wregister' component={Wregister} />
           <Route path='/Help' component={Help} />
           <Route path='/SignUp1' component={SignUp1} />
           <Route path='/YoutuberProfile' component={YoutuberProfile} />
           <Route path='/Ydetail/:board_id' component={Ydetail} />
           <Route path='/Yregister' component={Yregister} />
           <Route path='/YmodifyTest/:board_id' component={YmodifyTest} />
-          <Route path='/Practice' component={ImgPrac} />
-          <Route path='/PracticeModi/:board_id' component={ImgPracModi} />
           <Route path='/PageNotFound' component={PageNotFound} />
           <Route path='/FindPassword' component={FindPassword} />
           {/* <Route component={PageNotFound} /> 이게 왜 나올까요? */}

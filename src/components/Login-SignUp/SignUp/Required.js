@@ -36,49 +36,73 @@ const Required = ({ location }) => {
 
   /* 값 넘겨주기 끝 */
 
-  /* 인증 코드 발송 */
-  const [timerSet, setTimerSet] = useState(false);
-  const [startTimer, setStartTimer] = useState(false);
-
-  const CodeTimer = () => {
-    if (timerSet) {
-      return <AuthCodeTimer start={startTimer} setStart={setStartTimer} />;
-    }
-  };
-
-  const changeStartTimer = () => {
-    auth.verifyEmailSend(requiredData.username).then((res) => {
-      setSecurityCode(res.data);
-    });
-    return setStartTimer(!startTimer);
-  };
-
-  const changeTimeSet = () => {
-    return setTimerSet(!timerSet);
-  };
-  /* 인증 코드 발송 끝 */
-
   /* 인증코드 통신 및 확인 */
   const [authCode, setAuthCode] = useState();
-  const [securityCode, setSecurityCode] = useState("a12345");
+  const [securityCode, setSecurityCode] = useState("오늘점심은부대찌개!!");
   const [disabledHandler, setDisabledHandler] = useState(false);
-  const [btnTextHandler, setBtnTextHandler] = useState("인증번호 발송");
+  const [emailDisableHandler, setEmailDisableHandler] = useState(false);
+  const [btnTextHandler, setBtnTextHandler] = useState('인증번호 발송');
 
   const getAuthCode = (e) => {
     setAuthCode(e.target.value);
   };
 
   const checkCodes = () => {
-    if (securityCode === authCode) {
-      setDisabledHandler(true);
-      setBtnTextHandler("인증완료");
+    if(isValidateInput.id === '' || EmailValidateResData !== '') {
+      console.log('비어있음!')
+      setSecurityCodeValidateDesc('이메일을 확인 해주세요.')
+    } else if (securityCode === authCode) {
+      console.log("인증성공");
+      clearTimeout(setSecurityCode)
       changeTimeSet();
+      setDisabledHandler(true);
+      setBtnTextHandler('인증완료')
+      setSecurityCodeValidateDesc('')
+      setEmailDisableHandler(true)
       return true;
     } else {
+      console.log("인증실패");
+      setSecurityCodeValidateDesc('인증번호를 확인 해주세요.')
       return false;
     }
   };
   /* 인증코드 통신 및 끝 */
+
+  /* 인증 코드 발송 */
+  const [timerSet, setTimerSet] = useState(false);
+  const [startTimer, setStartTimer] = useState(false);
+  const securityCodeDelay = 1000 * 60 * 3;
+
+  const CodeTimer = () => {
+    if (timerSet) {
+      return <AuthCodeTimer
+        start={startTimer}
+        setStart={setStartTimer}
+      />;
+    }
+  };
+  const changeStartTimer = () => {
+    console.log('===================== changeStartTimer 실행')
+    auth.verifyEmailSend(requiredData.username).then((res) => {
+      console.log('받자마자 res.data의 값 ', res.data)
+      setSecurityCode(res.data);
+      console.log('res.data를 sc에 넣은 후 sc의 값', securityCode)
+      setTimeout(() => {
+        setSecurityCode('내일점심은부대찌개!')
+      }, securityCodeDelay);
+    });
+    return setStartTimer(!startTimer);
+  };
+  const changeTimeSet = () => {
+    if(isValidateInput.id === '' || EmailValidateResData !== '') {
+      setSecurityCodeValidateDesc('이메일을 확인 해주세요.')
+      return '';
+    }
+    setTimerSet(!timerSet)
+    changeStartTimer()
+    setSecurityCodeValidateDesc('');
+  };
+  /* 인증 코드 발송 끝 */
 
   /* new 유효성 검사 */
   const [EmailValidateResData, setEmailValidateResData] = useState();
@@ -87,6 +111,7 @@ const Required = ({ location }) => {
   const [checkPasswordValidateDesc, setCheckPasswordValidateDesc] = useState();
   const [nameValidateDesc, setNameValidateDesc] = useState();
   const [birthValidateDesc, setBirthValidateDesc] = useState();
+  const [securityCodeValidateDesc, setSecurityCodeValidateDesc] = useState();
   const [passCheckNum, setpassCheckNum] = useState();
 
   const [nextBtnDisabledHandler, setNextBtnDisabledHandler] = useState(true);
@@ -198,7 +223,8 @@ const Required = ({ location }) => {
 
   useEffect(() => {
     totalCheck();
-  }, [requiredData, passCheckNum, nextBtnDisabledHandler, totalCheck]);
+    console.log('useEffect의 sc값', securityCode)
+  }, [requiredData, passCheckNum, nextBtnDisabledHandler, totalCheck, securityCode]);
 
   /* new 유효성 검사 끝 */
 
@@ -219,6 +245,8 @@ const Required = ({ location }) => {
                 placeholder='아이디(이메일)'
                 onChange={changeValue}
                 onKeyUp={checkEmailValidate}
+                disabled={emailDisableHandler}
+                autoComplete='off'
                 autoFocus
               />
               <div className='warningBox'>{EmailValidateResData}</div>
@@ -227,7 +255,9 @@ const Required = ({ location }) => {
           <tr>
             <td>
               <div className='labelWrapper'>
-                <label htmlFor='authenticationCodeCheck'>이메일 인증번호 입력</label>
+                <label htmlFor='authenticationCodeCheck'>
+                  이메일 인증번호 입력
+                </label>
               </div>
               <div className='authCodeCheckBox'>
                 <div className='authenticationCodeBox'>
@@ -239,6 +269,7 @@ const Required = ({ location }) => {
                     placeholder='인증번호 입력'
                     onChange={getAuthCode}
                     disabled={disabledHandler}
+                    autoComplete='off'
                   />
                 </div>
                 <div className='codeTimerBox'>{CodeTimer()}</div>
@@ -254,7 +285,12 @@ const Required = ({ location }) => {
                     checkCodes={checkCodes}
                     btnTextHandler={btnTextHandler}
                     disabledHandler={disabledHandler}
-                  ></AuthBtnBox>
+                    autoComplete='off'
+                  >
+                  </AuthBtnBox>
+                </div>
+                <div className='warningBox'>
+                  {securityCodeValidateDesc}
                 </div>
               </div>
             </td>
@@ -271,9 +307,11 @@ const Required = ({ location }) => {
                 placeholder='비밀번호'
                 onChange={changeValue}
                 onKeyUp={checkPasswordValidate}
-                required
+                autoComplete='off'
               />
-              <div className='warningBox'>{passwordValidateDesc}</div>
+                <div className='warningBox'>
+                  {passwordValidateDesc}
+                </div>
             </td>
           </tr>
           <tr>
@@ -288,8 +326,11 @@ const Required = ({ location }) => {
                 placeholder='비밀번호 확인'
                 onChange={getPassCheckNum}
                 onKeyUp={checkPasswordCheckValidate}
+                autoComplete='off'
               />
-              <div className='warningBox'>{checkPasswordValidateDesc}</div>
+                <div className='warningBox'>
+                  {checkPasswordValidateDesc}
+                </div>
             </td>
           </tr>
           <tr>
@@ -304,8 +345,11 @@ const Required = ({ location }) => {
                 placeholder='이름(실명)'
                 onChange={changeValue}
                 onKeyUp={checkNameValidate}
+                autoComplete='off'
               />
-              <div className='warningBox'>{nameValidateDesc}</div>
+                <div className='warningBox'>
+                  {nameValidateDesc}
+                </div>
             </td>
           </tr>
           <tr>
@@ -321,8 +365,11 @@ const Required = ({ location }) => {
                 placeholder='생년월일(-을 제외한 6자리)'
                 onChange={changeValue}
                 onKeyUp={checkBirthValidate}
+                autoComplete='off'
               />
-              <div className='warningBox'>{birthValidateDesc}</div>
+                <div className='warningBox'>
+                  {birthValidateDesc}
+                </div>
             </td>
           </tr>
           <tr>
@@ -339,13 +386,17 @@ const Required = ({ location }) => {
                 onChange={changeValue}
                 onKeyUp={checkNicknameValidate}
                 onKeyDown={backSpaceCheck}
+                autoComplete='off'
               />
-              <div className='warningBox'>{nicknameValidateResData}</div>
+                <div className='warningBox'>
+                  {nicknameValidateResData}
+                </div>
             </td>
           </tr>
         </table>
         <div className='signUpNextBtnBox'>
-          {nextBtnDisabledHandler === false ? (
+          {
+            nextBtnDisabledHandler === false ?
             <Link
               to={{
                 pathname: "/SignUp1/NonRequired",
@@ -358,11 +409,14 @@ const Required = ({ location }) => {
             >
               다음
             </Link>
-          ) : (
-            <button className='btn btn-warning' disabled={true}>
-              다음
-            </button>
-          )}
+              :
+              <button
+                className='btn btn-warning'
+                disabled={true}
+              >
+                다음
+              </button>
+          }
         </div>
       </div>
     </div>

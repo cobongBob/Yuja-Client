@@ -10,6 +10,11 @@ class UserApiService {
   async addProfileImg(data, config) {
     return await axios.post(USER_API_BASE_URL + "/profile", data, config);
   }
+
+  async addYoutuberConfirmPic(data, config) {
+    return await axios.post(USER_API_BASE_URL + "/youtubeconfirm", data, config);
+  }
+
 }
 
 export default new UserApiService();

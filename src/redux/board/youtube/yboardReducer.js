@@ -10,10 +10,10 @@ const GET_YBOARD_SUCCESS = "GET_YBOARD_SUCCESS";
 const GET_YBOARD_FAILURE = "GET_YBOARD_FAILURE";
 const MODE_RESET_DATA = "MODE_RESET_DATA";
 // 액션함수
-export const getYBoards = (user_id) => {
+export const getYBoards = () => {
   return (dispatch) => {
     dispatch(getYBoardsRequest());
-    YapiService.fetchBoards(user_id)
+    YapiService.fetchBoards()
       .then((res) => dispatch(getYBoardsSuccess(res.data)))
       .catch((err) => dispatch(getYBoardsFailure(err.response)));
   };
@@ -59,8 +59,8 @@ export const getResetData = async () => {
   };
 };
 
-export const getDetailData = async (board_id, user_id) => {
-  const detailData = await YapiService.fetchBoard(board_id, user_id); // id를 넣어야 가져올꺼같긴한데...
+export const getDetailData = async (board_id) => {
+  const detailData = await YapiService.fetchBoard(board_id); // id를 넣어야 가져올꺼같긴한데...
   return {
     type: MODE_GET_DETAIL_DATA,
     data: detailData.data,
@@ -99,6 +99,7 @@ const YboardReducer = (state = initialState, action) => {
           if (a.updatedDate === b.updatedDate) return 0;
         }),
       };
+
     case GET_YBOARD_FAILURE:
       return {
         data: [],
@@ -109,12 +110,14 @@ const YboardReducer = (state = initialState, action) => {
         sortedLike: false,
         error: action.payload,
       };
+
     case MODE_GET_DETAIL_DATA:
       return {
         ...state,
         detailData: action.data,
         count: state.detailData.liked === true ? true : false,
       };
+
     case MODE_RESET_DATA:
       return {
         ...state,
@@ -125,6 +128,7 @@ const YboardReducer = (state = initialState, action) => {
           if (a.updatedDate === b.updatedDate) return 0;
         }),
       };
+
     case MODE_SORTEXDATE_DATA:
       return {
         ...state,
@@ -144,6 +148,7 @@ const YboardReducer = (state = initialState, action) => {
         sortedExpired: !state.sortedExpired,
         sortedLike: false,
       };
+
     case MODE_SORTLIKE_DATA:
       return {
         ...state,

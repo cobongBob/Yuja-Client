@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './SignUp1.scss';
 import { Link } from 'react-router-dom';
 
@@ -585,27 +585,22 @@ const Agreement = ({ history }) => {
   const next = checkBoxes[2].isChecked;
 
   /* 유효성 검사 */
+  const [agreementNextBtnHandler, setAgreementNextBtnHandler] = useState();
   let requiredOneIsChecked = checkBoxes[0].isChecked;
   let requiredTwoIsChecked = checkBoxes[1].isChecked;
-  const isAllRequiredChecked = (e) => {
-    if (true !== requiredOneIsChecked || true !== requiredTwoIsChecked) {
-      alert('필수 항목에 모두 동의 해주세요.');
-      e.preventDefault();
-    } else if (next === true) {
-      // let date = new Date();
-      // let year = date.getFullYear();
-      // let month = 1 + date.getMonth();
-      // let day = date.getDate();
-      // alert(
-      //   year +
-      //     '년 ' +
-      //     month +
-      //     '월 ' +
-      //     day +
-      //     '일 마케팅 정보 수신에 동의 하셨습니다.'
-      // );
+
+  const isAllRequiredChecked = useCallback(() => {
+    console.log('isAllRequiredChecked실행')
+    if (true === requiredOneIsChecked && true === requiredTwoIsChecked) {
+      setAgreementNextBtnHandler(true);
+    } else {
+      setAgreementNextBtnHandler(false);
     }
-  };
+  });
+
+  useEffect(() => {
+    isAllRequiredChecked()
+  }, [isAllRequiredChecked]);
 
   return (
     <div className='contentBox3'>
@@ -645,8 +640,8 @@ const Agreement = ({ history }) => {
           </div>
         </div>
         <div className='signUpNextBtnBox'>
+          { agreementNextBtnHandler === true ?
           <Link
-            onClick={isAllRequiredChecked}
             to={{
               pathname: '/SignUp1/Required',
               state: {
@@ -657,6 +652,14 @@ const Agreement = ({ history }) => {
           >
             다음
           </Link>
+            :
+            <button
+              className='btn btn-warning'
+              disabled={true}
+            >
+              다음
+            </button>
+          }
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from 'react';
 import UserApiService from "../../../apiService/UserApiService";
 import "./SignUp1.scss";
 
@@ -16,7 +16,7 @@ const NonRequired = ({ location, history }) => {
     let file = e.target.files[0];
     console.log(file);
 
-    reader.onloadend = () => {
+    reader.onloadend = (e) => {
       setFile(file);
       setpreviewUrl(reader.result);
     };
@@ -45,22 +45,44 @@ const NonRequired = ({ location, history }) => {
     e.preventDefault();
     let reader2 = new FileReader();
     let file2 = e.target.files[0];
+
     reader2.onloadend = () => {
       setFile2(file2);
       setpreviewUrl2(reader2.result);
     };
+
     reader2.readAsDataURL(file2);
+
+    const config2 = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+
+    if (e.target.files !== null) {
+      console.log("파일 업로드2 시작");
+      const fd2 = new FormData();
+      fd2.append("file", file2);
+      UserApiService.addYoutuberConfirmPic(fd2, config2).then((response) => {
+
+      });
+    }
+
   };
 
-  let profile_preview,
-    youtuberPic_preview = null;
+  let profile_preview, youtuberPic_preview = '';
+    profile_preview =
 
-  if (file !== "") {
-    profile_preview = <img className='profile_preview' src={previewURL} alt='previewProfile' />;
-  }
-  if (file2 !== "") {
-    youtuberPic_preview = <img className='youtuberPic_PreviewBox' src={previewURL2} alt='previewYoutuberPic' />;
-  }
+      <img className='profile_preview'
+           src={previewURL}
+      />;
+
+    youtuberPic_preview =
+      <img
+        className='youtuberPic_preview'
+        src={previewURL2}
+      />;
+
   /* 파일 업로드 미리보기 끝 */
 
   /* 회원가입 데이터 넘겨주기 시작 */
@@ -73,6 +95,7 @@ const NonRequired = ({ location, history }) => {
     phone: "",
     isYoutuber: "",
     bsn: "",
+    youtuberUrl: '',
     profilePicId: profilePicId.current,
   });
 
@@ -84,7 +107,6 @@ const NonRequired = ({ location, history }) => {
   };
 
   const insertUserData = (e) => {
-    // Object.assign({...requiredData, ...nonRequiredData,profilePicId: profilePicId.current});
     const data = {
       ...requiredData,
       ...nonRequiredData,
@@ -98,7 +120,7 @@ const NonRequired = ({ location, history }) => {
           alert("회원가입을 축하합니다!");
           history.push("/");
         } else {
-          alert("비어있는 항목이 있습니다! 나가!");
+          alert("오류가 발생했습니다.");
         }
       })
       .catch((e) => {
@@ -164,6 +186,20 @@ const NonRequired = ({ location, history }) => {
 
   /* 이 페이지(nonRequired) 유효성 끝 */
 
+  /* 유튜버 박스 */
+
+  const isYoutuberRef = useRef();
+  const [isYoutuberChecked, setIsYoutuberChecked] = useState();
+
+  const youtuberCheckHandler = useCallback(() => {
+    isYoutuberRef.current.checked === true ?
+      setIsYoutuberChecked(true)
+      :
+      setIsYoutuberChecked(false)
+  })
+
+  /* 유튜버 박스 끝 */
+
   return (
     <div className='contentBox2'>
       <div className='overlay'>
@@ -174,7 +210,9 @@ const NonRequired = ({ location, history }) => {
               <div className='labelWrapper'>
                 <label htmlFor='signUpProfilePic'>프로필 사진</label>
               </div>
-              <div className='ProfilePicPreview'>{profile_preview}</div>
+              <div className='ProfilePicPreview'>
+                {profile_preview}
+              </div>
               <div className='inputWrapper'>
                 <input
                   className='signUpProfilePic'
@@ -192,7 +230,13 @@ const NonRequired = ({ location, history }) => {
               <div className='labelWrapper'>
                 <label htmlFor='signUpAddress'>주소</label>
               </div>
-              <input className='signUpAddress' name='address' type='text' placeholder='주소' onChange={changeValue} />
+              <input className='signUpAddress'
+                     name='address'
+                     type='text'
+                     placeholder='주소'
+                     autoComplete='off'
+                     onChange={changeValue}
+              />
             </td>
           </tr>
           <tr>
@@ -205,66 +249,98 @@ const NonRequired = ({ location, history }) => {
                 name='phone'
                 type='tel'
                 placeholder='-를 제외한 11자리'
+                autoComplete='off'
                 onChange={changeValue}
               />
             </td>
           </tr>
           <tr>
             <td>
-              <label className='signUpLabel' htmlFor='YoutuberCheck'>
+              <label className='signUpLabel' htmlFor='isYoutuber'>
                 유튜버이신가요?{" "}
                 <input
-                  className='signUpYoutuber'
-                  name='isYoutuber'
+                  className='YoutuberCheck'
+                  name='YoutuberCheck'
                   id='isYoutuber'
                   type='checkbox'
+                  ref={isYoutuberRef}
                   onChange={changeValue}
+                  onClick={youtuberCheckHandler}
                 />
               </label>
             </td>
           </tr>
         </table>
-        <div className='youtuberDiv'>
-          <div className='youtuberDiv_Title'>
-            유튜버 분들은 원활한 서비스 이용을 위해
-            <br />
-            추가 정보를 입력해주세요!
-          </div>
-          <div className='companyRegNumBox'>
-            <label className='companyRegNumLabel' htmlFor='companyRegNumInput'>
-              사업자등록번호
-              <input
-                className='companyRegNumInput'
-                name='bsn'
-                id='companyRegNumInput'
-                type='tel'
-                maxLength={10}
-                placeholder='-을 제외한 10자리 숫자'
-                onChange={changeValue}
-              />
-            </label>
-          </div>
-          <div className='youtuberPicBox'>
-            <label className='youtuberPicLabel' htmlFor='youtuberPicInput'>
-              유튜브 계정 스크린샷을 올려주세요
-            </label>
-            <div className='youtuberPic_PreviewBox'>{youtuberPic_preview}</div>
-            <div className='youtuberPicInputWrapper'>
-              <input
-                className='youtuberPicInput'
-                id='youtuberPicInput'
-                type='file'
-                accept='image/jpeg, image/jpg, img/png'
-                onChange={handleFileOnChange2}
-              />
+          { isYoutuberChecked === true ?
+            <div className='youtuberDiv'>
+              <div className='youtuberDiv_Title'>
+                유튜버 분들은 원활한 서비스 이용을 위해
+                <br />
+                추가 정보를 입력해주세요!
+              </div>
+              <div className='youtuberInputBox'>
+                <div className='companyRegNumBox'>
+                  <label className='companyRegNumLabel' htmlFor='companyRegNumInput'>
+                  사업자등록번호
+                  <input
+                    className='companyRegNumInput'
+                    name='bsn'
+                    id='companyRegNumInput'
+                    type='tel'
+                    maxLength={10}
+                    placeholder='-을 제외한 10자리 숫자'
+                    autoComplete='off'
+                    onChange={changeValue}
+                  />
+                </label>
+              </div>
+
+              <div className='youtuberUrlBox'>
+                <label className='youtuberUrlBoxLabel' htmlFor='youtuberUrlBoxInput'>
+                  유튜브 고유 주소
+                  <input
+                    className='youtuberUrlBoxInput'
+                    name='youtuberUrl'
+                    id='youtuberUrlBoxInput'
+                    type='text'
+                    placeholder='유튜브 고유 주소를 입력해주세요'
+                    autoComplete='off'
+                    onChange={changeValue}
+                  />
+                </label>
+              </div>
+              </div>
+
+              <div className='youtuberPicBox'>
+                <label className='youtuberPicLabel' htmlFor='youtuberPicInput'>
+                  유튜브 계정 스크린샷
+                </label>
+                <div className='youtuberPicDesc'>
+                  아래 예시처럼 시간이 보이는 본인의 유튜브 <br/>스튜디오/콘텐츠
+                  화면 스크린샷을 업로드 해주세요.
+                </div>
+                <div className='youtuberPic_PreviewBox'>
+                  {youtuberPic_preview}
+                </div>
+                <div className='youtuberPicInputWrapper'>
+                  <input
+                    className='youtuberPicInput'
+                    id='youtuberPicInput'
+                    type='file'
+                    accept='image/jpeg, image/jpg, img/png'
+                    onChange={handleFileOnChange2}
+                  />
+                </div>
+              </div>
             </div>
+            :
+            ''
+          }
+          <div className='signUpSubmitBtnBox'>
+            <button type='submit' className='btn btn-warning' onClick={totalAction}>
+              회원가입
+            </button>
           </div>
-        </div>
-        <div className='signUpSubmitBtnBox'>
-          <button type='submit' className='btn btn-warning' onClick={totalAction}>
-            회원가입
-          </button>
-        </div>
       </div>
     </div>
   );
