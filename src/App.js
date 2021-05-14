@@ -24,6 +24,8 @@ import Footer from "./components/Footer";
 import FindPassword from "./components/Login-SignUp/Login/FindPassword";
 import { GLOBAL_LOADED, GLOBAL_LOADING } from "./redux/loading/loadingReducer";
 import GlobalLoading from "./components/Loading/GlobalLoading";
+import Wdetail from "./pages/Main/Winwin/Wdetail";
+import Wregister from "./pages/Main/Winwin/Wregister";
 
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
@@ -96,6 +98,8 @@ function App() {
           <Route path='/Editer' component={Editer} />
           <Route path='/Thumbnailer' component={Thumbnailer} />
           <Route path='/Winwin' component={Winwin} />
+          <Route path='/Wdetail/:board_id' component={Wdetail} />
+          <Route path='/Wregister' component={Wregister} />
           <Route path='/Help' component={Help} />
           <Route path='/SignUp1' component={SignUp1} />
           <Route path='/YoutuberProfile' component={YoutuberProfile} />

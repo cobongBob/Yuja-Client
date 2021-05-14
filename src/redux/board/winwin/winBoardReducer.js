@@ -47,7 +47,7 @@ const winBoardReducer = (state = initialState, action) => {
     case GET_WINBOARD_SUCCESS:
       return {
         loading: false,
-        wBoards: action.payload,
+        wBoards: action.payload.sort((a, b) => b.id - a.id),
         error: "",
       };
     case GET_WINBOARD_FAILURE:
