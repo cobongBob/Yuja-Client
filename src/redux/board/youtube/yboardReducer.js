@@ -1,7 +1,6 @@
 import * as YapiService from "../../../apiService/YapiService";
 import * as likeService from "../../../apiService/likeService";
 // 액션
-const GET_LIKE = "GET_LIKE";
 const ADD_LIKE = "ADD_LIKE";
 const DELETE_LIKE = "DELETE_LIKE";
 const MODE_GET_DETAIL_DATA = "getDetailData";
@@ -108,6 +107,7 @@ const YboardReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         data: action.payload,
+        detailData: { id: 0, likes: 0, liked: false },
         // eslint-disable-next-line array-callback-return
         filterData: action.payload.sort((a, b) => {
           if (a.updatedDate < b.updatedDate) return 1;
@@ -149,17 +149,23 @@ const YboardReducer = (state = initialState, action) => {
       return {
         ...state,
         filterData: state.sortedExpired
-          ? // eslint-disable-next-line array-callback-return
-            state.filterData.sort((a, b) => {
-              if (a.expiredDate < b.expiredDate) return 1;
-              if (a.expiredDate > b.expiredDate) return -1;
-              if (a.expiredDate === b.expiredDate) return 0;
+          ? state.filterData.sort((a, b) => {
+              if (a.expiredDate) {
+                a = a.expiredDate.substr(0, 10).split("-").join("");
+              }
+              if (b.expiredDate) {
+                b = b.expiredDate.substr(0, 10).split("-").join("");
+              }
+              return a > b ? 1 : a < b ? -1 : 0;
             })
-          : // eslint-disable-next-line array-callback-return
-            state.filterData.sort((a, b) => {
-              if (a.expiredDate < b.expiredDate) return -1;
-              if (a.expiredDate > b.expiredDate) return 1;
-              if (a.expiredDate === b.expiredDate) return 0;
+          : state.filterData.sort((a, b) => {
+              if (a.expiredDate) {
+                a = a.expiredDate.substr(0, 10).split("-").join("");
+              }
+              if (b.expiredDate) {
+                b = b.expiredDate.substr(0, 10).split("-").join("");
+              }
+              return a > b ? -1 : a < b ? 1 : 0;
             }),
         sortedExpired: !state.sortedExpired,
         sortedLike: false,

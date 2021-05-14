@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from "react";
 import * as YapiService from "../../../apiService/YapiService";
 import "./Ydetail.scss";
-import { FcLike, FcOk } from "react-icons/fc";
+import { FcLike } from "react-icons/fc";
 import { AiOutlineHeart, AiOutlineFileSearch } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import ReactQuill from "react-quill";
@@ -56,9 +56,7 @@ const Ydetail = (props) => {
             <div className='youtube-top'>채널소개 및 기본공고</div>
           </div>
           <div className='youtube_top_DefaultInfo'>
-            <div className='channel-box'>
-              {!detailData ? <span>loading..</span> : <ChannelBox detailData={detailData}></ChannelBox>}
-            </div>
+            <div className='channel-box'>{!detailData ? <span>loading..</span> : <ChannelBox />}</div>
           </div>
           <div className='detail-box'>
             <div>
