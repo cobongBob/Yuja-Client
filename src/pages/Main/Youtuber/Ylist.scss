@@ -26,16 +26,11 @@
   padding: 0.5rem;
   border: 1px solid black;
   text-align: left;
-  &:hover .card-container > ul > li > .card > .card-body {
-    position: absolute;
+  &:hover {
     display: block;
-    opacity: 1;
   }
-  &:hover ul > li > .card > .card-footer {
+  &:hover + .card-footer {
     display: block;
-    position: absolute;
-    margin-top: 5rem;
-    opacity: 1;
   }
 }
 
