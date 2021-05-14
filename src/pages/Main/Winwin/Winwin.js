@@ -21,11 +21,7 @@ const Winwin = () => {
   }, []);
 
   useEffect(() => {
-    if (userData.id) {
-      dispatch(getWinBoard(userData.id));
-    } else {
-      dispatch(getWinBoard(0));
-    }
+    dispatch(getWinBoard());
   }, [userData, dispatch]);
 
   return winBoard.loading ? (

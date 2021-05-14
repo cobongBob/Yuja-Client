@@ -1,15 +1,15 @@
 import instance from "../AxiosConfig.js";
 const BoardType = 4;
 
-export const getWinBoards = async (user_id) => {
+export const getWinBoards = async () => {
   return await instance({
-    url: BoardType + "/board/" + user_id,
+    url: BoardType + "/board",
     method: "get",
   });
 };
-export const getWinOneBoard = async (board_id, user_id) => {
+export const getWinOneBoard = async (board_id) => {
   return await instance({
-    url: BoardType + "/board/" + board_id + "/" + user_id,
+    url: BoardType + "/board/" + board_id,
     method: "get",
   });
 };

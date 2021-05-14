@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import EditerTable from './EditerTable';
-import '../Youtuber/Youtuber.scss';
-import Pagination from '../components/Pagination';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  getEBoards,
-  getFilterData,
-} from '../../../redux/board/editer/eboardReducer';
-import Search from '../components/Search';
+import React, { useEffect, useState } from "react";
+import EditerTable from "./EditerTable";
+import "../Youtuber/Youtuber.scss";
+import Pagination from "../components/Pagination";
+import { useDispatch, useSelector } from "react-redux";
+import { getEBoards, getFilterData } from "../../../redux/board/editer/eboardReducer";
+import Search from "../components/Search";
 
 const Editor = () => {
   const dispatch = useDispatch();
@@ -16,7 +13,7 @@ const Editor = () => {
   const eBoardData = useSelector((state) => state.EboardReducer);
   const { userData } = useSelector((state) => state.loginReducer);
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,21 +21,14 @@ const Editor = () => {
 
   const indexOfLastData = currentPage * boardPerPage;
   const indexOfFirstData = indexOfLastData - boardPerPage;
-  const currentData = eBoardData.filterData.slice(
-    indexOfFirstData,
-    indexOfLastData
-  );
+  const currentData = eBoardData.filterData.slice(indexOfFirstData, indexOfLastData);
 
   const clickPage = (pages) => {
     setCurrentPage(pages);
   };
 
   useEffect(() => {
-    if (!userData || userData !== '') {
-      dispatch(getEBoards(0, 3));
-    } else {
-      dispatch(getEBoards(userData.id, 3));
-    }
+    dispatch(getEBoards(3));
   }, [userData, dispatch]);
 
   const searchHandler = (searchTerm) => {
@@ -55,9 +45,7 @@ const Editor = () => {
   ) : (
     <div className='tableWrapper'>
       <Search
-        boardData={
-          searchTerm.length < 1 ? eBoardData.filterData : searchResults
-        }
+        boardData={searchTerm.length < 1 ? eBoardData.filterData : searchResults}
         term={searchTerm}
         setTerm={setSearchTerm}
         searchKeyword={searchHandler}
