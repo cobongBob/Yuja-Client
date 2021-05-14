@@ -236,7 +236,6 @@ const NonRequired = ({ location, history }) => {
                      placeholder='주소'
                      autoComplete='off'
                      onChange={changeValue}
-
               />
             </td>
           </tr>
