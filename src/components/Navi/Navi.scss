@@ -22,6 +22,7 @@
       color: #ff9411;
       margin: 0.25rem;
       &:hover {
+        transition: all 0.3s;
         background-color: #ff9411;
         color: white;
       }

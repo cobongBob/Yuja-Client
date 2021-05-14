@@ -7,21 +7,60 @@
   text-align: center;
 }
 
-.card-container .card {
+.card-container > ul {
   display: inline-block;
+  list-style: none;
+  text-align: center;
+}
+
+.card-container > ul > li {
   width: 20rem;
   height: 15rem;
-  margin: 1rem !important;
+  margin: 1rem;
+  padding: 0.5rem;
+  position: relative;
+  float: left;
+  list-style: none;
+}
+
+.card-container > ul > li > .card {
+  width: 20rem;
   padding: 0.5rem;
   border: 1px solid black;
   text-align: left;
   &:hover {
-    height: 25rem;
+    transition: box-shadow 250ms;
+    border: none;
+    box-shadow: -15px 15px #ff9411;
+  }
+  &:hover .card-img {
+    transition: opacity 250ms;
+    opacity: 0.2;
+  }
+  &:hover .card-body {
     opacity: 1;
+    display: block;
   }
 }
 
-.card-container .card .card-header {
+.card-container > ul > li > .card > .card-body {
+  width: 20rem;
+  font-family: scdream5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1rem;
+  display: none;
+  background-color: transparent;
+  & .card-footer {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    font-family: scdream4;
+  }
+}
+
+.card-container > ul > li > .card > .card-header {
   display: block;
   padding-left: 0;
   padding-top: 0.5rem;
@@ -32,7 +71,7 @@
   border-bottom: none;
 }
 
-.card-container .card .card-title {
+.card-container > ul > li > .card > .card-title {
   display: inline-block;
   font-size: 18px;
   width: 11rem;
@@ -40,34 +79,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  padding-bottom: 0;
+  margin-bottom: 0;
 }
 
-.card-container .card .card-body {
-  padding-left: 0 !important;
-  padding: 0.5rem;
-  display: block;
-  width: 19rem;
-  height: 5rem;
-}
-
-.card-container .card .card-body .card-text {
-  background-color: transparent;
-  border-bottom: none;
-  font-family: scdream5;
-}
-.card-container .card .card-footer {
-  background-color: transparent;
-  display: inline;
-  margin: 0;
-  padding: 0;
-  border-top: none;
-}
 .card-options {
   display: block;
   text-align: right;
-  margin-right: 12rem;
   height: 2.5rem;
+  margin-right: 5rem;
 }
 
 .card-options > .registerBtn {

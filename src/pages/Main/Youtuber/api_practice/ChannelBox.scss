@@ -1,18 +1,22 @@
 .ChannelBigWrapper {
+  display: flex;
+  align-items: center;
 }
 
 .ChannelBoxWrapper {
   font-family: 'scdream5';
+  display: inline-block;
+  margin-top: 2%;
+  margin-left: 6%;
+  padding-bottom: 3%;
 }
 
 .TitleWrapper {
   text-align: center;
 }
 
-.ChannelTitle {
-  text-align: center;
-  padding-top: 1%;
-  display: inline-block;
+.TitleWrapper > a {
+  font-size: 2.5rem;
 }
 
 .SVWrapper {
@@ -27,7 +31,7 @@
 }
 
 .ChannelThumbnail {
-  padding-top: 1%;
+  padding-top: 6%;
   text-align: center;
 }
 
@@ -58,4 +62,21 @@
 
 .DescWrapper > p {
   font-size: 1rem;
+  line-height: 1.8;
+}
+
+.DefaultInfoWrapper {
+  background-color: #feffe6;
+
+  font-family: 'scdream5';
+  display: inline-block;
+  margin-left: 10%;
+}
+
+.DefaultInfo {
+  font-size: 1.5rem;
+}
+
+.DefaultInfo > ul {
+  line-height: 2.5;
 }
