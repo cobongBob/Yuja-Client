@@ -1,22 +1,22 @@
-import * as thService from '../../../apiService/ThumbnailerApiService';
+import * as thService from "../../../apiService/ThumbnailerApiService";
 
 // 액션
-const MODE_GET_DETAIL_DATA = 'getDetailData';
-const MODE_FILTER_DATA = 'MODE_FILTER_DATA';
-const MODE_SORTLIKE_DATA = 'MODE_SORTLIKE_DATA';
-const GET_THBOARD_REQUEST = 'GET_THBOARD_REQUEST';
-const GET_THBOARD_SUCCESS = 'GET_THBOARD_SUCCESS';
-const GET_THBOARD_FAILURE = 'GET_THBOARD_FAILURE';
-const MODE_RESET_DATA = 'MODE_RESET_DATA';
+const MODE_GET_THDETAIL_DATA = "getThDetailData";
+const MODE_FILTER_DATA = "MODE_FILTER_DATA";
+const MODE_SORTLIKE_DATA = "MODE_SORTLIKE_DATA";
+const GET_THBOARD_REQUEST = "GET_THBOARD_REQUEST";
+const GET_THBOARD_SUCCESS = "GET_THBOARD_SUCCESS";
+const GET_THBOARD_FAILURE = "GET_THBOARD_FAILURE";
+const MODE_RESET_DATA = "MODE_RESET_DATA";
 
 // 액션함수
 
 // 전체데이터 가져오기
-export const getThBoards = (user_id, BoardType) => {
+export const getThBoards = (BoardType) => {
   return (dispatch) => {
     dispatch(getThBoardsRequest());
     thService
-      .fetchBoards(user_id, BoardType)
+      .fetchBoards(BoardType)
       .then((res) => dispatch(getThBoardsSuccess(res.data)))
       .catch((err) => dispatch(getThBoardsFailure(err.response)));
   };
@@ -60,7 +60,7 @@ export const getResetData = async () => {
 export const getDetailData = async (board_id, user_id) => {
   const detailData = await thService.fetchBoard(board_id, user_id); // id를 넣어야 가져올꺼같긴한데...
   return {
-    type: MODE_GET_DETAIL_DATA,
+    type: MODE_GET_THDETAIL_DATA,
     data: detailData.data,
     count: detailData.data.liked,
   };
@@ -74,7 +74,7 @@ const initialState = {
   loading: false,
   sortedExpired: false,
   sortedLike: false,
-  error: '',
+  error: "",
 };
 
 // 리듀서
@@ -109,7 +109,7 @@ export function ThboardReducer(state = initialState, action) {
         error: action.payload,
       };
 
-    case MODE_GET_DETAIL_DATA:
+    case MODE_GET_THDETAIL_DATA:
       return {
         ...state,
         detailData: action.thBoardData,
@@ -142,26 +142,11 @@ export function ThboardReducer(state = initialState, action) {
         ...state,
         // eslint-disable-next-line array-callback-return
         filterData: state.thBoardData.filter((data) => {
-          if (
-            Object.values(data.title)
-              .join('')
-              .toLowerCase()
-              .includes(action.keyword.toLowerCase())
-          ) {
+          if (Object.values(data.title).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
             return data;
-          } else if (
-            Object.values(data.worker)
-              .join('')
-              .toLowerCase()
-              .includes(action.keyword.toLowerCase())
-          ) {
+          } else if (Object.values(data.worker).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
             return data;
-          } else if (
-            Object.values(data.user.username)
-              .join('')
-              .toLowerCase()
-              .includes(action.keyword.toLowerCase())
-          ) {
+          } else if (Object.values(data.user.username).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
             return data;
           }
         }),

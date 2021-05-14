@@ -1,0 +1,38 @@
+.tableWrapper {
+  margin-top: 2rem;
+  margin-left: 10rem;
+  margin-right: 10rem;
+  margin-bottom: 5rem;
+}
+.table {
+  line-height: 15px;
+  word-break: break-all;
+  margin-top: 1.5rem;
+}
+.commentNum {
+  font-size: 15px;
+  color: #555555;
+}
+.new_icon {
+  color: #ff9411;
+}
+.table_link {
+  text-decoration: none;
+  color: black;
+}
+.registerBtn {
+  font-family: scdream5;
+  vertical-align: middle;
+  border: 2px solid green;
+  border-radius: 20px;
+  text-decoration: none;
+  color: green;
+  font-size: 20;
+  padding: 0.5rem;
+  margin-right: 0.25rem;
+  &:hover {
+    background-color: green;
+    color: white;
+    text-decoration: none;
+  }
+}

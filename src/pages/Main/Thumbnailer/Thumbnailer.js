@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import ThumbnailerTable from './ThumbnailerTable';
-import '../Youtuber/Youtuber.scss';
-import Pagination from '../components/Pagination';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  getThBoards,
-  getFilterData,
-} from '../../../redux/board/thumbnail/thboardReducer';
-import Search from '../components/Search';
+import React, { useEffect, useState } from "react";
+import ThumbnailerTable from "./ThumbnailerTable";
+import "../Youtuber/Youtuber.scss";
+import Pagination from "../components/Pagination";
+import { useDispatch, useSelector } from "react-redux";
+import { getThBoards, getFilterData } from "../../../redux/board/thumbnail/thboardReducer";
+import Search from "../components/Search";
 
 // nav에서 썸네일러를 누르면 보이는 전체 컴포넌트
 const Thumbnailer = () => {
@@ -17,7 +14,7 @@ const Thumbnailer = () => {
   const thBoardData = useSelector((state) => state.ThboardReducer);
   const { userData } = useSelector((state) => state.loginReducer);
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,21 +22,14 @@ const Thumbnailer = () => {
 
   const indexOfLastData = currentPage * boardPerPage;
   const indexOfFirstData = indexOfLastData - boardPerPage;
-  const currentData = thBoardData.filterData.slice(
-    indexOfFirstData,
-    indexOfLastData
-  );
+  const currentData = thBoardData.filterData.slice(indexOfFirstData, indexOfLastData);
 
   const clickPage = (pages) => {
     setCurrentPage(pages);
   };
 
   useEffect(() => {
-    if (!userData || userData !== '') {
-      dispatch(getThBoards(0, 3));
-    } else {
-      dispatch(getThBoards(userData.id, 3));
-    }
+    dispatch(getThBoards(3));
   }, [userData, dispatch]);
 
   const searchHandler = (searchTerm) => {
@@ -56,9 +46,7 @@ const Thumbnailer = () => {
   ) : (
     <div className='tableWrapper'>
       <Search
-        boardData={
-          searchTerm.length < 1 ? thBoardData.filterData : searchResults
-        }
+        boardData={searchTerm.length < 1 ? thBoardData.filterData : searchResults}
         term={searchTerm}
         setTerm={setSearchTerm}
         searchKeyword={searchHandler}

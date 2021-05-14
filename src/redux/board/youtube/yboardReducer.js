@@ -1,19 +1,19 @@
-import * as YapiService from '../../../apiService/YapiService';
+import * as YapiService from "../../../apiService/YapiService";
 
 // 액션
-const MODE_GET_DETAIL_DATA = 'getDetailData';
-const MODE_FILTER_DATA = 'MODE_FILTER_DATA';
-const MODE_SORTEXDATE_DATA = 'MODE_SORTEXDATE_DATA';
-const MODE_SORTLIKE_DATA = 'MODE_SORTLIKE_DATA';
-const GET_YBOARD_REQUEST = 'GET_YBOARD_REQUEST';
-const GET_YBOARD_SUCCESS = 'GET_YBOARD_SUCCESS';
-const GET_YBOARD_FAILURE = 'GET_YBOARD_FAILURE';
-const MODE_RESET_DATA = 'MODE_RESET_DATA';
+const MODE_GET_DETAIL_DATA = "getDetailData";
+const MODE_FILTER_DATA = "MODE_FILTER_DATA";
+const MODE_SORTEXDATE_DATA = "MODE_SORTEXDATE_DATA";
+const MODE_SORTLIKE_DATA = "MODE_SORTLIKE_DATA";
+const GET_YBOARD_REQUEST = "GET_YBOARD_REQUEST";
+const GET_YBOARD_SUCCESS = "GET_YBOARD_SUCCESS";
+const GET_YBOARD_FAILURE = "GET_YBOARD_FAILURE";
+const MODE_RESET_DATA = "MODE_RESET_DATA";
 // 액션함수
-export const getYBoards = (user_id) => {
+export const getYBoards = () => {
   return (dispatch) => {
     dispatch(getYBoardsRequest());
-    YapiService.fetchBoards(user_id)
+    YapiService.fetchBoards()
       .then((res) => dispatch(getYBoardsSuccess(res.data)))
       .catch((err) => dispatch(getYBoardsFailure(err.response)));
   };
@@ -59,8 +59,8 @@ export const getResetData = async () => {
   };
 };
 
-export const getDetailData = async (board_id, user_id) => {
-  const detailData = await YapiService.fetchBoard(board_id, user_id); // id를 넣어야 가져올꺼같긴한데...
+export const getDetailData = async (board_id) => {
+  const detailData = await YapiService.fetchBoard(board_id); // id를 넣어야 가져올꺼같긴한데...
   return {
     type: MODE_GET_DETAIL_DATA,
     data: detailData.data,
@@ -76,7 +76,7 @@ const initialState = {
   loading: false,
   sortedExpired: false,
   sortedLike: false,
-  error: '',
+  error: "",
 };
 
 // 리듀서
@@ -163,26 +163,11 @@ const YboardReducer = (state = initialState, action) => {
         ...state,
         // eslint-disable-next-line array-callback-return
         filterData: state.data.filter((data) => {
-          if (
-            Object.values(data.title)
-              .join('')
-              .toLowerCase()
-              .includes(action.keyword.toLowerCase())
-          ) {
+          if (Object.values(data.title).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
             return data;
-          } else if (
-            Object.values(data.worker)
-              .join('')
-              .toLowerCase()
-              .includes(action.keyword.toLowerCase())
-          ) {
+          } else if (Object.values(data.worker).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
             return data;
-          } else if (
-            Object.values(data.user.username)
-              .join('')
-              .toLowerCase()
-              .includes(action.keyword.toLowerCase())
-          ) {
+          } else if (Object.values(data.user.username).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
             return data;
           }
         }),
