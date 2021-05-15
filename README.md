@@ -23,6 +23,7 @@
 - yarn add @looop/quill-image-resize-module-react
 - yarn add react-youtube
 - yarn add get-youtube-channel-id
+- yarn add react-daum-postcode (다음 주소 api)
 
 ## 이미지 및 썸네일러 사이즈
 
