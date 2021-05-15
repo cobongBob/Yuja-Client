@@ -114,7 +114,7 @@ const Required = ({ location }) => {
   const [securityCodeValidateDesc, setSecurityCodeValidateDesc] = useState();
   const [passCheckNum, setpassCheckNum] = useState();
 
-  const [nextBtnDisabledHandler, setNextBtnDisabledHandler] = useState(true);
+  const [nextBtnDisabledHandler, setNextBtnDisabledHandler] = useState(false);
 
   const totalCheck = useCallback(() => {
     if (
@@ -221,10 +221,10 @@ const Required = ({ location }) => {
     }
   }, [isValidateInput]);
 
-  useEffect(() => {
-    totalCheck();
-    console.log('useEffect의 sc값', securityCode)
-  }, [requiredData, passCheckNum, nextBtnDisabledHandler, totalCheck, securityCode]);
+  // useEffect(() => {
+  //   totalCheck();
+  //   console.log('useEffect의 sc값', securityCode)
+  // }, [requiredData, passCheckNum, nextBtnDisabledHandler, totalCheck, securityCode]);
 
   /* new 유효성 검사 끝 */
 

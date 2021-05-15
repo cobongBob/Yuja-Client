@@ -182,7 +182,6 @@ const NonRequired = ({ location, history }) => {
 
   /* 버튼 활성화 */
   const [submitDisableHandler, setSubmitDisableHandler] = useState();
-  const [isAllYoutuberNeedsFill, setIsAllYoutuberNeedsFill] = useState();
 
   const [isCompanyRegNumFill, setIsCompanyRegNumFill] = useState();
   const [isPermalinkFill, setIsPermalinkFill] = useState();
@@ -268,6 +267,7 @@ const NonRequired = ({ location, history }) => {
                 type='tel'
                 placeholder='-를 제외한 11자리'
                 autoComplete='off'
+                maxLength='11'
                 onChange={changeValue}
               />
             </td>
@@ -294,7 +294,7 @@ const NonRequired = ({ location, history }) => {
               <div className='youtuberDiv_Title'>
                 유튜버 분들은 원활한 서비스 이용을 위해
                 <br />
-                추가 정보를 입력해주세요!
+                <span>아래 추가 필수 정보</span>를 입력해주세요!
               </div>
               <div className='youtuberInputBox'>
                 <div className='companyRegNumBox'>
