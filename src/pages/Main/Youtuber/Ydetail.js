@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import * as YapiService from '../../../apiService/YapiService';
 import './Ydetail.scss';
 import { FcLike } from 'react-icons/fc';
 import { AiOutlineHeart, AiOutlineFileSearch } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import ChannelBox from './api_practice/ChannelBox';
 import {
@@ -12,8 +12,17 @@ import {
   deleteLike,
 } from '../../../redux/board/youtube/yboardReducer';
 import { useDispatch, useSelector } from 'react-redux';
+import { Modal } from 'react-bootstrap';
 
 const Ydetail = (props) => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const history = useHistory();
+
+  // 뒤로가기
+  const goBack = () => {
+    history.push('/Youtuber');
+  };
+
   const dispatch = useDispatch();
 
   const { userData } = useSelector((state) => state.loginReducer);
@@ -74,7 +83,21 @@ const Ydetail = (props) => {
                     className='detail-update-btn'>
                     공고 수정하기
                   </Link>
-                  <button onClick={deleteBoard}>공고 삭제하기</button>
+                  <button className='detail-update-btn' onClick={deleteBoard}>
+                    공고 삭제하기
+                  </button>
+                  <button className='detail-update-btn' onClick={goBack}>
+                    목록보기
+                  </button>
+                  <button onClick={() => setModalIsOpen(true)}>신고하기</button>
+                  <Modal
+                    isOpen={modalIsOpen}
+                    onRequestClose={() => setModalIsOpen(false)}>
+                    <h1>신고하기 모달창</h1>
+                    <button onClick={() => setModalIsOpen(false)}>
+                      closeModal
+                    </button>
+                  </Modal>
                 </div>
               </div>
               <div className='detail-title'>

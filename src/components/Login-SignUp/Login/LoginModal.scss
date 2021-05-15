@@ -1,20 +1,19 @@
-
 .header {
   text-align: center;
 }
 
 .header-title {
-  font-size:3rem;
+  font-size: 3rem;
   font-family: hopang;
-  color:#ffb963;
+  color: #ffb963;
 }
 .header-title:hover {
   text-decoration: none;
-  color:#ffb963;
+  color: #ffb963;
 }
 .signinIcon {
-  width:15%;
-  margin:2em 0 1em 2em;
+  width: 15%;
+  margin: 2em 0 1em 2em;
 }
 section {
   font-family: scdream4;
@@ -36,7 +35,7 @@ section {
   padding: 9px 12px;
   outline: none;
   box-sizing: border-box;
-  font-size:0.85em;
+  font-size: 0.85em;
 }
 input::placeholder {
   color: #999999;
@@ -50,7 +49,7 @@ input::placeholder {
   padding: 9px 12px;
   outline: none;
   box-sizing: border-box;
-  font-size:0.85em;
+  font-size: 0.85em;
 }
 .loginMid {
   display: flex;
@@ -69,7 +68,7 @@ input::placeholder {
   font-size: 14px;
   color: #8d8d8d;
   line-height: 3;
-  left:50%;
+  left: 50%;
 }
 .loginBtn {
   height: 40px;
@@ -122,10 +121,10 @@ section > footer {
 }
 /* nav 로그인 전/후 변하는 컴포넌트들 */
 .navChangeBox {
-  display:inline-block;
+  display: inline-block;
 }
 .welcomeBox {
-  display:inline-block;
+  display: inline-block;
 }
 /* 모달창 제어 */
 .ReactModal__Body--open,
@@ -133,33 +132,31 @@ section > footer {
   overflow: hidden;
 }
 .ReactModal__Body--after-open {
-  overflow-y:hidden;
+  overflow-y: hidden;
 }
 .ReactModal__Overlay {
   opacity: 0;
   transition: opacity 500ms;
 }
-.ReactModal__Overlay--after-open{
+.ReactModal__Overlay--after-open {
   opacity: 1;
-  overflow-y:hidden;
+  overflow-y: hidden;
 }
-.ReactModal__Overlay--before-close{
+.ReactModal__Overlay--before-close {
   opacity: 0;
 }
 .ReactModal__Content {
-  overflow-x:hidden;
+  overflow-x: hidden;
 }
 
 /* 모달 반응형 */
-@media screen and (max-width: 4000px) and (max-height:4000px){
-
+@media screen and (max-width: 4000px) and (max-height: 4000px) {
   .ReactModal__Content {
-    min-width:360px;
-    height:1em;
+    min-width: 360px;
+    height: 1em;
   }
   .ReactModal__Content--after-open {
-    min-width:360px;
-    min-height:560px;
+    min-width: 360px;
+    min-height: 560px;
   }
-
 }
