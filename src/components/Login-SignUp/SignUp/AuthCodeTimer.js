@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 const AuthCodeTimer = (props) => {
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(10);
+  const [minutes, setMinutes] = useState(3);
+  const [seconds, setSeconds] = useState(0);
   const start = props.start;
   const setStart = props.setStart;
 

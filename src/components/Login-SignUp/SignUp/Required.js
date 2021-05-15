@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import AuthCodeTimer from "./AuthCodeTimer";
 import AuthBtnBox from "./AuthBtnBox";
-import AuthenticationService from "../Login/AuthenticationService";
+import * as auth from "../../../apiService/AuthenticationService";
+import axios from "axios";
 
 const Required = ({ location }) => {
   /* 값 넘겨주기 */
@@ -14,107 +15,218 @@ const Required = ({ location }) => {
     bday: "",
     nickname: "",
   });
+
+  const isValidateInput = useMemo(
+    () => ({
+      id: requiredData.username,
+      pass: requiredData.password,
+      name: requiredData.realName,
+      birth: requiredData.bday,
+      nick: requiredData.nickname,
+    }),
+    [requiredData]
+  );
+
   const changeValue = (e) => {
     setrequiredData({
       ...requiredData,
       [e.target.name]: e.target.value,
     });
   };
+
   /* 값 넘겨주기 끝 */
-
-  /* 유효성 검사 */
-  let [passCheckNum, setpassCheckNum] = useState();
-
-  const getPassCheckNum = (e) => {
-    setpassCheckNum(e.target.value);
-  };
-  const checkRequiredUserData = (e) => {
-    let id = requiredData.username;
-    let pass = requiredData.password;
-    let name = requiredData.realName;
-    let birth = requiredData.bday;
-    let nick = requiredData.nickname;
-
-    const emailCheck = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-    const passCheck = /^(?=.*?[a-z])(?=.*?[#?!@$%^&*-])(?=.*?[0-9]).{8,}$/; /* 비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다. */
-    const nameCheck = /^[a-zA-Z가-힣]{2,10}$/;
-    const birthCheck = /^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/;
-    const nickCheck = /^[a-zA-Z0-9가-힣ㄱ-ㅎ]{2,20}$/; /* 특수문자 제외 영문, 숫자, 한글 2~20자 */
-
-    if ([id, pass, name, birth, nick].includes("") || [id, pass, name, birth, nick].includes("{")) {
-      alert("빈칸을 모두 입력해주세요.");
-      e.preventDefault();
-    } else if (false === emailCheck.test(id)) {
-      alert("올바른 이메일 형식이 아닙니다.");
-      e.preventDefault();
-    } else if (false === passCheck.test(pass)) {
-      alert("4~10자, 숫자랑 영어만 / 테스트용 비밀번호");
-      e.preventDefault();
-    } else if (pass !== passCheckNum) {
-      alert("비밀번호를 확인해주세요!");
-      e.preventDefault();
-    } else if (false === nameCheck.test(name)) {
-      alert("이름은 영문자, 한글만 입력 가능합니다!");
-      e.preventDefault();
-    } else if (false === birthCheck.test(birth)) {
-      alert("생년월일 형식을 확인해주세요. ");
-      e.preventDefault();
-    } else if (false === nickCheck.test(nick)) {
-      alert("닉네임은 특수문자를 제외한 2~20자만 입력 가능합니다.");
-      e.preventDefault();
-    }
-  };
-  /* 유효성 검사 끝*/
-
-  /* 인증 코드 발송 */
-  const [timerSet, setTimerSet] = useState(false);
-  const [startTimer, setStartTimer] = useState(false);
-
-  console.log("timerSet의 값", timerSet);
-  console.log("startTimer의 값", startTimer);
-
-  const CodeTimer = () => {
-    if (timerSet) {
-      return <AuthCodeTimer start={startTimer} setStart={setStartTimer} />;
-    } else {
-      return;
-    }
-  };
-
-  const changeStartTimer = () => {
-    AuthenticationService.verifyEmailSend(requiredData.username).then((res) => {
-      setSecurityCode(res.data);
-    });
-    return setStartTimer(!startTimer);
-  };
-
-  const changeTimeSet = () => {
-    return setTimerSet(!timerSet);
-  };
-  /* 인증 코드 발송 끝 */
 
   /* 인증코드 통신 및 확인 */
   const [authCode, setAuthCode] = useState();
-  const [securityCode, setSecurityCode] = useState("초기값이라 맞출수없다");
-
-  console.log("authCode의 값", authCode);
+  const [securityCode, setSecurityCode] = useState("오늘점심은부대찌개!!");
+  const [disabledHandler, setDisabledHandler] = useState(false);
+  const [emailDisableHandler, setEmailDisableHandler] = useState(false);
+  const [btnTextHandler, setBtnTextHandler] = useState('인증번호 발송');
 
   const getAuthCode = (e) => {
     setAuthCode(e.target.value);
   };
 
-  const changeDisable = (e) => {};
-
-  const checkCodes = (e) => {
-    if (securityCode === authCode) {
+  const checkCodes = () => {
+    if(isValidateInput.id === '' || EmailValidateResData !== '') {
+      console.log('비어있음!')
+      setSecurityCodeValidateDesc('이메일을 확인 해주세요.')
+    } else if (securityCode === authCode) {
       console.log("인증성공");
+      clearTimeout(setSecurityCode)
       changeTimeSet();
+      setDisabledHandler(true);
+      setBtnTextHandler('인증완료')
+      setSecurityCodeValidateDesc('')
+      setEmailDisableHandler(true)
       return true;
     } else {
       console.log("인증실패");
+      setSecurityCodeValidateDesc('인증번호를 확인 해주세요.')
       return false;
     }
   };
+  /* 인증코드 통신 및 끝 */
+
+  /* 인증 코드 발송 */
+  const [timerSet, setTimerSet] = useState(false);
+  const [startTimer, setStartTimer] = useState(false);
+  const securityCodeDelay = 1000 * 60 * 3;
+
+  const CodeTimer = () => {
+    if (timerSet) {
+      return <AuthCodeTimer
+        start={startTimer}
+        setStart={setStartTimer}
+      />;
+    }
+  };
+  const changeStartTimer = () => {
+    console.log('===================== changeStartTimer 실행')
+    auth.verifyEmailSend(requiredData.username).then((res) => {
+      console.log('받자마자 res.data의 값 ', res.data)
+      setSecurityCode(res.data);
+      console.log('res.data를 sc에 넣은 후 sc의 값', securityCode)
+      setTimeout(() => {
+        setSecurityCode('내일점심은부대찌개!')
+      }, securityCodeDelay);
+    });
+    return setStartTimer(!startTimer);
+  };
+  const changeTimeSet = () => {
+    if(isValidateInput.id === '' || EmailValidateResData !== '') {
+      setSecurityCodeValidateDesc('이메일을 확인 해주세요.')
+      return '';
+    }
+    setTimerSet(!timerSet)
+    changeStartTimer()
+    setSecurityCodeValidateDesc('');
+  };
+  /* 인증 코드 발송 끝 */
+
+  /* new 유효성 검사 */
+  const [EmailValidateResData, setEmailValidateResData] = useState();
+  const [nicknameValidateResData, setNicknameValidateResData] = useState();
+  const [passwordValidateDesc, setPasswordValidateDesc] = useState();
+  const [checkPasswordValidateDesc, setCheckPasswordValidateDesc] = useState();
+  const [nameValidateDesc, setNameValidateDesc] = useState();
+  const [birthValidateDesc, setBirthValidateDesc] = useState();
+  const [securityCodeValidateDesc, setSecurityCodeValidateDesc] = useState();
+  const [passCheckNum, setpassCheckNum] = useState();
+
+  const [nextBtnDisabledHandler, setNextBtnDisabledHandler] = useState(true);
+
+  const totalCheck = useCallback(() => {
+    if (
+      EmailValidateResData === "" &&
+      nicknameValidateResData === "" &&
+      passwordValidateDesc === "" &&
+      checkPasswordValidateDesc === "" &&
+      nameValidateDesc === "" &&
+      birthValidateDesc === "" &&
+      isValidateInput.nick !== "" &&
+      isValidateInput.birth !== "" &&
+      isValidateInput.id !== "" &&
+      isValidateInput.name !== "" &&
+      isValidateInput.pass !== "" &&
+      btnTextHandler === "인증완료"
+    ) {
+      setNextBtnDisabledHandler(false);
+    } else {
+      setNextBtnDisabledHandler(true);
+    }
+  }, [
+    EmailValidateResData,
+    nicknameValidateResData,
+    passwordValidateDesc,
+    checkPasswordValidateDesc,
+    nameValidateDesc,
+    birthValidateDesc,
+    isValidateInput,
+    btnTextHandler,
+  ]);
+
+  const backSpaceCheck = useCallback(() => {
+    totalCheck();
+  }, [totalCheck]);
+
+  const { current: passCheck } = useRef(
+    /^(?=.*?[a-z])(?=.*?[#?!@$%^&*-])(?=.*?[0-9]).{8,}$/
+  ); /* 비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다. */
+  const { current: nameCheck } = useRef(/^[a-zA-Z가-힣]{2,10}$/);
+  const { current: birthCheck } = useRef(/^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/);
+
+  const getPassCheckNum = (e) => {
+    setpassCheckNum(e.target.value);
+    requiredNextBtnHandler();
+  };
+
+  const checkEmailValidate = useCallback(() => {
+    axios.post("http://localhost:8888/api/auth/checkemail", requiredData).then((res) => {
+      if (res.data !== "") {
+        setEmailValidateResData(res.data);
+      } else if (res.data === "") {
+        setEmailValidateResData("");
+      }
+    });
+  }, [requiredData]);
+
+  const checkNicknameValidate = useCallback(() => {
+    axios.post("http://localhost:8888/api/auth/checknickname", requiredData).then((res) => {
+      if (res.data !== "") {
+        setNicknameValidateResData(res.data);
+      } else if (res.data === "") {
+        setNicknameValidateResData("");
+      }
+    });
+  }, [requiredData]);
+
+  const checkPasswordValidate = useCallback(() => {
+    passCheck.test(isValidateInput.pass) === false && isValidateInput.pass !== ""
+      ? setPasswordValidateDesc("비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.")
+      : setPasswordValidateDesc("");
+  }, [isValidateInput, passCheck]);
+
+  const checkPasswordCheckValidate = useCallback(() => {
+    isValidateInput.pass !== passCheckNum && passCheckNum !== ""
+      ? setCheckPasswordValidateDesc("비밀번호를 확인해주세요.")
+      : setCheckPasswordValidateDesc("");
+  }, [isValidateInput, passCheckNum]);
+
+  const checkNameValidate = useCallback(() => {
+    if (nameCheck.test(isValidateInput.name) === false && isValidateInput.name !== "") {
+      setNameValidateDesc("이름은 2글자 이상의 영문자, 한글만 입력 가능합니다.");
+    } else {
+      setNameValidateDesc("");
+    }
+  }, [nameCheck, isValidateInput]);
+
+  const checkBirthValidate = useCallback(() => {
+    birthCheck.test(isValidateInput.birth) === false && isValidateInput.birth !== ""
+      ? setBirthValidateDesc("-을 제외한 생년월일 6자리만 입력해주세요.")
+      : setBirthValidateDesc("");
+  }, [birthCheck, isValidateInput]);
+
+  const requiredNextBtnHandler = useCallback(() => {
+    if (
+      [
+        isValidateInput.id,
+        isValidateInput.nick,
+        isValidateInput.birth,
+        isValidateInput.name,
+        isValidateInput.pass,
+      ].includes("")
+    ) {
+      setNextBtnDisabledHandler(true);
+    }
+  }, [isValidateInput]);
+
+  useEffect(() => {
+    totalCheck();
+    console.log('useEffect의 sc값', securityCode)
+  }, [requiredData, passCheckNum, nextBtnDisabledHandler, totalCheck, securityCode]);
+
+  /* new 유효성 검사 끝 */
 
   return (
     <div className='contentBox2'>
@@ -132,15 +244,20 @@ const Required = ({ location }) => {
                 type='email'
                 placeholder='아이디(이메일)'
                 onChange={changeValue}
-                required
+                onKeyUp={checkEmailValidate}
+                disabled={emailDisableHandler}
+                autoComplete='off'
                 autoFocus
               />
+              <div className='warningBox'>{EmailValidateResData}</div>
             </td>
           </tr>
           <tr>
             <td>
               <div className='labelWrapper'>
-                <label htmlFor='authenticationCodeCheck'>이메일 인증번호 입력</label>
+                <label htmlFor='authenticationCodeCheck'>
+                  이메일 인증번호 입력
+                </label>
               </div>
               <div className='authCodeCheckBox'>
                 <div className='authenticationCodeBox'>
@@ -151,6 +268,8 @@ const Required = ({ location }) => {
                     maxLength='8'
                     placeholder='인증번호 입력'
                     onChange={getAuthCode}
+                    disabled={disabledHandler}
+                    autoComplete='off'
                   />
                 </div>
                 <div className='codeTimerBox'>{CodeTimer()}</div>
@@ -164,7 +283,14 @@ const Required = ({ location }) => {
                     changeTimeSet={changeTimeSet}
                     changeStartTimer={changeStartTimer}
                     checkCodes={checkCodes}
-                  ></AuthBtnBox>
+                    btnTextHandler={btnTextHandler}
+                    disabledHandler={disabledHandler}
+                    autoComplete='off'
+                  >
+                  </AuthBtnBox>
+                </div>
+                <div className='warningBox'>
+                  {securityCodeValidateDesc}
                 </div>
               </div>
             </td>
@@ -180,8 +306,12 @@ const Required = ({ location }) => {
                 type='password'
                 placeholder='비밀번호'
                 onChange={changeValue}
-                required
+                onKeyUp={checkPasswordValidate}
+                autoComplete='off'
               />
+                <div className='warningBox'>
+                  {passwordValidateDesc}
+                </div>
             </td>
           </tr>
           <tr>
@@ -195,8 +325,12 @@ const Required = ({ location }) => {
                 type='password'
                 placeholder='비밀번호 확인'
                 onChange={getPassCheckNum}
-                required
+                onKeyUp={checkPasswordCheckValidate}
+                autoComplete='off'
               />
+                <div className='warningBox'>
+                  {checkPasswordValidateDesc}
+                </div>
             </td>
           </tr>
           <tr>
@@ -210,8 +344,12 @@ const Required = ({ location }) => {
                 type='text'
                 placeholder='이름(실명)'
                 onChange={changeValue}
-                required
+                onKeyUp={checkNameValidate}
+                autoComplete='off'
               />
+                <div className='warningBox'>
+                  {nameValidateDesc}
+                </div>
             </td>
           </tr>
           <tr>
@@ -226,8 +364,12 @@ const Required = ({ location }) => {
                 maxLength='6'
                 placeholder='생년월일(-을 제외한 6자리)'
                 onChange={changeValue}
-                required
+                onKeyUp={checkBirthValidate}
+                autoComplete='off'
               />
+                <div className='warningBox'>
+                  {birthValidateDesc}
+                </div>
             </td>
           </tr>
           <tr>
@@ -242,24 +384,39 @@ const Required = ({ location }) => {
                 maxLength='20'
                 placeholder='닉네임'
                 onChange={changeValue}
-                required
+                onKeyUp={checkNicknameValidate}
+                onKeyDown={backSpaceCheck}
+                autoComplete='off'
               />
+                <div className='warningBox'>
+                  {nicknameValidateResData}
+                </div>
             </td>
           </tr>
         </table>
         <div className='signUpNextBtnBox'>
-          <Link
-            to={{
-              pathname: "/SignUp1/NonRequired",
-              state: {
-                requiredData: requiredData,
-              },
-            }}
-            className='btn btn-warning'
-            //onClick={checkRequiredUserData}
-          >
-            다음
-          </Link>
+          {
+            nextBtnDisabledHandler === false ?
+            <Link
+              to={{
+                pathname: "/SignUp1/NonRequired",
+                state: {
+                  requiredData: requiredData,
+                },
+              }}
+              className='btn btn-warning'
+              //onClick={checkRequiredUserData}
+            >
+              다음
+            </Link>
+              :
+              <button
+                className='btn btn-warning'
+                disabled={true}
+              >
+                다음
+              </button>
+          }
         </div>
       </div>
     </div>

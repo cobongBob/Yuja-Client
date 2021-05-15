@@ -8,18 +8,29 @@
   display: contents;
 }
 
+.youtube-top-wrapper {
+  display: block;
+}
+
 .youtube-top {
   display: inline-block;
-  font-family: scdream5;
+  font-family: 'scdream5';
   font-size: 30px;
   border-bottom: 3px solid #c4302b;
   margin-top: 3%;
-  margin-bottom: 20px;
+  margin-bottom: 3%;
 }
+
+.youtube_top_DefaultInfo {
+  text-align: center;
+}
+
 .channel-box {
-  border: 2px solid #c4302b;
-  height: 35vh;
-  margin-bottom: 5%;
+  border: 3px solid #c4302b;
+  margin-bottom: 3%;
+  background-color: #feffe6;
+  min-width: 70vw;
+  display: inline-block;
 }
 
 .detail-box {
@@ -27,7 +38,7 @@
 }
 .DetailTop {
   display: inline-block;
-  font-family: scdream5;
+  font-family: 'scdream5';
   font-size: 30px;
   border-bottom: 3px solid #c4302b;
   margin-bottom: 20px;
@@ -39,8 +50,8 @@
 .detail-btn-box {
   display: inline-block;
   margin-left: auto;
-  font-family: scdream5;
-  font-size: 15px;
+  font-family: 'scdream5';
+  font-size: 1.4rem;
   color: black;
   margin-bottom: 1rem;
 }
@@ -76,30 +87,29 @@
 
 .detail-title {
   display: flex;
-  font-family: scdream5;
-  font-size: 23px;
+  font-family: 'scdream5';
+  font-size: 1.6rem;
 }
 
 .detail-show {
   display: inline-block;
   margin-left: auto;
-  vertical-align: middle;
-  font-family: scdream4;
+  font-family: 'scdream4';
   font-size: 15px;
 }
 
 .detail-date {
   color: gray;
-  font-family: scdream4;
+  font-family: 'scdream4';
   margin-bottom: 10px;
 }
 
 .detail-content {
   display: flex;
-  font-family: scdream4;
+  font-family: 'scdream4';
   background-color: #e9e9e9;
   border-radius: 20px;
-  height: 70vh;
+  width: 80vw;
   padding: 2rem;
   line-height: 30px;
 }
@@ -118,4 +128,37 @@
   height: 60vh;
   border-radius: 10px;
   background-color: #c0c0c0;
+}
+
+.QuillContent {
+  width: 76vw;
+}
+
+.DetailQuill {
+  width: 5vw;
+}
+
+.likeButton {
+  background: none;
+  border: none;
+  color: #d62d20;
+  font-size: 1.5rem;
+  line-height: 1.5;
+}
+
+.hit {
+  color: #008744;
+}
+
+.hitCount {
+  font-size: 1.5rem;
+  color: #008744;
+}
+
+.hitWrapper {
+  display: flex;
+}
+
+.likeWrapper {
+  margin-bottom: 1%;
 }

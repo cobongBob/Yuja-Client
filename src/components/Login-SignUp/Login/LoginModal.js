@@ -1,9 +1,13 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import Modal from "react-modal";
 import "./LoginModal.scss";
 import "../../Navi/Navi.scss";
 import { Link } from "react-router-dom";
-import AuthenticationService from "./AuthenticationService";
+import * as auth from "../../../apiService/AuthenticationService";
+import GoogleLogin from "react-google-login";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogin, userLogout, userCheck } from "../../../redux/redux-login/loginReducer";
+import googleLoginIcon from "./googleLoginIcon2.svg";
 
 function LoginModal() {
   /* 모달 설정 */
@@ -31,14 +35,33 @@ function LoginModal() {
   }
   /* 모달 설정 끝 */
 
+  /* form, submit 새로고침 방지용 */
+  const onSubmit = (e) => {
+    e.preventDefault();
+    closeModal();
+  };
+  /* form, submit 새로고침 방지용 끝 */
+
+  /* 리덕스 관련 */
+  const { userLoginStatus, userData } = useSelector((state) => state.loginReducer);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    userCheck().then((res) => {
+      dispatch(res);
+      if (res.userLoginStatus === false) {
+        auth.authLogout();
+      }
+    });
+  }, [dispatch]);
+  /* 리덕스 관련 끝 */
+
   /* 로그인 관련 */
   const logout = useCallback(() => {
-    AuthenticationService.logout();
-  }, []);
-
-  const checkLogin = useCallback(() => {
-    AuthenticationService.isUserLoggedIn();
-  }, []);
+    userLogout().then((res) => {
+      dispatch(res);
+    });
+  }, [dispatch]);
 
   const [loginData, setLoginData] = useState({
     username: "",
@@ -53,24 +76,51 @@ function LoginModal() {
     },
     [loginData]
   );
-  const logInHandler = useCallback(() => {
-    AuthenticationService.executeJwtAuthenticationService(loginData).then((res) => {
-      AuthenticationService.registerSuccessfulLoginForJwt(loginData.username, res.data);
+  const logInHandler = useCallback(async () => {
+    userLogin(loginData).then((res) => {
+      dispatch(res);
     });
-  }, [loginData]);
+  }, [loginData, dispatch]);
+
+  const resGoogle = useCallback(async (response) => {
+    await auth.googleLoginService(response).then((res) => {
+      auth.executeJwtAuthenticationService(res).then((resFromserver) => {
+        auth.registerSuccessfulLoginForJwt(res.username, resFromserver.data);
+        closeModal();
+      });
+    });
+  }, []);
   /* 로그인 관련 끝 */
+
+  const customStyle = {
+    background: "royalblue",
+    height: "40px",
+    width: "100%",
+    fontSize: "14px",
+    color: "white",
+    lineHeight: "1px",
+    marginTop: "10px",
+    marginBottom: "12PX",
+    borderRadius: "3px",
+    borderStyle: "none",
+  };
 
   return (
     <>
-      <button className='button-login' onClick={checkLogin}>
-        로그인체크
-      </button>
-      <button className='button-login' onClick={logout}>
-        로그아웃
-      </button>
-      <button className='button-login' id='button-login' onClick={openModal}>
-        로그인/회원가입
-      </button>
+      <div className='navChangeBox'>
+        {userLoginStatus === false ? (
+          <button className='button-login' id='button-login' onClick={openModal}>
+            로그인/회원가입
+          </button>
+        ) : (
+          <div>
+            <div className='welcomeBox'>안녕하세요, {userData.nickname}님!</div>
+            <button className='button-login' onClick={logout}>
+              로그아웃
+            </button>
+          </div>
+        )}
+      </div>
       <Modal
         isOpen={modalIsOpen}
         closeTimeoutMS={200}
@@ -87,20 +137,38 @@ function LoginModal() {
             <div className='header-title'>유자 로그인</div>
           </header>
           <main>
-            <input name='username' className='loginId' type='text' placeholder='아이디' onChange={inputHandler} />
-            <input name='password' className='loginPw' type='password' placeholder='비밀번호' onChange={inputHandler} />
-            <div className='loginMid'>
-              <label className='autoLogin' htmlFor='hint'>
-                {" "}
-                <input type='checkbox' name='maintainLogin' id='hint' /> 로그인 유지하기
-              </label>
-              <div className='autoLogin'>아이디/비밀번호 찾기</div>
-            </div>
-            <button className='loginBtn' onClick={logInHandler}>
-              {" "}
-              로그인{" "}
-            </button>
-            <button className='googleLoginBtn'> 구글 로그인 </button>
+            <form onSubmit={onSubmit}>
+              <input name='username' className='loginId' type='text' placeholder='아이디' onChange={inputHandler} />
+              <input
+                name='password'
+                className='loginPw'
+                type='password'
+                placeholder='비밀번호'
+                onChange={inputHandler}
+              />
+              <div className='loginMid'>
+                <div className='findPasswordBox'>
+                  <Link className='findPassword' to='/FindPassword' onClick={closeModal}>
+                    비밀번호 찾기
+                  </Link>
+                </div>
+              </div>
+              <input type='submit' className='loginBtn' value='로그인' onClick={logInHandler}></input>
+              <GoogleLogin
+                className='googleLoginBtn'
+                clientId=''
+                buttonText='구글 로그인'
+                onSuccess={resGoogle}
+                onFailure={resGoogle}
+                cookiePolicy={"single_host_origin"}
+                render={(renderProps) => (
+                  <button onClick={renderProps.onClick} style={customStyle}>
+                    <img src={googleLoginIcon} alt='안보임' className='googleIcon' />
+                    구글 로그인
+                  </button>
+                )}
+              />
+            </form>
           </main>
           <footer>
             <div className='loginLine'>
