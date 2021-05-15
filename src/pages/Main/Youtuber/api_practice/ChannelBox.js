@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import "./ChannelBox.scss";
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import './ChannelBox.scss';
 const ChannelBox = () => {
   // console.log("여긴 youtubeAPI data", detailData);
   const { detailData } = useSelector((state) => state.YboardReducer);
-  const [title, setTitle] = useState("");
-  const [subscribers, setSubscribers] = useState("");
-  const [videos, setVideos] = useState("");
+  const [title, setTitle] = useState('');
+  const [subscribers, setSubscribers] = useState('');
+  const [videos, setVideos] = useState('');
   // const [views, setViews] = useState('');
   // const [bannerimage, setImageBannerImage] = useState(' ');
-  const [desc, setDesc] = useState("");
-  const [thumb, setThumb] = useState("");
+  const [desc, setDesc] = useState('');
+  const [thumb, setThumb] = useState('');
 
-  const API_KEY = "AIzaSyDLR47w8ZGLifW0rikkDVKP68TMYIu5ywQ";
+  const API_KEY = 'AIzaSyDLR47w8ZGLifW0rikkDVKP68TMYIu5ywQ';
 
   useEffect(() => {
     if (detailData && detailData.id !== 0) {
-      setSubscribers("");
-      setTitle("");
-      setVideos("");
-      setThumb("");
-      setDesc("");
+      setSubscribers('');
+      setTitle('');
+      setVideos('');
+      setThumb('');
+      setDesc('');
       const url = detailData.user.youtubeUrl;
       if (url) {
-        const lastIdx = url.lastIndexOf("/");
+        const lastIdx = url.lastIndexOf('/');
         const utubeId = url.substr(lastIdx + 1);
         fetch(
           `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,contentDetails,brandingSettings&id=${utubeId}&key=${API_KEY}`
@@ -34,34 +34,42 @@ const ChannelBox = () => {
               const brand = res.items[0].brandingSettings;
               const statis = res.items[0].statistics;
               const snip = res.items[0].snippet;
-              Object.keys(statis).includes("subscriberCount")
+              Object.keys(statis).includes('subscriberCount')
                 ? setSubscribers(statis.subscriberCount)
-                : setSubscribers("");
-              Object.keys(snip).includes("title") ? setTitle(snip.title) : setTitle("");
+                : setSubscribers('');
+              Object.keys(snip).includes('title')
+                ? setTitle(snip.title)
+                : setTitle('');
               // Object.keys(statis).includes('viewCount')
               //   ? setViews(statis.viewCount)
               //   : setViews('');
-              Object.keys(statis).includes("videoCount") ? setVideos(statis.videoCount) : setVideos("");
+              Object.keys(statis).includes('videoCount')
+                ? setVideos(statis.videoCount)
+                : setVideos('');
               // Object.keys(brand).includes('image')
               //   ? setImageBannerImage(brand.image.bannerExternalUrl)
               //   : setImageBannerImage('');
-              Object.keys(snip).includes("thumbnails") ? setThumb(snip.thumbnails.medium.url) : setThumb("");
-              Object.keys(brand).includes("channel") ? setDesc(brand.channel.description) : setDesc("");
+              Object.keys(snip).includes('thumbnails')
+                ? setThumb(snip.thumbnails.medium.url)
+                : setThumb('');
+              Object.keys(brand).includes('channel')
+                ? setDesc(brand.channel.description)
+                : setDesc('');
               // 전부 삼항연산자로 해당 컨텐트가 없는 사람일수도있으니 확인해야함
             }
           })
           .catch((e) => {
             console.log(e);
-            console.log("잘못된 유튜브 요청주소");
+            console.log('잘못된 유튜브 요청주소');
           });
       } else {
-        setSubscribers("");
-        setTitle("");
+        setSubscribers('');
+        setTitle('');
         // setViews('');
-        setVideos("");
+        setVideos('');
         // setImageBannerImage('');
-        setThumb("");
-        setDesc("");
+        setThumb('');
+        setDesc('');
       }
     }
   }, [detailData]);
@@ -99,7 +107,9 @@ const ChannelBox = () => {
               <label htmlFor=''>구합니다.</label>
             </li>
             <li>
-              <span>{detailData.career}</span>
+              <span>
+                {detailData.career} / {detailData.recruitingNum}명
+              </span>
             </li>
             <li>
               <span>{detailData.payType} / </span>
@@ -112,7 +122,11 @@ const ChannelBox = () => {
                 detailData.tools &&
                 detailData.tools.map((tool, idx) => (
                   <label key={idx} htmlFor=''>
-                    {idx < detailData.tools.length - 1 ? <span> {tool} /&nbsp;</span> : <span>{tool}</span>}
+                    {idx < detailData.tools.length - 1 ? (
+                      <span> {tool} /&nbsp;</span>
+                    ) : (
+                      <span>{tool}</span>
+                    )}
                   </label>
                 ))}
             </li>
