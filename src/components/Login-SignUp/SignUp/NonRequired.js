@@ -1,12 +1,15 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import UserApiService from "../../../apiService/UserApiService";
+import DaumPostcode from "react-daum-postcode";
 import "./SignUp1.scss";
+import AddressApi from './AddressApi';
 
 const NonRequired = ({ location, history }) => {
   /* 파일 업로드 관련 */
   const [previewURL, setpreviewUrl] = useState();
   const [previewURL2, setpreviewUrl2] = useState();
   const profilePicId = useRef(0);
+  const youtubeConfirmId = useRef(0);
 
   const handleFileOnChange = (e) => {
     let file = e.target.files[0];
@@ -51,6 +54,9 @@ const NonRequired = ({ location, history }) => {
           const fileUrl2 = new URL("http://localhost:8888/files/temp/" + response.data.fileName);
           setpreviewUrl2(fileUrl2);
           setIsYoutuberPicFill("");
+          youtubeConfirmId.current = response.data.youtubeConfirmId;
+          console.log(2, response.data.youtubeConfirmId);
+          console.log(youtubeConfirmId.current);
         })
         .catch((error) => {
           console.log(error.response.data.message);
@@ -84,6 +90,7 @@ const NonRequired = ({ location, history }) => {
     bsn: "",
     youtuberUrl: "",
     profilePicId: profilePicId.current,
+    youtubeConfirmId: youtubeConfirmId.current
   });
 
   const changeValue = (e) => {
@@ -98,6 +105,7 @@ const NonRequired = ({ location, history }) => {
       ...requiredData,
       ...nonRequiredData,
       profilePicId: profilePicId.current,
+      youtubeConfirmId: youtubeConfirmId.current
     };
     console.log(data);
     UserApiService.addUser(data)
@@ -198,14 +206,14 @@ const NonRequired = ({ location, history }) => {
       console.log(isCompanyRegNumFill)
       console.log(isPermalinkFill)
       console.log(isYoutuberPicFill)
-      if(isCompanyRegNumFill === '' && isPermalinkFill === '' && isYoutuberPicFill === '') {
+      if(isPermalinkFill === '' && isYoutuberPicFill === '') {
         setSubmitDisableHandler(false)
       }
     } else if(isYoutuberChecked === false) {
       console.log('else로')
       setSubmitDisableHandler(false)
     }
-  }, [isYoutuberChecked, isCompanyRegNumFill, isPermalinkFill, isYoutuberPicFill, setSubmitDisableHandler]);
+  }, [isYoutuberChecked, isPermalinkFill, isYoutuberPicFill, setSubmitDisableHandler]);
 
   const permalinkCheck = useCallback((e) => {
     let checkContent = e.target.value
@@ -248,17 +256,9 @@ const NonRequired = ({ location, history }) => {
           </tr>
           <tr>
             <td>
-              <div className='labelWrapper'>
-                <label htmlFor='signUpAddress'>주소</label>
+              <div className='signUpAddressBox'>
+                <AddressApi/>
               </div>
-              <input
-                className='signUpAddress'
-                name='address'
-                type='text'
-                placeholder='주소'
-                autoComplete='off'
-                onChange={changeValue}
-              />
             </td>
           </tr>
           <tr>
@@ -303,8 +303,10 @@ const NonRequired = ({ location, history }) => {
             </div>
             <div className='youtuberInputBox'>
               <div className='companyRegNumBox'>
-                <label className='companyRegNumLabel' htmlFor='companyRegNumInput'>
-                  사업자등록번호
+                <label
+                  className='companyRegNumLabel'
+                  htmlFor='companyRegNumInput'>
+                  사업자등록번호 <span> (선택)</span>
                   <input
                     className='companyRegNumInput'
                     name='bsn'
@@ -322,8 +324,10 @@ const NonRequired = ({ location, history }) => {
                 {isCompanyRegNumFill}
               </div>
               <div className='youtuberUrlBox'>
-                <label className='youtuberUrlBoxLabel' htmlFor='youtuberUrlBoxInput'>
-                  유튜브 고유 주소
+                <label
+                  className='youtuberUrlBoxLabel'
+                  htmlFor='youtuberUrlBoxInput'>
+                  유튜브 고유 주소 <span>(필수)</span>
                   <input
                     className='youtuberUrlBoxInput'
                     name='youtuberUrl'
@@ -342,8 +346,11 @@ const NonRequired = ({ location, history }) => {
               </div>
 
             <div className='youtuberPicBox'>
-              <label className='youtuberPicLabel' htmlFor='youtuberPicInput'>
+              <label
+                className='youtuberPicLabel'
+                htmlFor='youtuberPicInput'>
                 유튜브 계정 스크린샷
+                <span> (필수)</span>
               </label>
               <div className='youtuberPicDesc'>
                 {isYoutuberPicFill}

@@ -314,6 +314,9 @@ input::placeholder {
   text-align: left;
   margin-top: 1rem;
   width:100%;
+    span {
+      color:red;
+    }
 }
 .youtuberUrlBoxInput{
   margin-top: 5px;
@@ -359,6 +362,9 @@ input::placeholder {
   text-align: left;
   margin-top: 2rem;
   width:100%;
+  span {
+    color:red;
+  }
 }
 .youtuberPicInputWrapper {
   margin-top: 5px;
