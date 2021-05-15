@@ -54,12 +54,14 @@ const Winwin = () => {
                   <td>
                     <Link className='table_link' to={`/Wdetail/${board.id}`}>
                       {board.title}
-                      <span className='commentNum'> [{board.comments}]</span>
+                      <span className='commentNum'> [{board.comments}] </span>
                     </Link>
-                    {board.createDate === getFormatDate(new Date()) ? <MdFiberNew className='new_icon' /> : null}
+                    {board.createDate.substr(0, 10) === getFormatDate(new Date()) ? (
+                      <MdFiberNew className='new_icon' size='25' />
+                    ) : null}
                   </td>
                   <td>{board.user.nickname}</td>
-                  <td>{board.updatedDate.substr(0, 10)}</td>
+                  <td>{board.createDate.substr(0, 10)}</td>
                   <td>{board.hit}</td>
                 </tr>
               ))}

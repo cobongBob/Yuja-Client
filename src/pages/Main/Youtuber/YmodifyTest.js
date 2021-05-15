@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Quill } from "react-quill";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./Yregister.scss";
 import * as YapiService from "../../../apiService/YapiService";
 import { useHistory } from "react-router";

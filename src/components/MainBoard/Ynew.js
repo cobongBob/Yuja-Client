@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import './Ynew.scss';
-import { FaUserAstronaut } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import React from "react";
+import "./Ynew.scss";
+import { FaUserAstronaut } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Ynew = () => {
   return (
