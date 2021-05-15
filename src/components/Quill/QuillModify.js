@@ -142,7 +142,12 @@ const QuillModify = ({ modify, addingFileList, qModiData, setQModiData }) => {
   }, [qModiData]);
   return (
     <>
-      <div className='QuillWrapper'>
+      <div
+        className='QuillWrapper'
+        onClick={() => {
+          quill.focus();
+        }}
+      >
         <div id='ReactQuill'></div>
       </div>
       <div>

@@ -1,17 +1,15 @@
-import instance from '../AxiosConfig.js';
+import instance from "../AxiosConfig.js";
 
-export const addLike = async (data) => {
+export const addLike = async (board_id) => {
   return await instance({
-    url: 'board/liked',
-    method: 'post',
-    data: data,
+    url: "board/liked/" + board_id,
+    method: "post",
   });
 };
 
-export const deleteLike = async (data) => {
+export const deleteLike = async (board_id) => {
   return await instance({
-    url: 'board/liked',
-    method: 'delete',
-    data: data,
+    url: "board/liked/" + board_id,
+    method: "delete",
   });
 };

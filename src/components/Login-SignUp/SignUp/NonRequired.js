@@ -20,15 +20,17 @@ const NonRequired = ({ location, history }) => {
       console.log("파일 업로드 시작");
       const fd = new FormData();
       fd.append("file", file);
-      UserApiService.addProfileImg(fd, config).then((response) => {
-        const fileUrl = new URL("http://localhost:8888/files/temp/"+response.data.fileName);
-        setpreviewUrl(fileUrl)
-        profilePicId.current = response.data.profilePicId;
-        console.log(1, response.data.profilePicId);
-        console.log(profilePicId.current);
-      }).catch(error =>{
-        console.log(error.response.data.message)
-      });
+      UserApiService.addProfileImg(fd, config)
+        .then((response) => {
+          const fileUrl = new URL("http://localhost:8888/files/temp/" + response.data.fileName);
+          setpreviewUrl(fileUrl);
+          profilePicId.current = response.data.profilePicId;
+          console.log(1, response.data.profilePicId);
+          console.log(profilePicId.current);
+        })
+        .catch((error) => {
+          console.log(error.response.data.message);
+        });
     }
   };
 
@@ -44,13 +46,15 @@ const NonRequired = ({ location, history }) => {
       console.log("파일 업로드2 시작");
       const fd2 = new FormData();
       fd2.append("file", file2);
-      UserApiService.addYoutuberConfirmPic(fd2, config2).then((response) => {
-        const fileUrl2 = new URL("http://localhost:8888/files/temp/" + response.data.fileName);
-        setpreviewUrl2(fileUrl2)
-        setIsYoutuberPicFill('')
-      }).catch(error => {
-        console.log(error.response.data.message);
-      });
+      UserApiService.addYoutuberConfirmPic(fd2, config2)
+        .then((response) => {
+          const fileUrl2 = new URL("http://localhost:8888/files/temp/" + response.data.fileName);
+          setpreviewUrl2(fileUrl2);
+          setIsYoutuberPicFill("");
+        })
+        .catch((error) => {
+          console.log(error.response.data.message);
+        });
     }
   };
 
@@ -78,7 +82,7 @@ const NonRequired = ({ location, history }) => {
     phone: "",
     isYoutuber: "",
     bsn: "",
-    youtuberUrl: '',
+    youtuberUrl: "",
     profilePicId: profilePicId.current,
   });
 
@@ -136,13 +140,13 @@ const NonRequired = ({ location, history }) => {
 
   /* 사업자 등록번호 확인식 */
   const bsnCheck = (e) => {
-    console.log('bsncheck 작동')
-    let bsn = e.target.value
-    console.log(bsn)
+    console.log("bsncheck 작동");
+    let bsn = e.target.value;
+    console.log(bsn);
     const checkId = [1, 3, 7, 1, 3, 7, 1, 3, 5, 1];
     let sum = 0;
 
-    if (bsn !== '') {
+    if (bsn !== "") {
       for (let i = 0; i < 9; i++) {
         sum += checkId[i] * Number(bsn[i]);
       }
@@ -151,11 +155,11 @@ const NonRequired = ({ location, history }) => {
       sum += checkSum;
       let reminder = (10 - (sum % 10)) % 10;
 
-      console.log(bsn.length)
+      console.log(bsn.length);
       if (reminder === Number(bsn[9])) {
-        setIsCompanyRegNumFill('')
+        setIsCompanyRegNumFill("");
       } else {
-        setIsCompanyRegNumFill('사업자등록번호를 확인해주세요.')
+        setIsCompanyRegNumFill("사업자등록번호를 확인해주세요.");
       }
     }
   };
@@ -177,7 +181,7 @@ const NonRequired = ({ location, history }) => {
       setIsYoutuberChecked(true)
       :
       setIsYoutuberChecked(false)
-  })
+  }, []);
   /* 유튜버 박스 끝 */
 
   /* 버튼 활성화 */
@@ -210,12 +214,12 @@ const NonRequired = ({ location, history }) => {
     } else {
       setIsPermalinkFill('유튜브 고유주소를 확인해주세요.')
     }
-  })
+  }, []);
   /* 버튼 활성화 끝 */
 
-  useEffect(()=> {
-    submitDisabledCheck()
-  }, [submitDisabledCheck])
+  useEffect(() => {
+    submitDisabledCheck();
+  }, [submitDisabledCheck]);
 
   return (
     <div className='contentBox2'>
@@ -247,12 +251,13 @@ const NonRequired = ({ location, history }) => {
               <div className='labelWrapper'>
                 <label htmlFor='signUpAddress'>주소</label>
               </div>
-              <input className='signUpAddress'
-                     name='address'
-                     type='text'
-                     placeholder='주소'
-                     autoComplete='off'
-                     onChange={changeValue}
+              <input
+                className='signUpAddress'
+                name='address'
+                type='text'
+                placeholder='주소'
+                autoComplete='off'
+                onChange={changeValue}
               />
             </td>
           </tr>
@@ -289,16 +294,16 @@ const NonRequired = ({ location, history }) => {
             </td>
           </tr>
         </table>
-          { isYoutuberChecked === true ?
-            <div className='youtuberDiv'>
-              <div className='youtuberDiv_Title'>
-                유튜버 분들은 원활한 서비스 이용을 위해
-                <br />
-                <span>아래 추가 필수 정보</span>를 입력해주세요!
-              </div>
-              <div className='youtuberInputBox'>
-                <div className='companyRegNumBox'>
-                  <label className='companyRegNumLabel' htmlFor='companyRegNumInput'>
+        {isYoutuberChecked === true ? (
+          <div className='youtuberDiv'>
+            <div className='youtuberDiv_Title'>
+              유튜버 분들은 원활한 서비스 이용을 위해
+              <br />
+              추가 정보를 입력해주세요!
+            </div>
+            <div className='youtuberInputBox'>
+              <div className='companyRegNumBox'>
+                <label className='companyRegNumLabel' htmlFor='companyRegNumInput'>
                   사업자등록번호
                   <input
                     className='companyRegNumInput'
@@ -313,9 +318,9 @@ const NonRequired = ({ location, history }) => {
                   />
                 </label>
               </div>
-                <div className='warningBox'>
-                  {isCompanyRegNumFill}
-                </div>
+              <div className='warningBox'>
+                {isCompanyRegNumFill}
+              </div>
               <div className='youtuberUrlBox'>
                 <label className='youtuberUrlBoxLabel' htmlFor='youtuberUrlBoxInput'>
                   유튜브 고유 주소
@@ -336,40 +341,35 @@ const NonRequired = ({ location, history }) => {
                 </div>
               </div>
 
-              <div className='youtuberPicBox'>
-                <label className='youtuberPicLabel' htmlFor='youtuberPicInput'>
-                  유튜브 계정 스크린샷
-                </label>
-                <div className='youtuberPicDesc'>
-                  {isYoutuberPicFill}
-                </div>
-                <div className='youtuberPic_PreviewBox'>
-                  {youtuberPic_preview}
-                </div>
-                <div className='youtuberPicInputWrapper'>
-                  <input
-                    className='youtuberPicInput'
-                    id='youtuberPicInput'
-                    type='file'
-                    accept='image/jpeg, image/jpg, img/png'
-                    onChange={handleFileOnChange2}
-                  />
-                </div>
+            <div className='youtuberPicBox'>
+              <label className='youtuberPicLabel' htmlFor='youtuberPicInput'>
+                유튜브 계정 스크린샷
+              </label>
+              <div className='youtuberPicDesc'>
+                {isYoutuberPicFill}
+              </div>
+              <div className='youtuberPic_PreviewBox'>
+                {youtuberPic_preview}
+              </div>
+              <div className='youtuberPicInputWrapper'>
+                <input
+                  className='youtuberPicInput'
+                  id='youtuberPicInput'
+                  type='file'
+                  accept='image/jpeg, image/jpg, img/png'
+                  onChange={handleFileOnChange2}
+                />
               </div>
             </div>
-            :
-            ''
-          }
-          <div className='signUpSubmitBtnBox'>
-            <button
-              type='submit'
-              className='btn btn-warning'
-              onClick={totalAction}
-              disabled={submitDisableHandler}
-            >
-              회원가입
-            </button>
           </div>
+        ) : (
+          ""
+        )}
+        <div className='signUpSubmitBtnBox'>
+          <button type='submit' className='btn btn-warning' onClick={totalAction} disabled={submitDisableHandler}>
+            회원가입
+          </button>
+        </div>
       </div>
     </div>
   );

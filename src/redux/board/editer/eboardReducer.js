@@ -2,8 +2,8 @@ import * as eService from "../../../apiService/EditerApiService";
 
 // 액션
 const MODE_GET_EDETAIL_DATA = "getEDetailData";
-const MODE_FILTER_DATA = "MODE_FILTER_DATA";
-const MODE_SORTLIKE_DATA = "MODE_SORTLIKE_DATA";
+const MODE_EFILTER_DATA = "MODE_EFILTER_DATA";
+const MODE_ESORTLIKE_DATA = "MODE_ESORTLIKE_DATA";
 const GET_EBOARD_REQUEST = "GET_EBOARD_REQUEST";
 const GET_EBOARD_SUCCESS = "GET_EBOARD_SUCCESS";
 const GET_EBOARD_FAILURE = "GET_EBOARD_FAILURE";
@@ -42,13 +42,13 @@ const getEBoardsFailure = (error) => {
 // 필터로 보여줄 데이터
 export const getFilterData = async (keyword) => {
   return {
-    type: MODE_FILTER_DATA,
+    type: MODE_EFILTER_DATA,
     keyword: keyword,
   };
 };
 export const getSortLikeData = async () => {
   return {
-    type: MODE_SORTLIKE_DATA,
+    type: MODE_ESORTLIKE_DATA,
   };
 };
 export const getResetData = async () => {
@@ -127,7 +127,7 @@ export function EboardReducer(state = initialState, action) {
         }),
       };
 
-    case MODE_SORTLIKE_DATA:
+    case MODE_ESORTLIKE_DATA:
       return {
         ...state,
         filterData: state.sortedLike
@@ -137,7 +137,7 @@ export function EboardReducer(state = initialState, action) {
         sortedExpired: false,
       };
 
-    case MODE_FILTER_DATA:
+    case MODE_EFILTER_DATA:
       return {
         ...state,
         // eslint-disable-next-line array-callback-return

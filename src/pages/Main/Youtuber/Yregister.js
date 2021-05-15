@@ -93,12 +93,12 @@ const Yregister = () => {
   });
 
   return (
-    <div className='YregisterBigWrapper'>
-      <div className='YregisterWrapper'>
-        <div className='YregisterHeader'>
-          <h1>공고등록</h1>
-        </div>
-        <div className='YregisterTitleWrapper'>
+    <div className='register-container'>
+      <div className='register-header'>
+        <h1>공고등록</h1>
+      </div>
+      <div className='register-default-input'>
+        <div className='register-title'>
           <input
             id='YregisterWriter'
             name='title'
@@ -108,18 +108,17 @@ const Yregister = () => {
             type='text'
           />
         </div>
-        <div>
-          <label htmlFor='YregisterChannel'>채널명:</label>
+        <div className='register-channelname'>
           <input
+            placeholder='채널명'
             id='YregisterChannel'
             onChange={onChange}
             name='channelName'
             type='text'
           />
         </div>
-        <div>
-          <label htmlFor=''>모집분야:</label>
-
+        <div className='wanted-part'>
+          <div>모집분야</div>
           <input
             id='editor'
             type='radio'
@@ -127,8 +126,7 @@ const Yregister = () => {
             value='영상편집'
             onChange={radioCheck}
           />
-          <label htmlFor='editor'>영상편집</label>
-
+          <label htmlFor='editor'>편집자</label>
           <input
             type='radio'
             id='thumbnailer'
@@ -137,7 +135,6 @@ const Yregister = () => {
             onChange={radioCheck}
           />
           <label htmlFor='thumbnailer'>썸네일러</label>
-
           <input
             type='radio'
             id='both'
@@ -145,28 +142,10 @@ const Yregister = () => {
             name='worker'
             value='영상편집자 + 썸네일러'
           />
-          <label htmlFor='both'>영상편집자 + 썸네일러</label>
+          <label htmlFor='both'>편집자+썸네일러</label>
         </div>
-
-        <div>
-          <label htmlFor='recruitingNum'>
-            인원수:
-            <input
-              id='recruitingNum'
-              onChange={onChange}
-              name='recruitingNum'
-              type='text'
-              maxLength='3'
-              onInput={({ target }) => {
-                target.value = target.value.replace(/[^0-9]/g, '');
-                target.value = target.value.replace(/,/g, '');
-              }}
-            />
-            명
-          </label>
-        </div>
-
-        <div>
+        <div className='wanted-career'>
+          <div>지원자격</div>
           <input
             id='newbie'
             name='career'
@@ -175,7 +154,6 @@ const Yregister = () => {
             type='radio'
           />
           <label htmlFor='newbie'>신입</label>
-
           <input
             id='career'
             onChange={radioCheck}
@@ -184,7 +162,6 @@ const Yregister = () => {
             type='radio'
           />
           <label htmlFor='career'>경력</label>
-
           <input
             id='notcareer'
             name='career'
@@ -194,9 +171,23 @@ const Yregister = () => {
           />
           <label htmlFor='notcareer'>경력무관</label>
         </div>
-
-        <div>
-          <label htmlFor=''>급여:</label>
+        <div className='wanted-number'>
+          <input
+            placeholder='인원수'
+            id='recruitingNum'
+            onChange={onChange}
+            name='recruitingNum'
+            type='text'
+            maxLength='3'
+            onInput={({ target }) => {
+              target.value = target.value.replace(/[^0-9]/g, '');
+              target.value = target.value.replace(/,/g, '');
+            }}
+          />
+          <div> 명 </div>
+        </div>
+        <div className='wanted-pay'>
+          <div>급여</div>
           <select name='payType' onChange={onChange}>
             <option>선택</option>
             <option value='연봉'>연봉</option>
@@ -220,8 +211,8 @@ const Yregister = () => {
           원
         </div>
 
-        <div>
-          <label htmlFor=''>편집 가능 툴:</label>
+        <div className='watned-tools'>
+          <div>사용기술</div>
           <input
             id='Ypremiere'
             name='ypremiere'
@@ -230,7 +221,6 @@ const Yregister = () => {
             onChange={checkboxCheck}
           />
           <label htmlFor='Ypremiere'>프리미어 프로</label>
-
           <input
             id='Yaftereffect'
             name='yaftereffect'
@@ -239,7 +229,6 @@ const Yregister = () => {
             onChange={checkboxCheck}
           />
           <label htmlFor='Yaftereffect'>애프터이펙트</label>
-
           <input
             id='Yfinalcut'
             name='yfinalcut'
@@ -303,8 +292,8 @@ const Yregister = () => {
           />
           <label htmlFor='Ymaya'>마야</label>
         </div>
-        <div>
-          <label htmlFor=''>마감일:</label>
+        <div className='wanted-deadline'>
+          <label htmlFor=''>마감일</label>
           <input
             id='YendDate'
             onChange={onChange}
@@ -344,15 +333,16 @@ const Yregister = () => {
           />
           {/* default = 회원 이름 */}
         </div>
-        <br />
-        <h2>상세 내용</h2>
       </div>
-      <QuillRegister
-        register={testCheking}
-        addingFileList={addingFileList}
-        qData={qData}
-        setQData={setQData}
-      />
+      <div className='register-add-input'>
+        <h2>상세 내용</h2>
+        <QuillRegister
+          register={testCheking}
+          addingFileList={addingFileList}
+          qData={qData}
+          setQData={setQData}
+        />
+      </div>
     </div>
   );
 };
