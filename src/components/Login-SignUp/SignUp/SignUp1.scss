@@ -306,10 +306,17 @@ input::placeholder {
 .youtuberDiv_Title {
   font-size: 0.9em;
 }
+.youtuberDiv_Title span {
+  color:red;
+}
 .youtuberUrlBoxLabel {
   font-size: 0.9em;
   text-align: left;
   margin-top: 1rem;
+  width:100%;
+    span {
+      color:red;
+    }
 }
 .youtuberUrlBoxInput{
   margin-top: 5px;
@@ -333,6 +340,7 @@ input::placeholder {
   font-size: 0.9em;
   text-align: left;
   margin-top: 2rem;
+  width:100%;
 }
 .companyRegNumInput {
   margin-top: 5px;
@@ -353,6 +361,10 @@ input::placeholder {
   font-size: 0.9em;
   text-align: left;
   margin-top: 2rem;
+  width:100%;
+  span {
+    color:red;
+  }
 }
 .youtuberPicInputWrapper {
   margin-top: 5px;
