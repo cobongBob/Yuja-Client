@@ -2,8 +2,8 @@ import * as thService from "../../../apiService/ThumbnailerApiService";
 
 // 액션
 const MODE_GET_THDETAIL_DATA = "getThDetailData";
-const MODE_FILTER_DATA = "MODE_FILTER_DATA";
-const MODE_SORTLIKE_DATA = "MODE_SORTLIKE_DATA";
+const MODE_THFILTER_DATA = "MODE_THFILTER_DATA";
+const MODE_THSORTLIKE_DATA = "MODE_THSORTLIKE_DATA";
 const GET_THBOARD_REQUEST = "GET_THBOARD_REQUEST";
 const GET_THBOARD_SUCCESS = "GET_THBOARD_SUCCESS";
 const GET_THBOARD_FAILURE = "GET_THBOARD_FAILURE";
@@ -42,13 +42,13 @@ const getThBoardsFailure = (error) => {
 // 필터로 보여줄 데이터
 export const getFilterData = async (keyword) => {
   return {
-    type: MODE_FILTER_DATA,
+    type: MODE_THFILTER_DATA,
     keyword: keyword,
   };
 };
 export const getSortLikeData = async () => {
   return {
-    type: MODE_SORTLIKE_DATA,
+    type: MODE_THSORTLIKE_DATA,
   };
 };
 export const getResetData = async () => {
@@ -127,7 +127,7 @@ export function ThboardReducer(state = initialState, action) {
         }),
       };
 
-    case MODE_SORTLIKE_DATA:
+    case MODE_THSORTLIKE_DATA:
       return {
         ...state,
         filterData: state.sortedLike
@@ -137,7 +137,7 @@ export function ThboardReducer(state = initialState, action) {
         sortedExpired: false,
       };
 
-    case MODE_FILTER_DATA:
+    case MODE_THFILTER_DATA:
       return {
         ...state,
         // eslint-disable-next-line array-callback-return
