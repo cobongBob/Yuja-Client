@@ -1,12 +1,12 @@
-import React from 'react';
-import { Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { format } from 'date-fns';
-import { FcLike } from 'react-icons/fc';
-import '../Youtuber/Ylist.scss';
-import SortingToDeadline from '../components/SortingToDeadline';
-import SortingToLiked from '../components/SortingToLiked';
-import BackToList from '../components/BackToList';
+import React from "react";
+import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { format } from "date-fns";
+import { FcLike } from "react-icons/fc";
+import "../Youtuber/Ylist.scss";
+import SortingToDeadline from "../components/SortingToDeadline";
+import SortingToLiked from "../components/SortingToLiked";
+import BackToList from "../components/BackToList";
 
 const YoutuberTable = ({ boardData }) => {
   return (
@@ -50,13 +50,13 @@ const YoutuberTable = ({ boardData }) => {
                   <div>
                     <strong>
                       <span>수정일 </span>
-                      {format(new Date(data.updatedDate), 'yyyy-MM-dd')}
+                      {format(new Date(data.updatedDate), "yyyy-MM-dd")}
                     </strong>
                   </div>
                   <div>
                     <strong>
                       <span>마감일 </span>
-                      {format(new Date(data.expiredDate), 'yyyy-MM-dd')}
+                      {format(new Date(data.expiredDate), "yyyy-MM-dd")}
                     </strong>
                   </div>
                   <div className='card-like'>

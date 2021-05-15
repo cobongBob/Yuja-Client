@@ -1,10 +1,10 @@
-import * as auth from '../../apiService/AuthenticationService';
+import * as auth from "../../apiService/AuthenticationService";
 
 /* 액션 */
-const USER_LOGIN = 'userLogin';
-const USER_LOGOUT = 'userLogout';
-const USER_CHECK = 'userCheck';
-const USER_STATUS = 'userStatus';
+const USER_LOGIN = "userLogin";
+const USER_LOGOUT = "userLogout";
+const USER_CHECK = "userCheck";
+const USER_STATUS = "userStatus";
 
 /* 액션 함수 */
 export const userLogin = async (loginData) => {
@@ -51,8 +51,7 @@ export const userCheck = async () => {
 /* 초기값 */
 const initialState = {
   userLoginStatus: false,
-  userData: {},
-
+  userData: "",
 };
 
 /* 리듀서 */
@@ -66,7 +65,8 @@ export default function loginReducer(state = initialState, action) {
       };
     case USER_LOGOUT:
       return {
-        ...initialState,
+        userLoginStatus: false,
+        userData: "",
       };
     case USER_STATUS:
       return {

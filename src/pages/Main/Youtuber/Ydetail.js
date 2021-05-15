@@ -1,60 +1,32 @@
 import React, { useCallback, useEffect } from 'react';
 import * as YapiService from '../../../apiService/YapiService';
 import './Ydetail.scss';
-import { FcLike, FcOk } from 'react-icons/fc';
+import { FcLike } from 'react-icons/fc';
 import { AiOutlineHeart, AiOutlineFileSearch } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import ChannelBox from './api_practice/ChannelBox';
-import { getDetailData } from '../../../redux/board/youtube/yboardReducer';
-import { useDispatch, useSelector } from 'react-redux';
 import {
-  getLiked,
+  getDetailData,
   addLike,
   deleteLike,
-} from '../../../redux/liked/likedReducer';
+} from '../../../redux/board/youtube/yboardReducer';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Ydetail = (props) => {
   const dispatch = useDispatch();
 
-  const { countLikes, isLiked } = useSelector((state) => state.likedReducer);
   const { userData } = useSelector((state) => state.loginReducer);
   const { detailData } = useSelector((state) => state.YboardReducer);
-  // const _getDetailData = () => dispatch(getDetailData());
-  // getDetailData().then((res) => {
-  //   dispatch(res);
-  // });
-
-  // useEffect(() => {
-  //   YapiService.fetchBoard(props.match.params.board_id)
-  //     .then((res) => {
-  //       setData(res.data);
-  //       console.log(res.data);
-  //     })
-  //     .catch((e) => {
-  //       alert('접근불가');
-  //       // props.history.goBack(-1);
-  //     });
-  // }, [props.match.params.board_id, props.history]);
 
   useEffect(() => {
     const board_id = props.match.params.board_id;
-    if (userData && userData.id) {
-      getLiked(board_id, userData.id).then((res) => {
-        dispatch(res);
-      });
-      getDetailData(board_id).then((res) => {
-        dispatch(res);
-      });
-    } else {
-      getLiked(board_id, 0).then((res) => {
-        dispatch(res);
-      });
+    if (board_id) {
       getDetailData(board_id).then((res) => {
         dispatch(res);
       });
     }
-  }, [userData, dispatch, props.match.params.board_id]);
+  }, [dispatch, props.match.params.board_id, userData]);
 
   const deleteBoard = () => {
     YapiService.deleteBoard(props.match.params.board_id).then((res) => {
@@ -65,7 +37,7 @@ const Ydetail = (props) => {
 
   const likeHandler = useCallback(() => {
     if (userData && userData.id) {
-      if (isLiked) {
+      if (detailData && detailData.liked) {
         deleteLike(props.match.params.board_id, userData.id).then((res) => {
           dispatch(res);
         });
@@ -77,7 +49,7 @@ const Ydetail = (props) => {
     } else {
       //로그인 창으로
     }
-  }, [userData, isLiked, dispatch, props.match.params.board_id]);
+  }, [userData, dispatch, props.match.params.board_id, detailData]);
 
   return (
     <div>
@@ -89,11 +61,7 @@ const Ydetail = (props) => {
           </div>
           <div className='youtube_top_DefaultInfo'>
             <div className='channel-box'>
-              {!detailData ? (
-                <span>loading..</span>
-              ) : (
-                <ChannelBox detailData={detailData}></ChannelBox>
-              )}
+              {!detailData ? <span>loading..</span> : <ChannelBox />}
             </div>
           </div>
           <div className='detail-box'>
@@ -113,15 +81,15 @@ const Ydetail = (props) => {
                 {detailData.title}
                 <div className='detail-show'>
                   <div className='likeWrapper'>
-                    {isLiked === true ? (
+                    {detailData && detailData.liked ? (
                       <button className='likeButton' onClick={likeHandler}>
                         <FcLike size={30} />
-                        <span>{countLikes}</span>
+                        <span>{detailData.likes}</span>
                       </button>
                     ) : (
                       <button className='likeButton' onClick={likeHandler}>
                         <AiOutlineHeart size={30} />
-                        <span>{countLikes}</span>
+                        <span>{detailData.likes}</span>
                       </button>
                     )}
                   </div>

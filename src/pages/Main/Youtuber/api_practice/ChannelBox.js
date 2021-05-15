@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import './ChannelBox.scss';
-const ChannelBox = ({ detailData }) => {
+const ChannelBox = () => {
   // console.log("여긴 youtubeAPI data", detailData);
-
+  const { detailData } = useSelector((state) => state.YboardReducer);
   const [title, setTitle] = useState('');
   const [subscribers, setSubscribers] = useState('');
   const [videos, setVideos] = useState('');
@@ -16,9 +16,13 @@ const ChannelBox = ({ detailData }) => {
 
   useEffect(() => {
     if (detailData && detailData.id !== 0) {
+      setSubscribers('');
+      setTitle('');
+      setVideos('');
+      setThumb('');
+      setDesc('');
       const url = detailData.user.youtubeUrl;
       if (url) {
-        console.log(url);
         const lastIdx = url.lastIndexOf('/');
         const utubeId = url.substr(lastIdx + 1);
         fetch(
@@ -53,6 +57,10 @@ const ChannelBox = ({ detailData }) => {
                 : setDesc('');
               // 전부 삼항연산자로 해당 컨텐트가 없는 사람일수도있으니 확인해야함
             }
+          })
+          .catch((e) => {
+            console.log(e);
+            console.log('잘못된 유튜브 요청주소');
           });
       } else {
         setSubscribers('');
