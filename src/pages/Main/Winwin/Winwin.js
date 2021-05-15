@@ -1,25 +1,15 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getWinBoard } from "../../../redux/board/winwin/winBoardReducer";
 import { MdFiberNew } from "react-icons/md";
 import "./Winwin.scss";
+import getFormatDate from "../../../getFormatDate";
 // nav에서 윈윈게시판을 누르면 보이는 전체 컴포넌트
 const Winwin = () => {
   const winBoard = useSelector((state) => state.winBoardReducer);
   const dispatch = useDispatch();
   const { userData } = useSelector((state) => state.loginReducer);
-
-  // yyyy-MM-dd 포맷으로 반환
-  const getFormatDate = useCallback((date) => {
-    let year = date.getFullYear();
-    let month = 1 + date.getMonth();
-    month = month >= 10 ? month : "0" + month;
-    let day = date.getDate();
-    day = day >= 10 ? day : "0" + day;
-    return year + "-" + month + "-" + day;
-  }, []);
-
   useEffect(() => {
     dispatch(getWinBoard());
   }, [userData, dispatch]);

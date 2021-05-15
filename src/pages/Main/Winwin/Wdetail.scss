@@ -1,0 +1,51 @@
+.commentWrapper {
+  margin-top: 10rem;
+  margin-left: 10rem;
+  margin-right: 10rem;
+  margin-bottom: 5rem;
+}
+
+.parentComment {
+  margin-top: 0.5rem;
+}
+
+.childComment {
+  margin-top: 0.5rem;
+  margin-left: 2rem;
+}
+.commentUser {
+  font-weight: bold;
+  font-size: large;
+}
+.commentDetail {
+  font-size: medium;
+}
+.commentDate {
+  font-size: small;
+}
+.reply {
+  margin-left: 0.5rem;
+  color: #979797;
+  cursor: pointer;
+}
+.edit_icon {
+  margin-left: 0.5rem;
+}
+.comment_icon {
+  cursor: pointer;
+}
+.myself {
+  margin-left: 0.5rem;
+  color: red;
+  font-size: medium;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0px;
+}
+
+.textarea {
+  width: 40vw;
+  height: 20vh;
+}
