@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactQuill from "react-quill";
 import { deleteWinBoard } from "../../../apiService/winBoardApiService";
 import { deleteComment, fetchComments, insertComment, updateComment } from "../../../apiService/CommentApiService";
@@ -11,6 +11,8 @@ import { getWDetailsData, wAddLike, wDeleteLike } from "../../../redux/board/win
 import { useHistory } from "react-router";
 
 const Wdetail = ({ match }) => {
+  const { current: board_type } = useRef(match.params.board_type);
+
   //대댓글을 등록중인지 확인하는 state
   const [isReplying, setIsReplying] = useState({
     isReplying: false,
@@ -26,7 +28,7 @@ const Wdetail = ({ match }) => {
   });
 
   const { userData } = useSelector((state) => state.loginReducer);
-  const { wDetails } = useSelector((state) => state.winBoardReducer);
+  const { wDetails, loading } = useSelector((state) => state.winBoardReducer);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -34,7 +36,7 @@ const Wdetail = ({ match }) => {
   useEffect(() => {
     const board_id = match.params.board_id;
     if (board_id) {
-      getWDetailsData(board_id).then((res) => {
+      getWDetailsData(board_id, board_type).then((res) => {
         dispatch(res);
       });
       fetchComments(match.params.board_id)
@@ -45,7 +47,7 @@ const Wdetail = ({ match }) => {
           alert(e.response.data.message);
         });
     }
-  }, [match.params.board_id, dispatch]);
+  }, [match.params.board_id, dispatch, board_type]);
 
   //댓글 삭제
   const deleteReply = useCallback(
@@ -199,28 +201,36 @@ const Wdetail = ({ match }) => {
   }, [userData, wDetails, dispatch, match.params.board_id]);
 
   const deleteBoard = useCallback(() => {
-    deleteWinBoard(match.params.board_id)
+    deleteWinBoard(match.params.board_id, board_type)
       .then(() => {
-        history.push("/Winwin");
+        history.push(`/Community/${board_type}`);
       })
       .catch((e) => {
         alert(e.response.data.message);
       });
-  }, [match.params.board_id, history]);
+  }, [match.params.board_id, history, board_type]);
   const modifyBoard = useCallback(() => {
     alert("수정페이지로...");
   }, []);
+  const goList = useCallback(() => {
+    history.push(`/Community/${board_type}`);
+  }, [history, board_type]);
 
-  return (
+  return loading ? (
+    <h2>Loading...</h2>
+  ) : (
     wDetails && (
       <div>
         <div className='detail-content'>
-          {userData.id === wDetails.user.id ? (
-            <div>
-              <button onClick={deleteBoard}>삭제</button>
-              <button onClick={modifyBoard}>수정</button>
-            </div>
-          ) : null}
+          <div>
+            {userData.id === wDetails.user.id ? (
+              <>
+                <button onClick={deleteBoard}>삭제</button>
+                <button onClick={modifyBoard}>수정</button>
+              </>
+            ) : null}
+            <button onClick={goList}>목록</button>
+          </div>
           <div className='detail-title'>
             {wDetails.title}
             <div className='detail-show'>

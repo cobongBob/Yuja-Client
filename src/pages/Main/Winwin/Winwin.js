@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getWinBoard } from "../../../redux/board/winwin/winBoardReducer";
@@ -6,14 +6,14 @@ import { MdFiberNew } from "react-icons/md";
 import "./Winwin.scss";
 import getFormatDate from "../../../getFormatDate";
 // nav에서 윈윈게시판을 누르면 보이는 전체 컴포넌트
-const Winwin = () => {
+const Winwin = ({ match }) => {
   const winBoard = useSelector((state) => state.winBoardReducer);
   const dispatch = useDispatch();
   const { userData } = useSelector((state) => state.loginReducer);
+  const { current: board_type } = useRef(match.params.board_type);
   useEffect(() => {
-    dispatch(getWinBoard());
-  }, [userData, dispatch]);
-
+    dispatch(getWinBoard(board_type));
+  }, [userData, dispatch, board_type]);
   return winBoard.loading ? (
     <h2>Loading...</h2>
   ) : winBoard.err ? (
@@ -22,13 +22,14 @@ const Winwin = () => {
     <div>
       <div className='sideMenu'>
         <h2>커뮤니티</h2>
+        <br />
         <div>
-          <Link>윈윈</Link> <br />
-          <Link>합방해요</Link>
+          <h3>윈윈</h3> <br />
+          <h3>합방해요</h3>
         </div>
       </div>
       <div className='tableWrapper'>
-        <Link to='/Wregister' className='registerBtn'>
+        <Link to={`/BoardRegister/${board_type}`} className='registerBtn'>
           글쓰기
         </Link>
         <table className='table'>
@@ -48,7 +49,7 @@ const Winwin = () => {
                 <tr key={board.id}>
                   <td>{winBoard.wBoards.length - idx}</td>
                   <td>
-                    <Link className='table_link' to={`/Wdetail/${board.id}`}>
+                    <Link className='table_link' to={`/BoardDetail/${board_type}/${board.id}`}>
                       {board.title}
                       <span className='commentNum'> [{board.comments}] </span>
                     </Link>

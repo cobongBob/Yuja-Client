@@ -5,6 +5,7 @@ import "./YQuillComponents.scss";
 import YImgApiService from "../../apiService/YImgApiService";
 import ImageResize from "@looop/quill-image-resize-module-react";
 import QuillImageDropAndPaste from "quill-image-drop-and-paste";
+import { useHistory } from "react-router";
 Quill.register("modules/imageResize", ImageResize);
 Quill.register("modules/imageDropAndPaste", QuillImageDropAndPaste);
 let Image = Quill.import("formats/image");
@@ -14,6 +15,7 @@ window.Quill = Quill;
 
 let quill;
 const QuillModify = ({ modify, addingFileList, qModiData, setQModiData }) => {
+  const history = useHistory();
   const imageHandler = useCallback(() => {
     const input = document.createElement("input");
 
@@ -153,6 +155,7 @@ const QuillModify = ({ modify, addingFileList, qModiData, setQModiData }) => {
       <div>
         <div>
           <button onClick={modify}>확인</button>
+          <button onClick={() => history.goBack()}>뒤로가기</button>
         </div>
       </div>
     </>

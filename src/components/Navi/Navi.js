@@ -23,8 +23,8 @@ const Navi = () => {
         <Link to='/Thumbnailer'>
           <li className={pathname === "/Thumbnailer" ? "nav-link-disabled" : "nav-link"}>썸네일러</li>
         </Link>
-        <Link to='/Winwin'>
-          <li className={pathname === "/Winwin" ? "nav-link-disabled" : "nav-link"}>윈윈</li>
+        <Link to='/Community/Winwin'>
+          <li className={pathname.includes("/Community") ? "nav-link-disabled" : "nav-link"}>커뮤니티</li>
         </Link>
         <Link to='/Help'>
           <li className={pathname === "/Help" ? "nav-link-disabled" : "nav-link"}>고객센터</li>

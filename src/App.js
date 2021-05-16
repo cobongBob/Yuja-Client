@@ -95,9 +95,9 @@ function App() {
           <Route path='/Youtuber' component={Youtuber} />
           <Route path='/Editer' component={Editer} />
           <Route path='/Thumbnailer' component={Thumbnailer} />
-          <Route path='/Winwin' component={Winwin} />
-          <Route path='/Wdetail/:board_id' component={Wdetail} />
-          <Route path='/Wregister' component={Wregister} />
+          <Route path='/Community/:board_type' component={Winwin} />
+          <Route path='/BoardDetail/:board_type/:board_id' component={Wdetail} />
+          <Route path='/BoardRegister/:board_type' component={Wregister} />
           <Route path='/Help' component={Help} />
           <Route path='/SignUp1' component={SignUp1} />
           <Route path='/YoutuberProfile' component={YoutuberProfile} />

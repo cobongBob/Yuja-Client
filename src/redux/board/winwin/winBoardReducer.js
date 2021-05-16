@@ -8,10 +8,10 @@ const GET_WINBOARD_SUCCESS = "GET_WINBOARD_SUCCESS";
 const GET_WINBOARD_FAILURE = "GET_WINBOARD_FAILURE";
 const GET_WDETAILS_DATA = "GET_WDETAILS_DATA";
 
-export const getWinBoard = () => {
+export const getWinBoard = (board_type) => {
   return (dispatch) => {
     dispatch(getWinBoardRequest());
-    getWinBoards()
+    getWinBoards(board_type)
       .then((res) => dispatch(getWinBoardSuccess(res.data)))
       .catch((err) => dispatch(getWinBoardFailure(err.response.massage)));
   };
@@ -35,8 +35,8 @@ const getWinBoardFailure = (error) => {
   };
 };
 
-export const getWDetailsData = async (board_id) => {
-  const wDetailsData = await getWinOneBoard(board_id);
+export const getWDetailsData = async (board_id, board_type) => {
+  const wDetailsData = await getWinOneBoard(board_id, board_type);
   return {
     type: GET_WDETAILS_DATA,
     payload: wDetailsData.data,
