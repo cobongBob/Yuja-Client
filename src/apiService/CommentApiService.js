@@ -14,7 +14,7 @@ export const insertComment = async (data) => {
     data: data,
   });
 };
-export const modifyComment = async (comment_id, data) => {
+export const updateComment = async (comment_id, data) => {
   return await instance({
     url: "/comment/" + comment_id,
     method: "put",

@@ -3,6 +3,7 @@
   margin-left: 10rem;
   margin-right: 10rem;
   margin-bottom: 5rem;
+  width: 50%;
 }
 
 .parentComment {
@@ -46,6 +47,7 @@ ul {
 }
 
 .textarea {
-  width: 40vw;
-  height: 20vh;
+  width: 100%;
+  border-radius: 5px;
+  resize: none;
 }
