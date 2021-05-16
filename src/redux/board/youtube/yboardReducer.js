@@ -1,16 +1,16 @@
-import * as YapiService from "../../../apiService/YapiService";
-import * as likeService from "../../../apiService/likeService";
+import * as YapiService from '../../../apiService/YapiService';
+import * as likeService from '../../../apiService/likeService';
 // 액션
-const ADD_LIKE = "ADD_LIKE";
-const DELETE_LIKE = "DELETE_LIKE";
-const MODE_GET_DETAIL_DATA = "getDetailData";
-const MODE_FILTER_DATA = "MODE_FILTER_DATA";
-const MODE_SORTEXDATE_DATA = "MODE_SORTEXDATE_DATA";
-const MODE_SORTLIKE_DATA = "MODE_SORTLIKE_DATA";
-const GET_YBOARD_REQUEST = "GET_YBOARD_REQUEST";
-const GET_YBOARD_SUCCESS = "GET_YBOARD_SUCCESS";
-const GET_YBOARD_FAILURE = "GET_YBOARD_FAILURE";
-const MODE_RESET_DATA = "MODE_RESET_DATA";
+const ADD_LIKE = 'ADD_LIKE';
+const DELETE_LIKE = 'DELETE_LIKE';
+const MODE_GET_DETAIL_DATA = 'getDetailData';
+const MODE_FILTER_DATA = 'MODE_FILTER_DATA';
+const MODE_SORTEXDATE_DATA = 'MODE_SORTEXDATE_DATA';
+const MODE_SORTLIKE_DATA = 'MODE_SORTLIKE_DATA';
+const GET_YBOARD_REQUEST = 'GET_YBOARD_REQUEST';
+const GET_YBOARD_SUCCESS = 'GET_YBOARD_SUCCESS';
+const GET_YBOARD_FAILURE = 'GET_YBOARD_FAILURE';
+const MODE_RESET_DATA = 'MODE_RESET_DATA';
 // 액션함수
 export const getYBoards = () => {
   return (dispatch) => {
@@ -62,7 +62,7 @@ export const getResetData = async () => {
 };
 
 export const getDetailData = async (board_id) => {
-  const detailData = await YapiService.fetchBoard(board_id); // id를 넣어야 가져올꺼같긴한데...
+  const detailData = await YapiService.fetchBoard(board_id);
   return {
     type: MODE_GET_DETAIL_DATA,
     data: detailData.data,
@@ -76,6 +76,7 @@ export const addLike = async (board_id) => {
     type: ADD_LIKE,
   };
 };
+
 export const deleteLike = async (board_id) => {
   await likeService.deleteLike(board_id);
   return {
@@ -91,7 +92,7 @@ const initialState = {
   loading: false,
   sortedExpired: false,
   sortedLike: false,
-  error: "",
+  error: '',
 };
 
 // 리듀서
@@ -151,19 +152,19 @@ const YboardReducer = (state = initialState, action) => {
         filterData: state.sortedExpired
           ? state.filterData.sort((a, b) => {
               if (a.expiredDate) {
-                a = a.expiredDate.substr(0, 10).split("-").join("");
+                a = a.expiredDate.substr(0, 10).split('-').join('');
               }
               if (b.expiredDate) {
-                b = b.expiredDate.substr(0, 10).split("-").join("");
+                b = b.expiredDate.substr(0, 10).split('-').join('');
               }
               return a > b ? 1 : a < b ? -1 : 0;
             })
           : state.filterData.sort((a, b) => {
               if (a.expiredDate) {
-                a = a.expiredDate.substr(0, 10).split("-").join("");
+                a = a.expiredDate.substr(0, 10).split('-').join('');
               }
               if (b.expiredDate) {
-                b = b.expiredDate.substr(0, 10).split("-").join("");
+                b = b.expiredDate.substr(0, 10).split('-').join('');
               }
               return a > b ? -1 : a < b ? 1 : 0;
             }),
@@ -185,11 +186,26 @@ const YboardReducer = (state = initialState, action) => {
         ...state,
         // eslint-disable-next-line array-callback-return
         filterData: state.data.filter((data) => {
-          if (Object.values(data.title).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
+          if (
+            Object.values(data.title)
+              .join('')
+              .toLowerCase()
+              .includes(action.keyword.toLowerCase())
+          ) {
             return data;
-          } else if (Object.values(data.worker).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
+          } else if (
+            Object.values(data.worker)
+              .join('')
+              .toLowerCase()
+              .includes(action.keyword.toLowerCase())
+          ) {
             return data;
-          } else if (Object.values(data.user.username).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
+          } else if (
+            Object.values(data.user.username)
+              .join('')
+              .toLowerCase()
+              .includes(action.keyword.toLowerCase())
+          ) {
             return data;
           }
         }),
@@ -197,12 +213,20 @@ const YboardReducer = (state = initialState, action) => {
     case ADD_LIKE:
       return {
         ...state,
-        detailData: { ...state.detailData, likes: state.detailData.likes + 1, liked: true },
+        detailData: {
+          ...state.detailData,
+          likes: state.detailData.likes + 1,
+          liked: true,
+        },
       };
     case DELETE_LIKE:
       return {
         ...state,
-        detailData: { ...state.detailData, likes: state.detailData.likes - 1, liked: false },
+        detailData: {
+          ...state.detailData,
+          likes: state.detailData.likes - 1,
+          liked: false,
+        },
       };
     default:
       return state;

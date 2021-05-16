@@ -13,15 +13,41 @@ import {
 } from '../../../redux/board/youtube/yboardReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from 'react-bootstrap';
+import * as ReportApiService from '../../../apiService/ReportApiService';
 
 const Ydetail = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const history = useHistory();
+  const [input, setInput] = useState({
+    reportContents: '',
+  });
 
-  // 뒤로가기
-  const goBack = () => {
-    history.push('/Youtuber');
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
   };
+
+  const onChange = useCallback((e) => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+  });
+
+  const onSubmit = useCallback((e) => {
+    e.preventDefault();
+    const report = {
+      ...input,
+      boardId: props.match.params.board_id,
+      userId: userData.id,
+    };
+    ReportApiService.addReport(report);
+  });
 
   const dispatch = useDispatch();
 
@@ -56,6 +82,7 @@ const Ydetail = (props) => {
         });
       }
     } else {
+      alert('로그인 해주세요');
       //로그인 창으로
     }
   }, [userData, dispatch, props.match.params.board_id, detailData]);
@@ -86,17 +113,34 @@ const Ydetail = (props) => {
                   <button className='detail-update-btn' onClick={deleteBoard}>
                     공고 삭제하기
                   </button>
-                  <button className='detail-update-btn' onClick={goBack}>
+                  <Link className='detail-update-btn' to='/Youtuber'>
                     목록보기
-                  </button>
+                  </Link>
                   <button onClick={() => setModalIsOpen(true)}>신고하기</button>
                   <Modal
                     isOpen={modalIsOpen}
+                    style={customStyles}
                     onRequestClose={() => setModalIsOpen(false)}>
-                    <h1>신고하기 모달창</h1>
-                    <button onClick={() => setModalIsOpen(false)}>
-                      closeModal
-                    </button>
+                    <form id='ReportForm' onSubmit={(e) => onSubmit(e)}>
+                      <h1>무슨 이유로 신고 하시나요~?</h1>
+                      <textarea
+                        name='reportContents'
+                        id='ReportContent'
+                        placeholder='신고내용'
+                        onChange={onChange}></textarea>
+                      <div className='BtnWrapper'>
+                        <input
+                          id='ReportSubmit'
+                          type='submit'
+                          value='신고하기'
+                        />
+                        <button
+                          id='ReportCloseBtn'
+                          onClick={() => setModalIsOpen(false)}>
+                          close
+                        </button>
+                      </div>
+                    </form>
                   </Modal>
                 </div>
               </div>
