@@ -62,7 +62,7 @@ export const getResetData = async () => {
 };
 
 export const getDetailData = async (board_id) => {
-  const detailData = await YapiService.fetchBoard(board_id); // id를 넣어야 가져올꺼같긴한데...
+  const detailData = await YapiService.fetchBoard(board_id);
   return {
     type: MODE_GET_DETAIL_DATA,
     data: detailData.data,

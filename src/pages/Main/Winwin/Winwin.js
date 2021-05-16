@@ -20,7 +20,13 @@ const Winwin = () => {
     <h2>{winBoard.err}</h2>
   ) : (
     <div>
-      <h1>윈윈 게시판</h1>
+      <div className='sideMenu'>
+        <h2>커뮤니티</h2>
+        <div>
+          <Link>윈윈</Link> <br />
+          <Link>합방해요</Link>
+        </div>
+      </div>
       <div className='tableWrapper'>
         <Link to='/Wregister' className='registerBtn'>
           글쓰기
@@ -31,7 +37,7 @@ const Winwin = () => {
               <th className='no'>번호</th>
               <th className='title'>제목</th>
               <th className='writer'>작성자</th>
-              <th className='updatedDate'>작성일</th>
+              <th className='createdDate'>작성일</th>
               <th className='hit'>조회수</th>
             </tr>
           </thead>
