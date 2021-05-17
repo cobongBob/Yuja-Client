@@ -17,13 +17,21 @@ import * as ReportApiService from '../../../apiService/ReportApiService';
 
 Modal.setAppElement('#root');
 const Ydetail = (props) => {
+  const dispatch = useDispatch();
+  const { userData } = useSelector((state) => state.loginReducer);
+  const { detailData } = useSelector((state) => state.YboardReducer);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const [input, setInput] = useState({
     reportedReason: '',
   });
 
   function openModal() {
-    setModalIsOpen(true);
+    if (userData && userData.id) {
+      setModalIsOpen(true);
+    } else {
+      alert('로그인 해주세요');
+    }
   }
   function closeModal() {
     setModalIsOpen(false);
@@ -56,16 +64,14 @@ const Ydetail = (props) => {
       boardId: props.match.params.board_id,
       userId: userData.id,
     };
-    console.log(11111111111, report);
-    ReportApiService.addReport(report);
-    closeModal();
-    alert('신고가 접수 됫습니다.');
+    if (userData && input.reportedReason !== '') {
+      ReportApiService.addReport(report);
+      alert('신고 접수 완료!');
+      closeModal();
+    } else {
+      alert('내용을 입력해주세요');
+    }
   });
-
-  const dispatch = useDispatch();
-
-  const { userData } = useSelector((state) => state.loginReducer);
-  const { detailData } = useSelector((state) => state.YboardReducer);
 
   useEffect(() => {
     const board_id = props.match.params.board_id;

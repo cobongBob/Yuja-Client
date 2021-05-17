@@ -14,30 +14,7 @@ import {
 } from '../../../redux/board/youtube/yboardReducer';
 import { AiOutlineHeart } from 'react-icons/ai';
 
-const YoutuberTable = ({ boardData }) => {
-  console.log(boardData);
-  const { userData } = useSelector((state) => state.loginReducer);
-  const dispatch = useDispatch();
-  // boardData.id를 하나하나 빼야하나..?
-  // 현재 boardData는 12개를 다 담고있는 객체
-  // 그러므로 내가 클릭한 list의 boardId가 필요하다..
-  // 내가 클릭한 boardId....????????? 그럼 클릭한 boardId를 가져와야함
-  // const likeHandler = useCallback(
-  //   (board_id) => {
-  //     if (userData && userData.id) {
-  //       if (boardData && boardData.liked) {
-  //         deleteLike(board_id, userData.id).then((res) => {
-  //           dispatch(res);
-  //         });
-  //       } else {
-  //         addLike(board_id, userData.id).then((res) => {
-  //           dispatch(res);
-  //         });
-  //       }
-  //     }
-  //   },
-  //   [userData, dispatch, boardData]
-  // );
+const YoutuberTable = ({ boardData, likeHandler, dislikeHandler }) => {
   return (
     <div className='card-container'>
       <div className='card-options'>
@@ -68,12 +45,16 @@ const YoutuberTable = ({ boardData }) => {
                   </div>
                   <div className='card-like'>
                     {data && data.liked ? (
-                      <button className='likeButton'>
+                      <button
+                        onClick={() => likeHandler(data.id)}
+                        className='likeButton'>
                         <FcLike size={30} />
                         <span>{data.likes}</span>
                       </button>
                     ) : (
-                      <button className='likeButton'>
+                      <button
+                        onClick={() => dislikeHandler(data.id)}
+                        className='likeButton'>
                         <AiOutlineHeart size={30} />
                         <span>{data.likes}</span>
                       </button>
