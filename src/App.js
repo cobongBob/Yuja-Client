@@ -1,7 +1,7 @@
 import React from "react";
 import Logo from "./components/Logo/Logo";
 import "./App.css";
-import { Route } from "react-router";
+import { Redirect, Route } from "react-router";
 import Youtuber from "./pages/Main/Youtuber/Youtuber";
 import Editer from "./pages/Main/Editer/Editer";
 import Thumbnailer from "./pages/Main/Thumbnailer/Thumbnailer";
@@ -95,8 +95,8 @@ function App() {
           <Route path='/Youtuber' component={Youtuber} />
           <Route path='/Editer' component={Editer} />
           <Route path='/Thumbnailer' component={Thumbnailer} />
-          <Route path='/Community/:board_type' component={Winwin} />
-          <Route path='/BoardDetail/:board_type/:board_id' component={Wdetail} />
+          <Route path='/Community/:board_type/:current_page' component={Winwin} />
+          <Route path='/BoardDetail/:board_type/:board_id/:current_page' component={Wdetail} />
           <Route path='/BoardRegister/:board_type' component={Wregister} />
           <Route path='/Help' component={Help} />
           <Route path='/SignUp1' component={SignUp1} />
