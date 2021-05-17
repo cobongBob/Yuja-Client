@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
-import "./Youtuber.scss";
-import { useDispatch, useSelector } from "react-redux";
-import YoutuberTable from "./YoutuberTable";
-import "./Youtuber.scss";
-import { getYBoards, getFilterData } from "../../../redux/board/youtube/yboardReducer";
-import Pagination from "../components/Pagination";
-import Search from "../components/Search";
+import React, { useCallback, useEffect, useState } from 'react';
+import './Youtuber.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import YoutuberTable from './YoutuberTable';
+import './Youtuber.scss';
+import {
+  getYBoards,
+  getFilterData,
+} from '../../../redux/board/youtube/yboardReducer';
+import Pagination from '../components/Pagination';
+import Search from '../components/Search';
 // nav에서 유튜버를 누르면 보이는 전체 컴포넌트
 const Youtuber = () => {
   const dispatch = useDispatch();
@@ -13,7 +16,7 @@ const Youtuber = () => {
   const yBoardData = useSelector((state) => state.YboardReducer);
   const { userData } = useSelector((state) => state.loginReducer);
 
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
   //페이징 처리하기
@@ -22,7 +25,10 @@ const Youtuber = () => {
 
   const indexOfLastData = currentPage * boardPerPage;
   const indexOfFirstData = indexOfLastData - boardPerPage;
-  const currentData = yBoardData.filterData.slice(indexOfFirstData, indexOfLastData);
+  const currentData = yBoardData.filterData.slice(
+    indexOfFirstData,
+    indexOfLastData
+  );
 
   const clickPage = (pages) => {
     setCurrentPage(pages);
@@ -47,7 +53,9 @@ const Youtuber = () => {
   ) : (
     <div className='tableWrapper'>
       <Search
-        boardData={searchTerm.length < 1 ? yBoardData.filterData : searchResults}
+        boardData={
+          searchTerm.length < 1 ? yBoardData.filterData : searchResults
+        }
         term={searchTerm}
         setTerm={setSearchTerm}
         searchKeyword={searchHandler}

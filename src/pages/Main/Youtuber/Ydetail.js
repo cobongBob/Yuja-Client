@@ -29,7 +29,7 @@ const Ydetail = (props) => {
     setModalIsOpen(false);
   }
 
-  const customStyles = {
+  const reportcustomStyles = {
     content: {
       top: '50%',
       left: '50%',
@@ -37,6 +37,7 @@ const Ydetail = (props) => {
       bottom: 'auto',
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
+      background: '#dddddd',
     },
     overlay: { zIndex: 9999 },
   };
@@ -55,7 +56,10 @@ const Ydetail = (props) => {
       boardId: props.match.params.board_id,
       userId: userData.id,
     };
+    console.log(11111111111, report);
     ReportApiService.addReport(report);
+    closeModal();
+    alert('신고가 접수 됫습니다.');
   });
 
   const dispatch = useDispatch();
@@ -128,7 +132,7 @@ const Ydetail = (props) => {
                   <button onClick={openModal}>신고하기</button>
                   <Modal
                     isOpen={modalIsOpen}
-                    style={customStyles}
+                    style={reportcustomStyles}
                     onRequestClose={closeModal}>
                     <form id='ReportForm' onSubmit={(e) => onSubmit(e)}>
                       <h1>무슨 이유로 신고 하시나요?</h1>
