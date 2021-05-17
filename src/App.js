@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Logo from "./components/Logo/Logo";
 import "./App.css";
 import { Route } from "react-router";
@@ -20,10 +20,15 @@ import MainWrapper from "./MainWrapper";
 import PageNotFound from "./pages/Error/PageNotFound";
 import Footer from "./components/Footer";
 import FindPassword from "./components/Login-SignUp/Login/FindPassword";
-import { GLOBAL_LOADED, GLOBAL_LOADING } from "./redux/loading/loadingReducer";
-import GlobalLoading from "./components/Loading/GlobalLoading";
 import Wdetail from "./pages/Main/Winwin/Wdetail";
 import Wregister from "./pages/Main/Winwin/Wregister";
+import EditorRegister from "./pages/Main/Editer/EditorRegister";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { getLoaded, getLoading } from "./redux/loading/loadingReducer";
+import Loader from "./components/Loading/Loader";
+import instance from "./AxiosConfig";
+import { userLogout } from "./redux/redux-login/loginReducer";
 
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
@@ -41,48 +46,43 @@ function App() {
   const prevLocation = usePrevious(location.pathname);
   /* history 관련 끝 */
 
-  // /* 로딩 */
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   axios.interceptors.request.use(
-  //     function (config) {
-  //       //로딩 호출
-  //       dispatch({
-  //         type: GLOBAL_LOADING,
-  //       });
-  //       return config;
-  //     },
-  //     function (error) {
-  //       //실패시 로딩창 종료
-  //       dispatch({
-  //         type: GLOBAL_LOADED,
-  //       });
-  //       return Promise.reject(error);
-  //     }
-  //   );
-  //   axios.interceptors.response.use(
-  //     (config) => {
-  //       //완료시 로딩창 종료
-  //       dispatch({
-  //         type: GLOBAL_LOADED,
-  //       });
-  //       return config;
-  //     },
-  //     (error) => {
-  //       //실패시 로딩창 종료
-  //       dispatch({
-  //         type: GLOBAL_LOADED,
-  //       });
-  //       return Promise.reject(error);
-  //     }
-  //   );
-  // }, []);
+  /* 로딩 */
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.loadingReducer);
+  useEffect(() => {
+    instance.interceptors.request.use(
+      function (config) {
+        //로딩 호출
+        dispatch(getLoading());
+        return config;
+      },
+      function (error) {
+        //실패시 로딩창 종료
+        dispatch(getLoaded());
+        return Promise.reject(error);
+      }
+    );
+    instance.interceptors.response.use(
+      (config) => {
+        //완료시 로딩창 종료
+        dispatch(getLoaded());
+        return config;
+      },
+      (error) => {
+        //실패시 로딩창 종료
+        if (error.response.status === 401) {
+          userLogout();
+        }
+        dispatch(getLoaded());
+        return Promise.reject(error);
+      }
+    );
+  }, [dispatch]);
 
   /* 로딩 끝 */
 
   return (
     <div>
-      {/*<GlobalLoading/>*/}
       {exceptArray.indexOf(location.pathname) < 0 && <Navi />}
       {exceptArray.indexOf(location.pathname) < 0 && <Logo />}
       {console.log("전페이지", prevLocation)}
@@ -90,13 +90,14 @@ function App() {
         ? console.log("회원가입에서 왔군")
         : console.log("그냥 왔군")}
       <div>
+        {loading && loading.loading && <Loader type='spin' color='#ff9411' />}
         <Switch>
           <Route exact path='/' component={MainWrapper} />
           <Route path='/Youtuber' component={Youtuber} />
           <Route path='/Editer' component={Editer} />
           <Route path='/Thumbnailer' component={Thumbnailer} />
-          <Route path='/Community/:board_type' component={Winwin} />
-          <Route path='/BoardDetail/:board_type/:board_id' component={Wdetail} />
+          <Route path='/Community/:board_type/:current_page' component={Winwin} />
+          <Route path='/BoardDetail/:board_type/:board_id/:current_page' component={Wdetail} />
           <Route path='/BoardRegister/:board_type' component={Wregister} />
           <Route path='/Help' component={Help} />
           <Route path='/SignUp1' component={SignUp1} />
@@ -106,6 +107,7 @@ function App() {
           <Route path='/YmodifyTest/:board_id' component={YmodifyTest} />
           <Route path='/PageNotFound' component={PageNotFound} />
           <Route path='/FindPassword' component={FindPassword} />
+          <Route path='/EditorRegister' component={EditorRegister} />
           {/* <Route component={PageNotFound} /> 이게 왜 나올까요? */}
         </Switch>
       </div>

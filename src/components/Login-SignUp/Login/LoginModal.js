@@ -12,7 +12,7 @@ Modal.setAppElement("#root");
 function LoginModal() {
   const history = useHistory();
   /* 모달 설정 */
-  const customStyles = {
+  const LoginModalCustomStyles = {
     content: {
       top: "50%",
       left: "50%",
@@ -26,20 +26,35 @@ function LoginModal() {
     },
     overlay: { zIndex: 9999 },
   };
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalIsOpen, setIsOpen] = useState();
 
   function openModal() {
     setIsOpen(true);
   }
   function closeModal() {
+    setLoginValidateDesc("");
     setIsOpen(false);
   }
+
+  // 구글 아이콘 스타일
+  const customStyle = {
+    background: "royalblue",
+    height: "40px",
+    width: "100%",
+    fontSize: "14px",
+    color: "white",
+    lineHeight: "1px",
+    marginTop: "10px",
+    marginBottom: "12PX",
+    borderRadius: "3px",
+    borderStyle: "none",
+  };
+
   /* 모달 설정 끝 */
 
   /* form, submit 새로고침 방지용 */
   const onSubmit = (e) => {
     e.preventDefault();
-    closeModal();
   };
   /* form, submit 새로고침 방지용 끝 */
 
@@ -79,33 +94,47 @@ function LoginModal() {
     [loginData]
   );
   const logInHandler = useCallback(async () => {
-    userLogin(loginData).then((res) => {
+    userLogin(loginData, setLoginValidateDesc).then((res) => {
       dispatch(res);
+      console.log("loginhandler res", res);
+
+      res.userLoginStatus === false ? setIsOpen(true) : setIsOpen(false);
     });
   }, [loginData, dispatch]);
 
-  const resGoogle = useCallback(async (response) => {
-    await auth.googleLoginService(response).then((res) => {
-      auth.executeJwtAuthenticationService(res).then((resFromserver) => {
-        auth.registerSuccessfulLoginForJwt(res.username, resFromserver.data);
-        closeModal();
+  const resGoogle = useCallback(
+    async (response) => {
+      console.log("resGoogle시작");
+      await auth.googleLoginService(response).then((res) => {
+        console.log("res의 값", res);
+        if (res.providerId === null) {
+          userLogin(res).then((respon) => {
+            dispatch(respon);
+            console.log("loginhandler res", res);
+
+            respon.userLoginStatus === false ? setIsOpen(true) : setIsOpen(false);
+          });
+          closeModal();
+        } else {
+          console.log("else로");
+          closeModal();
+          history.push({
+            pathname: "/SignUp1",
+            resData: {
+              res,
+            },
+          });
+        }
       });
-    });
-  }, []);
+    },
+    [dispatch, history]
+  );
   /* 로그인 관련 끝 */
 
-  const customStyle = {
-    background: "royalblue",
-    height: "40px",
-    width: "100%",
-    fontSize: "14px",
-    color: "white",
-    lineHeight: "1px",
-    marginTop: "10px",
-    marginBottom: "12PX",
-    borderRadius: "3px",
-    borderStyle: "none",
-  };
+  /* 로그인 워닝 박스 */
+  const [loginValidateDesc, setLoginValidateDesc] = useState("");
+
+  /* 로그인 워닝 박스 끝 */
 
   return (
     <>
@@ -127,7 +156,7 @@ function LoginModal() {
         isOpen={modalIsOpen}
         closeTimeoutMS={200}
         onRequestClose={closeModal}
-        style={customStyles}
+        style={LoginModalCustomStyles}
         contentLabel='Example Modal'
       >
         <section>
@@ -140,7 +169,14 @@ function LoginModal() {
           </header>
           <main>
             <form onSubmit={onSubmit}>
-              <input name='username' className='loginId' type='text' placeholder='아이디' onChange={inputHandler} />
+              <input
+                name='username'
+                className='loginId'
+                type='text'
+                placeholder='아이디'
+                onChange={inputHandler}
+                autoFocus
+              />
               <input
                 name='password'
                 className='loginPw'
@@ -149,6 +185,7 @@ function LoginModal() {
                 onChange={inputHandler}
               />
               <div className='loginMid'>
+                <div className='warningBox'>{loginValidateDesc}</div>
                 <div className='findPasswordBox'>
                   <Link className='findPassword' to='/FindPassword' onClick={closeModal}>
                     비밀번호 찾기

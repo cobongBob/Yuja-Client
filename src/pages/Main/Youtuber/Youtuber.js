@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./Youtuber.scss";
 import { useDispatch, useSelector } from "react-redux";
 import YoutuberTable from "./YoutuberTable";
 import "./Youtuber.scss";
-import { getYBoards, getFilterData } from "../../../redux/board/youtube/yboardReducer";
+import { getYBoards, getFilterData, addLike, deleteLike } from "../../../redux/board/youtube/yboardReducer";
 import Pagination from "../components/Pagination";
 import Search from "../components/Search";
+import { AiFillYoutube } from "react-icons/ai";
 // nav에서 유튜버를 누르면 보이는 전체 컴포넌트
 const Youtuber = () => {
   const dispatch = useDispatch();
@@ -40,19 +41,48 @@ const Youtuber = () => {
     });
   };
 
-  return yBoardData.loading ? (
-    <h2>Loading...</h2>
+  const likeHandler = useCallback(
+    (board_id) => {
+      if (userData && userData.id) {
+        deleteLike(board_id, userData.id).then((res) => {
+          dispatch(res);
+        });
+      } else {
+        alert("로그인 해주세요");
+      }
+    },
+    [userData, dispatch]
+  );
+  const dislikeHandler = useCallback(
+    (board_id) => {
+      if (userData && userData.id) {
+        addLike(board_id, userData.id).then((res) => {
+          dispatch(res);
+        });
+      } else {
+        alert("로그인 해주세요");
+      }
+    },
+    [userData, dispatch]
+  );
+
+  return yBoardData.loading && !yBoardData ? (
+    <div className='loading'></div>
   ) : yBoardData.err ? (
     <h2>{yBoardData.err}</h2>
   ) : (
     <div className='tableWrapper'>
+      <div className='ListTitleWrapper'>
+        <AiFillYoutube className='YoutubeIcons'></AiFillYoutube>
+        <h1>Youtuber 공고 목록</h1>
+      </div>
       <Search
         boardData={searchTerm.length < 1 ? yBoardData.filterData : searchResults}
         term={searchTerm}
         setTerm={setSearchTerm}
         searchKeyword={searchHandler}
       />
-      <YoutuberTable boardData={currentData} />
+      <YoutuberTable boardData={currentData} likeHandler={likeHandler} dislikeHandler={dislikeHandler} />
       <Pagination
         boardPerPage={boardPerPage}
         totalBoards={yBoardData.filterData.length}

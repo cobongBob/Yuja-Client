@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import "./SignUp1.scss";
 import { Link } from "react-router-dom";
 
-const Agreement = ({ history }) => {
+const Agreement = ({ location }) => {
   // 체크박스 상태 확인용, 아래 배열 요소 펼칠시 텍스트 쏟아지니 주의!
   const [checkBoxes, setCheckBoxes] = useState([
     {
@@ -583,6 +583,7 @@ const Agreement = ({ history }) => {
 
   /* 선택 데이터 넘겨주기 */
   const next = checkBoxes[2].isChecked;
+  /* 구글 로그인 데이터 넘겨주기 */
 
   /* 유효성 검사 */
   const [agreementNextBtnHandler, setAgreementNextBtnHandler] = useState();
@@ -645,6 +646,7 @@ const Agreement = ({ history }) => {
                 pathname: "/SignUp1/Required",
                 state: {
                   next: next,
+                  googleSignupData: location.resData === undefined? null:location.resData.res
                 },
               }}
               className='btn btn-warning'

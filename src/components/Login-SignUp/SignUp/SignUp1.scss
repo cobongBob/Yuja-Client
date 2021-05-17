@@ -93,6 +93,10 @@ input::placeholder {
   outline: none;
   box-sizing: border-box;
   font-size: 0.85em;
+  &:disabled {
+    background-color: navajowhite;
+    opacity: .85;
+  }
 }
 .signUpTable > tr > td > input:focus {
   box-shadow: 1px 1px 3px 2px #ffb963;
@@ -100,14 +104,6 @@ input::placeholder {
 .signUpTable > tr > td {
   vertical-align: middle;
 }
-.signUpId {
-
-  &:disabled {
-    background-color: darkgray;
-    opacity: .85;
-  }
-}
-
 /* 이메일 인증 요소 */
 .authCodeCheckBox {
   text-align: left;
@@ -122,12 +118,12 @@ input::placeholder {
   box-sizing: border-box;
   font-size: 0.85em;
   width:120%;
-  &:disabled {
-    background-color: darkgray;
-    opacity: .85;
-  }
   &:focus {
     box-shadow: 1px 1px 3px 2px #ffb963;
+  }
+  &:disabled {
+    background-color: navajowhite;
+    opacity: .85;
   }
 }
 .authenticationCodeBox {
@@ -172,7 +168,7 @@ input::placeholder {
   font-size:0.85em;
   padding:5px;
   &:disabled {
-    background-color: darkgray;
+    background-color: navajowhite;
     border:none;
     opacity: .85;
   }

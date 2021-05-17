@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import EditerTable from "./EditerTable";
 import "../Youtuber/Youtuber.scss";
 import Pagination from "../components/Pagination";
@@ -6,15 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getEBoards, getFilterData } from "../../../redux/board/editer/eboardReducer";
 import Search from "../components/Search";
 
-const Editor = () => {
+const Editer = ({ match }) => {
   const dispatch = useDispatch();
 
   // Youtuber의 전체 데이터 불러오기
   const eBoardData = useSelector((state) => state.EboardReducer);
   const { userData } = useSelector((state) => state.loginReducer);
-
+  const board_type = useRef(match.params.board_type);
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [boardPerPage] = useState(12);
@@ -38,14 +37,14 @@ const Editor = () => {
     });
   };
 
-  return eBoardData.loading ? (
-    <h2>Loading...</h2>
+  return eBoardData.loading && !eBoardData ? (
+    <div className='loading'></div>
   ) : eBoardData.err ? (
     <h2>{eBoardData.err}</h2>
   ) : (
     <div className='tableWrapper'>
       <Search
-        boardData={searchTerm.length < 1 ? eBoardData.filterData : searchResults}
+        boardData={searchTerm.length < 1 ? eBoardData.filterData : null}
         term={searchTerm}
         setTerm={setSearchTerm}
         searchKeyword={searchHandler}
@@ -61,4 +60,4 @@ const Editor = () => {
   );
 };
 
-export default Editor;
+export default Editer;

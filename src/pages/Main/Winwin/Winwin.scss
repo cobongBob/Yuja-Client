@@ -1,4 +1,4 @@
-.tableWrapper {
+.table-Wrapper {
   margin-top: 2vh;
   margin-left: 20vw;
   margin-right: 25vw;
@@ -14,7 +14,7 @@
   border: 2px solid #dee2e6;
 }
 .table {
-  margin-left: 2vw;
+  margin-left: 4vw;
   width: 65vw;
   table-layout: fixed;
   line-height: 20px;
@@ -25,20 +25,23 @@
   overflow-x: hidden;
   text-overflow: ellipsis;
 }
-.no {
-  width: 8%;
+.wno {
+  width: 7%;
 }
-.title {
-  width: 50%;
+.wtitle {
+  width: 45%;
 }
-.writer {
-  width: 15%;
+.wwriter {
+  width: 18%;
 }
-.createdDate {
-  width: 15%;
-}
-.hit {
+.wcreatedDate {
   width: 12%;
+}
+.whited {
+  width: 9%;
+}
+.wlike {
+  width: 9%;
 }
 
 .commentNum {
@@ -61,7 +64,7 @@
   color: green;
   font-size: 20;
   padding: 0.5rem;
-  margin-right: 0.25rem;
+  margin-left: 4.5rem;
   &:hover {
     background-color: green;
     color: white;

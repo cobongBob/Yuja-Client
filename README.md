@@ -15,19 +15,14 @@
 - yarn add node-sass
 - yarn add react-slick
 - yarn add slick-carousel
-- yarn add react-google-login
-- yarn add react-table
 - yarn add date-fns
 - yarn add react-quill
 - yarn add quill-image-drop-and-paste
 - yarn add @looop/quill-image-resize-module-react
-- yarn add react-youtube
-- yarn add get-youtube-channel-id
 - yarn add react-daum-postcode (다음 주소 api)
+- yarn add react-loading
 
 ## 이미지 및 썸네일러 사이즈
 
 유저 프로필 사진 - 160x160
 게시판 썸네일러 사진 - 360x202
-
-- yarn add @looop/quill-image-resize-module-react

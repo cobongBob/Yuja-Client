@@ -13,7 +13,7 @@ const Wregister = ({ match }) => {
   const history = useHistory();
 
   let Yhistory = useCallback(
-    (board_id) => history.push(`/BoardDetail/${board_type}/${board_id}`),
+    (board_id) => history.push(`/BoardDetail/${board_type}/${board_id}/1`),
     [history, board_type]
   );
 
@@ -28,6 +28,9 @@ const Wregister = ({ match }) => {
   };
 
   const testCheking = useCallback(() => {
+    if (!qData || !inputData.title) {
+      return alert("제목과 내용을 입력해주세요");
+    }
     let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
     let imgSrcArr = String(qData).match(reg);
     if (imgSrcArr) {
@@ -64,7 +67,13 @@ const Wregister = ({ match }) => {
       <div>
         <input name='title' onChange={inputHandler} placeholder='제목' maxLength='200' type='text' />
         <h2>상세 내용</h2>
-        <QuillRegister register={testCheking} addingFileList={addingFileList} qData={qData} setQData={setQData} />
+        <QuillRegister
+          register={testCheking}
+          addingFileList={addingFileList}
+          qData={qData}
+          setQData={setQData}
+          board_type={board_type}
+        />
       </div>
     </div>
   );

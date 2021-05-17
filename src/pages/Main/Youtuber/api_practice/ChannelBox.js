@@ -16,11 +16,6 @@ const ChannelBox = () => {
 
   useEffect(() => {
     if (detailData && detailData.id !== 0) {
-      setSubscribers('');
-      setTitle('');
-      setVideos('');
-      setThumb('');
-      setDesc('');
       const url = detailData.user.youtubeUrl;
       if (url) {
         const lastIdx = url.lastIndexOf('/');
@@ -116,8 +111,6 @@ const ChannelBox = () => {
               <span>{detailData.payAmount}원</span>
             </li>
             <li>
-              <span>편집tool</span>
-              <br />
               {detailData &&
                 detailData.tools &&
                 detailData.tools.map((tool, idx) => (

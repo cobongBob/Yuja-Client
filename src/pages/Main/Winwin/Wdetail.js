@@ -12,6 +12,7 @@ import { useHistory } from "react-router";
 
 const Wdetail = ({ match }) => {
   const { current: board_type } = useRef(match.params.board_type);
+  const { current: pageNum } = useRef(match.params.current_page);
 
   //대댓글을 등록중인지 확인하는 state
   const [isReplying, setIsReplying] = useState({
@@ -28,7 +29,7 @@ const Wdetail = ({ match }) => {
   });
 
   const { userData } = useSelector((state) => state.loginReducer);
-  const { wDetails, loading } = useSelector((state) => state.winBoardReducer);
+  const { wDetails } = useSelector((state) => state.winBoardReducer);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -201,24 +202,26 @@ const Wdetail = ({ match }) => {
   }, [userData, wDetails, dispatch, match.params.board_id]);
 
   const deleteBoard = useCallback(() => {
-    deleteWinBoard(match.params.board_id, board_type)
-      .then(() => {
-        history.push(`/Community/${board_type}`);
-      })
-      .catch((e) => {
-        alert(e.response.data.message);
-      });
-  }, [match.params.board_id, history, board_type]);
+    if (window.confirm("게시글을 삭제 하시겠습니까?")) {
+      deleteWinBoard(match.params.board_id, board_type)
+        .then(() => {
+          history.push(`/Community/${board_type}/${pageNum}`);
+        })
+        .catch((e) => {
+          alert(e.response.data.message);
+        });
+    }
+  }, [match.params.board_id, history, board_type, pageNum]);
+
   const modifyBoard = useCallback(() => {
     alert("수정페이지로...");
   }, []);
-  const goList = useCallback(() => {
-    history.push(`/Community/${board_type}`);
-  }, [history, board_type]);
 
-  return loading ? (
-    <h2>Loading...</h2>
-  ) : (
+  const goList = useCallback(() => {
+    history.push(`/Community/${board_type}/${pageNum}`);
+  }, [history, board_type, pageNum]);
+
+  return (
     wDetails && (
       <div>
         <div className='detail-content'>
