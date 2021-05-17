@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-modal';
 import * as ReportApiService from '../../../apiService/ReportApiService';
 
+Modal.setAppElement('#root');
 const Ydetail = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [input, setInput] = useState({
@@ -145,7 +146,7 @@ const Ydetail = (props) => {
                         <button
                           id='ReportCloseBtn'
                           onClick={() => setModalIsOpen(false)}>
-                          close
+                          닫기
                         </button>
                       </div>
                     </form>
@@ -174,7 +175,6 @@ const Ydetail = (props) => {
                   </div>
                 </div>
               </div>
-              -
             </div>
             <div className='detail-date'>
               {detailData && detailData.updatedDate
