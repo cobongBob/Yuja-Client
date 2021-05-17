@@ -13,7 +13,7 @@ const Wregister = ({ match }) => {
   const history = useHistory();
 
   let Yhistory = useCallback(
-    (board_id) => history.push(`/BoardDetail/${board_type}/${board_id}`),
+    (board_id) => history.push(`/BoardDetail/${board_type}/${board_id}/1`),
     [history, board_type]
   );
 

@@ -9,7 +9,6 @@ import WinTable from './WinTable';
 import Pagination from '../components/Pagination';
 import Search from '../components/Search';
 import WSide from './WSide';
-import Loader from '../../../components/Loading/Loader';
 const Winwin = ({ match, history }) => {
   const dispatch = useDispatch();
   const path = history.location.pathname;
@@ -44,11 +43,10 @@ const Winwin = ({ match, history }) => {
     board_type.current = match.params.board_type;
     dispatch(getWinBoard(board_type.current));
   }, [userData, dispatch, match.params.board_type]);
-  return winBoard.loading ? (
+  return winBoard.loading && !winBoard ? (
     <>
-      <div className='wloading'>
+      <div className='loading'>
         <WSide />
-        <Loader type='spin' color='#ff9411' />;
       </div>
     </>
   ) : winBoard.err ? (

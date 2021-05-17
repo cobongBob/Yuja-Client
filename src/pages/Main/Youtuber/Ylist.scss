@@ -76,6 +76,14 @@
   }
 }
 
+// .card-container > ul > li > .card > .card-body > .card-text > div > .Link {
+//   z-index: 100;
+// }
+
+.card-container > ul > li > .card > .Card-Img {
+  z-index: 2;
+}
+
 .card-container > ul > li > .card > .card-header {
   display: block;
   padding-left: 0;

@@ -47,11 +47,12 @@ export const googleLoginService = async (response) => {
       provider: resFromServer.data.provider,
       providerId: resFromServer.data.providerId,
     };
-    // 이 데이터를 가지고 회원가입으로 이동
+    return userDetail;
   } else if (resFromServer.status === 200) {
     const loginData = {
       username: resFromServer.data.email,
       password: resFromServer.data.password,
+      providerId: null
     };
     return loginData;
     // 이 데이터를 가지고 로그인으로 이동 후 자동 로그인

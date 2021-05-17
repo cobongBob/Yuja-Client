@@ -7,7 +7,7 @@ const USER_CHECK = "userCheck";
 const USER_STATUS = "userStatus";
 
 /* 액션 함수 */
-export const userLogin = async (loginData) => {
+export const userLogin = async (loginData, setLoginValidateDesc) => {
   let userData = null;
   let result = false;
   await auth
@@ -17,7 +17,7 @@ export const userLogin = async (loginData) => {
       result = true;
     })
     .catch((e) => {
-      alert(e.response.data.message);
+      setLoginValidateDesc(e.response.data.message);
       result = false;
     });
   return {
