@@ -1,7 +1,7 @@
-import React, { useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { getSortedDateWData } from "../../../../redux/board/winwin/winBoardReducer";
-import "../Components.scss";
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { getSortedDateWData } from '../../../../redux/board/winwin/winBoardReducer';
+import '../Components.scss';
 
 const SortingDate = () => {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ const SortingDate = () => {
     });
   }, [dispatch]);
   return (
-    <div className='sortingBtn'>
+    <div className='community-sortingBtn'>
       <button onClick={likesData}>목록</button>
     </div>
   );

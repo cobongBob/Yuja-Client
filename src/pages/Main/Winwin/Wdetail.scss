@@ -1,32 +1,114 @@
+.comment-wrapper {
+  margin-top: 2rem;
+  margin-left: 20rem;
+  margin-right: 20rem;
+  margin-bottom: 5rem;
+}
+
+.comment-content {
+  font-family: scdream4;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid black;
+}
+
+.comment-options {
+  display: block;
+  text-align: right;
+}
+
+.comment-options > button {
+  width: 5rem;
+}
+
+.comment-options-user {
+  margin-left: 1rem;
+  display: inline-block;
+}
+.comment-options-user > button {
+  margin-right: 0.5rem;
+  border: none;
+}
+.comment-options > button {
+  border: none;
+  background-color: bisque;
+}
+
+.comment-detail-title {
+  display: inline-block;
+  text-decoration: underline;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 0.5rem;
+}
+.detail-show {
+  vertical-align: middle;
+}
+.show-user-name {
+  margin-top: 0.25rem;
+  float: left;
+  font-size: 20px;
+  font-family: scdream4;
+  margin-right: 0.5rem;
+}
+
+.likeWrapper {
+  float: left;
+}
+
+.hitWrapper {
+  padding-top: 0.25rem;
+}
+
+.comment-content > .DetailQuill {
+  margin-bottom: 5rem !important;
+  margin-top: 1rem;
+}
+.ql-editor {
+  padding: 0;
+}
+
 .commentWrapper {
-  border: solid 1px black;
-  margin-top: 10rem;
-  margin-right: 10rem;
   margin-bottom: 5rem;
   width: 50%;
 }
 
-.parentComment {
-  margin-top: 0.5rem;
+.commentWrapper > h4 {
+  margin-top: 1rem;
+  font-family: scdream4;
 }
 
-.childComment {
-  margin-top: 0.5rem;
-  margin-left: 2rem;
+.parentComment {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 1rem;
 }
+
+.commentWrapper > ul {
+  list-style: none;
+  padding-left: 0;
+}
+
 .commentUser {
+  display: inline-block;
+  border-bottom: 2px solid black;
   font-weight: bold;
   font-size: large;
 }
+
 .commentDetail {
   font-size: medium;
+  background-color: lightgrey;
+  border-radius: 5px;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 .commentDate {
   font-size: small;
 }
 .reply {
   margin-left: 0.5rem;
-  color: #979797;
+  color: #333333;
   cursor: pointer;
 }
 .edit_icon {
@@ -40,14 +122,30 @@
   color: red;
   font-size: medium;
 }
-
-.detail-content > .commentWrapper > ul {
-  list-style: none;
-  padding-left: 0px;
-}
-
 .textarea {
   width: 100%;
   border-radius: 5px;
   resize: none;
+  &:focus {
+    outline: none;
+  }
+}
+.comment-area {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  text-align: right;
+  padding: 0.5rem;
+}
+
+.comment-area > button {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+.commentDate > div {
+  text-align: right;
+}
+.commentDate > div > button {
+  border: 1px solid black;
+  margin-right: 0.5rem;
+  border-radius: 5px;
 }

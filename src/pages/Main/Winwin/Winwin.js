@@ -1,23 +1,25 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { getWinBoard, getSearchData } from "../../../redux/board/winwin/winBoardReducer";
-import "./Winwin.scss";
-import WinTable from "./WinTable";
-import Pagination from "../components/Pagination";
-import Search from "../components/Search";
-import WSide from "./WSide";
-import Loader from "../../../components/Loading/Loader";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getWinBoard,
+  getSearchData,
+} from '../../../redux/board/winwin/winBoardReducer';
+import './Winwin.scss';
+import WinTable from './WinTable';
+import Pagination from '../components/Pagination';
+import Search from '../components/Search';
+import WSide from './WSide';
+import Loader from '../../../components/Loading/Loader';
 const Winwin = ({ match, history }) => {
   const dispatch = useDispatch();
   const path = history.location.pathname;
-  const lastPageNum = path.substr(path.lastIndexOf("/") + 1);
+  const lastPageNum = path.substr(path.lastIndexOf('/') + 1);
   const board_type = useRef(match.params.board_type);
   const pageNum = useRef(lastPageNum ? lastPageNum : 1);
   const { userData } = useSelector((state) => state.loginReducer);
   const winBoard = useSelector((state) => state.winBoardReducer);
   //검색
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const searchHandler = (keyword) => {
     setSearchTerm(keyword);
     getSearchData(keyword).then((res) => {
@@ -30,7 +32,10 @@ const Winwin = ({ match, history }) => {
   const [boardPerPage] = useState(10);
   const indexOfLastData = currentPage * boardPerPage;
   const indexOfFirstData = indexOfLastData - boardPerPage;
-  const currentData = winBoard.wFilterData.slice(indexOfFirstData, indexOfLastData);
+  const currentData = winBoard.wFilterData.slice(
+    indexOfFirstData,
+    indexOfLastData
+  );
   const clickPage = useCallback((pages) => {
     setCurrentPage(pages);
   }, []);

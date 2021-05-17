@@ -1,15 +1,40 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import './Winwin.scss';
 
 const WSide = () => {
+  const pathname = useLocation().pathname;
   return (
     <>
       <div className='sideMenu'>
-        <h2>커뮤니티</h2>
+        <div className='sideMenu-title'>커뮤니티</div>
         <br />
         <div>
-          <Link to={`/Community/Winwin/1`}>윈윈</Link> <br />
-          <Link to={`/Community/Collabo/1`}>합방해요</Link>
+          <ul>
+            <Link to={`/Community/Winwin/1`}>
+              <li
+                className={
+                  pathname.includes('/Winwin')
+                    ? 'li-link-disabled'
+                    : 'li-winwin'
+                }
+              >
+                윈윈
+              </li>
+            </Link>
+            <br />
+            <Link to={`/Community/Collabo/1`}>
+              <li
+                className={
+                  pathname.includes('/Collabo')
+                    ? 'li-link-disabled'
+                    : 'li-collabo'
+                }
+              >
+                합방해요
+              </li>
+            </Link>
+          </ul>
         </div>
       </div>
     </>
