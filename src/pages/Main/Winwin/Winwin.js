@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { getWinBoard } from "../../../redux/board/winwin/winBoardReducer";
-import { MdFiberNew } from "react-icons/md";
-import "./Winwin.scss";
-import getFormatDate from "../../../getFormatDate";
+import React, { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { getWinBoard } from '../../../redux/board/winwin/winBoardReducer';
+import { MdFiberNew } from 'react-icons/md';
+import './Winwin.scss';
+import getFormatDate from '../../../getFormatDate';
 // nav에서 윈윈게시판을 누르면 보이는 전체 컴포넌트
 const Winwin = ({ match }) => {
   const winBoard = useSelector((state) => state.winBoardReducer);
@@ -28,7 +28,7 @@ const Winwin = ({ match }) => {
           <h3>합방해요</h3>
         </div>
       </div>
-      <div className='tableWrapper'>
+      <div className='table-Wrapper'>
         <Link to={`/BoardRegister/${board_type}`} className='registerBtn'>
           글쓰기
         </Link>
@@ -49,11 +49,15 @@ const Winwin = ({ match }) => {
                 <tr key={board.id}>
                   <td>{winBoard.wBoards.length - idx}</td>
                   <td>
-                    <Link className='table_link' to={`/BoardDetail/${board_type}/${board.id}`}>
+                    <Link
+                      className='table_link'
+                      to={`/BoardDetail/${board_type}/${board.id}`}
+                    >
                       {board.title}
                       <span className='commentNum'> [{board.comments}] </span>
                     </Link>
-                    {board.createDate.substr(0, 10) === getFormatDate(new Date()) ? (
+                    {board.createDate.substr(0, 10) ===
+                    getFormatDate(new Date()) ? (
                       <MdFiberNew className='new_icon' size='25' />
                     ) : null}
                   </td>
