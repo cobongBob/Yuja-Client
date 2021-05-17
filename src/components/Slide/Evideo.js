@@ -1,10 +1,10 @@
-import React from "react";
-import "./Evideo.scss";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import PrevArrow from "./PrevArrow";
-import NextArrow from "./NextArrow";
+import React from 'react';
+import './Evideo.scss';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import PrevArrow from './PrevArrow';
+import NextArrow from './NextArrow';
 
 const Evideo = () => {
   const settings = {
@@ -61,7 +61,10 @@ const Evideo = () => {
                   </h2>
                 </div>
                 <div className='item-content'>
-                  <p>넷프릭스 편집 경력, 밀리터리, 드라마 용어 완벽 섭렵 김보민입니다. 저는 초밥을 좋아합니다.</p>
+                  <p>
+                    넷프릭스 편집 경력, 밀리터리, 드라마 용어 완벽 섭렵
+                    김보민입니다. 저는 초밥을 좋아합니다.
+                  </p>
                 </div>
               </div>
             </div>
@@ -96,9 +99,11 @@ const Evideo = () => {
                 </div>
                 <div className='item-content'>
                   <p>
-                    그림을 매우 잘 그리는 썸네일러 김냠냠입니다. 여기는 본인이 직접 입력해서 3줄 정도로 들어갈
-                    콘텐츠입니다. 3줄이 넘어가면 ... 처리를 합니다. 오늘 쌀국수 먹었었는데 너무 비쌌어요 상처를 치료해줄
-                    사람 어디 없나 헤마다가 혼자서 덧나 365일 1년 내내 내 영혼의 키를 잡은 잭스패로우
+                    그림을 매우 잘 그리는 썸네일러 김냠냠입니다. 여기는 본인이
+                    직접 입력해서 3줄 정도로 들어갈 콘텐츠입니다. 3줄이 넘어가면
+                    ... 처리를 합니다. 오늘 쌀국수 먹었었는데 너무 비쌌어요
+                    상처를 치료해줄 사람 어디 없나 헤마다가 혼자서 덧나 365일
+                    1년 내내 내 영혼의 키를 잡은 잭스패로우
                   </p>
                 </div>
               </div>
@@ -118,8 +123,8 @@ const Evideo = () => {
                 </div>
                 <div className='item-content'>
                   <p>
-                    문도 e스킬이 잭스 e스킬에 막히기 때문에 보통 상성상 문도가 불리합니다. 멀리서 식칼 파밍만
-                    해야합니다.
+                    문도 e스킬이 잭스 e스킬에 막히기 때문에 보통 상성상 문도가
+                    불리합니다. 멀리서 식칼 파밍만 해야합니다.
                   </p>
                 </div>
               </div>
@@ -175,9 +180,11 @@ const Evideo = () => {
                 </div>
                 <div className='item-content'>
                   <p>
-                    그림을 매우 잘 그리는 썸네일러 김냠냠입니다. 여기는 본인이 직접 입력해서 3줄 정도로 들어갈
-                    콘텐츠입니다. 3줄이 넘어가면 ... 처리를 합니다. 오늘 쌀국수 먹었었는데 너무 비쌌어요 상처를 치료해줄
-                    사람 어디 없나 헤마다가 혼자서 덧나 365일 1년 내내 내 영혼의 키를 잡은 잭스패로우
+                    그림을 매우 잘 그리는 썸네일러 김냠냠입니다. 여기는 본인이
+                    직접 입력해서 3줄 정도로 들어갈 콘텐츠입니다. 3줄이 넘어가면
+                    ... 처리를 합니다. 오늘 쌀국수 먹었었는데 너무 비쌌어요
+                    상처를 치료해줄 사람 어디 없나 헤마다가 혼자서 덧나 365일
+                    1년 내내 내 영혼의 키를 잡은 잭스패로우
                   </p>
                 </div>
               </div>
@@ -197,8 +204,8 @@ const Evideo = () => {
                 </div>
                 <div className='item-content'>
                   <p>
-                    문도 e스킬이 잭스 e스킬에 막히기 때문에 보통 상성상 문도가 불리합니다. 멀리서 식칼 파밍만
-                    해야합니다.
+                    문도 e스킬이 잭스 e스킬에 막히기 때문에 보통 상성상 문도가
+                    불리합니다. 멀리서 식칼 파밍만 해야합니다.
                   </p>
                 </div>
               </div>
@@ -217,7 +224,10 @@ const Evideo = () => {
                   </h2>
                 </div>
                 <div className='item-content'>
-                  <p>넷프릭스 편집 경력, 밀리터리, 드라마 용어 완벽 섭렵 김보민입니다. 저는 초밥을 좋아합니다.</p>
+                  <p>
+                    넷프릭스 편집 경력, 밀리터리, 드라마 용어 완벽 섭렵
+                    김보민입니다. 저는 초밥을 좋아합니다.
+                  </p>
                 </div>
               </div>
             </div>
@@ -235,7 +245,10 @@ const Evideo = () => {
                   </h2>
                 </div>
                 <div className='item-content'>
-                  <p>더미텍스트를 찾아보려 했는데 영어밖에 없어서 화가 난 더미텍스트??? 얘는 또 뭔 버그에 걸려있어</p>
+                  <p>
+                    더미텍스트를 찾아보려 했는데 영어밖에 없어서 화가 난
+                    더미텍스트??? 얘는 또 뭔 버그에 걸려있어
+                  </p>
                 </div>
               </div>
             </div>
@@ -254,9 +267,11 @@ const Evideo = () => {
                 </div>
                 <div className='item-content'>
                   <p>
-                    그림을 매우 잘 그리는 썸네일러 김냠냠입니다. 여기는 본인이 직접 입력해서 3줄 정도로 들어갈
-                    콘텐츠입니다. 3줄이 넘어가면 ... 처리를 합니다. 오늘 쌀국수 먹었었는데 너무 비쌌어요 상처를 치료해줄
-                    사람 어디 없나 헤마다가 혼자서 덧나 365일 1년 내내 내 영혼의 키를 잡은 잭스패로우
+                    그림을 매우 잘 그리는 썸네일러 김냠냠입니다. 여기는 본인이
+                    직접 입력해서 3줄 정도로 들어갈 콘텐츠입니다. 3줄이 넘어가면
+                    ... 처리를 합니다. 오늘 쌀국수 먹었었는데 너무 비쌌어요
+                    상처를 치료해줄 사람 어디 없나 헤마다가 혼자서 덧나 365일
+                    1년 내내 내 영혼의 키를 잡은 잭스패로우
                   </p>
                 </div>
               </div>
@@ -276,8 +291,9 @@ const Evideo = () => {
                 </div>
                 <div className='item-content'>
                   <p>
-                    Delivery was quick....and I bought the CD for the music and yes the music is as expected, HOWEVER,
-                    the description of the CD did NOT state that it is either an Asian Master
+                    Delivery was quick....and I bought the CD for the music and
+                    yes the music is as expected, HOWEVER, the description of
+                    the CD did NOT state that it is either an Asian Master
                   </p>
                 </div>
               </div>
