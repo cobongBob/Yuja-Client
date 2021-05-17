@@ -15,7 +15,7 @@ window.Quill = Quill;
 
 let quill;
 
-const QuillRegister = ({ register, addingFileList, qData, setQData }) => {
+const QuillRegister = ({ register, addingFileList, qData, setQData, board_type }) => {
   const history = useHistory();
   const imageHandler = useCallback(() => {
     const input = document.createElement("input");
@@ -23,7 +23,6 @@ const QuillRegister = ({ register, addingFileList, qData, setQData }) => {
     input.setAttribute("type", "file");
     input.setAttribute("accept", "image/png, image/jpeg, image/gif, image/jpg");
 
-    //모든파일을 클릭해 이상한 파일을 삽입할수 있으므로 정규식으로 xss공격에 대비해야한다.
     input.click();
 
     input.onchange = async () => {
@@ -35,7 +34,7 @@ const QuillRegister = ({ register, addingFileList, qData, setQData }) => {
           "content-type": "multipart/form-data",
         },
       };
-      await YImgApiService.addImgs(formData, config)
+      await YImgApiService.addImgs(formData, config, board_type)
         .then((response) => {
           if (response.status === 200) {
             const range = quill.getSelection(true) !== null ? quill.getSelection(true) : 0;
@@ -48,7 +47,7 @@ const QuillRegister = ({ register, addingFileList, qData, setQData }) => {
           alert(error.response.data.message);
         });
     };
-  }, [addingFileList]);
+  }, [addingFileList, board_type]);
   // end of imageHandler
 
   const dropHandler = useCallback(
@@ -64,7 +63,7 @@ const QuillRegister = ({ register, addingFileList, qData, setQData }) => {
           "content-type": "multipart/form-data",
         },
       };
-      YImgApiService.addImgs(formData, config)
+      YImgApiService.addImgs(formData, config, board_type)
         .then((response) => {
           if (response.status === 200) {
             const range = quill.getSelection(true) !== null ? quill.getSelection(true) : 0;
@@ -77,7 +76,7 @@ const QuillRegister = ({ register, addingFileList, qData, setQData }) => {
           alert(error.response.data.message);
         });
     },
-    [addingFileList]
+    [addingFileList, board_type]
   );
   //end of drop handler
 
