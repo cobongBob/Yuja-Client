@@ -13,65 +13,15 @@ import {
 } from '../../../redux/board/youtube/yboardReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-modal';
-import * as ReportApiService from '../../../apiService/ReportApiService';
+import Report from '../components/Report';
 
 Modal.setAppElement('#root');
 const Ydetail = (props) => {
   const dispatch = useDispatch();
   const { userData } = useSelector((state) => state.loginReducer);
   const { detailData } = useSelector((state) => state.YboardReducer);
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
-  const [input, setInput] = useState({
-    reportedReason: '',
-  });
-
-  function openModal() {
-    if (userData && userData.id) {
-      setModalIsOpen(true);
-    } else {
-      alert('로그인 해주세요');
-    }
-  }
-  function closeModal() {
-    setModalIsOpen(false);
-  }
-
-  const reportcustomStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      background: '#dddddd',
-    },
-    overlay: { zIndex: 9999 },
-  };
-
-  const onChange = useCallback((e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-  });
-
-  const onSubmit = useCallback((e) => {
-    e.preventDefault();
-    const report = {
-      ...input,
-      boardId: props.match.params.board_id,
-      userId: userData.id,
-    };
-    if (userData && input.reportedReason !== '') {
-      ReportApiService.addReport(report);
-      alert('신고 접수 완료!');
-      closeModal();
-    } else {
-      alert('내용을 입력해주세요');
-    }
-  });
 
   useEffect(() => {
     const board_id = props.match.params.board_id;
@@ -130,14 +80,12 @@ const Ydetail = (props) => {
                     <div>
                       <Link
                         to={`/YmodifyTest/${detailData.id}`}
-                        className='detail-update-btn'
-                      >
+                        className='detail-update-btn'>
                         공고 수정하기
                       </Link>
                       <button
                         className='detail-update-btn'
-                        onClick={deleteBoard}
-                      >
+                        onClick={deleteBoard}>
                         공고 삭제하기
                       </button>
                     </div>
@@ -145,35 +93,11 @@ const Ydetail = (props) => {
                   <Link className='detail-update-btn' to='/Youtuber'>
                     목록보기
                   </Link>
-                  <button onClick={openModal}>신고하기</button>
-                  <Modal
-                    isOpen={modalIsOpen}
-                    style={reportcustomStyles}
-                    onRequestClose={closeModal}
-                  >
-                    <form id='ReportForm' onSubmit={(e) => onSubmit(e)}>
-                      <h1>무슨 이유로 신고 하시나요?</h1>
-                      <textarea
-                        name='reportedReason'
-                        id='ReportContent'
-                        placeholder='신고내용'
-                        onChange={onChange}
-                      ></textarea>
-                      <div className='BtnWrapper'>
-                        <input
-                          id='ReportSubmit'
-                          type='submit'
-                          value='신고하기'
-                        />
-                        <button
-                          id='ReportCloseBtn'
-                          onClick={() => setModalIsOpen(false)}
-                        >
-                          닫기
-                        </button>
-                      </div>
-                    </form>
-                  </Modal>
+                  <Report
+                    board_id={props.match.params.board_id}
+                    modalIsOpen={modalIsOpen}
+                    setModalIsOpen={setModalIsOpen}
+                  />
                 </div>
               </div>
               <div className='detail-title'>
