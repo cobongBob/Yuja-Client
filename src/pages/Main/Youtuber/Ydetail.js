@@ -66,7 +66,6 @@ const Ydetail = (props) => {
 
   const { userData } = useSelector((state) => state.loginReducer);
   const { detailData } = useSelector((state) => state.YboardReducer);
-
   useEffect(() => {
     const board_id = props.match.params.board_id;
     if (board_id) {
@@ -117,18 +116,22 @@ const Ydetail = (props) => {
               <div className='DetailTop'>상세내용</div>
               <div className='detail-btn'>
                 <div className='detail-btn-box'>
-                  <Link
-                    to={`/YmodifyTest/${detailData.id}`}
-                    className='detail-update-btn'
-                  >
-                    공고 수정하기
-                  </Link>
-                  <button className='detail-update-btn' onClick={deleteBoard}>
-                    공고 삭제하기
-                  </button>
+                  <div>
+                    <Link
+                      to={`/YmodifyTest/${detailData.id}`}
+                      className='detail-update-btn'
+                    >
+                      공고 수정하기
+                    </Link>
+                    <button className='detail-update-btn' onClick={deleteBoard}>
+                      공고 삭제하기
+                    </button>
+                  </div>
+
                   <Link className='detail-update-btn' to='/Youtuber'>
                     목록보기
                   </Link>
+
                   <button onClick={openModal}>신고하기</button>
                   <Modal
                     isOpen={modalIsOpen}

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
@@ -13,6 +13,8 @@ import {
   deleteLike,
 } from '../../../redux/board/youtube/yboardReducer';
 import { AiOutlineHeart } from 'react-icons/ai';
+import { userCheck } from '../../../redux/redux-login/loginReducer';
+import * as auth from '../../../apiService/AuthenticationService';
 
 const YoutuberTable = ({ boardData }) => {
   console.log(boardData);
@@ -70,7 +72,8 @@ const YoutuberTable = ({ boardData }) => {
                     {data && data.liked ? (
                       <button
                         className='likeButton'
-                        onClick={likeHandler(data.id)}>
+                        onClick={likeHandler(data.id)}
+                      >
                         <FcLike size={30} />
                         <span>{data.likes}</span>
                       </button>

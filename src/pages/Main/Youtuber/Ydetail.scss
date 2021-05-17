@@ -55,6 +55,10 @@
   color: black;
   margin-bottom: 1rem;
 }
+.detail-btn-box > div {
+  display: inline-block;
+}
+
 .detail-update-btn {
   border: 1px solid #008744;
   color: #008744;
@@ -69,6 +73,22 @@
 }
 
 .detail-btn-box > button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: inline-block;
+  border: 1px solid #d62d20;
+  padding: 0.5rem;
+  border-radius: 20px;
+  background-color: white;
+  color: #d62d20;
+  &:hover {
+    background-color: #d62d20;
+    color: white;
+  }
+}
+
+.detail-btn-box > div > button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
