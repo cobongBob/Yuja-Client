@@ -1,26 +1,32 @@
-import React, { useEffect, useState } from "react";
-import EditerTable from "./EditerTable";
-import "../Youtuber/Youtuber.scss";
-import Pagination from "../components/Pagination";
-import { useDispatch, useSelector } from "react-redux";
-import { getEBoards, getFilterData } from "../../../redux/board/editer/eboardReducer";
-import Search from "../components/Search";
+import React, { useEffect, useRef, useState } from 'react';
+import EditerTable from './EditerTable';
+import '../Youtuber/Youtuber.scss';
+import Pagination from '../components/Pagination';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getEBoards,
+  getFilterData,
+} from '../../../redux/board/editer/eboardReducer';
+import Search from '../components/Search';
 
-const Editor = () => {
+const Editer = ({ match }) => {
   const dispatch = useDispatch();
 
   // Youtuber의 전체 데이터 불러오기
   const eBoardData = useSelector((state) => state.EboardReducer);
   const { userData } = useSelector((state) => state.loginReducer);
-
-  const [searchTerm, setSearchTerm] = useState("");
+  const board_type = useRef(match.params.board_type);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const [currentPage, setCurrentPage] = useState(1);
   const [boardPerPage] = useState(12);
 
   const indexOfLastData = currentPage * boardPerPage;
   const indexOfFirstData = indexOfLastData - boardPerPage;
-  const currentData = eBoardData.filterData.slice(indexOfFirstData, indexOfLastData);
+  const currentData = eBoardData.filterData.slice(
+    indexOfFirstData,
+    indexOfLastData
+  );
 
   const clickPage = (pages) => {
     setCurrentPage(pages);
@@ -60,4 +66,4 @@ const Editor = () => {
   );
 };
 
-export default Editor;
+export default Editer;
