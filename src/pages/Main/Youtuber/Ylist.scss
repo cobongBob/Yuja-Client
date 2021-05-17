@@ -40,6 +40,7 @@
   }
   &:hover .card-img {
     transition: opacity 250ms;
+    cursor: pointer;
     opacity: 0.2;
   }
   &:hover .card-body {
@@ -59,6 +60,7 @@
 
 .card-container > ul > li > .card > .card-body {
   width: 20rem;
+  cursor: pointer;
   font-family: scdream5;
   position: absolute;
   top: 0;

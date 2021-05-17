@@ -21,6 +21,7 @@ const Ydetail = (props) => {
   const { userData } = useSelector((state) => state.loginReducer);
   const { detailData } = useSelector((state) => state.YboardReducer);
 
+  // 신고하기 modal 쓸때마다 해당 component 에서 선언해줘야함
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
@@ -93,6 +94,7 @@ const Ydetail = (props) => {
                   <Link className='detail-update-btn' to='/Youtuber'>
                     목록보기
                   </Link>
+                  {/* 모달 열리는 부분 */}
                   <Report
                     board_id={props.match.params.board_id}
                     modalIsOpen={modalIsOpen}
