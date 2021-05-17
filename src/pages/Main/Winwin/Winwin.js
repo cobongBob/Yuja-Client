@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { getWinBoard, getSearchData } from "../../../redux/board/winwin/winBoardReducer";
 import "./Winwin.scss";
 import WinTable from "./WinTable";
@@ -39,11 +38,10 @@ const Winwin = ({ match, history }) => {
     board_type.current = match.params.board_type;
     dispatch(getWinBoard(board_type.current));
   }, [userData, dispatch, match.params.board_type]);
-  return winBoard.loading ? (
+  return winBoard.loading && !winBoard ? (
     <>
-      <div className='wloading'>
+      <div className='loading'>
         <WSide />
-        <Loader type='spin' color='#ff9411' />;
       </div>
     </>
   ) : winBoard.err ? (

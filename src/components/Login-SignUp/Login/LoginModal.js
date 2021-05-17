@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react';
+import React, { useState, useCallback, useEffect } from "react";
 import Modal from "react-modal";
 import "./LoginModal.scss";
 import "../../Navi/Navi.scss";
@@ -32,10 +32,10 @@ function LoginModal() {
     setIsOpen(true);
   }
   function closeModal() {
-    setLoginValidateDesc('')
+    setLoginValidateDesc("");
     setIsOpen(false);
   }
-  
+
   // 구글 아이콘 스타일
   const customStyle = {
     background: "royalblue",
@@ -49,7 +49,7 @@ function LoginModal() {
     borderRadius: "3px",
     borderStyle: "none",
   };
-  
+
   /* 모달 설정 끝 */
 
   /* form, submit 새로고침 방지용 */
@@ -96,48 +96,43 @@ function LoginModal() {
   const logInHandler = useCallback(async () => {
     userLogin(loginData, setLoginValidateDesc).then((res) => {
       dispatch(res);
-      console.log('loginhandler res', res)
+      console.log("loginhandler res", res);
 
-      res.userLoginStatus === false ?
-        setIsOpen(true)
-        :
-        setIsOpen(false)
-
+      res.userLoginStatus === false ? setIsOpen(true) : setIsOpen(false);
     });
   }, [loginData, dispatch]);
 
-  const resGoogle = useCallback(async (response) => {
-    console.log('resGoogle시작')
-    await auth.googleLoginService(response).then((res) => {
-      console.log('res의 값',res)
-      if(res.providerId === null) {
-        userLogin(res).then((respon) => {
-          dispatch(respon);
-          console.log('loginhandler res', res)
+  const resGoogle = useCallback(
+    async (response) => {
+      console.log("resGoogle시작");
+      await auth.googleLoginService(response).then((res) => {
+        console.log("res의 값", res);
+        if (res.providerId === null) {
+          userLogin(res).then((respon) => {
+            dispatch(respon);
+            console.log("loginhandler res", res);
 
-          respon.userLoginStatus === false ?
-            setIsOpen(true)
-            :
-            setIsOpen(false)
-
-        });
-        closeModal();
-      } else {
-        console.log('else로')
-        closeModal();
-        history.push({
-          pathname: "/SignUp1",
-          resData: {
-            res
-          }
-        })
-      }
-    });
-  }, []);
+            respon.userLoginStatus === false ? setIsOpen(true) : setIsOpen(false);
+          });
+          closeModal();
+        } else {
+          console.log("else로");
+          closeModal();
+          history.push({
+            pathname: "/SignUp1",
+            resData: {
+              res,
+            },
+          });
+        }
+      });
+    },
+    [dispatch, history]
+  );
   /* 로그인 관련 끝 */
 
   /* 로그인 워닝 박스 */
-  const [loginValidateDesc, setLoginValidateDesc] = useState('');
+  const [loginValidateDesc, setLoginValidateDesc] = useState("");
 
   /* 로그인 워닝 박스 끝 */
 
@@ -190,21 +185,14 @@ function LoginModal() {
                 onChange={inputHandler}
               />
               <div className='loginMid'>
-                <div className='warningBox'>
-                  {loginValidateDesc}
-                </div>
+                <div className='warningBox'>{loginValidateDesc}</div>
                 <div className='findPasswordBox'>
                   <Link className='findPassword' to='/FindPassword' onClick={closeModal}>
                     비밀번호 찾기
                   </Link>
                 </div>
               </div>
-              <input
-                type='submit'
-                className='loginBtn'
-                value='로그인'
-                onClick={logInHandler}>
-              </input>
+              <input type='submit' className='loginBtn' value='로그인' onClick={logInHandler}></input>
               <GoogleLogin
                 className='googleLoginBtn'
                 clientId=''

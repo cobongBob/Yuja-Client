@@ -1,13 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
-import EditerTable from './EditerTable';
-import '../Youtuber/Youtuber.scss';
-import Pagination from '../components/Pagination';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  getEBoards,
-  getFilterData,
-} from '../../../redux/board/editer/eboardReducer';
-import Search from '../components/Search';
+import React, { useEffect, useRef, useState } from "react";
+import EditerTable from "./EditerTable";
+import "../Youtuber/Youtuber.scss";
+import Pagination from "../components/Pagination";
+import { useDispatch, useSelector } from "react-redux";
+import { getEBoards, getFilterData } from "../../../redux/board/editer/eboardReducer";
+import Search from "../components/Search";
 
 const Editer = ({ match }) => {
   const dispatch = useDispatch();
@@ -16,17 +13,14 @@ const Editer = ({ match }) => {
   const eBoardData = useSelector((state) => state.EboardReducer);
   const { userData } = useSelector((state) => state.loginReducer);
   const board_type = useRef(match.params.board_type);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
   const [boardPerPage] = useState(12);
 
   const indexOfLastData = currentPage * boardPerPage;
   const indexOfFirstData = indexOfLastData - boardPerPage;
-  const currentData = eBoardData.filterData.slice(
-    indexOfFirstData,
-    indexOfLastData
-  );
+  const currentData = eBoardData.filterData.slice(indexOfFirstData, indexOfLastData);
 
   const clickPage = (pages) => {
     setCurrentPage(pages);
@@ -43,8 +37,8 @@ const Editer = ({ match }) => {
     });
   };
 
-  return eBoardData.loading ? (
-    <h2>Loading...</h2>
+  return eBoardData.loading && !eBoardData ? (
+    <div className='loading'></div>
   ) : eBoardData.err ? (
     <h2>{eBoardData.err}</h2>
   ) : (

@@ -205,13 +205,13 @@ const Wdetail = ({ match }) => {
     if (window.confirm("게시글을 삭제 하시겠습니까?")) {
       deleteWinBoard(match.params.board_id, board_type)
         .then(() => {
-          history.push(`/Community/${board_type}`);
+          history.push(`/Community/${board_type}/${pageNum}`);
         })
         .catch((e) => {
           alert(e.response.data.message);
         });
     }
-  }, [match.params.board_id, history, board_type]);
+  }, [match.params.board_id, history, board_type, pageNum]);
 
   const modifyBoard = useCallback(() => {
     alert("수정페이지로...");

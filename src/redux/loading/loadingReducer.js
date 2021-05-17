@@ -1,7 +1,18 @@
 /* 액션 */
-export const GLOBAL_LOADING = 'loading/LOADING';
-export const GLOBAL_LOADED = 'loading/LOADED';
+const GLOBAL_LOADING = "GLOBAL_LOADING/LOADING";
+const GLOBAL_LOADED = "GLOBAL_LOADED/LOADED";
 /* 액션 함수 */
+
+export const getLoading = () => {
+  return {
+    type: GLOBAL_LOADING,
+  };
+};
+export const getLoaded = () => {
+  return {
+    type: GLOBAL_LOADED,
+  };
+};
 
 /* 초기값 */
 export const initialState = {
