@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import * as YapiService from '../../../apiService/YapiService';
 import './Ydetail.scss';
-import { FcLike } from 'react-icons/fc';
-import { AiOutlineHeart, AiOutlineFileSearch } from 'react-icons/ai';
-import { Link, useHistory } from 'react-router-dom';
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
+import { AiOutlineFileSearch } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import ChannelBox from './api_practice/ChannelBox';
 import {
@@ -66,6 +66,7 @@ const Ydetail = (props) => {
             <div className='youtube-top'>채널소개 및 기본공고</div>
           </div>
           <div className='youtube_top_DefaultInfo'>
+            {/* 유튜버  */}
             <div className='channel-box'>
               {!detailData ? <span>loading..</span> : <ChannelBox />}
             </div>
@@ -107,13 +108,13 @@ const Ydetail = (props) => {
                 <div className='detail-show'>
                   <div className='likeWrapper'>
                     {detailData && detailData.liked ? (
-                      <button className='likeButton' onClick={likeHandler}>
-                        <FcLike size={30} />
+                      <button className='starButton' onClick={likeHandler}>
+                        <AiFillStar size={30} />
                         <span>{detailData.likes}</span>
                       </button>
                     ) : (
-                      <button className='likeButton' onClick={likeHandler}>
-                        <AiOutlineHeart size={30} />
+                      <button className='starButton' onClick={likeHandler}>
+                        <AiOutlineStar size={30} />
                         <span>{detailData.likes}</span>
                       </button>
                     )}

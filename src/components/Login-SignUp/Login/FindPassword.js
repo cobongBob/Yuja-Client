@@ -32,6 +32,7 @@ const FindPassword = () => {
               <label
                 className='passwordEmailLabel'
                 htmlFor='email'
+                autofocus='on'
               >
                 이메일 입력
               </label>

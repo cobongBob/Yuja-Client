@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from 'react';
 import "./SignUp1.scss";
 import Agreement from "./Agreement";
 import Switch from "react-bootstrap/Switch";
@@ -6,7 +6,8 @@ import { Link, Route } from "react-router-dom";
 import NonRequired from "./NonRequired";
 import Required from "./Required";
 
-const SignUp1 = () => {
+const SignUp1 = ( { location } ) => {
+  console.log(location);
   return (
     <div className='SignUpFrag'>
       <header className='SignUpHeader'>
@@ -23,7 +24,15 @@ const SignUp1 = () => {
       <content>
         <div className='contentBox'>
           <Switch>
-            <Route exact path='/SignUp1' component={Agreement} />
+            <Route
+              exact path='/SignUp1'
+              component={Agreement}
+              googleSignupData={
+                location.resData === undefined ?
+                  null
+                  :
+                  location.resData.res}
+            />
             <Route path='/SignUp1/Required' component={Required} />
             <Route path='/SignUp1/NonRequired' component={NonRequired} />
           </Switch>

@@ -11,6 +11,7 @@ import {
 } from '../../../redux/board/youtube/yboardReducer';
 import Pagination from '../components/Pagination';
 import Search from '../components/Search';
+import { AiFillYoutube } from 'react-icons/ai';
 // nav에서 유튜버를 누르면 보이는 전체 컴포넌트
 const Youtuber = () => {
   const dispatch = useDispatch();
@@ -79,6 +80,10 @@ const Youtuber = () => {
     <h2>{yBoardData.err}</h2>
   ) : (
     <div className='tableWrapper'>
+      <div className='ListTitleWrapper'>
+        <AiFillYoutube className='YoutubeIcons'></AiFillYoutube>
+        <h1>Youtuber 공고 목록</h1>
+      </div>
       <Search
         boardData={
           searchTerm.length < 1 ? yBoardData.filterData : searchResults

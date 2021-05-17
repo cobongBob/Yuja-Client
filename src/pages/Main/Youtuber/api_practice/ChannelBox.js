@@ -111,8 +111,6 @@ const ChannelBox = () => {
               <span>{detailData.payAmount}원</span>
             </li>
             <li>
-              <span>편집tool</span>
-              <br />
               {detailData &&
                 detailData.tools &&
                 detailData.tools.map((tool, idx) => (

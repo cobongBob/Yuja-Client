@@ -1,19 +1,36 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import AuthCodeTimer from "./AuthCodeTimer";
-import AuthBtnBox from "./AuthBtnBox";
-import * as auth from "../../../apiService/AuthenticationService";
-import axios from "axios";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import AuthCodeTimer from './AuthCodeTimer';
+import AuthBtnBox from './AuthBtnBox';
+import * as auth from '../../../apiService/AuthenticationService';
+import axios from 'axios';
 
 const Required = ({ location }) => {
   /* 값 넘겨주기 */
   const [requiredData, setrequiredData] = useState({
     isMarketingChecked: location.state.next,
-    username: "",
-    password: "",
-    realName: "",
-    bday: "",
-    nickname: "",
+    username: location.state.googleSignupData !== null ?
+      location.state.googleSignupData.username
+      :
+      '',
+    password: location.state.googleSignupData !== null ?
+      location.state.googleSignupData.password
+      :
+      '',
+    realName: location.state.googleSignupData !== null ?
+      location.state.googleSignupData.realName
+      :
+      '',
+    provider: location.state.googleSignupData !== null ?
+      location.state.googleSignupData.provider
+      :
+      '',
+    providerId: location.state.googleSignupData !== null ?
+      location.state.googleSignupData.providerId
+      :
+      '',
+    bday: '',
+    nickname: ''
   });
 
   const isValidateInput = useMemo(
@@ -22,7 +39,7 @@ const Required = ({ location }) => {
       pass: requiredData.password,
       name: requiredData.realName,
       birth: requiredData.bday,
-      nick: requiredData.nickname,
+      nick: requiredData.nickname
     }),
     [requiredData]
   );
@@ -30,7 +47,7 @@ const Required = ({ location }) => {
   const changeValue = (e) => {
     setrequiredData({
       ...requiredData,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
@@ -38,7 +55,7 @@ const Required = ({ location }) => {
 
   /* 인증코드 통신 및 확인 */
   const [authCode, setAuthCode] = useState();
-  const [securityCode, setSecurityCode] = useState("오늘점심은부대찌개!!");
+  const [securityCode, setSecurityCode] = useState('오늘점심은부대찌개!!');
   const [disabledHandler, setDisabledHandler] = useState(false);
   const [emailDisableHandler, setEmailDisableHandler] = useState(false);
   const [btnTextHandler, setBtnTextHandler] = useState('인증번호 발송');
@@ -48,21 +65,21 @@ const Required = ({ location }) => {
   };
 
   const checkCodes = () => {
-    if(isValidateInput.id === '' || EmailValidateResData !== '') {
-      console.log('비어있음!')
-      setSecurityCodeValidateDesc('이메일을 확인 해주세요.')
+    if (isValidateInput.id === '' || EmailValidateResData !== '') {
+      console.log('비어있음!');
+      setSecurityCodeValidateDesc('이메일을 확인 해주세요.');
     } else if (securityCode === authCode) {
-      console.log("인증성공");
-      clearTimeout(setSecurityCode)
+      console.log('인증성공');
+      clearTimeout(setSecurityCode);
       changeTimeSet();
       setDisabledHandler(true);
-      setBtnTextHandler('인증완료')
-      setSecurityCodeValidateDesc('')
-      setEmailDisableHandler(true)
+      setBtnTextHandler('인증완료');
+      setSecurityCodeValidateDesc('');
+      setEmailDisableHandler(true);
       return true;
     } else {
-      console.log("인증실패");
-      setSecurityCodeValidateDesc('인증번호를 확인 해주세요.')
+      console.log('인증실패');
+      setSecurityCodeValidateDesc('인증번호를 확인 해주세요.');
       return false;
     }
   };
@@ -82,35 +99,35 @@ const Required = ({ location }) => {
     }
   };
   const changeStartTimer = () => {
-    console.log('===================== changeStartTimer 실행')
+    console.log('===================== changeStartTimer 실행');
     auth.verifyEmailSend(requiredData.username).then((res) => {
-      console.log('받자마자 res.data의 값 ', res.data)
+      console.log('받자마자 res.data의 값 ', res.data);
       setSecurityCode(res.data);
-      console.log('res.data를 sc에 넣은 후 sc의 값', securityCode)
+      console.log('res.data를 sc에 넣은 후 sc의 값', securityCode);
       setTimeout(() => {
-        setSecurityCode('내일점심은부대찌개!')
+        setSecurityCode('내일점심은부대찌개!');
       }, securityCodeDelay);
     });
     return setStartTimer(!startTimer);
   };
   const changeTimeSet = () => {
-    if(isValidateInput.id === '' || EmailValidateResData !== '') {
-      setSecurityCodeValidateDesc('이메일을 확인 해주세요.')
+    if (isValidateInput.id === '' || EmailValidateResData !== '') {
+      setSecurityCodeValidateDesc('이메일을 확인 해주세요.');
       return '';
     }
-    setTimerSet(!timerSet)
-    changeStartTimer()
+    setTimerSet(!timerSet);
+    changeStartTimer();
     setSecurityCodeValidateDesc('');
   };
   /* 인증 코드 발송 끝 */
 
   /* new 유효성 검사 */
-  const [EmailValidateResData, setEmailValidateResData] = useState();
-  const [nicknameValidateResData, setNicknameValidateResData] = useState();
-  const [passwordValidateDesc, setPasswordValidateDesc] = useState();
-  const [checkPasswordValidateDesc, setCheckPasswordValidateDesc] = useState();
-  const [nameValidateDesc, setNameValidateDesc] = useState();
-  const [birthValidateDesc, setBirthValidateDesc] = useState();
+  const [EmailValidateResData, setEmailValidateResData] = useState('');
+  const [nicknameValidateResData, setNicknameValidateResData] = useState('');
+  const [passwordValidateDesc, setPasswordValidateDesc] = useState('');
+  const [checkPasswordValidateDesc, setCheckPasswordValidateDesc] = useState('');
+  const [nameValidateDesc, setNameValidateDesc] = useState('');
+  const [birthValidateDesc, setBirthValidateDesc] = useState('');
   const [securityCodeValidateDesc, setSecurityCodeValidateDesc] = useState();
   const [passCheckNum, setpassCheckNum] = useState();
 
@@ -118,18 +135,21 @@ const Required = ({ location }) => {
 
   const totalCheck = useCallback(() => {
     if (
-      EmailValidateResData === "" &&
-      nicknameValidateResData === "" &&
-      passwordValidateDesc === "" &&
-      checkPasswordValidateDesc === "" &&
-      nameValidateDesc === "" &&
-      birthValidateDesc === "" &&
-      isValidateInput.nick !== "" &&
-      isValidateInput.birth !== "" &&
-      isValidateInput.id !== "" &&
-      isValidateInput.name !== "" &&
-      isValidateInput.pass !== "" &&
-      btnTextHandler === "인증완료"
+      EmailValidateResData === '' &&
+      nicknameValidateResData === '' &&
+      passwordValidateDesc === '' &&
+      checkPasswordValidateDesc === '' &&
+      nameValidateDesc === '' &&
+      birthValidateDesc === '' &&
+      isValidateInput.nick !== '' &&
+      isValidateInput.birth !== '' &&
+      isValidateInput.id !== '' &&
+      isValidateInput.name !== '' &&
+      isValidateInput.pass !== ''
+      // location.state.googleSignupData !== null ?
+      //   btnTextHandler === '인증번호 발송'
+      //   :
+      //   btnTextHandler === '인증완료'
     ) {
       setNextBtnDisabledHandler(false);
     } else {
@@ -143,7 +163,7 @@ const Required = ({ location }) => {
     nameValidateDesc,
     birthValidateDesc,
     isValidateInput,
-    btnTextHandler,
+    btnTextHandler
   ]);
 
   const backSpaceCheck = useCallback(() => {
@@ -162,49 +182,49 @@ const Required = ({ location }) => {
   };
 
   const checkEmailValidate = useCallback(() => {
-    axios.post("http://localhost:8888/api/auth/checkemail", requiredData).then((res) => {
-      if (res.data !== "") {
+    axios.post('http://localhost:8888/api/auth/checkemail', requiredData).then((res) => {
+      if (res.data !== '') {
         setEmailValidateResData(res.data);
-      } else if (res.data === "") {
-        setEmailValidateResData("");
+      } else if (res.data === '') {
+        setEmailValidateResData('');
       }
     });
   }, [requiredData]);
 
   const checkNicknameValidate = useCallback(() => {
-    axios.post("http://localhost:8888/api/auth/checknickname", requiredData).then((res) => {
-      if (res.data !== "") {
+    axios.post('http://localhost:8888/api/auth/checknickname', requiredData).then((res) => {
+      if (res.data !== '') {
         setNicknameValidateResData(res.data);
-      } else if (res.data === "") {
-        setNicknameValidateResData("");
+      } else if (res.data === '') {
+        setNicknameValidateResData('');
       }
     });
   }, [requiredData]);
 
   const checkPasswordValidate = useCallback(() => {
-    passCheck.test(isValidateInput.pass) === false && isValidateInput.pass !== ""
-      ? setPasswordValidateDesc("비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.")
-      : setPasswordValidateDesc("");
+    passCheck.test(isValidateInput.pass) === false && isValidateInput.pass !== ''
+      ? setPasswordValidateDesc('비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.')
+      : setPasswordValidateDesc('');
   }, [isValidateInput, passCheck]);
 
   const checkPasswordCheckValidate = useCallback(() => {
-    isValidateInput.pass !== passCheckNum && passCheckNum !== ""
-      ? setCheckPasswordValidateDesc("비밀번호를 확인해주세요.")
-      : setCheckPasswordValidateDesc("");
+    isValidateInput.pass !== passCheckNum && passCheckNum !== ''
+      ? setCheckPasswordValidateDesc('비밀번호를 확인해주세요.')
+      : setCheckPasswordValidateDesc('');
   }, [isValidateInput, passCheckNum]);
 
   const checkNameValidate = useCallback(() => {
-    if (nameCheck.test(isValidateInput.name) === false && isValidateInput.name !== "") {
-      setNameValidateDesc("이름은 2글자 이상의 영문자, 한글만 입력 가능합니다.");
+    if (nameCheck.test(isValidateInput.name) === false && isValidateInput.name !== '') {
+      setNameValidateDesc('이름은 2글자 이상의 영문자, 한글만 입력 가능합니다.');
     } else {
-      setNameValidateDesc("");
+      setNameValidateDesc('');
     }
   }, [nameCheck, isValidateInput]);
 
   const checkBirthValidate = useCallback(() => {
-    birthCheck.test(isValidateInput.birth) === false && isValidateInput.birth !== ""
-      ? setBirthValidateDesc("-을 제외한 생년월일 6자리만 입력해주세요.")
-      : setBirthValidateDesc("");
+    birthCheck.test(isValidateInput.birth) === false && isValidateInput.birth !== ''
+      ? setBirthValidateDesc('-을 제외한 생년월일 6자리만 입력해주세요.')
+      : setBirthValidateDesc('');
   }, [birthCheck, isValidateInput]);
 
   const requiredNextBtnHandler = useCallback(() => {
@@ -214,17 +234,18 @@ const Required = ({ location }) => {
         isValidateInput.nick,
         isValidateInput.birth,
         isValidateInput.name,
-        isValidateInput.pass,
-      ].includes("")
+        isValidateInput.pass
+      ].includes('')
     ) {
       setNextBtnDisabledHandler(true);
     }
   }, [isValidateInput]);
 
-  // useEffect(() => {
-  //   totalCheck();
-  //   console.log('useEffect의 sc값', securityCode)
-  // }, [requiredData, passCheckNum, nextBtnDisabledHandler, totalCheck, securityCode]);
+  // 유효성 검사 on/off
+  useEffect(() => {
+    totalCheck();
+    console.log('useEffect의 sc값', securityCode);
+  }, [requiredData, passCheckNum, nextBtnDisabledHandler, totalCheck, securityCode]);
 
   /* new 유효성 검사 끝 */
 
@@ -233,125 +254,223 @@ const Required = ({ location }) => {
       <div className='overlay'>
         <div className='required'>* 필수입력 정보입니다.</div>
         <table className='signUpTable'>
-          <tr>
-            <td>
-              <div className='labelWrapper'>
-                <label htmlFor='signUpId'>이메일</label>
-              </div>
-              <input
-                className='signUpId'
-                name='username'
-                type='email'
-                placeholder='아이디(이메일)'
-                onChange={changeValue}
-                onKeyUp={checkEmailValidate}
-                disabled={emailDisableHandler}
-                autoComplete='off'
-                autoFocus
-              />
-              <div className='warningBox'>{EmailValidateResData}</div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div className='labelWrapper'>
-                <label htmlFor='authenticationCodeCheck'>
-                  이메일 인증번호 입력
-                </label>
-              </div>
-              <div className='authCodeCheckBox'>
-                <div className='authenticationCodeBox'>
+
+          {/*구글로그인으로 왔을 때 */}
+
+          {location.state.googleSignupData !== null ?
+            <>
+              <tr>
+                <td>
+                  <div className='labelWrapper'>
+                    <label htmlFor='signUpId'>이메일</label>
+                  </div>
                   <input
-                    className='authenticationCodeCheck'
-                    name='authenticationCode'
-                    type='text'
-                    maxLength='8'
-                    placeholder='인증번호 입력'
-                    onChange={getAuthCode}
-                    disabled={disabledHandler}
+                    className='signUpId'
+                    name='username'
+                    type='email'
+                    placeholder='이메일을 입력해주세요'
+                    onChange={changeValue}
+                    onKeyUp={checkEmailValidate}
+                    disabled={true}
+                    value={location.state.googleSignupData.username}
+                    autoComplete='off'
+                    autoFocus
+                  />
+                  <div className='warningBox'>{EmailValidateResData}</div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div className='labelWrapper'>
+                    <label htmlFor='signUpPw'>비밀번호</label>
+                  </div>
+                  <input
+                    className='signUpPw'
+                    name='password'
+                    type='password'
+                    placeholder='비밀번호'
+                    onChange={changeValue}
+                    onKeyUp={checkPasswordValidate}
+                    disabled={true}
+                    value={location.state.googleSignupData.password}
                     autoComplete='off'
                   />
-                </div>
-                <div className='codeTimerBox'>{CodeTimer()}</div>
-                <div className='authenticationCodeSendBox'>
-                  <AuthBtnBox
-                    className='authenticationCodeSend'
-                    timerSet={timerSet}
-                    setTimerSet={setTimerSet}
-                    startTimer={startTimer}
-                    setStartTimer={setStartTimer}
-                    changeTimeSet={changeTimeSet}
-                    changeStartTimer={changeStartTimer}
-                    checkCodes={checkCodes}
-                    btnTextHandler={btnTextHandler}
-                    disabledHandler={disabledHandler}
+                  <div className='warningBox'>
+                    {passwordValidateDesc}
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div className='labelWrapper'>
+                    <label htmlFor='signUpPwCheck'>비밀번호 확인</label>
+                  </div>
+                  <input
+                    className='signUpPwCheck'
+                    name='passwordCheckNum'
+                    type='password'
+                    placeholder='비밀번호 확인'
+                    onChange={getPassCheckNum}
+                    onKeyUp={checkPasswordCheckValidate}
+                    disabled={true}
+                    value={location.state.googleSignupData.password}
                     autoComplete='off'
-                  >
-                  </AuthBtnBox>
-                </div>
-                <div className='warningBox'>
-                  {securityCodeValidateDesc}
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div className='labelWrapper'>
-                <label htmlFor='signUpPw'>비밀번호</label>
-              </div>
-              <input
-                className='signUpPw'
-                name='password'
-                type='password'
-                placeholder='비밀번호'
-                onChange={changeValue}
-                onKeyUp={checkPasswordValidate}
-                autoComplete='off'
-              />
-                <div className='warningBox'>
-                  {passwordValidateDesc}
-                </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div className='labelWrapper'>
-                <label htmlFor='signUpPwCheck'>비밀번호 확인</label>
-              </div>
-              <input
-                className='signUpPwCheck'
-                name='passwordCheckNum'
-                type='password'
-                placeholder='비밀번호 확인'
-                onChange={getPassCheckNum}
-                onKeyUp={checkPasswordCheckValidate}
-                autoComplete='off'
-              />
-                <div className='warningBox'>
-                  {checkPasswordValidateDesc}
-                </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div className='labelWrapper'>
-                <label htmlFor='signUpName'>이름(실명)</label>
-              </div>
-              <input
-                className='signUpName'
-                name='realName'
-                type='text'
-                placeholder='이름(실명)'
-                onChange={changeValue}
-                onKeyUp={checkNameValidate}
-                autoComplete='off'
-              />
-                <div className='warningBox'>
-                  {nameValidateDesc}
-                </div>
-            </td>
-          </tr>
+                  />
+                  <div className='warningBox'>
+                    {checkPasswordValidateDesc}
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div className='labelWrapper'>
+                    <label htmlFor='signUpName'>이름(실명)</label>
+                  </div>
+                  <input
+                    className='signUpName'
+                    name='realName'
+                    type='text'
+                    placeholder='이름(실명)'
+                    onChange={changeValue}
+                    onKeyUp={checkNameValidate}
+                    disabled={true}
+                    value={location.state.googleSignupData.realName}
+                    autoComplete='off'
+                  />
+                  <div className='warningBox'>
+                    {nameValidateDesc}
+                  </div>
+                </td>
+              </tr>
+            </>
+
+            :
+            // 그냥 로그인으로 왔을 때
+
+            <>
+              <tr>
+                <td>
+                  <div className='labelWrapper'>
+                    <label htmlFor='signUpId'>이메일</label>
+                  </div>
+                  <input
+                    className='signUpId'
+                    name='username'
+                    type='email'
+                    placeholder='아이디(이메일)'
+                    onChange={changeValue}
+                    onKeyUp={checkEmailValidate}
+                    disabled={emailDisableHandler}
+                    autoComplete='off'
+                    autoFocus
+                  />
+                  <div className='warningBox'>{EmailValidateResData}</div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div className='labelWrapper'>
+                    <label htmlFor='authenticationCodeCheck'>
+                      이메일 인증번호 입력
+                    </label>
+                  </div>
+                  <div className='authCodeCheckBox'>
+                    <div className='authenticationCodeBox'>
+                      <input
+                        className='authenticationCodeCheck'
+                        name='authenticationCode'
+                        type='text'
+                        maxLength='8'
+                        placeholder='인증번호 입력'
+                        onChange={getAuthCode}
+                        disabled={disabledHandler}
+                        autoComplete='off'
+                      />
+                    </div>
+                    <div className='codeTimerBox'>{CodeTimer()}</div>
+                    <div className='authenticationCodeSendBox'>
+                      <AuthBtnBox
+                        className='authenticationCodeSend'
+                        timerSet={timerSet}
+                        setTimerSet={setTimerSet}
+                        startTimer={startTimer}
+                        setStartTimer={setStartTimer}
+                        changeTimeSet={changeTimeSet}
+                        changeStartTimer={changeStartTimer}
+                        checkCodes={checkCodes}
+                        btnTextHandler={btnTextHandler}
+                        disabledHandler={disabledHandler}
+                        autoComplete='off'
+                      >
+                      </AuthBtnBox>
+                    </div>
+                    <div className='warningBox'>
+                      {securityCodeValidateDesc}
+                    </div>
+                  </div>
+                </td>
+                <div />
+              </tr>
+              <tr>
+                <td>
+                  <div className='labelWrapper'>
+                    <label htmlFor='signUpPw'>비밀번호</label>
+                  </div>
+                  <input
+                    className='signUpPw'
+                    name='password'
+                    type='password'
+                    placeholder='비밀번호'
+                    onChange={changeValue}
+                    onKeyUp={checkPasswordValidate}
+                    autoComplete='off'
+                  />
+                  <div className='warningBox'>
+                    {passwordValidateDesc}
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div className='labelWrapper'>
+                    <label htmlFor='signUpPwCheck'>비밀번호 확인</label>
+                  </div>
+                  <input
+                    className='signUpPwCheck'
+                    name='passwordCheckNum'
+                    type='password'
+                    placeholder='비밀번호 확인'
+                    onChange={getPassCheckNum}
+                    onKeyUp={checkPasswordCheckValidate}
+                    autoComplete='off'
+                  />
+                  <div className='warningBox'>
+                    {checkPasswordValidateDesc}
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div className='labelWrapper'>
+                    <label htmlFor='signUpName'>이름(실명)</label>
+                  </div>
+                  <input
+                    className='signUpName'
+                    name='realName'
+                    type='text'
+                    placeholder='이름(실명)'
+                    onChange={changeValue}
+                    onKeyUp={checkNameValidate}
+                    autoComplete='off'
+                  />
+                  <div className='warningBox'>
+                    {nameValidateDesc}
+                  </div>
+                </td>
+              </tr>
+            </>
+          }
+
           <tr>
             <td>
               <div className='labelWrapper'>
@@ -367,9 +486,9 @@ const Required = ({ location }) => {
                 onKeyUp={checkBirthValidate}
                 autoComplete='off'
               />
-                <div className='warningBox'>
-                  {birthValidateDesc}
-                </div>
+              <div className='warningBox'>
+                {birthValidateDesc}
+              </div>
             </td>
           </tr>
           <tr>
@@ -388,27 +507,27 @@ const Required = ({ location }) => {
                 onKeyDown={backSpaceCheck}
                 autoComplete='off'
               />
-                <div className='warningBox'>
-                  {nicknameValidateResData}
-                </div>
+              <div className='warningBox'>
+                {nicknameValidateResData}
+              </div>
             </td>
           </tr>
         </table>
         <div className='signUpNextBtnBox'>
           {
             nextBtnDisabledHandler === false ?
-            <Link
-              to={{
-                pathname: "/SignUp1/NonRequired",
-                state: {
-                  requiredData: requiredData,
-                },
-              }}
-              className='btn btn-warning'
-              //onClick={checkRequiredUserData}
-            >
-              다음
-            </Link>
+              <Link
+                to={{
+                  pathname: '/SignUp1/NonRequired',
+                  state: {
+                    requiredData: requiredData
+                  }
+                }}
+                className='btn btn-warning'
+                //onClick={checkRequiredUserData}
+              >
+                다음
+              </Link>
               :
               <button
                 className='btn btn-warning'
