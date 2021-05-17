@@ -1,14 +1,23 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import ReactQuill from "react-quill";
-import { deleteWinBoard } from "../../../apiService/winBoardApiService";
-import { deleteComment, fetchComments, insertComment, updateComment } from "../../../apiService/CommentApiService";
-import { useDispatch, useSelector } from "react-redux";
-import "./Wdetail.scss";
-import ParentsComments from "../components/Comment/ParentsComments";
-import { FcLike } from "react-icons/fc";
-import { AiOutlineHeart, AiOutlineFileSearch } from "react-icons/ai";
-import { getWDetailsData, wAddLike, wDeleteLike } from "../../../redux/board/winwin/winBoardReducer";
-import { useHistory } from "react-router";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import ReactQuill from 'react-quill';
+import { deleteWinBoard } from '../../../apiService/winBoardApiService';
+import {
+  deleteComment,
+  fetchComments,
+  insertComment,
+  updateComment,
+} from '../../../apiService/CommentApiService';
+import { useDispatch, useSelector } from 'react-redux';
+import './Wdetail.scss';
+import ParentsComments from '../components/Comment/ParentsComments';
+import { FcLike } from 'react-icons/fc';
+import { AiOutlineHeart, AiOutlineFileSearch } from 'react-icons/ai';
+import {
+  getWDetailsData,
+  wAddLike,
+  wDeleteLike,
+} from '../../../redux/board/winwin/winBoardReducer';
+import { useHistory } from 'react-router';
 
 const Wdetail = ({ match }) => {
   const { current: board_type } = useRef(match.params.board_type);
@@ -24,7 +33,7 @@ const Wdetail = ({ match }) => {
 
   //root댓글 input
   const [inputReply, setInputReply] = useState({
-    content: "",
+    content: '',
   });
 
   const { userData } = useSelector((state) => state.loginReducer);
@@ -52,7 +61,7 @@ const Wdetail = ({ match }) => {
   //댓글 삭제
   const deleteReply = useCallback(
     (commentId) => {
-      if (window.confirm("댓글을 삭제하시겠습니까?")) {
+      if (window.confirm('댓글을 삭제하시겠습니까?')) {
         deleteComment(commentId)
           .then(() => {
             fetchComments(match.params.board_id)
@@ -73,8 +82,8 @@ const Wdetail = ({ match }) => {
 
   //root댓글입력 저장
   const insertReply = useCallback(() => {
-    if (inputReply.content === "") {
-      alert("내용을 입력해 주세요");
+    if (inputReply.content === '') {
+      alert('내용을 입력해 주세요');
       return;
     }
     const insertData = {
@@ -88,7 +97,7 @@ const Wdetail = ({ match }) => {
         fetchComments(match.params.board_id)
           .then((res) => {
             setComments(res.data);
-            setInputReply({ content: "" });
+            setInputReply({ content: '' });
           })
           .catch((e) => {
             alert(e.response.data.message);
@@ -125,8 +134,8 @@ const Wdetail = ({ match }) => {
   // 대댓글 입력 저장
   const reReplyInsert = useCallback(
     (reReplyData) => {
-      if (reReplyData.content === "") {
-        alert("내용을 입력해 주세요");
+      if (reReplyData.content === '') {
+        alert('내용을 입력해 주세요');
         return;
       }
       const insertData = {
@@ -159,8 +168,8 @@ const Wdetail = ({ match }) => {
   //댓글 수정 저장
   const modifyComment = useCallback(
     (modifyData) => {
-      if (modifyData.content === "") {
-        alert("내용을 입력해 주세요");
+      if (modifyData.content === '') {
+        alert('내용을 입력해 주세요');
         return;
       }
       const modiContent = {
@@ -195,7 +204,7 @@ const Wdetail = ({ match }) => {
         });
       }
     } else {
-      alert("로그인 해주세요");
+      alert('로그인 해주세요');
       //로그인 창으로
     }
   }, [userData, wDetails, dispatch, match.params.board_id]);
@@ -210,7 +219,7 @@ const Wdetail = ({ match }) => {
       });
   }, [match.params.board_id, history, board_type]);
   const modifyBoard = useCallback(() => {
-    alert("수정페이지로...");
+    alert('수정페이지로...');
   }, []);
   const goList = useCallback(() => {
     history.push(`/Community/${board_type}`);
@@ -248,12 +257,18 @@ const Wdetail = ({ match }) => {
                 )}
               </div>
               <div className='hitWrapper'>
-                <AiOutlineFileSearch className='hit' size={30} /> <span className='hitCount'>{wDetails.hit}</span>
+                <AiOutlineFileSearch className='hit' size={30} />{' '}
+                <span className='hitCount'>{wDetails.hit}</span>
               </div>
             </div>
           </div>
           <div className='DetailQuill'>
-            <ReactQuill className='QuillContent' value={wDetails.content || ""} readOnly={true} theme={"bubble"} />
+            <ReactQuill
+              className='QuillContent'
+              value={wDetails.content || ''}
+              readOnly={true}
+              theme={'bubble'}
+            />
           </div>
           <div className='commentWrapper'>
             <ul>
@@ -278,7 +293,12 @@ const Wdetail = ({ match }) => {
             </ul>
 
             {/* root댓글 다는 곳 */}
-            <textarea name='content' value={inputReply.content} className='textarea' onChange={replyInputHandler} />
+            <textarea
+              name='content'
+              value={inputReply.content}
+              className='textarea'
+              onChange={replyInputHandler}
+            />
             <button onClick={insertReply}>댓글 등록</button>
           </div>
         </div>

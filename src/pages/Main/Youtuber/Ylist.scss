@@ -11,6 +11,7 @@
   display: inline-block;
   list-style: none;
   text-align: center;
+  padding-left: 0 !important;
 }
 
 .card-container > ul > li {
@@ -19,7 +20,7 @@
   margin: 1.25rem;
   padding: 0.5rem;
   position: relative;
-  float: left;
+  display: inline-block;
   list-style: none;
 }
 
@@ -94,6 +95,12 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   margin-bottom: 0;
+}
+
+.card-deadline {
+  font-size: 18px;
+  float: left;
+  font-weight: bold;
 }
 .card-text > div {
   font-weight: bold;

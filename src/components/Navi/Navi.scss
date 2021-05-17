@@ -107,12 +107,16 @@
       font-size: 19px;
       flex-direction: column;
       text-decoration: none !important;
-      display: inline-block;
+      display: block;
       .nav-link {
         list-style: none !important;
         display: block;
         margin-top: 5px;
         color: #ff9411;
+        &:hover {
+          display: block;
+          text-decoration: none;
+        }
       }
       .nav-login {
         display: inline-block;
@@ -133,6 +137,9 @@
     }
     .menu-icon {
       display: inline-block;
+      &:hover .nav-pills {
+        display: inline-block;
+      }
     }
   }
 }
