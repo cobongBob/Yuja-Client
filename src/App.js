@@ -20,8 +20,6 @@ import MainWrapper from "./MainWrapper";
 import PageNotFound from "./pages/Error/PageNotFound";
 import Footer from "./components/Footer";
 import FindPassword from "./components/Login-SignUp/Login/FindPassword";
-import { GLOBAL_LOADED, GLOBAL_LOADING } from "./redux/loading/loadingReducer";
-import GlobalLoading from "./components/Loading/GlobalLoading";
 import Wdetail from "./pages/Main/Winwin/Wdetail";
 import Wregister from "./pages/Main/Winwin/Wregister";
 
