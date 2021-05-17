@@ -92,7 +92,6 @@ const Ydetail = (props) => {
       <div className='DetailWrapper'>
         <div className='DetailHeaderWrapper'>
           <div className='youtube-top-wrapper'>
-            {''}
             <div className='youtube-top'>채널소개 및 기본공고</div>
           </div>
           <div className='youtube_top_DefaultInfo'>
@@ -107,7 +106,8 @@ const Ydetail = (props) => {
                 <div className='detail-btn-box'>
                   <Link
                     to={`/YmodifyTest/${detailData.id}`}
-                    className='detail-update-btn'>
+                    className='detail-update-btn'
+                  >
                     공고 수정하기
                   </Link>
                   <button className='detail-update-btn' onClick={deleteBoard}>
@@ -120,14 +120,16 @@ const Ydetail = (props) => {
                   <Modal
                     isOpen={modalIsOpen}
                     style={customStyles}
-                    onRequestClose={() => setModalIsOpen(false)}>
+                    onRequestClose={() => setModalIsOpen(false)}
+                  >
                     <form id='ReportForm' onSubmit={(e) => onSubmit(e)}>
                       <h1>무슨 이유로 신고 하시나요~?</h1>
                       <textarea
                         name='reportContents'
                         id='ReportContent'
                         placeholder='신고내용'
-                        onChange={onChange}></textarea>
+                        onChange={onChange}
+                      ></textarea>
                       <div className='BtnWrapper'>
                         <input
                           id='ReportSubmit'
@@ -136,7 +138,8 @@ const Ydetail = (props) => {
                         />
                         <button
                           id='ReportCloseBtn'
-                          onClick={() => setModalIsOpen(false)}>
+                          onClick={() => setModalIsOpen(false)}
+                        >
                           close
                         </button>
                       </div>

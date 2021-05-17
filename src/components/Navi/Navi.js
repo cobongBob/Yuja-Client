@@ -3,8 +3,6 @@ import './Navi.scss';
 import { Link, useLocation } from 'react-router-dom';
 import './SignButton.scss';
 import LoginModal from '../Login-SignUp/Login/LoginModal';
-import { FiMenu } from 'react-icons/fi';
-
 const Navi = () => {
   const pathname = useLocation().pathname;
 
@@ -63,9 +61,6 @@ const Navi = () => {
           <LoginModal />
         </li>
       </ul>
-      <button className='menu-icon'>
-        <FiMenu className='menu-icon-style'></FiMenu>
-      </button>
     </div>
   );
 };

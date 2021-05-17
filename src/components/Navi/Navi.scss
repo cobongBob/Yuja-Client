@@ -87,11 +87,12 @@
   border: none;
 }
 
-@media only screen and (max-width: 1099px) {
+@media only screen and (max-width: 1150px) {
   .nav {
     display: grid !important;
     position: fixed;
-    padding-left: 1rem !important;
+    padding-left: 0 !important;
+    list-style: none !important;
     z-index: 3;
     background-color: white;
     font-family: 'scdream5';
@@ -101,44 +102,120 @@
     border-bottom: 1px solid #ff9411;
 
     .nav-pills {
-      position: absolute;
-      padding-left: 3rem;
-      padding-top: 3.5rem;
-      font-size: 19px;
-      flex-direction: column;
+      font-size: 18px;
+      display: inline-block;
       text-decoration: none !important;
-      display: block;
+      padding-left: 0 !important;
       .nav-link {
-        list-style: none !important;
-        display: block;
+        display: inline-block;
         margin-top: 5px;
         color: #ff9411;
+        margin: 0.25rem;
         &:hover {
-          display: block;
-          text-decoration: none;
+          transition: all 0.3s;
+          background-color: #ff9411;
+          color: white;
         }
       }
-      .nav-login {
+
+      .nav-link-disabled {
         display: inline-block;
-        float: none;
-        color: black;
-        .button-login {
-          margin-top: 5px;
+        margin-top: 5px;
+        background-color: #ff9411;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        margin: 0.25rem;
+        cursor: default;
+      }
+    }
+
+    .nav-login {
+      display: inline-block;
+      color: black;
+      .button-login {
+        display: inline-block;
+        margin-top: 5px;
+        border-radius: 0.25rem;
+        padding: 0.5rem 1rem;
+        color: #ff9411;
+        background-color: transparent;
+        border: none;
+        &:hover {
+          padding: 0.5rem 1rem;
           border-radius: 0.25rem;
-          color: #ff9411;
-          border: none;
-          &:hover {
-            border-radius: 0.25rem;
-            background-color: #ff9411;
-            color: white;
-          }
+          background-color: #ff9411;
+          color: white;
         }
       }
     }
-    .menu-icon {
+  }
+}
+
+@media only screen and (max-width: 870px) {
+  .nav {
+    display: grid !important;
+    position: fixed;
+    padding-left: 0 !important;
+    list-style: none !important;
+    z-index: 3;
+    background-color: white;
+    font-family: 'scdream5';
+    width: 100%;
+    height: 6rem;
+    top: 0;
+    border-bottom: 1px solid #ff9411;
+
+    .nav-pills {
+      font-size: 18px;
       display: inline-block;
-      &:hover .nav-pills {
+      text-decoration: none !important;
+      padding-left: 0 !important;
+      width: 100%;
+
+      .nav-link {
         display: inline-block;
+        margin-top: 5px;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        margin: 0.25rem;
+        &:hover {
+          transition: all 0.3s;
+          background-color: #ff9411;
+          color: white;
+        }
+      }
+
+      .nav-link-disabled {
+        display: inline-block;
+        margin-top: 5px;
+        background-color: #ff9411;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        margin: 0.25rem;
+        cursor: default;
+      }
+    }
+
+    .nav-login {
+      float: none;
+      display: inline-block;
+      color: black;
+      .button-login {
+        display: inline-block;
+        margin-top: 5px;
+        border-radius: 0.25rem;
+        padding: 0.5rem 1rem;
+        color: #ff9411;
+        background-color: transparent;
+        border: none;
+        &:hover {
+          padding: 0.5rem 1rem;
+          border-radius: 0.25rem;
+          background-color: #ff9411;
+          color: white;
+        }
       }
     }
   }

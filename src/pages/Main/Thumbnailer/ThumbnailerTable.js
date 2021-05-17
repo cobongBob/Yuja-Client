@@ -25,7 +25,7 @@ export default function ThumbnailerTable({ boardData }) {
         {boardData?.map((data) => (
           <li>
             <Card key={data.id}>
-              <Card.Img src='/img/board_pic/thumbnailer_pic/thum4.PNG'></Card.Img>
+              <Card.Img src='/img/board_pic/thumbnailer_pic/thum3.PNG'></Card.Img>
               <Card.Header>
                 <Card.Title>
                   <div>
@@ -33,6 +33,10 @@ export default function ThumbnailerTable({ boardData }) {
                   </div>
                   <div> 사용기술 {data.tools[0]} </div>
                   <div> 모집분야 {data.worker} </div>
+                  <div className='card-deadline'>
+                    <span>마감일 </span>
+                    {format(new Date(data.expiredDate), 'yyyy-MM-dd')}
+                  </div>
                   <div className='card-like'>
                     <FcLike size={22} /> {data.likes}
                   </div>
@@ -56,12 +60,6 @@ export default function ThumbnailerTable({ boardData }) {
                     <strong>
                       <span>수정일 </span>
                       {format(new Date(data.updatedDate), 'yyyy-MM-dd')}
-                    </strong>
-                  </div>
-                  <div>
-                    <strong>
-                      <span>마감일 </span>
-                      {format(new Date(data.expiredDate), 'yyyy-MM-dd')}
                     </strong>
                   </div>
                 </Card.Footer>
