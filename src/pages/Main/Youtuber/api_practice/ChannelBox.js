@@ -16,11 +16,6 @@ const ChannelBox = () => {
 
   useEffect(() => {
     if (detailData && detailData.id !== 0) {
-      setSubscribers('');
-      setTitle('');
-      setVideos('');
-      setThumb('');
-      setDesc('');
       const url = detailData.user.youtubeUrl;
       if (url) {
         const lastIdx = url.lastIndexOf('/');

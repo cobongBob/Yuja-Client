@@ -74,6 +74,7 @@ export const addLike = async (board_id) => {
   await likeService.addLike(board_id);
   return {
     type: ADD_LIKE,
+    payload: board_id,
   };
 };
 
@@ -81,6 +82,7 @@ export const deleteLike = async (board_id) => {
   await likeService.deleteLike(board_id);
   return {
     type: DELETE_LIKE,
+    payload: board_id,
   };
 };
 
@@ -218,6 +220,13 @@ const YboardReducer = (state = initialState, action) => {
           likes: state.detailData.likes + 1,
           liked: true,
         },
+        filterData: state.filterData.map((data) => {
+          if (data.id === action.payload) {
+            data.likes += 1;
+            data.liked = true;
+          }
+          return data;
+        }),
       };
     case DELETE_LIKE:
       return {
@@ -227,6 +236,13 @@ const YboardReducer = (state = initialState, action) => {
           likes: state.detailData.likes - 1,
           liked: false,
         },
+        filterData: state.filterData.map((data) => {
+          if (data.id === action.payload) {
+            data.likes -= 1;
+            data.liked = false;
+          }
+          return data;
+        }),
       };
     default:
       return state;

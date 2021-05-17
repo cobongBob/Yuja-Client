@@ -6,6 +6,8 @@ import './Youtuber.scss';
 import {
   getYBoards,
   getFilterData,
+  addLike,
+  deleteLike,
 } from '../../../redux/board/youtube/yboardReducer';
 import Pagination from '../components/Pagination';
 import Search from '../components/Search';
@@ -46,6 +48,31 @@ const Youtuber = () => {
     });
   };
 
+  const likeHandler = useCallback(
+    (board_id) => {
+      if (userData && userData.id) {
+        deleteLike(board_id, userData.id).then((res) => {
+          dispatch(res);
+        });
+      } else {
+        alert('로그인 해주세요');
+      }
+    },
+    [userData, dispatch]
+  );
+  const dislikeHandler = useCallback(
+    (board_id) => {
+      if (userData && userData.id) {
+        addLike(board_id, userData.id).then((res) => {
+          dispatch(res);
+        });
+      } else {
+        alert('로그인 해주세요');
+      }
+    },
+    [userData, dispatch]
+  );
+
   return yBoardData.loading ? (
     <h2>Loading...</h2>
   ) : yBoardData.err ? (
@@ -60,7 +87,11 @@ const Youtuber = () => {
         setTerm={setSearchTerm}
         searchKeyword={searchHandler}
       />
-      <YoutuberTable boardData={currentData} />
+      <YoutuberTable
+        boardData={currentData}
+        likeHandler={likeHandler}
+        dislikeHandler={dislikeHandler}
+      />
       <Pagination
         boardPerPage={boardPerPage}
         totalBoards={yBoardData.filterData.length}
