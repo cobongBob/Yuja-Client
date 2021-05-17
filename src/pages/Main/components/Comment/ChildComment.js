@@ -1,10 +1,10 @@
-import React from "react";
-import { MdFiberNew } from "react-icons/md";
-import { AiTwotoneDelete } from "react-icons/ai";
-import { BiEdit } from "react-icons/bi";
-import getFormatDate from "../../../../getFormatDate";
-import ModifyComment from "./ModifyComment";
-import ReReplyComment from "./ReReplyComment";
+import React from 'react';
+import { MdFiberNew } from 'react-icons/md';
+import { AiTwotoneDelete } from 'react-icons/ai';
+import { BiEdit } from 'react-icons/bi';
+import getFormatDate from '../../../../getFormatDate';
+import ModifyComment from './ModifyComment';
+import ReReplyComment from './ReReplyComment';
 
 const ChildComments = ({
   writer,
@@ -22,7 +22,8 @@ const ChildComments = ({
   return (
     <>
       <li className='childComment'>
-        {isModifying.isModifying && isModifying.modify_commentId === comment.commentId ? (
+        {isModifying.isModifying &&
+        isModifying.modify_commentId === comment.commentId ? (
           <ModifyComment
             comment={comment}
             isModifying={isModifying}
@@ -37,7 +38,9 @@ const ChildComments = ({
               ) : (
                 <>
                   {comment.nickname}
-                  {writer === comment.userId ? <span className='myself'>작성자</span> : null}
+                  {writer === comment.userId ? (
+                    <span className='myself'>작성자</span>
+                  ) : null}
                 </>
               )}
             </div>
@@ -52,9 +55,14 @@ const ChildComments = ({
                       <>
                         <BiEdit
                           size='22'
-                          onClick={() => setIsModifying({ isModifying: true, modify_commentId: comment.commentId })}
+                          onClick={() =>
+                            setIsModifying({
+                              isModifying: true,
+                              modify_commentId: comment.commentId,
+                            })
+                          }
                           className='edit_icon comment_icon'
-                        />{" "}
+                        />{' '}
                         <AiTwotoneDelete
                           onClick={() => deleteReply(comment.commentId)}
                           size='22'
@@ -66,21 +74,26 @@ const ChildComments = ({
                 )}
               </div>
               <div className='commentDate'>
-                {comment.createdDate.substr(0, 10)} {comment.createdDate.substr(11, 5)}
-                {comment.createdDate.substr(0, 10) === getFormatDate(new Date()) ? (
+                {comment.createdDate.substr(0, 10)}{' '}
+                {comment.createdDate.substr(11, 5)}
+                {comment.createdDate.substr(0, 10) ===
+                getFormatDate(new Date()) ? (
                   <MdFiberNew className='new_icon' size='22' />
                 ) : null}
-                <span onClick={() => reReplyOpen(comment.commentId)} className='reply'>
+                <span
+                  onClick={() => reReplyOpen(comment.commentId)}
+                  className='reply'>
                   답글쓰기
                 </span>
-                {isReplying.replying && isReplying.reply_commentId === comment.commentId && (
-                  <ReReplyComment
-                    comment={comment}
-                    isReplying={isReplying}
-                    setIsReplying={setIsReplying}
-                    reReplyInsert={reReplyInsert}
-                  />
-                )}
+                {isReplying.replying &&
+                  isReplying.reply_commentId === comment.commentId && (
+                    <ReReplyComment
+                      comment={comment}
+                      isReplying={isReplying}
+                      setIsReplying={setIsReplying}
+                      reReplyInsert={reReplyInsert}
+                    />
+                  )}
               </div>
             </div>
           </>

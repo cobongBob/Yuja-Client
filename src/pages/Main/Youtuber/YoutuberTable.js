@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { format } from 'date-fns';
 import { FcLike } from 'react-icons/fc';
 import '../Youtuber/Ylist.scss';
@@ -17,6 +17,7 @@ import { userCheck } from '../../../redux/redux-login/loginReducer';
 import * as auth from '../../../apiService/AuthenticationService';
 
 const YoutuberTable = ({ boardData, likeHandler, dislikeHandler }) => {
+  const history = useHistory();
   return (
     <div className='card-container'>
       <div className='card-options'>
@@ -33,7 +34,9 @@ const YoutuberTable = ({ boardData, likeHandler, dislikeHandler }) => {
         {boardData?.map((data) => (
           <li>
             <Card key={data.id}>
-              <Card.Img src='/img/board_pic/thumbnailer_pic/thum3.PNG'></Card.Img>
+              <Card.Img
+                onClick={() => history.push(`/Ydetail/${data.id}`)}
+                src='/img/board_pic/thumbnailer_pic/thum3.PNG'></Card.Img>
               <Card.Header>
                 <Card.Title>
                   <div>
@@ -49,16 +52,14 @@ const YoutuberTable = ({ boardData, likeHandler, dislikeHandler }) => {
                     {data && data.liked ? (
                       <button
                         onClick={() => likeHandler(data.id)}
-                        className='likeButton'
-                      >
+                        className='likeButton'>
                         <FcLike size={30} />
                         <span>{data.likes}</span>
                       </button>
                     ) : (
                       <button
                         onClick={() => dislikeHandler(data.id)}
-                        className='likeButton'
-                      >
+                        className='likeButton'>
                         <AiOutlineHeart size={30} />
                         <span>{data.likes}</span>
                       </button>
@@ -66,7 +67,7 @@ const YoutuberTable = ({ boardData, likeHandler, dislikeHandler }) => {
                   </div>
                 </Card.Title>
               </Card.Header>
-              <Card.Body>
+              <Card.Body onClick={() => history.push(`/Ydetail/${data.id}`)}>
                 <Card.Text>
                   <div>
                     <Link to={`/YoutuberProfile/`} className='card-link'>
