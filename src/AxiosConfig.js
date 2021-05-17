@@ -1,4 +1,5 @@
 import axios from "axios";
+import { userLogout } from "./redux/redux-login/loginReducer";
 
 const instance = axios.create({
   baseURL: "http://localhost:8888/api/",
@@ -22,7 +23,7 @@ instance.interceptors.response.use(
     return response;
   },
   (error) => {
-    // 로그인으로 이동
+    userLogout();
     return Promise.reject(error);
   }
 );
