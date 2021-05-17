@@ -8,9 +8,13 @@ import GoogleLogin from "react-google-login";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin, userLogout, userCheck } from "../../../redux/redux-login/loginReducer";
 import googleLoginIcon from "./googleLoginIcon2.svg";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
 Modal.setAppElement("#root");
 function LoginModal() {
   const history = useHistory();
+
   /* 모달 설정 */
   const LoginModalCustomStyles = {
     content: {
@@ -72,13 +76,32 @@ function LoginModal() {
   }, [dispatch]);
   /* 리덕스 관련 끝 */
 
+  //알림
+  const loginNotify = useCallback(() => {
+    toast(`어서오세요! 👋`, {
+      autoClose: 2000,
+      hideProgressBar: true,
+      bodyStyle: { color: "black", fontSize: "17px", fontWeight: "bold" },
+      className: "notify",
+    });
+  }, []);
+  const logoutNotify = useCallback(() => {
+    toast(`로그아웃 되셨습니다.`, {
+      autoClose: 2000,
+      hideProgressBar: true,
+      bodyStyle: { color: "black", fontSize: "17px", fontWeight: "bold" },
+      className: "notify",
+    });
+  }, []);
+
   /* 로그인 관련 */
   const logout = useCallback(() => {
     userLogout().then((res) => {
       dispatch(res);
+      logoutNotify();
       history.push("/");
     });
-  }, [dispatch, history]);
+  }, [dispatch, history, logoutNotify]);
 
   const [loginData, setLoginData] = useState({
     username: "",
@@ -96,22 +119,18 @@ function LoginModal() {
   const logInHandler = useCallback(async () => {
     userLogin(loginData, setLoginValidateDesc).then((res) => {
       dispatch(res);
-      console.log("loginhandler res", res);
-
+      loginNotify();
       res.userLoginStatus === false ? setIsOpen(true) : setIsOpen(false);
     });
-  }, [loginData, dispatch]);
+  }, [loginData, dispatch, loginNotify]);
 
   const resGoogle = useCallback(
     async (response) => {
-      console.log("resGoogle시작");
       await auth.googleLoginService(response).then((res) => {
-        console.log("res의 값", res);
         if (res.providerId === null) {
           userLogin(res).then((respon) => {
             dispatch(respon);
-            console.log("loginhandler res", res);
-
+            loginNotify();
             respon.userLoginStatus === false ? setIsOpen(true) : setIsOpen(false);
           });
           closeModal();
@@ -127,7 +146,7 @@ function LoginModal() {
         }
       });
     },
-    [dispatch, history]
+    [dispatch, history, loginNotify]
   );
   /* 로그인 관련 끝 */
 
