@@ -1,12 +1,12 @@
-import React from "react";
-import { Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { format } from "date-fns";
-import { FcLike } from "react-icons/fc";
-import "../Youtuber/Ylist.scss";
-import SortingToDeadline from "../components/SortingToDeadline";
-import SortingToLiked from "../components/SortingToLiked";
-import BackToList from "../components/BackToList";
+import React from 'react';
+import { Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
+import { FcLike } from 'react-icons/fc';
+import '../Youtuber/Ylist.scss';
+import SortingToDeadline from '../components/SortingToDeadline';
+import SortingToLiked from '../components/SortingToLiked';
+import BackToList from '../components/BackToList';
 
 const YoutuberTable = ({ boardData }) => {
   return (
@@ -28,39 +28,41 @@ const YoutuberTable = ({ boardData }) => {
               <Card.Img src='/img/board_pic/thumbnailer_pic/thum3.PNG'></Card.Img>
               <Card.Header>
                 <Card.Title>
-                  <Link to={`/YoutuberProfile/`} className='card-link'>
-                    {data.user.username}
-                  </Link>
-                  <Link to={`/Ydetail/${data.id}`} className='card-link'>
-                    {data.title}
-                  </Link>
+                  <div>
+                    {data.payType} {data.payAmount}원
+                  </div>
+                  <div> 사용기술 {data.tools[0]} </div>
+                  <div> 모집분야 {data.worker} </div>
+                  <div className='card-like'>
+                    <FcLike size={22} /> {data.likes}
+                  </div>
                 </Card.Title>
               </Card.Header>
               <Card.Body>
                 <Card.Text>
-                  <strong>
-                    {data.payType} : {data.payAmount}원
-                    <br />
-                    {data.worker}
-                    <br />
-                    tools: {data.tools[0]}
-                  </strong>
+                  <div>
+                    <Link to={`/YoutuberProfile/`} className='card-link'>
+                      {data.user.username}
+                    </Link>
+                  </div>
+                  <div>
+                    <Link to={`/Ydetail/${data.id}`} className='card-link'>
+                      {data.title}
+                    </Link>
+                  </div>
                 </Card.Text>
                 <Card.Footer>
                   <div>
                     <strong>
                       <span>수정일 </span>
-                      {format(new Date(data.updatedDate), "yyyy-MM-dd")}
+                      {format(new Date(data.updatedDate), 'yyyy-MM-dd')}
                     </strong>
                   </div>
                   <div>
                     <strong>
                       <span>마감일 </span>
-                      {format(new Date(data.expiredDate), "yyyy-MM-dd")}
+                      {format(new Date(data.expiredDate), 'yyyy-MM-dd')}
                     </strong>
-                  </div>
-                  <div className='card-like'>
-                    <FcLike size={20} /> {data.likes}
                   </div>
                 </Card.Footer>
               </Card.Body>
