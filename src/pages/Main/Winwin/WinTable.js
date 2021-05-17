@@ -7,15 +7,13 @@ import SortingHit from "../components/Community/SortingHit";
 import SortingLike from "../components/Community/SortingLike";
 import SortingComment from "../components/Community/SortingComment";
 
-const WinTable = ({ currentData, board_type, lastIdx }) => {
+const WinTable = ({ currentData, board_type, lastIdx, currentPage }) => {
   return (
     <div>
-      <div>
+      <div className='card-options'>
         <Link to={`/BoardRegister/${board_type}`} className='registerBtn'>
           글쓰기
         </Link>
-      </div>
-      <div className='card-options'>
         <SortingDate />
         <SortingHit />
         <SortingLike />
@@ -25,12 +23,12 @@ const WinTable = ({ currentData, board_type, lastIdx }) => {
         <table className='table'>
           <thead>
             <tr>
-              <th className='no'>번호</th>
-              <th className='title'>제목</th>
-              <th className='writer'>작성자</th>
-              <th className='createdDate'>작성일</th>
-              <th className='hit'>조회수</th>
-              <th className='like'>좋아요</th>
+              <th className='wno'>번호</th>
+              <th className='wtitle'>제목</th>
+              <th className='wwriter'>작성자</th>
+              <th className='wcreatedDate'>작성일</th>
+              <th className='whited'>조회수</th>
+              <th className='wlike'>좋아요</th>
             </tr>
           </thead>
           <tbody>
@@ -39,7 +37,7 @@ const WinTable = ({ currentData, board_type, lastIdx }) => {
                 <tr key={board.id}>
                   <td>{lastIdx - idx}</td>
                   <td>
-                    <Link className='table_link' to={`/BoardDetail/${board_type}/${board.id}`}>
+                    <Link className='table_link' to={`/BoardDetail/${board_type}/${board.id}/${currentPage}`}>
                       {board.title}
                       <span className='commentNum'> [{board.comments}] </span>
                     </Link>

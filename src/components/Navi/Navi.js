@@ -1,9 +1,9 @@
-import React from 'react';
-import './Navi.scss';
-import { Link, useLocation } from 'react-router-dom';
-import './SignButton.scss';
-import LoginModal from '../Login-SignUp/Login/LoginModal';
-import { FiMenu } from 'react-icons/fi';
+import React from "react";
+import "./Navi.scss";
+import { Link, useLocation } from "react-router-dom";
+import "./SignButton.scss";
+import LoginModal from "../Login-SignUp/Login/LoginModal";
+import { FiMenu } from "react-icons/fi";
 
 const Navi = () => {
   const pathname = useLocation().pathname;
@@ -12,52 +12,22 @@ const Navi = () => {
     <div className='nav'>
       <ul className='nav-pills' defaultValue='/'>
         <Link to='/'>
-          <li className={pathname === '/' ? 'nav-link-disabled' : 'nav-link'}>
-            메인
-          </li>
+          <li className={pathname === "/" ? "nav-link-disabled" : "nav-link"}>메인</li>
         </Link>
         <Link to='/Youtuber'>
-          <li
-            className={
-              pathname === '/Youtuber' ? 'nav-link-disabled' : 'nav-link'
-            }
-          >
-            유튜버
-          </li>
+          <li className={pathname === "/Youtuber" ? "nav-link-disabled" : "nav-link"}>유튜버</li>
         </Link>
         <Link to='/Editer'>
-          <li
-            className={
-              pathname === '/Editer' ? 'nav-link-disabled' : 'nav-link'
-            }
-          >
-            편집자
-          </li>
+          <li className={pathname === "/Editer" ? "nav-link-disabled" : "nav-link"}>편집자</li>
         </Link>
         <Link to='/Thumbnailer'>
-          <li
-            className={
-              pathname === '/Thumbnailer' ? 'nav-link-disabled' : 'nav-link'
-            }
-          >
-            썸네일러
-          </li>
+          <li className={pathname === "/Thumbnailer" ? "nav-link-disabled" : "nav-link"}>썸네일러</li>
         </Link>
-        <Link to='/Community/Winwin'>
-          <li
-            className={
-              pathname.includes('/Community') ? 'nav-link-disabled' : 'nav-link'
-            }
-          >
-            커뮤니티
-          </li>
+        <Link to='/Community/Winwin/1'>
+          <li className={pathname.includes("/Community") ? "nav-link-disabled" : "nav-link"}>커뮤니티</li>
         </Link>
         <Link to='/Help'>
-          <li
-            className={pathname === '/Help' ? 'nav-link-disabled' : 'nav-link'}
-          >
-            고객센터
-          </li>
+          <li className={pathname === "/Help" ? "nav-link-disabled" : "nav-link"}>고객센터</li>
         </Link>
         <li className='nav-login'>
           <LoginModal />
