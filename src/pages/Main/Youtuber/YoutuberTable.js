@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
@@ -7,8 +7,37 @@ import '../Youtuber/Ylist.scss';
 import SortingToDeadline from '../components/SortingToDeadline';
 import SortingToLiked from '../components/SortingToLiked';
 import BackToList from '../components/BackToList';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addLike,
+  deleteLike,
+} from '../../../redux/board/youtube/yboardReducer';
+import { AiOutlineHeart } from 'react-icons/ai';
 
 const YoutuberTable = ({ boardData }) => {
+  console.log(boardData);
+  const { userData } = useSelector((state) => state.loginReducer);
+  const dispatch = useDispatch();
+  // boardData.id를 하나하나 빼야하나..?
+  // 현재 boardData는 12개를 다 담고있는 객체
+  // 그러므로 내가 클릭한 list의 boardId가 필요하다..
+  // 내가 클릭한 boardId....????????? 그럼 클릭한 boardId를 가져와야함
+  const likeHandler = useCallback(
+    (board_id) => {
+      if (userData && userData.id) {
+        if (boardData && boardData.liked) {
+          deleteLike(board_id, userData.id).then((res) => {
+            dispatch(res);
+          });
+        } else {
+          addLike(board_id, userData.id).then((res) => {
+            dispatch(res);
+          });
+        }
+      }
+    },
+    [userData, dispatch, boardData]
+  );
   return (
     <div className='card-container'>
       <div className='card-options'>
@@ -38,7 +67,19 @@ const YoutuberTable = ({ boardData }) => {
                     {format(new Date(data.expiredDate), 'yyyy-MM-dd')}
                   </div>
                   <div className='card-like'>
-                    <FcLike size={22} /> {data.likes}
+                    {data && data.liked ? (
+                      <button
+                        className='likeButton'
+                        onClick={likeHandler(data.id)}>
+                        <FcLike size={30} />
+                        <span>{data.likes}</span>
+                      </button>
+                    ) : (
+                      <button className='likeButton' onClick={likeHandler}>
+                        <AiOutlineHeart size={30} />
+                        <span>{data.likes}</span>
+                      </button>
+                    )}
                   </div>
                 </Card.Title>
               </Card.Header>

@@ -12,16 +12,24 @@ import {
   deleteLike,
 } from '../../../redux/board/youtube/yboardReducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { Modal } from 'react-bootstrap';
+import Modal from 'react-modal';
 import * as ReportApiService from '../../../apiService/ReportApiService';
 
+Modal.setAppElement('#root');
 const Ydetail = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [input, setInput] = useState({
     reportContents: '',
   });
 
-  const customStyles = {
+  function openModal() {
+    setModalIsOpen(true);
+  }
+  function closeModal() {
+    setModalIsOpen(false);
+  }
+
+  const reportcustomStyles = {
     content: {
       top: '50%',
       left: '50%',
@@ -29,7 +37,9 @@ const Ydetail = (props) => {
       bottom: 'auto',
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
+      background: '#dddddd',
     },
+    overlay: { zIndex: 9999 },
   };
 
   const onChange = useCallback((e) => {
@@ -46,7 +56,10 @@ const Ydetail = (props) => {
       boardId: props.match.params.board_id,
       userId: userData.id,
     };
+    console.log(11111111111, report);
     ReportApiService.addReport(report);
+    closeModal();
+    alert('신고가 접수 됫습니다.');
   });
 
   const dispatch = useDispatch();
@@ -116,14 +129,14 @@ const Ydetail = (props) => {
                   <Link className='detail-update-btn' to='/Youtuber'>
                     목록보기
                   </Link>
-                  <button onClick={() => setModalIsOpen(true)}>신고하기</button>
+                  <button onClick={openModal}>신고하기</button>
                   <Modal
                     isOpen={modalIsOpen}
-                    style={customStyles}
-                    onRequestClose={() => setModalIsOpen(false)}
+                    style={reportcustomStyles}
+                    onRequestClose={closeModal}
                   >
                     <form id='ReportForm' onSubmit={(e) => onSubmit(e)}>
-                      <h1>무슨 이유로 신고 하시나요~?</h1>
+                      <h1>무슨 이유로 신고 하시나요?</h1>
                       <textarea
                         name='reportContents'
                         id='ReportContent'
@@ -140,7 +153,7 @@ const Ydetail = (props) => {
                           id='ReportCloseBtn'
                           onClick={() => setModalIsOpen(false)}
                         >
-                          close
+                          닫기
                         </button>
                       </div>
                     </form>
@@ -169,7 +182,6 @@ const Ydetail = (props) => {
                   </div>
                 </div>
               </div>
-              -
             </div>
             <div className='detail-date'>
               {detailData && detailData.updatedDate
