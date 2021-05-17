@@ -12,7 +12,7 @@ import {
   deleteLike,
 } from '../../../redux/board/youtube/yboardReducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { Modal } from 'react-bootstrap';
+import Modal from 'react-modal';
 import * as ReportApiService from '../../../apiService/ReportApiService';
 
 const Ydetail = (props) => {
@@ -20,6 +20,13 @@ const Ydetail = (props) => {
   const [input, setInput] = useState({
     reportContents: '',
   });
+
+  function openModal() {
+    setModalIsOpen(true);
+  }
+  function closeModal() {
+    setModalIsOpen(false);
+  }
 
   const customStyles = {
     content: {
@@ -30,6 +37,7 @@ const Ydetail = (props) => {
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
     },
+    overlay: { zIndex: 9999 },
   };
 
   const onChange = useCallback((e) => {
@@ -116,13 +124,13 @@ const Ydetail = (props) => {
                   <Link className='detail-update-btn' to='/Youtuber'>
                     목록보기
                   </Link>
-                  <button onClick={() => setModalIsOpen(true)}>신고하기</button>
+                  <button onClick={openModal}>신고하기</button>
                   <Modal
                     isOpen={modalIsOpen}
                     style={customStyles}
-                    onRequestClose={() => setModalIsOpen(false)}>
+                    onRequestClose={closeModal}>
                     <form id='ReportForm' onSubmit={(e) => onSubmit(e)}>
-                      <h1>무슨 이유로 신고 하시나요~?</h1>
+                      <h1>무슨 이유로 신고 하시나요?</h1>
                       <textarea
                         name='reportContents'
                         id='ReportContent'
