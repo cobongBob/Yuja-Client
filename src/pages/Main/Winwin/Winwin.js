@@ -1,38 +1,35 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getWinBoard } from "../../../redux/board/winwin/winBoardReducer";
 import { MdFiberNew } from "react-icons/md";
 import "./Winwin.scss";
+import getFormatDate from "../../../getFormatDate";
 // nav에서 윈윈게시판을 누르면 보이는 전체 컴포넌트
-const Winwin = () => {
+const Winwin = ({ match }) => {
   const winBoard = useSelector((state) => state.winBoardReducer);
   const dispatch = useDispatch();
   const { userData } = useSelector((state) => state.loginReducer);
-
-  // yyyy-MM-dd 포맷으로 반환
-  const getFormatDate = useCallback((date) => {
-    let year = date.getFullYear();
-    let month = 1 + date.getMonth();
-    month = month >= 10 ? month : "0" + month;
-    let day = date.getDate();
-    day = day >= 10 ? day : "0" + day;
-    return year + "-" + month + "-" + day;
-  }, []);
-
+  const { current: board_type } = useRef(match.params.board_type);
   useEffect(() => {
-    dispatch(getWinBoard());
-  }, [userData, dispatch]);
-
+    dispatch(getWinBoard(board_type));
+  }, [userData, dispatch, board_type]);
   return winBoard.loading ? (
     <h2>Loading...</h2>
   ) : winBoard.err ? (
     <h2>{winBoard.err}</h2>
   ) : (
     <div>
-      <h1>윈윈 게시판</h1>
+      <div className='sideMenu'>
+        <h2>커뮤니티</h2>
+        <br />
+        <div>
+          <h3>윈윈</h3> <br />
+          <h3>합방해요</h3>
+        </div>
+      </div>
       <div className='tableWrapper'>
-        <Link to='/Wregister' className='registerBtn'>
+        <Link to={`/BoardRegister/${board_type}`} className='registerBtn'>
           글쓰기
         </Link>
         <table className='table'>
@@ -41,7 +38,7 @@ const Winwin = () => {
               <th className='no'>번호</th>
               <th className='title'>제목</th>
               <th className='writer'>작성자</th>
-              <th className='updatedDate'>작성일</th>
+              <th className='createdDate'>작성일</th>
               <th className='hit'>조회수</th>
             </tr>
           </thead>
@@ -52,7 +49,7 @@ const Winwin = () => {
                 <tr key={board.id}>
                   <td>{winBoard.wBoards.length - idx}</td>
                   <td>
-                    <Link className='table_link' to={`/Wdetail/${board.id}`}>
+                    <Link className='table_link' to={`/BoardDetail/${board_type}/${board.id}`}>
                       {board.title}
                       <span className='commentNum'> [{board.comments}] </span>
                     </Link>

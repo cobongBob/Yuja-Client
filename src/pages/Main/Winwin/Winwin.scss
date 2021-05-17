@@ -1,14 +1,46 @@
 .tableWrapper {
-  margin-top: 2rem;
-  margin-left: 10rem;
-  margin-right: 10rem;
-  margin-bottom: 5rem;
+  margin-top: 2vh;
+  margin-left: 20vw;
+  margin-right: 25vw;
+  margin-bottom: 5vh;
+}
+.sideMenu {
+  float: left;
+  margin-left: 10vw;
+  margin-top: 7vh;
+  border-radius: 2px;
+  min-height: 50vh;
+  min-width: 10vw;
+  border: 2px solid #dee2e6;
 }
 .table {
+  margin-left: 2vw;
+  width: 65vw;
+  table-layout: fixed;
   line-height: 20px;
-  word-break: break-all;
+  white-space: nowrap;
   margin-top: 1.5rem;
 }
+.table tr td {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
+.no {
+  width: 8%;
+}
+.title {
+  width: 50%;
+}
+.writer {
+  width: 15%;
+}
+.createdDate {
+  width: 15%;
+}
+.hit {
+  width: 12%;
+}
+
 .commentNum {
   font-size: 15px;
   color: #555555;

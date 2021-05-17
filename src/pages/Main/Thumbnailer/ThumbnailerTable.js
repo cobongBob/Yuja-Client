@@ -25,43 +25,44 @@ export default function ThumbnailerTable({ boardData }) {
         {boardData?.map((data) => (
           <li>
             <Card key={data.id}>
-              <Card.Img src='/img/board_pic/editor_pic/thum2.png'></Card.Img>
+              <Card.Img src='/img/board_pic/thumbnailer_pic/thum4.PNG'></Card.Img>
               <Card.Header>
                 <Card.Title>
-                  <Link to={`/YoutuberProfile/`} className='card-link'>
-                    {data.user.username}
-                  </Link>
-                  <Link to={`/Ydetail/${data.id}`} className='card-link'>
-                    {data.title}
-                  </Link>
+                  <div>
+                    {data.payType} {data.payAmount}원
+                  </div>
+                  <div> 사용기술 {data.tools[0]} </div>
+                  <div> 모집분야 {data.worker} </div>
+                  <div className='card-like'>
+                    <FcLike size={22} /> {data.likes}
+                  </div>
                 </Card.Title>
               </Card.Header>
               <Card.Body>
-                {/* 기본값 중에서 경력, 급여 등의 중요내용 넣기 */}
                 <Card.Text>
-                  <strong>
-                    {data.payType} : {data.payAmount}원
-                    <br />
-                    {data.worker}
-                    <br />
-                    tools: {data.tools[0]}
-                  </strong>
+                  <div>
+                    <Link to={`/YoutuberProfile/`} className='card-link'>
+                      {data.user.username}
+                    </Link>
+                  </div>
+                  <div>
+                    <Link to={`/Ydetail/${data.id}`} className='card-link'>
+                      {data.title}
+                    </Link>
+                  </div>
                 </Card.Text>
                 <Card.Footer>
                   <div>
                     <strong>
-                      <span>수정일</span>
+                      <span>수정일 </span>
                       {format(new Date(data.updatedDate), 'yyyy-MM-dd')}
                     </strong>
                   </div>
                   <div>
                     <strong>
-                      <span>마감일</span>
+                      <span>마감일 </span>
                       {format(new Date(data.expiredDate), 'yyyy-MM-dd')}
                     </strong>
-                  </div>
-                  <div className='card-like'>
-                    <FcLike size={20} /> {data.likes}
                   </div>
                 </Card.Footer>
               </Card.Body>

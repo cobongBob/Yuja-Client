@@ -8,7 +8,7 @@ import GoogleLogin from "react-google-login";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin, userLogout, userCheck } from "../../../redux/redux-login/loginReducer";
 import googleLoginIcon from "./googleLoginIcon2.svg";
-
+Modal.setAppElement("#root");
 function LoginModal() {
   const history = useHistory();
   /* 모달 설정 */
