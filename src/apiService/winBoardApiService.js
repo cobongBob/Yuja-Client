@@ -2,8 +2,27 @@ import instance from "../AxiosConfig.js";
 let board_code = 0;
 
 export const getWinBoards = async (board_type) => {
-  if (board_type === "Winwin") {
-    board_code = 4;
+  switch (board_type) {
+    case "Youtuber":
+      board_code = 1;
+      break;
+    case "Editor":
+      board_code = 2;
+      break;
+    case "Thumb":
+      board_code = 3;
+      break;
+    case "Winwin":
+      board_code = 4;
+      break;
+    case "Collabo":
+      board_code = 5;
+      break;
+    case "Notice":
+      board_code = 6;
+      break;
+    default:
+      board_code = 0;
   }
   return await instance({
     url: board_code + "/board",

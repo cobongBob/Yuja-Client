@@ -64,7 +64,13 @@ const Wregister = ({ match }) => {
       <div>
         <input name='title' onChange={inputHandler} placeholder='제목' maxLength='200' type='text' />
         <h2>상세 내용</h2>
-        <QuillRegister register={testCheking} addingFileList={addingFileList} qData={qData} setQData={setQData} />
+        <QuillRegister
+          register={testCheking}
+          addingFileList={addingFileList}
+          qData={qData}
+          setQData={setQData}
+          board_type={board_type}
+        />
       </div>
     </div>
   );
