@@ -24,6 +24,7 @@ import { GLOBAL_LOADED, GLOBAL_LOADING } from './redux/loading/loadingReducer';
 import GlobalLoading from './components/Loading/GlobalLoading';
 import Wdetail from './pages/Main/Winwin/Wdetail';
 import Wregister from './pages/Main/Winwin/Wregister';
+import EditorRegister from './pages/Main/Editer/EditorRegister';
 
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ['/SignUp1', '/SignUp1/Required', '/SignUp1/NonRequired'];
@@ -112,6 +113,7 @@ function App() {
           <Route path='/YmodifyTest/:board_id' component={YmodifyTest} />
           <Route path='/PageNotFound' component={PageNotFound} />
           <Route path='/FindPassword' component={FindPassword} />
+          <Route path='/EditorRegister' component={EditorRegister} />
           {/* <Route component={PageNotFound} /> 이게 왜 나올까요? */}
         </Switch>
       </div>
