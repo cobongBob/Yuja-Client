@@ -22,22 +22,22 @@ const YoutuberTable = ({ boardData }) => {
   // 현재 boardData는 12개를 다 담고있는 객체
   // 그러므로 내가 클릭한 list의 boardId가 필요하다..
   // 내가 클릭한 boardId....????????? 그럼 클릭한 boardId를 가져와야함
-  const likeHandler = useCallback(
-    (board_id) => {
-      if (userData && userData.id) {
-        if (boardData && boardData.liked) {
-          deleteLike(board_id, userData.id).then((res) => {
-            dispatch(res);
-          });
-        } else {
-          addLike(board_id, userData.id).then((res) => {
-            dispatch(res);
-          });
-        }
-      }
-    },
-    [userData, dispatch, boardData]
-  );
+  // const likeHandler = useCallback(
+  //   (board_id) => {
+  //     if (userData && userData.id) {
+  //       if (boardData && boardData.liked) {
+  //         deleteLike(board_id, userData.id).then((res) => {
+  //           dispatch(res);
+  //         });
+  //       } else {
+  //         addLike(board_id, userData.id).then((res) => {
+  //           dispatch(res);
+  //         });
+  //       }
+  //     }
+  //   },
+  //   [userData, dispatch, boardData]
+  // );
   return (
     <div className='card-container'>
       <div className='card-options'>
@@ -68,14 +68,12 @@ const YoutuberTable = ({ boardData }) => {
                   </div>
                   <div className='card-like'>
                     {data && data.liked ? (
-                      <button
-                        className='likeButton'
-                        onClick={likeHandler(data.id)}>
+                      <button className='likeButton'>
                         <FcLike size={30} />
                         <span>{data.likes}</span>
                       </button>
                     ) : (
-                      <button className='likeButton' onClick={likeHandler}>
+                      <button className='likeButton'>
                         <AiOutlineHeart size={30} />
                         <span>{data.likes}</span>
                       </button>

@@ -19,7 +19,7 @@ Modal.setAppElement('#root');
 const Ydetail = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [input, setInput] = useState({
-    reportContents: '',
+    reportedReason: '',
   });
 
   function openModal() {
@@ -119,8 +119,7 @@ const Ydetail = (props) => {
                 <div className='detail-btn-box'>
                   <Link
                     to={`/YmodifyTest/${detailData.id}`}
-                    className='detail-update-btn'
-                  >
+                    className='detail-update-btn'>
                     공고 수정하기
                   </Link>
                   <button className='detail-update-btn' onClick={deleteBoard}>
@@ -133,16 +132,14 @@ const Ydetail = (props) => {
                   <Modal
                     isOpen={modalIsOpen}
                     style={reportcustomStyles}
-                    onRequestClose={closeModal}
-                  >
+                    onRequestClose={closeModal}>
                     <form id='ReportForm' onSubmit={(e) => onSubmit(e)}>
                       <h1>무슨 이유로 신고 하시나요?</h1>
                       <textarea
-                        name='reportContents'
+                        name='reportedReason'
                         id='ReportContent'
                         placeholder='신고내용'
-                        onChange={onChange}
-                      ></textarea>
+                        onChange={onChange}></textarea>
                       <div className='BtnWrapper'>
                         <input
                           id='ReportSubmit'
@@ -151,8 +148,7 @@ const Ydetail = (props) => {
                         />
                         <button
                           id='ReportCloseBtn'
-                          onClick={() => setModalIsOpen(false)}
-                        >
+                          onClick={() => setModalIsOpen(false)}>
                           닫기
                         </button>
                       </div>
