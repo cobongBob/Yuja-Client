@@ -138,12 +138,7 @@ const QuillRegister = ({ register, addingFileList, qData, setQData, board_type }
 
   return (
     <>
-      <div
-        className='QuillWrapper'
-        onClick={() => {
-          quill.focus();
-        }}
-      >
+      <div className='QuillWrapper'>
         <div id='ReactQuill'></div>
       </div>
       <div className='button-line'>
