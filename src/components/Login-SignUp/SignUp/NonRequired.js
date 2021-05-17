@@ -81,17 +81,26 @@ const NonRequired = ({ location, history }) => {
   /* 회원가입 데이터 넘겨주기 시작 */
   /* required 페이지 데이터 담은 변수 */
   const requiredData = location.state.requiredData;
+  console.log('???',requiredData)
 
   /* 이 페이지(nonRequired) 데이터 담기 시작 */
   const [nonRequiredData, setNonRequiredData] = useState({
     address: "",
+    detailAddress:"",
     phone: "",
     isYoutuber: "",
     bsn: "",
-    youtuberUrl: "",
+    youtubeUrl: "",
     profilePicId: profilePicId.current,
     youtubeConfirmId: youtubeConfirmId.current
   });
+
+  const changeAddress = (value) => {
+    setNonRequiredData({
+      ...nonRequiredData,
+      address:value,
+    })
+  }
 
   const changeValue = (e) => {
     setNonRequiredData({
@@ -174,9 +183,7 @@ const NonRequired = ({ location, history }) => {
   /* 사업자 등록번호 확인식 끝 */
 
   const totalAction = (e) => {
-    if (checkNonRequiredUserData(e) === true && bsnCheck(e) === true) {
       insertUserData(e);
-    }
   };
 
   /* 이 페이지(nonRequired) 유효성 끝 */
@@ -217,7 +224,7 @@ const NonRequired = ({ location, history }) => {
 
   const permalinkCheck = useCallback((e) => {
     let checkContent = e.target.value
-    if(checkContent !== '' && checkContent.includes('youtube')) {
+    if(checkContent !== '' && checkContent.startsWith('https://www.youtube.com/')) {
       setIsPermalinkFill('')
     } else {
       setIsPermalinkFill('유튜브 고유주소를 확인해주세요.')
@@ -257,7 +264,7 @@ const NonRequired = ({ location, history }) => {
           <tr>
             <td>
               <div className='signUpAddressBox'>
-                <AddressApi/>
+                <AddressApi changeValue={changeValue} changeAddress={changeAddress}/>
               </div>
             </td>
           </tr>
@@ -330,7 +337,7 @@ const NonRequired = ({ location, history }) => {
                   유튜브 고유 주소 <span>(필수)</span>
                   <input
                     className='youtuberUrlBoxInput'
-                    name='youtuberUrl'
+                    name='youtubeUrl'
                     id='youtuberUrlBoxInput'
                     type='text'
                     placeholder='유튜브 고유 주소를 입력해주세요'
@@ -373,7 +380,11 @@ const NonRequired = ({ location, history }) => {
           ""
         )}
         <div className='signUpSubmitBtnBox'>
-          <button type='submit' className='btn btn-warning' onClick={totalAction} disabled={submitDisableHandler}>
+          <button
+            type='submit'
+            className='btn btn-warning'
+            onClick={totalAction}
+            disabled={submitDisableHandler}>
             회원가입
           </button>
         </div>
