@@ -28,7 +28,7 @@ const Wdetail = ({ match }) => {
   });
 
   const { userData } = useSelector((state) => state.loginReducer);
-  const { wDetails, loading } = useSelector((state) => state.winBoardReducer);
+  const { wDetails } = useSelector((state) => state.winBoardReducer);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -201,24 +201,26 @@ const Wdetail = ({ match }) => {
   }, [userData, wDetails, dispatch, match.params.board_id]);
 
   const deleteBoard = useCallback(() => {
-    deleteWinBoard(match.params.board_id, board_type)
-      .then(() => {
-        history.push(`/Community/${board_type}`);
-      })
-      .catch((e) => {
-        alert(e.response.data.message);
-      });
+    if (window.confirm("게시글을 삭제 하시겠습니까?")) {
+      deleteWinBoard(match.params.board_id, board_type)
+        .then(() => {
+          history.push(`/Community/${board_type}`);
+        })
+        .catch((e) => {
+          alert(e.response.data.message);
+        });
+    }
   }, [match.params.board_id, history, board_type]);
+
   const modifyBoard = useCallback(() => {
     alert("수정페이지로...");
   }, []);
+
   const goList = useCallback(() => {
     history.push(`/Community/${board_type}`);
   }, [history, board_type]);
 
-  return loading ? (
-    <h2>Loading...</h2>
-  ) : (
+  return (
     wDetails && (
       <div>
         <div className='detail-content'>

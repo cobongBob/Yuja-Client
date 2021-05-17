@@ -14,7 +14,6 @@ const Editor = () => {
   const { userData } = useSelector((state) => state.loginReducer);
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [boardPerPage] = useState(12);
@@ -45,7 +44,7 @@ const Editor = () => {
   ) : (
     <div className='tableWrapper'>
       <Search
-        boardData={searchTerm.length < 1 ? eBoardData.filterData : searchResults}
+        boardData={searchTerm.length < 1 ? eBoardData.filterData : null}
         term={searchTerm}
         setTerm={setSearchTerm}
         searchKeyword={searchHandler}
