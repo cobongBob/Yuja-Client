@@ -23,7 +23,9 @@ instance.interceptors.response.use(
     return response;
   },
   (error) => {
-    userLogout();
+    if (error.response.status === 401) {
+      userLogout();
+    }
     return Promise.reject(error);
   }
 );
