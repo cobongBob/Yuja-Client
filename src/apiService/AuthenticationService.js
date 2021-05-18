@@ -9,6 +9,10 @@ export const resetPasswordEmailSend = async (username) => {
   return await axios.post(USER_API_BASE_URL + "/findPassword", { username: username });
 };
 
+export const resetPassword = async (username, password) => {
+  return await axios.post(USER_API_BASE_URL + "/resetPassword", { username: username, password: password});
+};
+
 export const executeJwtAuthenticationService = async (data) => {
   return await axios.post(USER_API_BASE_URL + "/signin", data, { withCredentials: true });
 };

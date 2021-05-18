@@ -1,12 +1,12 @@
 import React, { useCallback, useState } from "react";
 import "./FindPassword.scss"
-import { Link } from "react-router-dom";
+import { Link, Route } from 'react-router-dom';
 import * as auth from "../../../apiService/AuthenticationService";
-import AuthBtnBox from '../SignUp/AuthBtnBox';
-import ResetPasswordAuthBox from '../SignUp/ResetPasswordAuthBox';
-import { resetPasswordEmailSend } from '../../../apiService/AuthenticationService';
+import ResetPasswordAuthBox from './ResetPasswordAuthBox';
+import Switch from 'react-bootstrap/Switch';
+import ResetPassword from './ResetPassword';
 
-const FindPassword = () => {
+const FindPassword = ( { history } ) => {
 
   const [username, setUsername] = useState({
     username: "",
@@ -44,7 +44,7 @@ const FindPassword = () => {
     setResetPasswordSendBtnHandler(false)
     console.log('sendResetPasswordCode 실행')
     auth.resetPasswordEmailSend(username.username).then((res) => {
-      console.log(res.data);
+      console.log('fp의 res.data값', res.data);
       setResetPasswordSecurityCode(res.data);
 
     }).catch(e => alert(e.response.data.message))
@@ -52,11 +52,18 @@ const FindPassword = () => {
 
   const resetPasswordCheckCodes = useCallback(() => {
     console.log('resetPasswordCheckCodes 실행')
+    console.log('checkcodes의 SecurityCode', resetPasswordSecurityCode)
+    console.log('checkcodes의 AuthCode', restPasswordAuthCode)
     if(username === '' || resetPasswordEmailData !== '') {
       console.log('이메일이 비어있거나 틀림')
       setResetPasswordEmailResData('이메일을 확인 해주세요.')
     } else if(restPasswordAuthCode === resetPasswordSecurityCode) {
       console.log('인증성공')
+      console.log('username', username.username)
+      history.push({
+        pathname:'/FindPassword/ResetPassword',
+        username:username.username
+      })
       setAuthDisabledHandler(true)
       setBtnTextHandler('인증완료')
       setSecurityCodeValidateDesc('')
@@ -86,7 +93,7 @@ const FindPassword = () => {
               <label
                 className='passwordEmailLabel'
                 htmlFor='email'
-                autofocus='on'
+                autoFocus='on'
               >
                 이메일 입력
               </label>
@@ -150,6 +157,7 @@ const FindPassword = () => {
         </Link>
       </footer>
     </div>
+
     </div>
   );
 };

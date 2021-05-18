@@ -30,6 +30,7 @@ import Loader from './components/Loading/Loader';
 import instance from './AxiosConfig';
 import { userLogout } from './redux/redux-login/loginReducer';
 import EDetail from './pages/Main/Editer/EDetail';
+import ResetPassword from './components/Login-SignUp/Login/ResetPassword';
 
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ['/SignUp1', '/SignUp1/Required', '/SignUp1/NonRequired'];
@@ -116,6 +117,7 @@ function App() {
           <Route path='/FindPassword' component={FindPassword} />
           <Route path='/EditorRegister' component={EditorRegister} />
           <Route path='/EDetail/:board_id' component={EDetail} />
+          <Route path='/FindPassword/ResetPassword' component={ResetPassword} />
           {/* <Route component={PageNotFound} /> 이게 왜 나올까요? */}
         </Switch>
       </div>
