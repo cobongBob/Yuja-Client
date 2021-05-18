@@ -1,21 +1,17 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import * as YapiService from '../../../apiService/YapiService';
-import './Ydetail.scss';
-import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
-import { AiOutlineFileSearch } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
-import ReactQuill from 'react-quill';
-import ChannelBox from './api_practice/ChannelBox';
-import {
-  getDetailData,
-  addLike,
-  deleteLike,
-} from '../../../redux/board/youtube/yboardReducer';
-import { useDispatch, useSelector } from 'react-redux';
-import Modal from 'react-modal';
-import Report from '../components/Report';
+import React, { useCallback, useEffect, useState } from "react";
+import * as YapiService from "../../../apiService/YapiService";
+import "./Ydetail.scss";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { AiOutlineFileSearch } from "react-icons/ai";
+import { Link } from "react-router-dom";
+import ReactQuill from "react-quill";
+import ChannelBox from "./api_practice/ChannelBox";
+import { getDetailData, addLike, deleteLike } from "../../../redux/board/youtube/yboardReducer";
+import { useDispatch, useSelector } from "react-redux";
+import Modal from "react-modal";
+import Report from "../components/Report";
 
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 const Ydetail = (props) => {
   const dispatch = useDispatch();
   const { userData } = useSelector((state) => state.loginReducer);
@@ -36,8 +32,7 @@ const Ydetail = (props) => {
 
   const deleteBoard = () => {
     YapiService.deleteBoard(props.match.params.board_id).then((res) => {
-      alert(res.data);
-      props.history.push('/Youtuber');
+      props.history.push("/Youtuber");
     });
   };
 
@@ -53,7 +48,7 @@ const Ydetail = (props) => {
         });
       }
     } else {
-      alert('로그인 해주세요');
+      alert("로그인 해주세요");
       //로그인 창으로
     }
   }, [userData, dispatch, props.match.params.board_id, detailData]);
@@ -67,27 +62,19 @@ const Ydetail = (props) => {
           </div>
           <div className='youtube_top_DefaultInfo'>
             {/* 유튜버  */}
-            <div className='channel-box'>
-              {!detailData ? <span>loading..</span> : <ChannelBox />}
-            </div>
+            <div className='channel-box'>{!detailData ? <span>loading..</span> : <ChannelBox />}</div>
           </div>
           <div className='detail-box'>
             <div>
               <div className='DetailTop'>상세내용</div>
               <div className='detail-btn'>
                 <div className='detail-btn-box'>
-                  {userData &&
-                  detailData.user &&
-                  userData.id === detailData.user.id ? (
+                  {userData && detailData.user && userData.id === detailData.user.id ? (
                     <div>
-                      <Link
-                        to={`/YmodifyTest/${detailData.id}`}
-                        className='detail-update-btn'>
+                      <Link to={`/YmodifyTest/${detailData.id}`} className='detail-update-btn'>
                         공고 수정하기
                       </Link>
-                      <button
-                        className='detail-update-btn'
-                        onClick={deleteBoard}>
+                      <button className='detail-update-btn' onClick={deleteBoard}>
                         공고 삭제하기
                       </button>
                     </div>
@@ -120,28 +107,22 @@ const Ydetail = (props) => {
                     )}
                   </div>
                   <div className='hitWrapper'>
-                    <AiOutlineFileSearch className='hit' size={30} />{' '}
-                    <span className='hitCount'>{detailData.hit}</span>
+                    <AiOutlineFileSearch className='hit' size={30} /> <span className='hitCount'>{detailData.hit}</span>
                   </div>
                 </div>
               </div>
             </div>
             <div className='detail-date'>
-              {detailData && detailData.updatedDate
-                ? detailData.updatedDate.substr(0, 10)
-                : ''}{' '}
-              ~{' '}
-              {detailData && detailData.expiredDate
-                ? detailData.expiredDate.substr(0, 10)
-                : '상시채용'}
+              {detailData && detailData.updatedDate ? detailData.updatedDate.substr(0, 10) : ""} ~{" "}
+              {detailData && detailData.expiredDate ? detailData.expiredDate.substr(0, 10) : "상시채용"}
             </div>
             <div className='detail-content'>
               <div className='DetailQuill'>
                 <ReactQuill
                   className='QuillContent'
-                  value={detailData.content || ''}
+                  value={detailData.content || ""}
                   readOnly={true}
-                  theme={'bubble'}
+                  theme={"bubble"}
                 />
               </div>
             </div>
