@@ -29,6 +29,7 @@ import { getLoaded, getLoading } from "./redux/loading/loadingReducer";
 import Loader from "./components/Loading/Loader";
 import instance from "./AxiosConfig";
 import { userLogout } from "./redux/redux-login/loginReducer";
+import Chat from "./pages/Main/components/Chat/Chat";
 
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
@@ -108,6 +109,7 @@ function App() {
           <Route path='/PageNotFound' component={PageNotFound} />
           <Route path='/FindPassword' component={FindPassword} />
           <Route path='/EditorRegister' component={EditorRegister} />
+          <Route path='/chat' component={Chat} />
           {/* <Route component={PageNotFound} /> 이게 왜 나올까요? */}
         </Switch>
       </div>
