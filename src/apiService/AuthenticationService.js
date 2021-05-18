@@ -30,8 +30,6 @@ export const authLogout = () => {
 
 export const isUserLoggedIn = () => {
   const userData = JSON.parse(sessionStorage.getItem("userData"));
-  console.log("===UserloggedInCheck===");
-  console.log(userData);
   if (userData) {
     return true;
   }
@@ -60,7 +58,7 @@ export const googleLoginService = async (response) => {
     const loginData = {
       username: resFromServer.data.email,
       password: resFromServer.data.password,
-      providerId: null
+      providerId: null,
     };
     return loginData;
     // 이 데이터를 가지고 로그인으로 이동 후 자동 로그인

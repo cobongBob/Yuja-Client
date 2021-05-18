@@ -32,10 +32,63 @@ import { userLogout } from './redux/redux-login/loginReducer';
 import EDetail from './pages/Main/Editer/EDetail';
 import ResetPassword from './components/Login-SignUp/Login/ResetPassword';
 
+import React, { useCallback, useEffect } from "react";
+import Logo from "./components/Logo/Logo";
+import "./App.css";
+import { Route } from "react-router";
+import Youtuber from "./pages/Main/Youtuber/Youtuber";
+import Editer from "./pages/Main/Editer/Editer";
+import Thumbnailer from "./pages/Main/Thumbnailer/Thumbnailer";
+import Winwin from "./pages/Main/Winwin/Winwin";
+import Help from "./pages/Main/Help/Help";
+import Ydetail from "./pages/Main/Youtuber/Ydetail";
+import SignUp1 from "./components/Login-SignUp/SignUp/SignUp1";
+import { withRouter } from "react-router";
+import Navi from "./components/Navi/Navi";
+import YoutuberProfile from "./pages/Profile/YoutuberProfile";
+import Yregister from "./pages/Main/Youtuber/Yregister";
+import Switch from "react-bootstrap/Switch";
+import YmodifyTest from "./pages/Main/Youtuber/YmodifyTest";
+import { useLocation } from "react-router-dom";
+import MainWrapper from "./MainWrapper";
+import PageNotFound from "./pages/Error/PageNotFound";
+import Footer from "./components/Footer";
+import FindPassword from "./components/Login-SignUp/Login/FindPassword";
+import Wdetail from "./pages/Main/Winwin/Wdetail";
+import Wregister from "./pages/Main/Winwin/Wregister";
+import EditorRegister from "./pages/Main/Editer/EditorRegister";
+import { useDispatch, useSelector } from "react-redux";
+import { getLoaded, getLoading } from "./redux/loading/loadingReducer";
+import Loader from "./components/Loading/Loader";
+import instance from "./AxiosConfig";
+import { userLogout } from "./redux/redux-login/loginReducer";
+import Chat from "./pages/Main/components/Chat/Chat";
+import EDetail from "./pages/Main/Editer/EDetail";
+import { toast, Zoom } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
-const exceptArray = ['/SignUp1', '/SignUp1/Required', '/SignUp1/NonRequired'];
+const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
 
 function App() {
+  //권한 alert
+  const notify = useCallback((msg) => {
+    toast(msg, {
+      toastId: "authorize",
+      position: toast.POSITION.BOTTOM_CENTER,
+      autoClose: 2000,
+      hideProgressBar: true,
+      bodyStyle: {
+        color: "black",
+        fontSize: "17px",
+        fontWeight: "bold",
+        fontFamily: "scdream4",
+      },
+      transition: Zoom,
+      className: "alertNoti",
+    });
+  }, []);
+
   /* history 관련 */
   const usePrevious = (value) => {
     const ref = React.useRef();
@@ -75,11 +128,14 @@ function App() {
         if (error.response.status === 401) {
           userLogout();
         }
+        if (error.response.data) {
+          notify(error.response.data.message);
+        }
         dispatch(getLoaded());
         return Promise.reject(error);
       }
     );
-  }, [dispatch]);
+  }, [dispatch, notify]);
 
   /* 로딩 끝 */
 
@@ -87,10 +143,10 @@ function App() {
     <div>
       {exceptArray.indexOf(location.pathname) < 0 && <Navi />}
       {exceptArray.indexOf(location.pathname) < 0 && <Logo />}
-      {console.log('전페이지', prevLocation)}
-      {exceptArray.includes(prevLocation) === true && location.pathname === '/'
-        ? console.log('회원가입에서 왔군')
-        : console.log('그냥 왔군')}
+      {console.log("전페이지", prevLocation)}
+      {exceptArray.includes(prevLocation) === true && location.pathname === "/"
+        ? console.log("회원가입에서 왔군")
+        : console.log("그냥 왔군")}
       <div>
         {loading && loading.loading && <Loader type='spin' color='#ff9411' />}
         <Switch>
@@ -98,14 +154,8 @@ function App() {
           <Route path='/Youtuber' component={Youtuber} />
           <Route path='/Editer' component={Editer} />
           <Route path='/Thumbnailer' component={Thumbnailer} />
-          <Route
-            path='/Community/:board_type/:current_page'
-            component={Winwin}
-          />
-          <Route
-            path='/BoardDetail/:board_type/:board_id/:current_page'
-            component={Wdetail}
-          />
+          <Route path='/Community/:board_type/:current_page' component={Winwin} />
+          <Route path='/BoardDetail/:board_type/:board_id/:current_page' component={Wdetail} />
           <Route path='/BoardRegister/:board_type' component={Wregister} />
           <Route path='/Help' component={Help} />
           <Route path='/SignUp1' component={SignUp1} />

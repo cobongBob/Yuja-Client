@@ -9,21 +9,30 @@ const Wregister = ({ match }) => {
   const currFileList = useRef([]);
   const addingFileList = useRef([]);
   const [qData, setQData] = useState();
-  const { current: board_type } = useRef(match.params.board_type);
+  const board_type = useRef(match.params.board_type);
   const history = useHistory();
 
   let Yhistory = useCallback(
-    (board_id) => history.push(`/BoardDetail/${board_type}/${board_id}/1`),
+    (board_id) => history.push(`/BoardDetail/${board_type.current}/${board_id}/1`),
     [history, board_type]
   );
 
   const [inputData, setInputData] = useState({
     title: "",
   });
+  const [checked, setCheckd] = useState({
+    isPrivate: false,
+  });
   const inputHandler = (e) => {
     setInputData({
       ...inputData,
       [e.target.name]: e.target.value,
+    });
+  };
+  const checkboxHandler = (e) => {
+    setCheckd({
+      ...checked,
+      [e.target.name]: e.target.checked,
     });
   };
 
@@ -44,21 +53,18 @@ const Wregister = ({ match }) => {
     }
     const sendingData = {
       ...inputData,
+      ...checked,
       userId: userData.id,
       content: qData.replaceAll(
         `src="http://localhost:8888/files/temp/`,
-        `src="http://localhost:8888/files/${board_type}/`
+        `src="http://localhost:8888/files/${board_type.current}/`
       ), //업로드된 이미지들은 temp가 아닌 WinBoard에 저장된다.
       thumbnail: "썸네일테스트", //썸네일 서버쪽 만들어지면 변경 필
       boardAttachNames: currFileList.current,
     };
-    insertWinBoard(sendingData, board_type)
-      .then((res) => {
-        Yhistory(res.data.id);
-      })
-      .catch((error) => {
-        alert(error.response.data.message);
-      });
+    insertWinBoard(sendingData, board_type.current).then((res) => {
+      Yhistory(res.data.id);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData, qData, Yhistory]);
 
@@ -66,13 +72,19 @@ const Wregister = ({ match }) => {
     <div>
       <div>
         <input name='title' onChange={inputHandler} placeholder='제목' maxLength='200' type='text' />
+        {board_type.current === "CustomService" ? (
+          <>
+            <label htmlFor='secret'>비밀글</label>
+            <input id='secret' name='isPrivate' onChange={checkboxHandler} type='checkbox' />
+          </>
+        ) : null}
         <h2>상세 내용</h2>
         <QuillRegister
           register={testCheking}
           addingFileList={addingFileList}
           qData={qData}
           setQData={setQData}
-          board_type={board_type}
+          board_type={board_type.current}
         />
       </div>
     </div>
