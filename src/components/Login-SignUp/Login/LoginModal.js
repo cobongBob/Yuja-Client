@@ -249,7 +249,7 @@ function LoginModal() {
               ></input>
               <GoogleLogin
                 className='googleLoginBtn'
-                clientId=''
+                clientId='373267940764-jujlpjtg3qtd21bg6496vaj7k9ooj56e.apps.googleusercontent.com'
                 buttonText='구글 로그인'
                 onSuccess={resGoogle}
                 onFailure={resGoogle}
