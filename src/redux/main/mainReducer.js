@@ -50,18 +50,15 @@ const MainReducer = (state = initialState, action) => {
     case GET_MAIN_DATA_REQUEST:
       return {
         ...state,
-        loading: true,
       };
     case getDataSuccess:
       return {
         ...state,
-        loading: false,
         data: action.payload,
       };
     case getDataFailure:
       return {
         data: [],
-        loading: false,
         error: action.payload,
       };
     default:
