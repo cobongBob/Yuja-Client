@@ -39,9 +39,13 @@ export const getDataFailure = (error) => {
 
 // 초기값
 const initialState = {
-  data: [],
-  loading: false,
-  error: '',
+  EvideoData: [],
+  ThvideoData: [],
+  YmainList: [],
+  EmainList: [],
+  ThmainList: [],
+  WmainList: [],
+  CmainList: [],
 };
 
 // 리듀서
@@ -51,12 +55,18 @@ const MainReducer = (state = initialState, action) => {
       return {
         ...state,
       };
-    case getDataSuccess:
+    case GET_MAIN_DATA_SUCCESS:
       return {
         ...state,
-        data: action.payload,
+        EvideoData: action.payload.editLikes12,
+        ThvideoData: action.payload.thumbLikes12,
+        YmainList: action.payload.youUpdatedOrder4,
+        EmainList: action.payload.editUpdatedOrder4,
+        ThmainList: action.payload.thumUpdatedOrder4,
+        WmainList: action.payload.wincreatedOrder5,
+        CmainList: action.payload.colcreatedOrder5,
       };
-    case getDataFailure:
+    case GET_MAIN_DATA_FAILURE:
       return {
         data: [],
         error: action.payload,

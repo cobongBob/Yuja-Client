@@ -3,14 +3,21 @@
   padding: 0;
 }
 .win-title {
-  padding: 0.5em;
+  margin-top: 1%;
+  padding: 0.2em;
   display: inline-block;
   font-family: scdream5;
-  font-size: 23px;
+  font-size: 2rem;
   color: white;
-  border-bottom: 2px solid #ff9411;
+  border-bottom: 3px solid #ff9411;
   text-shadow: -2px 0 #ff9411, 0 2px #ff9411, 2px 0 #ff9411, 0 -2px #ff9411;
 }
+
+.win-title > span {
+  color: #ff9411;
+  font-size: 2.5rem;
+}
+
 .win-grow {
   font-family: scdream5;
   text-align: right;
