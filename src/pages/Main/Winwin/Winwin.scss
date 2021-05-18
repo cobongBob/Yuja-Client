@@ -119,16 +119,16 @@
   border-bottom: 2px solid #ff9411;
 }
 .wno {
-  width: 5rem;
+  width: 3rem;
 }
 .wtitle {
-  width: 15rem;
+  width: 20rem;
 }
 .wwriter {
-  width: 10rem;
+  width: 7rem;
 }
 .wcreatedDate {
-  width: 15rem;
+  width: 7rem;
 }
 .whited {
   width: 5rem;
@@ -138,8 +138,17 @@
 }
 
 .community-table-wrapper > table > tbody > tr > td {
+  overflow-x: hidden;
   text-overflow: ellipsis;
   text-align: center;
+}
+.community-table-wrapper > table > tbody > tr {
+  &:hover {
+    text-decoration: none;
+    color: black;
+    transition: background-color 0.3s;
+    background-color: lightgrey;
+  }
 }
 
 .commentNum {
@@ -155,9 +164,6 @@
   &:hover {
     text-decoration: none;
     color: black;
-    transition: background-color 0.3s;
-    background-color: lightgrey;
-    border-radius: 20px;
   }
 }
 .registerBtn {
