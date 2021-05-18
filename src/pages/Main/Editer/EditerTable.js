@@ -44,13 +44,9 @@ export default function EditorTable({ boardData }) {
               </Card.Header>
               <Card.Body>
                 <Card.Text>
+                  <div>{data.user.username}</div>
                   <div>
-                    <Link to={`/YoutuberProfile/`} className='card-link'>
-                      {data.user.username}
-                    </Link>
-                  </div>
-                  <div>
-                    <Link to={`/Ydetail/${data.id}`} className='card-link'>
+                    <Link to={`/EDetail/${data.id}`} className='card-link'>
                       {data.title}
                     </Link>
                   </div>

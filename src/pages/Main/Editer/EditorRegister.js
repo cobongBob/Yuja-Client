@@ -14,8 +14,8 @@ const EditorRegister = () => {
 
   const history = useHistory();
 
-  let Yhistory = useCallback(
-    (board_id) => history.push(`/YDetail/${board_id}`),
+  let Ehistory = useCallback(
+    (board_id) => history.push(`/EDetail/${board_id}`),
     [history]
   );
   const testCheking = useCallback(() => {
@@ -36,19 +36,18 @@ const EditorRegister = () => {
       content: qData.replaceAll(
         `src="http://localhost:8888/files/temp/`,
         `src="http://localhost:8888/files/${board_type}/`
-      ), //업로드된 이미지들은 temp가 아닌 Youtuber에 저장된다.
-      thumbnail: '썸네일테스트', //썸네일 서버쪽 만들어지면 변경 필
+      ), //업로드된 이미지들은 temp가 아닌 Editor에 저장된다.
       boardAttachNames: currFileList.current,
     };
-    EditerApiService.addBoards(sendingData)
+    EditerApiService.addBoards(sendingData, board_type)
       .then((res) => {
-        Yhistory(res.data.id);
+        Ehistory(res.data.id);
       })
       .catch((error) => {
         alert(error.response.data.message);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userData, qData, Yhistory]);
+  }, [userData, qData, Ehistory]);
 
   const checkboxCheck = (e) => {
     if (e.target.checked) {
@@ -62,12 +61,20 @@ const EditorRegister = () => {
   const checkedlist = useRef([]);
 
   const [input, setInput] = useState({
-    firstLink: '',
+    previewImage: '',
     title: '',
     career: '',
-    wantedpay: '',
-    useTools: checkedlist.current,
+    payType: '',
+    payAmount: '',
+    tools: checkedlist.current,
   });
+
+  const onChange = (e) => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   return (
     <div>
@@ -83,20 +90,35 @@ const EditorRegister = () => {
                 placeholder='제목'
                 name='title'
                 id='first-link'
+                onChange={onChange}
               />
+            </li>
+            <li className='li-item22'>
+              <input type='text' placeholder='급여방식' name='payType' />
             </li>
             <li className='li-item2'>
               <input
                 type='text'
                 placeholder='대표영상의 링크를 적어주세요.'
-                name='firstLink'
+                name='previewImage'
+                onChange={onChange}
               />
             </li>
             <li className='li-item3'>
-              <input type='text' placeholder='경력' name='career' />
+              <input
+                type='text'
+                placeholder='경력'
+                name='career'
+                onChange={onChange}
+              />
             </li>
             <li className='li-item4'>
-              <input type='text' placeholder='희망급여' name='wantedpay' />
+              <input
+                type='text'
+                placeholder='희망급여'
+                name='payAmount'
+                onChange={onChange}
+              />
             </li>
             <li className='li-item5'>
               <span>사용기술</span>
