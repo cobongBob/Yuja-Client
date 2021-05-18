@@ -5,7 +5,6 @@ import './SignButton.scss';
 import LoginModal from '../Login-SignUp/Login/LoginModal';
 const Navi = () => {
   const pathname = useLocation().pathname;
-
   return (
     <div className='nav'>
       <ul className='nav-pills' defaultValue='/'>
@@ -18,7 +17,8 @@ const Navi = () => {
           <li
             className={
               pathname === '/Youtuber' ? 'nav-link-disabled' : 'nav-link'
-            }>
+            }
+          >
             유튜버
           </li>
         </Link>
@@ -26,7 +26,8 @@ const Navi = () => {
           <li
             className={
               pathname === '/Editer' ? 'nav-link-disabled' : 'nav-link'
-            }>
+            }
+          >
             편집자
           </li>
         </Link>
@@ -34,7 +35,8 @@ const Navi = () => {
           <li
             className={
               pathname === '/Thumbnailer' ? 'nav-link-disabled' : 'nav-link'
-            }>
+            }
+          >
             썸네일러
           </li>
         </Link>
@@ -42,13 +44,15 @@ const Navi = () => {
           <li
             className={
               pathname.includes('/Community') ? 'nav-link-disabled' : 'nav-link'
-            }>
+            }
+          >
             커뮤니티
           </li>
         </Link>
         <Link to='/Help'>
           <li
-            className={pathname === '/Help' ? 'nav-link-disabled' : 'nav-link'}>
+            className={pathname === '/Help' ? 'nav-link-disabled' : 'nav-link'}
+          >
             고객센터
           </li>
         </Link>

@@ -1,26 +1,29 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import getFormatDate from "../../../getFormatDate";
-import { MdFiberNew } from "react-icons/md";
-import SortingDate from "../components/Community/SortingDate";
-import SortingHit from "../components/Community/SortingHit";
-import SortingLike from "../components/Community/SortingLike";
-import SortingComment from "../components/Community/SortingComment";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import getFormatDate from '../../../getFormatDate';
+import { MdFiberNew } from 'react-icons/md';
+import SortingDate from '../components/Community/SortingDate';
+import SortingHit from '../components/Community/SortingHit';
+import SortingLike from '../components/Community/SortingLike';
+import SortingComment from '../components/Community/SortingComment';
+import './Winwin.scss';
 
 const WinTable = ({ currentData, board_type, lastIdx, currentPage }) => {
   return (
-    <div>
-      <div className='card-options'>
+    <div className='table-Wrapper'>
+      <div className='community-options'>
         <Link to={`/BoardRegister/${board_type}`} className='registerBtn'>
           글쓰기
         </Link>
+      </div>
+      <div className='community-options'>
         <SortingDate />
         <SortingHit />
         <SortingLike />
         <SortingComment />
       </div>
-      <div>
-        <table className='table'>
+      <div className='community-table-wrapper'>
+        <table>
           <thead>
             <tr>
               <th className='wno'>번호</th>
@@ -37,11 +40,15 @@ const WinTable = ({ currentData, board_type, lastIdx, currentPage }) => {
                 <tr key={board.id}>
                   <td>{lastIdx - idx}</td>
                   <td>
-                    <Link className='table_link' to={`/BoardDetail/${board_type}/${board.id}/${currentPage}`}>
+                    <Link
+                      className='table_link'
+                      to={`/BoardDetail/${board_type}/${board.id}/${currentPage}`}
+                    >
                       {board.title}
                       <span className='commentNum'> [{board.comments}] </span>
                     </Link>
-                    {board.createDate.substr(0, 10) === getFormatDate(new Date()) ? (
+                    {board.createDate.substr(0, 10) ===
+                    getFormatDate(new Date()) ? (
                       <MdFiberNew className='new_icon' size='25' />
                     ) : null}
                   </td>

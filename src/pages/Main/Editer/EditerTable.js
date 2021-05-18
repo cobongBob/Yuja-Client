@@ -12,7 +12,7 @@ export default function EditorTable({ boardData }) {
   return (
     <div className='card-container'>
       <div className='card-options'>
-        <Link to='/Yregister' className='registerBtn'>
+        <Link to='/EditorRegister' className='registerBtn'>
           이력서 등록하기
         </Link>
       </div>

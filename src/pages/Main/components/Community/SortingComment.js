@@ -1,7 +1,7 @@
-import React, { useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { getSortedCommentWData } from "../../../../redux/board/winwin/winBoardReducer";
-import "../Components.scss";
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { getSortedCommentWData } from '../../../../redux/board/winwin/winBoardReducer';
+import '../Components.scss';
 
 const SortingComment = () => {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ const SortingComment = () => {
     });
   }, [dispatch]);
   return (
-    <div className='sortingBtn'>
+    <div className='community-sortingBtn'>
       <button onClick={likesData}>댓글순</button>
     </div>
   );

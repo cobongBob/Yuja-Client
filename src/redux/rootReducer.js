@@ -5,6 +5,7 @@ import EboardReducer from './board/editer/eboardReducer';
 import winBoardReducer from './board/winwin/winBoardReducer';
 import loginReducer from './redux-login/loginReducer';
 import mainReducer from './main/mainReducer';
+import loadingReducer from './loading/loadingReducer';
 
 const rootReducer = combineReducers({
   YboardReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   loginReducer,
   winBoardReducer,
   mainReducer,
+  loadingReducer,
 });
 
 export default rootReducer;

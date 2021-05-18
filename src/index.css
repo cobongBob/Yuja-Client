@@ -1,0 +1,9 @@
+.loading {
+  width: 100%;
+  min-height: 70vh;
+}
+.notify {
+  background-color: bisque !important;
+  border-radius: 8px !important;
+  width: 100% !important;
+}
