@@ -10,6 +10,7 @@
 .editor-register-default-input > ul {
   text-align: center;
   list-style: none;
+  padding-left: 0;
 }
 
 .li-item1 > input[type='text'] {
@@ -39,16 +40,19 @@
     border-bottom: 4px solid #3d5ba5;
   }
 }
+.li-item-line {
+  text-align: center;
+  margin-left: 45%;
+  margin-right: 45%;
+}
 
 .li-item3 > input[type='text'] {
-  float: left;
   text-align: center;
   font-size: 20px;
   width: 10rem;
   border: none;
   border-bottom: 4px solid #3d5ba5;
   margin-bottom: 1rem;
-  margin-right: 2rem;
   &:focus {
     outline: 0;
     border: none;
@@ -57,7 +61,7 @@
 }
 
 .li-item4 > input[type='text'] {
-  float: left;
+  display: inline-block;
   text-align: center;
   font-size: 20px;
   width: 10rem;
@@ -69,4 +73,13 @@
     border: none;
     border-bottom: 4px solid #3d5ba5;
   }
+}
+.li-item5 > span {
+  font-size: 20px;
+  margin-right: 1rem;
+  border-bottom: 4px solid #3d5ba5;
+}
+
+.li-item5 > label {
+  margin-right: 1rem;
 }

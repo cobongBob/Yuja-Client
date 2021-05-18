@@ -212,7 +212,7 @@ const Yregister = () => {
           원
         </li>
         <li className='watned-tools'>
-          <div>사용기술</div>
+          <span>사용기술</span>
           <input
             id='Ypremiere'
             name='ypremiere'

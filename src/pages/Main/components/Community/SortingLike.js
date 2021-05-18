@@ -1,7 +1,7 @@
-import React, { useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { getSortedLikeWData } from "../../../../redux/board/winwin/winBoardReducer";
-import "../Components.scss";
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { getSortedLikeWData } from '../../../../redux/board/winwin/winBoardReducer';
+import '../Components.scss';
 
 const SortingLike = () => {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ const SortingLike = () => {
     });
   }, [dispatch]);
   return (
-    <div className='sortingBtn'>
+    <div className='community-sortingBtn'>
       <button onClick={likesData}>인기순</button>
     </div>
   );

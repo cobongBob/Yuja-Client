@@ -169,15 +169,15 @@
   margin-bottom: 1rem;
 }
 
-.watned-tools > div {
-  display: inline-block;
+.watned-tools > span {
   font-size: 20px;
   margin-right: 1rem;
   border-bottom: 4px solid #c4302b;
 }
 
-.wanted-tools > span {
-  cursor: pointer;
+.wanted-tools > label {
+  display: inline-block;
+  margin-right: 1rem !important;
 }
 
 .wanted-deadline {

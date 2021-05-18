@@ -3,6 +3,7 @@
   display: block;
   text-align: right;
 }
+
 .card-options > div {
   display: inline-block;
   text-decoration: none;
@@ -10,6 +11,25 @@
 }
 
 .sortingBtn > button {
+  display: inline-block;
+  border: 2px solid #ff9411;
+  background-color: white;
+  border-radius: 20px;
+  width: 5rem;
+  color: #ff9411;
+  margin: 0.25rem;
+  cursor: pointer;
+  &:focus {
+    background-color: #ff9411;
+    color: white;
+  }
+}
+.community-options > div {
+  display: inline-block;
+  text-decoration: none;
+  color: black;
+}
+.community-sortingBtn > button {
   display: inline-block;
   border: 2px solid #ff9411;
   background-color: white;

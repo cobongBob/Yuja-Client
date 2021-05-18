@@ -99,6 +99,7 @@ const EditorRegister = () => {
               <input type='text' placeholder='희망급여' name='wantedpay' />
             </li>
             <li className='li-item5'>
+              <span>사용기술</span>
               <input
                 id='Epremiere'
                 name='Epremiere'
