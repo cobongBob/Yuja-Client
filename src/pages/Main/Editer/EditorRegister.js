@@ -143,7 +143,8 @@ const EditorRegister = () => {
             </li>
           </ul>
         </div>
-        <div>
+        <div className='editor-infomation'>자기소개</div>
+        <div className='editor-quill'>
           <QuillRegister
             register={testCheking}
             addingFileList={addingFileList}
