@@ -5,6 +5,10 @@ export const verifyEmailSend = async (username) => {
   return await axios.post(USER_API_BASE_URL + "/verify", { username: username });
 };
 
+export const resetPasswordEmailSend = async (username) => {
+  return await axios.post(USER_API_BASE_URL + "/findPassword", { username: username });
+};
+
 export const executeJwtAuthenticationService = async (data) => {
   return await axios.post(USER_API_BASE_URL + "/signin", data, { withCredentials: true });
 };
