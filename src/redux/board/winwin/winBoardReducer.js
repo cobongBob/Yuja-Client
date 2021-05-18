@@ -120,6 +120,15 @@ const winBoardReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         wBoards: action.payload,
+        wDetails: {
+          title: "",
+          content: "",
+          likes: 0,
+          liked: false,
+          user: {
+            id: 0,
+          },
+        },
         wFilterData: action.payload.sort((a, b) => b.id - a.id),
         sortedwLike: false,
         sortedwComment: false,

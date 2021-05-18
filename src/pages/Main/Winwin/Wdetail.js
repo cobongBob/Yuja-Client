@@ -1,25 +1,17 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import ReactQuill from 'react-quill';
-import { deleteWinBoard } from '../../../apiService/winBoardApiService';
-import {
-  deleteComment,
-  fetchComments,
-  insertComment,
-  updateComment,
-} from '../../../apiService/CommentApiService';
-import { useDispatch, useSelector } from 'react-redux';
-import './Wdetail.scss';
-import ParentsComments from '../components/Comment/ParentsComments';
-import { FcLike } from 'react-icons/fc';
-import { AiOutlineHeart, AiOutlineFileSearch } from 'react-icons/ai';
-import {
-  getWDetailsData,
-  wAddLike,
-  wDeleteLike,
-} from '../../../redux/board/winwin/winBoardReducer';
-import { useHistory } from 'react-router';
-import WSide from './WSide';
-
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import ReactQuill from "react-quill";
+import { deleteWinBoard } from "../../../apiService/winBoardApiService";
+import { deleteComment, fetchComments, insertComment, updateComment } from "../../../apiService/CommentApiService";
+import { useDispatch, useSelector } from "react-redux";
+import "./Wdetail.scss";
+import ParentsComments from "../components/Comment/ParentsComments";
+import { FcLike } from "react-icons/fc";
+import { AiOutlineHeart, AiOutlineFileSearch } from "react-icons/ai";
+import { getWDetailsData, wAddLike, wDeleteLike } from "../../../redux/board/winwin/winBoardReducer";
+import { useHistory } from "react-router";
+import { toast, Zoom } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
 const Wdetail = ({ match }) => {
   const { current: board_type } = useRef(match.params.board_type);
   const { current: pageNum } = useRef(match.params.current_page);
@@ -35,13 +27,29 @@ const Wdetail = ({ match }) => {
 
   //root댓글 input
   const [inputReply, setInputReply] = useState({
-    content: '',
+    content: "",
   });
 
   const { userData } = useSelector((state) => state.loginReducer);
   const { wDetails } = useSelector((state) => state.winBoardReducer);
   const dispatch = useDispatch();
   const history = useHistory();
+  const notify = useCallback(() => {
+    toast(`권한이 없습니다.`, {
+      toastId: "authorize",
+      position: toast.POSITION.BOTTOM_CENTER,
+      autoClose: 2000,
+      hideProgressBar: true,
+      bodyStyle: {
+        color: "black",
+        fontSize: "17px",
+        fontWeight: "bold",
+        fontFamily: "scdream4",
+      },
+      transition: Zoom,
+      className: "alertNoti",
+    });
+  }, []);
 
   //게시글 상세정보 및 댓글 가져오기
   useEffect(() => {
@@ -50,33 +58,29 @@ const Wdetail = ({ match }) => {
       getWDetailsData(board_id, board_type).then((res) => {
         dispatch(res);
       });
-      fetchComments(match.params.board_id)
-        .then((res) => {
-          setComments(res.data);
-        })
-        .catch((e) => {
-          alert(e.response.data.message);
-        });
+      fetchComments(match.params.board_id).then((res) => {
+        setComments(res.data);
+      });
     }
-  }, [match.params.board_id, dispatch, board_type]);
+  }, [match.params.board_id, dispatch, board_type, history]);
+
+  useEffect(() => {
+    if (wDetails && wDetails.isPrivate && (!userData || userData.id !== wDetails.user.id)) {
+      //어드민 권한 추가 필요
+      notify();
+      return history.goBack();
+    }
+  }, [history, userData, wDetails, notify]);
 
   //댓글 삭제
   const deleteReply = useCallback(
     (commentId) => {
-      if (window.confirm('댓글을 삭제하시겠습니까?')) {
-        deleteComment(commentId)
-          .then(() => {
-            fetchComments(match.params.board_id)
-              .then((res) => {
-                setComments(res.data);
-              })
-              .catch((e) => {
-                alert(e.response.data.message);
-              });
-          })
-          .catch((e) => {
-            alert(e.response.data.message);
+      if (window.confirm("댓글을 삭제하시겠습니까?")) {
+        deleteComment(commentId).then(() => {
+          fetchComments(match.params.board_id).then((res) => {
+            setComments(res.data);
           });
+        });
       }
     },
     [match.params.board_id]
@@ -84,8 +88,8 @@ const Wdetail = ({ match }) => {
 
   //root댓글입력 저장
   const insertReply = useCallback(() => {
-    if (inputReply.content === '') {
-      alert('내용을 입력해 주세요');
+    if (inputReply.content === "") {
+      alert("내용을 입력해 주세요");
       return;
     }
     const insertData = {
@@ -94,20 +98,12 @@ const Wdetail = ({ match }) => {
       boardId: match.params.board_id,
       parentId: null,
     };
-    insertComment(insertData)
-      .then(() => {
-        fetchComments(match.params.board_id)
-          .then((res) => {
-            setComments(res.data);
-            setInputReply({ content: '' });
-          })
-          .catch((e) => {
-            alert(e.response.data.message);
-          });
-      })
-      .catch((e) => {
-        alert(e.response.data.message);
+    insertComment(insertData).then(() => {
+      fetchComments(match.params.board_id).then((res) => {
+        setComments(res.data);
+        setInputReply({ content: "" });
       });
+    });
   }, [match.params.board_id, userData, inputReply]);
 
   //Root 댓글 핸들러
@@ -136,8 +132,8 @@ const Wdetail = ({ match }) => {
   // 대댓글 입력 저장
   const reReplyInsert = useCallback(
     (reReplyData) => {
-      if (reReplyData.content === '') {
-        alert('내용을 입력해 주세요');
+      if (reReplyData.content === "") {
+        alert("내용을 입력해 주세요");
         return;
       }
       const insertData = {
@@ -170,8 +166,8 @@ const Wdetail = ({ match }) => {
   //댓글 수정 저장
   const modifyComment = useCallback(
     (modifyData) => {
-      if (modifyData.content === '') {
-        alert('내용을 입력해 주세요');
+      if (modifyData.content === "") {
+        alert("내용을 입력해 주세요");
         return;
       }
       const modiContent = {
@@ -206,13 +202,13 @@ const Wdetail = ({ match }) => {
         });
       }
     } else {
-      alert('로그인 해주세요');
+      alert("로그인 해주세요");
       //로그인 창으로
     }
   }, [userData, wDetails, dispatch, match.params.board_id]);
 
   const deleteBoard = useCallback(() => {
-    if (window.confirm('게시글을 삭제 하시겠습니까?')) {
+    if (window.confirm("게시글을 삭제 하시겠습니까?")) {
       deleteWinBoard(match.params.board_id, board_type)
         .then(() => {
           history.push(`/Community/${board_type}/${pageNum}`);
@@ -224,7 +220,7 @@ const Wdetail = ({ match }) => {
   }, [match.params.board_id, history, board_type, pageNum]);
 
   const modifyBoard = useCallback(() => {
-    alert('수정페이지로...');
+    alert("수정페이지로...");
   }, []);
 
   const goList = useCallback(() => {
@@ -247,9 +243,7 @@ const Wdetail = ({ match }) => {
           ) : null}
           <div>
             <div className='detail-show'>
-              <div className='show-user-name'>
-                작성자 {wDetails.user.username}
-              </div>
+              <div className='show-user-name'>작성자 {wDetails.user.username}</div>
               <div className='likeWrapper'>
                 {wDetails && wDetails.liked ? (
                   <button className='likeButton' onClick={likeHandler}>
@@ -264,18 +258,12 @@ const Wdetail = ({ match }) => {
                 )}
               </div>
               <div className='hitWrapper'>
-                <AiOutlineFileSearch className='hit' size={29} />{' '}
-                <span className='hitCount'>{wDetails.hit}</span>
+                <AiOutlineFileSearch className='hit' size={29} /> <span className='hitCount'>{wDetails.hit}</span>
               </div>
             </div>
           </div>
           <div className='DetailQuill'>
-            <ReactQuill
-              className='QuillContent'
-              value={wDetails.content || ''}
-              readOnly={true}
-              theme={'bubble'}
-            />
+            <ReactQuill className='QuillContent' value={wDetails.content || ""} readOnly={true} theme={"bubble"} />
           </div>
         </div>
         <div className='commentWrapper'>
