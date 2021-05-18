@@ -8,9 +8,11 @@ import NextArrow from './NextArrow';
 import { useDispatch, useSelector } from 'react-redux';
 import { RiScissorsCutFill } from 'react-icons/ri';
 import { getMainData } from '../../redux/main/mainReducer';
+import { useHistory } from 'react-router';
 
 const Evideo = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { EvideoData } = useSelector((state) => state.mainReducer);
   console.log(1111111111111111, EvideoData);
 
@@ -72,11 +74,13 @@ const Evideo = () => {
             <div className='thumbnails'>
               <div className='thumbnails-item'>
                 <div className='item item_red'>
-                  <img src='/img/board_pic/editor_pic/thum1.png' alt='' />
+                  <img
+                    onClick={() => history.push(`/Ydetail/${video.user.id}`)}
+                    src='/img/board_pic/editor_pic/thum1.png'
+                    alt=''
+                  />
                   <div className='item-title'>
                     <h2>{video.user.nickname}</h2>
-                  </div>
-                  <div className='item-content'>
                     <p>{video.content}</p>
                   </div>
                 </div>

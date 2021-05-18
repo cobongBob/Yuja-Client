@@ -13,133 +13,20 @@ li {
   height: 30vh;
 }
 
-.wrapper {
-  display: flex !important;
-  height: 15em;
-  justify-content: center;
-  align-items: center;
-  padding: 23px;
-  object-fit: cover;
-}
-
-.thumbnails {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.thumbnails-item {
-  flex-basis: 350px;
-  flex-shrink: 0;
-  margin: 0 5px;
-  transition: all 0.4s;
-}
-
-.thumbnails-item:hover {
-  flex-basis: 380px;
-  margin: 0 20px;
-}
-
-.thumbnails-item img {
-  width: 100%;
-}
-
-.item {
-  position: relative;
-  overflow: hidden;
-}
-
-/* .item:before {
-    content: '';
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:0;
-    height: 200px;
-    background: rgb(0,0,0);
-    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(255,255,255,0) 40%);
-}
-
-*/
-
-/* TITLE */
-.item-title {
-  background-color: black;
-  opacity: 0.8;
+.best-thumbnailer {
+  padding: 0.2em;
+  display: inline-block;
+  border-bottom: 3px solid #ff7c7c;
+  font-family: 'scdream5';
+  font-size: 2rem;
   color: white;
-  position: absolute;
-  left: 0;
-  bottom: 2px;
-  padding: 5px;
-  margin: 5px;
-  max-height: 50px;
-  transition: all 0.4s;
-  transition-delay: 0.4s;
+  text-shadow: -2px 0 #ff7c7c, 0 2px #ff7c7c, 2px 0 #ff7c7c, 0 -2px #ff7c7c;
 }
 
-.thumbnails-item:hover .item-title {
-  background-color: black;
-  opacity: 0.8;
-  bottom: 3.5em;
-  transition: all 0.4s;
-  transition-delay: 0.4s;
+.best-thumbnailer > span {
+  color: #ff7c7c;
+  font-size: 2.5rem;
 }
-
-.item-title h2 {
-  font-size: 20px;
-}
-
-.item-title h2 span {
-  display: block;
-  font-size: 12px;
-}
-
-/* END OF TITLE */
-
-/* CONTENT */
-
-.item-content {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  padding: 5px;
-  margin: 10px 5px -10px;
-  color: white;
-  background-color: black;
-  opacity: 0.8;
-}
-
-.thumbnails-item:hover .item-content {
-  margin: 5px 5px;
-  transition: all 0.4s;
-  transition-delay: 0.4s;
-}
-
-.item-content p {
-  color: white;
-  font-size: 12px;
-  min-width: 140px;
-  max-height: 0;
-  overflow: hidden;
-  line-height: 1.2;
-  transition: all 0.4s;
-  transition-delay: 0.4s;
-  opacity: 0;
-  height: 3.5em;
-}
-
-.thumbnails-item:hover .item-content p {
-  max-height: 5em;
-  opacity: 1;
-  margin-top: 0.2em;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-}
-
-/* END OF CONTENT */
-
-/* BUTTONS */
 
 .prevBtn {
   text-align: left;
@@ -153,10 +40,4 @@ li {
   position: relative;
   bottom: 170px;
   left: 60px;
-}
-
-.Prev {
-}
-
-.Next {
 }
