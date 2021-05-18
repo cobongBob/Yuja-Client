@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-import './Ynew.scss';
+import './Enew.scss';
 import { FaUserAstronaut } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMainData } from '../../redux/main/mainReducer';
 
-const Ynew = () => {
+const Enew = () => {
   const dispatch = useDispatch();
-  const { YmainList } = useSelector((state) => state.mainReducer);
-  console.log(3333333333333333, YmainList);
+  const { EmainList } = useSelector((state) => state.mainReducer);
+  console.log(4444444444444, EmainList);
 
   useEffect(() => {
     dispatch(getMainData());
@@ -16,7 +16,7 @@ const Ynew = () => {
 
   return (
     <div>
-      {YmainList.map((list) => (
+      {EmainList.map((list) => (
         <ul>
           <div className='new-youtuber'>
             <li>
@@ -26,8 +26,8 @@ const Ynew = () => {
               <div className='wanted-content'>
                 <span className='wanted-name'>
                   <Link to={`/Ydetail/${list.id}`}>{list.user.username}</Link>
-                </span>
-                <span className='wanted-type-editer'>{list.worker}</span> <br />
+                </span>{' '}
+                <br />
                 <span className='wanted-content-detail'>
                   <Link to={`/Ydetail/${list.id}`}>{list.title}</Link>
                 </span>
@@ -40,4 +40,4 @@ const Ynew = () => {
   );
 };
 
-export default Ynew;
+export default Enew;

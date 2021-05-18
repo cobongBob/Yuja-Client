@@ -24,12 +24,12 @@ import Wdetail from "./pages/Main/Winwin/Wdetail";
 import Wregister from "./pages/Main/Winwin/Wregister";
 import EditorRegister from "./pages/Main/Editer/EditorRegister";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import { getLoaded, getLoading } from "./redux/loading/loadingReducer";
 import Loader from "./components/Loading/Loader";
 import instance from "./AxiosConfig";
 import { userLogout } from "./redux/redux-login/loginReducer";
 import Chat from "./pages/Main/components/Chat/Chat";
+import EDetail from "./pages/Main/Editer/EDetail";
 
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
@@ -110,6 +110,7 @@ function App() {
           <Route path='/FindPassword' component={FindPassword} />
           <Route path='/EditorRegister' component={EditorRegister} />
           <Route path='/chat' component={Chat} />
+          <Route path='/EDetail/:board_id' component={EDetail} />
           {/* <Route component={PageNotFound} /> 이게 왜 나올까요? */}
         </Switch>
       </div>

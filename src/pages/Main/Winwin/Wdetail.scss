@@ -127,9 +127,13 @@
   cursor: pointer;
 }
 .myself {
+  font-size: 15px;
   margin-left: 0.5rem;
-  color: red;
-  font-size: medium;
+  color: black;
+  background-color: sandybrown;
+  border: 15x solid sandybrown;
+  border-radius: 5px;
+  font-family: scdream4;
 }
 .textarea {
   width: 100%;

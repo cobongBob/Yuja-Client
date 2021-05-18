@@ -162,7 +162,10 @@ const Required = ({ location }) => {
     requiredNextBtnHandler();
   };
 
-  const checkEmailValidate = useCallback(() => {
+  const
+
+
+    checkEmailValidate = useCallback(() => {
     axios.post("http://localhost:8888/api/auth/checkemail", requiredData).then((res) => {
       if (res.data !== "") {
         setEmailValidateResData(res.data);
