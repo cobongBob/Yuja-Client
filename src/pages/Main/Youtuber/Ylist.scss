@@ -11,15 +11,16 @@
   display: inline-block;
   list-style: none;
   text-align: center;
+  padding-left: 0 !important;
 }
 
 .card-container > ul > li {
   width: 20rem;
-  height: 18rem;
+  height: 20rem;
   margin: 1.25rem;
   padding: 0.5rem;
   position: relative;
-  float: left;
+  display: inline-block;
   list-style: none;
 }
 
@@ -39,6 +40,7 @@
   }
   &:hover .card-img {
     transition: opacity 250ms;
+    cursor: pointer;
     opacity: 0.2;
   }
   &:hover .card-body {
@@ -52,12 +54,14 @@
     color: white;
     &:hover {
       border-bottom: 2px solid white;
+      opacity: 1;
     }
   }
 }
 
 .card-container > ul > li > .card > .card-body {
   width: 20rem;
+  cursor: pointer;
   font-family: scdream5;
   position: absolute;
   top: 0;
@@ -71,6 +75,14 @@
     border: none;
     font-family: scdream4;
   }
+}
+
+// .card-container > ul > li > .card > .card-body > .card-text > div > .Link {
+//   z-index: 100;
+// }
+
+.card-container > ul > li > .card > .Card-Img {
+  z-index: 2;
 }
 
 .card-container > ul > li > .card > .card-header {
@@ -95,6 +107,12 @@
   white-space: nowrap;
   margin-bottom: 0;
 }
+
+.card-deadline {
+  font-size: 18px;
+  float: left;
+  font-weight: bold;
+}
 .card-text > div {
   font-weight: bold;
   font-size: 18px;
@@ -110,6 +128,7 @@
 .card-like {
   text-align: right;
 }
+
 .card-options > .registerBtn {
   font-family: scdream5;
   vertical-align: middle;

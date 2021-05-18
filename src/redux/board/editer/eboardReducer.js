@@ -1,13 +1,13 @@
-import * as eService from "../../../apiService/EditerApiService";
+import * as eService from '../../../apiService/EditerApiService';
 
 // 액션
-const MODE_GET_EDETAIL_DATA = "getEDetailData";
-const MODE_EFILTER_DATA = "MODE_EFILTER_DATA";
-const MODE_ESORTLIKE_DATA = "MODE_ESORTLIKE_DATA";
-const GET_EBOARD_REQUEST = "GET_EBOARD_REQUEST";
-const GET_EBOARD_SUCCESS = "GET_EBOARD_SUCCESS";
-const GET_EBOARD_FAILURE = "GET_EBOARD_FAILURE";
-const MODE_RESET_DATA = "MODE_RESET_DATA";
+const MODE_GET_EDETAIL_DATA = 'getEDetailData';
+const MODE_EFILTER_DATA = 'MODE_EFILTER_DATA';
+const MODE_ESORTLIKE_DATA = 'MODE_ESORTLIKE_DATA';
+const GET_EBOARD_REQUEST = 'GET_EBOARD_REQUEST';
+const GET_EBOARD_SUCCESS = 'GET_EBOARD_SUCCESS';
+const GET_EBOARD_FAILURE = 'GET_EBOARD_FAILURE';
+const MODE_RESET_DATA = 'MODE_RESET_DATA';
 
 // 액션함수
 
@@ -58,7 +58,7 @@ export const getResetData = async () => {
 };
 
 export const getDetailData = async (board_id, user_id) => {
-  const detailData = await eService.fetchBoard(board_id, user_id); // id를 넣어야 가져올꺼같긴한데...
+  const detailData = await eService.fetchBoard(board_id, user_id);
   return {
     type: MODE_GET_EDETAIL_DATA,
     data: detailData.data,
@@ -74,7 +74,7 @@ const initialState = {
   loading: false,
   sortedExpired: false,
   sortedLike: false,
-  error: "",
+  error: '',
 };
 
 // 리듀서
@@ -142,9 +142,19 @@ export function EboardReducer(state = initialState, action) {
         ...state,
         // eslint-disable-next-line array-callback-return
         filterData: state.eBoardData.filter((data) => {
-          if (Object.values(data.title).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
+          if (
+            Object.values(data.title)
+              .join('')
+              .toLowerCase()
+              .includes(action.keyword.toLowerCase())
+          ) {
             return data;
-          } else if (Object.values(data.user.username).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
+          } else if (
+            Object.values(data.user.username)
+              .join('')
+              .toLowerCase()
+              .includes(action.keyword.toLowerCase())
+          ) {
             return data;
           }
         }),

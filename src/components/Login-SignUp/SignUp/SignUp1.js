@@ -6,12 +6,15 @@ import { Link, Route } from "react-router-dom";
 import NonRequired from "./NonRequired";
 import Required from "./Required";
 
-const SignUp1 = () => {
+const SignUp1 = ({ location }) => {
+  console.log(location);
   return (
     <div className='SignUpFrag'>
       <header className='SignUpHeader'>
         {/*<img className="SignUpIcon" src="/img/parts_pic/yuzu05.png" />{" "}*/}
-        <Link className='header-title' to='/'>유자 회원가입</Link>
+        <Link className='header-title' to='/'>
+          유자 회원가입
+        </Link>
         {/*<div className="signUpBar">*/}
         {/*  <div className="bar1"></div>*/}
         {/*  <div className="bar2"></div>*/}
@@ -23,7 +26,12 @@ const SignUp1 = () => {
       <content>
         <div className='contentBox'>
           <Switch>
-            <Route exact path='/SignUp1' component={Agreement} />
+            <Route
+              exact
+              path='/SignUp1'
+              component={Agreement}
+              googleSignupData={location.resData === undefined ? null : location.resData.res}
+            />
             <Route path='/SignUp1/Required' component={Required} />
             <Route path='/SignUp1/NonRequired' component={NonRequired} />
           </Switch>

@@ -3,7 +3,7 @@
   margin-left: 5rem;
   margin-right: 5rem;
   margin-bottom: 3rem !important;
-  font-family: 'scdream5';
+  font-family: scdream5;
 }
 .register-header {
   text-align: center;
@@ -11,9 +11,12 @@
 }
 
 .register-default-input {
-  margin-left: 15rem;
+  margin-left: 7rem;
   margin-right: 15rem;
+  padding-left: 0;
+  list-style: none;
 }
+
 .register-header > h1 {
   text-align: left;
   font-family: 'scdream5';
@@ -53,6 +56,7 @@
 
 .wanted-part {
   margin-bottom: 1rem;
+  float: left;
 }
 
 .wanted-part > div {
@@ -93,8 +97,8 @@
 }
 
 .wanted-number {
+  float: left;
   margin-bottom: 1rem;
-  display: block;
 }
 
 .wanted-number > input[type='text'] {
@@ -112,6 +116,7 @@
 .wanted-number > div {
   display: inline-block;
   font-size: 20px;
+  margin-right: 2rem;
 }
 
 .wanted-pay {
@@ -131,6 +136,9 @@
   padding: 0.25rem;
   margin: 0.25rem;
   margin-right: 0.5rem !important;
+  transition: background-color 0.25s;
+  background-color: lightblue;
+  border-radius: 10px;
   &:hover {
     border: none;
     cursor: pointer;
@@ -157,29 +165,85 @@
   }
 }
 
-.wanted-tools {
+.watned-tools {
   margin-bottom: 1rem;
 }
 
-.watned-tools > div {
-  display: inline-block;
+.watned-tools > span {
   font-size: 20px;
   margin-right: 1rem;
   border-bottom: 4px solid #c4302b;
 }
 
 .wanted-tools > label {
-  cursor: pointer;
-  margin-right: 1rem;
+  display: inline-block;
+  margin-right: 1rem !important;
 }
 
 .wanted-deadline {
   margin-bottom: 1rem;
 }
 
-.wanted-deadline > label {
+.wanted-deadline > div {
+  display: inline-block;
   margin-right: 1rem;
-  font-size: 15px;
+  font-size: 20px;
+  border-bottom: 4px solid #c4302b;
+}
+.wanted-deadline > input[type='date'] {
+  margin-right: 1rem;
+}
+.wanted-deadline > input[type='radio'] {
+  cursor: pointer;
+}
+
+.wanted-deadline > label {
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.wanted-manager {
+  float: left;
+  margin-bottom: 1rem;
+  margin-right: 2rem;
+}
+
+.wanted-manager > input[type='text'] {
+  width: 10rem;
+  font-size: 20px;
+  border: none;
+  border-bottom: 4px solid #c4302b;
+  margin-bottom: 1rem;
+  &:focus {
+    outline: 0;
+    border: none;
+    border-bottom: 4px solid #c4302b;
+  }
+}
+
+.wanted-way > input[type='text'] {
+  width: 20rem;
+  font-size: 20px;
+  border: none;
+  border-bottom: 4px solid #c4302b;
+  margin-bottom: 1rem;
+  &:focus {
+    outline: 0;
+    border: none;
+    border-bottom: 4px solid #c4302b;
+  }
+}
+
+.register-add-input {
+  margin-left: 7rem;
+  margin-right: 7rem;
+}
+
+.register-add-input > h2 {
+  font-family: 'scdream5';
+  display: inline-block;
+  border-bottom: 4px solid #c4302b;
+  margin-bottom: 1rem;
 }
 
 .QuillWrapper {

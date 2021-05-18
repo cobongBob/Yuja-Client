@@ -39,8 +39,8 @@ const Thumbnailer = () => {
     });
   };
 
-  return thBoardData.loading ? (
-    <h2>Loading...</h2>
+  return thBoardData.loading && !thBoardData ? (
+    <div className='loading'></div>
   ) : thBoardData.err ? (
     <h2>{thBoardData.err}</h2>
   ) : (

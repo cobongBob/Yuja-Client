@@ -55,6 +55,10 @@
   color: black;
   margin-bottom: 1rem;
 }
+.detail-btn-box > div {
+  display: inline-block;
+}
+
 .detail-update-btn {
   border: 1px solid #008744;
   color: #008744;
@@ -69,6 +73,22 @@
 }
 
 .detail-btn-box > button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: inline-block;
+  border: 1px solid #d62d20;
+  padding: 0.5rem;
+  border-radius: 20px;
+  background-color: white;
+  color: #d62d20;
+  &:hover {
+    background-color: #d62d20;
+    color: white;
+  }
+}
+
+.detail-btn-box > div > button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -145,6 +165,14 @@
   line-height: 1.5;
 }
 
+.starButton {
+  background: none;
+  border: none;
+  color: #ff9411;
+  font-size: 1.5rem;
+  line-height: 1.5;
+}
+
 .hit {
   color: #008744;
 }
@@ -160,4 +188,70 @@
 
 .likeWrapper {
   margin-bottom: 1%;
+}
+
+#ReportForm {
+  font-family: 'scdream5';
+  margin-top: 10%;
+  text-align: center;
+}
+
+#ReportForm > h1 {
+  margin-bottom: 5%;
+  border-bottom: 3px solid #c4302b;
+  display: inline-block;
+}
+
+#ReportTitle {
+  border: none;
+  border-bottom: 3px solid black;
+  display: block;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.5rem;
+  width: 80%;
+}
+
+#ReportTitle:focus {
+  text-decoration: none;
+  outline: none;
+}
+
+#ReportContent {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 80%;
+  height: 23vh;
+  border: 3px solid black;
+  border-radius: 2%;
+  font-size: 1.3rem;
+  line-height: 1.5;
+  margin-bottom: 3%;
+  margin-top: 5%;
+}
+
+.BtnWrapper {
+  float: right;
+  margin-top: 8%;
+}
+
+#ReportSubmit {
+  background-color: #dddddd;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin-right: 5%;
+  font-weight: bold;
+}
+
+#ReportCloseBtn {
+  background-color: #dddddd;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 5%;
+  font-weight: bolder;
 }

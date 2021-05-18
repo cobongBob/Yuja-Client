@@ -31,16 +31,14 @@ const ChildComments = ({
           />
         ) : (
           <>
-            <div className='commentUser'>
-              {comment.deleted ? (
-                <></>
-              ) : (
-                <>
-                  {comment.nickname}
-                  {writer === comment.userId ? <span className='myself'>작성자</span> : null}
-                </>
-              )}
-            </div>
+            {comment.deleted ? (
+              <></>
+            ) : (
+              <div className='commentUser'>
+                {comment.nickname}
+                {writer === comment.userId ? <span className='myself'>작성자</span> : null}
+              </div>
+            )}
             <div>
               <div className='commentDetail'>
                 {comment.deleted ? (
@@ -52,7 +50,12 @@ const ChildComments = ({
                       <>
                         <BiEdit
                           size='22'
-                          onClick={() => setIsModifying({ isModifying: true, modify_commentId: comment.commentId })}
+                          onClick={() =>
+                            setIsModifying({
+                              isModifying: true,
+                              modify_commentId: comment.commentId,
+                            })
+                          }
                           className='edit_icon comment_icon'
                         />{" "}
                         <AiTwotoneDelete

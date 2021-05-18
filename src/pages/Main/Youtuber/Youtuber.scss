@@ -3,4 +3,24 @@
   margin-left: 5rem;
   margin-right: 5rem;
   margin-bottom: 5rem;
+  text-align: center;
+}
+
+.tableWrapper > .ListTitleWrapper > h1 {
+  font-family: scdream5;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3%;
+  margin-bottom: 2%;
+  border-bottom: 3px solid #c4302b;
+  display: inline-block;
+  font-size: 3rem;
+  font-weight: 500;
+}
+
+.YoutubeIcons {
+  color: #c4302b;
+  font-size: 6rem;
+  margin-bottom: 1.5%;
 }

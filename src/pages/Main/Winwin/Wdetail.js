@@ -1,17 +1,28 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import ReactQuill from "react-quill";
-import { deleteWinBoard } from "../../../apiService/winBoardApiService";
-import { deleteComment, fetchComments, insertComment, updateComment } from "../../../apiService/CommentApiService";
-import { useDispatch, useSelector } from "react-redux";
-import "./Wdetail.scss";
-import ParentsComments from "../components/Comment/ParentsComments";
-import { FcLike } from "react-icons/fc";
-import { AiOutlineHeart, AiOutlineFileSearch } from "react-icons/ai";
-import { getWDetailsData, wAddLike, wDeleteLike } from "../../../redux/board/winwin/winBoardReducer";
-import { useHistory } from "react-router";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import ReactQuill from 'react-quill';
+import { deleteWinBoard } from '../../../apiService/winBoardApiService';
+import {
+  deleteComment,
+  fetchComments,
+  insertComment,
+  updateComment,
+} from '../../../apiService/CommentApiService';
+import { useDispatch, useSelector } from 'react-redux';
+import './Wdetail.scss';
+import ParentsComments from '../components/Comment/ParentsComments';
+import { FcLike } from 'react-icons/fc';
+import { AiOutlineHeart, AiOutlineFileSearch } from 'react-icons/ai';
+import {
+  getWDetailsData,
+  wAddLike,
+  wDeleteLike,
+} from '../../../redux/board/winwin/winBoardReducer';
+import { useHistory } from 'react-router';
+import WSide from './WSide';
 
 const Wdetail = ({ match }) => {
   const { current: board_type } = useRef(match.params.board_type);
+  const { current: pageNum } = useRef(match.params.current_page);
 
   //대댓글을 등록중인지 확인하는 state
   const [isReplying, setIsReplying] = useState({
@@ -24,11 +35,11 @@ const Wdetail = ({ match }) => {
 
   //root댓글 input
   const [inputReply, setInputReply] = useState({
-    content: "",
+    content: '',
   });
 
   const { userData } = useSelector((state) => state.loginReducer);
-  const { wDetails, loading } = useSelector((state) => state.winBoardReducer);
+  const { wDetails } = useSelector((state) => state.winBoardReducer);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -52,7 +63,7 @@ const Wdetail = ({ match }) => {
   //댓글 삭제
   const deleteReply = useCallback(
     (commentId) => {
-      if (window.confirm("댓글을 삭제하시겠습니까?")) {
+      if (window.confirm('댓글을 삭제하시겠습니까?')) {
         deleteComment(commentId)
           .then(() => {
             fetchComments(match.params.board_id)
@@ -73,8 +84,8 @@ const Wdetail = ({ match }) => {
 
   //root댓글입력 저장
   const insertReply = useCallback(() => {
-    if (inputReply.content === "") {
-      alert("내용을 입력해 주세요");
+    if (inputReply.content === '') {
+      alert('내용을 입력해 주세요');
       return;
     }
     const insertData = {
@@ -88,7 +99,7 @@ const Wdetail = ({ match }) => {
         fetchComments(match.params.board_id)
           .then((res) => {
             setComments(res.data);
-            setInputReply({ content: "" });
+            setInputReply({ content: '' });
           })
           .catch((e) => {
             alert(e.response.data.message);
@@ -125,8 +136,8 @@ const Wdetail = ({ match }) => {
   // 대댓글 입력 저장
   const reReplyInsert = useCallback(
     (reReplyData) => {
-      if (reReplyData.content === "") {
-        alert("내용을 입력해 주세요");
+      if (reReplyData.content === '') {
+        alert('내용을 입력해 주세요');
         return;
       }
       const insertData = {
@@ -159,8 +170,8 @@ const Wdetail = ({ match }) => {
   //댓글 수정 저장
   const modifyComment = useCallback(
     (modifyData) => {
-      if (modifyData.content === "") {
-        alert("내용을 입력해 주세요");
+      if (modifyData.content === '') {
+        alert('내용을 입력해 주세요');
         return;
       }
       const modiContent = {
@@ -195,91 +206,111 @@ const Wdetail = ({ match }) => {
         });
       }
     } else {
-      alert("로그인 해주세요");
+      alert('로그인 해주세요');
       //로그인 창으로
     }
   }, [userData, wDetails, dispatch, match.params.board_id]);
 
   const deleteBoard = useCallback(() => {
-    deleteWinBoard(match.params.board_id, board_type)
-      .then(() => {
-        history.push(`/Community/${board_type}`);
-      })
-      .catch((e) => {
-        alert(e.response.data.message);
-      });
-  }, [match.params.board_id, history, board_type]);
-  const modifyBoard = useCallback(() => {
-    alert("수정페이지로...");
-  }, []);
-  const goList = useCallback(() => {
-    history.push(`/Community/${board_type}`);
-  }, [history, board_type]);
+    if (window.confirm('게시글을 삭제 하시겠습니까?')) {
+      deleteWinBoard(match.params.board_id, board_type)
+        .then(() => {
+          history.push(`/Community/${board_type}/${pageNum}`);
+        })
+        .catch((e) => {
+          alert(e.response.data.message);
+        });
+    }
+  }, [match.params.board_id, history, board_type, pageNum]);
 
-  return loading ? (
-    <h2>Loading...</h2>
-  ) : (
+  const modifyBoard = useCallback(() => {
+    alert('수정페이지로...');
+  }, []);
+
+  const goList = useCallback(() => {
+    history.push(`/Community/${board_type}/${pageNum}`);
+  }, [history, board_type, pageNum]);
+
+  return (
     wDetails && (
-      <div>
-        <div className='detail-content'>
-          <div>
-            {userData.id === wDetails.user.id ? (
-              <>
-                <button onClick={deleteBoard}>삭제</button>
-                <button onClick={modifyBoard}>수정</button>
-              </>
-            ) : null}
+      <div className='comment-wrapper'>
+        <div className='comment-content'>
+          <div className='comment-options'>
             <button onClick={goList}>목록</button>
           </div>
-          <div className='detail-title'>
-            {wDetails.title}
+          <div className='comment-detail-title'>{wDetails.title}</div>
+          {userData.id === wDetails.user.id ? (
+            <div className='comment-options-user'>
+              <button onClick={modifyBoard}>수정</button>
+              <button onClick={deleteBoard}>삭제</button>
+            </div>
+          ) : null}
+          <div>
             <div className='detail-show'>
+              <div className='show-user-name'>
+                작성자 {wDetails.user.username}
+              </div>
               <div className='likeWrapper'>
                 {wDetails && wDetails.liked ? (
                   <button className='likeButton' onClick={likeHandler}>
-                    <FcLike size={30} />
+                    <FcLike size={20} />
                     <span>{wDetails.likes}</span>
                   </button>
                 ) : (
                   <button className='likeButton' onClick={likeHandler}>
-                    <AiOutlineHeart size={30} />
+                    <AiOutlineHeart size={32} />
                     <span>{wDetails.likes}</span>
                   </button>
                 )}
               </div>
               <div className='hitWrapper'>
-                <AiOutlineFileSearch className='hit' size={30} /> <span className='hitCount'>{wDetails.hit}</span>
+                <AiOutlineFileSearch className='hit' size={29} />{' '}
+                <span className='hitCount'>{wDetails.hit}</span>
               </div>
             </div>
           </div>
           <div className='DetailQuill'>
-            <ReactQuill className='QuillContent' value={wDetails.content || ""} readOnly={true} theme={"bubble"} />
+            <ReactQuill
+              className='QuillContent'
+              value={wDetails.content || ''}
+              readOnly={true}
+              theme={'bubble'}
+            />
           </div>
-          <div className='commentWrapper'>
-            <ul>
-              {comments &&
-                comments.map((comment, index) => (
-                  <React.Fragment key={index}>
-                    <ParentsComments
-                      writer={wDetails.user.id}
-                      userData={userData}
-                      comment={comment}
-                      deleteReply={deleteReply}
-                      reReplyOpen={reReplyOpen}
-                      isReplying={isReplying}
-                      setIsReplying={setIsReplying}
-                      reReplyInsert={reReplyInsert}
-                      isModifying={isModifying}
-                      setIsModifying={setIsModifying}
-                      modifyComment={modifyComment}
-                    />
-                  </React.Fragment>
-                ))}
-            </ul>
+        </div>
+        <div className='commentWrapper'>
+          <h4> 코멘트 </h4>
+          <ul>
+            {comments &&
+              comments.map((comment, index) => (
+                <React.Fragment key={index}>
+                  <ParentsComments
+                    writer={wDetails.user.id}
+                    userData={userData}
+                    comment={comment}
+                    deleteReply={deleteReply}
+                    reReplyOpen={reReplyOpen}
+                    isReplying={isReplying}
+                    setIsReplying={setIsReplying}
+                    reReplyInsert={reReplyInsert}
+                    isModifying={isModifying}
+                    setIsModifying={setIsModifying}
+                    modifyComment={modifyComment}
+                  />
+                </React.Fragment>
+              ))}
+          </ul>
 
-            {/* root댓글 다는 곳 */}
-            <textarea name='content' value={inputReply.content} className='textarea' onChange={replyInputHandler} />
-            <button onClick={insertReply}>댓글 등록</button>
+          {/* root댓글 다는 곳 */}
+          <div className='comment-area'>
+            <textarea
+              placeholder='댓글달기'
+              name='content'
+              value={inputReply.content}
+              className='textarea'
+              onChange={replyInputHandler}
+            />
+            <button onClick={insertReply}>등록</button>
           </div>
         </div>
       </div>

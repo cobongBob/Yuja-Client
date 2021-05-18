@@ -14,7 +14,7 @@ Quill.register(Image, true);
 window.Quill = Quill;
 
 let quill;
-const QuillModify = ({ modify, addingFileList, qModiData, setQModiData }) => {
+const QuillModify = ({ modify, addingFileList, qModiData, setQModiData, board_type }) => {
   const history = useHistory();
   const imageHandler = useCallback(() => {
     const input = document.createElement("input");
@@ -32,7 +32,7 @@ const QuillModify = ({ modify, addingFileList, qModiData, setQModiData }) => {
           "content-type": "multipart/form-data",
         },
       };
-      await YImgApiService.addImgs(formData, config)
+      await YImgApiService.addImgs(formData, config, board_type)
         .then((response) => {
           if (response.status === 200) {
             const range = quill.getSelection(true) !== null ? quill.getSelection(true) : 0;
@@ -45,7 +45,7 @@ const QuillModify = ({ modify, addingFileList, qModiData, setQModiData }) => {
           alert(error.response.data.message);
         });
     };
-  }, [addingFileList]);
+  }, [addingFileList, board_type]);
   // end of imageHandler
 
   const dropHandler = useCallback(
@@ -61,7 +61,7 @@ const QuillModify = ({ modify, addingFileList, qModiData, setQModiData }) => {
           "content-type": "multipart/form-data",
         },
       };
-      YImgApiService.addImgs(formData, config)
+      YImgApiService.addImgs(formData, config, board_type)
         .then((response) => {
           if (response.status === 200) {
             const range = quill.getSelection(true) !== null ? quill.getSelection(true) : 0;
@@ -74,7 +74,7 @@ const QuillModify = ({ modify, addingFileList, qModiData, setQModiData }) => {
           alert(error.response.data.message);
         });
     },
-    [addingFileList]
+    [addingFileList, board_type]
   );
   //end of drop handler
 
@@ -144,12 +144,7 @@ const QuillModify = ({ modify, addingFileList, qModiData, setQModiData }) => {
   }, [qModiData]);
   return (
     <>
-      <div
-        className='QuillWrapper'
-        onClick={() => {
-          quill.focus();
-        }}
-      >
+      <div className='QuillWrapper'>
         <div id='ReactQuill'></div>
       </div>
       <div>

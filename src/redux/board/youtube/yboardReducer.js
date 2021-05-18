@@ -1,16 +1,16 @@
-import * as YapiService from '../../../apiService/YapiService';
-import * as likeService from '../../../apiService/likeService';
+import * as YapiService from "../../../apiService/YapiService";
+import * as likeService from "../../../apiService/likeService";
 // 액션
-const ADD_LIKE = 'ADD_LIKE';
-const DELETE_LIKE = 'DELETE_LIKE';
-const MODE_GET_DETAIL_DATA = 'getDetailData';
-const MODE_FILTER_DATA = 'MODE_FILTER_DATA';
-const MODE_SORTEXDATE_DATA = 'MODE_SORTEXDATE_DATA';
-const MODE_SORTLIKE_DATA = 'MODE_SORTLIKE_DATA';
-const GET_YBOARD_REQUEST = 'GET_YBOARD_REQUEST';
-const GET_YBOARD_SUCCESS = 'GET_YBOARD_SUCCESS';
-const GET_YBOARD_FAILURE = 'GET_YBOARD_FAILURE';
-const MODE_RESET_DATA = 'MODE_RESET_DATA';
+const ADD_LIKE = "ADD_LIKE";
+const DELETE_LIKE = "DELETE_LIKE";
+const MODE_GET_DETAIL_DATA = "getDetailData";
+const MODE_FILTER_DATA = "MODE_FILTER_DATA";
+const MODE_SORTEXDATE_DATA = "MODE_SORTEXDATE_DATA";
+const MODE_SORTLIKE_DATA = "MODE_SORTLIKE_DATA";
+const GET_YBOARD_REQUEST = "GET_YBOARD_REQUEST";
+const GET_YBOARD_SUCCESS = "GET_YBOARD_SUCCESS";
+const GET_YBOARD_FAILURE = "GET_YBOARD_FAILURE";
+const MODE_RESET_DATA = "MODE_RESET_DATA";
 // 액션함수
 export const getYBoards = () => {
   return (dispatch) => {
@@ -74,6 +74,7 @@ export const addLike = async (board_id) => {
   await likeService.addLike(board_id);
   return {
     type: ADD_LIKE,
+    payload: board_id,
   };
 };
 
@@ -81,6 +82,7 @@ export const deleteLike = async (board_id) => {
   await likeService.deleteLike(board_id);
   return {
     type: DELETE_LIKE,
+    payload: board_id,
   };
 };
 
@@ -92,7 +94,7 @@ const initialState = {
   loading: false,
   sortedExpired: false,
   sortedLike: false,
-  error: '',
+  error: "",
 };
 
 // 리듀서
@@ -144,6 +146,8 @@ const YboardReducer = (state = initialState, action) => {
           if (a.updatedDate > b.updatedDate) return -1;
           if (a.updatedDate === b.updatedDate) return 0;
         }),
+        sortedExpired: false,
+        sortedLike: false,
       };
 
     case MODE_SORTEXDATE_DATA:
@@ -152,19 +156,19 @@ const YboardReducer = (state = initialState, action) => {
         filterData: state.sortedExpired
           ? state.filterData.sort((a, b) => {
               if (a.expiredDate) {
-                a = a.expiredDate.substr(0, 10).split('-').join('');
+                a = a.expiredDate.substr(0, 10).split("-").join("");
               }
               if (b.expiredDate) {
-                b = b.expiredDate.substr(0, 10).split('-').join('');
+                b = b.expiredDate.substr(0, 10).split("-").join("");
               }
               return a > b ? 1 : a < b ? -1 : 0;
             })
           : state.filterData.sort((a, b) => {
               if (a.expiredDate) {
-                a = a.expiredDate.substr(0, 10).split('-').join('');
+                a = a.expiredDate.substr(0, 10).split("-").join("");
               }
               if (b.expiredDate) {
-                b = b.expiredDate.substr(0, 10).split('-').join('');
+                b = b.expiredDate.substr(0, 10).split("-").join("");
               }
               return a > b ? -1 : a < b ? 1 : 0;
             }),
@@ -186,26 +190,11 @@ const YboardReducer = (state = initialState, action) => {
         ...state,
         // eslint-disable-next-line array-callback-return
         filterData: state.data.filter((data) => {
-          if (
-            Object.values(data.title)
-              .join('')
-              .toLowerCase()
-              .includes(action.keyword.toLowerCase())
-          ) {
+          if (Object.values(data.title).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
             return data;
-          } else if (
-            Object.values(data.worker)
-              .join('')
-              .toLowerCase()
-              .includes(action.keyword.toLowerCase())
-          ) {
+          } else if (Object.values(data.worker).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
             return data;
-          } else if (
-            Object.values(data.user.username)
-              .join('')
-              .toLowerCase()
-              .includes(action.keyword.toLowerCase())
-          ) {
+          } else if (Object.values(data.user.username).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
             return data;
           }
         }),
@@ -218,6 +207,13 @@ const YboardReducer = (state = initialState, action) => {
           likes: state.detailData.likes + 1,
           liked: true,
         },
+        filterData: state.filterData.map((data) => {
+          if (data.id === action.payload) {
+            data.likes += 1;
+            data.liked = true;
+          }
+          return data;
+        }),
       };
     case DELETE_LIKE:
       return {
@@ -227,6 +223,13 @@ const YboardReducer = (state = initialState, action) => {
           likes: state.detailData.likes - 1,
           liked: false,
         },
+        filterData: state.filterData.map((data) => {
+          if (data.id === action.payload) {
+            data.likes -= 1;
+            data.liked = false;
+          }
+          return data;
+        }),
       };
     default:
       return state;

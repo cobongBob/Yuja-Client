@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import * as YapiService from '../../../apiService/YapiService';
 import './Ydetail.scss';
-import { FcLike } from 'react-icons/fc';
-import { AiOutlineHeart, AiOutlineFileSearch } from 'react-icons/ai';
-import { Link, useHistory } from 'react-router-dom';
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
+import { AiOutlineFileSearch } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import ChannelBox from './api_practice/ChannelBox';
 import {
@@ -12,50 +12,21 @@ import {
   deleteLike,
 } from '../../../redux/board/youtube/yboardReducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { Modal } from 'react-bootstrap';
-import * as ReportApiService from '../../../apiService/ReportApiService';
+import Modal from 'react-modal';
+import Report from '../components/Report';
 
+Modal.setAppElement('#root');
 const Ydetail = (props) => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [input, setInput] = useState({
-    reportContents: '',
-  });
-
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-    },
-  };
-
-  const onChange = useCallback((e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-  });
-
-  const onSubmit = useCallback((e) => {
-    e.preventDefault();
-    const report = {
-      ...input,
-      boardId: props.match.params.board_id,
-      userId: userData.id,
-    };
-    ReportApiService.addReport(report);
-  });
-
   const dispatch = useDispatch();
-
   const { userData } = useSelector((state) => state.loginReducer);
   const { detailData } = useSelector((state) => state.YboardReducer);
 
+  // 신고하기 modal 쓸때마다 해당 component 에서 선언해줘야함
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   useEffect(() => {
     const board_id = props.match.params.board_id;
+    console.log(1111111111111, userData);
     if (board_id) {
       getDetailData(board_id).then((res) => {
         dispatch(res);
@@ -92,10 +63,10 @@ const Ydetail = (props) => {
       <div className='DetailWrapper'>
         <div className='DetailHeaderWrapper'>
           <div className='youtube-top-wrapper'>
-            {''}
             <div className='youtube-top'>채널소개 및 기본공고</div>
           </div>
           <div className='youtube_top_DefaultInfo'>
+            {/* 유튜버  */}
             <div className='channel-box'>
               {!detailData ? <span>loading..</span> : <ChannelBox />}
             </div>
@@ -105,43 +76,31 @@ const Ydetail = (props) => {
               <div className='DetailTop'>상세내용</div>
               <div className='detail-btn'>
                 <div className='detail-btn-box'>
-                  <Link
-                    to={`/YmodifyTest/${detailData.id}`}
-                    className='detail-update-btn'>
-                    공고 수정하기
-                  </Link>
-                  <button className='detail-update-btn' onClick={deleteBoard}>
-                    공고 삭제하기
-                  </button>
+                  {userData &&
+                  detailData.user &&
+                  userData.id === detailData.user.id ? (
+                    <div>
+                      <Link
+                        to={`/YmodifyTest/${detailData.id}`}
+                        className='detail-update-btn'>
+                        공고 수정하기
+                      </Link>
+                      <button
+                        className='detail-update-btn'
+                        onClick={deleteBoard}>
+                        공고 삭제하기
+                      </button>
+                    </div>
+                  ) : null}
                   <Link className='detail-update-btn' to='/Youtuber'>
                     목록보기
                   </Link>
-                  <button onClick={() => setModalIsOpen(true)}>신고하기</button>
-                  <Modal
-                    isOpen={modalIsOpen}
-                    style={customStyles}
-                    onRequestClose={() => setModalIsOpen(false)}>
-                    <form id='ReportForm' onSubmit={(e) => onSubmit(e)}>
-                      <h1>무슨 이유로 신고 하시나요~?</h1>
-                      <textarea
-                        name='reportContents'
-                        id='ReportContent'
-                        placeholder='신고내용'
-                        onChange={onChange}></textarea>
-                      <div className='BtnWrapper'>
-                        <input
-                          id='ReportSubmit'
-                          type='submit'
-                          value='신고하기'
-                        />
-                        <button
-                          id='ReportCloseBtn'
-                          onClick={() => setModalIsOpen(false)}>
-                          close
-                        </button>
-                      </div>
-                    </form>
-                  </Modal>
+                  {/* 모달 열리는 부분 */}
+                  <Report
+                    board_id={props.match.params.board_id}
+                    modalIsOpen={modalIsOpen}
+                    setModalIsOpen={setModalIsOpen}
+                  />
                 </div>
               </div>
               <div className='detail-title'>
@@ -149,13 +108,13 @@ const Ydetail = (props) => {
                 <div className='detail-show'>
                   <div className='likeWrapper'>
                     {detailData && detailData.liked ? (
-                      <button className='likeButton' onClick={likeHandler}>
-                        <FcLike size={30} />
+                      <button className='starButton' onClick={likeHandler}>
+                        <AiFillStar size={30} />
                         <span>{detailData.likes}</span>
                       </button>
                     ) : (
-                      <button className='likeButton' onClick={likeHandler}>
-                        <AiOutlineHeart size={30} />
+                      <button className='starButton' onClick={likeHandler}>
+                        <AiOutlineStar size={30} />
                         <span>{detailData.likes}</span>
                       </button>
                     )}
@@ -166,7 +125,6 @@ const Ydetail = (props) => {
                   </div>
                 </div>
               </div>
-              -
             </div>
             <div className='detail-date'>
               {detailData && detailData.updatedDate
