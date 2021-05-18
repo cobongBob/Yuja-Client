@@ -1,37 +1,3 @@
-import React, { useEffect } from 'react';
-import Logo from './components/Logo/Logo';
-import './App.css';
-import { Route } from 'react-router';
-import Youtuber from './pages/Main/Youtuber/Youtuber';
-import Editer from './pages/Main/Editer/Editer';
-import Thumbnailer from './pages/Main/Thumbnailer/Thumbnailer';
-import Winwin from './pages/Main/Winwin/Winwin';
-import Help from './pages/Main/Help/Help';
-import Ydetail from './pages/Main/Youtuber/Ydetail';
-import SignUp1 from './components/Login-SignUp/SignUp/SignUp1';
-import { withRouter } from 'react-router';
-import Navi from './components/Navi/Navi';
-import YoutuberProfile from './pages/Profile/YoutuberProfile';
-import Yregister from './pages/Main/Youtuber/Yregister';
-import Switch from 'react-bootstrap/Switch';
-import YmodifyTest from './pages/Main/Youtuber/YmodifyTest';
-import { useLocation } from 'react-router-dom';
-import MainWrapper from './MainWrapper';
-import PageNotFound from './pages/Error/PageNotFound';
-import Footer from './components/Footer';
-import FindPassword from './components/Login-SignUp/Login/FindPassword';
-import Wdetail from './pages/Main/Winwin/Wdetail';
-import Wregister from './pages/Main/Winwin/Wregister';
-import EditorRegister from './pages/Main/Editer/EditorRegister';
-import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
-import { getLoaded, getLoading } from './redux/loading/loadingReducer';
-import Loader from './components/Loading/Loader';
-import instance from './AxiosConfig';
-import { userLogout } from './redux/redux-login/loginReducer';
-import EDetail from './pages/Main/Editer/EDetail';
-import ResetPassword from './components/Login-SignUp/Login/ResetPassword';
-
 import React, { useCallback, useEffect } from "react";
 import Logo from "./components/Logo/Logo";
 import "./App.css";
@@ -64,9 +30,11 @@ import instance from "./AxiosConfig";
 import { userLogout } from "./redux/redux-login/loginReducer";
 import Chat from "./pages/Main/components/Chat/Chat";
 import EDetail from "./pages/Main/Editer/EDetail";
+import ResetPassword from './components/Login-SignUp/Login/ResetPassword';
 import { toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
+
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
 
@@ -164,10 +132,10 @@ function App() {
           <Route path='/Yregister' component={Yregister} />
           <Route path='/YmodifyTest/:board_id' component={YmodifyTest} />
           <Route path='/PageNotFound' component={PageNotFound} />
-          <Route path='/FindPassword' component={FindPassword} />
           <Route path='/EditorRegister' component={EditorRegister} />
           <Route path='/EDetail/:board_id' component={EDetail} />
-          <Route path='/FindPassword/ResetPassword' component={ResetPassword} />
+          <Route path='/FindPassword' component={FindPassword} />
+          <Route path='/ResetPassword' component={ResetPassword} />
           {/* <Route component={PageNotFound} /> 이게 왜 나올까요? */}
         </Switch>
       </div>
