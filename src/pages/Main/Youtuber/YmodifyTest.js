@@ -94,7 +94,6 @@ const YmodifyTest = (props) => {
       ...input,
       [e.target.name]: e.target.value,
     });
-    console.log(input);
   };
 
   return (

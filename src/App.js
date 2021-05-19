@@ -79,7 +79,9 @@ function App() {
       (error) => {
         //실패시 로딩창 종료
         if (error.response.status === 401) {
-          userLogout();
+          userLogout().then((res) => {
+            dispatch(res);
+          });
         }
         if (error.response && error.response.data) {
           ToastCenter(error.response.data.message);

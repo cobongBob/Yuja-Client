@@ -2,13 +2,12 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import UserApiService from "../../../apiService/UserApiService";
 import "./SignUp1.scss";
 import AddressApi from "./AddressApi";
-import { ToastPreventAccess } from '../../../modules/ToastModule';
+import { ToastCenter, ToastPreventAccess, ToastTopRight } from "../../../modules/ToastModule";
 
 const NonRequired = ({ location, history }) => {
-
-  if (history.action === 'POP') {
-    ToastPreventAccess('❌ 잘못된 접근 입니다.')
-    history.replace('/')
+  if (history.action === "POP") {
+    ToastPreventAccess("❌ 잘못된 접근 입니다.");
+    history.replace("/");
   }
 
   /* 파일 업로드 관련 */
@@ -26,7 +25,6 @@ const NonRequired = ({ location, history }) => {
     };
 
     if (e.target.files !== null) {
-      console.log("파일 업로드 시작");
       const fd = new FormData();
       fd.append("file", file);
       UserApiService.addProfileImg(fd, config)
@@ -34,11 +32,9 @@ const NonRequired = ({ location, history }) => {
           const fileUrl = new URL("http://localhost:8888/files/temp/" + response.data.fileName);
           setpreviewUrl(fileUrl);
           profilePicId.current = response.data.profilePicId;
-          console.log(1, response.data.profilePicId);
-          console.log(profilePicId.current);
         })
         .catch((error) => {
-          console.log(error.response.data.message);
+          ToastCenter(error.response.data ? error.response.data.message : "Server Error!");
         });
     }
   };
@@ -52,7 +48,6 @@ const NonRequired = ({ location, history }) => {
     };
 
     if (e.target.files !== null) {
-      console.log("파일 업로드2 시작");
       const fd2 = new FormData();
       fd2.append("file", file2);
       UserApiService.addYoutuberConfirmPic(fd2, config2)
@@ -61,11 +56,9 @@ const NonRequired = ({ location, history }) => {
           setpreviewUrl2(fileUrl2);
           setIsYoutuberPicFill("");
           youtubeConfirmId.current = response.data.youtubeConfirmId;
-          console.log(2, response.data.youtubeConfirmId);
-          console.log(youtubeConfirmId.current);
         })
         .catch((error) => {
-          console.log(error.response.data.message);
+          ToastCenter(error.response.data ? error.response.data.message : "Server Error!");
         });
     }
   };
@@ -81,7 +74,6 @@ const NonRequired = ({ location, history }) => {
   /* 회원가입 데이터 넘겨주기 시작 */
   /* required 페이지 데이터 담은 변수 */
   const requiredData = location.state && location.state.requiredData;
-  console.log("???", requiredData);
 
   /* 이 페이지(nonRequired) 데이터 담기 시작 */
   const [nonRequiredData, setNonRequiredData] = useState({
@@ -116,19 +108,17 @@ const NonRequired = ({ location, history }) => {
       profilePicId: profilePicId.current,
       youtubeConfirmId: youtubeConfirmId.current,
     };
-    console.log(data);
     UserApiService.addUser(data)
       .then((r) => {
-        console.log(r);
         if (r) {
-          alert("회원가입을 축하합니다!");
+          ToastTopRight("회원가입을 축하합니다!");
           history.push("/");
         } else {
-          alert("오류가 발생했습니다.");
+          ToastTopRight("오류가 발생했습니다.");
         }
       })
-      .catch((e) => {
-        alert(e.response.data.message);
+      .catch((error) => {
+        ToastCenter(error.response.data ? error.response.data.message : "Server Error!");
       });
   };
   /* 이 페이지(nonRequired) 데이터 담기 끝 */
@@ -157,9 +147,7 @@ const NonRequired = ({ location, history }) => {
 
   /* 사업자 등록번호 확인식 */
   const bsnCheck = (e) => {
-    console.log("bsncheck 작동");
     let bsn = e.target.value;
-    console.log(bsn);
     const checkId = [1, 3, 7, 1, 3, 7, 1, 3, 5, 1];
     let sum = 0;
 
@@ -172,7 +160,6 @@ const NonRequired = ({ location, history }) => {
       sum += checkSum;
       let reminder = (10 - (sum % 10)) % 10;
 
-      console.log(bsn.length);
       if (reminder === Number(bsn[9])) {
         setIsCompanyRegNumFill("");
       } else {
@@ -206,20 +193,15 @@ const NonRequired = ({ location, history }) => {
   );
 
   const submitDisabledCheck = useCallback(() => {
-    console.log("submitDisabledCheck 실행", isYoutuberChecked);
     if (isYoutuberChecked === true) {
       setSubmitDisableHandler(true);
-      console.log(isCompanyRegNumFill);
-      console.log(isPermalinkFill);
-      console.log(isYoutuberPicFill);
       if (isPermalinkFill === "" && isYoutuberPicFill === "") {
         setSubmitDisableHandler(false);
       }
     } else if (isYoutuberChecked === false) {
-      console.log("else로");
       setSubmitDisableHandler(false);
     }
-  }, [isYoutuberChecked, isPermalinkFill, isYoutuberPicFill, setSubmitDisableHandler, isCompanyRegNumFill]);
+  }, [isYoutuberChecked, isPermalinkFill, isYoutuberPicFill, setSubmitDisableHandler]);
 
   const permalinkCheck = useCallback((e) => {
     let checkContent = e.target.value;

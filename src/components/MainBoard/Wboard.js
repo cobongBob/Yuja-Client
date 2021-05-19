@@ -1,8 +1,8 @@
-import React from 'react';
-import './Wboard.scss';
-import { Col, Row } from 'react-bootstrap';
-import { FaHandshake } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import React from "react";
+import "./Wboard.scss";
+import { Col, Row } from "react-bootstrap";
+import { FaHandshake } from "react-icons/fa";
+import { useSelector } from "react-redux";
 const Wboard = () => {
   const { WmainList, CmainList } = useSelector((state) => state.mainReducer);
   return (
@@ -10,8 +10,8 @@ const Wboard = () => {
       <div className='win-title'>
         <span>
           <FaHandshake></FaHandshake>
-        </span>{' '}
-        Win-Win{' '}
+        </span>{" "}
+        Win-Win{" "}
       </div>
       <Row className='win-body'>
         <Col sm>
@@ -51,15 +51,15 @@ const Wboard = () => {
         </Col>
         <Col sm>
           <div className='win-collabo'>
-            {' '}
+            {" "}
             합방해요
             {CmainList &&
-              CmainList.map((list) => (
-                <>
+              CmainList.map((list, idx) => (
+                <React.Fragment key={idx}>
                   <span>{list.user.username}</span>
                   <h1>{list.title}</h1>
-                </>
-              ))}{' '}
+                </React.Fragment>
+              ))}{" "}
           </div>
         </Col>
       </Row>

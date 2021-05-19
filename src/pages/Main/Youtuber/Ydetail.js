@@ -23,7 +23,6 @@ const Ydetail = (props) => {
 
   useEffect(() => {
     const board_id = props.match.params.board_id;
-    console.log(1111111111111, userData);
     if (board_id) {
       getDetailData(board_id).then((res) => {
         dispatch(res);

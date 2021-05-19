@@ -1,17 +1,16 @@
-import React, { useCallback, useEffect } from 'react';
+import React from "react";
 import "./SignUp1.scss";
 import Agreement from "./Agreement";
 import Switch from "react-bootstrap/Switch";
 import { Link, Route } from "react-router-dom";
 import NonRequired from "./NonRequired";
 import Required from "./Required";
-import { ToastPreventAccess } from '../../../modules/ToastModule';
+import { ToastPreventAccess } from "../../../modules/ToastModule";
 
 const SignUp1 = ({ location, history, match }) => {
-
-  if (history.action === 'POP') {
-    ToastPreventAccess('❌ 잘못된 접근 입니다.')
-    history.replace('/')
+  if (history.action === "POP") {
+    ToastPreventAccess("❌ 잘못된 접근 입니다.");
+    history.replace("/");
   }
 
   return (

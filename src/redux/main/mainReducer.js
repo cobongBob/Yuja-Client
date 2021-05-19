@@ -1,10 +1,9 @@
-import * as MainApiService from '../../apiService/MainApiService';
+import * as MainApiService from "../../apiService/MainApiService";
 
 // 액션
-const MODE_GET_MAIN_DATA = 'getMainData';
-const GET_MAIN_DATA_REQUEST = 'getDataRequest';
-const GET_MAIN_DATA_SUCCESS = 'getDataSuccess';
-const GET_MAIN_DATA_FAILURE = 'getDataFailure';
+const GET_MAIN_DATA_REQUEST = "getDataRequest";
+const GET_MAIN_DATA_SUCCESS = "getDataSuccess";
+const GET_MAIN_DATA_FAILURE = "getDataFailure";
 
 // 액션 함수
 

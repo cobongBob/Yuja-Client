@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 import QuillRegister from "../../../components/Quill/QuillRegister";
 import * as EditerApiService from "../../../apiService/EditerApiService";
 import "./EditorRegister.scss";
+import { ToastCenter } from "../../../modules/ToastModule";
 
 const EditorRegister = () => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -17,7 +18,7 @@ const EditorRegister = () => {
   let Ehistory = useCallback((board_id) => history.push(`/EDetail/${board_id}`), [history]);
   const testCheking = useCallback(() => {
     if (!qData || !input.title) {
-      return alert("제목과 내용을 입력해주세요");
+      return ToastCenter("제목과 내용을 입력해주세요");
     }
 
     let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
