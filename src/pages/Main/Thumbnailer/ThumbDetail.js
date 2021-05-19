@@ -1,14 +1,10 @@
-import React, { useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  addLike,
-  deleteLike,
-  getDetailData,
-} from '../../../redux/board/editer/eboardReducer';
-import * as EditerApiService from '../../../apiService/EditerApiService';
-import './EditorDetail.scss';
+import React, { useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addLike, deleteLike, getDetailData } from "../../../redux/board/editer/eboardReducer";
+import * as EditerApiService from "../../../apiService/EditerApiService";
+import "../Editer/EditorDetail.scss";
 
-const EDetail = (props) => {
+const ThumbDetail = (props) => {
   const dispatch = useDispatch();
   const { userData } = useSelector((state) => state.loginReducer);
   const { detailData } = useSelector((state) => state.EboardReducer);
@@ -26,7 +22,7 @@ const EDetail = (props) => {
   const deleteBoard = () => {
     EditerApiService.deleteBoard(props.match.params.board_id).then((res) => {
       alert(res.data);
-      props.history.push('/Editor');
+      props.history.push("/Editor");
     });
   };
 
@@ -42,7 +38,7 @@ const EDetail = (props) => {
         });
       }
     } else {
-      alert('로그인 해주세요');
+      alert("로그인 해주세요");
       //로그인 창으로
     }
   }, [userData, dispatch, props.match.params.board_id, detailData]);
@@ -59,4 +55,4 @@ const EDetail = (props) => {
   );
 };
 
-export default EDetail;
+export default ThumbDetail;

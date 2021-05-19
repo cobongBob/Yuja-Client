@@ -3,6 +3,7 @@ import { insertWinBoard } from "../../../apiService/winBoardApiService";
 import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
 import QuillRegister from "../../../components/Quill/QuillRegister";
+import { ToastCenter } from "../../../modules/ToastModule";
 
 const Wregister = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -12,7 +13,7 @@ const Wregister = ({ match }) => {
   const board_type = useRef(match.params.board_type);
   const history = useHistory();
 
-  let Yhistory = useCallback(
+  let whistory = useCallback(
     (board_id) => history.push(`/BoardDetail/${board_type.current}/${board_id}/1`),
     [history, board_type]
   );
@@ -38,7 +39,7 @@ const Wregister = ({ match }) => {
 
   const testCheking = useCallback(() => {
     if (!qData || !inputData.title) {
-      return alert("제목과 내용을 입력해주세요");
+      return ToastCenter("제목과 내용을 입력해주세요");
     }
     let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
     let imgSrcArr = String(qData).match(reg);
@@ -59,14 +60,13 @@ const Wregister = ({ match }) => {
         `src="http://localhost:8888/files/temp/`,
         `src="http://localhost:8888/files/${board_type.current}/`
       ), //업로드된 이미지들은 temp가 아닌 WinBoard에 저장된다.
-      thumbnail: "썸네일테스트", //썸네일 서버쪽 만들어지면 변경 필
       boardAttachNames: currFileList.current,
     };
     insertWinBoard(sendingData, board_type.current).then((res) => {
-      Yhistory(res.data.id);
+      whistory(res.data.id);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userData, qData, Yhistory]);
+  }, [userData, qData, whistory]);
 
   return (
     <div>

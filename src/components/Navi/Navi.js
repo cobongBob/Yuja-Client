@@ -14,11 +14,11 @@ const Navi = () => {
         <Link to='/Youtuber'>
           <li className={pathname === "/Youtuber" ? "nav-link-disabled" : "nav-link"}>유튜버</li>
         </Link>
-        <Link to='/Editer'>
-          <li className={pathname === "/Editer" ? "nav-link-disabled" : "nav-link"}>편집자</li>
+        <Link to='/Eboard/Editor/1'>
+          <li className={pathname.includes("/Editor") ? "nav-link-disabled" : "nav-link"}>편집자</li>
         </Link>
-        <Link to='/Thumbnailer'>
-          <li className={pathname === "/Thumbnailer" ? "nav-link-disabled" : "nav-link"}>썸네일러</li>
+        <Link to='/Thboard/Thumb/1'>
+          <li className={pathname.includes("/Thumb") ? "nav-link-disabled" : "nav-link"}>썸네일러</li>
         </Link>
         <Link to='/Community/Winwin/1'>
           <li className={pathname.includes("/Community") ? "nav-link-disabled" : "nav-link"}>커뮤니티</li>
