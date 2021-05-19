@@ -1,5 +1,5 @@
 import instance from "../AxiosConfig.js";
-import BoardTypeConvert from "../BoardTypeConvert.js";
+import BoardTypeConvert from "../modules/BoardTypeConvert.js";
 let board_code = 0;
 export const addBoards = async (data, board_type) => {
   board_code = BoardTypeConvert(board_type);

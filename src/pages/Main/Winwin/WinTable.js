@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import getFormatDate from "../../../getFormatDate";
+import getFormatDate from "../../../modules/getFormatDate";
 import { MdFiberNew } from "react-icons/md";
 import { RiGitRepositoryPrivateFill } from "react-icons/ri";
 import SortingDate from "../components/Community/SortingDate";
