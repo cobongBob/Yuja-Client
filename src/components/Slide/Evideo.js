@@ -1,23 +1,17 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import './video.scss';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import PrevArrow from './PrevArrow';
-import NextArrow from './NextArrow';
-import { useDispatch, useSelector } from 'react-redux';
-import { RiScissorsCutFill } from 'react-icons/ri';
-import { getMainData } from '../../redux/main/mainReducer';
-import { useHistory } from 'react-router';
+import React from "react";
+import "./video.scss";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import PrevArrow from "./PrevArrow";
+import NextArrow from "./NextArrow";
+import { useSelector } from "react-redux";
+import { RiScissorsCutFill } from "react-icons/ri";
+import { useHistory } from "react-router";
 
 const Evideo = () => {
-  const dispatch = useDispatch();
   const history = useHistory();
   const { EvideoData } = useSelector((state) => state.mainReducer);
-  console.log(1111111111111111, EvideoData);
-  useEffect(() => {
-    dispatch(getMainData());
-  }, [dispatch]);
 
   const settings = {
     dots: false,
@@ -64,26 +58,25 @@ const Evideo = () => {
       <div className='best-editor'>
         <span>
           <RiScissorsCutFill></RiScissorsCutFill>
-        </span>{' '}
-        인기 편집자{' '}
+        </span>{" "}
+        인기 편집자{" "}
       </div>
       <Slider {...settings}>
-        {EvideoData.map((video) => (
-          <div className='wrapper'>
-            <div className='thumbnails'>
-              <div
-                onClick={() => history.push(`/Ydetail/${video.user.id}`)}
-                className='thumbnails-item'>
-                <div className='item item_red'>
-                  <div className='top'>{video.user.nickname}</div>
-                  <div className='bottom'>{video.title}</div>
-                  <img src='/img/board_pic/editor_pic/thum7.png' alt='' />
+        {EvideoData &&
+          EvideoData.map((video) => (
+            <div className='wrapper'>
+              <div className='thumbnails'>
+                <div onClick={() => history.push(`/Ydetail/${video.user.id}`)} className='thumbnails-item'>
+                  <div className='item item_red'>
+                    <div className='top'>{video.user.nickname}</div>
+                    <div className='bottom'>{video.title}</div>
+                    <img src='/img/board_pic/editor_pic/thum7.png' alt='' />
+                  </div>
                 </div>
               </div>
+              u
             </div>
-            u
-          </div>
-        ))}
+          ))}
       </Slider>
     </React.Fragment>
   );
