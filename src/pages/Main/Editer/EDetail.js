@@ -8,6 +8,7 @@ import {
 import * as EditerApiService from '../../../apiService/EditerApiService';
 import './EditorDetail.scss';
 import { ToastCenter } from '../../../modules/ToastModule';
+import ReactQuill from 'react-quill';
 
 const EDetail = (props) => {
   const dispatch = useDispatch();
@@ -56,6 +57,28 @@ const EDetail = (props) => {
           </div>
           <div className='editordetail-content-wrapper'>
             <div className='editordetail-content-title'>{detailData.title}</div>
+            <div className='editordetail-content-user'>작성자</div>
+            <div className='editordetail-content-like'>
+              좋아요 {detailData.likes}
+            </div>
+            <div className='editordetail-content-hit'>
+              조회수 {detailData.hit}
+            </div>
+            <div className='editordetail-content-pay'>
+              급여방식 {detailData.payType}
+              희망급여 {detailData.payAmount}
+            </div>
+            <div className='editordetail-content-tools'>
+              사용기술 {detailData.tools}
+            </div>
+            <div className='editordetail-content-pr'>
+              <ReactQuill
+                className='QuillContent'
+                value={detailData.content || ''}
+                readOnly={true}
+                theme={'bubble'}
+              />
+            </div>
           </div>
         </div>
       </div>
