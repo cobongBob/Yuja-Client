@@ -1,6 +1,6 @@
 .new-youtuber {
   width: 95%;
-  height: 10vh;
+  min-height: 11vh;
   background-color: white;
   border-radius: 10px;
   display: inline-block;
@@ -8,26 +8,76 @@
 }
 .user-profile-pic {
   display: inline-block;
-  line-height: 10vh;
   vertical-align: middle;
+  margin-top: 6%;
   margin-left: 3%;
   margin-right: 3%;
 }
+
 .youtuber-profile {
   border: 10px solid #c4302b;
   border-radius: 50%;
   background-color: #c4302b;
   color: white;
 }
-.wanted-content {
-  display: inline-block;
-  vertical-align: middle;
-  font-family: scdream5;
+
+.editor-profile {
+  border: 10px solid #3d5ba5;
+  border-radius: 50%;
+  background-color: #3d5ba5;
+  color: white;
 }
+
+.thumbnail-profile {
+  border: 10px solid #ff7c7c;
+  border-radius: 50%;
+  background-color: #ff7c7c;
+  color: white;
+}
+
+.wanted-content {
+  max-width: 20vw;
+  max-height: 11vh;
+  font-family: 'scdream5';
+}
+
+.wanted-content-detail {
+  margin-top: 1%;
+  float: left;
+  font-size: 1.3rem;
+}
+
+.NewList {
+  padding: 0;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  text-align: center;
+}
+
+.ProfileWrapper {
+  display: flex;
+}
+
+.TitleWrapper {
+  display: inline-block;
+  width: 19vw;
+  max-width: 19vw;
+}
+
+.NameWorkerWrapper {
+  padding-top: 1%;
+  width: 19vw;
+  max-width: 19vw;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 3px solid #dddddd;
+}
+
 .wanted-name {
   display: inline-block;
-  margin-right: 1rem;
-  font-size: 23px;
+  max-width: 10vw;
+  margin-top: 1%;
+  font-size: 1.3rem;
 }
 
 .wanted-type-editer {
@@ -37,10 +87,13 @@
   color: white;
   border-radius: 7px;
   padding: 2px;
-  margin-right: 0.5rem;
+  margin-top: 1%;
+  margin-right: 5%;
+  float: right;
 }
+
 .wanted-type-thumbnail {
-  font-family: scdream4;
+  font-family: 'scdream4';
   background-color: #ff7c7c;
   color: white;
   border-radius: 7px;

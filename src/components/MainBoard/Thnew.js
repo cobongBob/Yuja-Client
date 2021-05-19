@@ -10,20 +10,29 @@ const Thnew = () => {
     <div>
       {ThmainList &&
         ThmainList.map((list) => (
-          <ul>
+          <ul className='NewList'>
             <div className='new-youtuber'>
               <li>
-                <div className='user-profile-pic'>
-                  <FaUserAstronaut size={60} className='youtuber-profile' />
-                </div>
-                <div className='wanted-content'>
-                  <span className='wanted-name'>
-                    <Link to={`/Ydetail/${list.id}`}>{list.user.username}</Link>
-                  </span>{' '}
-                  <br />
-                  <span className='wanted-content-detail'>
-                    <Link to={`/Ydetail/${list.id}`}>{list.title}</Link>
-                  </span>
+                <div className='ProfileWrapper'>
+                  <div className='user-profile-pic'>
+                    <FaUserAstronaut size={60} className='thumbnail-profile' />
+                  </div>
+                  <div className='wanted-content'>
+                    <div className='NameWorkerWrapper'>
+                      <span className='wanted-name'>
+                        <Link to={`/Ydetail/${list.id}`}>
+                          {list.user.nickname}
+                        </Link>
+                      </span>
+                    </div>
+                    <div className='TitleWrapper'>
+                      <p className='wanted-content-detail'>
+                        <strong>
+                          <Link to={`/Ydetail/${list.id}`}>{list.title}</Link>
+                        </strong>
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </li>
             </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import './Yboard.scss';
+import './newboard.scss';
 import Ynew from './Ynew';
 
 const Yboard = () => {
