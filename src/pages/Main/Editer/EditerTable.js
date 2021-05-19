@@ -1,14 +1,20 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { format } from 'date-fns';
 import { FcLike } from 'react-icons/fc';
 import '../Youtuber/Ylist.scss';
 import BackToList from '../components/BackToList';
 import SortingToDeadline from '../components/SortingToDeadline';
 import SortingToLiked from '../components/SortingToLiked';
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
-export default function EditorTable({ eBoardData, board_type }) {
+export default function EditorTable({
+  eBoardData,
+  likeHandler,
+  dislikeHandler,
+}) {
+  const history = useHistory();
   return (
     <div className='card-container'>
       <div className='card-options'>
@@ -25,7 +31,11 @@ export default function EditorTable({ eBoardData, board_type }) {
         {eBoardData?.map((data) => (
           <li>
             <Card key={data.id}>
-              <Card.Img src='/img/board_pic/thumbnailer_pic/thum2.PNG'></Card.Img>
+              <Card.Img
+                className='Card-Img'
+                onClick={() => history.push(`/EDetail/${data.id}`)}
+                src='/img/board_pic/thumbnailer_pic/thum2.PNG'
+              ></Card.Img>
               <Card.Header>
                 <Card.Title>
                   <div>
@@ -38,7 +48,23 @@ export default function EditorTable({ eBoardData, board_type }) {
                     {format(new Date(data.expiredDate), 'yyyy-MM-dd')}
                   </div>
                   <div className='card-like'>
-                    <FcLike size={22} /> {data.likes}
+                    {data && data.liked ? (
+                      <button
+                        onClick={() => likeHandler(data.id)}
+                        className='starButton'
+                      >
+                        <AiFillStar size={30} />
+                        <span>{data.likes}</span>
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => dislikeHandler(data.id)}
+                        className='starButton'
+                      >
+                        <AiOutlineStar size={30} />
+                        <span>{data.likes}</span>
+                      </button>
+                    )}
                   </div>
                 </Card.Title>
               </Card.Header>

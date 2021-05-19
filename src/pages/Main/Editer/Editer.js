@@ -1,13 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import EditerTable from './EditerTable';
 import '../Youtuber/Youtuber.scss';
 import Pagination from '../components/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  addLike,
+  deleteLike,
   getEBoards,
   getFilterData,
 } from '../../../redux/board/editer/eboardReducer';
 import Search from '../components/Search';
+import { ToastCenter } from '../../../modules/ToastModule';
 
 const Editer = ({ match }) => {
   const dispatch = useDispatch();
@@ -43,7 +46,30 @@ const Editer = ({ match }) => {
       dispatch(res);
     });
   };
-  console.log(4444, match);
+  const likeHandler = useCallback(
+    (board_id) => {
+      if (userData && userData.id) {
+        deleteLike(board_id, userData.id).then((res) => {
+          dispatch(res);
+        });
+      } else {
+        ToastCenter('로그인 해주세요');
+      }
+    },
+    [userData, dispatch]
+  );
+  const dislikeHandler = useCallback(
+    (board_id) => {
+      if (userData && userData.id) {
+        addLike(board_id, userData.id).then((res) => {
+          dispatch(res);
+        });
+      } else {
+        ToastCenter('로그인 해주세요');
+      }
+    },
+    [userData, dispatch]
+  );
 
   return eBoardData.loading && !eBoardData ? (
     <div className='loading'></div>
@@ -61,6 +87,8 @@ const Editer = ({ match }) => {
         eBoardData={currentData}
         userData={userData}
         board_type={board_type}
+        likeHandler={likeHandler}
+        dislikeHandler={dislikeHandler}
       />
       <Pagination
         boardPerPage={boardPerPage}
