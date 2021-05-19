@@ -3,6 +3,7 @@ import { insertWinBoard } from "../../../apiService/winBoardApiService";
 import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
 import QuillRegister from "../../../components/Quill/QuillRegister";
+import { ToastCenter } from "../../../modules/ToastModule";
 
 const Wregister = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -38,7 +39,7 @@ const Wregister = ({ match }) => {
 
   const testCheking = useCallback(() => {
     if (!qData || !inputData.title) {
-      return alert("제목과 내용을 입력해주세요");
+      return ToastCenter("제목과 내용을 입력해주세요");
     }
     let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
     let imgSrcArr = String(qData).match(reg);
