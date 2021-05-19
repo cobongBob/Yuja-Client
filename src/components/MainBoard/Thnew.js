@@ -9,8 +9,8 @@ const Thnew = () => {
   return (
     <div>
       {ThmainList &&
-        ThmainList.map((list) => (
-          <ul className='NewList'>
+        ThmainList.map((list, index) => (
+          <ul key={index} className='NewList'>
             <div className='new-youtuber'>
               <li>
                 <div className='ProfileWrapper'>
@@ -28,7 +28,11 @@ const Thnew = () => {
                     <div className='TitleWrapper'>
                       <p className='wanted-content-detail'>
                         <strong>
-                          <Link to={`/Ydetail/${list.id}`}>{list.title}</Link>
+                          <Link
+                            className='ListTitle'
+                            to={`/Ydetail/${list.id}`}>
+                            {list.title}
+                          </Link>
                         </strong>
                       </p>
                     </div>
