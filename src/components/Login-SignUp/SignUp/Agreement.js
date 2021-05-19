@@ -575,9 +575,6 @@ const Agreement = ({ location }) => {
     // 메인체크박스 상태확인
     const isEveryBoxChecked = newCheckBoxes.every((value) => value.isChecked);
     setMainCheckbox({ ...mainCheckbox, isChecked: isEveryBoxChecked });
-    console.log(mainCheckbox);
-    console.log(checkBoxes);
-    console.log(isEveryBoxChecked);
   };
   // 체크박스 끝
 
@@ -591,7 +588,6 @@ const Agreement = ({ location }) => {
   let requiredTwoIsChecked = checkBoxes[1].isChecked;
 
   const isAllRequiredChecked = useCallback(() => {
-    console.log("isAllRequiredChecked실행");
     if (true === requiredOneIsChecked && true === requiredTwoIsChecked) {
       setAgreementNextBtnHandler(true);
     } else {
@@ -646,7 +642,7 @@ const Agreement = ({ location }) => {
                 pathname: "/SignUp1/Required",
                 state: {
                   next: next === undefined ? null : next,
-                  googleSignupData: location.resData === undefined ? null:location.resData.res
+                  googleSignupData: location.resData === undefined ? null : location.resData.res,
                 },
               }}
               className='btn btn-warning'

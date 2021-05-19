@@ -4,13 +4,12 @@ import AuthCodeTimer from "./AuthCodeTimer";
 import AuthBtnBox from "./AuthBtnBox";
 import * as auth from "../../../apiService/AuthenticationService";
 import axios from "axios";
-import { ToastPreventAccess } from '../../../modules/ToastModule';
+import { ToastPreventAccess } from "../../../modules/ToastModule";
 
 const Required = ({ location, history }) => {
-
-  if (location.state === undefined || history.action === 'POP') {
-    ToastPreventAccess('❌ 잘못된 접근 입니다.')
-    history.replace('/')
+  if (location.state === undefined || history.action === "POP") {
+    ToastPreventAccess("❌ 잘못된 접근 입니다.");
+    history.replace("/");
   }
 
   /* 값 넘겨주기 */
@@ -57,28 +56,22 @@ const Required = ({ location, history }) => {
   };
 
   const checkCodes = () => {
-
     if (isValidateInput.id === "" || EmailValidateResData !== "") {
-      console.log("비어있음!");
       setSecurityCodeValidateDesc("이메일을 확인 해주세요.");
     } else if (securityCode === authCode) {
-      console.log("인증성공");
       clearTimeout(setSecurityCode);
       changeTimeSet();
       setDisabledHandler(true);
       setBtnTextHandler("인증완료");
-      totalCheck()
+      totalCheck();
       setSecurityCodeValidateDesc("");
       setEmailDisableHandler(true);
       return true;
     } else {
-      console.log("인증실패");
-      totalCheck()
+      totalCheck();
       setSecurityCodeValidateDesc("인증번호를 확인 해주세요.");
       return false;
     }
-
-
   };
   /* 인증코드 통신 및 끝 */
 
@@ -93,9 +86,7 @@ const Required = ({ location, history }) => {
     }
   };
   const changeStartTimer = () => {
-    console.log("===================== changeStartTimer 실행");
     auth.verifyEmailSend(requiredData.username).then((res) => {
-      console.log("받자마자 res.data의 값 ", res.data);
       setSecurityCode(res.data);
       console.log("res.data를 sc에 넣은 후 sc의 값", securityCode);
       setTimeout(() => {
@@ -128,7 +119,6 @@ const Required = ({ location, history }) => {
   const [nextBtnDisabledHandler, setNextBtnDisabledHandler] = useState(false);
 
   const totalCheck = useCallback(() => {
-    console.log('totalCheck 실행')
     if (
       EmailValidateResData === "" &&
       nicknameValidateResData === "" &&
@@ -140,12 +130,11 @@ const Required = ({ location, history }) => {
       isValidateInput.birth !== "" &&
       isValidateInput.id !== "" &&
       isValidateInput.name !== "" &&
-      isValidateInput.pass !== "" && btnTextHandler === '인증완료'
+      isValidateInput.pass !== "" &&
+      btnTextHandler === "인증완료"
     ) {
-      console.log('false 실행')
       setNextBtnDisabledHandler(false);
     } else {
-      console.log('true 실행')
       setNextBtnDisabledHandler(true);
     }
   }, [
@@ -156,14 +145,15 @@ const Required = ({ location, history }) => {
     nameValidateDesc,
     birthValidateDesc,
     isValidateInput,
+    btnTextHandler,
   ]);
 
   const backSpaceCheck = useCallback(() => {
     totalCheck();
-    if(location.state && location.state.googleSignupData) {
-      setBtnTextHandler('인증완료')
+    if (location.state && location.state.googleSignupData) {
+      setBtnTextHandler("인증완료");
     }
-  }, [totalCheck]);
+  }, [totalCheck, location.state]);
 
   const { current: passCheck } = useRef(
     /^(?=.*?[a-z])(?=.*?[#?!@$%^&*-])(?=.*?[0-9]).{8,}$/
@@ -272,8 +262,7 @@ const Required = ({ location, history }) => {
         <div className='required'>* 필수입력 정보입니다.</div>
         <table className='signUpTable'>
           {/*구글로그인으로 왔을 때 */}
-          {location.state && location.state.googleSignupData ?
-            (
+          {location.state && location.state.googleSignupData ? (
             <>
               <tr>
                 <td>
@@ -288,7 +277,9 @@ const Required = ({ location, history }) => {
                     onChange={changeValue}
                     onKeyUp={checkEmailValidate}
                     disabled={true}
-                    value={location.state && location.state.googleSignupData && location.state.googleSignupData.username}
+                    value={
+                      location.state && location.state.googleSignupData && location.state.googleSignupData.username
+                    }
                     autoComplete='off'
                     autoFocus
                   />
@@ -308,7 +299,9 @@ const Required = ({ location, history }) => {
                     onChange={changeValue}
                     onKeyUp={checkPasswordValidate}
                     disabled={true}
-                    value={location.state && location.state.googleSignupData && location.state.googleSignupData.password}
+                    value={
+                      location.state && location.state.googleSignupData && location.state.googleSignupData.password
+                    }
                     autoComplete='off'
                   />
                   <div className='warningBox'>{passwordValidateDesc}</div>
@@ -327,7 +320,9 @@ const Required = ({ location, history }) => {
                     onChange={getPassCheckNum}
                     onKeyUp={checkPasswordCheckValidate}
                     disabled={true}
-                    value={location.state && location.state.googleSignupData && location.state.googleSignupData.password}
+                    value={
+                      location.state && location.state.googleSignupData && location.state.googleSignupData.password
+                    }
                     autoComplete='off'
                   />
                   <div className='warningBox'>{checkPasswordValidateDesc}</div>
@@ -346,7 +341,9 @@ const Required = ({ location, history }) => {
                     onChange={changeValue}
                     onKeyUp={checkNameValidate}
                     disabled={true}
-                    value={location.state && location.state.googleSignupData && location.state.googleSignupData.realName}
+                    value={
+                      location.state && location.state.googleSignupData && location.state.googleSignupData.realName
+                    }
                     autoComplete='off'
                   />
                   <div className='warningBox'>{nameValidateDesc}</div>

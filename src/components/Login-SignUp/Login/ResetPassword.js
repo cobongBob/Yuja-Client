@@ -1,14 +1,13 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import "./ResetPassword.scss"
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import "./ResetPassword.scss";
 import { Link } from "react-router-dom";
-import { resetPassword } from '../../../apiService/AuthenticationService';
-import { ToastPreventAccess } from '../../../modules/ToastModule';
+import { resetPassword } from "../../../apiService/AuthenticationService";
+import { ToastCenter, ToastPreventAccess } from "../../../modules/ToastModule";
 
 const ResetPassword = ({ history, location }) => {
-
-  if (history.action === 'POP') {
-    ToastPreventAccess('❌ 잘못된 접근 입니다.')
-    history.replace('/')
+  if (history.action === "POP") {
+    ToastPreventAccess("❌ 잘못된 접근 입니다.");
+    history.replace("/");
   }
 
   /* 데이터 준비 */
@@ -88,18 +87,14 @@ const ResetPassword = ({ history, location }) => {
 
     resetPassword(data)
       .then((res) => {
-        console.log("서버응답", res);
         if (res) {
-          console.log("비밀번호 변경 성공");
           history.push("/");
         } else {
-          console.log("변경 실패");
         }
       })
       .catch((e) => {
-        console.log(e.response.data.message);
+        ToastCenter(e.response.data && e.response.data.message);
       });
-    console.log("insertResetPasswordData의 data값", data);
   }, [resetPasswordData, history]);
 
   /* 데이터 db로 넘기기 끝 */

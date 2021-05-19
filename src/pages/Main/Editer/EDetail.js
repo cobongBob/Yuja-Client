@@ -1,12 +1,9 @@
-import React, { useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  addLike,
-  deleteLike,
-  getDetailData,
-} from '../../../redux/board/editer/eboardReducer';
-import * as EditerApiService from '../../../apiService/EditerApiService';
-import './EditorDetail.scss';
+import React, { useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addLike, deleteLike, getDetailData } from "../../../redux/board/editer/eboardReducer";
+import * as EditerApiService from "../../../apiService/EditerApiService";
+import "./EditorDetail.scss";
+import { ToastTopRight } from "../../../modules/ToastModule";
 
 const EDetail = (props) => {
   const dispatch = useDispatch();
@@ -15,7 +12,6 @@ const EDetail = (props) => {
 
   useEffect(() => {
     const board_id = props.match.params.board_id;
-    console.log(1111111111111, userData);
     if (board_id) {
       getDetailData(board_id).then((res) => {
         dispatch(res);
@@ -24,10 +20,12 @@ const EDetail = (props) => {
   }, [dispatch, props.match.params.board_id, userData]);
 
   const deleteBoard = () => {
-    EditerApiService.deleteBoard(props.match.params.board_id).then((res) => {
-      alert(res.data);
-      props.history.push('/Editor');
-    });
+    if (window.confirm(`정말 삭제 하시겠습니까?`)) {
+      EditerApiService.deleteBoard(props.match.params.board_id).then((res) => {
+        ToastTopRight(res.data);
+        props.history.push("/Editor");
+      });
+    }
   };
 
   const likeHandler = useCallback(() => {
@@ -42,11 +40,9 @@ const EDetail = (props) => {
         });
       }
     } else {
-      alert('로그인 해주세요');
-      //로그인 창으로
+      ToastTopRight("로그인 해주세요");
     }
   }, [userData, dispatch, props.match.params.board_id, detailData]);
-  console.log(222, detailData);
 
   return (
     <div>

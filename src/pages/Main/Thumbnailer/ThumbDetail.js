@@ -5,7 +5,7 @@ import * as EditerApiService from "../../../apiService/EditerApiService";
 import "../Editer/EditorDetail.scss";
 import { useHistory } from "react-router";
 import ReactQuill from "react-quill";
-import { ToastTopRight } from "../../../modules/ToastModule";
+import { ToastCenter, ToastTopRight } from "../../../modules/ToastModule";
 
 const ThumbDetail = ({ match }) => {
   const { current: board_type } = useRef(match.params.board_type);
@@ -45,8 +45,7 @@ const ThumbDetail = ({ match }) => {
         });
       }
     } else {
-      alert("로그인 해주세요");
-      //로그인 창으로
+      ToastCenter("로그인 해주세요");
     }
   }, [userData, dispatch, match, detailData]);
 
