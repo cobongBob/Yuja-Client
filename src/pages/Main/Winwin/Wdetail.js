@@ -235,7 +235,7 @@ const Wdetail = ({ match }) => {
             <button onClick={goList}>목록</button>
           </div>
           <div className='comment-detail-title'>{wDetails.title}</div>
-          {userData.id === wDetails.user.id ? (
+          {userData && userData.id === wDetails.user.id ? (
             <div className='comment-options-user'>
               <button onClick={modifyBoard}>수정</button>
               <button onClick={deleteBoard}>삭제</button>

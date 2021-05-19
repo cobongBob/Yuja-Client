@@ -94,7 +94,7 @@ function App() {
         if (error.response.status === 401) {
           userLogout();
         }
-        if (error.response.data) {
+        if (error.response && error.response.data) {
           notify(error.response.data.message);
         }
         dispatch(getLoaded());
