@@ -7,6 +7,7 @@ import "../Youtuber/Ylist.scss";
 import BackToList from "../components/BackToList";
 import SortingToDeadline from "../components/SortingToDeadline";
 import SortingToLiked from "../components/SortingToLiked";
+import "./Thumb.scss";
 
 export default function ThumbnailerTable({ boardData, board_type, currentPage }) {
   return (
@@ -25,7 +26,10 @@ export default function ThumbnailerTable({ boardData, board_type, currentPage })
         {boardData?.map((data) => (
           <li>
             <Card key={data.id}>
-              <Card.Img src={`http://localhost:8888/files/thumbnail/${data.thumbnail}`}></Card.Img>
+              <Card.Img
+                className='thumbnail-for-Main'
+                src={`http://localhost:8888/files/thumbnail/${data.thumbnail}`}
+              ></Card.Img>
               <Card.Header>
                 <Card.Title>
                   <div>
