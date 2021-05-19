@@ -645,8 +645,8 @@ const Agreement = ({ location }) => {
               to={{
                 pathname: "/SignUp1/Required",
                 state: {
-                  next: next,
-                  googleSignupData: location.resData === undefined? null:location.resData.res
+                  next: next === undefined ? null : next,
+                  googleSignupData: location.resData === undefined ? null:location.resData.res
                 },
               }}
               className='btn btn-warning'

@@ -5,13 +5,14 @@ import Switch from "react-bootstrap/Switch";
 import { Link, Route } from "react-router-dom";
 import NonRequired from "./NonRequired";
 import Required from "./Required";
-import { toast, Zoom } from 'react-toastify';
-import PreventWrongAccess from '../../PreventWrongAccess';
+import { ToastPreventAccess } from '../../../modules/ToastModule';
 
 const SignUp1 = ({ location, history, match }) => {
 
-  /* 잘못된 접근 막기 */
-  PreventWrongAccess(history)
+  if (history.action === 'POP') {
+    ToastPreventAccess('❌ 잘못된 접근 입니다.')
+    history.replace('/')
+  }
 
   return (
     <div className='SignUpFrag'>

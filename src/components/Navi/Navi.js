@@ -56,6 +56,13 @@ const Navi = () => {
             고객센터
           </li>
         </Link>
+        <Link to='/Chat'>
+          <li
+            className={pathname === '/Chat' ? 'nav-link-disabled' : 'nav-link'}
+          >
+            채팅
+          </li>
+        </Link>
         <li className='nav-login'>
           <LoginModal />
         </li>
