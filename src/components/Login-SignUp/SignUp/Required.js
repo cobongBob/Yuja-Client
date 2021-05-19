@@ -4,40 +4,25 @@ import AuthCodeTimer from "./AuthCodeTimer";
 import AuthBtnBox from "./AuthBtnBox";
 import * as auth from "../../../apiService/AuthenticationService";
 import axios from "axios";
-import { toast } from 'react-toastify';
+import { ToastPreventAccess } from '../../../modules/ToastModule';
 
 const Required = ({ location, history }) => {
 
-  const notify = useCallback((msg) => {
-    toast(msg, {
-      autoClose: 2000,
-      hideProgressBar: true,
-      bodyStyle: {
-        color: "black",
-        fontSize: "17px",
-        fontWeight: "bold",
-        fontFamily: "scdream4",
-      },
-      className: "notify",
-    });
-  }, []);
+  console.log('1111111', location)
 
-  useEffect(() => {
-    if (history.action === 'POP' || location.state.next === undefined) {
-      notify('❌ 잘못된 접근 입니다.')
-      history.replace('/')
-    }
-  }, [history, notify])
-
+  if (location.state === undefined || history.action === 'POP') {
+    ToastPreventAccess('❌ 잘못된 접근 입니다.')
+    history.replace('/')
+  }
 
   /* 값 넘겨주기 */
   const [requiredData, setrequiredData] = useState({
-    isMarketingChecked: location.state.next,
-    username: location.state.googleSignupData !== null ? location.state.googleSignupData.username : "",
-    password: location.state.googleSignupData !== null ? location.state.googleSignupData.password : "",
-    realName: location.state.googleSignupData !== null ? location.state.googleSignupData.realName : "",
-    provider: location.state.googleSignupData !== null ? location.state.googleSignupData.provider : "",
-    providedId: location.state.googleSignupData !== null ? location.state.googleSignupData.providerId : "",
+    isMarketingChecked: location.state ? location.state.next : null,
+    username: location.state && location.state.googleSignupData ? location.state.googleSignupData.username : "",
+    password: location.state && location.state.googleSignupData ? location.state.googleSignupData.password : "",
+    realName: location.state && location.state.googleSignupData ? location.state.googleSignupData.realName : "",
+    provider: location.state && location.state.googleSignupData ? location.state.googleSignupData.provider : "",
+    providedId: location.state && location.state.googleSignupData ? location.state.googleSignupData.providerId : "",
     bday: "",
     nickname: "",
   });
@@ -264,7 +249,7 @@ const Required = ({ location, history }) => {
         <table className='signUpTable'>
           {/*구글로그인으로 왔을 때 */}
 
-          {location.state.googleSignupData !== null ? (
+          {location.state && location.state.googleSignupData ? (
             <>
               <tr>
                 <td>
@@ -279,7 +264,7 @@ const Required = ({ location, history }) => {
                     onChange={changeValue}
                     onKeyUp={checkEmailValidate}
                     disabled={true}
-                    value={location.state.googleSignupData.username}
+                    value={location.state && location.state.googleSignupData && location.state.googleSignupData.username}
                     autoComplete='off'
                     autoFocus
                   />
@@ -299,7 +284,7 @@ const Required = ({ location, history }) => {
                     onChange={changeValue}
                     onKeyUp={checkPasswordValidate}
                     disabled={true}
-                    value={location.state.googleSignupData.password}
+                    value={location.state && location.state.googleSignupData && location.state.googleSignupData.password}
                     autoComplete='off'
                   />
                   <div className='warningBox'>{passwordValidateDesc}</div>
@@ -318,7 +303,7 @@ const Required = ({ location, history }) => {
                     onChange={getPassCheckNum}
                     onKeyUp={checkPasswordCheckValidate}
                     disabled={true}
-                    value={location.state.googleSignupData.password}
+                    value={location.state && location.state.googleSignupData && location.state.googleSignupData.password}
                     autoComplete='off'
                   />
                   <div className='warningBox'>{checkPasswordValidateDesc}</div>
@@ -337,7 +322,7 @@ const Required = ({ location, history }) => {
                     onChange={changeValue}
                     onKeyUp={checkNameValidate}
                     disabled={true}
-                    value={location.state.googleSignupData.realName}
+                    value={location.state && location.state.googleSignupData && location.state.googleSignupData.realName}
                     autoComplete='off'
                   />
                   <div className='warningBox'>{nameValidateDesc}</div>
