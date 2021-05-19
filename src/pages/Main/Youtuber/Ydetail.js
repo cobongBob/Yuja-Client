@@ -82,12 +82,14 @@ const Ydetail = (props) => {
                     <div>
                       <Link
                         to={`/YmodifyTest/${detailData.id}`}
-                        className='detail-update-btn'>
+                        className='detail-update-btn'
+                      >
                         공고 수정하기
                       </Link>
                       <button
                         className='detail-update-btn'
-                        onClick={deleteBoard}>
+                        onClick={deleteBoard}
+                      >
                         공고 삭제하기
                       </button>
                     </div>
