@@ -6,8 +6,7 @@ function PrevArrow(props) {
     <div
       className={className}
       onClick={onClick}
-      style={{ ...style, display: 'block' }}
-    >
+      style={{ ...style, display: 'block' }}>
       <img src='/img/parts_pic/arrow_l.png' alt='arrow next' />
     </div>
   );

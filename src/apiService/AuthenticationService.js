@@ -5,6 +5,14 @@ export const verifyEmailSend = async (username) => {
   return await axios.post(USER_API_BASE_URL + "/verify", { username: username });
 };
 
+export const resetPasswordEmailSend = async (username) => {
+  return await axios.post(USER_API_BASE_URL + "/findPassword", { username: username });
+};
+
+export const resetPassword = async ({username, password}) => {
+  return await axios.post(USER_API_BASE_URL + "/resetPassword", { username: username, password: password});
+};
+
 export const executeJwtAuthenticationService = async (data) => {
   return await axios.post(USER_API_BASE_URL + "/signin", data, { withCredentials: true });
 };
@@ -22,8 +30,6 @@ export const authLogout = () => {
 
 export const isUserLoggedIn = () => {
   const userData = JSON.parse(sessionStorage.getItem("userData"));
-  console.log("===UserloggedInCheck===");
-  console.log(userData);
   if (userData) {
     return true;
   }
@@ -52,7 +58,7 @@ export const googleLoginService = async (response) => {
     const loginData = {
       username: resFromServer.data.email,
       password: resFromServer.data.password,
-      providerId: null
+      providerId: null,
     };
     return loginData;
     // 이 데이터를 가지고 로그인으로 이동 후 자동 로그인

@@ -1,0 +1,50 @@
+.new-youtuber {
+  width: 95%;
+  height: 10vh;
+  margin-top: 2%;
+  margin-left: 2%;
+  background-color: white;
+  border-radius: 10px;
+  display: inline-block;
+  list-style: none;
+}
+.user-profile-pic {
+  display: inline-block;
+  line-height: 10vh;
+  vertical-align: middle;
+  margin-left: 3%;
+  margin-right: 3%;
+}
+.youtuber-profile {
+  border: 10px solid #c4302b;
+  border-radius: 50%;
+  background-color: #c4302b;
+  color: white;
+}
+.wanted-content {
+  display: inline-block;
+  vertical-align: middle;
+  font-family: scdream5;
+}
+.wanted-name {
+  display: inline-block;
+  margin-right: 1rem;
+  font-size: 23px;
+}
+
+.wanted-type-editer {
+  display: inline-block;
+  font-family: scdream4;
+  background-color: #3d5ba5;
+  color: white;
+  border-radius: 7px;
+  padding: 2px;
+  margin-right: 0.5rem;
+}
+.wanted-type-thumbnail {
+  font-family: scdream4;
+  background-color: #ff7c7c;
+  color: white;
+  border-radius: 7px;
+  padding: 2px;
+}

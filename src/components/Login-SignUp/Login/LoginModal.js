@@ -81,7 +81,12 @@ function LoginModal() {
     toast(`어서오세요! 👋`, {
       autoClose: 2000,
       hideProgressBar: true,
-      bodyStyle: { color: "black", fontSize: "17px", fontWeight: "bold" },
+      bodyStyle: {
+        color: "black",
+        fontSize: "17px",
+        fontWeight: "bold",
+        fontFamily: "scdream4",
+      },
       className: "notify",
     });
   }, []);
@@ -89,7 +94,12 @@ function LoginModal() {
     toast(`로그아웃 되셨습니다.`, {
       autoClose: 2000,
       hideProgressBar: true,
-      bodyStyle: { color: "black", fontSize: "17px", fontWeight: "bold" },
+      bodyStyle: {
+        color: "black",
+        fontSize: "17px",
+        fontWeight: "bold",
+        fontFamily: "scdream4",
+      },
       className: "notify",
     });
   }, []);
@@ -119,8 +129,12 @@ function LoginModal() {
   const logInHandler = useCallback(async () => {
     userLogin(loginData, setLoginValidateDesc).then((res) => {
       dispatch(res);
-      loginNotify();
-      res.userLoginStatus === false ? setIsOpen(true) : setIsOpen(false);
+      if (res.userLoginStatus === false) {
+        setIsOpen(true);
+      } else {
+        loginNotify();
+        setIsOpen(false);
+      }
     });
   }, [loginData, dispatch, loginNotify]);
 

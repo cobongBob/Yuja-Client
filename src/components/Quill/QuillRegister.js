@@ -34,18 +34,14 @@ const QuillRegister = ({ register, addingFileList, qData, setQData, board_type }
           "content-type": "multipart/form-data",
         },
       };
-      await YImgApiService.addImgs(formData, config, board_type)
-        .then((response) => {
-          if (response.status === 200) {
-            const range = quill.getSelection(true) !== null ? quill.getSelection(true) : 0;
-            quill.insertEmbed(range.index, "image", `http://localhost:8888/files/temp/${response.data[0].fileName}`);
-            quill.setSelection(range.index + 1);
-            addingFileList.current.push(response.data[0].fileName);
-          }
-        })
-        .catch((error) => {
-          alert(error.response.data.message);
-        });
+      await YImgApiService.addImgs(formData, config, board_type).then((response) => {
+        if (response.status === 200) {
+          const range = quill.getSelection(true) !== null ? quill.getSelection(true) : 0;
+          quill.insertEmbed(range.index, "image", `http://localhost:8888/files/temp/${response.data[0].fileName}`);
+          quill.setSelection(range.index + 1);
+          addingFileList.current.push(response.data[0].fileName);
+        }
+      });
     };
   }, [addingFileList, board_type]);
   // end of imageHandler
@@ -63,18 +59,14 @@ const QuillRegister = ({ register, addingFileList, qData, setQData, board_type }
           "content-type": "multipart/form-data",
         },
       };
-      YImgApiService.addImgs(formData, config, board_type)
-        .then((response) => {
-          if (response.status === 200) {
-            const range = quill.getSelection(true) !== null ? quill.getSelection(true) : 0;
-            quill.insertEmbed(range.index, "image", `http://localhost:8888/files/temp/${response.data[0].fileName}`);
-            quill.setSelection(range.index + 1);
-            addingFileList.current.push(response.data[0].fileName);
-          }
-        })
-        .catch((error) => {
-          alert(error.response.data.message);
-        });
+      YImgApiService.addImgs(formData, config, board_type).then((response) => {
+        if (response.status === 200) {
+          const range = quill.getSelection(true) !== null ? quill.getSelection(true) : 0;
+          quill.insertEmbed(range.index, "image", `http://localhost:8888/files/temp/${response.data[0].fileName}`);
+          quill.setSelection(range.index + 1);
+          addingFileList.current.push(response.data[0].fileName);
+        }
+      });
     },
     [addingFileList, board_type]
   );

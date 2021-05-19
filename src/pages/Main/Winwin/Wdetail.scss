@@ -70,7 +70,7 @@
 
 .commentWrapper {
   margin-bottom: 5rem;
-  width: 50%;
+  width: 100%;
 }
 
 .commentWrapper > h4 {
@@ -82,6 +82,15 @@
   background-color: #f5f5f5;
   border-radius: 10px;
   padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.childComment {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-left: 4rem;
+  margin-bottom: 1rem;
 }
 
 .commentWrapper > ul {
@@ -118,9 +127,13 @@
   cursor: pointer;
 }
 .myself {
+  font-size: 15px;
   margin-left: 0.5rem;
-  color: red;
-  font-size: medium;
+  color: black;
+  background-color: sandybrown;
+  border: 15x solid sandybrown;
+  border-radius: 5px;
+  font-family: scdream4;
 }
 .textarea {
   width: 100%;

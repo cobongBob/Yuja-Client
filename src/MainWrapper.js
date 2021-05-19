@@ -3,15 +3,14 @@ import Wboard from "./components/MainBoard/Wboard";
 import MainBoard from "./pages/Main/MainBoard";
 import VideoBox from "./pages/VideoBox/VideoBox";
 import "./MainWrapper.css";
-import { getMainData } from "./apiService/MainApiService";
+import { getMainData } from "./redux/main/mainReducer";
+import { useDispatch } from "react-redux";
 
 const MainWrapper = () => {
+  const dispatch = useDispatch();
   useEffect(() => {
-    getMainData().then((res) => {
-      console.log(res);
-    });
-  }, []);
-
+    dispatch(getMainData());
+  }, [dispatch]);
   return (
     <>
       <div className='allBoard'>
