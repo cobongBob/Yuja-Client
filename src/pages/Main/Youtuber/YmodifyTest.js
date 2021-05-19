@@ -43,7 +43,7 @@ const YmodifyTest = (props) => {
       return ToastCenter("제목과 내용을 입력해주세요");
     }
     let currentBoardType = "YoutuberBoard/";
-    let reg = /http:\/\/localhost:8888\/files\/YoutuberBoard\/[0-9]+.[a-z]+/g;
+    let reg = /http:\/\/localhost:8888\/files\/Youtuber\/[0-9]+.[a-z]+/g;
     let imgSrcArr = String(qModiData).match(reg); // 불러왔던 글에 존재했던 이미지 태그들의 src
     // 서버에서 날아온 이미지 이름과 비교한다. 없으면 삭제된것이므로 삭제 리스트에 담아준다.
     if (imgSrcArr) {
@@ -79,7 +79,6 @@ const YmodifyTest = (props) => {
       const index = checkedlist.current.indexOf(e.target.value);
       checkedlist.current.splice(index, 1);
     }
-    console.log(checkedlist.current);
   };
 
   const radioCheck = (e) => {
