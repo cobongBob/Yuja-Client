@@ -7,6 +7,7 @@ import {
 } from '../../../redux/board/editer/eboardReducer';
 import * as EditerApiService from '../../../apiService/EditerApiService';
 import './EditorDetail.scss';
+import { ToastCenter } from '../../../modules/ToastModule';
 
 const EDetail = (props) => {
   const dispatch = useDispatch();
@@ -15,7 +16,6 @@ const EDetail = (props) => {
 
   useEffect(() => {
     const board_id = props.match.params.board_id;
-    console.log(1111111111111, userData);
     if (board_id) {
       getDetailData(board_id).then((res) => {
         dispatch(res);
@@ -42,20 +42,24 @@ const EDetail = (props) => {
         });
       }
     } else {
-      alert('로그인 해주세요');
+      ToastCenter('로그인 해주세요');
       //로그인 창으로
     }
   }, [userData, dispatch, props.match.params.board_id, detailData]);
-  console.log(222, detailData);
-
+  console.log(122, detailData);
   return (
-    <div>
-      <div className='editordetail-wrapper'>
-        <div className='editordetail-header-wrapper'>
-          <div className='editordetail-header'>이력서</div>
+    detailData && (
+      <div>
+        <div className='editordetail-wrapper'>
+          <div className='editordetail-header-wrapper'>
+            <div className='editordetail-header'>이력서</div>
+          </div>
+          <div className='editordetail-content-wrapper'>
+            <div className='editordetail-content-title'>{detailData.title}</div>
+          </div>
         </div>
       </div>
-    </div>
+    )
   );
 };
 
