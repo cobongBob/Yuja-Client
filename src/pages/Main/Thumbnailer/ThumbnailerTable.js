@@ -25,7 +25,7 @@ export default function ThumbnailerTable({ boardData, board_type, currentPage })
         {boardData?.map((data) => (
           <li>
             <Card key={data.id}>
-              <Card.Img src='/img/board_pic/thumbnailer_pic/thum3.PNG'></Card.Img>
+              <Card.Img src={`http://localhost:8888/files/thumbnail/${data.thumbnail}`}></Card.Img>
               <Card.Header>
                 <Card.Title>
                   <div>

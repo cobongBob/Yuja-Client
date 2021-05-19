@@ -174,9 +174,12 @@ const winBoardReducer = (state = initialState, action) => {
         ...state,
         // eslint-disable-next-line array-callback-return
         wFilterData: state.wBoards.filter((data) => {
-          if (Object.values(data.title).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
+          if (Object && Object.values(data.title).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
             return data;
-          } else if (Object.values(data.user.username).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
+          } else if (
+            Object &&
+            Object.values(data.user.username).join("").toLowerCase().includes(action.keyword.toLowerCase())
+          ) {
             return data;
           }
         }),

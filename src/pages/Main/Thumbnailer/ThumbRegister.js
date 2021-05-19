@@ -5,6 +5,7 @@ import QuillRegister from "../../../components/Quill/QuillRegister";
 import * as EditerApiService from "../../../apiService/EditerApiService";
 import "../Editer/EditorRegister.scss";
 import { ToastCenter } from "../../../modules/ToastModule";
+import "./Thumb.scss";
 
 const ThumbRegister = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -15,10 +16,7 @@ const ThumbRegister = ({ match }) => {
   const history = useHistory();
   const ThumbId = useRef(0);
   const [fileUrl, setFileUrl] = useState("");
-  let Ehistory = useCallback(
-    (board_id) => history.push(`/ThumbDetail//${board_type.current}/${board_id}/1`),
-    [history]
-  );
+  let Ehistory = useCallback((board_id) => history.push(`/ThumbDetail/${board_type.current}/${board_id}/1`), [history]);
 
   const checkedlist = useRef([]);
 
@@ -80,6 +78,10 @@ const ThumbRegister = ({ match }) => {
 
   const handleImg = (e) => {
     let file = e.target.files[0];
+    if (!file) {
+      return;
+    }
+
     const acceptType = ["image/png", "image/jpeg", "image/gif", "image/jpg"];
     if (!acceptType.includes(file.type)) {
       return ToastCenter("jpg, jpeg, png 만 가능합니다.");
@@ -95,7 +97,7 @@ const ThumbRegister = ({ match }) => {
       formData.append("file", file);
       EditerApiService.addThumb(formData, config).then((response) => {
         setFileUrl(`http://localhost:8888/files/temp/${response.data.fileName}`);
-        ThumbId.current = response.data.youtubeConfirmId;
+        ThumbId.current = response.data.thumbnailId;
       });
     }
   };
@@ -122,7 +124,7 @@ const ThumbRegister = ({ match }) => {
               <input type='text' placeholder='급여방식' name='payType' />
             </li>
             <li className='li-item2'>
-              <image className='ProfilePicPreview' src={fileUrl} alt='' />
+              <img className='preview_Thubnail' src={fileUrl} alt='' />
               <input
                 className='youtuberPicInput'
                 id='youtuberPicInput'
@@ -149,10 +151,12 @@ const ThumbRegister = ({ match }) => {
                 onChange={checkboxCheck}
               />
               <label htmlFor='Eaftereffect'>애프터이펙트 </label>
+              <input id='Ephotoshop' name='Ephotoshop' value='포토샵' type='checkbox' onChange={checkboxCheck} />
+              <label htmlFor='Ephotoshop'>포토샵 </label>
+              <input id='Eillustrater' name='Eillustrater' onChange={checkboxCheck} value='일러스트' type='checkbox' />
+              <label htmlFor='Eillustrater'>베가스</label>
               <input id='Efinalcut' name='Efinalcut' value='파이널컷' type='checkbox' onChange={checkboxCheck} />
               <label htmlFor='Efinalcut'>파이널컷 </label>
-              <input id='Evegas' name='Evegas' onChange={checkboxCheck} value='베가스' type='checkbox' />
-              <label htmlFor='Evegas'>베가스</label>
               <input
                 id='Epowerdirector'
                 name='Epowerdirector'
