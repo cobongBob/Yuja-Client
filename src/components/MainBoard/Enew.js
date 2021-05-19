@@ -1,8 +1,8 @@
-import React from "react";
-import "./Enew.scss";
-import { FaUserAstronaut } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React from 'react';
+import './new.scss';
+import { FaUserAstronaut } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Enew = () => {
   const { EmainList } = useSelector((state) => state.mainReducer);
@@ -20,7 +20,7 @@ const Enew = () => {
                 <div className='wanted-content'>
                   <span className='wanted-name'>
                     <Link to={`/Ydetail/${list.id}`}>{list.user.username}</Link>
-                  </span>{" "}
+                  </span>{' '}
                   <br />
                   <span className='wanted-content-detail'>
                     <Link to={`/Ydetail/${list.id}`}>{list.title}</Link>
