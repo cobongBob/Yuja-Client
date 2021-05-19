@@ -1,18 +1,18 @@
-import React from 'react';
-import { Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { format } from 'date-fns';
-import { FcLike } from 'react-icons/fc';
-import '../Youtuber/Ylist.scss';
-import BackToList from '../components/BackToList';
-import SortingToDeadline from '../components/SortingToDeadline';
-import SortingToLiked from '../components/SortingToLiked';
+import React from "react";
+import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { format } from "date-fns";
+import { FcLike } from "react-icons/fc";
+import "../Youtuber/Ylist.scss";
+import BackToList from "../components/BackToList";
+import SortingToDeadline from "../components/SortingToDeadline";
+import SortingToLiked from "../components/SortingToLiked";
 
-export default function ThumbnailerTable({ boardData, board_type }) {
+export default function ThumbnailerTable({ boardData, board_type, currentPage }) {
   return (
     <div className='card-container'>
       <div className='card-options'>
-        <Link to='/Yregister' className='registerBtn'>
+        <Link to={`/ThumbRegister/${board_type}`} className='registerBtn'>
           이력서 등록하기
         </Link>
       </div>
@@ -35,7 +35,7 @@ export default function ThumbnailerTable({ boardData, board_type }) {
                   <div> 모집분야 {data.worker} </div>
                   <div className='card-deadline'>
                     <span>마감일 </span>
-                    {format(new Date(data.expiredDate), 'yyyy-MM-dd')}
+                    {format(new Date(data.expiredDate), "yyyy-MM-dd")}
                   </div>
                   <div className='card-like'>
                     <FcLike size={22} /> {data.likes}
@@ -50,7 +50,7 @@ export default function ThumbnailerTable({ boardData, board_type }) {
                     </Link>
                   </div>
                   <div>
-                    <Link to={`/Ydetail/${data.id}`} className='card-link'>
+                    <Link to={`/ThumbDetail/${board_type}/${data.id}/${currentPage}`} className='card-link'>
                       {data.title}
                     </Link>
                   </div>
@@ -59,7 +59,7 @@ export default function ThumbnailerTable({ boardData, board_type }) {
                   <div>
                     <strong>
                       <span>수정일 </span>
-                      {format(new Date(data.updatedDate), 'yyyy-MM-dd')}
+                      {format(new Date(data.updatedDate), "yyyy-MM-dd")}
                     </strong>
                   </div>
                 </Card.Footer>

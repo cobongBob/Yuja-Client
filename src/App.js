@@ -33,6 +33,8 @@ import EDetail from "./pages/Main/Editer/EDetail";
 import ResetPassword from "./components/Login-SignUp/Login/ResetPassword";
 import { ToastCenter } from "./modules/ToastModule";
 import WModify from "./pages/Main/Winwin/WModify";
+import ThumbRegister from "./pages/Main/Thumbnailer/ThumbRegister";
+import ThumbDetail from "./pages/Main/Thumbnailer/ThumbDetail";
 
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
@@ -104,11 +106,13 @@ function App() {
           <Route exact path='/' component={MainWrapper} />
           <Route path='/Youtuber' component={Youtuber} />
           <Route path='/Eboard/:board_type' component={Editer} />
-          <Route path='/Thboard/:board_type' component={Thumbnailer} />
           <Route path='/Community/:board_type/:current_page' component={Winwin} />
           <Route path='/BoardDetail/:board_type/:board_id/:current_page' component={Wdetail} />
           <Route path='/BoardModify/:board_type/:board_id/:current_page' component={WModify} />
           <Route path='/BoardRegister/:board_type' component={Wregister} />
+          <Route path='/Thboard/:board_type/:current_page' component={Thumbnailer} />
+          <Route path='/ThumbRegister/:board_type' component={ThumbRegister} />
+          <Route path='/ThumbDetail/:board_type/:board_id/:current_page' component={ThumbDetail} />
           <Route path='/Help' component={Help} />
           <Route path='/SignUp1' component={SignUp1} />
           <Route path='/YoutuberProfile' component={YoutuberProfile} />

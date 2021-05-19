@@ -1,16 +1,16 @@
-import * as thService from '../../../apiService/ThumbnailerApiService';
-import * as likeService from '../../../apiService/likeService';
+import * as thService from "../../../apiService/ThumbnailerApiService";
+import * as likeService from "../../../apiService/likeService";
 
 // 액션
-const ADD_LIKE = 'ADD_LIKE';
-const DELETE_LIKE = 'DELETE_LIKE';
-const MODE_GET_THDETAIL_DATA = 'getThDetailData';
-const MODE_THFILTER_DATA = 'MODE_THFILTER_DATA';
-const MODE_THSORTLIKE_DATA = 'MODE_THSORTLIKE_DATA';
-const GET_THBOARD_REQUEST = 'GET_THBOARD_REQUEST';
-const GET_THBOARD_SUCCESS = 'GET_THBOARD_SUCCESS';
-const GET_THBOARD_FAILURE = 'GET_THBOARD_FAILURE';
-const MODE_RESET_DATA = 'MODE_RESET_DATA';
+const ADD_LIKE = "ADD_LIKE";
+const DELETE_LIKE = "DELETE_LIKE";
+const MODE_GET_THDETAIL_DATA = "getThDetailData";
+const MODE_THFILTER_DATA = "MODE_THFILTER_DATA";
+const MODE_THSORTLIKE_DATA = "MODE_THSORTLIKE_DATA";
+const GET_THBOARD_REQUEST = "GET_THBOARD_REQUEST";
+const GET_THBOARD_SUCCESS = "GET_THBOARD_SUCCESS";
+const GET_THBOARD_FAILURE = "GET_THBOARD_FAILURE";
+const MODE_RESET_DATA = "MODE_RESET_DATA";
 
 // 액션함수
 
@@ -92,7 +92,7 @@ const initialState = {
   filterData: [],
   loading: false,
   sortedLike: false,
-  error: '',
+  error: "",
 };
 
 // 리듀서
@@ -107,7 +107,7 @@ export function ThboardReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        eBoardData: action.payload,
+        thBoardData: action.payload,
         // eslint-disable-next-line array-callback-return
         filterData: action.payload.sort((a, b) => {
           if (a.updatedDate < b.updatedDate) return 1;
@@ -115,7 +115,7 @@ export function ThboardReducer(state = initialState, action) {
           if (a.updatedDate === b.updatedDate) return 0;
         }),
         sortedLike: false,
-        error: '',
+        error: "",
       };
 
     case GET_THBOARD_FAILURE:
@@ -162,26 +162,11 @@ export function ThboardReducer(state = initialState, action) {
         ...state,
         // eslint-disable-next-line array-callback-return
         filterData: state.thBoardData.filter((data) => {
-          if (
-            Object.values(data.title)
-              .join('')
-              .toLowerCase()
-              .includes(action.keyword.toLowerCase())
-          ) {
+          if (Object.values(data.title).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
             return data;
-          } else if (
-            Object.values(data.worker)
-              .join('')
-              .toLowerCase()
-              .includes(action.keyword.toLowerCase())
-          ) {
+          } else if (Object.values(data.worker).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
             return data;
-          } else if (
-            Object.values(data.user.username)
-              .join('')
-              .toLowerCase()
-              .includes(action.keyword.toLowerCase())
-          ) {
+          } else if (Object.values(data.user.username).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
             return data;
           }
         }),

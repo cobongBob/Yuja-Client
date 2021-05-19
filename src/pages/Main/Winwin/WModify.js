@@ -19,8 +19,9 @@ const WModify = ({ match }) => {
   );
   const [input, setInput] = useState({
     title: "",
+    isPrivate: false,
   });
-  const [checked, setCheckd] = useState({
+  const [checked, setChecked] = useState({
     isPrivate: false,
   });
 
@@ -31,7 +32,7 @@ const WModify = ({ match }) => {
     });
   };
   const checkboxHandler = (e) => {
-    setCheckd({
+    setChecked({
       ...checked,
       [e.target.name]: e.target.checked,
     });
@@ -46,9 +47,7 @@ const WModify = ({ match }) => {
       fileList.current = res.data.boardAttachFileNames;
       setQModiData(res.data.content);
       setInput(res.data);
-      setCheckd({
-        isPrivate: res.data.isPrivate,
-      });
+      setChecked({ isPrivate: res.data.isPrivate });
     });
   }, [userData]); // eslint-disable-line react-hooks/exhaustive-deps
   const testCheking = () => {
@@ -96,7 +95,13 @@ const WModify = ({ match }) => {
         {board_type.current === "CustomService" ? (
           <>
             <label htmlFor='secret'>비밀글</label>
-            <input id='secret' name='isPrivate' onChange={checkboxHandler} type='checkbox' />
+            <input
+              id='secret'
+              name='isPrivate'
+              onChange={checkboxHandler}
+              type='checkbox'
+              checked={checked.isPrivate}
+            />
           </>
         ) : null}
         <h2>상세 내용</h2>
