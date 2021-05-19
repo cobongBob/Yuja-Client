@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './Svideo.scss';
+import './video.scss';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -8,10 +8,12 @@ import NextArrow from './NextArrow';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMainData } from '../../redux/main/mainReducer';
 import { FaPaintBrush } from 'react-icons/fa';
+import { useHistory } from 'react-router';
 
 const Svideo = () => {
   const dispatch = useDispatch();
   const { ThvideoData } = useSelector((state) => state.mainReducer);
+  const history = useHistory();
   console.log(222222222222222222, ThvideoData);
 
   useEffect(() => {
@@ -68,15 +70,13 @@ const Svideo = () => {
         {ThvideoData.map((video) => (
           <div className='wrapper'>
             <div className='thumbnails'>
-              <div className='thumbnails-item'>
+              <div
+                onClick={() => history.push(`/Ydetail/${video.user.id}`)}
+                className='thumbnails-item'>
                 <div className='item item_red'>
-                  <img src='/img/board_pic/thumbnailer_pic/thum12.png' alt='' />
-                  <div className='item-title'>
-                    <h2>{video.user.nickname}</h2>
-                  </div>
-                  <div className='item-content'>
-                    <p>{video.content}</p>
-                  </div>
+                  <div className='top'>{video.user.nickname}</div>
+                  <div className='bottom'>{video.title}</div>
+                  <img src='/img/board_pic/editor_pic/thum5.png' alt='' />
                 </div>
               </div>
             </div>

@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import './Evideo.scss';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import './video.scss';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -8,12 +8,13 @@ import NextArrow from './NextArrow';
 import { useDispatch, useSelector } from 'react-redux';
 import { RiScissorsCutFill } from 'react-icons/ri';
 import { getMainData } from '../../redux/main/mainReducer';
+import { useHistory } from 'react-router';
 
 const Evideo = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { EvideoData } = useSelector((state) => state.mainReducer);
   console.log(1111111111111111, EvideoData);
-
   useEffect(() => {
     dispatch(getMainData());
   }, [dispatch]);
@@ -28,7 +29,7 @@ const Evideo = () => {
     speed: 3000,
     autoplaySpeed: 5000,
     pauseOnHover: true,
-    draggable: true,
+    draggable: false,
     slidesToShow: 4,
     slidesToScroll: 4,
     onLazyLoad: true,
@@ -70,18 +71,17 @@ const Evideo = () => {
         {EvideoData.map((video) => (
           <div className='wrapper'>
             <div className='thumbnails'>
-              <div className='thumbnails-item'>
+              <div
+                onClick={() => history.push(`/Ydetail/${video.user.id}`)}
+                className='thumbnails-item'>
                 <div className='item item_red'>
-                  <img src='/img/board_pic/editor_pic/thum1.png' alt='' />
-                  <div className='item-title'>
-                    <h2>{video.user.nickname}</h2>
-                  </div>
-                  <div className='item-content'>
-                    <p>{video.content}</p>
-                  </div>
+                  <div className='top'>{video.user.nickname}</div>
+                  <div className='bottom'>{video.title}</div>
+                  <img src='/img/board_pic/editor_pic/thum7.png' alt='' />
                 </div>
               </div>
             </div>
+            u
           </div>
         ))}
       </Slider>
