@@ -74,7 +74,6 @@ const Evideo = () => {
                   </div>
                 </div>
               </div>
-              u
             </div>
           ))}
       </Slider>

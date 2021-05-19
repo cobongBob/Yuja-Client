@@ -4,6 +4,7 @@ import * as YapiService from "../../../apiService/YapiService";
 import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
 import QuillModify from "../../../components/Quill/QuillModify";
+import { ToastCenter } from "../../../modules/ToastModule";
 
 const YmodifyTest = (props) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -39,7 +40,7 @@ const YmodifyTest = (props) => {
 
   const testCheking = () => {
     if (!qModiData || !input.title) {
-      return alert("제목과 내용을 입력해주세요");
+      return ToastCenter("제목과 내용을 입력해주세요");
     }
     let currentBoardType = "YoutuberBoard/";
     let reg = /http:\/\/localhost:8888\/files\/YoutuberBoard\/[0-9]+.[a-z]+/g;

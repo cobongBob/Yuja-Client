@@ -1,10 +1,10 @@
-import React from 'react';
-import './Footer.scss';
+import React from "react";
+import "./Footer.scss";
 const Footer = () => {
   return (
     <div>
       <div className='footer'>
-        <div className='footer-title'>CobongBab</div>
+        <div className='footer-title'>CobongBob</div>
       </div>
     </div>
   );
