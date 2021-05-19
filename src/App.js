@@ -31,7 +31,8 @@ import { userLogout } from "./redux/redux-login/loginReducer";
 import Chat from "./pages/Main/components/Chat/Chat";
 import EDetail from "./pages/Main/Editer/EDetail";
 import ResetPassword from "./components/Login-SignUp/Login/ResetPassword";
-import ToastCenter from "./modules/ToastModule";
+import { ToastCenter } from './modules/ToastModule';
+
 
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
