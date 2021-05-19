@@ -14,6 +14,8 @@ const BoardTypeConvert = (board_type) => {
       return 6;
     case "Free":
       return 7;
+    case "Report":
+      return 8;
     default:
       return 0;
   }

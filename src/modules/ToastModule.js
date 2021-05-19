@@ -1,6 +1,5 @@
 import { toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useCallback } from 'react';
 toast.configure();
 
 export const ToastCenter = (msg) => {
@@ -22,6 +21,7 @@ export const ToastCenter = (msg) => {
 
 export const ToastPreventAccess = (msg) => {
   toast(msg, {
+    toastId: "preventAccess",
     autoClose: 2000,
     hideProgressBar: true,
     bodyStyle: {
@@ -32,5 +32,4 @@ export const ToastPreventAccess = (msg) => {
     },
     className: "notify",
   });
-}
-
+};
