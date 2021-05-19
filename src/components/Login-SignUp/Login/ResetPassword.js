@@ -2,8 +2,12 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import "./ResetPassword.scss"
 import { Link } from "react-router-dom";
 import { resetPassword } from '../../../apiService/AuthenticationService';
+import PreventWrongAccess from '../../PreventWrongAccess';
 
 const ResetPassword = ({ history, location }) => {
+
+  /* 잘못된 접근 막기 */
+  PreventWrongAccess(history)
 
   /* 데이터 준비 */
   const [resetPasswordData, setResetPasswordData] = useState({
