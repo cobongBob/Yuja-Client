@@ -9,7 +9,6 @@ import SortingToDeadline from '../components/SortingToDeadline';
 import SortingToLiked from '../components/SortingToLiked';
 
 export default function EditorTable({ eBoardData, board_type }) {
-  console.log(3333, eBoardData);
   return (
     <div className='card-container'>
       <div className='card-options'>

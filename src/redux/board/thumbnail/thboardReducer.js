@@ -1,6 +1,9 @@
 import * as thService from '../../../apiService/ThumbnailerApiService';
+import * as likeService from '../../../apiService/likeService';
 
 // 액션
+const ADD_LIKE = 'ADD_LIKE';
+const DELETE_LIKE = 'DELETE_LIKE';
 const MODE_GET_THDETAIL_DATA = 'getThDetailData';
 const MODE_THFILTER_DATA = 'MODE_THFILTER_DATA';
 const MODE_THSORTLIKE_DATA = 'MODE_THSORTLIKE_DATA';
@@ -12,11 +15,11 @@ const MODE_RESET_DATA = 'MODE_RESET_DATA';
 // 액션함수
 
 // 전체데이터 가져오기
-export const getThBoards = (BoardType) => {
+export const getThBoards = (board_type) => {
   return (dispatch) => {
     dispatch(getThBoardsRequest());
     thService
-      .fetchBoards(BoardType)
+      .getThBoards(board_type)
       .then((res) => dispatch(getThBoardsSuccess(res.data)))
       .catch((err) => dispatch(getThBoardsFailure(err.response)));
   };
@@ -57,8 +60,8 @@ export const getResetData = async () => {
   };
 };
 
-export const getDetailData = async (board_id, user_id) => {
-  const detailData = await thService.fetchBoard(board_id, user_id); // id를 넣어야 가져올꺼같긴한데...
+export const getDetailData = async (board_id, board_type) => {
+  const detailData = await thService.getOneThBoard(board_id, board_type); // id를 넣어야 가져올꺼같긴한데...
   return {
     type: MODE_GET_THDETAIL_DATA,
     data: detailData.data,
@@ -66,13 +69,28 @@ export const getDetailData = async (board_id, user_id) => {
   };
 };
 
+export const addLike = async (board_id) => {
+  await likeService.addLike(board_id);
+  return {
+    type: ADD_LIKE,
+    payload: board_id,
+  };
+};
+
+export const deleteLike = async (board_id) => {
+  await likeService.deleteLike(board_id);
+  return {
+    type: DELETE_LIKE,
+    payload: board_id,
+  };
+};
+
 // 초기값
 const initialState = {
   thBoardData: [],
-  detailData: { id: 0 },
+  detailData: { id: 0, likes: 0, liked: false },
   filterData: [],
   loading: false,
-  sortedExpired: false,
   sortedLike: false,
   error: '',
 };
@@ -89,13 +107,15 @@ export function ThboardReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        thBoardData: action.payload,
+        eBoardData: action.payload,
         // eslint-disable-next-line array-callback-return
         filterData: action.payload.sort((a, b) => {
           if (a.updatedDate < b.updatedDate) return 1;
           if (a.updatedDate > b.updatedDate) return -1;
           if (a.updatedDate === b.updatedDate) return 0;
         }),
+        sortedLike: false,
+        error: '',
       };
 
     case GET_THBOARD_FAILURE:
@@ -164,6 +184,38 @@ export function ThboardReducer(state = initialState, action) {
           ) {
             return data;
           }
+        }),
+      };
+    case ADD_LIKE:
+      return {
+        ...state,
+        detailData: {
+          ...state.detailData,
+          likes: state.detailData.likes + 1,
+          liked: true,
+        },
+        filterData: state.filterData.map((data) => {
+          if (data.id === action.payload) {
+            data.likes += 1;
+            data.liked = true;
+          }
+          return data;
+        }),
+      };
+    case DELETE_LIKE:
+      return {
+        ...state,
+        detailData: {
+          ...state.detailData,
+          likes: state.detailData.likes - 1,
+          liked: false,
+        },
+        filterData: state.filterData.map((data) => {
+          if (data.id === action.payload) {
+            data.likes -= 1;
+            data.liked = false;
+          }
+          return data;
         }),
       };
     default:

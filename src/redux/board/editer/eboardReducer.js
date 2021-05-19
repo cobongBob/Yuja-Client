@@ -19,11 +19,12 @@ export const getEBoards = (board_type) => {
   return (dispatch) => {
     dispatch(getEBoardsRequest());
     eService
-      .fetchBoards(board_type)
+      .getEBoards(board_type)
       .then((res) => dispatch(getEBoardsSuccess(res.data)))
       .catch((err) => dispatch(getEBoardsFailure(err.response)));
   };
 };
+
 const getEBoardsRequest = () => {
   return {
     type: GET_EBOARD_REQUEST,
@@ -61,7 +62,7 @@ export const getResetData = async () => {
 };
 
 export const getDetailData = async (board_id, board_type) => {
-  const detailData = await eService.fetchBoard(board_id, board_type);
+  const detailData = await eService.getOneEBoard(board_id, board_type);
   return {
     type: MODE_GET_EDETAIL_DATA,
     data: detailData.data,
@@ -114,6 +115,8 @@ export function EboardReducer(state = initialState, action) {
           if (a.updatedDate > b.updatedDate) return -1;
           if (a.updatedDate === b.updatedDate) return 0;
         }),
+        sortedLike: false,
+        error: '',
       };
 
     case GET_EBOARD_FAILURE:

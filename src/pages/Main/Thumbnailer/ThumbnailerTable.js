@@ -8,7 +8,7 @@ import BackToList from '../components/BackToList';
 import SortingToDeadline from '../components/SortingToDeadline';
 import SortingToLiked from '../components/SortingToLiked';
 
-export default function ThumbnailerTable({ boardData }) {
+export default function ThumbnailerTable({ boardData, board_type }) {
   return (
     <div className='card-container'>
       <div className='card-options'>

@@ -43,6 +43,9 @@ const Winwin = ({ match, history }) => {
     board_type.current = match.params.board_type;
     dispatch(getWinBoard(board_type.current));
   }, [userData, dispatch, match.params.board_type]);
+
+  console.log(4444, match);
+
   return winBoard.loading && !winBoard ? (
     <>
       <div className='loading'>

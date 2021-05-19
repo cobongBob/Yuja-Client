@@ -22,19 +22,19 @@ const Navi = () => {
             유튜버
           </li>
         </Link>
-        <Link to='/Editer'>
+        <Link to='/Eboard/Editor/1'>
           <li
             className={
-              pathname === '/Editer' ? 'nav-link-disabled' : 'nav-link'
+              pathname.includes('/Editor') ? 'nav-link-disabled' : 'nav-link'
             }
           >
             편집자
           </li>
         </Link>
-        <Link to='/Thumbnailer'>
+        <Link to='/Thboard/Thumb'>
           <li
             className={
-              pathname === '/Thumbnailer' ? 'nav-link-disabled' : 'nav-link'
+              pathname.includes('/Thumb') ? 'nav-link-disabled' : 'nav-link'
             }
           >
             썸네일러

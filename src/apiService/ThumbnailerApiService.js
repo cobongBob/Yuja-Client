@@ -1,39 +1,45 @@
-import instance from "../AxiosConfig.js";
+import instance from '../AxiosConfig.js';
+import BoardTypeConvert from '../modules/BoardTypeConvert.js';
+let board_code = 0;
 
-export const addBoards = async (data, BoardType) => {
+export const addBoards = async (data, board_type) => {
+  board_code = BoardTypeConvert(board_type);
   return await instance({
-    url: BoardType + "/board",
-    method: "post",
+    url: board_code + '/board',
+    method: 'post',
     data: data,
   });
 };
 
-export const fetchBoards = async (BoardType) => {
+export const getThBoards = async (board_type) => {
+  board_code = BoardTypeConvert(board_type);
   return await instance({
-    url: BoardType + "/board",
-    method: "get",
+    url: board_code + '/board',
+    method: 'get',
   });
 };
 
 // 상세보기 1개만
-export const fetchBoard = async (board_id, BoardType) => {
+export const getOneThBoard = async (board_id, board_type) => {
+  board_code = BoardTypeConvert(board_type);
   return await instance({
-    url: BoardType + "/board/" + board_id,
-    method: "get",
+    url: board_code + '/board/' + board_id,
+    method: 'get',
   });
 };
 
-export const modifyBoard = async (board_id, data, BoardType) => {
+export const modifyThoard = async (board_id, data, board_type) => {
+  board_code = BoardTypeConvert(board_type);
   return await instance({
-    url: BoardType + "/board/" + board_id,
-    method: "put",
+    url: board_code + '/board/' + board_id,
+    method: 'put',
     data: data,
   });
 };
-
-export const deleteBoard = async (board_id, BoardType) => {
+export const deleteThBoard = async (board_id, board_type) => {
+  board_code = BoardTypeConvert(board_type);
   return await instance({
-    url: BoardType + "/board/" + board_id,
-    method: "delete",
+    url: board_code + '/board/' + board_id,
+    method: 'delete',
   });
 };

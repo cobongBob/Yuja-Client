@@ -43,6 +43,7 @@ const Editer = ({ match }) => {
       dispatch(res);
     });
   };
+  console.log(4444, match);
 
   return eBoardData.loading && !eBoardData ? (
     <div className='loading'></div>
