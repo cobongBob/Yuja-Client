@@ -2,8 +2,15 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import UserApiService from "../../../apiService/UserApiService";
 import "./SignUp1.scss";
 import AddressApi from "./AddressApi";
+import { ToastPreventAccess } from '../../../modules/ToastModule';
 
 const NonRequired = ({ location, history }) => {
+
+  if (history.action === 'POP') {
+    ToastPreventAccess('❌ 잘못된 접근 입니다.')
+    history.replace('/')
+  }
+
   /* 파일 업로드 관련 */
   const [previewURL, setpreviewUrl] = useState();
   const [previewURL2, setpreviewUrl2] = useState();
@@ -73,7 +80,7 @@ const NonRequired = ({ location, history }) => {
 
   /* 회원가입 데이터 넘겨주기 시작 */
   /* required 페이지 데이터 담은 변수 */
-  const requiredData = location.state.requiredData;
+  const requiredData = location.state && location.state.requiredData;
   console.log("???", requiredData);
 
   /* 이 페이지(nonRequired) 데이터 담기 시작 */

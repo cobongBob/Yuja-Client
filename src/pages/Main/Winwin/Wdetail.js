@@ -9,9 +9,7 @@ import { FcLike } from "react-icons/fc";
 import { AiOutlineHeart, AiOutlineFileSearch } from "react-icons/ai";
 import { getWDetailsData, wAddLike, wDeleteLike } from "../../../redux/board/winwin/winBoardReducer";
 import { useHistory } from "react-router";
-import { toast, Zoom } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-toast.configure();
+import { ToastCenter } from "../../../modules/ToastModule";
 const Wdetail = ({ match }) => {
   const { current: board_type } = useRef(match.params.board_type);
   const { current: pageNum } = useRef(match.params.current_page);
@@ -34,22 +32,14 @@ const Wdetail = ({ match }) => {
   const { wDetails } = useSelector((state) => state.winBoardReducer);
   const dispatch = useDispatch();
   const history = useHistory();
-  const notify = useCallback(() => {
-    toast(`권한이 없습니다.`, {
-      toastId: "authorize",
-      position: toast.POSITION.BOTTOM_CENTER,
-      autoClose: 2000,
-      hideProgressBar: true,
-      bodyStyle: {
-        color: "black",
-        fontSize: "17px",
-        fontWeight: "bold",
-        fontFamily: "scdream4",
-      },
-      transition: Zoom,
-      className: "alertNoti",
-    });
-  }, []);
+
+  useEffect(() => {
+    if (wDetails && wDetails.isPrivate && (!userData || userData.id !== wDetails.user.id)) {
+      //어드민 권한 추가 필요
+      ToastCenter("권한이 없습니다.");
+      return history.goBack();
+    }
+  }, [history, userData, wDetails]);
 
   //게시글 상세정보 및 댓글 가져오기
   useEffect(() => {
@@ -63,14 +53,6 @@ const Wdetail = ({ match }) => {
       });
     }
   }, [match.params.board_id, dispatch, board_type, history]);
-
-  useEffect(() => {
-    if (wDetails && wDetails.isPrivate && (!userData || userData.id !== wDetails.user.id)) {
-      //어드민 권한 추가 필요
-      notify();
-      return history.goBack();
-    }
-  }, [history, userData, wDetails, notify]);
 
   //댓글 삭제
   const deleteReply = useCallback(
@@ -89,7 +71,7 @@ const Wdetail = ({ match }) => {
   //root댓글입력 저장
   const insertReply = useCallback(() => {
     if (inputReply.content === "") {
-      alert("내용을 입력해 주세요");
+      ToastCenter("내용을 입력해 주세요");
       return;
     }
     const insertData = {
@@ -133,7 +115,7 @@ const Wdetail = ({ match }) => {
   const reReplyInsert = useCallback(
     (reReplyData) => {
       if (reReplyData.content === "") {
-        alert("내용을 입력해 주세요");
+        ToastCenter("내용을 입력해 주세요");
         return;
       }
       const insertData = {
@@ -141,19 +123,11 @@ const Wdetail = ({ match }) => {
         userId: userData.id,
         boardId: match.params.board_id,
       };
-      insertComment(insertData)
-        .then(() => {
-          fetchComments(match.params.board_id)
-            .then((res) => {
-              setComments(res.data);
-            })
-            .catch((e) => {
-              alert(e.response.data.message);
-            });
-        })
-        .catch((e) => {
-          alert(e.response.data.message);
+      insertComment(insertData).then(() => {
+        fetchComments(match.params.board_id).then((res) => {
+          setComments(res.data);
         });
+      });
     },
     [match.params.board_id, userData]
   );
@@ -167,25 +141,17 @@ const Wdetail = ({ match }) => {
   const modifyComment = useCallback(
     (modifyData) => {
       if (modifyData.content === "") {
-        alert("내용을 입력해 주세요");
+        ToastCenter("내용을 입력해 주세요");
         return;
       }
       const modiContent = {
         content: modifyData.content,
       };
-      updateComment(modifyData.commentId, modiContent)
-        .then(() => {
-          fetchComments(match.params.board_id)
-            .then((res) => {
-              setComments(res.data);
-            })
-            .catch((e) => {
-              alert(e.response.data.message);
-            });
-        })
-        .catch((e) => {
-          alert(e.response.data.message);
+      updateComment(modifyData.commentId, modiContent).then(() => {
+        fetchComments(match.params.board_id).then((res) => {
+          setComments(res.data);
         });
+      });
     },
     [match.params.board_id]
   );
@@ -202,26 +168,21 @@ const Wdetail = ({ match }) => {
         });
       }
     } else {
-      alert("로그인 해주세요");
-      //로그인 창으로
+      ToastCenter("로그인 해주세요");
     }
   }, [userData, wDetails, dispatch, match.params.board_id]);
 
   const deleteBoard = useCallback(() => {
     if (window.confirm("게시글을 삭제 하시겠습니까?")) {
-      deleteWinBoard(match.params.board_id, board_type)
-        .then(() => {
-          history.push(`/Community/${board_type}/${pageNum}`);
-        })
-        .catch((e) => {
-          alert(e.response.data.message);
-        });
+      deleteWinBoard(match.params.board_id, board_type).then(() => {
+        history.push(`/Community/${board_type}/${pageNum}`);
+      });
     }
   }, [match.params.board_id, history, board_type, pageNum]);
 
   const modifyBoard = useCallback(() => {
-    alert("수정페이지로...");
-  }, []);
+    history.push(`/BoardModify/${board_type}/${match.params.board_id}/${pageNum}`);
+  }, [history, board_type, pageNum, match]);
 
   const goList = useCallback(() => {
     history.push(`/Community/${board_type}/${pageNum}`);

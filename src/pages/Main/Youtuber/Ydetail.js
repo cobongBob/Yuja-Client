@@ -10,6 +10,7 @@ import { getDetailData, addLike, deleteLike } from "../../../redux/board/youtube
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-modal";
 import Report from "../components/Report";
+import { ToastCenter } from "../../../modules/ToastModule";
 
 Modal.setAppElement("#root");
 const Ydetail = (props) => {
@@ -48,7 +49,7 @@ const Ydetail = (props) => {
         });
       }
     } else {
-      alert("로그인 해주세요");
+      ToastCenter("로그인 해주세요");
       //로그인 창으로
     }
   }, [userData, dispatch, props.match.params.board_id, detailData]);

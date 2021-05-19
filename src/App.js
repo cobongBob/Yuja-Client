@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import Logo from "./components/Logo/Logo";
 import "./App.css";
 import { Route } from "react-router";
@@ -31,31 +31,16 @@ import { userLogout } from "./redux/redux-login/loginReducer";
 import Chat from "./pages/Main/components/Chat/Chat";
 import EDetail from "./pages/Main/Editer/EDetail";
 import ResetPassword from "./components/Login-SignUp/Login/ResetPassword";
-import { toast, Zoom } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-toast.configure();
+import { ToastCenter } from "./modules/ToastModule";
+import WModify from "./pages/Main/Winwin/WModify";
+import ThumbRegister from "./pages/Main/Thumbnailer/ThumbRegister";
+import ThumbDetail from "./pages/Main/Thumbnailer/ThumbDetail";
 
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
 
 function App() {
   //권한 alert
-  const notify = useCallback((msg) => {
-    toast(msg, {
-      toastId: "authorize",
-      position: toast.POSITION.BOTTOM_CENTER,
-      autoClose: 2000,
-      hideProgressBar: true,
-      bodyStyle: {
-        color: "black",
-        fontSize: "17px",
-        fontWeight: "bold",
-        fontFamily: "scdream4",
-      },
-      transition: Zoom,
-      className: "alertNoti",
-    });
-  }, []);
 
   /* history 관련 */
   const usePrevious = (value) => {
@@ -97,13 +82,13 @@ function App() {
           userLogout();
         }
         if (error.response && error.response.data) {
-          notify(error.response.data.message);
+          ToastCenter(error.response.data.message);
         }
         dispatch(getLoaded());
         return Promise.reject(error);
       }
     );
-  }, [dispatch, notify]);
+  }, [dispatch]);
 
   /* 로딩 끝 */
 
@@ -120,11 +105,14 @@ function App() {
         <Switch>
           <Route exact path='/' component={MainWrapper} />
           <Route path='/Youtuber' component={Youtuber} />
-          <Route path='/Editer' component={Editer} />
-          <Route path='/Thumbnailer' component={Thumbnailer} />
+          <Route path='/Eboard/:board_type' component={Editer} />
           <Route path='/Community/:board_type/:current_page' component={Winwin} />
           <Route path='/BoardDetail/:board_type/:board_id/:current_page' component={Wdetail} />
+          <Route path='/BoardModify/:board_type/:board_id/:current_page' component={WModify} />
           <Route path='/BoardRegister/:board_type' component={Wregister} />
+          <Route path='/Thboard/:board_type/:current_page' component={Thumbnailer} />
+          <Route path='/ThumbRegister/:board_type' component={ThumbRegister} />
+          <Route path='/ThumbDetail/:board_type/:board_id/:current_page' component={ThumbDetail} />
           <Route path='/Help' component={Help} />
           <Route path='/SignUp1' component={SignUp1} />
           <Route path='/YoutuberProfile' component={YoutuberProfile} />

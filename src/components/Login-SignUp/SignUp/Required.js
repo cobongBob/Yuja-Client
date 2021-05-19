@@ -4,16 +4,23 @@ import AuthCodeTimer from "./AuthCodeTimer";
 import AuthBtnBox from "./AuthBtnBox";
 import * as auth from "../../../apiService/AuthenticationService";
 import axios from "axios";
+import { ToastPreventAccess } from '../../../modules/ToastModule';
 
-const Required = ({ location }) => {
+const Required = ({ location, history }) => {
+
+  if (location.state === undefined || history.action === 'POP') {
+    ToastPreventAccess('❌ 잘못된 접근 입니다.')
+    history.replace('/')
+  }
+
   /* 값 넘겨주기 */
   const [requiredData, setrequiredData] = useState({
-    isMarketingChecked: location.state.next,
-    username: location.state.googleSignupData !== null ? location.state.googleSignupData.username : "",
-    password: location.state.googleSignupData !== null ? location.state.googleSignupData.password : "",
-    realName: location.state.googleSignupData !== null ? location.state.googleSignupData.realName : "",
-    provider: location.state.googleSignupData !== null ? location.state.googleSignupData.provider : "",
-    providedId: location.state.googleSignupData !== null ? location.state.googleSignupData.providerId : "",
+    isMarketingChecked: location.state ? location.state.next : null,
+    username: location.state && location.state.googleSignupData ? location.state.googleSignupData.username : "",
+    password: location.state && location.state.googleSignupData ? location.state.googleSignupData.password : "",
+    realName: location.state && location.state.googleSignupData ? location.state.googleSignupData.realName : "",
+    provider: location.state && location.state.googleSignupData ? location.state.googleSignupData.provider : "",
+    providedId: location.state && location.state.googleSignupData ? location.state.googleSignupData.providerId : "",
     bday: "",
     nickname: "",
   });
@@ -50,6 +57,7 @@ const Required = ({ location }) => {
   };
 
   const checkCodes = () => {
+
     if (isValidateInput.id === "" || EmailValidateResData !== "") {
       console.log("비어있음!");
       setSecurityCodeValidateDesc("이메일을 확인 해주세요.");
@@ -59,14 +67,18 @@ const Required = ({ location }) => {
       changeTimeSet();
       setDisabledHandler(true);
       setBtnTextHandler("인증완료");
+      totalCheck()
       setSecurityCodeValidateDesc("");
       setEmailDisableHandler(true);
       return true;
     } else {
       console.log("인증실패");
+      totalCheck()
       setSecurityCodeValidateDesc("인증번호를 확인 해주세요.");
       return false;
     }
+
+
   };
   /* 인증코드 통신 및 끝 */
 
@@ -116,6 +128,7 @@ const Required = ({ location }) => {
   const [nextBtnDisabledHandler, setNextBtnDisabledHandler] = useState(false);
 
   const totalCheck = useCallback(() => {
+    console.log('totalCheck 실행')
     if (
       EmailValidateResData === "" &&
       nicknameValidateResData === "" &&
@@ -127,14 +140,12 @@ const Required = ({ location }) => {
       isValidateInput.birth !== "" &&
       isValidateInput.id !== "" &&
       isValidateInput.name !== "" &&
-      isValidateInput.pass !== ""
-      // location.state.googleSignupData !== null ?
-      //   btnTextHandler === '인증번호 발송'
-      //   :
-      //   btnTextHandler === '인증완료'
+      isValidateInput.pass !== "" && btnTextHandler === '인증완료'
     ) {
+      console.log('false 실행')
       setNextBtnDisabledHandler(false);
     } else {
+      console.log('true 실행')
       setNextBtnDisabledHandler(true);
     }
   }, [
@@ -149,6 +160,9 @@ const Required = ({ location }) => {
 
   const backSpaceCheck = useCallback(() => {
     totalCheck();
+    if(location.state && location.state.googleSignupData) {
+      setBtnTextHandler('인증완료')
+    }
   }, [totalCheck]);
 
   const { current: passCheck } = useRef(
@@ -162,10 +176,7 @@ const Required = ({ location }) => {
     requiredNextBtnHandler();
   };
 
-  const
-
-
-    checkEmailValidate = useCallback(() => {
+  const checkEmailValidate = useCallback(() => {
     axios.post("http://localhost:8888/api/auth/checkemail", requiredData).then((res) => {
       if (res.data !== "") {
         setEmailValidateResData(res.data);
@@ -196,6 +207,29 @@ const Required = ({ location }) => {
       ? setCheckPasswordValidateDesc("비밀번호를 확인해주세요.")
       : setCheckPasswordValidateDesc("");
   }, [isValidateInput, passCheckNum]);
+
+  const passwordTotalCheck = useCallback(
+    (e) => {
+      if (isValidateInput.password !== "" && passCheckNum !== "") {
+        if (passCheck.test(isValidateInput.pass) === false) {
+          setPasswordValidateDesc("비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.");
+        } else if (isValidateInput.pass !== passCheckNum) {
+          if (e.target.className === "signUpPw") {
+            setPasswordValidateDesc("비밀번호를 확인해주세요.");
+          } else {
+            setCheckPasswordValidateDesc("비밀번호를 확인해주세요.");
+          }
+        } else if (passCheck.test(isValidateInput.pass) === true) {
+          setPasswordValidateDesc("");
+        }
+        if (isValidateInput.pass === passCheckNum) {
+          setCheckPasswordValidateDesc("");
+        }
+      } else {
+      }
+    },
+    [isValidateInput, passCheck, passCheckNum]
+  );
 
   const checkNameValidate = useCallback(() => {
     if (nameCheck.test(isValidateInput.name) === false && isValidateInput.name !== "") {
@@ -228,7 +262,6 @@ const Required = ({ location }) => {
   // 유효성 검사 on/off
   useEffect(() => {
     totalCheck();
-    console.log("useEffect의 sc값", securityCode);
   }, [requiredData, passCheckNum, nextBtnDisabledHandler, totalCheck, securityCode]);
 
   /* new 유효성 검사 끝 */
@@ -239,8 +272,8 @@ const Required = ({ location }) => {
         <div className='required'>* 필수입력 정보입니다.</div>
         <table className='signUpTable'>
           {/*구글로그인으로 왔을 때 */}
-
-          {location.state.googleSignupData !== null ? (
+          {location.state && location.state.googleSignupData ?
+            (
             <>
               <tr>
                 <td>
@@ -255,7 +288,7 @@ const Required = ({ location }) => {
                     onChange={changeValue}
                     onKeyUp={checkEmailValidate}
                     disabled={true}
-                    value={location.state.googleSignupData.username}
+                    value={location.state && location.state.googleSignupData && location.state.googleSignupData.username}
                     autoComplete='off'
                     autoFocus
                   />
@@ -275,7 +308,7 @@ const Required = ({ location }) => {
                     onChange={changeValue}
                     onKeyUp={checkPasswordValidate}
                     disabled={true}
-                    value={location.state.googleSignupData.password}
+                    value={location.state && location.state.googleSignupData && location.state.googleSignupData.password}
                     autoComplete='off'
                   />
                   <div className='warningBox'>{passwordValidateDesc}</div>
@@ -294,7 +327,7 @@ const Required = ({ location }) => {
                     onChange={getPassCheckNum}
                     onKeyUp={checkPasswordCheckValidate}
                     disabled={true}
-                    value={location.state.googleSignupData.password}
+                    value={location.state && location.state.googleSignupData && location.state.googleSignupData.password}
                     autoComplete='off'
                   />
                   <div className='warningBox'>{checkPasswordValidateDesc}</div>
@@ -313,7 +346,7 @@ const Required = ({ location }) => {
                     onChange={changeValue}
                     onKeyUp={checkNameValidate}
                     disabled={true}
-                    value={location.state.googleSignupData.realName}
+                    value={location.state && location.state.googleSignupData && location.state.googleSignupData.realName}
                     autoComplete='off'
                   />
                   <div className='warningBox'>{nameValidateDesc}</div>
@@ -393,7 +426,7 @@ const Required = ({ location }) => {
                     type='password'
                     placeholder='비밀번호'
                     onChange={changeValue}
-                    onKeyUp={checkPasswordValidate}
+                    onKeyUp={passwordTotalCheck}
                     autoComplete='off'
                   />
                   <div className='warningBox'>{passwordValidateDesc}</div>
@@ -410,7 +443,7 @@ const Required = ({ location }) => {
                     type='password'
                     placeholder='비밀번호 확인'
                     onChange={getPassCheckNum}
-                    onKeyUp={checkPasswordCheckValidate}
+                    onKeyUp={passwordTotalCheck}
                     autoComplete='off'
                   />
                   <div className='warningBox'>{checkPasswordValidateDesc}</div>

@@ -6,6 +6,7 @@ import YImgApiService from "../../apiService/YImgApiService";
 import ImageResize from "@looop/quill-image-resize-module-react";
 import QuillImageDropAndPaste from "quill-image-drop-and-paste";
 import { useHistory } from "react-router";
+import { ToastCenter } from "../../modules/ToastModule";
 Quill.register("modules/imageResize", ImageResize);
 Quill.register("modules/imageDropAndPaste", QuillImageDropAndPaste);
 let Image = Quill.import("formats/image");
@@ -18,13 +19,16 @@ const QuillModify = ({ modify, addingFileList, qModiData, setQModiData, board_ty
   const history = useHistory();
   const imageHandler = useCallback(() => {
     const input = document.createElement("input");
-
+    const acceptType = ["image/png", "image/jpeg", "image/gif", "image/jpg"];
     input.setAttribute("type", "file");
     input.setAttribute("accept", "image/png, image/jpeg, image/gif, image/jpg");
     input.click();
 
     input.onchange = async () => {
       const file = input.files[0];
+      if (!acceptType.includes(file.type)) {
+        return ToastCenter("jpg, jpeg, png, gif 만 가능합니다.");
+      }
       const formData = new FormData();
       formData.append("file", file);
       const config = {
@@ -140,9 +144,13 @@ const QuillModify = ({ modify, addingFileList, qModiData, setQModiData, board_ty
         <div id='ReactQuill'></div>
       </div>
       <div>
-        <div>
-          <button onClick={modify}>확인</button>
-          <button onClick={() => history.goBack()}>뒤로가기</button>
+        <div className='button-line'>
+          <button onClick={modify} className='register-ok'>
+            확인
+          </button>
+          <button onClick={() => history.goBack()} className='register-back'>
+            뒤로가기
+          </button>
         </div>
       </div>
     </>

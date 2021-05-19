@@ -1,5 +1,5 @@
 import instance from "../AxiosConfig.js";
-import BoardTypeConvert from "../BoardTypeConvert.js";
+import BoardTypeConvert from "../modules/BoardTypeConvert.js";
 let board_code = 0;
 
 class ImgApiService {

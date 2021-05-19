@@ -1,9 +1,16 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import "./ResetPassword.scss";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import "./ResetPassword.scss"
 import { Link } from "react-router-dom";
-import { resetPassword } from "../../../apiService/AuthenticationService";
+import { resetPassword } from '../../../apiService/AuthenticationService';
+import { ToastPreventAccess } from '../../../modules/ToastModule';
 
 const ResetPassword = ({ history, location }) => {
+
+  if (history.action === 'POP') {
+    ToastPreventAccess('❌ 잘못된 접근 입니다.')
+    history.replace('/')
+  }
+
   /* 데이터 준비 */
   const [resetPasswordData, setResetPasswordData] = useState({
     username: location.username,

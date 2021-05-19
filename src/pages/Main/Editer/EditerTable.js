@@ -1,14 +1,14 @@
-import React from 'react';
-import { Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { format } from 'date-fns';
-import { FcLike } from 'react-icons/fc';
-import '../Youtuber/Ylist.scss';
-import BackToList from '../components/BackToList';
-import SortingToDeadline from '../components/SortingToDeadline';
-import SortingToLiked from '../components/SortingToLiked';
+import React from "react";
+import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { format } from "date-fns";
+import { FcLike } from "react-icons/fc";
+import "../Youtuber/Ylist.scss";
+import BackToList from "../components/BackToList";
+import SortingToDeadline from "../components/SortingToDeadline";
+import SortingToLiked from "../components/SortingToLiked";
 
-export default function EditorTable({ boardData }) {
+export default function EditorTable({ eBoardData, board_type }) {
   return (
     <div className='card-container'>
       <div className='card-options'>
@@ -18,14 +18,14 @@ export default function EditorTable({ boardData }) {
       </div>
       <div className='card-options'>
         <BackToList />
-        <SortingToDeadline boardData={boardData} />
-        <SortingToLiked boardData={boardData} />
+        <SortingToDeadline boardData={eBoardData} />
+        <SortingToLiked boardData={eBoardData} />
       </div>
       <ul>
-        {boardData?.map((data) => (
+        {eBoardData?.map((data) => (
           <li>
             <Card key={data.id}>
-              <Card.Img src='/img/board_pic/thumbnailer_pic/thum2.PNG'></Card.Img>
+              <Card.Img src={data.previewImage}></Card.Img>
               <Card.Header>
                 <Card.Title>
                   <div>
@@ -35,7 +35,7 @@ export default function EditorTable({ boardData }) {
                   <div> 모집분야 {data.worker} </div>
                   <div className='card-deadline'>
                     <span>마감일 </span>
-                    {format(new Date(data.expiredDate), 'yyyy-MM-dd')}
+                    {format(new Date(data.expiredDate), "yyyy-MM-dd")}
                   </div>
                   <div className='card-like'>
                     <FcLike size={22} /> {data.likes}
@@ -55,7 +55,7 @@ export default function EditorTable({ boardData }) {
                   <div>
                     <strong>
                       <span>수정일 </span>
-                      {format(new Date(data.updatedDate), 'yyyy-MM-dd')}
+                      {format(new Date(data.updatedDate), "yyyy-MM-dd")}
                     </strong>
                   </div>
                 </Card.Footer>
