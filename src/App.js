@@ -30,7 +30,7 @@ import instance from "./AxiosConfig";
 import { userLogout } from "./redux/redux-login/loginReducer";
 import Chat from "./pages/Main/components/Chat/Chat";
 import EDetail from "./pages/Main/Editer/EDetail";
-import ResetPassword from './components/Login-SignUp/Login/ResetPassword';
+import ResetPassword from "./components/Login-SignUp/Login/ResetPassword";
 import { toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
@@ -96,7 +96,7 @@ function App() {
         if (error.response.status === 401) {
           userLogout();
         }
-        if (error.response.data) {
+        if (error.response && error.response.data) {
           notify(error.response.data.message);
         }
         dispatch(getLoaded());
@@ -136,6 +136,7 @@ function App() {
           <Route path='/EDetail/:board_id' component={EDetail} />
           <Route path='/FindPassword' component={FindPassword} />
           <Route path='/ResetPassword' component={ResetPassword} />
+          <Route path='/Chat' component={Chat} />
           {/* <Route component={PageNotFound} /> 이게 왜 나올까요? */}
         </Switch>
       </div>

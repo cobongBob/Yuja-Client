@@ -1,7 +1,5 @@
-import React, { useCallback, useState } from 'react';
+import React from "react";
 import "./ResetPasswordAuthBox.scss";
-import * as auth from '../../../apiService/AuthenticationService';
-
 
 const ResetPasswordAuthBox = (props) => {
   if (props.resetPasswordSendBtnHandler === true) {
@@ -32,11 +30,7 @@ const ResetPasswordAuthBox = (props) => {
           </button>
         </div>
         <div className='authenticationBtn'>
-          <button
-            className='btn btn-warning'
-            id='authenticationBtn'
-            onClick={props.resetPasswordCheckCodes}
-          >
+          <button className='btn btn-warning' id='authenticationBtn' onClick={props.resetPasswordCheckCodes}>
             인증
           </button>
         </div>
