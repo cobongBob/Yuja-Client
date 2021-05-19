@@ -51,6 +51,14 @@ const Wdetail = ({ match }) => {
     });
   }, []);
 
+  useEffect(() => {
+    if (wDetails && wDetails.isPrivate && (!userData || userData.id !== wDetails.user.id)) {
+      //어드민 권한 추가 필요
+      notify();
+      return history.goBack();
+    }
+  }, [history, userData, wDetails, notify]);
+
   //게시글 상세정보 및 댓글 가져오기
   useEffect(() => {
     const board_id = match.params.board_id;
@@ -63,14 +71,6 @@ const Wdetail = ({ match }) => {
       });
     }
   }, [match.params.board_id, dispatch, board_type, history]);
-
-  useEffect(() => {
-    if (wDetails && wDetails.isPrivate && (!userData || userData.id !== wDetails.user.id)) {
-      //어드민 권한 추가 필요
-      notify();
-      return history.goBack();
-    }
-  }, [history, userData, wDetails, notify]);
 
   //댓글 삭제
   const deleteReply = useCallback(

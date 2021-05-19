@@ -17,6 +17,9 @@ const Yregister = () => {
   let Yhistory = useCallback((board_id) => history.push(`/YDetail/${board_id}`), [history]);
 
   const testCheking = useCallback(() => {
+    if (!qData || !input.title) {
+      return alert("제목과 내용을 입력해주세요");
+    }
     let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
     let imgSrcArr = String(qData).match(reg);
     if (imgSrcArr) {
