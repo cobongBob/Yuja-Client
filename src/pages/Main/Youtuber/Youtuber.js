@@ -16,7 +16,6 @@ const Youtuber = () => {
   const { userData } = useSelector((state) => state.loginReducer);
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
 
   //페이징 처리하기
   const [currentPage, setCurrentPage] = useState(1);
@@ -78,7 +77,7 @@ const Youtuber = () => {
         <h1>Youtuber 공고 목록</h1>
       </div>
       <Search
-        boardData={searchTerm.length < 1 ? yBoardData.filterData : searchResults}
+        boardData={searchTerm.length < 1 ? yBoardData.filterData : null}
         term={searchTerm}
         setTerm={setSearchTerm}
         searchKeyword={searchHandler}

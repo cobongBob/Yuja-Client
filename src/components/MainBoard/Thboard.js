@@ -1,5 +1,5 @@
 import React from 'react';
-import './Thboard.scss';
+import './newboard.scss';
 import Thnew from './Thnew';
 
 const Thboard = () => {

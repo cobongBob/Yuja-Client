@@ -3,24 +3,44 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import QuillRegister from '../../../components/Quill/QuillRegister';
 import * as EditerApiService from '../../../apiService/EditerApiService';
-import './EditorRegister.scss';
+import '../Editer/EditorRegister.scss';
 import { ToastCenter } from '../../../modules/ToastModule';
+import './Thumb.scss';
 
-const EditorRegister = () => {
+const ThumbRegister = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
   const currFileList = useRef([]);
   const addingFileList = useRef([]);
   const [qData, setQData] = useState();
-  const { current: board_type } = useRef('Editor');
-
+  const board_type = useRef(match.params.board_type);
   const history = useHistory();
-
+  const ThumbId = useRef(0);
+  const [fileUrl, setFileUrl] = useState('');
   let Ehistory = useCallback(
-    (board_id) => history.push(`/EDetail/${board_id}`),
+    (board_id) =>
+      history.push(`/ThumbDetail/${board_type.current}/${board_id}/1`),
     [history]
   );
+
+  const checkedlist = useRef([]);
+
+  const [inputData, setInputData] = useState({
+    title: '',
+    payType: '',
+    payAmount: '',
+    career: '',
+    tools: checkedlist.current,
+  });
+
+  const inputHandler = (e) => {
+    setInputData({
+      ...inputData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const testCheking = useCallback(() => {
-    if (!qData || !input.title) {
+    if (!qData || !inputData.title) {
       return ToastCenter('제목과 내용을 입력해주세요');
     }
 
@@ -36,15 +56,16 @@ const EditorRegister = () => {
       currFileList.current = [];
     }
     const sendingData = {
-      ...input,
+      ...inputData,
       userId: userData.id, //글쓰고있는 사람의 아이디로 변경요망
       content: qData.replaceAll(
         `src="http://localhost:8888/files/temp/`,
-        `src="http://localhost:8888/files/${board_type}/`
+        `src="http://localhost:8888/files/${board_type.current}/`
       ), //업로드된 이미지들은 temp가 아닌 Editor에 저장된다.
+      thumbnailId: ThumbId.current, //?? 넘어온 번호..
       boardAttachNames: currFileList.current,
     };
-    EditerApiService.addBoards(sendingData, board_type).then((res) => {
+    EditerApiService.addBoards(sendingData, board_type.current).then((res) => {
       Ehistory(res.data.id);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -59,22 +80,32 @@ const EditorRegister = () => {
     }
   };
 
-  const checkedlist = useRef([]);
+  const handleImg = (e) => {
+    let file = e.target.files[0];
+    if (!file) {
+      return;
+    }
 
-  const [input, setInput] = useState({
-    previewImage: '',
-    title: '',
-    career: '',
-    payType: '',
-    payAmount: '',
-    tools: checkedlist.current,
-  });
+    const acceptType = ['image/png', 'image/jpeg', 'image/gif', 'image/jpg'];
+    if (!acceptType.includes(file.type)) {
+      return ToastCenter('jpg, jpeg, png 만 가능합니다.');
+    }
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    };
 
-  const onChange = (e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
+    if (e.target.files !== null) {
+      const formData = new FormData();
+      formData.append('file', file);
+      EditerApiService.addThumb(formData, config).then((response) => {
+        setFileUrl(
+          `http://localhost:8888/files/temp/${response.data.fileName}`
+        );
+        ThumbId.current = response.data.thumbnailId;
+      });
+    }
   };
 
   return (
@@ -91,15 +122,21 @@ const EditorRegister = () => {
                 placeholder='제목'
                 name='title'
                 id='first-link'
-                onChange={onChange}
+                onChange={inputHandler}
+                maxLength='45'
               />
             </li>
+            <li className='li-item22'>
+              <input type='text' placeholder='급여방식' name='payType' />
+            </li>
             <li className='li-item2'>
+              <img className='preview_Thubnail' src={fileUrl} alt='' />
               <input
-                type='text'
-                placeholder='대표영상의 링크를 적어주세요.'
-                name='previewImage'
-                onChange={onChange}
+                className='youtuberPicInput'
+                id='youtuberPicInput'
+                type='file'
+                accept='image/jpeg, image/jpg, image/png'
+                onChange={handleImg}
               />
             </li>
             <li className='li-item3'>
@@ -107,23 +144,15 @@ const EditorRegister = () => {
                 type='text'
                 placeholder='경력'
                 name='career'
-                onChange={onChange}
+                onChange={inputHandler}
               />
             </li>
             <li className='li-item4'>
-              <select name='payType' onChange={onChange}>
-                <option>선택</option>
-                <option value='연봉'>연봉</option>
-                <option value='월급'>월급</option>
-                <option value='주급'>주급</option>
-                <option value='건당'>건당</option>
-                <option value='분당'>분당</option>
-              </select>
               <input
                 type='text'
                 placeholder='희망급여'
                 name='payAmount'
-                onChange={onChange}
+                onChange={inputHandler}
               />
             </li>
             <li className='li-item5'>
@@ -145,6 +174,22 @@ const EditorRegister = () => {
               />
               <label htmlFor='Eaftereffect'>애프터이펙트 </label>
               <input
+                id='Ephotoshop'
+                name='Ephotoshop'
+                value='포토샵'
+                type='checkbox'
+                onChange={checkboxCheck}
+              />
+              <label htmlFor='Ephotoshop'>포토샵 </label>
+              <input
+                id='Eillustrater'
+                name='Eillustrater'
+                onChange={checkboxCheck}
+                value='일러스트'
+                type='checkbox'
+              />
+              <label htmlFor='Eillustrater'>베가스</label>
+              <input
                 id='Efinalcut'
                 name='Efinalcut'
                 value='파이널컷'
@@ -152,14 +197,6 @@ const EditorRegister = () => {
                 onChange={checkboxCheck}
               />
               <label htmlFor='Efinalcut'>파이널컷 </label>
-              <input
-                id='Evegas'
-                name='Evegas'
-                onChange={checkboxCheck}
-                value='베가스'
-                type='checkbox'
-              />
-              <label htmlFor='Evegas'>베가스</label>
               <input
                 id='Epowerdirector'
                 name='Epowerdirector'
@@ -178,7 +215,7 @@ const EditorRegister = () => {
             addingFileList={addingFileList}
             qData={qData}
             setQData={setQData}
-            board_type={board_type}
+            board_type={board_type.current}
           />
         </div>
       </div>
@@ -186,4 +223,4 @@ const EditorRegister = () => {
   );
 };
 
-export default EditorRegister;
+export default ThumbRegister;

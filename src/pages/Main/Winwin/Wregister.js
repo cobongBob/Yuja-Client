@@ -60,7 +60,6 @@ const Wregister = ({ match }) => {
         `src="http://localhost:8888/files/temp/`,
         `src="http://localhost:8888/files/${board_type.current}/`
       ), //업로드된 이미지들은 temp가 아닌 WinBoard에 저장된다.
-      thumbnail: "썸네일테스트", //썸네일 서버쪽 만들어지면 변경 필
       boardAttachNames: currFileList.current,
     };
     insertWinBoard(sendingData, board_type.current).then((res) => {

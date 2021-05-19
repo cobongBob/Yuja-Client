@@ -89,7 +89,14 @@ export const deleteLike = async (board_id) => {
 // 초기값
 const initialState = {
   data: [],
-  detailData: { id: 0, likes: 0, liked: false },
+  detailData: {
+    id: 0,
+    likes: 0,
+    liked: false,
+    user: {
+      id: 0,
+    },
+  },
   filterData: [],
   loading: false,
   sortedExpired: false,
@@ -122,7 +129,14 @@ const YboardReducer = (state = initialState, action) => {
     case GET_YBOARD_FAILURE:
       return {
         data: [],
-        detailData: { id: 0 },
+        detailData: {
+          id: 0,
+          likes: 0,
+          liked: false,
+          user: {
+            id: 0,
+          },
+        },
         filterData: [],
         loading: false,
         sortedExpired: false,
@@ -190,11 +204,17 @@ const YboardReducer = (state = initialState, action) => {
         ...state,
         // eslint-disable-next-line array-callback-return
         filterData: state.data.filter((data) => {
-          if (Object.values(data.title).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
+          if (Object && Object.values(data.title).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
             return data;
-          } else if (Object.values(data.worker).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
+          } else if (
+            Object &&
+            Object.values(data.worker).join("").toLowerCase().includes(action.keyword.toLowerCase())
+          ) {
             return data;
-          } else if (Object.values(data.user.username).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
+          } else if (
+            Object &&
+            Object.values(data.user.username).join("").toLowerCase().includes(action.keyword.toLowerCase())
+          ) {
             return data;
           }
         }),

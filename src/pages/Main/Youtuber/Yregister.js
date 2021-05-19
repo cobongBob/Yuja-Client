@@ -97,7 +97,7 @@ const Yregister = () => {
       </div>
       <ul className='register-default-input'>
         <li className='register-title'>
-          <input id='YregisterWriter' name='title' onChange={onChange} placeholder='제목' maxLength='200' type='text' />
+          <input id='YregisterWriter' name='title' onChange={onChange} placeholder='제목' maxLength='45' type='text' />
         </li>
         <li className='register-channelname'>
           <input placeholder='채널명' id='YregisterChannel' onChange={onChange} name='channelName' type='text' />
@@ -108,7 +108,7 @@ const Yregister = () => {
           <label htmlFor='editor'>편집자</label>
           <input type='radio' id='thumbnailer' name='worker' value='썸네일러' onChange={radioCheck} />
           <label htmlFor='thumbnailer'>썸네일러</label>
-          <input type='radio' id='both' onChange={radioCheck} name='worker' value='영상편집자 + 썸네일러' />
+          <input type='radio' id='both' onChange={radioCheck} name='worker' value='편집자 + 썸네일러' />
           <label htmlFor='both'>편집자+썸네일러</label>
         </li>
         <li className='wanted-career'>
