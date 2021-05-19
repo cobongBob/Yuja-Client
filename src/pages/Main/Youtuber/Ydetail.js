@@ -36,7 +36,6 @@ const Ydetail = (props) => {
 
   const deleteBoard = () => {
     YapiService.deleteBoard(props.match.params.board_id).then((res) => {
-      alert(res.data);
       props.history.push('/Youtuber');
     });
   };

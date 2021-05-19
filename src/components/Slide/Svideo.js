@@ -1,22 +1,17 @@
-import React, { useEffect } from 'react';
-import './Svideo.scss';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import PrevArrow from './PrevArrow';
-import NextArrow from './NextArrow';
-import { useDispatch, useSelector } from 'react-redux';
-import { getMainData } from '../../redux/main/mainReducer';
-import { FaPaintBrush } from 'react-icons/fa';
+import React from "react";
+import "./video.scss";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import PrevArrow from "./PrevArrow";
+import NextArrow from "./NextArrow";
+import { useSelector } from "react-redux";
+import { FaPaintBrush } from "react-icons/fa";
+import { useHistory } from "react-router";
 
 const Svideo = () => {
-  const dispatch = useDispatch();
   const { ThvideoData } = useSelector((state) => state.mainReducer);
-  console.log(222222222222222222, ThvideoData);
-
-  useEffect(() => {
-    dispatch(getMainData);
-  }, [dispatch]);
+  const history = useHistory();
 
   const settings = {
     dots: false,
@@ -61,27 +56,24 @@ const Svideo = () => {
       <div className='best-thumbnailer'>
         <span>
           <FaPaintBrush></FaPaintBrush>
-        </span>{' '}
-        인기 썸네일러{' '}
+        </span>{" "}
+        인기 썸네일러{" "}
       </div>
       <Slider {...settings}>
-        {ThvideoData.map((video) => (
-          <div className='wrapper'>
-            <div className='thumbnails'>
-              <div className='thumbnails-item'>
-                <div className='item item_red'>
-                  <img src='/img/board_pic/thumbnailer_pic/thum12.png' alt='' />
-                  <div className='item-title'>
-                    <h2>{video.user.nickname}</h2>
-                  </div>
-                  <div className='item-content'>
-                    <p>{video.content}</p>
+        {ThvideoData &&
+          ThvideoData.map((video) => (
+            <div className='wrapper'>
+              <div className='thumbnails'>
+                <div onClick={() => history.push(`/Ydetail/${video.user.id}`)} className='thumbnails-item'>
+                  <div className='item item_red'>
+                    <div className='top'>{video.user.nickname}</div>
+                    <div className='bottom'>{video.title}</div>
+                    <img src='/img/board_pic/editor_pic/thum5.png' alt='' />
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </Slider>
     </React.Fragment>
   );

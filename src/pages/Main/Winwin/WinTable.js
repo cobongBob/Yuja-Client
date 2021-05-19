@@ -1,12 +1,13 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import getFormatDate from '../../../getFormatDate';
-import { MdFiberNew } from 'react-icons/md';
-import SortingDate from '../components/Community/SortingDate';
-import SortingHit from '../components/Community/SortingHit';
-import SortingLike from '../components/Community/SortingLike';
-import SortingComment from '../components/Community/SortingComment';
-import './Winwin.scss';
+import React from "react";
+import { Link } from "react-router-dom";
+import getFormatDate from "../../../modules/getFormatDate";
+import { MdFiberNew } from "react-icons/md";
+import { RiGitRepositoryPrivateFill } from "react-icons/ri";
+import SortingDate from "../components/Community/SortingDate";
+import SortingHit from "../components/Community/SortingHit";
+import SortingLike from "../components/Community/SortingLike";
+import SortingComment from "../components/Community/SortingComment";
+import "./Winwin.scss";
 
 const WinTable = ({ currentData, board_type, lastIdx, currentPage }) => {
   return (
@@ -40,15 +41,12 @@ const WinTable = ({ currentData, board_type, lastIdx, currentPage }) => {
                 <tr key={board.id}>
                   <td>{lastIdx - idx}</td>
                   <td>
-                    <Link
-                      className='table_link'
-                      to={`/BoardDetail/${board_type}/${board.id}/${currentPage}`}
-                    >
+                    {board.isPrivate ? <RiGitRepositoryPrivateFill /> : null}
+                    <Link className='table_link' to={`/BoardDetail/${board_type}/${board.id}/${currentPage}`}>
                       {board.title}
                       <span className='commentNum'> [{board.comments}] </span>
                     </Link>
-                    {board.createDate.substr(0, 10) ===
-                    getFormatDate(new Date()) ? (
+                    {board.createDate.substr(0, 10) === getFormatDate(new Date()) ? (
                       <MdFiberNew className='new_icon' size='25' />
                     ) : null}
                   </td>
