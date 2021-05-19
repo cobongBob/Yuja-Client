@@ -8,7 +8,8 @@ import BackToList from '../components/BackToList';
 import SortingToDeadline from '../components/SortingToDeadline';
 import SortingToLiked from '../components/SortingToLiked';
 
-export default function EditorTable({ boardData }) {
+export default function EditorTable({ eBoardData, board_type }) {
+  console.log(3333, eBoardData);
   return (
     <div className='card-container'>
       <div className='card-options'>
@@ -18,11 +19,11 @@ export default function EditorTable({ boardData }) {
       </div>
       <div className='card-options'>
         <BackToList />
-        <SortingToDeadline boardData={boardData} />
-        <SortingToLiked boardData={boardData} />
+        <SortingToDeadline boardData={eBoardData} />
+        <SortingToLiked boardData={eBoardData} />
       </div>
       <ul>
-        {boardData?.map((data) => (
+        {eBoardData?.map((data) => (
           <li>
             <Card key={data.id}>
               <Card.Img src='/img/board_pic/thumbnailer_pic/thum2.PNG'></Card.Img>

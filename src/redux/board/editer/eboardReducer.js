@@ -1,6 +1,9 @@
 import * as eService from '../../../apiService/EditerApiService';
+import * as likeService from '../../../apiService/likeService';
 
 // 액션
+const ADD_LIKE = 'ADD_LIKE';
+const DELETE_LIKE = 'DELETE_LIKE';
 const MODE_GET_EDETAIL_DATA = 'getEDetailData';
 const MODE_EFILTER_DATA = 'MODE_EFILTER_DATA';
 const MODE_ESORTLIKE_DATA = 'MODE_ESORTLIKE_DATA';
@@ -12,11 +15,11 @@ const MODE_RESET_DATA = 'MODE_RESET_DATA';
 // 액션함수
 
 // 전체데이터 가져오기
-export const getEBoards = (BoardType) => {
+export const getEBoards = (board_type) => {
   return (dispatch) => {
     dispatch(getEBoardsRequest());
     eService
-      .fetchBoards(BoardType)
+      .fetchBoards(board_type)
       .then((res) => dispatch(getEBoardsSuccess(res.data)))
       .catch((err) => dispatch(getEBoardsFailure(err.response)));
   };
@@ -57,8 +60,8 @@ export const getResetData = async () => {
   };
 };
 
-export const getDetailData = async (board_id, user_id) => {
-  const detailData = await eService.fetchBoard(board_id, user_id);
+export const getDetailData = async (board_id, board_type) => {
+  const detailData = await eService.fetchBoard(board_id, board_type);
   return {
     type: MODE_GET_EDETAIL_DATA,
     data: detailData.data,
@@ -66,13 +69,28 @@ export const getDetailData = async (board_id, user_id) => {
   };
 };
 
+export const addLike = async (board_id) => {
+  await likeService.addLike(board_id);
+  return {
+    type: ADD_LIKE,
+    payload: board_id,
+  };
+};
+
+export const deleteLike = async (board_id) => {
+  await likeService.deleteLike(board_id);
+  return {
+    type: DELETE_LIKE,
+    payload: board_id,
+  };
+};
+
 // 초기값
 const initialState = {
   eBoardData: [],
-  detailData: { id: 0 },
+  detailData: { id: 0, likes: 0, liked: false },
   filterData: [],
   loading: false,
-  sortedExpired: false,
   sortedLike: false,
   error: '',
 };
@@ -157,6 +175,38 @@ export function EboardReducer(state = initialState, action) {
           ) {
             return data;
           }
+        }),
+      };
+    case ADD_LIKE:
+      return {
+        ...state,
+        detailData: {
+          ...state.detailData,
+          likes: state.detailData.likes + 1,
+          liked: true,
+        },
+        filterData: state.filterData.map((data) => {
+          if (data.id === action.payload) {
+            data.likes += 1;
+            data.liked = true;
+          }
+          return data;
+        }),
+      };
+    case DELETE_LIKE:
+      return {
+        ...state,
+        detailData: {
+          ...state.detailData,
+          likes: state.detailData.likes - 1,
+          liked: false,
+        },
+        filterData: state.filterData.map((data) => {
+          if (data.id === action.payload) {
+            data.likes -= 1;
+            data.liked = false;
+          }
+          return data;
         }),
       };
     default:
