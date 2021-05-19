@@ -10,8 +10,27 @@ import SortingComment from "../components/Community/SortingComment";
 import "./Winwin.scss";
 
 const WinTable = ({ currentData, board_type, lastIdx, currentPage }) => {
+  let board_name = "";
+  switch (board_type) {
+    case "Winwin":
+      board_name = "윈윈";
+      break;
+    case "Collabo":
+      board_name = "합방해요";
+      break;
+    case "CustomService":
+      board_name = "건의게시판";
+      break;
+    case "Free":
+      board_name = "자유게시판";
+      break;
+    default:
+      board_name = "???";
+      break;
+  }
   return (
     <div className='table-Wrapper'>
+      <h2>{board_name}</h2>
       <div className='community-options'>
         <Link to={`/BoardRegister/${board_type}`} className='registerBtn'>
           글쓰기

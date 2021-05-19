@@ -13,7 +13,7 @@ const Wregister = ({ match }) => {
   const board_type = useRef(match.params.board_type);
   const history = useHistory();
 
-  let Yhistory = useCallback(
+  let whistory = useCallback(
     (board_id) => history.push(`/BoardDetail/${board_type.current}/${board_id}/1`),
     [history, board_type]
   );
@@ -64,10 +64,10 @@ const Wregister = ({ match }) => {
       boardAttachNames: currFileList.current,
     };
     insertWinBoard(sendingData, board_type.current).then((res) => {
-      Yhistory(res.data.id);
+      whistory(res.data.id);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userData, qData, Yhistory]);
+  }, [userData, qData, whistory]);
 
   return (
     <div>

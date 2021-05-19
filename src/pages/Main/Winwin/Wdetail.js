@@ -9,10 +9,7 @@ import { FcLike } from "react-icons/fc";
 import { AiOutlineHeart, AiOutlineFileSearch } from "react-icons/ai";
 import { getWDetailsData, wAddLike, wDeleteLike } from "../../../redux/board/winwin/winBoardReducer";
 import { useHistory } from "react-router";
-import { toast, Zoom } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { ToastCenter } from "../../../modules/ToastModule";
-toast.configure();
 const Wdetail = ({ match }) => {
   const { current: board_type } = useRef(match.params.board_type);
   const { current: pageNum } = useRef(match.params.current_page);
@@ -184,8 +181,8 @@ const Wdetail = ({ match }) => {
   }, [match.params.board_id, history, board_type, pageNum]);
 
   const modifyBoard = useCallback(() => {
-    alert("수정페이지로...");
-  }, []);
+    history.push(`/BoardModify/${board_type}/${match.params.board_id}/${pageNum}`);
+  }, [history, board_type, pageNum, match]);
 
   const goList = useCallback(() => {
     history.push(`/Community/${board_type}/${pageNum}`);

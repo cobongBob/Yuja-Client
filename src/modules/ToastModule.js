@@ -21,6 +21,7 @@ export const ToastCenter = (msg) => {
 
 export const ToastPreventAccess = (msg) => {
   toast(msg, {
+    toastId: "preventAccess",
     autoClose: 2000,
     hideProgressBar: true,
     bodyStyle: {
