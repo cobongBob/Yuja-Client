@@ -38,6 +38,9 @@ const YmodifyTest = (props) => {
   }, [userData]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const testCheking = () => {
+    if (!qModiData || !input.title) {
+      return alert("제목과 내용을 입력해주세요");
+    }
     let currentBoardType = "YoutuberBoard/";
     let reg = /http:\/\/localhost:8888\/files\/YoutuberBoard\/[0-9]+.[a-z]+/g;
     let imgSrcArr = String(qModiData).match(reg); // 불러왔던 글에 존재했던 이미지 태그들의 src

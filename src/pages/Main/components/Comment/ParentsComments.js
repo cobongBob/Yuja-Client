@@ -3,7 +3,7 @@ import { MdFiberNew } from "react-icons/md";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { BiEdit } from "react-icons/bi";
 import ChildComments from "./ChildComment";
-import getFormatDate from "../../../../getFormatDate";
+import getFormatDate from "../../../../modules/getFormatDate";
 import ModifyComment from "./ModifyComment";
 import ReReplyComment from "./ReReplyComment";
 

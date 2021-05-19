@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import Logo from "./components/Logo/Logo";
 import "./App.css";
 import { Route } from "react-router";
@@ -30,30 +30,14 @@ import instance from "./AxiosConfig";
 import { userLogout } from "./redux/redux-login/loginReducer";
 import Chat from "./pages/Main/components/Chat/Chat";
 import EDetail from "./pages/Main/Editer/EDetail";
-import { toast, Zoom } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-toast.configure();
+import ResetPassword from "./components/Login-SignUp/Login/ResetPassword";
+import ToastCenter from "./modules/ToastModule";
+
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
 
 function App() {
   //권한 alert
-  const notify = useCallback((msg) => {
-    toast(msg, {
-      toastId: "authorize",
-      position: toast.POSITION.BOTTOM_CENTER,
-      autoClose: 2000,
-      hideProgressBar: true,
-      bodyStyle: {
-        color: "black",
-        fontSize: "17px",
-        fontWeight: "bold",
-        fontFamily: "scdream4",
-      },
-      transition: Zoom,
-      className: "alertNoti",
-    });
-  }, []);
 
   /* history 관련 */
   const usePrevious = (value) => {
@@ -94,14 +78,14 @@ function App() {
         if (error.response.status === 401) {
           userLogout();
         }
-        if (error.response.data) {
-          notify(error.response.data.message);
+        if (error.response && error.response.data) {
+          ToastCenter(error.response.data.message);
         }
         dispatch(getLoaded());
         return Promise.reject(error);
       }
     );
-  }, [dispatch, notify]);
+  }, [dispatch]);
 
   /* 로딩 끝 */
 
@@ -130,10 +114,11 @@ function App() {
           <Route path='/Yregister' component={Yregister} />
           <Route path='/YmodifyTest/:board_id' component={YmodifyTest} />
           <Route path='/PageNotFound' component={PageNotFound} />
-          <Route path='/FindPassword' component={FindPassword} />
           <Route path='/EditorRegister' component={EditorRegister} />
-          <Route path='/chat' component={Chat} />
           <Route path='/EDetail/:board_id' component={EDetail} />
+          <Route path='/FindPassword' component={FindPassword} />
+          <Route path='/ResetPassword' component={ResetPassword} />
+          <Route path='/Chat' component={Chat} />
           {/* <Route component={PageNotFound} /> 이게 왜 나올까요? */}
         </Switch>
       </div>

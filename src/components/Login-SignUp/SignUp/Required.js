@@ -4,8 +4,32 @@ import AuthCodeTimer from "./AuthCodeTimer";
 import AuthBtnBox from "./AuthBtnBox";
 import * as auth from "../../../apiService/AuthenticationService";
 import axios from "axios";
+import { toast } from 'react-toastify';
 
-const Required = ({ location }) => {
+const Required = ({ location, history }) => {
+
+  const notify = useCallback((msg) => {
+    toast(msg, {
+      autoClose: 2000,
+      hideProgressBar: true,
+      bodyStyle: {
+        color: "black",
+        fontSize: "17px",
+        fontWeight: "bold",
+        fontFamily: "scdream4",
+      },
+      className: "notify",
+    });
+  }, []);
+
+  useEffect(() => {
+    if (history.action === 'POP' || location.state.next === undefined) {
+      notify('❌ 잘못된 접근 입니다.')
+      history.replace('/')
+    }
+  }, [history, notify])
+
+
   /* 값 넘겨주기 */
   const [requiredData, setrequiredData] = useState({
     isMarketingChecked: location.state.next,

@@ -2,8 +2,13 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import UserApiService from "../../../apiService/UserApiService";
 import "./SignUp1.scss";
 import AddressApi from "./AddressApi";
+import PreventWrongAccess from '../../PreventWrongAccess';
 
 const NonRequired = ({ location, history }) => {
+
+  /* 잘못된 접근 막기 */
+  PreventWrongAccess(history)
+
   /* 파일 업로드 관련 */
   const [previewURL, setpreviewUrl] = useState();
   const [previewURL2, setpreviewUrl2] = useState();

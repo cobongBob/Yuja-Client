@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useCallback, useEffect } from 'react';
 import "./SignUp1.scss";
 import Agreement from "./Agreement";
 import Switch from "react-bootstrap/Switch";
 import { Link, Route } from "react-router-dom";
 import NonRequired from "./NonRequired";
 import Required from "./Required";
+import { toast, Zoom } from 'react-toastify';
+import PreventWrongAccess from '../../PreventWrongAccess';
 
-const SignUp1 = ({ location }) => {
-  console.log(location);
+const SignUp1 = ({ location, history, match }) => {
+
+  /* 잘못된 접근 막기 */
+  PreventWrongAccess(history)
+
   return (
     <div className='SignUpFrag'>
       <header className='SignUpHeader'>
