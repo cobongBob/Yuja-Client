@@ -30,9 +30,11 @@ import instance from "./AxiosConfig";
 import { userLogout } from "./redux/redux-login/loginReducer";
 import Chat from "./pages/Main/components/Chat/Chat";
 import EDetail from "./pages/Main/Editer/EDetail";
+import ResetPassword from './components/Login-SignUp/Login/ResetPassword';
 import { toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
+
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
 
@@ -130,10 +132,10 @@ function App() {
           <Route path='/Yregister' component={Yregister} />
           <Route path='/YmodifyTest/:board_id' component={YmodifyTest} />
           <Route path='/PageNotFound' component={PageNotFound} />
-          <Route path='/FindPassword' component={FindPassword} />
           <Route path='/EditorRegister' component={EditorRegister} />
-          <Route path='/chat' component={Chat} />
           <Route path='/EDetail/:board_id' component={EDetail} />
+          <Route path='/FindPassword' component={FindPassword} />
+          <Route path='/ResetPassword' component={ResetPassword} />
           {/* <Route component={PageNotFound} /> 이게 왜 나올까요? */}
         </Switch>
       </div>
