@@ -63,8 +63,8 @@ const Evideo = () => {
       </div>
       <Slider {...settings}>
         {EvideoData &&
-          EvideoData.map((video) => (
-            <div className='wrapper'>
+          EvideoData.map((video, index) => (
+            <div key={index} className='wrapper'>
               <div className='thumbnails'>
                 <div
                   onClick={() => history.push(`/Ydetail/${video.user.id}`)} // 편집자 detail 완성되면 주소 바꿔줘야함
@@ -72,7 +72,7 @@ const Evideo = () => {
                   <div className='item item_red'>
                     <div className='top'>{video.user.nickname}</div>
                     <div className='bottom'>{video.title}</div>
-                    <img src='/img/board_pic/editor_pic/thum7.png' alt='' />
+                    <img className='videoImg' src={video.previewImage} alt='' />
                   </div>
                 </div>
               </div>

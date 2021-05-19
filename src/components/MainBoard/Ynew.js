@@ -10,8 +10,8 @@ const Ynew = () => {
   return (
     <div>
       {YmainList &&
-        YmainList.map((list) => (
-          <ul className='NewList'>
+        YmainList.map((list, index) => (
+          <ul key={index} className='NewList'>
             <div className='new-youtuber'>
               <li>
                 <div className='ProfileWrapper'>
@@ -30,7 +30,11 @@ const Ynew = () => {
                     <div className='TitleWrapper'>
                       <p className='wanted-content-detail'>
                         <strong>
-                          <Link to={`/Ydetail/${list.id}`}>{list.title}</Link>
+                          <Link
+                            className='ListTitle'
+                            to={`/Ydetail/${list.id}`}>
+                            {list.title}
+                          </Link>
                         </strong>
                       </p>
                     </div>
