@@ -49,7 +49,6 @@ const EDetail = (props) => {
       //로그인 창으로
     }
   }, [userData, dispatch, props.match.params.board_id, detailData]);
-  console.log(122, detailData);
   return (
     detailData && (
       <div>

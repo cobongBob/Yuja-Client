@@ -12,16 +12,20 @@ import {
 import Search from '../components/Search';
 import { ToastCenter } from '../../../modules/ToastModule';
 
-const Editer = ({ match }) => {
+const Editer = ({ match, history }) => {
   const dispatch = useDispatch();
 
   // Youtuber의 전체 데이터 불러오기
   const eBoardData = useSelector((state) => state.EboardReducer);
   const { userData } = useSelector((state) => state.loginReducer);
   const board_type = useRef(match.params.board_type);
+  const path = history.location.pathname;
+  const lastPageNum = path.substr(path.lastIndexOf('/') + 1);
+  const pageNum = useRef(lastPageNum ? lastPageNum : 1);
+
   const [searchTerm, setSearchTerm] = useState('');
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(pageNum.current);
   const [boardPerPage] = useState(12);
 
   const indexOfLastData = currentPage * boardPerPage;
@@ -46,6 +50,7 @@ const Editer = ({ match }) => {
       dispatch(res);
     });
   };
+
   const likeHandler = useCallback(
     (board_id) => {
       if (userData && userData.id) {
@@ -86,7 +91,8 @@ const Editer = ({ match }) => {
       <EditerTable
         eBoardData={currentData}
         userData={userData}
-        board_type={board_type}
+        board_type={board_type.current}
+        currentPage={currentPage}
         likeHandler={likeHandler}
         dislikeHandler={dislikeHandler}
       />

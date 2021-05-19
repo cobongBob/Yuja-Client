@@ -9,7 +9,6 @@ import * as EditerApiService from '../../../apiService/EditerApiService';
 import './EditorDetail.scss';
 import ReactQuill from 'react-quill';
 import { AiFillStar, AiOutlineFileSearch, AiOutlineStar } from 'react-icons/ai';
-import { Image } from 'react-bootstrap';
 import { ToastTopRight } from '../../../modules/ToastModule';
 
 const EDetail = (props) => {
@@ -81,7 +80,6 @@ const EDetail = (props) => {
             <li className='editordetail-content-profile-pic'>
               <img src='/img/board_pic/thumbnailer_pic/thum2.PNG'></img>
             </li>
-
             <li className='editordetail-content-hit'></li>
             <li className='editordetail-content-title'>{detailData.title}</li>
             <li className='editordetail-content-user'>작성자</li>

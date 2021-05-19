@@ -2,7 +2,6 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
 import { format } from 'date-fns';
-import { FcLike } from 'react-icons/fc';
 import '../Youtuber/Ylist.scss';
 import BackToList from '../components/BackToList';
 import SortingToDeadline from '../components/SortingToDeadline';
@@ -11,6 +10,8 @@ import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
 export default function EditorTable({
   eBoardData,
+  board_type,
+  currentPage,
   likeHandler,
   dislikeHandler,
 }) {
@@ -18,7 +19,7 @@ export default function EditorTable({
   return (
     <div className='card-container'>
       <div className='card-options'>
-        <Link to='/EditorRegister' className='registerBtn'>
+        <Link to={`/EditorRegister/${board_type}`} className='registerBtn'>
           이력서 등록하기
         </Link>
       </div>
@@ -42,7 +43,6 @@ export default function EditorTable({
                     {data.payType} {data.payAmount}원
                   </div>
                   <div> 사용기술 {data.tools[0]} </div>
-                  <div> 모집분야 {data.worker} </div>
                   <div className='card-deadline'>
                     <span>마감일 </span>
                     {format(new Date(data.expiredDate), 'yyyy-MM-dd')}
@@ -72,7 +72,10 @@ export default function EditorTable({
                 <Card.Text>
                   <div>{data.user.username}</div>
                   <div>
-                    <Link to={`/EDetail/${data.id}`} className='card-link'>
+                    <Link
+                      to={`/EDetail/${board_type}/${data.id}/${currentPage}`}
+                      className='card-link'
+                    >
                       {data.title}
                     </Link>
                   </div>
