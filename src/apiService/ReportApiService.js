@@ -1,12 +1,16 @@
 import instance from "../AxiosConfig.js";
-import BoardTypeConvert from "../modules/BoardTypeConvert.js";
-let board_code = 0;
+let board_code = 8;
 
-export const addReport = async (data, board_type) => {
-  board_code = BoardTypeConvert(board_type);
+export const addReport = async (data) => {
   return await instance({
     url: board_code + "/board",
     method: "post",
     data: data,
+  });
+};
+export const fetchReports = async () => {
+  return await instance({
+    url: board_code + "/board",
+    method: "get",
   });
 };
