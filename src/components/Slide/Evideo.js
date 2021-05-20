@@ -67,7 +67,7 @@ const Evideo = () => {
             <div key={index} className='wrapper'>
               <div className='thumbnails'>
                 <div
-                  onClick={() => history.push(`/Ydetail/${video.user.id}`)} // 편집자 detail 완성되면 주소 바꿔줘야함
+                  onClick={() => history.push(`/EDetail/${video.id}`)} // 편집자 detail 완성되면 주소 바꿔줘야함
                   className='thumbnails-item'>
                   <div className='item item_red'>
                     <div className='top'>{video.user.nickname}</div>

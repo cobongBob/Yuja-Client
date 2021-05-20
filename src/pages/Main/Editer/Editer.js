@@ -11,6 +11,7 @@ import {
 } from '../../../redux/board/editer/eboardReducer';
 import Search from '../components/Search';
 import { ToastCenter } from '../../../modules/ToastModule';
+import { RiScissorsCutFill } from 'react-icons/ri';
 
 const Editer = ({ match, history }) => {
   const dispatch = useDispatch();
@@ -82,6 +83,10 @@ const Editer = ({ match, history }) => {
     <h2>{eBoardData.err}</h2>
   ) : (
     <div className='tableWrapper'>
+      <div className='EListTitleWrapper'>
+        <RiScissorsCutFill className='EditorIcons'></RiScissorsCutFill>
+        <h1>편집자 포트폴리오</h1>
+      </div>
       <Search
         boardData={searchTerm.length < 1 ? eBoardData.filterData : null}
         term={searchTerm}
