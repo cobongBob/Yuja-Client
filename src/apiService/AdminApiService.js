@@ -16,7 +16,20 @@ export const fetchAllUnauthYoutuber = async () => {
 
 export const banUser = async (user_id) => {
   return await instance({
-    url: `banned/${user_id}`,
+    url: `/banned/${user_id}`,
     method: "put",
+  });
+};
+export const promoteUserService = async (data) => {
+  return await instance({
+    url: `/admin/promote/youtuber`,
+    method: "post",
+    data: data,
+  });
+};
+export const rejectUserService = async (youtubeConfirmId) => {
+  return await instance({
+    url: `/admin/promote/youtuber/${youtubeConfirmId}`,
+    method: "delete",
   });
 };

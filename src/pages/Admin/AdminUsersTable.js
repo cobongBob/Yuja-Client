@@ -1,7 +1,7 @@
 import React from "react";
 import "./AdminUser.scss";
 
-const AdminUsersTable = ({ currentData, lastIdx, currentPage, userSetBan }) => {
+const AdminUsersTable = ({ currentData, userSetBan }) => {
   return (
     <div>
       <div className='community-table-wrapper'>

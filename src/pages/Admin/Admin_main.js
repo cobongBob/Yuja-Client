@@ -8,7 +8,13 @@ import AdminYoutuber from "./AdminYoutuber";
 import AdminSide from "./AdminSide";
 import "./Admin.scss";
 import { fetchReports } from "../../apiService/ReportApiService";
-import { banUser, fetchAllUnauthYoutuber, fetchUsers } from "../../apiService/AdminApiService";
+import {
+  banUser,
+  fetchAllUnauthYoutuber,
+  fetchUsers,
+  promoteUserService,
+  rejectUserService,
+} from "../../apiService/AdminApiService";
 
 const Admin_main = () => {
   const { authorities } = useSelector((state) => state.loginReducer);
@@ -33,7 +39,6 @@ const Admin_main = () => {
     });
     fetchAllUnauthYoutuber().then((res) => {
       setYoutuberConfirm(res.data);
-      console.log(123, res);
     });
   }, []);
 
@@ -61,6 +66,27 @@ const Admin_main = () => {
     }
   }, []);
 
+  const promoteUser = useCallback((youtubeConfirmId, bsn, youtubeUrl, user_id) => {
+    const data = {
+      youtubeConfirmId: youtubeConfirmId,
+      bsn: bsn,
+      youtubeUrl: youtubeUrl,
+      userId: user_id,
+    };
+    promoteUserService(data).then((res) => {
+      fetchUsers().then((result) => {
+        setAllUsers(result.data);
+      });
+    });
+  }, []);
+  const rejectUser = useCallback((youtubeConfirmId) => {
+    rejectUserService(youtubeConfirmId).then((res) => {
+      fetchUsers().then((result) => {
+        setAllUsers(result.data);
+      });
+    });
+  }, []);
+
   return (
     allUsers &&
     allReports && (
@@ -71,7 +97,9 @@ const Admin_main = () => {
             <div>
               {pathname.includes("/AdminReports") ? <AdminReports allReports={allReports} /> : null}
               {pathname.includes("/AdminUsers") ? <AdminUsers allUsers={allUsers} userSetBan={userSetBan} /> : null}
-              {pathname.includes("/AdminYoutuber") ? <AdminYoutuber youtuberConfirm={youtuberConfirm} /> : null}
+              {pathname.includes("/AdminYoutuber") ? (
+                <AdminYoutuber youtuberConfirm={youtuberConfirm} promoteUser={promoteUser} rejectUser={rejectUser} />
+              ) : null}
             </div>
           </div>
         </div>
