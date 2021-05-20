@@ -39,7 +39,6 @@ import BeforeModify from "./components/InfoModify/BeforeModify";
 import InfoModifyRequired from "./components/InfoModify/InfoModifyRequired";
 import InfoModifyNonRequired from "./components/InfoModify/InfoModifyNonRequired";
 import Admin_main from "./pages/Admin/Admin_main";
-
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
 
@@ -132,8 +131,8 @@ function App() {
           <Route path='/ResetPassword' component={ResetPassword} />
           <Route path='/Chat' component={Chat} />
           <Route path='/BeforeModify' component={BeforeModify} />
-          <Route path='/InfoModifyRequired' component={InfoModifyRequired} />
-          <Route path='/InfoModifyNonRequired' component={InfoModifyNonRequired} />
+          <Route path='/InfoModify' component={InfoModify} />
+          <Route path='/PasswordModify' component={PasswordModify} />
           <Route path='/Admin/:board_type' component={Admin_main} />
           {/* <Route component={PageNotFound} /> 이게 왜 나올까요? */}
         </Switch>

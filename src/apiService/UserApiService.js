@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const USER_API_BASE_URL = "http://localhost:8888/api/auth";
+const USER_API_BASE_USER_URL = "http://localhost:8888/api/user/";
 
 class UserApiService {
   async addUser(data) {
@@ -20,5 +21,9 @@ class UserApiService {
 export default new UserApiService();
 
 export const getUserData = async (userId) => {
-  return await axios.get("http://localhost:8888/api/user/"+userId)
+  return await axios.get(USER_API_BASE_USER_URL + userId)
+}
+
+export const modifyUserData = async (id) => {
+  return await axios.put(USER_API_BASE_USER_URL + id)
 }
