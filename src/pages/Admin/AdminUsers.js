@@ -3,7 +3,7 @@ import Pagination from "../Main/components/Pagination";
 import "./AdminUser.scss";
 import AdminUsersTable from "./AdminUsersTable";
 
-const AdminUsers = ({ allUsers }) => {
+const AdminUsers = ({ allUsers, userSetBan }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [boardPerPage] = useState(10);
   const indexOfLastData = currentPage * boardPerPage;
@@ -14,12 +14,13 @@ const AdminUsers = ({ allUsers }) => {
   }, []);
 
   return (
-    <div>
+    <div className='admin_board'>
       <h1>유저관리</h1>
       <AdminUsersTable
         currentData={currentData}
         lastIdx={allUsers.length - 10 * (currentPage - 1)}
         currentPage={currentPage}
+        userSetBan={userSetBan}
       />
       <Pagination
         boardPerPage={boardPerPage}

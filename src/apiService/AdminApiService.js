@@ -13,3 +13,10 @@ export const fetchAllUnauthYoutuber = async () => {
     method: "get",
   });
 };
+
+export const banUser = async (user_id) => {
+  return await instance({
+    url: `banned/${user_id}`,
+    method: "put",
+  });
+};
