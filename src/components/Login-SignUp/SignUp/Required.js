@@ -89,6 +89,7 @@ const Required = ({ location, history }) => {
     auth.verifyEmailSend(requiredData.username).then((res) => {
       setSecurityCode(res.data);
       console.log("res.data를 sc에 넣은 후 sc의 값", securityCode);
+      console.log('auth', authCode)
       setTimeout(() => {
         setSecurityCode("내일점심은부대찌개!");
       }, securityCodeDelay);

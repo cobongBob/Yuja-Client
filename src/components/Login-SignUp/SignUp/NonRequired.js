@@ -5,6 +5,7 @@ import AddressApi from "./AddressApi";
 import { ToastCenter, ToastPreventAccess, ToastTopRight } from "../../../modules/ToastModule";
 
 const NonRequired = ({ location, history }) => {
+
   if (history.action === "POP") {
     ToastPreventAccess("❌ 잘못된 접근 입니다.");
     history.replace("/");
