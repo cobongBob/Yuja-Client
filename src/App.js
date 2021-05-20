@@ -39,6 +39,7 @@ import BeforeModify from './components/InfoModify/BeforeModify';
 import InfoModifyRequired from './components/InfoModify/InfoModifyRequired';
 import InfoModifyNonRequired from './components/InfoModify/InfoModifyNonRequired';
 import Admin_main from './pages/Admin/Admin_main';
+import EboardModify from './pages/Main/Editer/EboardModify';
 
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ['/SignUp1', '/SignUp1/Required', '/SignUp1/NonRequired'];
@@ -148,6 +149,10 @@ function App() {
           <Route
             path='/EDetail/:board_type/:board_id/:current_page'
             component={EDetail}
+          />
+          <Route
+            path='EboardModify/:board_type/:board_id'
+            component={EboardModify}
           />
           <Route path='/FindPassword' component={FindPassword} />
           <Route path='/ResetPassword' component={ResetPassword} />

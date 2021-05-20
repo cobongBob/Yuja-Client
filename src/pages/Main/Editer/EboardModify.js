@@ -1,7 +1,11 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { getOneEBoard } from '../../../apiService/EditerApiService';
+import { ToastCenter } from '../../../modules/ToastModule';
+import './EditorRegister.scss';
+import * as EditerApiService from '../../../apiService/EditerApiService';
+import QuillRegister from '../../../components/Quill/QuillRegister';
 
 const EboardModify = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -9,6 +13,7 @@ const EboardModify = ({ match }) => {
   const deletedFileList = useRef([]);
   const [qModiData, setQModiData] = useState();
   const board_type = useRef(match.params.board_type);
+  const checkedlist = useRef([]);
   const fileList = useRef([]);
   const history = useHistory();
   let eHistory = useCallback(
@@ -30,6 +35,14 @@ const EboardModify = ({ match }) => {
       ...input,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const radioCheck = (e) => {
+    const { name, value } = e.target;
+    setInput((prevInput) => ({
+      ...prevInput,
+      [name]: value,
+    }));
   };
 
   const [input, setInput] = useState({
@@ -57,7 +70,6 @@ const EboardModify = ({ match }) => {
       fileList.current = res.data.boardAttachFileNames;
       setQModiData(res.data.content);
       setInput(res.data);
-      setChecked({ isPrivate: res.data.isPrivate });
     });
   }, [userData]);
 
@@ -95,11 +107,13 @@ const EboardModify = ({ match }) => {
       boardAttachIds: addingFileList.current,
       boardAttachToBeDeleted: deletedFileList.current,
     };
-    modifyBoard(match.params.board_id, modifyingData, board_type.current).then(
-      (res) => {
-        eHistory(res.data.id);
-      }
-    );
+    EditerApiService.modifyBoard(
+      match.params.board_id,
+      modifyingData,
+      board_type.current
+    ).then((res) => {
+      eHistory(res.data.id);
+    });
   };
 
   return (
@@ -130,12 +144,23 @@ const EboardModify = ({ match }) => {
               />
             </li>
             <li className='li-item3'>
+              <div>경력사항</div>
               <input
-                type='text'
-                placeholder='경력'
+                id='newbie'
                 name='career'
-                onChange={onChange}
+                onChange={radioCheck}
+                value='신입'
+                type='radio'
               />
+              <label htmlFor='newbie'>신입</label>
+              <input
+                id='career'
+                onChange={radioCheck}
+                name='career'
+                value='경력'
+                type='radio'
+              />
+              <label htmlFor='career'>경력</label>
             </li>
             <li className='li-item4'>
               <select name='payType' onChange={onChange}>
@@ -204,8 +229,8 @@ const EboardModify = ({ match }) => {
           <QuillRegister
             register={testCheking}
             addingFileList={addingFileList}
-            qData={qData}
-            setQData={setQData}
+            qModiData={qModiData}
+            setQModiData={setQModiData}
             board_type={board_type}
           />
         </div>

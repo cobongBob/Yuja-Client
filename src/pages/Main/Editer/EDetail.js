@@ -53,7 +53,7 @@ const EDetail = (props) => {
       ToastTopRight('로그인 해주세요');
     }
   }, [userData, dispatch, props.match.params.board_id, detailData]);
-
+  console.log(555, detailData.user);
   return (
     detailData && (
       <div>
@@ -68,7 +68,7 @@ const EDetail = (props) => {
               userData.id === detailData.user.id ? (
                 <div>
                   <Link
-                    to={`/YmodifyTest/${detailData.id}`}
+                    to={`/EboardModify/Editor/${detailData.id}`}
                     className='detail-update-btn'
                   >
                     이력서 수정하기
@@ -115,7 +115,9 @@ const EDetail = (props) => {
             </li>
             <li className='editordetail-content-hit'></li>
             <li className='editordetail-content-title'>{detailData.title}</li>
-            <li className='editordetail-content-user'>작성자</li>
+            <li className='editordetail-content-user'>
+              {detailData.user.username}
+            </li>
             <li className='editordetail-content-pay'>
               급여방식 <span> {detailData.payType}</span>
               희망급여 <span>{detailData.payAmount} 원</span>

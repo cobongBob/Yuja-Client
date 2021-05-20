@@ -59,6 +59,14 @@ const EditorRegister = () => {
     }
   };
 
+  const radioCheck = (e) => {
+    const { name, value } = e.target;
+    setInput((prevInput) => ({
+      ...prevInput,
+      [name]: value,
+    }));
+  };
+
   const checkedlist = useRef([]);
 
   const [input, setInput] = useState({
@@ -104,12 +112,23 @@ const EditorRegister = () => {
               />
             </li>
             <li className='li-item3'>
+              <div>경력사항</div>
               <input
-                type='text'
-                placeholder='경력'
+                id='newbie'
                 name='career'
-                onChange={onChange}
+                onChange={radioCheck}
+                value='신입'
+                type='radio'
               />
+              <label htmlFor='newbie'>신입</label>
+              <input
+                id='career'
+                onChange={radioCheck}
+                name='career'
+                value='경력'
+                type='radio'
+              />
+              <label htmlFor='career'>경력</label>
             </li>
             <li className='li-item4'>
               <select name='payType' onChange={onChange}>
