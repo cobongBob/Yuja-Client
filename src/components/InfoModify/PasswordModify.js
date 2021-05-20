@@ -1,18 +1,23 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import "./ResetPassword.scss";
+import "./PasswordModify.scss";
 import { Link } from "react-router-dom";
-import { resetPassword } from "../../../apiService/AuthenticationService";
-import { ToastCenter, ToastPreventAccess, ToastTopRight } from '../../../modules/ToastModule';
+import { getLoggedInUserData, resetPassword } from '../../apiService/AuthenticationService';
+import { ToastCenter, ToastPreventAccess, ToastTopRight } from '../../modules/ToastModule';
 
-const ResetPassword = ({ history, location }) => {
-  if (history.action === "POP") {
-    ToastPreventAccess("❌ 잘못된 접근 입니다.");
-    history.replace("/");
-  }
+const PasswordModify = ({ history, location }) => {
+  
+  // if (history.action === "POP") {
+  //   ToastPreventAccess("❌ 잘못된 접근 입니다.");
+  //   history.replace("/");
+  // }
 
   /* 데이터 준비 */
+
+  const loggedInUserData = getLoggedInUserData()
+  console.log(loggedInUserData)
+
   const [resetPasswordData, setResetPasswordData] = useState({
-    username: location.username,
+    username: loggedInUserData.username,
     password: "",
   });
 
@@ -106,14 +111,14 @@ const ResetPassword = ({ history, location }) => {
     <div className='resetPasswordFrag'>
       <div className='resetPasswordTitleBox'>
         <Link className='resetPasswordTitle' to='/'>
-          유자 비밀번호 찾기
+          유자 비밀번호 수정
         </Link>
       </div>
 
       <div className='resetPasswordContentBox'>
         <div className='overlay'>
           <div className='resetPasswordDescBox'>
-            사용하실 <span>새로운 비밀번호</span>를 입력해주세요.
+            수정하실 <span>새로운 비밀번호</span>를 입력해주세요.
           </div>
           <div className='labelWrapper'>
             <label htmlFor='resetPasswordInput'>새로운 비밀번호</label>
@@ -157,4 +162,4 @@ const ResetPassword = ({ history, location }) => {
   );
 };
 
-export default ResetPassword;
+export default PasswordModify;

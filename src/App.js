@@ -36,8 +36,8 @@ import WModify from './pages/Main/Winwin/WModify';
 import ThumbRegister from './pages/Main/Thumbnailer/ThumbRegister';
 import ThumbDetail from './pages/Main/Thumbnailer/ThumbDetail';
 import BeforeModify from './components/InfoModify/BeforeModify';
-import InfoModifyRequired from './components/InfoModify/InfoModifyRequired';
-import InfoModifyNonRequired from './components/InfoModify/InfoModifyNonRequired';
+import InfoModify from './components/InfoModify/InfoModify';
+import PasswordModify from './components/InfoModify/PasswordModify';
 
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ['/SignUp1', '/SignUp1/Required', '/SignUp1/NonRequired'];
@@ -149,8 +149,8 @@ function App() {
           <Route path='/ResetPassword' component={ResetPassword} />
           <Route path='/Chat' component={Chat} />
           <Route path='/BeforeModify' component={BeforeModify} />
-          <Route path='/InfoModifyRequired' component={InfoModifyRequired} />
-          <Route path='/InfoModifyNonRequired' component={InfoModifyNonRequired} />
+          <Route path='/InfoModify' component={InfoModify} />
+          <Route path='/PasswordModify' component={PasswordModify} />
           {/* <Route component={PageNotFound} /> 이게 왜 나올까요? */}
         </Switch>
       </div>

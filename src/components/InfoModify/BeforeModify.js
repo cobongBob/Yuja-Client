@@ -39,7 +39,7 @@ const BeforeModify = ( { history } ) => {
     let userData = null;
     await executeJwtAuthenticationService(loginData).then(async (res) => {
       userData = await auth.registerSuccessfulLoginForJwt(res.data);
-      history.push('/InfoModifyRequired')
+      history.push('/InfoModify')
     }).catch(() => {
       setPasswordDesc('비밀번호를 확인해주세요.');
     });
