@@ -92,6 +92,7 @@ const EditorRegister = () => {
                 name='title'
                 id='first-link'
                 onChange={onChange}
+                maxLength='40'
               />
             </li>
             <li className='li-item2'>

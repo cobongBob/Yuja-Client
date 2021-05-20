@@ -123,17 +123,17 @@ const ThumbRegister = ({ match }) => {
                 name='title'
                 id='first-link'
                 onChange={inputHandler}
-                maxLength='45'
+                maxLength='40'
               />
             </li>
-            <li className='li-item22'>
+            <li className='li-item2'>
               <input type='text' placeholder='급여방식' name='payType' />
             </li>
             <li className='li-item2'>
-              <img className='preview_Thubnail' src={fileUrl} alt='' />
+              <img className='preview_Thubnail' src={fileUrl} alt='' /> <br />
               <input
-                className='youtuberPicInput'
-                id='youtuberPicInput'
+                className='thumb-PicInput'
+                id='thumb-PicInput'
                 type='file'
                 accept='image/jpeg, image/jpg, image/png'
                 onChange={handleImg}
