@@ -89,17 +89,18 @@ const Admin_main = () => {
 
   return (
     allUsers &&
-    allReports && (
+    allReports &&
+    youtuberConfirm && (
       <div className='admin_main'>
         <AdminSide />
         <div className='admin_items'>
           <div className='admin_item'>
             <div>
-              {pathname.includes("/AdminReports") ? <AdminReports allReports={allReports} /> : null}
               {pathname.includes("/AdminUsers") ? <AdminUsers allUsers={allUsers} userSetBan={userSetBan} /> : null}
               {pathname.includes("/AdminYoutuber") ? (
                 <AdminYoutuber youtuberConfirm={youtuberConfirm} promoteUser={promoteUser} rejectUser={rejectUser} />
               ) : null}
+              {pathname.includes("/AdminReports") ? <AdminReports allReports={allReports} /> : null}
             </div>
           </div>
         </div>

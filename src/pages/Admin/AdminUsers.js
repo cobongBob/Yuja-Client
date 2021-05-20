@@ -52,21 +52,31 @@ const AdminUsers = ({ allUsers, userSetBan }) => {
   );
 
   useEffect(() => {
-    clickPage(1);
-  }, [originalData, clickPage]);
-
+    if (currentPage > Math.ceil(originalData.length / boardPerPage)) {
+      clickPage(1);
+    } else {
+      clickPage(currentPage);
+    }
+  }, [originalData, clickPage, indexOfLastData, currentPage, boardPerPage]);
+  useEffect(() => {
+    searchHandler(searchTerm);
+    clickPage(currentPage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allUsers]);
   return (
-    <div className='admin_board'>
-      <h1>유저관리</h1>
-      <AdminUsersTable currentData={currentData} userSetBan={userSetBan} />
-      <Search term={searchTerm} setTerm={setSearchTerm} searchKeyword={searchHandler} />
-      <Pagination
-        boardPerPage={boardPerPage}
-        totalBoards={originalData.length}
-        currentPage={currentPage}
-        clickPage={clickPage}
-      />
-    </div>
+    currentData && (
+      <div className='admin_board'>
+        <h1>유저관리</h1>
+        <AdminUsersTable currentData={currentData} userSetBan={userSetBan} />
+        <Search term={searchTerm} setTerm={setSearchTerm} searchKeyword={searchHandler} />
+        <Pagination
+          boardPerPage={boardPerPage}
+          totalBoards={originalData.length}
+          currentPage={currentPage}
+          clickPage={clickPage}
+        />
+      </div>
+    )
   );
 };
 
