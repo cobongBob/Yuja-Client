@@ -5,6 +5,7 @@ import AddressApi from "./AddressApi";
 import { ToastCenter, ToastPreventAccess, ToastTopRight } from "../../../modules/ToastModule";
 
 const NonRequired = ({ location, history }) => {
+
   if (history.action === "POP") {
     ToastPreventAccess("❌ 잘못된 접근 입니다.");
     history.replace("/");
@@ -345,7 +346,11 @@ const NonRequired = ({ location, history }) => {
           ""
         )}
         <div className='signUpSubmitBtnBox'>
-          <button type='submit' className='btn btn-warning' onClick={totalAction} disabled={submitDisableHandler}>
+          <button
+            type='submit'
+            className='btn btn-warning'
+            onClick={totalAction}
+            disabled={submitDisableHandler}>
             회원가입
           </button>
         </div>

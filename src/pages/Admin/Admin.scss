@@ -1,0 +1,18 @@
+.admin_main {
+  text-align: center;
+}
+
+.admin_items {
+  border: 1px solid #333;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+}
+.admin_item {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.admin_item > div {
+  border: 1px solid #333;
+}
