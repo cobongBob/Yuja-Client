@@ -345,7 +345,11 @@ const NonRequired = ({ location, history }) => {
           ""
         )}
         <div className='signUpSubmitBtnBox'>
-          <button type='submit' className='btn btn-warning' onClick={totalAction} disabled={submitDisableHandler}>
+          <button
+            type='submit'
+            className='btn btn-warning'
+            onClick={totalAction}
+            disabled={submitDisableHandler}>
             회원가입
           </button>
         </div>

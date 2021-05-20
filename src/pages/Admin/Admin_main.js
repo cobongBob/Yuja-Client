@@ -7,7 +7,7 @@ const Admin_main = () => {
   const { userData, authorities } = useSelector((state) => state.loginReducer);
   const history = useHistory();
   useEffect(() => {
-    if (authorities && !authorities.include("ADMIN")) {
+    if (authorities && !authorities.includes("ADMIN")) {
       ToastCenter("잘못 된 접근입니다");
       history.goBack();
     }
