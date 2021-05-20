@@ -50,6 +50,7 @@ const Report = ({ board_id, modalIsOpen, setModalIsOpen }) => {
       e.preventDefault();
       const report = {
         ...input,
+        title: `${board_id} 번 글의 신고`,
         boardId: board_id,
         userId: userData.id,
       };

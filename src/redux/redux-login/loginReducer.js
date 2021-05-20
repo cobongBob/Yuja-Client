@@ -52,6 +52,7 @@ export const userCheck = async () => {
 const initialState = {
   userLoginStatus: false,
   userData: "",
+  authorities: [],
 };
 
 /* 리듀서 */
@@ -62,11 +63,15 @@ export default function loginReducer(state = initialState, action) {
         ...state,
         userData: action.payload,
         userLoginStatus: action.userLoginStatus,
+        authorities: action.payload.authorities.map((authority) => {
+          return authority.authority;
+        }),
       };
     case USER_LOGOUT:
       return {
         userLoginStatus: false,
         userData: "",
+        authorities: [],
       };
     case USER_STATUS:
       return {
