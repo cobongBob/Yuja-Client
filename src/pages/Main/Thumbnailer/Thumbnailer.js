@@ -11,6 +11,7 @@ import {
   getFilterData,
 } from '../../../redux/board/editer/eboardReducer';
 import { ToastCenter } from '../../../modules/ToastModule';
+import { FaPaintBrush } from 'react-icons/fa';
 
 // nav에서 썸네일러를 누르면 보이는 전체 컴포넌트
 const Thumbnailer = ({ match, history }) => {
@@ -83,6 +84,10 @@ const Thumbnailer = ({ match, history }) => {
     <h2>{thBoardData.err}</h2>
   ) : (
     <div className='tableWrapper'>
+      <div className='ThListTitleWrapper'>
+        <FaPaintBrush className='ThumbIcons'></FaPaintBrush>
+        <h1>썸네일러 포트폴리오</h1>
+      </div>
       <Search
         boardData={searchTerm.length < 1 ? thBoardData.filterData : null}
         term={searchTerm}
