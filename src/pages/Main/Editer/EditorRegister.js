@@ -16,7 +16,7 @@ const EditorRegister = () => {
   const history = useHistory();
 
   let Ehistory = useCallback(
-    (board_id) => history.push(`/EDetail/${board_id}`),
+    (board_id) => history.push(`/EDetail/${board_type.current}/${board_id}/1`),
     [history]
   );
   const testCheking = useCallback(() => {
@@ -40,7 +40,7 @@ const EditorRegister = () => {
       userId: userData.id, //글쓰고있는 사람의 아이디로 변경요망
       content: qData.replaceAll(
         `src="http://localhost:8888/files/temp/`,
-        `src="http://localhost:8888/files/${board_type}/`
+        `src="http://localhost:8888/files/${board_type.current}/`
       ), //업로드된 이미지들은 temp가 아닌 Editor에 저장된다.
       boardAttachNames: currFileList.current,
     };
