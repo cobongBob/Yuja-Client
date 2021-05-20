@@ -14,7 +14,7 @@ const AdminReports = ({ allReports }) => {
   }, []);
 
   return (
-    <div>
+    <div className='admin_board'>
       <h1>신고게시판</h1>
       <AdminReportsTable
         currentData={currentData}

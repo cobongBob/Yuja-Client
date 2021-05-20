@@ -13,7 +13,7 @@ const AdminYoutuber = ({ youtuberConfirm }) => {
   }, []);
 
   return (
-    <div>
+    <div className='admin_board'>
       <h1>유튜버 신청</h1>
       <AdminYoutuberTable
         currentData={currentData}
