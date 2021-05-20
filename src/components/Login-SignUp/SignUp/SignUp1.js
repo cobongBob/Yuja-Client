@@ -8,6 +8,7 @@ import Required from "./Required";
 import { ToastPreventAccess } from "../../../modules/ToastModule";
 
 const SignUp1 = ({ location, history, match }) => {
+
   if (history.action === "POP") {
     ToastPreventAccess("❌ 잘못된 접근 입니다.");
     history.replace("/");
