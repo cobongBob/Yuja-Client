@@ -65,7 +65,9 @@ const Svideo = () => {
             <div key={index} className='wrapper'>
               <div className='thumbnails'>
                 <div
-                  onClick={() => history.push(`/Ydetail/${video.user.id}`)}
+                  onClick={() =>
+                    history.push(`/ThumbDetail/Thumb/${video.id}/1`)
+                  }
                   className='thumbnails-item'>
                   <div className='item item_red'>
                     <div className='top'>{video.user.nickname}</div>
