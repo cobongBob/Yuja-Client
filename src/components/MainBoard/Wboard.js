@@ -1,11 +1,9 @@
-import React from 'react';
-import './Wboard.scss';
-import { Col, Row } from 'react-bootstrap';
-import { FaHandshake } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
-import { format } from 'date-fns/esm';
-import { useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
+import React from "react";
+import "./Wboard.scss";
+import { Col, Row } from "react-bootstrap";
+import { FaHandshake } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
 const Wboard = () => {
   const { WmainList, CmainList } = useSelector((state) => state.mainReducer);
   const history = useHistory();
@@ -14,8 +12,8 @@ const Wboard = () => {
       <div className='win-title'>
         <span>
           <FaHandshake></FaHandshake>
-        </span>{' '}
-        Win-Win{' '}
+        </span>{" "}
+        Win-Win{" "}
       </div>
       <Row className='win-body'>
         <Col sm>
@@ -38,10 +36,9 @@ const Wboard = () => {
                         <tr key={index}>
                           <td>{list.user.nickname}</td>
                           <td
-                            onClick={() =>
-                              history.push(`/BoardDetail/WinWin/${list.id}/1`)
-                            }
-                            style={{ cursor: 'pointer' }}>
+                            onClick={() => history.push(`/BoardDetail/WinWin/${list.id}/1`)}
+                            style={{ cursor: "pointer" }}
+                          >
                             {list.title}
                           </td>
                           <td>{list.updatedDate.substr(0, 10)}</td>
@@ -79,10 +76,9 @@ const Wboard = () => {
                         <tr key={index}>
                           <td>{list.user.nickname}</td>
                           <td
-                            onClick={() =>
-                              history.push(`/BoardDetail/Collabo/${list.id}/1`)
-                            }
-                            style={{ cursor: 'pointer' }}>
+                            onClick={() => history.push(`/BoardDetail/Collabo/${list.id}/1`)}
+                            style={{ cursor: "pointer" }}
+                          >
                             {list.title}
                           </td>
                           <td>{list.updatedDate.substr(0, 10)}</td>

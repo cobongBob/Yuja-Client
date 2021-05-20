@@ -1,17 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  addLike,
-  deleteLike,
-  getDetailData,
-} from '../../../redux/board/editer/eboardReducer';
-import * as EditerApiService from '../../../apiService/EditerApiService';
-import './EditorDetail.scss';
-import ReactQuill from 'react-quill';
-import { AiFillStar, AiOutlineFileSearch, AiOutlineStar } from 'react-icons/ai';
-import { ToastTopRight } from '../../../modules/ToastModule';
-import { Link } from 'react-router-dom';
-import Report from '../components/Report';
+import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addLike, deleteLike, getDetailData } from "../../../redux/board/editer/eboardReducer";
+import * as EditerApiService from "../../../apiService/EditerApiService";
+import "./EditorDetail.scss";
+import ReactQuill from "react-quill";
+import { AiFillStar, AiOutlineFileSearch, AiOutlineStar } from "react-icons/ai";
+import { ToastTopRight } from "../../../modules/ToastModule";
+import { Link } from "react-router-dom";
+import Report from "../components/Report";
 
 const EDetail = (props) => {
   const dispatch = useDispatch();
@@ -33,7 +29,7 @@ const EDetail = (props) => {
     if (window.confirm(`정말 삭제 하시겠습니까?`)) {
       EditerApiService.deleteBoard(props.match.params.board_id).then((res) => {
         ToastTopRight(res.data);
-        props.history.push('/Editor');
+        props.history.push("/Editor");
       });
     }
   };
@@ -50,7 +46,7 @@ const EDetail = (props) => {
         });
       }
     } else {
-      ToastTopRight('로그인 해주세요');
+      ToastTopRight("로그인 해주세요");
     }
   }, [userData, dispatch, props.match.params.board_id, detailData]);
   console.log(555, detailData.user);
@@ -63,14 +59,9 @@ const EDetail = (props) => {
           </div>
           <div className='detail-btn'>
             <div className='detail-btn-box'>
-              {userData &&
-              detailData.user &&
-              userData.id === detailData.user.id ? (
+              {userData && detailData.user && userData.id === detailData.user.id ? (
                 <div>
-                  <Link
-                    to={`/EboardModify/Editor/${detailData.id}/1`}
-                    className='detail-update-btn'
-                  >
+                  <Link to={`/EboardModify/Editor/${detailData.id}/1`} className='detail-update-btn'>
                     이력서 수정하기
                   </Link>
                   <button className='detail-update-btn' onClick={deleteBoard}>
@@ -111,13 +102,11 @@ const EDetail = (props) => {
           </li>
           <div className='editordetail-content-wrapper'>
             <li className='editordetail-content-profile-pic'>
-              <img src='/img/board_pic/thumbnailer_pic/thum2.PNG'></img>
+              <img src='/img/board_pic/thumbnailer_pic/thum2.PNG' alt='썸네일'></img>
             </li>
             <li className='editordetail-content-hit'></li>
             <li className='editordetail-content-title'>{detailData.title}</li>
-            <li className='editordetail-content-user'>
-              {detailData.user.username}
-            </li>
+            <li className='editordetail-content-user'>{detailData.user.username}</li>
             <li className='editordetail-content-pay'>
               급여방식 <span> {detailData.payType}</span>
               희망급여 <span>{detailData.payAmount} 원</span>
@@ -130,9 +119,9 @@ const EDetail = (props) => {
               <div className='pr-content'>
                 <ReactQuill
                   className='QuillContent'
-                  value={detailData.content || ''}
+                  value={detailData.content || ""}
                   readOnly={true}
-                  theme={'bubble'}
+                  theme={"bubble"}
                 />
               </div>
             </li>

@@ -1,5 +1,4 @@
 import instance from "../AxiosConfig.js";
-let board_code = 8;
 
 export const fetchUsers = async () => {
   return await instance({
