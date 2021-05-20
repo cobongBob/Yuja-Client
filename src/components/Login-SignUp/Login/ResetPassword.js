@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import "./ResetPassword.scss";
 import { Link } from "react-router-dom";
 import { resetPassword } from "../../../apiService/AuthenticationService";
-import { ToastCenter, ToastPreventAccess } from "../../../modules/ToastModule";
+import { ToastCenter, ToastPreventAccess, ToastTopRight } from '../../../modules/ToastModule';
 
 const ResetPassword = ({ history, location }) => {
   if (history.action === "POP") {
@@ -88,6 +88,7 @@ const ResetPassword = ({ history, location }) => {
     resetPassword(data)
       .then((res) => {
         if (res) {
+          ToastTopRight('🎉 비밀번호 수정이 완료 되었습니다.')
           history.push("/");
         } else {
         }

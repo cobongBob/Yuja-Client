@@ -35,7 +35,11 @@ import { ToastCenter } from "./modules/ToastModule";
 import WModify from "./pages/Main/Winwin/WModify";
 import ThumbRegister from "./pages/Main/Thumbnailer/ThumbRegister";
 import ThumbDetail from "./pages/Main/Thumbnailer/ThumbDetail";
-
+import BeforeModify from "./components/InfoModify/BeforeModify";
+import Admin_main from "./pages/Admin/Admin_main";
+import PasswordModify from "./components/InfoModify/PasswordModify";
+import InfoModify from "./components/InfoModify/InfoModify";
+import EboardModify from "./pages/Main/Editer/EboardModify";
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
 
@@ -107,7 +111,7 @@ function App() {
         <Switch>
           <Route exact path='/' component={MainWrapper} />
           <Route path='/Youtuber' component={Youtuber} />
-          <Route path='/Eboard/:board_type' component={Editer} />
+          <Route path='/Eboard/:board_type/:current_page' component={Editer} />
           <Route path='/Community/:board_type/:current_page' component={Winwin} />
           <Route path='/BoardDetail/:board_type/:board_id/:current_page' component={Wdetail} />
           <Route path='/BoardModify/:board_type/:board_id/:current_page' component={WModify} />
@@ -122,11 +126,16 @@ function App() {
           <Route path='/Yregister' component={Yregister} />
           <Route path='/YmodifyTest/:board_id' component={YmodifyTest} />
           <Route path='/PageNotFound' component={PageNotFound} />
-          <Route path='/EditorRegister' component={EditorRegister} />
-          <Route path='/EDetail/:board_id' component={EDetail} />
+          <Route path='/EditorRegister/:board_type' component={EditorRegister} />
+          <Route path='/EDetail/:board_type/:board_id/:current_page' component={EDetail} />
+          <Route path='/EboardModify/:board_type/:board_id/1' component={EboardModify} />
           <Route path='/FindPassword' component={FindPassword} />
           <Route path='/ResetPassword' component={ResetPassword} />
           <Route path='/Chat' component={Chat} />
+          <Route path='/BeforeModify' component={BeforeModify} />
+          <Route path='/InfoModify' component={InfoModify} />
+          <Route path='/PasswordModify' component={PasswordModify} />
+          <Route path='/Admin/:board_type' component={Admin_main} />
           {/* <Route component={PageNotFound} /> 이게 왜 나올까요? */}
         </Switch>
       </div>

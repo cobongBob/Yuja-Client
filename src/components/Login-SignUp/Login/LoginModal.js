@@ -205,7 +205,13 @@ function LoginModal() {
                   </Link>
                 </div>
               </div>
-              <input type='submit' className='loginBtn' value='로그인' onClick={logInHandler}></input>
+              <input
+                type='submit'
+                className='loginBtn'
+                value='로그인'
+                onClick={logInHandler}
+              >
+              </input>
               <GoogleLogin
                 className='googleLoginBtn'
                 clientId='373267940764-jujlpjtg3qtd21bg6496vaj7k9ooj56e.apps.googleusercontent.com'
