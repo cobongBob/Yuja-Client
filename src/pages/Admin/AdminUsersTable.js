@@ -1,7 +1,7 @@
 import React from "react";
 import "./AdminUser.scss";
 
-const AdminUsersTable = ({ currentData, lastIdx, currentPage }) => {
+const AdminUsersTable = ({ currentData, userSetBan }) => {
   return (
     <div>
       <div className='community-table-wrapper'>
@@ -29,7 +29,15 @@ const AdminUsersTable = ({ currentData, lastIdx, currentPage }) => {
                       return auth.authority;
                     })}
                   </td>
-                  <td>강제 탈퇴</td>
+                  <td>
+                    <span onClick={() => userSetBan(user.id, user.username, user.banned)} className='option_ban'>
+                      {!user.banned ? (
+                        <span style={{ color: "red" }}>밴 하기</span>
+                      ) : (
+                        <span style={{ color: "blue" }}>밴 해제</span>
+                      )}
+                    </span>
+                  </td>
                 </tr>
               ))}
           </tbody>

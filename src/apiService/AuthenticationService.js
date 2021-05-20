@@ -63,8 +63,8 @@ export const resetPasswordEmailSend = async (username) => {
   return await axios.post(USER_API_BASE_URL + "/findPassword", { username: username });
 };
 
-export const resetPassword = async ({username, password}) => {
-  return await axios.post(USER_API_BASE_URL + "/resetPassword", { username: username, password: password});
+export const resetPassword = async ({ username, password }) => {
+  return await axios.post(USER_API_BASE_URL + "/resetPassword", { username: username, password: password });
 };
 
 export const resetPasswordConfirmationService = async (username) => {
@@ -72,7 +72,5 @@ export const resetPasswordConfirmationService = async (username) => {
     alert(res.data);
   });
 
-/* 회원정보 수정 관련 */
-
-
+  /* 회원정보 수정 관련 */
 };

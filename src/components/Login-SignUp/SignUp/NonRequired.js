@@ -96,6 +96,7 @@ const NonRequired = ({ location, history }) => {
   };
 
   const changeValue = (e) => {
+    console.log('changeValue')
     setNonRequiredData({
       ...nonRequiredData,
       [e.target.name]: e.target.value,
@@ -112,10 +113,10 @@ const NonRequired = ({ location, history }) => {
     UserApiService.addUser(data)
       .then((r) => {
         if (r) {
-          ToastTopRight("회원가입을 축하합니다!");
+          ToastTopRight("🎉 회원가입을 축하합니다!");
           history.push("/");
         } else {
-          ToastTopRight("오류가 발생했습니다.");
+          ToastTopRight("❗ 오류가 발생했습니다.");
         }
       })
       .catch((error) => {
@@ -211,7 +212,7 @@ const NonRequired = ({ location, history }) => {
     } else {
       setIsPermalinkFill("유튜브 고유주소를 확인해주세요.");
     }
-  }, []);
+  }, [setIsPermalinkFill]);
   /* 버튼 활성화 끝 */
 
   useEffect(() => {
@@ -223,6 +224,7 @@ const NonRequired = ({ location, history }) => {
       <div className='overlay'>
         <div className='required2'>* 선택입력 정보입니다.</div>
         <table className='signUpTable'>
+
           <tr>
             <td>
               <div className='labelWrapper'>

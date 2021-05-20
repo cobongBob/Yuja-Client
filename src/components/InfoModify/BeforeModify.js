@@ -1,15 +1,10 @@
-import React, { useCallback, useState } from 'react';
-import './BeforeModify.scss';
-import { Link } from 'react-router-dom';
-import {
-  executeJwtAuthenticationService,
-  getLoggedInUserData,
-} from '../../apiService/AuthenticationService';
-import { useDispatch } from 'react-redux';
-import * as auth from '../../apiService/AuthenticationService';
+import React, { useCallback, useState } from "react";
+import "./BeforeModify.scss";
+import { Link } from "react-router-dom";
+import { executeJwtAuthenticationService, getLoggedInUserData } from "../../apiService/AuthenticationService";
+import * as auth from "../../apiService/AuthenticationService";
 
-const BeforeModify = ( { history } ) => {
-
+const BeforeModify = ({ history }) => {
   /* 잘못된 접근 막기 */
   // if (history.action === "POP") {
   //   ToastPreventAccess("❌ 잘못된 접근 입니다.");
@@ -19,7 +14,7 @@ const BeforeModify = ( { history } ) => {
   //   history.replace("/");
   // }
 
-  const loggedInUserData = getLoggedInUserData()
+  const loggedInUserData = getLoggedInUserData();
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
@@ -33,20 +28,24 @@ const BeforeModify = ( { history } ) => {
         username: loggedInUserData.username,
         [e.target.name]: e.target.value,
       });
-    },[loginData]);
+    },
+    [loginData, loggedInUserData.username]
+  );
 
-  const loginHandler = useCallback( async () => {
+  const loginHandler = useCallback(async () => {
     let userData = null;
-    await executeJwtAuthenticationService(loginData).then(async (res) => {
-      userData = await auth.registerSuccessfulLoginForJwt(res.data);
-      history.push('/InfoModifyRequired')
-    }).catch(() => {
-      setPasswordDesc('비밀번호를 확인해주세요.');
-    });
+    await executeJwtAuthenticationService(loginData)
+      .then(async (res) => {
+        userData = await auth.registerSuccessfulLoginForJwt(res.data);
+        history.push("/InfoModify");
+      })
+      .catch(() => {
+        setPasswordDesc("비밀번호를 확인해주세요.");
+      });
     return {
       payload: userData,
     };
-  }, [loginData, setPasswordDesc]);
+  }, [loginData, setPasswordDesc, history]);
 
   return (
     <div className='BeforeModifyFrag'>
@@ -60,14 +59,12 @@ const BeforeModify = ( { history } ) => {
           <div className='modifyBox'>
             <div className='beforeModifyDescBoxDescBox'>
               <span>{loggedInUserData.nickname}</span>
-              님의 회원정보를 안전하게 보호하기 위해<br/>
+              님의 회원정보를 안전하게 보호하기 위해
+              <br />
               비밀번호를 한번 더 확인해주세요.
             </div>
             <div className='labelWrapper'>
-              <label
-                className='beforeModifyPasswordLabel'
-                htmlFor='password'
-                autoFocus='on'>
+              <label className='beforeModifyPasswordLabel' htmlFor='password' autoFocus='on'>
                 비밀번호 입력
               </label>
             </div>
@@ -80,17 +77,9 @@ const BeforeModify = ( { history } ) => {
               onChange={inputHandler}
               autoFocus
             />
-            <div className='warningBox'>
-              {passwordDesc}
-            </div>
+            <div className='warningBox'>{passwordDesc}</div>
             <div className='beforeModifyBtnBox'>
-              <input
-                type='submit'
-                className='btn btn-warning'
-                value='비밀번호 확인'
-                onClick={loginHandler}
-              >
-              </input>
+              <input type='submit' className='btn btn-warning' value='비밀번호 확인' onClick={loginHandler}></input>
             </div>
           </div>
         </div>

@@ -1,21 +1,42 @@
 .user_no {
-  width: 7%;
+  width: 4%;
 }
 .user_id {
-  width: 25%;
+  width: 30%;
 }
 .user_nickname {
-  width: 33%;
+  width: 30%;
 }
 .user_regDate {
-  width: 14%;
+  width: 12%;
 }
 .user_authority {
-  width: 10%;
+  width: 8%;
 }
 .user_option {
-  width: 10%;
+  width: 16%;
 }
 .report_title {
   width: 15%;
+}
+.report_content {
+  width: 40%;
+}
+.report_user {
+  width: 20%;
+}
+.option_ban {
+  cursor: pointer;
+}
+.YCBtn {
+  border: none;
+  background-color: bisque;
+  width: 6rem;
+  margin-left: 1rem;
+  display: inline-block;
+  border-radius: 5px;
+  vertical-align: bottom;
+}
+.img_wrapper {
+  cursor: pointer;
 }
