@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './new.scss';
 import { FaUserAstronaut } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -20,7 +20,7 @@ const Thnew = () => {
                   <div className='wanted-content'>
                     <div className='NameWorkerWrapper'>
                       <span className='wanted-name'>
-                        <Link to={`/Ydetail/${list.id}`}>
+                        <Link to={`/ThumbDetail/Thumb/${list.id}/1`}>
                           {list.user.nickname}
                         </Link>
                       </span>
@@ -30,7 +30,8 @@ const Thnew = () => {
                         <strong>
                           <Link
                             className='ListTitle'
-                            to={`/Ydetail/${list.id}`}>
+                            to={`/ThumbDetail/Thumb/${list.id}/1`}
+                          >
                             {list.title}
                           </Link>
                         </strong>

@@ -21,7 +21,7 @@ const Enew = () => {
                   <div className='wanted-content'>
                     <div className='NameWorkerWrapper'>
                       <span className='wanted-name'>
-                        <Link to={`/Ydetail/${list.id}`}>
+                        <Link to={`/EDetail/Editor/${list.id}/1`}>
                           {list.user.nickname}
                         </Link>
                       </span>
@@ -31,7 +31,8 @@ const Enew = () => {
                         <strong>
                           <Link
                             className='ListTitle'
-                            to={`/Ydetail/${list.id}`}>
+                            to={`/EDetail/Editor/${list.id}/1`}
+                          >
                             {list.title}
                           </Link>
                         </strong>
