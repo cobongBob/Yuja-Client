@@ -1,13 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import './BeforeModify.scss';
 import { Link } from 'react-router-dom';
-import { ToastPreventAccess } from '../../modules/ToastModule';
 import {
   executeJwtAuthenticationService,
   getLoggedInUserData,
-  isUserLoggedIn
 } from '../../apiService/AuthenticationService';
-import { userLogin } from '../../redux/redux-login/loginReducer';
 import { useDispatch } from 'react-redux';
 import * as auth from '../../apiService/AuthenticationService';
 
@@ -23,11 +20,8 @@ const BeforeModify = ( { history } ) => {
   // }
 
   const loggedInUserData = getLoggedInUserData()
-  console.log('지금 들어온 유저 정보', loggedInUserData)
-  const dispatch = useDispatch();
-
   const [loginData, setLoginData] = useState({
-    username: loggedInUserData.username,
+    username: "",
     password: "",
   });
   const [passwordDesc, setPasswordDesc] = useState();
@@ -36,28 +30,23 @@ const BeforeModify = ( { history } ) => {
     (e) => {
       setLoginData({
         ...loginData,
+        username: loggedInUserData.username,
         [e.target.name]: e.target.value,
       });
     },[loginData]);
 
-  const loginHandler = useCallback( async (loginData) => {
+  const loginHandler = useCallback( async () => {
+    let userData = null;
     await executeJwtAuthenticationService(loginData).then(async (res) => {
-      loginData = await auth.registerSuccessfulLoginForJwt(res.data);
-    })
-  })
-
-  const beforeModifyLoginHandler = useCallback(async () => {
-    console.log('logindata의 값', loginData)
-    userLogin(loginData, setPasswordDesc).then((res) => {
-      dispatch(res);
-      console.log('loginhandler res의 값', res)
-      if (res.userLoginStatus === false) {
-        console.log('로그인 실패')
-      } else {
-        console.log('로그인 통과')
-      }
+      userData = await auth.registerSuccessfulLoginForJwt(res.data);
+      history.push('/InfoModifyRequired')
+    }).catch(() => {
+      setPasswordDesc('비밀번호를 확인해주세요.');
     });
-  }, [loginData, dispatch]);
+    return {
+      payload: userData,
+    };
+  }, [loginData, setPasswordDesc]);
 
   return (
     <div className='BeforeModifyFrag'>
@@ -70,7 +59,8 @@ const BeforeModify = ( { history } ) => {
         <div className='overlay'>
           <div className='modifyBox'>
             <div className='beforeModifyDescBoxDescBox'>
-              <span>{loggedInUserData.nickname}</span>님의 회원정보를 안전하게 보호하기 위해<br/>
+              <span>{loggedInUserData.nickname}</span>
+              님의 회원정보를 안전하게 보호하기 위해<br/>
               비밀번호를 한번 더 확인해주세요.
             </div>
             <div className='labelWrapper'>
@@ -98,7 +88,7 @@ const BeforeModify = ( { history } ) => {
                 type='submit'
                 className='btn btn-warning'
                 value='비밀번호 확인'
-                onClick={beforeModifyLoginHandler}
+                onClick={loginHandler}
               >
               </input>
             </div>

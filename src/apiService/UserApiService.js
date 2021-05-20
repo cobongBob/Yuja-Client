@@ -18,3 +18,7 @@ class UserApiService {
 }
 
 export default new UserApiService();
+
+export const getUserData = async (userId) => {
+  return await axios.get("http://localhost:8888/api/user/"+userId)
+}

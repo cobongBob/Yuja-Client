@@ -33,8 +33,8 @@ const Navi = () => {
         </Link>
         {authorities && authorities.includes("ADMIN") && (
           <>
-            <Link to='/Admin'>
-              <li className={pathname === "/Admin" ? "nav-link-disabled" : "nav-link"}>관리페이지</li>
+            <Link to='/Admin/AdminUsers'>
+              <li className={pathname.includes("/Admin") ? "nav-link-disabled" : "nav-link"}>관리페이지</li>
             </Link>
           </>
         )}
