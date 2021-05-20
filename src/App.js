@@ -35,6 +35,7 @@ import { ToastCenter } from './modules/ToastModule';
 import WModify from './pages/Main/Winwin/WModify';
 import ThumbRegister from './pages/Main/Thumbnailer/ThumbRegister';
 import ThumbDetail from './pages/Main/Thumbnailer/ThumbDetail';
+import BeforeModify from './components/InfoModify/BeforeModify';
 
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ['/SignUp1', '/SignUp1/Required', '/SignUp1/NonRequired'];
@@ -145,6 +146,7 @@ function App() {
           <Route path='/FindPassword' component={FindPassword} />
           <Route path='/ResetPassword' component={ResetPassword} />
           <Route path='/Chat' component={Chat} />
+          <Route path='/BeforeModify' component={BeforeModify} />
           {/* <Route component={PageNotFound} /> 이게 왜 나올까요? */}
         </Switch>
       </div>
