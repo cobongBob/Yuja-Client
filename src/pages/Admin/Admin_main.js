@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import { ToastCenter } from "../../modules/ToastModule";
 import AdminReports from "./AdminReports";
 import AdminUsers from "./AdminUsers";
 import AdminYoutuber from "./AdminYoutuber";
+import AdminSide from "./AdminSide";
 import "./Admin.scss";
 import { fetchReports } from "../../apiService/ReportApiService";
 import { fetchAllUnauthYoutuber, fetchUsers } from "../../apiService/AdminApiService";
@@ -36,23 +37,20 @@ const Admin_main = () => {
     });
   }, []);
 
+  const pathname = useLocation().pathname;
+  console.log(123123, pathname);
+
   return (
     allUsers &&
     allReports && (
       <div className='admin_main'>
+        <AdminSide />
         <div className='admin_items'>
           <div className='admin_item'>
             <div>
-              <AdminUsers allUsers={allUsers} />
-            </div>
-            <div>
-              <AdminYoutuber youtuberConfirm={youtuberConfirm} />
-            </div>
-            <div>
-              <AdminReports allReports={allReports} />
-            </div>
-            <div>
-              <AdminReports allReports={allReports} />
+              {pathname.includes("/AdminReports") ? <AdminReports allReports={allReports} /> : null}
+              {pathname.includes("/AdminUsers") ? <AdminUsers allUsers={allUsers} /> : null}
+              {pathname.includes("/AdminYoutuber") ? <AdminYoutuber youtuberConfirm={youtuberConfirm} /> : null}
             </div>
           </div>
         </div>
