@@ -1,9 +1,10 @@
-import React, { useState, Fragment, useRef } from "react";
+import React, { useState, Fragment, useRef, useCallback, useEffect } from 'react';
 import DaumPostcode from "react-daum-postcode";
 import Modal from "react-modal";
 import "./AddressApi.scss";
 
 const AddressApi = (props) => {
+
   /* 모달 설정 */
   const AddressModalCustomStyles = {
     content: {
@@ -36,6 +37,17 @@ const AddressApi = (props) => {
   const [addressContents, setAddressContents] = useState();
   const signUpAddressRef = useRef();
 
+  /* 수정창에서 받아온 주소, 상세주소 */
+  const modifyAddress = props.address
+  const ds = props.detailAddress
+  const [modifyDetailAddress, setModifyDetailAddress] = useState(ds);
+
+  const onChange = useCallback((e)=> {
+    console.log('onChange')
+    setModifyDetailAddress(e.target.value)
+    props.bringDetailAddress(modifyDetailAddress)
+  }, [modifyDetailAddress, setModifyDetailAddress])
+
   const handlePostCode = (data) => {
     let fullAddress = data.address;
     let extraAddress = "";
@@ -61,8 +73,14 @@ const AddressApi = (props) => {
     height: "100%",
     padding: "3px",
   };
-
   /* 주소입력 끝 */
+
+  useEffect(()=> {
+    if(props.address !== undefined && props.detailAddress !== undefined) {
+      setAddressContents(modifyAddress)
+    }
+  }, [setAddressContents, modifyAddress])
+
 
   return (
     <Fragment>
@@ -90,7 +108,9 @@ const AddressApi = (props) => {
           placeholder='상세 주소를 입력해주세요.'
           autoComplete='off'
           ref={signUpAddressRef}
-          onChange={props.changeValue}
+          value={modifyDetailAddress}
+          onClick={props.onClick}
+          onChange={onChange}
         />
         <Modal
           isOpen={modalIsOpen}
