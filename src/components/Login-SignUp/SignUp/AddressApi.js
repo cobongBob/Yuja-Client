@@ -49,9 +49,6 @@ const AddressApi = (props) => {
       }
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
-    console.log(data);
-    console.log(fullAddress);
-    console.log(data.zonecode);
     setAddressContents(data.zonecode + ", " + fullAddress);
     props.changeAddress(data.zonecode + ", " + fullAddress);
     closeModal();

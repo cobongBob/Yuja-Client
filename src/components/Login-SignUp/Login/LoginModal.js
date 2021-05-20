@@ -10,6 +10,7 @@ import { userLogin, userLogout, userCheck } from "../../../redux/redux-login/log
 import googleLoginIcon from "./googleLoginIcon2.svg";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ToastTopRight } from "../../../modules/ToastModule";
 toast.configure();
 Modal.setAppElement("#root");
 function LoginModal() {
@@ -78,30 +79,10 @@ function LoginModal() {
 
   //알림
   const loginNotify = useCallback(() => {
-    toast(`어서오세요! 👋`, {
-      autoClose: 2000,
-      hideProgressBar: true,
-      bodyStyle: {
-        color: "black",
-        fontSize: "17px",
-        fontWeight: "bold",
-        fontFamily: "scdream4",
-      },
-      className: "notify",
-    });
+    ToastTopRight(`어서오세요! 👋`);
   }, []);
   const logoutNotify = useCallback(() => {
-    toast(`로그아웃 되셨습니다.`, {
-      autoClose: 2000,
-      hideProgressBar: true,
-      bodyStyle: {
-        color: "black",
-        fontSize: "17px",
-        fontWeight: "bold",
-        fontFamily: "scdream4",
-      },
-      className: "notify",
-    });
+    ToastTopRight(`로그아웃 되셨습니다.`);
   }, []);
 
   /* 로그인 관련 */
@@ -149,7 +130,6 @@ function LoginModal() {
           });
           closeModal();
         } else {
-          console.log("else로");
           closeModal();
           history.push({
             pathname: "/SignUp1",

@@ -8,18 +8,6 @@ const FindPassword = ({ history }) => {
   const [username, setUsername] = useState({
     username: "",
   });
-  const handleInput = useCallback(
-    (e) => {
-      if (resetPasswordEmailData === "구글로 가입한 계정입니다.") {
-        setResetPasswordEmailResData("");
-      }
-      setUsername({
-        ...username,
-        [e.target.name]: e.target.value,
-      });
-    },
-    [username]
-  );
 
   /* 인증번호 발송 관련 */
   const [restPasswordAuthCode, setRestPasswordAuthCode] = useState("");
@@ -32,19 +20,27 @@ const FindPassword = ({ history }) => {
   const [securityCodeValidateDesc, setSecurityCodeValidateDesc] = useState();
   const passwordEmailRef = useRef();
 
-  const getAuthCode = useCallback(
+  const getAuthCode = useCallback((e) => {
+    setRestPasswordAuthCode(e.target.value);
+  }, []);
+
+  const handleInput = useCallback(
     (e) => {
-      setRestPasswordAuthCode(e.target.value);
+      if (resetPasswordEmailData === "구글로 가입한 계정입니다.") {
+        setResetPasswordEmailResData("");
+      }
+      setUsername({
+        ...username,
+        [e.target.name]: e.target.value,
+      });
     },
-    [restPasswordAuthCode]
+    [username, resetPasswordEmailData]
   );
 
   const sendResetPasswordSecurityCode = useCallback(() => {
-    console.log("1");
     auth
       .resetPasswordEmailSend(username.username)
       .then((res) => {
-        console.log("2");
         setResetPasswordSendBtnHandler(false);
         setResetPasswordSecurityCode(res.data);
       })
@@ -55,7 +51,6 @@ const FindPassword = ({ history }) => {
     if (username === "" || resetPasswordEmailData !== "") {
       setResetPasswordEmailResData("이메일을 확인 해주세요.");
     } else if (restPasswordAuthCode === resetPasswordSecurityCode) {
-      console.log("인증성공");
       history.push({
         pathname: "/ResetPassword",
         username: username.username,
@@ -65,7 +60,6 @@ const FindPassword = ({ history }) => {
       setSecurityCodeValidateDesc("");
       setResetEmailDisableHandler(true);
     } else {
-      console.log("인증실패");
       setSecurityCodeValidateDesc("인증번호를 확인해주세요.");
     }
   }, [username, resetPasswordEmailData, restPasswordAuthCode, resetPasswordSecurityCode, history]);

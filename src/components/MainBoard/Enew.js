@@ -10,8 +10,8 @@ const Enew = () => {
   return (
     <div>
       {EmainList &&
-        EmainList.map((list) => (
-          <ul className='NewList'>
+        EmainList.map((list, index) => (
+          <ul key={index} className='NewList'>
             <div className='new-youtuber'>
               <li>
                 <div className='ProfileWrapper'>
@@ -29,7 +29,11 @@ const Enew = () => {
                     <div className='TitleWrapper'>
                       <p className='wanted-content-detail'>
                         <strong>
-                          <Link to={`/Ydetail/${list.id}`}>{list.title}</Link>
+                          <Link
+                            className='ListTitle'
+                            to={`/Ydetail/${list.id}`}>
+                            {list.title}
+                          </Link>
                         </strong>
                       </p>
                     </div>

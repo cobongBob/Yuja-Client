@@ -7,9 +7,10 @@ import {
 } from '../../../redux/board/editer/eboardReducer';
 import * as EditerApiService from '../../../apiService/EditerApiService';
 import './EditorDetail.scss';
+import { ToastCenter } from '../../../modules/ToastModule';
 import ReactQuill from 'react-quill';
 import { AiFillStar, AiOutlineFileSearch, AiOutlineStar } from 'react-icons/ai';
-import { ToastTopRight } from '../../../modules/ToastModule';
+import { Image } from 'react-bootstrap';
 
 const EDetail = (props) => {
   const dispatch = useDispatch();
@@ -26,12 +27,10 @@ const EDetail = (props) => {
   }, [dispatch, props.match.params.board_id, userData]);
 
   const deleteBoard = () => {
-    if (window.confirm(`정말 삭제 하시겠습니까?`)) {
-      EditerApiService.deleteBoard(props.match.params.board_id).then((res) => {
-        ToastTopRight(res.data);
-        props.history.push('/Editor');
-      });
-    }
+    EditerApiService.deleteBoard(props.match.params.board_id).then((res) => {
+      alert(res.data);
+      props.history.push('/Editor');
+    });
   };
 
   const likeHandler = useCallback(() => {
@@ -46,10 +45,10 @@ const EDetail = (props) => {
         });
       }
     } else {
-      ToastTopRight('로그인 해주세요');
+      ToastCenter('로그인 해주세요');
+      //로그인 창으로
     }
   }, [userData, dispatch, props.match.params.board_id, detailData]);
-
   return (
     detailData && (
       <div>
@@ -80,6 +79,7 @@ const EDetail = (props) => {
             <li className='editordetail-content-profile-pic'>
               <img src='/img/board_pic/thumbnailer_pic/thum2.PNG'></img>
             </li>
+
             <li className='editordetail-content-hit'></li>
             <li className='editordetail-content-title'>{detailData.title}</li>
             <li className='editordetail-content-user'>작성자</li>
