@@ -40,6 +40,7 @@ import InfoModifyRequired from './components/InfoModify/InfoModifyRequired';
 import InfoModifyNonRequired from './components/InfoModify/InfoModifyNonRequired';
 import Admin_main from './pages/Admin/Admin_main';
 import EboardModify from './pages/Main/Editer/EboardModify';
+import ThumbModify from './pages/Main/Thumbnailer/ThumbModify';
 
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ['/SignUp1', '/SignUp1/Required', '/SignUp1/NonRequired'];
@@ -134,6 +135,10 @@ function App() {
           <Route
             path='/ThumbDetail/:board_type/:board_id/:current_page'
             component={ThumbDetail}
+          />
+          <Route
+            path='/ThumbModify/:board_type/:board_id/:current_page'
+            component={ThumbModify}
           />
           <Route path='/Help' component={Help} />
           <Route path='/SignUp1' component={SignUp1} />

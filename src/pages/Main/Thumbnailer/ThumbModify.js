@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { getOneEBoard } from '../../../apiService/EditerApiService';
 import { ToastCenter } from '../../../modules/ToastModule';
-import './EditorRegister.scss';
+import './ThumbRegister.scss';
 import * as EditerApiService from '../../../apiService/EditerApiService';
 import QuillRegister from '../../../components/Quill/QuillRegister';
 
@@ -16,7 +16,10 @@ const ThumbModify = ({ match }) => {
   const checkedlist = useRef([]);
   const fileList = useRef([]);
   const history = useHistory();
-  let eHistory = useCallback(
+  const ThumbId = useRef(0);
+  const [fileUrl, setFileUrl] = useState('');
+
+  let ThHistory = useCallback(
     (board_id) =>
       history.push(`/ThumbDetail/${board_type.current}/${board_id}/1`),
     [history, board_type]
@@ -60,6 +63,34 @@ const ThumbModify = ({ match }) => {
       ...input,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleImg = (e) => {
+    let file = e.target.files[0];
+    if (!file) {
+      return;
+    }
+
+    const acceptType = ['image/png', 'image/jpeg', 'image/gif', 'image/jpg'];
+    if (!acceptType.includes(file.type)) {
+      return ToastCenter('jpg, jpeg, png 만 가능합니다.');
+    }
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    };
+
+    if (e.target.files !== null) {
+      const formData = new FormData();
+      formData.append('file', file);
+      EditerApiService.addThumb(formData, config).then((response) => {
+        setFileUrl(
+          `http://localhost:8888/files/temp/${response.data.fileName}`
+        );
+        ThumbId.current = response.data.thumbnailId;
+      });
+    }
   };
 
   useEffect(() => {
@@ -113,17 +144,17 @@ const ThumbModify = ({ match }) => {
       modifyingData,
       board_type.current
     ).then((res) => {
-      eHistory(res.data.id);
+      ThHistory(res.data.id);
     });
   };
 
   return (
     <div>
       <div className='register-container'>
-        <div className='editor-register-header'>
-          <h1>이력서 등록</h1>
+        <div className='thumb-register-header'>
+          <h1>이력서 수정</h1>
         </div>
-        <div className='editor-register-default-input'>
+        <div className='thumb-register-default-input'>
           <ul>
             <li className='li-item1'>
               <input
@@ -137,11 +168,13 @@ const ThumbModify = ({ match }) => {
               />
             </li>
             <li className='li-item2'>
+              <img className='preview_Thubnail' src={fileUrl} alt='' /> <br />
               <input
-                type='text'
-                placeholder='대표영상의 링크를 적어주세요.'
-                name='previewImage'
-                onChange={onChange}
+                className='thumb-PicInput'
+                id='thumb-PicInput'
+                type='file'
+                accept='image/jpeg, image/jpg, image/png'
+                onChange={handleImg}
               />
             </li>
             <li className='li-item3'>
@@ -199,6 +232,22 @@ const ThumbModify = ({ match }) => {
               />
               <label htmlFor='Eaftereffect'>애프터이펙트 </label>
               <input
+                id='Ephotoshop'
+                name='Ephotoshop'
+                value='포토샵'
+                type='checkbox'
+                onChange={checkboxCheck}
+              />
+              <label htmlFor='Ephotoshop'>포토샵 </label>
+              <input
+                id='Eillustrater'
+                name='Eillustrater'
+                onChange={checkboxCheck}
+                value='일러스트'
+                type='checkbox'
+              />
+              <label htmlFor='Eillustrater'>베가스</label>
+              <input
                 id='Efinalcut'
                 name='Efinalcut'
                 value='파이널컷'
@@ -206,14 +255,6 @@ const ThumbModify = ({ match }) => {
                 onChange={checkboxCheck}
               />
               <label htmlFor='Efinalcut'>파이널컷 </label>
-              <input
-                id='Evegas'
-                name='Evegas'
-                onChange={checkboxCheck}
-                value='베가스'
-                type='checkbox'
-              />
-              <label htmlFor='Evegas'>베가스</label>
               <input
                 id='Epowerdirector'
                 name='Epowerdirector'
@@ -225,8 +266,8 @@ const ThumbModify = ({ match }) => {
             </li>
           </ul>
         </div>
-        <div className='editor-infomation'>자기소개</div>
-        <div className='editor-quill'>
+        <div className='thumb-infomation'>자기소개</div>
+        <div className='thumb-quill'>
           <QuillRegister
             register={testCheking}
             addingFileList={addingFileList}

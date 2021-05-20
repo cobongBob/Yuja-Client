@@ -71,7 +71,7 @@ const ThumbDetail = ({ match }) => {
               userData.id === detailData.user.id ? (
                 <div>
                   <Link
-                    to={`/EboardModify/Editor/${detailData.id}/1`}
+                    to={`/ThumbModify/Thumb/${detailData.id}/1`}
                     className='detail-update-btn'
                   >
                     이력서 수정하기

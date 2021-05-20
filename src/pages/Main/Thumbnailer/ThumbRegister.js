@@ -16,7 +16,7 @@ const ThumbRegister = ({ match }) => {
   const history = useHistory();
   const ThumbId = useRef(0);
   const [fileUrl, setFileUrl] = useState('');
-  let Ehistory = useCallback(
+  let ThHistory = useCallback(
     (board_id) =>
       history.push(`/ThumbDetail/${board_type.current}/${board_id}/1`),
     [history]
@@ -66,10 +66,10 @@ const ThumbRegister = ({ match }) => {
       boardAttachNames: currFileList.current,
     };
     EditerApiService.addBoards(sendingData, board_type.current).then((res) => {
-      Ehistory(res.data.id);
+      ThHistory(res.data.id);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userData, qData, Ehistory]);
+  }, [userData, qData, ThHistory]);
 
   const checkboxCheck = (e) => {
     if (e.target.checked) {
