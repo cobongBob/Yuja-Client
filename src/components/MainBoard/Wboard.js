@@ -61,7 +61,7 @@ const Wboard = () => {
         </Col>
         <Col sm>
           <div className='WinWrapper'>
-            <div className='win-grow'>성장해요</div>
+            <div className='win-collabo'>합방해요</div>
             <div className='WinListWrapper'>
               <div className='WinList'>
                 <table className='ListTable'>
