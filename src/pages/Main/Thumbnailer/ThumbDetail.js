@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   addLike,
@@ -10,6 +10,8 @@ import { useHistory } from 'react-router';
 import ReactQuill from 'react-quill';
 import { ToastCenter, ToastTopRight } from '../../../modules/ToastModule';
 import { AiFillStar, AiOutlineFileSearch, AiOutlineStar } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
+import Report from '../components/Report';
 
 const ThumbDetail = ({ match }) => {
   const { current: board_type } = useRef(match.params.board_type);
@@ -18,6 +20,8 @@ const ThumbDetail = ({ match }) => {
   const history = useHistory();
   const { userData } = useSelector((state) => state.loginReducer);
   const { detailData } = useSelector((state) => state.EboardReducer);
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
     const board_id = match.params.board_id;
@@ -59,6 +63,35 @@ const ThumbDetail = ({ match }) => {
         <ul className='Thumb-wrapper'>
           <div className='Thumb-header-wrapper'>
             <li className='Thumb-header'>이력서</li>
+          </div>
+          <div className='detail-btn'>
+            <div className='detail-btn-box'>
+              {userData &&
+              detailData.user &&
+              userData.id === detailData.user.id ? (
+                <div>
+                  <Link
+                    to={`/EboardModify/Editor/${detailData.id}/1`}
+                    className='detail-update-btn'
+                  >
+                    이력서 수정하기
+                  </Link>
+                  <button className='detail-update-btn' onClick={deleteBoard}>
+                    이력서 삭제하기
+                  </button>
+                </div>
+              ) : (
+                <Report
+                  board_id={match.params.board_id}
+                  modalIsOpen={modalIsOpen}
+                  setModalIsOpen={setModalIsOpen}
+                />
+              )}
+              <Link className='detail-update-btn' to={`/Thboard/Thumb/1`}>
+                목록보기
+              </Link>
+              {/* 모달 열리는 부분 */}
+            </div>
           </div>
           <li className='Thumb-content-like'>
             <div className='Thumb-content-hit'>

@@ -68,7 +68,7 @@ const EDetail = (props) => {
               userData.id === detailData.user.id ? (
                 <div>
                   <Link
-                    to={`/EboardModify/Editor/${detailData.id}`}
+                    to={`/EboardModify/Editor/${detailData.id}/1`}
                     className='detail-update-btn'
                   >
                     이력서 수정하기

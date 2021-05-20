@@ -5,7 +5,7 @@ import QuillRegister from '../../../components/Quill/QuillRegister';
 import * as EditerApiService from '../../../apiService/EditerApiService';
 import '../Editer/EditorRegister.scss';
 import { ToastCenter } from '../../../modules/ToastModule';
-import './Thumb.scss';
+import './ThumbRegister.scss';
 
 const ThumbRegister = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -80,6 +80,14 @@ const ThumbRegister = ({ match }) => {
     }
   };
 
+  const radioCheck = (e) => {
+    const { name, value } = e.target;
+    setInputData((prevInput) => ({
+      ...prevInput,
+      [name]: value,
+    }));
+  };
+
   const handleImg = (e) => {
     let file = e.target.files[0];
     if (!file) {
@@ -108,13 +116,20 @@ const ThumbRegister = ({ match }) => {
     }
   };
 
+  const onChange = (e) => {
+    setInputData({
+      ...inputData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
     <div>
       <div className='register-container'>
-        <div className='editor-register-header'>
+        <div className='thumb-register-header'>
           <h1>이력서 등록</h1>
         </div>
-        <div className='editor-register-default-input'>
+        <div className='thumb-register-default-input'>
           <ul>
             <li className='li-item1'>
               <input
@@ -140,14 +155,33 @@ const ThumbRegister = ({ match }) => {
               />
             </li>
             <li className='li-item3'>
+              <div>경력사항</div>
               <input
-                type='text'
-                placeholder='경력'
+                id='newbie'
                 name='career'
-                onChange={inputHandler}
+                onChange={radioCheck}
+                value='신입'
+                type='radio'
               />
+              <label htmlFor='newbie'>신입</label>
+              <input
+                id='career'
+                onChange={radioCheck}
+                name='career'
+                value='경력'
+                type='radio'
+              />
+              <label htmlFor='career'>경력</label>
             </li>
             <li className='li-item4'>
+              <select name='payType' onChange={onChange}>
+                <option>선택</option>
+                <option value='연봉'>연봉</option>
+                <option value='월급'>월급</option>
+                <option value='주급'>주급</option>
+                <option value='건당'>건당</option>
+                <option value='분당'>분당</option>
+              </select>
               <input
                 type='text'
                 placeholder='희망급여'
@@ -208,8 +242,8 @@ const ThumbRegister = ({ match }) => {
             </li>
           </ul>
         </div>
-        <div className='editor-infomation'>자기소개</div>
-        <div className='editor-quill'>
+        <div className='thumb-infomation'>자기소개</div>
+        <div className='thumb-quill'>
           <QuillRegister
             register={testCheking}
             addingFileList={addingFileList}

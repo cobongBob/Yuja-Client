@@ -151,7 +151,7 @@ function App() {
             component={EDetail}
           />
           <Route
-            path='EboardModify/:board_type/:board_id'
+            path='/EboardModify/:board_type/:board_id/1'
             component={EboardModify}
           />
           <Route path='/FindPassword' component={FindPassword} />
