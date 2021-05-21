@@ -44,6 +44,9 @@
     box-shadow: 1px 1px 3px 2px #ffb963;
   }
 }
+.beforeModifyBtnBox {
+  margin-top: 5%;
+}
 .beforeModifyDescBoxDescBox {
   margin-bottom:7%;
   &>span {
@@ -53,6 +56,17 @@
 input::placeholder {
   color: #999999;
 }
+.beforeModifyOtherBoxDesc {
+  margin-top:10%;
+}
+.beforeModifyOtherBox {
+  padding:3%;
+}
+.beforeModifyOtherBox > .btn {
+  margin:5%;
+}
+
+
 
 
 /* 오버레이 (보더) */

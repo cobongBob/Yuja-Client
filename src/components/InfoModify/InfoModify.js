@@ -200,8 +200,7 @@ const InfoModify = ({ history }) => {
     }
   };
 
-  let profile_preview,
-    youtuberPic_preview = "";
+  let profile_preview, youtuberPic_preview = "";
 
   profile_preview = (
     <img

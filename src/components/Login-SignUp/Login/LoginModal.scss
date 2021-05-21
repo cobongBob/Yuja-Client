@@ -119,6 +119,26 @@ section > footer {
     cursor: pointer;
   }
 }
+/* 수정 버튼 */
+.modifyBox {
+  display: inline-block;
+}
+.modifyBtn {
+  display: inline-block;
+  margin: auto;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  color: #ff9411;
+  background-color: transparent;
+  border: none;
+  &:hover {
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    background-color: #ff9411;
+    color: white;
+    text-decoration: none;
+  }
+}
 /* nav 로그인 전/후 변하는 컴포넌트들 */
 .navChangeBox {
   display: inline-block;
