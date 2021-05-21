@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router";
 import { ToastCenter, ToastTopRight } from "../../modules/ToastModule";
 import AdminReports from "./AdminReports";
@@ -16,14 +16,15 @@ import {
   promoteUserService,
   rejectUserService,
 } from "../../apiService/AdminApiService";
+import { getNotificationsData } from "../../redux/notification/notifiReducer";
 
 const Admin_main = () => {
-  const { authorities } = useSelector((state) => state.loginReducer);
+  const { userData, authorities } = useSelector((state) => state.loginReducer);
   const history = useHistory();
   const [allUsers, setAllUsers] = useState([]);
   const [youtuberConfirm, setYoutuberConfirm] = useState([]);
   const [allReports, setAllReports] = useState([]);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     if (authorities && !authorities.includes("ADMIN")) {
       ToastCenter("잘못 된 접근입니다");
@@ -117,6 +118,14 @@ const Admin_main = () => {
               {pathname.includes("/AdminReports") ? (
                 <AdminReports allReports={allReports} deleteReported={deleteReported} />
               ) : null}
+              <button
+                onClick={() => {
+                  console.log(123123, userData);
+                  dispatch(getNotificationsData(userData && userData.id));
+                }}
+              >
+                하위
+              </button>
             </div>
           </div>
         </div>
