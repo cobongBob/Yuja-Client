@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import * as ReportApiService from "../../../apiService/ReportApiService";
 import { ToastCenter } from "../../../modules/ToastModule";
 
-const Report = ({ board_id, modalIsOpen, setModalIsOpen }) => {
+const Report = ({ board_id, modalIsOpen, setModalIsOpen, board_code }) => {
   const { userData } = useSelector((state) => state.loginReducer);
   const [input, setInput] = useState({
     content: "",
@@ -50,7 +50,7 @@ const Report = ({ board_id, modalIsOpen, setModalIsOpen }) => {
       e.preventDefault();
       const report = {
         ...input,
-        title: `${board_id} 번 글의 신고`,
+        title: `${board_code}##${board_id}`,
         boardId: board_id,
         userId: userData.id,
       };
