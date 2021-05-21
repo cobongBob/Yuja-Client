@@ -26,6 +26,7 @@ const InfoModify = ({ history }) => {
   const youtubeConfirmId = useRef(0);
 
   const [userData, setUserData] = useState({
+    id:"",
     username: "",
     realName: "",
     nickname: "",
@@ -54,6 +55,7 @@ const InfoModify = ({ history }) => {
     getUserData(userId).then((res) => {
       console.log("res.data의 값", res.data);
       setUserData({
+        id:res.data.id,
         username: res.data.username,
         realName: res.data.realName,
         nickname: res.data.nickname,
@@ -67,9 +69,19 @@ const InfoModify = ({ history }) => {
         youtubeConfirmImg: res.data.youtubeConfirmImg,
       });
     });
-  }, []);
+  }, [
+
+
+  ]);
 
   console.log("userData의 값", userData);
+
+  const changeAddress = (value) => {
+    setUserData({
+      ...userData,
+      address: value,
+    });
+  };
 
   const onChange = useCallback(
     (e) => {
@@ -105,7 +117,7 @@ const InfoModify = ({ history }) => {
   /* 사업자 등록번호 확인식 */
   const bsnCheck = (e) => {
     let bsn = e.target.value;
-    const checkId = [1, 3, 7, 1, 3, 7, 1, 3, 5, 1];
+    const checkId = [1, 3, 7, 1, 3, 7, 1, 3,  5, 1];
     let sum = 0;
 
     if (bsn !== "") {
@@ -209,8 +221,9 @@ const InfoModify = ({ history }) => {
   /* 파일 업로드 끝 */
 
   const modifyBtn = useCallback(() => {
+    console.log('===========================',userData)
     console.log(userId);
-    modifyUserData(userId)
+    modifyUserData(userId, userData)
       .then((r) => {
         if (r) {
           ToastTopRight("🎉 정보가 수정 되었습니다.");
@@ -220,9 +233,9 @@ const InfoModify = ({ history }) => {
         }
       })
       .catch((error) => {
-        ToastCenter(error.response.data ? error.response.data.message : "Server Error!");
+        ToastCenter(error.response ? error.response.message : "Server Error!");
       });
-  }, [userId, history]);
+  }, [userId, history, userData]);
 
   return (
     userData && (
@@ -344,6 +357,7 @@ const InfoModify = ({ history }) => {
                       detailAddress={userData.detailAddress}
                       setUserData={setUserData}
                       userData={userData}
+                      changeAddress={changeAddress}
                     />
                   </div>
                 </td>
