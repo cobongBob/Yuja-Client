@@ -142,6 +142,7 @@ function App() {
           <Route path='/InfoModify' component={InfoModify} />
           <Route path='/PasswordModify' component={PasswordModify} />
           <Route path='/Admin/:board_type' component={Admin_main} />
+          <Route path='/SignOut' component={SignOut}/>
           {/* <Route component={PageNotFound} /> 이게 왜 나올까요? */}
         </Switch>
       </div>

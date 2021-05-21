@@ -8,6 +8,8 @@ import axios from "axios";
 import AddressApi from "../Login-SignUp/SignUp/AddressApi";
 
 const InfoModify = ({ history }) => {
+
+
   // /* 잘못된 접근 막기 */
   //  if (history.action === "POP") {
   //    ToastPreventAccess("❌ 잘못된 접근 입니다.");
@@ -27,6 +29,8 @@ const InfoModify = ({ history }) => {
 
   const [userData, setUserData] = useState({
     id:"",
+    providedId: "",
+    provider:"",
     username: "",
     realName: "",
     nickname: "",
@@ -56,6 +60,8 @@ const InfoModify = ({ history }) => {
       console.log("res.data의 값", res.data);
       setUserData({
         id:res.data.id,
+        providedId: res.data.providedId,
+        provider: res.data.provider,
         username: res.data.username,
         realName: res.data.realName,
         nickname: res.data.nickname,
@@ -69,10 +75,7 @@ const InfoModify = ({ history }) => {
         youtubeConfirmImg: res.data.youtubeConfirmImg,
       });
     });
-  }, [
-
-
-  ]);
+  }, []);
 
   console.log("userData의 값", userData);
 
@@ -380,7 +383,7 @@ const InfoModify = ({ history }) => {
                 </td>
               </tr>
             </table>
-            {userData.youtubeUrl !== null ? (
+            {userData.youtubeUrl !== null && "" ? (
               <div className='youtuberDiv'>
                 <div className='youtuberDiv_Title'>
                   유튜버 분들은 원활한 서비스 이용을 위해
