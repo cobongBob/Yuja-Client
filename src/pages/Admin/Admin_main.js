@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router";
 import { ToastCenter, ToastTopRight } from "../../modules/ToastModule";
 import AdminReports from "./AdminReports";
@@ -18,12 +18,11 @@ import {
 } from "../../apiService/AdminApiService";
 
 const Admin_main = () => {
-  const { userData, authorities } = useSelector((state) => state.loginReducer);
+  const { authorities } = useSelector((state) => state.loginReducer);
   const history = useHistory();
   const [allUsers, setAllUsers] = useState([]);
   const [youtuberConfirm, setYoutuberConfirm] = useState([]);
   const [allReports, setAllReports] = useState([]);
-  const dispatch = useDispatch();
   useEffect(() => {
     if (authorities && !authorities.includes("ADMIN")) {
       ToastCenter("잘못 된 접근입니다");

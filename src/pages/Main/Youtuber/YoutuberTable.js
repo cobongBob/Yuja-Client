@@ -24,8 +24,8 @@ const YoutuberTable = ({ boardData, likeHandler, dislikeHandler }) => {
       </div>
       <ul>
         {boardData?.map((data) => (
-          <li>
-            <Card key={data.id}>
+          <li key={data.id}>
+            <Card>
               <Card.Img
                 className='Card-Img'
                 onClick={() => history.push(`/Ydetail/${data.id}`)}

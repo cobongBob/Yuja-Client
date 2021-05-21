@@ -37,7 +37,7 @@ export const ToastAlert = (msg) => {
   toast(msg, {
     autoClose: false,
     closeButton: true,
-    closeOnClick: false,
+    closeOnClick: true,
     hideProgressBar: true,
     bodyStyle: {
       color: "black",

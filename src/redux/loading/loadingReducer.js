@@ -67,13 +67,20 @@ export default function loadingReducer(state = initialState, action) {
       return {
         ...state,
         notificationData: action.payload,
-        loading: false,
       };
     case GET_NOTIFY_FAILURE:
       return {
         ...state,
+        notificationData: [
+          {
+            notiId: 0,
+            sender: "",
+            resipeint: "",
+            type: "",
+            readDate: "",
+          },
+        ],
         error: action.error,
-        loading: false,
       };
     case GLOBAL_LOADED:
       return {

@@ -31,7 +31,7 @@ import { userLogout } from "./redux/redux-login/loginReducer";
 import Chat from "./pages/Main/components/Chat/Chat";
 import EDetail from "./pages/Main/Editer/EDetail";
 import ResetPassword from "./components/Login-SignUp/Login/ResetPassword";
-import { ToastCenter } from "./modules/ToastModule";
+import { ToastAlert, ToastCenter } from "./modules/ToastModule";
 import WModify from "./pages/Main/Winwin/WModify";
 import ThumbRegister from "./pages/Main/Thumbnailer/ThumbRegister";
 import ThumbDetail from "./pages/Main/Thumbnailer/ThumbDetail";
@@ -41,6 +41,8 @@ import PasswordModify from "./components/InfoModify/PasswordModify";
 import InfoModify from "./components/InfoModify/InfoModify";
 import EboardModify from "./pages/Main/Editer/EboardModify";
 import ThumbModify from "./pages/Main/Thumbnailer/ThumbModify";
+import SignOut from "./components/SignOut/SignOut";
+import { deleteNotifications } from "./apiService/MainApiService";
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
 
@@ -61,13 +63,13 @@ function App() {
 
   /* 로딩 */
   const dispatch = useDispatch();
-  const loading = useSelector((state) => state.loadingReducer);
+  const { loading, notificationData } = useSelector((state) => state.loadingReducer);
   const { userData } = useSelector((state) => state.loginReducer);
   useEffect(() => {
     instance.interceptors.request.use(
       function (config) {
-        //로딩 호출
-        dispatch(getLoading());
+        //로딩과 알림 호출
+        dispatch(getLoading(userData && userData.id));
         return config;
       },
       function (error) {
@@ -96,9 +98,22 @@ function App() {
         return Promise.reject(error);
       }
     );
-  }, [dispatch]);
+  }, [dispatch, userData]);
 
   /* 로딩 끝 */
+  //알림
+  useEffect(() => {
+    if (notificationData.length > 0 && notificationData[0].notiId !== 0 && userData && userData.id !== 0) {
+      notificationData.forEach((notification, idx) => {
+        if (notification.type === "commentNoti") {
+          ToastAlert(
+            `${notification.resipeint.nickname}님께서 ${notification.comment.board.title}글에 댓글을 남기셨습니다.`
+          );
+          deleteNotifications(notification.notiId);
+        }
+      });
+    }
+  }, [notificationData, userData]);
 
   return (
     <div>
@@ -109,7 +124,7 @@ function App() {
         ? console.log("회원가입에서 왔군")
         : console.log("그냥 왔군")}
       <div>
-        {loading && loading.loading && <Loader type='spin' color='#ff9411' />}
+        {loading && <Loader type='spin' color='#ff9411' />}
         <Switch>
           <Route exact path='/' component={MainWrapper} />
           <Route path='/Youtuber' component={Youtuber} />
@@ -139,6 +154,7 @@ function App() {
           <Route path='/InfoModify' component={InfoModify} />
           <Route path='/PasswordModify' component={PasswordModify} />
           <Route path='/Admin/:board_type' component={Admin_main} />
+          <Route path='/SignOut' component={SignOut} />
           {/* <Route component={PageNotFound} /> 이게 왜 나올까요? */}
         </Switch>
       </div>
