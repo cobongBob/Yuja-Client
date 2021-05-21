@@ -1,75 +1,29 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import QuillRegister from '../../../components/Quill/QuillRegister';
-import * as EditerApiService from '../../../apiService/EditerApiService';
-import '../Editer/EditorRegister.scss';
+import { getOneEBoard } from '../../../apiService/EditerApiService';
 import { ToastCenter } from '../../../modules/ToastModule';
 import './ThumbRegister.scss';
+import * as EditerApiService from '../../../apiService/EditerApiService';
+import QuillRegister from '../../../components/Quill/QuillRegister';
 
-const ThumbRegister = ({ match }) => {
+const ThumbModify = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
-  const currFileList = useRef([]);
   const addingFileList = useRef([]);
-  const [qData, setQData] = useState();
+  const deletedFileList = useRef([]);
+  const [qModiData, setQModiData] = useState();
   const board_type = useRef(match.params.board_type);
+  const checkedlist = useRef([]);
+  const fileList = useRef([]);
   const history = useHistory();
   const ThumbId = useRef(0);
   const [fileUrl, setFileUrl] = useState('');
+
   let ThHistory = useCallback(
     (board_id) =>
       history.push(`/ThumbDetail/${board_type.current}/${board_id}/1`),
-    [history]
+    [history, board_type]
   );
-
-  const checkedlist = useRef([]);
-
-  const [inputData, setInputData] = useState({
-    title: '',
-    payType: '',
-    payAmount: '',
-    career: '',
-    tools: checkedlist.current,
-  });
-
-  const inputHandler = (e) => {
-    setInputData({
-      ...inputData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const testCheking = useCallback(() => {
-    if (!qData || !inputData.title) {
-      return ToastCenter('제목과 내용을 입력해주세요');
-    }
-
-    let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
-    let imgSrcArr = String(qData).match(reg);
-    if (imgSrcArr) {
-      addingFileList.current.forEach((src) => {
-        if (imgSrcArr.includes(`http://localhost:8888/files/temp/${src}`)) {
-          currFileList.current.push(src);
-        }
-      });
-    } else {
-      currFileList.current = [];
-    }
-    const sendingData = {
-      ...inputData,
-      userId: userData.id, //글쓰고있는 사람의 아이디로 변경요망
-      content: qData.replaceAll(
-        `src="http://localhost:8888/files/temp/`,
-        `src="http://localhost:8888/files/${board_type.current}/`
-      ), //업로드된 이미지들은 temp가 아닌 Editor에 저장된다.
-      thumbnailId: ThumbId.current, //?? 넘어온 번호..
-      boardAttachNames: currFileList.current,
-    };
-    EditerApiService.addBoards(sendingData, board_type.current).then((res) => {
-      ThHistory(res.data.id);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userData, qData, ThHistory]);
 
   const checkboxCheck = (e) => {
     if (e.target.checked) {
@@ -80,12 +34,35 @@ const ThumbRegister = ({ match }) => {
     }
   };
 
+  const onChange = (e) => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const radioCheck = (e) => {
     const { name, value } = e.target;
-    setInputData((prevInput) => ({
+    setInput((prevInput) => ({
       ...prevInput,
       [name]: value,
     }));
+  };
+
+  const [input, setInput] = useState({
+    previewImage: '',
+    title: '',
+    career: '',
+    payType: '',
+    payAmount: '',
+    tools: checkedlist.current,
+  });
+
+  const inputHandler = (e) => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleImg = (e) => {
@@ -116,10 +93,58 @@ const ThumbRegister = ({ match }) => {
     }
   };
 
-  const onChange = (e) => {
-    setInputData({
-      ...inputData,
-      [e.target.name]: e.target.value,
+  useEffect(() => {
+    getOneEBoard(match.params.board_id, board_type.current).then((res) => {
+      if (!userData || userData.id !== res.data.user.id) {
+        ToastCenter('권한이 없습니다.');
+        return history.goBack();
+      }
+      fileList.current = res.data.boardAttachFileNames;
+      setQModiData(res.data.content);
+      setInput(res.data);
+    });
+  }, [userData]);
+
+  const testCheking = () => {
+    if (!qModiData || !input.title) {
+      return ToastCenter('제목과 내용을 입력해주세요');
+    }
+    let reg = new RegExp(
+      `http://localhost:8888/files/${board_type.current}/[0-9]+.[a-z]+`,
+      'gi'
+    );
+    let imgSrcArr = String(qModiData).match(reg); // 불러왔던 글에 존재했던 이미지 태그들의 src
+    // 서버에서 날아온 이미지 이름과 비교한다. 없으면 삭제된것이므로 삭제 리스트에 담아준다.
+    if (imgSrcArr) {
+      fileList.current.forEach((src) => {
+        if (
+          !imgSrcArr.includes(
+            `http://localhost:8888/files/${board_type.current}/${src}`
+          )
+        ) {
+          deletedFileList.current.push(src);
+        }
+      });
+    } else {
+      deletedFileList.current = fileList.current;
+    }
+
+    const modifyingData = {
+      ...input,
+      tools: checkedlist.current,
+      content: qModiData.replaceAll(
+        `src="http://localhost:8888/files/temp/`,
+        `src="http://localhost:8888/files/${board_type.current}/`
+      ),
+      boardAttachIds: addingFileList.current,
+      boardAttachToBeDeleted: deletedFileList.current,
+    };
+    EditerApiService.modifyBoard(
+      match.params.board_id,
+      modifyingData,
+      board_type.current
+    ).then((res) => {
+      ThHistory(res.data.id);
     });
   };
 
@@ -127,7 +152,7 @@ const ThumbRegister = ({ match }) => {
     <div>
       <div className='register-container'>
         <div className='thumb-register-header'>
-          <h1>이력서 등록</h1>
+          <h1>이력서 수정</h1>
         </div>
         <div className='thumb-register-default-input'>
           <ul>
@@ -137,12 +162,10 @@ const ThumbRegister = ({ match }) => {
                 placeholder='제목'
                 name='title'
                 id='first-link'
-                onChange={inputHandler}
+                onChange={onChange}
                 maxLength='40'
+                value={input.title || ''}
               />
-            </li>
-            <li className='li-item2'>
-              <input type='text' placeholder='급여방식' name='payType' />
             </li>
             <li className='li-item2'>
               <img className='preview_Thubnail' src={fileUrl} alt='' /> <br />
@@ -186,7 +209,8 @@ const ThumbRegister = ({ match }) => {
                 type='text'
                 placeholder='희망급여'
                 name='payAmount'
-                onChange={inputHandler}
+                onChange={onChange}
+                value={input.payAmount || ''}
               />
             </li>
             <li className='li-item5'>
@@ -247,9 +271,9 @@ const ThumbRegister = ({ match }) => {
           <QuillRegister
             register={testCheking}
             addingFileList={addingFileList}
-            qData={qData}
-            setQData={setQData}
-            board_type={board_type.current}
+            qModiData={qModiData}
+            setQModiData={setQModiData}
+            board_type={board_type}
           />
         </div>
       </div>
@@ -257,4 +281,4 @@ const ThumbRegister = ({ match }) => {
   );
 };
 
-export default ThumbRegister;
+export default ThumbModify;

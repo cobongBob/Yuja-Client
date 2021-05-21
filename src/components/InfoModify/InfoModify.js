@@ -1,14 +1,13 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import './InfoModify.scss';
-import { Link } from 'react-router-dom';
-import { getLoggedInUserData, isUserLoggedIn } from '../../apiService/AuthenticationService';
-import { ToastCenter, ToastPreventAccess, ToastTopRight } from '../../modules/ToastModule';
-import UserApiService, { getUserData, modifyUserData } from '../../apiService/UserApiService';
-import axios from 'axios';
-import AddressApi from '../Login-SignUp/SignUp/AddressApi';
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import "./InfoModify.scss";
+import { Link } from "react-router-dom";
+import { getLoggedInUserData, isUserLoggedIn } from "../../apiService/AuthenticationService";
+import { ToastCenter, ToastPreventAccess, ToastTopRight } from "../../modules/ToastModule";
+import UserApiService, { getUserData, modifyUserData } from "../../apiService/UserApiService";
+import axios from "axios";
+import AddressApi from "../Login-SignUp/SignUp/AddressApi";
 
-const InfoModify = ({ history } ) => {
-
+const InfoModify = ({ history }) => {
   // /* 잘못된 접근 막기 */
   //  if (history.action === "POP") {
   //    ToastPreventAccess("❌ 잘못된 접근 입니다.");
@@ -17,9 +16,9 @@ const InfoModify = ({ history } ) => {
   //    ToastPreventAccess("❌ 먼저 로그인 하셔야 합니다.");
   //   history.replace("/");
   //  }
-  const loggedInUserData = getLoggedInUserData()
-  console.log('갖고오자마자 값 ', loggedInUserData)
-  const userId = loggedInUserData && loggedInUserData.id ? loggedInUserData.id : null
+  const loggedInUserData = getLoggedInUserData();
+  console.log("갖고오자마자 값 ", loggedInUserData);
+  const userId = loggedInUserData && loggedInUserData.id ? loggedInUserData.id : null;
 
   const [previewURL, setpreviewUrl] = useState();
   const [previewURL2, setpreviewUrl2] = useState();
@@ -28,7 +27,7 @@ const InfoModify = ({ history } ) => {
 
   const [userData, setUserData] = useState({
     username: "",
-    realName:  "",
+    realName: "",
     nickname: "",
     bday: "",
     address: "",
@@ -46,18 +45,18 @@ const InfoModify = ({ history } ) => {
   const [isPermalinkFill, setIsPermalinkFill] = useState();
   const [isYoutuberPicFill, setIsYoutuberPicFill] = useState();
 
-  const modifyProfilePicUrl = new URL("http://localhost:8888/files/profiles/"+userData.profilePic)
-  const modifyConfirmPicUrl = new URL("http://localhost:8888/files/youtubeConfirm/"+userData.youtubeConfirmImg)
+  const modifyProfilePicUrl = new URL("http://localhost:8888/files/profiles/" + userData.profilePic);
+  const modifyConfirmPicUrl = new URL("http://localhost:8888/files/youtubeConfirm/" + userData.youtubeConfirmImg);
 
   const { current: birthCheck } = useRef(/^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/);
 
-  useEffect(()=> {
+  useEffect(() => {
     getUserData(userId).then((res) => {
-      console.log('res.data의 값', res.data)
+      console.log("res.data의 값", res.data);
       setUserData({
-        username:res.data.username,
-        realName:res.data.realName,
-        nickname:res.data.nickname,
+        username: res.data.username,
+        realName: res.data.realName,
+        nickname: res.data.nickname,
         bday: res.data.bday,
         address: res.data.address,
         detailAddress: res.data.detailAddress,
@@ -66,23 +65,26 @@ const InfoModify = ({ history } ) => {
         youtubeUrl: res.data.youtubeUrl,
         profilePic: res.data.profilePic,
         youtubeConfirmImg: res.data.youtubeConfirmImg,
-      })
+      });
     });
   }, []);
 
-  console.log('userData의 값', userData)
+  console.log("userData의 값", userData);
 
-  const onChange = useCallback((e)=> {
-    console.log('onChange')
-    setUserData({
-      ...userData,
-      [e.target.name] : e.target.value
-    })
-  }, [userData])
+  const onChange = useCallback(
+    (e) => {
+      console.log("onChange");
+      setUserData({
+        ...userData,
+        [e.target.name]: e.target.value,
+      });
+    },
+    [userData]
+  );
 
-  const onClick = useCallback((e)=> {
-    e.target.value = '';
-  }, [])
+  const onClick = useCallback((e) => {
+    e.target.value = "";
+  }, []);
 
   const checkNicknameValidate = useCallback(() => {
     axios.post("http://localhost:8888/api/auth/checknickname", userData).then((res) => {
@@ -95,26 +97,10 @@ const InfoModify = ({ history } ) => {
   }, [userData]);
 
   const checkBirthValidate = useCallback(() => {
-    birthCheck.test(userData.bday) === false && userData.bday !== ''?
-      setBirthDesc("-을 제외한 생년월일 6자리만 입력해주세요.")
-      :
-      setBirthDesc("");
+    birthCheck.test(userData.bday) === false && userData.bday !== ""
+      ? setBirthDesc("-을 제외한 생년월일 6자리만 입력해주세요.")
+      : setBirthDesc("");
   }, [birthCheck, userData]);
-
-  const changeAddress = (value) => {
-    setUserData({
-      ...userData,
-      address: value,
-    });
-  };
-
-  const bringDetailAddress = (value)=> {
-    console.log('onChange')
-    setUserData({
-      ...userData,
-      detailAddress: value,
-    });
-  }
 
   /* 사업자 등록번호 확인식 */
   const bsnCheck = (e) => {
@@ -141,16 +127,18 @@ const InfoModify = ({ history } ) => {
   /* 사업자 등록번호 확인식 끝 */
 
   /* 고유 주소 확인 */
-  const permalinkCheck = useCallback((e) => {
-    let checkContent = e.target.value;
-    if (checkContent !== "" && checkContent.startsWith("https://www.youtube.com/")) {
-      setIsPermalinkFill("");
-    } else {
-      setIsPermalinkFill("유튜브 고유주소를 확인해주세요.");
-    }
-  }, [setIsPermalinkFill]);
+  const permalinkCheck = useCallback(
+    (e) => {
+      let checkContent = e.target.value;
+      if (checkContent !== "" && checkContent.startsWith("https://www.youtube.com/")) {
+        setIsPermalinkFill("");
+      } else {
+        setIsPermalinkFill("유튜브 고유주소를 확인해주세요.");
+      }
+    },
+    [setIsPermalinkFill]
+  );
   /* 고유 주소 확인 끝 */
-
 
   /* 파일 업로드 관련 */
   const handleFileOnChange = (e) => {
@@ -203,33 +191,47 @@ const InfoModify = ({ history } ) => {
   let profile_preview,
     youtuberPic_preview = "";
 
-  profile_preview = <img className='profile_preview' src={modifyProfilePicUrl && previewURL ? previewURL : modifyProfilePicUrl} alt='' />;
+  profile_preview = (
+    <img
+      className='profile_preview'
+      src={modifyProfilePicUrl && previewURL ? previewURL : modifyProfilePicUrl}
+      alt=''
+    />
+  );
 
-  youtuberPic_preview = <img className='youtuberPic_preview' src={modifyConfirmPicUrl && previewURL2 ? previewURL2 : modifyConfirmPicUrl} alt='' />;
+  youtuberPic_preview = (
+    <img
+      className='youtuberPic_preview'
+      src={modifyConfirmPicUrl && previewURL2 ? previewURL2 : modifyConfirmPicUrl}
+      alt=''
+    />
+  );
   /* 파일 업로드 끝 */
 
-  const modifyBtn = useCallback(()=> {
-    console.log(userId)
-    modifyUserData(userId).then((r) => {
-      if (r) {
-        ToastTopRight("🎉 정보가 수정 되었습니다.");
-        history.push("/");
-      } else {
-        ToastTopRight("❌ 오류가 발생했습니다.");
-      }
-    })
+  const modifyBtn = useCallback(() => {
+    console.log(userId);
+    modifyUserData(userId)
+      .then((r) => {
+        if (r) {
+          ToastTopRight("🎉 정보가 수정 되었습니다.");
+          history.push("/");
+        } else {
+          ToastTopRight("❌ 오류가 발생했습니다.");
+        }
+      })
       .catch((error) => {
         ToastCenter(error.response.data ? error.response.data.message : "Server Error!");
       });
-  }, [userId])
+  }, [userId, history]);
 
-  return userData && (
-    <div className='infoModifyFrag'>
-      <div className='infoModifyTitleBox'>
-        <Link className='infoModifyTitle' to='/'>
-          유자 회원정보 수정
-        </Link>
-      </div>
+  return (
+    userData && (
+      <div className='infoModifyFrag'>
+        <div className='infoModifyTitleBox'>
+          <Link className='infoModifyTitle' to='/'>
+            유자 회원정보 수정
+          </Link>
+        </div>
         <div className='infoModifyContentBox'>
           <div className='overlay'>
             <div className='infoModifyDescBoxDescBox'>
@@ -239,7 +241,6 @@ const InfoModify = ({ history } ) => {
             <div className='required'>* 필수입력 정보입니다.</div>
 
             <table className='infoModifyTable'>
-
               <tr>
                 <td>
                   <div className='labelWrapper'>
@@ -339,13 +340,10 @@ const InfoModify = ({ history } ) => {
                 <td>
                   <div className='signUpAddressBox'>
                     <AddressApi
-                      changeAddress={changeAddress}
                       address={userData.address}
                       detailAddress={userData.detailAddress}
-                      onClick={onClick}
-                      userData={userData}
                       setUserData={setUserData}
-                      bringDetailAddress={bringDetailAddress}
+                      userData={userData}
                     />
                   </div>
                 </td>
@@ -437,21 +435,21 @@ const InfoModify = ({ history } ) => {
             ) : (
               ""
             )}
-              <div className='infoModifySubmitBtnBox'>
-                <button
-                  type='submit'
-                  className='btn btn-warning'
-                  onClick={modifyBtn}
-                >
-                  수정완료
-                </button>
-              </div>
+            <div className='infoModifySubmitBtnBox'>
+              <button
+                type='submit'
+                className='btn btn-warning'
+                onClick={modifyBtn}
+              >
+                수정완료
+              </button>
+            </div>
+          </div>
+          <footer className='infoModifyFooter'></footer>
         </div>
-      <footer className='infoModifyFooter'></footer>
-    </div>
-  </div>
+      </div>
+    )
   );
-
 };
 
 export default InfoModify;

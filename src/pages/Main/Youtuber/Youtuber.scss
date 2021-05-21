@@ -6,8 +6,8 @@
   text-align: center;
 }
 
-.tableWrapper > .ListTitleWrapper > h1 {
-  font-family: scdream5;
+.tableWrapper > .YListTitleWrapper > h1 {
+  font-family: 'scdream5';
   text-align: center;
   margin-left: auto;
   margin-right: auto;
@@ -19,8 +19,44 @@
   font-weight: 500;
 }
 
+.tableWrapper > .EListTitleWrapper > h1 {
+  font-family: scdream5;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3%;
+  margin-bottom: 2%;
+  border-bottom: 3px solid #3d5ba5;
+  display: inline-block;
+  font-size: 3rem;
+  font-weight: 500;
+}
+
+.tableWrapper > .ThListTitleWrapper > h1 {
+  font-family: scdream5;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3%;
+  margin-bottom: 2%;
+  border-bottom: 3px solid #ff7c7c;
+  display: inline-block;
+  font-size: 3rem;
+  font-weight: 500;
+}
+
 .YoutubeIcons {
   color: #c4302b;
+  font-size: 6rem;
+  margin-bottom: 1.5%;
+}
+.EditorIcons {
+  color: #3d5ba5;
+  font-size: 6rem;
+  margin-bottom: 1.5%;
+}
+.ThumbIcons {
+  color: #ff7c7c;
   font-size: 6rem;
   margin-bottom: 1.5%;
 }

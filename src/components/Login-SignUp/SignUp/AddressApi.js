@@ -3,7 +3,9 @@ import DaumPostcode from "react-daum-postcode";
 import Modal from "react-modal";
 import "./AddressApi.scss";
 
-const AddressApi = (props) => {
+const AddressApi = ( props ) => {
+
+  console.log('AddressApi의 값', props)
 
   /* 모달 설정 */
   const AddressModalCustomStyles = {
@@ -27,26 +29,17 @@ const AddressApi = (props) => {
     signUpAddressRef.current.focus();
     setIsOpen(true);
   }
+
   function closeModal() {
     setIsOpen(false);
   }
+
   /* 모달 설정 끝 */
 
   /* 주소입력 */
 
   const [addressContents, setAddressContents] = useState();
   const signUpAddressRef = useRef();
-
-  /* 수정창에서 받아온 주소, 상세주소 */
-  const modifyAddress = props.address
-  const ds = props.detailAddress
-  const [modifyDetailAddress, setModifyDetailAddress] = useState(ds);
-
-  const onChange = useCallback((e)=> {
-    console.log('onChange')
-    setModifyDetailAddress(e.target.value)
-    props.bringDetailAddress(modifyDetailAddress)
-  }, [modifyDetailAddress, setModifyDetailAddress])
 
   const handlePostCode = (data) => {
     let fullAddress = data.address;
@@ -75,12 +68,37 @@ const AddressApi = (props) => {
   };
   /* 주소입력 끝 */
 
+  /* 수정창에서 받아온 주소, 상세주소 */
+  const modifyAddress = props.address
+  const detailAddress = props.detailAddress
+
+  const changeValue = (e) => {
+      props.setNonRequiredData({
+        ...props.nonRequiredData,
+        [e.target.name]: e.target.value,
+      });
+    }
+
+  const onChange = useCallback(
+    (e) => {
+      console.log("onChange");
+      props.setUserData({
+        ...props.userData,
+        [e.target.name]: e.target.value,
+      });
+    },
+    [props.userData]
+  );
+
+  const onClick = useCallback((e) => {
+    e.target.value = "";
+  }, []);
+
   useEffect(()=> {
     if(props.address !== undefined && props.detailAddress !== undefined) {
       setAddressContents(modifyAddress)
     }
   }, [setAddressContents, modifyAddress])
-
 
   return (
     <Fragment>
@@ -108,9 +126,14 @@ const AddressApi = (props) => {
           placeholder='상세 주소를 입력해주세요.'
           autoComplete='off'
           ref={signUpAddressRef}
-          value={modifyDetailAddress}
-          onClick={props.onClick}
-          onChange={onChange}
+          value={detailAddress}
+          onClick={onClick}
+          onChange={
+            props.detailAddress ?
+            onChange
+              :
+              changeValue
+          }
         />
         <Modal
           isOpen={modalIsOpen}

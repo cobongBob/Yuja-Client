@@ -3,8 +3,10 @@ import "./Wboard.scss";
 import { Col, Row } from "react-bootstrap";
 import { FaHandshake } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
 const Wboard = () => {
   const { WmainList, CmainList } = useSelector((state) => state.mainReducer);
+  const history = useHistory();
   return (
     <div>
       <div className='win-title'>
@@ -19,10 +21,10 @@ const Wboard = () => {
             <div className='win-grow'>성장해요</div>
             <div className='WinListWrapper'>
               <div className='WinList'>
-                <table>
+                <table className='ListTable'>
                   <thead>
                     <tr>
-                      <td>작성자</td>
+                      <td className='MainWriter'>작성자</td>
                       <td>제목</td>
                       <td>날짜</td>
                       <td>조회수</td>
@@ -33,8 +35,13 @@ const Wboard = () => {
                       WmainList.map((list, index) => (
                         <tr key={index}>
                           <td>{list.user.nickname}</td>
-                          <td>{list.title}</td>
-                          <td>{list.updatedDate}</td>
+                          <td
+                            onClick={() => history.push(`/BoardDetail/WinWin/${list.id}/1`)}
+                            style={{ cursor: "pointer" }}
+                          >
+                            {list.title}
+                          </td>
+                          <td>{list.updatedDate.substr(0, 10)}</td>
                           <td>{list.hit}</td>
                         </tr>
                       ))}
@@ -50,16 +57,38 @@ const Wboard = () => {
           </div>
         </Col>
         <Col sm>
-          <div className='win-collabo'>
-            {" "}
-            합방해요
-            {CmainList &&
-              CmainList.map((list, idx) => (
-                <React.Fragment key={idx}>
-                  <span>{list.user.username}</span>
-                  <h1>{list.title}</h1>
-                </React.Fragment>
-              ))}{" "}
+          <div className='WinWrapper'>
+            <div className='win-collabo'>합방해요</div>
+            <div className='WinListWrapper'>
+              <div className='WinList'>
+                <table className='ListTable'>
+                  <thead>
+                    <tr>
+                      <td className='MainWriter'>작성자</td>
+                      <td>제목</td>
+                      <td className='MainDate'>날짜</td>
+                      <td>조회수</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {CmainList &&
+                      CmainList.map((list, index) => (
+                        <tr key={index}>
+                          <td>{list.user.nickname}</td>
+                          <td
+                            onClick={() => history.push(`/BoardDetail/Collabo/${list.id}/1`)}
+                            style={{ cursor: "pointer" }}
+                          >
+                            {list.title}
+                          </td>
+                          <td>{list.updatedDate.substr(0, 10)}</td>
+                          <td>{list.hit}</td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </Col>
       </Row>

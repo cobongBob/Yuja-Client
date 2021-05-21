@@ -34,7 +34,11 @@ export default function EditorTable({
             <Card key={data.id}>
               <Card.Img
                 className='Card-Img'
-                onClick={() => history.push(`/EDetail/${data.id}`)}
+                onClick={() =>
+                  history.push(
+                    `/EDetail/${board_type}/${data.id}/${currentPage}`
+                  )
+                }
                 src='/img/board_pic/thumbnailer_pic/thum2.PNG'
               ></Card.Img>
               <Card.Header>
