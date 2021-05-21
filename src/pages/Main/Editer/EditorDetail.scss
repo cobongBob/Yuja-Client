@@ -25,12 +25,14 @@
 }
 .editordetail-content-profile-pic {
   float: left;
+  border: 2px solid #3d5ba5;
+  border-radius: 50%;
 }
 
 .editordetail-content-profile-pic > img {
   width: 10rem;
-  border: 2px solid black;
   height: 10rem;
+  border: 2px solid #3d5ba5;
   border-radius: 50%;
   text-align: center;
   vertical-align: middle;
@@ -53,6 +55,16 @@
   border-bottom: 4px solid #3d5ba5;
   padding: 0.25rem;
   font-weight: bolder;
+  margin-bottom: 0.5rem;
+}
+
+.editordetail-content-user-data {
+  display: inline-block;
+  margin-left: 1rem;
+  border-bottom: 4px solid #3d5ba5;
+  padding: 0.25rem;
+  font-weight: bolder;
+  margin-bottom: 0.5rem;
 }
 
 .editordetail-content-like {
@@ -79,6 +91,7 @@
 .editordetail-content-pay {
   margin-left: 12rem;
   line-height: 2.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .editordetail-content-pay > span {

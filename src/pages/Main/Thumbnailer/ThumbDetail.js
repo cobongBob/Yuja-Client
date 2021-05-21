@@ -116,10 +116,13 @@ const ThumbDetail = ({ match }) => {
             <li className='Thumb-content-profile-pic'>
               <img src='/img/board_pic/thumbnailer_pic/thum2.PNG'></img>
             </li>
-
             <li className='Thumb-content-hit'></li>
             <li className='Thumb-content-title'>{detailData.title}</li>
             <li className='Thumb-content-user'>작성자</li>
+            <li className='Thumb-content-user-data'>{detailData.career}</li>
+            <li className='Thumb-content-user-data'>
+              연락처 {detailData.user.phone}
+            </li>
             <li className='Thumb-content-pay'>
               급여방식 <span> {detailData.payType}</span>
               희망급여 <span>{detailData.payAmount} 원</span>

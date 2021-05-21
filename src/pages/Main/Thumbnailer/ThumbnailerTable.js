@@ -89,7 +89,7 @@ export default function ThumbnailerTable({
                   <div>
                     <strong>
                       <span>수정일 </span>
-                      {format(new Date(data.updatedDate), 'yyyy-MM-dd')}
+                      {format(new Date(data.boardUpdatedDate), 'yyyy-MM-dd')}
                     </strong>
                   </div>
                 </Card.Footer>
