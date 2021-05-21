@@ -106,6 +106,7 @@ const EditorRegister = () => {
             <li className='li-item2'>
               <input
                 type='text'
+                id='thumb-PicInput'
                 placeholder='대표영상의 링크를 적어주세요.'
                 name='previewImage'
                 onChange={onChange}

@@ -116,7 +116,7 @@ const Ydetail = (props) => {
                 </div>
               </div>
               <div className='detail-date'>
-                {detailData && detailData.updatedDate ? detailData.updatedDate.substr(0, 10) : ""} ~{" "}
+                {detailData && detailData.boardUpdatedDate ? detailData.boardUpdatedDate.substr(0, 10) : ""} ~{" "}
                 {detailData && detailData.expiredDate ? detailData.expiredDate.substr(0, 10) : "상시채용"}
               </div>
               <div className='detail-content'>

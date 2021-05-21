@@ -39,7 +39,7 @@ export default function EditorTable({
                     `/EDetail/${board_type}/${data.id}/${currentPage}`
                   )
                 }
-                src='/img/board_pic/thumbnailer_pic/thum2.PNG'
+                src={`${data.previewImage}`}
               ></Card.Img>
               <Card.Header>
                 <Card.Title>
@@ -88,7 +88,7 @@ export default function EditorTable({
                   <div>
                     <strong>
                       <span>수정일 </span>
-                      {format(new Date(data.updatedDate), 'yyyy-MM-dd')}
+                      {format(new Date(data.boardUpdatedDate), 'yyyy-MM-dd')}
                     </strong>
                   </div>
                 </Card.Footer>
