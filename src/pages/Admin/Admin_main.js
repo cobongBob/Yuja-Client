@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router";
-import { ToastCenter } from "../../modules/ToastModule";
+import { ToastCenter, ToastTopRight } from "../../modules/ToastModule";
 import AdminReports from "./AdminReports";
 import AdminUsers from "./AdminUsers";
 import AdminYoutuber from "./AdminYoutuber";
@@ -10,6 +10,7 @@ import "./Admin.scss";
 import { fetchReports } from "../../apiService/ReportApiService";
 import {
   banUser,
+  deleteReportedBoard,
   fetchAllUnauthYoutuber,
   fetchUsers,
   promoteUserService,
@@ -22,7 +23,6 @@ const Admin_main = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [youtuberConfirm, setYoutuberConfirm] = useState([]);
   const [allReports, setAllReports] = useState([]);
-
   useEffect(() => {
     if (authorities && !authorities.includes("ADMIN")) {
       ToastCenter("잘못 된 접근입니다");
@@ -74,15 +74,28 @@ const Admin_main = () => {
       userId: user_id,
     };
     promoteUserService(data).then((res) => {
-      fetchUsers().then((result) => {
-        setAllUsers(result.data);
+      fetchAllUnauthYoutuber().then((res) => {
+        setYoutuberConfirm(res.data);
       });
     });
   }, []);
   const rejectUser = useCallback((youtubeConfirmId) => {
     rejectUserService(youtubeConfirmId).then((res) => {
-      fetchUsers().then((result) => {
-        setAllUsers(result.data);
+      fetchAllUnauthYoutuber().then((res) => {
+        setYoutuberConfirm(res.data);
+      });
+    });
+  }, []);
+  const deleteReported = useCallback((title, id) => {
+    const idx = title.indexOf("##");
+    const reportedBoardCode = Number(title.substr(0, idx).trim());
+    const reportedBoardId = Number(title.substr(idx + 2).trim());
+    deleteReportedBoard(reportedBoardId, reportedBoardCode).then((res) => {
+      ToastTopRight(res.data);
+    });
+    deleteReportedBoard(id, 8).then((result) => {
+      fetchReports().then((res) => {
+        setAllReports(res.data);
       });
     });
   }, []);
@@ -100,7 +113,9 @@ const Admin_main = () => {
               {pathname.includes("/AdminYoutuber") ? (
                 <AdminYoutuber youtuberConfirm={youtuberConfirm} promoteUser={promoteUser} rejectUser={rejectUser} />
               ) : null}
-              {pathname.includes("/AdminReports") ? <AdminReports allReports={allReports} /> : null}
+              {pathname.includes("/AdminReports") ? (
+                <AdminReports allReports={allReports} deleteReported={deleteReported} />
+              ) : null}
             </div>
           </div>
         </div>

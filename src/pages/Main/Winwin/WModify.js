@@ -89,7 +89,7 @@ const WModify = ({ match }) => {
           value={input.title || null}
           onChange={inputHandler}
           placeholder='제목'
-          maxLength='200'
+          maxLength='45'
           type='text'
         />
         {board_type.current === "CustomService" ? (

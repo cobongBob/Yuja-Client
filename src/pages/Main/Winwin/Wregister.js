@@ -71,7 +71,7 @@ const Wregister = ({ match }) => {
   return (
     <div>
       <div>
-        <input name='title' onChange={inputHandler} placeholder='제목' maxLength='200' type='text' />
+        <input name='title' onChange={inputHandler} placeholder='제목' maxLength='45' type='text' />
         {board_type.current === "CustomService" ? (
           <>
             <label htmlFor='secret'>비밀글</label>
