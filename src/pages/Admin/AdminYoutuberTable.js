@@ -1,21 +1,24 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import Modal from "react-modal";
 import { ToastCenter } from "../../modules/ToastModule";
 
 const AdminYoutuberTable = ({ currentData, promoteUser, rejectUser }) => {
-  const reportcustomStyles = {
-    content: {
-      top: "50%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-      background: "#edfcfc",
-      width: "70%",
-    },
-    overlay: { zIndex: 9999 },
-  };
+  const reportcustomStyles = useMemo(
+    () => ({
+      content: {
+        top: "50%",
+        left: "50%",
+        right: "auto",
+        bottom: "auto",
+        marginRight: "-50%",
+        transform: "translate(-50%, -50%)",
+        background: "#edfcfc",
+        width: "70%",
+      },
+      overlay: { zIndex: 9999 },
+    }),
+    []
+  );
   const [modalIsOpen, setModalIsOpen] = useState();
   const openModal = useCallback(() => {
     setModalIsOpen(true);
@@ -59,34 +62,36 @@ const AdminYoutuberTable = ({ currentData, promoteUser, rejectUser }) => {
                         className='Admin_confirm_big'
                       ></img>
                     </div>
-                    <button
-                      className='YCBtn'
-                      onClick={() => {
-                        promoteUser(
-                          youtuber.youtubeConfirmId,
-                          youtuber.user.bsn,
-                          youtuber.user.youtubeUrl,
-                          youtuber.user.id
-                        );
-                        closeModal();
-                        ToastCenter("인증 되었습니다.");
-                      }}
-                    >
-                      인증 처리
-                    </button>
-                    <button
-                      className='YCBtn'
-                      onClick={() => {
-                        rejectUser(youtuber.youtubeConfirmId);
-                        closeModal();
-                        ToastCenter("인증이 거절되었습니다.");
-                      }}
-                    >
-                      인증 거절
-                    </button>
-                    <button className='YCBtn' onClick={closeModal}>
-                      닫기
-                    </button>
+                    <div className='admin_modal_btn'>
+                      <button
+                        className='YCBtn'
+                        onClick={() => {
+                          promoteUser(
+                            youtuber.youtubeConfirmId,
+                            youtuber.user.bsn,
+                            youtuber.user.youtubeUrl,
+                            youtuber.user.id
+                          );
+                          closeModal();
+                          ToastCenter("인증 되었습니다.");
+                        }}
+                      >
+                        인증 처리
+                      </button>
+                      <button
+                        className='YCBtn'
+                        onClick={() => {
+                          rejectUser(youtuber.youtubeConfirmId);
+                          closeModal();
+                          ToastCenter("인증이 거절되었습니다.");
+                        }}
+                      >
+                        인증 거절
+                      </button>
+                      <button className='YCBtn' onClick={closeModal}>
+                        닫기
+                      </button>
+                    </div>
                   </Modal>
                   <td>{youtuber.createdDate.substr(0, 10)}</td>
                   <td>처리중</td>

@@ -1,19 +1,26 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import Modal from "react-modal";
-const AdminReportsTable = ({ currentData, lastIdx, currentPage }) => {
-  const reportcustomStyles = {
-    content: {
-      top: "50%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-      background: "#edfcfc",
-      width: "55%",
-    },
-    overlay: { zIndex: 9999 },
-  };
+import { useHistory } from "react-router";
+import { BoardTypeConvertUrl } from "../../modules/BoardTypeConvert";
+
+const AdminReportsTable = ({ currentData, lastIdx, currentPage, deleteReported }) => {
+  const reportcustomStyles = useMemo(
+    () => ({
+      content: {
+        top: "50%",
+        left: "50%",
+        right: "auto",
+        bottom: "auto",
+        marginRight: "-50%",
+        transform: "translate(-50%, -50%)",
+        background: "#edfcfc",
+        width: "55%",
+      },
+      overlay: { zIndex: 9999 },
+    }),
+    []
+  );
+
   const [modalIsOpen, setModalIsOpen] = useState();
   const openModal = useCallback(() => {
     setModalIsOpen(true);
@@ -22,6 +29,17 @@ const AdminReportsTable = ({ currentData, lastIdx, currentPage }) => {
   const closeModal = useCallback(() => {
     setModalIsOpen(false);
   }, []);
+  const history = useHistory();
+  const moveToBoard = useCallback(
+    (title) => {
+      const idx = title.indexOf("##");
+      const reportedBoardCode = Number(title.substr(0, idx).trim());
+      const reportedBoardId = Number(title.substr(idx + 2).trim());
+      const boardUrl = BoardTypeConvertUrl(reportedBoardCode, reportedBoardId);
+      history.push(boardUrl);
+    },
+    [history]
+  );
   return (
     <div>
       <div className='community-table-wrapper'>
@@ -46,32 +64,43 @@ const AdminReportsTable = ({ currentData, lastIdx, currentPage }) => {
                     <td>{report.user.username}</td>
                     <td>{report.content}</td>
                     <td>{report.createDate.substr(0, 10)}</td>
-                    <td>처리 중</td>
+                    <td>처리중...</td>
                   </tr>
                   <Modal isOpen={modalIsOpen} style={reportcustomStyles} onRequestClose={closeModal}>
                     <div className='admin_report_modal'>
-                      <div>신고자 : {report.user.username}</div>
-                      <div>신고날짜 : {report.createDate.substr(0, 10)}</div>
-                      <div>신고내용 : {report.content}</div>
-                      <button
-                        className='YCBtn'
-                        onClick={() => {
-                          closeModal();
-                        }}
-                      >
-                        해당 게시글로 이동
-                      </button>
-                      <button
-                        className='YCBtn'
-                        onClick={() => {
-                          closeModal();
-                        }}
-                      >
-                        해당 게시글 삭제
-                      </button>
-                      <button className='YCBtn' onClick={closeModal}>
-                        닫기
-                      </button>
+                      <div className='admin_report_modal_user'>
+                        <span style={{ fontWeight: "bold" }}>신고자</span> : {report.user.username}
+                      </div>
+                      <div className='admin_report_modal_date'>
+                        <span style={{ fontWeight: "bold" }}>신고날짜</span> : {report.createDate.substr(0, 10)}
+                      </div>
+                      <div className='admin_report_modal_content'>
+                        <span style={{ fontWeight: "bold" }}>신고내용</span> : {report.content}
+                      </div>
+                      <div className='admin_modal_btn'>
+                        {" "}
+                        <button
+                          className='YCBtn'
+                          onClick={() => {
+                            moveToBoard(report.title);
+                            closeModal();
+                          }}
+                        >
+                          해당 게시글로 이동
+                        </button>
+                        <button
+                          className='YCBtn'
+                          onClick={() => {
+                            deleteReported(report.title, report.id);
+                            closeModal();
+                          }}
+                        >
+                          해당 게시글 삭제
+                        </button>
+                        <button className='YCBtn' onClick={closeModal}>
+                          닫기
+                        </button>
+                      </div>
                     </div>
                   </Modal>
                 </>
