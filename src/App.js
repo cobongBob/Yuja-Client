@@ -41,6 +41,7 @@ import PasswordModify from './components/InfoModify/PasswordModify';
 import InfoModify from './components/InfoModify/InfoModify';
 import EboardModify from './pages/Main/Editer/EboardModify';
 import ThumbModify from './pages/Main/Thumbnailer/ThumbModify';
+import { getNotificationsData } from "./redux/notification/notifiReducer";
 import SignOut from './components/SignOut/SignOut';
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ['/SignUp1', '/SignUp1/Required', '/SignUp1/NonRequired'];
@@ -63,6 +64,7 @@ function App() {
   /* 로딩 */
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.loadingReducer);
+  const { userData } = useSelector((state) => state.loginReducer);
   useEffect(() => {
     instance.interceptors.request.use(
       function (config) {
@@ -80,6 +82,7 @@ function App() {
       (config) => {
         //완료시 로딩창 종료
         dispatch(getLoaded());
+
         return config;
       },
       (error) => {
@@ -104,42 +107,24 @@ function App() {
     <div>
       {exceptArray.indexOf(location.pathname) < 0 && <Navi />}
       {exceptArray.indexOf(location.pathname) < 0 && <Logo />}
-      {console.log('전페이지', prevLocation)}
-      {exceptArray.includes(prevLocation) === true && location.pathname === '/'
-        ? console.log('회원가입에서 왔군')
-        : console.log('그냥 왔군')}
+      {console.log("전페이지", prevLocation)}
+      {exceptArray.includes(prevLocation) === true && location.pathname === "/"
+        ? console.log("회원가입에서 왔군")
+        : console.log("그냥 왔군")}
       <div>
         {loading && loading.loading && <Loader type='spin' color='#ff9411' />}
         <Switch>
           <Route exact path='/' component={MainWrapper} />
           <Route path='/Youtuber' component={Youtuber} />
           <Route path='/Eboard/:board_type/:current_page' component={Editer} />
-          <Route
-            path='/Community/:board_type/:current_page'
-            component={Winwin}
-          />
-          <Route
-            path='/BoardDetail/:board_type/:board_id/:current_page'
-            component={Wdetail}
-          />
-          <Route
-            path='/BoardModify/:board_type/:board_id/:current_page'
-            component={WModify}
-          />
+          <Route path='/Community/:board_type/:current_page' component={Winwin} />
+          <Route path='/BoardDetail/:board_type/:board_id/:current_page' component={Wdetail} />
+          <Route path='/BoardModify/:board_type/:board_id/:current_page' component={WModify} />
           <Route path='/BoardRegister/:board_type' component={Wregister} />
-          <Route
-            path='/Thboard/:board_type/:current_page'
-            component={Thumbnailer}
-          />
+          <Route path='/Thboard/:board_type/:current_page' component={Thumbnailer} />
           <Route path='/ThumbRegister/:board_type' component={ThumbRegister} />
-          <Route
-            path='/ThumbDetail/:board_type/:board_id/:current_page'
-            component={ThumbDetail}
-          />
-          <Route
-            path='/ThumbModify/:board_type/:board_id/:current_page'
-            component={ThumbModify}
-          />
+          <Route path='/ThumbDetail/:board_type/:board_id/:current_page' component={ThumbDetail} />
+          <Route path='/ThumbModify/:board_type/:board_id/:current_page' component={ThumbModify} />
           <Route path='/Help' component={Help} />
           <Route path='/SignUp1' component={SignUp1} />
           <Route path='/YoutuberProfile' component={YoutuberProfile} />
@@ -147,25 +132,15 @@ function App() {
           <Route path='/Yregister' component={Yregister} />
           <Route path='/YmodifyTest/:board_id' component={YmodifyTest} />
           <Route path='/PageNotFound' component={PageNotFound} />
-          <Route
-            path='/EditorRegister/:board_type'
-            component={EditorRegister}
-          />
-          <Route
-            path='/EDetail/:board_type/:board_id/:current_page'
-            component={EDetail}
-          />
-          <Route
-            path='/EboardModify/:board_type/:board_id/1'
-            component={EboardModify}
-          />
+          <Route path='/EditorRegister/:board_type' component={EditorRegister} />
+          <Route path='/EDetail/:board_type/:board_id/:current_page' component={EDetail} />
+          <Route path='/EboardModify/:board_type/:board_id/1' component={EboardModify} />
           <Route path='/FindPassword' component={FindPassword} />
           <Route path='/ResetPassword' component={ResetPassword} />
           <Route path='/Chat' component={Chat} />
           <Route path='/BeforeModify' component={BeforeModify} />
           <Route path='/InfoModify' component={InfoModify} />
           <Route path='/PasswordModify' component={PasswordModify} />
-          <Route path='/SignOut' component={SignOut} />
           <Route path='/Admin/:board_type' component={Admin_main} />
           {/* <Route component={PageNotFound} /> 이게 왜 나올까요? */}
         </Switch>

@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import Pagination from "../Main/components/Pagination";
 import AdminReportsTable from "./AdminReportsTable";
 
-const AdminReports = ({ allReports }) => {
+const AdminReports = ({ allReports, deleteReported }) => {
   //페이징
   const [currentPage, setCurrentPage] = useState(1);
   const [boardPerPage] = useState(10);
@@ -20,6 +20,7 @@ const AdminReports = ({ allReports }) => {
         currentData={currentData}
         lastIdx={allReports.length - 10 * (currentPage - 1)}
         currentPage={currentPage}
+        deleteReported={deleteReported}
       />
       <Pagination
         boardPerPage={boardPerPage}

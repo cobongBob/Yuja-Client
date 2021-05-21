@@ -120,9 +120,9 @@ const YboardReducer = (state = initialState, action) => {
         detailData: { id: 0, likes: 0, liked: false },
         // eslint-disable-next-line array-callback-return
         filterData: action.payload.sort((a, b) => {
-          if (a.updatedDate < b.updatedDate) return 1;
-          if (a.updatedDate > b.updatedDate) return -1;
-          if (a.updatedDate === b.updatedDate) return 0;
+          if (a.boardUpdatedDate < b.boardUpdatedDate) return 1;
+          if (a.boardUpdatedDate > b.boardUpdatedDate) return -1;
+          if (a.boardUpdatedDate === b.boardUpdatedDate) return 0;
         }),
       };
 
@@ -156,9 +156,9 @@ const YboardReducer = (state = initialState, action) => {
         ...state,
         // eslint-disable-next-line array-callback-return
         filterData: state.data.sort((a, b) => {
-          if (a.updatedDate < b.updatedDate) return 1;
-          if (a.updatedDate > b.updatedDate) return -1;
-          if (a.updatedDate === b.updatedDate) return 0;
+          if (a.boardUpdatedDate < b.boardUpdatedDate) return 1;
+          if (a.boardUpdatedDate > b.boardUpdatedDate) return -1;
+          if (a.boardUpdatedDate === b.boardUpdatedDate) return 0;
         }),
         sortedExpired: false,
         sortedLike: false,
