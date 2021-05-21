@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "./components/Logo/Logo";
 import "./App.css";
 import { Route } from "react-router";
@@ -43,6 +43,7 @@ import EboardModify from "./pages/Main/Editer/EboardModify";
 import ThumbModify from "./pages/Main/Thumbnailer/ThumbModify";
 import SignOut from "./components/SignOut/SignOut";
 import { deleteNotifications } from "./apiService/MainApiService";
+import ChatModal from "./pages/Main/components/Chat/ChatModal";
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
 
@@ -115,8 +116,17 @@ function App() {
     }
   }, [notificationData, userData]);
 
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   return (
     <div>
+      <button className='chat_button' onClick={() => setModalIsOpen(true)}>
+        채팅
+      </button>
+      {userData && modalIsOpen ? (
+        <>
+          <ChatModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
+        </>
+      ) : null}
       {exceptArray.indexOf(location.pathname) < 0 && <Navi />}
       {exceptArray.indexOf(location.pathname) < 0 && <Logo />}
       {console.log("전페이지", prevLocation)}
