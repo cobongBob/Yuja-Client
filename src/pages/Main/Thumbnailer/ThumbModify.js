@@ -5,7 +5,7 @@ import { getOneEBoard } from '../../../apiService/EditerApiService';
 import { ToastCenter } from '../../../modules/ToastModule';
 import './ThumbRegister.scss';
 import * as EditerApiService from '../../../apiService/EditerApiService';
-import QuillRegister from '../../../components/Quill/QuillRegister';
+import QuillModify from '../../../components/Quill/QuillModify';
 
 const ThumbModify = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -57,13 +57,6 @@ const ThumbModify = ({ match }) => {
     payAmount: '',
     tools: checkedlist.current,
   });
-
-  const inputHandler = (e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   const handleImg = (e) => {
     let file = e.target.files[0];
@@ -163,7 +156,7 @@ const ThumbModify = ({ match }) => {
                 name='title'
                 id='first-link'
                 onChange={onChange}
-                maxLength='40'
+                maxLength='45'
                 value={input.title || ''}
               />
             </li>
@@ -185,6 +178,7 @@ const ThumbModify = ({ match }) => {
                 onChange={radioCheck}
                 value='신입'
                 type='radio'
+                checked={input.career === '신입'}
               />
               <label htmlFor='newbie'>신입</label>
               <input
@@ -193,6 +187,7 @@ const ThumbModify = ({ match }) => {
                 name='career'
                 value='경력'
                 type='radio'
+                checked={input.career === '경력'}
               />
               <label htmlFor='career'>경력</label>
             </li>
@@ -268,8 +263,8 @@ const ThumbModify = ({ match }) => {
         </div>
         <div className='thumb-infomation'>자기소개</div>
         <div className='thumb-quill'>
-          <QuillRegister
-            register={testCheking}
+          <QuillModify
+            modify={testCheking}
             addingFileList={addingFileList}
             qModiData={qModiData}
             setQModiData={setQModiData}
