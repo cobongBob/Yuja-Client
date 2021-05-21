@@ -16,7 +16,6 @@ import {
   promoteUserService,
   rejectUserService,
 } from "../../apiService/AdminApiService";
-import { getNotificationsData } from "../../redux/notification/notifiReducer";
 
 const Admin_main = () => {
   const { userData, authorities } = useSelector((state) => state.loginReducer);
@@ -118,14 +117,6 @@ const Admin_main = () => {
               {pathname.includes("/AdminReports") ? (
                 <AdminReports allReports={allReports} deleteReported={deleteReported} />
               ) : null}
-              <button
-                onClick={() => {
-                  console.log(123123, userData);
-                  dispatch(getNotificationsData(userData && userData.id));
-                }}
-              >
-                하위
-              </button>
             </div>
           </div>
         </div>

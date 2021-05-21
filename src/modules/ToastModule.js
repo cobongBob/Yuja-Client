@@ -33,6 +33,21 @@ export const ToastTopRight = (msg) => {
     className: "notify",
   });
 };
+export const ToastAlert = (msg) => {
+  toast(msg, {
+    autoClose: false,
+    closeButton: true,
+    closeOnClick: false,
+    hideProgressBar: true,
+    bodyStyle: {
+      color: "black",
+      fontSize: "17px",
+      fontWeight: "bold",
+      fontFamily: "scdream4",
+    },
+    className: "notify",
+  });
+};
 
 export const ToastPreventAccess = (msg) => {
   toast(msg, {

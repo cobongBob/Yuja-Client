@@ -41,7 +41,6 @@ import PasswordModify from "./components/InfoModify/PasswordModify";
 import InfoModify from "./components/InfoModify/InfoModify";
 import EboardModify from "./pages/Main/Editer/EboardModify";
 import ThumbModify from "./pages/Main/Thumbnailer/ThumbModify";
-import { getNotificationsData } from "./redux/notification/notifiReducer";
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
 
@@ -81,7 +80,6 @@ function App() {
       (config) => {
         //완료시 로딩창 종료
         dispatch(getLoaded());
-
         return config;
       },
       (error) => {
