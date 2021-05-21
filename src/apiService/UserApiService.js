@@ -24,8 +24,8 @@ export const getUserData = async (userId) => {
   return await axios.get(USER_API_BASE_USER_URL + userId);
 }
 
-export const modifyUserData = async (id) => {
-  return await axios.put(USER_API_BASE_USER_URL + id);
+export const modifyUserData = async (userId, data) => {
+  return await axios.put(USER_API_BASE_USER_URL + userId, data);
 }
 
 export const deleteUser = async (id) => {
