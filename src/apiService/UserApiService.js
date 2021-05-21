@@ -21,9 +21,13 @@ class UserApiService {
 export default new UserApiService();
 
 export const getUserData = async (userId) => {
-  return await axios.get(USER_API_BASE_USER_URL + userId)
+  return await axios.get(USER_API_BASE_USER_URL + userId);
 }
 
 export const modifyUserData = async (id) => {
-  return await axios.put(USER_API_BASE_USER_URL + id)
+  return await axios.put(USER_API_BASE_USER_URL + id);
+}
+
+export const deleteUser = async (id) => {
+  return await axios.delete(USER_API_BASE_USER_URL + id);
 }

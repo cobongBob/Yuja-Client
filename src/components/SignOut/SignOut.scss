@@ -1,0 +1,76 @@
+.signOutFrag {
+  margin-right: 10vw;
+  margin-left: 10vw;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  font-family: "scdream4";
+}
+.signOutTitleBox {
+  text-align: center;
+  margin-bottom: 2%;
+}
+.signOutTitle {
+  font-size: 3rem;
+  font-family: hopang;
+  color: #ffb963;
+  &:hover {
+    text-decoration: none;
+    color:#ffb963;
+  }
+}
+.signOutContentBox {
+  text-align: center;
+}
+.modifyBox {
+
+}
+.signOutDescBox {
+  margin-bottom:7%;
+  &>span {
+    color: #ffb963;
+  }
+}
+input::placeholder {
+  color: #999999;
+}
+
+
+/* 오버레이 (보더) */
+.overlay {
+  border: 2px solid gray;
+  padding: 2em;
+  margin: auto;
+  width: 30%;
+  box-shadow: 5px 5px darkgray;
+}
+
+/* 페이지 반응형 */
+@media screen and (max-width: 1480px) {
+  .overlay {
+    width: 350px;
+  }
+  .PasswordFrag {
+    margin-right: 1vw;
+    margin-left: 1vw;
+    margin-top: 1%;
+    margin-bottom: 1%;
+  }
+}
+
+/* footer */
+.signOutFooter {
+  text-align: center;
+  margin-top: 2%;
+}
+.linkToMain {
+  color: darkgray;
+}
+.linkToMain:hover {
+  text-decoration: none;
+  color: darkgray;
+}
+.linkToMain > span {
+  color: #ffb963;
+  text-decoration: underline;
+  cursor: pointer;
+}

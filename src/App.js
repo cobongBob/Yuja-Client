@@ -41,6 +41,7 @@ import PasswordModify from './components/InfoModify/PasswordModify';
 import InfoModify from './components/InfoModify/InfoModify';
 import EboardModify from './pages/Main/Editer/EboardModify';
 import ThumbModify from './pages/Main/Thumbnailer/ThumbModify';
+import SignOut from './components/SignOut/SignOut';
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ['/SignUp1', '/SignUp1/Required', '/SignUp1/NonRequired'];
 
@@ -164,6 +165,7 @@ function App() {
           <Route path='/BeforeModify' component={BeforeModify} />
           <Route path='/InfoModify' component={InfoModify} />
           <Route path='/PasswordModify' component={PasswordModify} />
+          <Route path='/SignOut' component={SignOut} />
           <Route path='/Admin/:board_type' component={Admin_main} />
           {/* <Route component={PageNotFound} /> 이게 왜 나올까요? */}
         </Switch>

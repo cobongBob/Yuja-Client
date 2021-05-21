@@ -102,21 +102,6 @@ const InfoModify = ({ history }) => {
       : setBirthDesc("");
   }, [birthCheck, userData]);
 
-  const changeAddress = (value) => {
-    setUserData({
-      ...userData,
-      address: value,
-    });
-  };
-
-  const bringDetailAddress = (value) => {
-    console.log("onChange");
-    setUserData({
-      ...userData,
-      detailAddress: value,
-    });
-  };
-
   /* 사업자 등록번호 확인식 */
   const bsnCheck = (e) => {
     let bsn = e.target.value;
@@ -355,13 +340,10 @@ const InfoModify = ({ history }) => {
                 <td>
                   <div className='signUpAddressBox'>
                     <AddressApi
-                      changeAddress={changeAddress}
                       address={userData.address}
                       detailAddress={userData.detailAddress}
-                      onClick={onClick}
-                      userData={userData}
                       setUserData={setUserData}
-                      bringDetailAddress={bringDetailAddress}
+                      userData={userData}
                     />
                   </div>
                 </td>
@@ -454,7 +436,11 @@ const InfoModify = ({ history }) => {
               ""
             )}
             <div className='infoModifySubmitBtnBox'>
-              <button type='submit' className='btn btn-warning' onClick={modifyBtn}>
+              <button
+                type='submit'
+                className='btn btn-warning'
+                onClick={modifyBtn}
+              >
                 수정완료
               </button>
             </div>
