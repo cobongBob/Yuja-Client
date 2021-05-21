@@ -153,12 +153,24 @@ function LoginModal() {
     <>
       <div className='navChangeBox'>
         {userLoginStatus === false ? (
-          <button className='button-login' id='button-login' onClick={openModal}>
+          <button
+            className='button-login'
+            id='button-login'
+            onClick={openModal}
+          >
             로그인/회원가입
           </button>
         ) : (
           <div>
             <div className='welcomeBox'>안녕하세요, {userData.nickname}님!</div>
+            <div className='modifyBox'>
+              <Link
+                to='/BeforeModify'
+                className='modifyBtn'
+              >
+                정보수정
+              </Link>
+            </div>
             <button className='button-login' onClick={logout}>
               로그아웃
             </button>

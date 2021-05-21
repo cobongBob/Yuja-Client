@@ -1,4 +1,5 @@
 import axios from "axios";
+import instance from '../AxiosConfig';
 
 const USER_API_BASE_URL = "http://localhost:8888/api/auth";
 const USER_API_BASE_USER_URL = "http://localhost:8888/api/user/";
@@ -21,13 +22,23 @@ class UserApiService {
 export default new UserApiService();
 
 export const getUserData = async (userId) => {
-  return await axios.get(USER_API_BASE_USER_URL + userId);
+  return await instance({
+    url: USER_API_BASE_USER_URL + userId,
+    method: "get",
+  });
 }
 
 export const modifyUserData = async (userId, data) => {
-  return await axios.put(USER_API_BASE_USER_URL + userId, data);
+  return await instance({
+    url: USER_API_BASE_USER_URL + userId,
+    method: "put",
+    data: data,
+  });
 }
 
 export const deleteUser = async (id) => {
-  return await axios.delete(USER_API_BASE_USER_URL + id);
+  return await instance({
+    url: USER_API_BASE_USER_URL + id,
+    method: "delete",
+  });
 }

@@ -32,14 +32,17 @@ const SignOut = ({ history }) => {
   const dispatch = useDispatch();
 
   const loginHandler = useCallback(async () => {
+    console.log('탈퇴 loginhandler 실행')
+    console.log(loginData)
     let userData = null;
     await executeJwtAuthenticationService(loginData)
       .then(async (res) => {
         userData = await auth.registerSuccessfulLoginForJwt(res.data);
-        userLogout().then((respon)=> {
+        console.log(loginData.id)
+        await deleteUser(loginData.id)
+        await userLogout().then((respon)=> {
           dispatch(respon);
         })
-        await deleteUser(loginData.id)
         history.push("/");
       })
       .catch(() => {
