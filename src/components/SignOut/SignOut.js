@@ -6,6 +6,7 @@ import * as auth from '../../apiService/AuthenticationService';
 import { deleteUser } from '../../apiService/UserApiService';
 import { userLogout } from '../../redux/redux-login/loginReducer';
 import { useDispatch } from 'react-redux';
+import { ToastTopRight } from '../../modules/ToastModule';
 
 const SignOut = ({ history }) => {
 
@@ -41,9 +42,11 @@ const SignOut = ({ history }) => {
         console.log(loginData.id)
         await deleteUser(loginData.id)
         await userLogout().then((respon)=> {
+          ToastTopRight("탈퇴 처리가 완료 되었습니다.");
           dispatch(respon);
         })
         history.push("/");
+
       })
       .catch(() => {
         setPasswordDesc("비밀번호를 확인해주세요.");
