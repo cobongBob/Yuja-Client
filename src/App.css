@@ -35,3 +35,12 @@
 .custom-control {
   min-height: 0 !important;
 }
+
+.chat_button {
+  position: fixed;
+  font-size: 2rem;
+  z-index: 50;
+  top: 80%;
+  left: 90%;
+  border-radius: 10%;
+}
