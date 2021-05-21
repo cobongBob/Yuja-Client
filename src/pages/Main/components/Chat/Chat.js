@@ -1,7 +1,7 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import "./Chat.scss";
-import { AiFillWechat } from "react-icons/ai";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import './Chat.scss';
+import { AiFillWechat } from 'react-icons/ai';
 
 const Chat = () => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -15,7 +15,10 @@ const Chat = () => {
       </div>
       <div className='chat_frame_wrapper'>
         <div className='chat_frame'>
-          <iframe className='chattingFrame' src='http://localhost:8888/rooms' title='YujaChat'></iframe>
+          <iframe
+            className='chattingFrame'
+            src='http://localhost:8888/rooms'
+            title='YujaChat'></iframe>
         </div>
       </div>
     </div>
