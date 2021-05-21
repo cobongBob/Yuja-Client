@@ -96,7 +96,7 @@ const NonRequired = ({ location, history }) => {
   };
 
   const changeValue = (e) => {
-    console.log('changeValue')
+    console.log('changeValue 실행')
     setNonRequiredData({
       ...nonRequiredData,
       [e.target.name]: e.target.value,
@@ -110,6 +110,7 @@ const NonRequired = ({ location, history }) => {
       profilePicId: profilePicId.current,
       youtubeConfirmId: youtubeConfirmId.current,
     };
+    console.log('NonRequiredData', data)
     UserApiService.addUser(data)
       .then((r) => {
         if (r) {
@@ -246,7 +247,12 @@ const NonRequired = ({ location, history }) => {
           <tr>
             <td>
               <div className='signUpAddressBox'>
-                <AddressApi changeValue={changeValue} changeAddress={changeAddress} />
+                <AddressApi
+                  changeValue={changeValue}
+                  changeAddress={changeAddress}
+                  setNonRequiredData={setNonRequiredData}
+                  nonRequiredData={nonRequiredData}
+                />
               </div>
             </td>
           </tr>

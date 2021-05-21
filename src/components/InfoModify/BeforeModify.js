@@ -79,7 +79,31 @@ const BeforeModify = ({ history }) => {
             />
             <div className='warningBox'>{passwordDesc}</div>
             <div className='beforeModifyBtnBox'>
-              <input type='submit' className='btn btn-warning' value='비밀번호 확인' onClick={loginHandler}></input>
+              <input
+                type='submit'
+                className='btn btn-warning'
+                value='비밀번호 확인'
+                onClick={loginHandler}
+              ></input>
+            </div>
+            <div className='beforeModifyOtherBoxDesc'>
+              다른 서비스가 필요하신가요?
+            </div>
+            <div className='beforeModifyOtherBox'>
+              <Link
+                to='/PasswordModify'
+                className='btn btn-warning'
+                name='passwordModifyBtn'
+              >
+                비밀번호 변경
+              </Link>
+              <Link
+                to='/SignOut'
+                className='btn btn-warning'
+                name='signOutBtn'
+              >
+                회원탈퇴
+              </Link>
             </div>
           </div>
         </div>

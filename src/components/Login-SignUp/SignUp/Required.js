@@ -251,9 +251,9 @@ const Required = ({ location, history }) => {
   }, [isValidateInput]);
 
   // 유효성 검사 on/off
-  useEffect(() => {
-    totalCheck();
-  }, [requiredData, passCheckNum, nextBtnDisabledHandler, totalCheck, securityCode]);
+  // useEffect(() => {
+  //   totalCheck();
+  // }, [requiredData, passCheckNum, nextBtnDisabledHandler, totalCheck, securityCode]);
 
   /* new 유효성 검사 끝 */
 
