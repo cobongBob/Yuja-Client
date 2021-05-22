@@ -72,12 +72,16 @@ const AddressApi = ( props ) => {
   const modifyAddress = props.address
   const detailAddress = props.detailAddress
 
-  const changeValue = (e) => {
+  console.log('detailAddress', detailAddress)
+  console.log('props.detailAddress', props.detailAddress)
+
+  const changeValue = useCallback((e) => {
+    console.log("changeValue");
       props.setNonRequiredData({
         ...props.nonRequiredData,
         [e.target.name]: e.target.value,
       });
-    }
+    }, [props.nonRequiredData, props.setNonRequiredData]);
 
   const onChange = useCallback(
     (e) => {
@@ -87,7 +91,7 @@ const AddressApi = ( props ) => {
         [e.target.name]: e.target.value,
       });
     },
-    [props.userData]
+    [props.userData, props.setUserData]
   );
 
   const onClick = useCallback((e) => {
@@ -129,8 +133,8 @@ const AddressApi = ( props ) => {
           value={detailAddress}
           onClick={onClick}
           onChange={
-            props.detailAddress ?
-            onChange
+            props.userData !== '' && props.userData !== undefined ?
+              onChange
               :
               changeValue
           }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Logo from "./components/Logo/Logo";
 import "./App.css";
-import { Route } from "react-router";
+import { Route, useHistory } from "react-router";
 import Youtuber from "./pages/Main/Youtuber/Youtuber";
 import Editer from "./pages/Main/Editer/Editer";
 import Thumbnailer from "./pages/Main/Thumbnailer/Thumbnailer";
@@ -44,6 +44,8 @@ import ThumbModify from "./pages/Main/Thumbnailer/ThumbModify";
 import SignOut from "./components/SignOut/SignOut";
 import { deleteNotifications } from "./apiService/MainApiService";
 import ChatModal from "./pages/Main/components/Chat/ChatModal";
+import { AiFillWechat } from "react-icons/ai";
+import { toastWithPush } from "./modules/ToastWithPush";
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
 
@@ -51,15 +53,16 @@ function App() {
   //권한 alert
 
   /* history 관련 */
-  const usePrevious = (value) => {
-    const ref = React.useRef();
-    React.useEffect(() => {
-      ref.current = value;
-    });
-    return ref.current;
-  };
   const location = useLocation();
-  const prevLocation = usePrevious(location.pathname);
+  const history = useHistory();
+  // const usePrevious = (value) => {
+  //   const ref = React.useRef();
+  //   React.useEffect(() => {
+  //     ref.current = value;
+  //   });
+  //   return ref.current;
+  // };
+  // const prevLocation = usePrevious(location.pathname);
   /* history 관련 끝 */
 
   /* 로딩 */
@@ -105,34 +108,34 @@ function App() {
   //알림
   useEffect(() => {
     if (notificationData.length > 0 && notificationData[0].notiId !== 0 && userData && userData.id !== 0) {
-      notificationData.forEach((notification, idx) => {
+      notificationData.forEach((notification) => {
         if (notification.type === "commentNoti") {
-          ToastAlert(
-            `${notification.resipeint.nickname}님께서 ${notification.comment.board.title}글에 댓글을 남기셨습니다.`
+          ToastAlert(() =>
+            toastWithPush(
+              `${notification.resipeint.nickname}님께서 ${notification.comment.board.title}글에 댓글을 남기셨습니다.`,
+              notification,
+              history
+            )
           );
           deleteNotifications(notification.notiId);
         }
       });
     }
-  }, [notificationData, userData]);
+  }, [notificationData, userData, history]);
+  //알림 설정 끝
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
   return (
     <div>
-      <button className='chat_button' onClick={() => setModalIsOpen(true)}>
-        채팅
-      </button>
-      {userData && modalIsOpen ? (
+      {userData && userData.id !== 0 && (
         <>
-          <ChatModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
+          <AiFillWechat className='chat_button' onClick={() => setModalIsOpen(true)} />
+          {modalIsOpen && <ChatModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />}
         </>
-      ) : null}
+      )}
       {exceptArray.indexOf(location.pathname) < 0 && <Navi />}
       {exceptArray.indexOf(location.pathname) < 0 && <Logo />}
-      {console.log("전페이지", prevLocation)}
-      {exceptArray.includes(prevLocation) === true && location.pathname === "/"
-        ? console.log("회원가입에서 왔군")
-        : console.log("그냥 왔군")}
       <div>
         {loading && <Loader type='spin' color='#ff9411' />}
         <Switch>
@@ -165,7 +168,8 @@ function App() {
           <Route path='/PasswordModify' component={PasswordModify} />
           <Route path='/Admin/:board_type' component={Admin_main} />
           <Route path='/SignOut' component={SignOut} />
-          {/* <Route component={PageNotFound} /> 이게 왜 나올까요? */}
+          {/*<Route path='PageNotFound' component={PageNotFound} />*/}
+          {/*<Redirect to='/' />*/}
         </Switch>
       </div>
       <Footer />

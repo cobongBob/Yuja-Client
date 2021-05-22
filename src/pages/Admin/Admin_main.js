@@ -15,7 +15,9 @@ import {
   fetchUsers,
   promoteUserService,
   rejectUserService,
+  fetchAllNoticeBoards,
 } from "../../apiService/AdminApiService";
+import AdminBoard from "./AdminBoard";
 
 const Admin_main = () => {
   const { authorities } = useSelector((state) => state.loginReducer);
@@ -23,6 +25,7 @@ const Admin_main = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [youtuberConfirm, setYoutuberConfirm] = useState([]);
   const [allReports, setAllReports] = useState([]);
+  const [allBoards, setAllBoards] = useState([]);
   useEffect(() => {
     if (authorities && !authorities.includes("ADMIN")) {
       ToastCenter("잘못 된 접근입니다");
@@ -39,6 +42,9 @@ const Admin_main = () => {
     });
     fetchAllUnauthYoutuber().then((res) => {
       setYoutuberConfirm(res.data);
+    });
+    fetchAllNoticeBoards().then((res) => {
+      setAllBoards(res.data);
     });
   }, []);
 
@@ -116,6 +122,7 @@ const Admin_main = () => {
               {pathname.includes("/AdminReports") ? (
                 <AdminReports allReports={allReports} deleteReported={deleteReported} />
               ) : null}
+              {pathname.includes("/AdminBoard") ? <AdminBoard allBoards={allBoards} /> : null}
             </div>
           </div>
         </div>
