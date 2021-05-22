@@ -15,7 +15,7 @@ import YoutuberProfile from "./pages/Profile/YoutuberProfile";
 import Yregister from "./pages/Main/Youtuber/Yregister";
 import Switch from "react-bootstrap/Switch";
 import YmodifyTest from "./pages/Main/Youtuber/YmodifyTest";
-import { useLocation, Redirect } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import MainWrapper from "./MainWrapper";
 import PageNotFound from "./pages/Error/PageNotFound";
 import Footer from "./components/Footer";
@@ -53,16 +53,16 @@ function App() {
   //권한 alert
 
   /* history 관련 */
-  const usePrevious = (value) => {
-    const ref = React.useRef();
-    React.useEffect(() => {
-      ref.current = value;
-    });
-    return ref.current;
-  };
   const location = useLocation();
-  const prevLocation = usePrevious(location.pathname);
   const history = useHistory();
+  // const usePrevious = (value) => {
+  //   const ref = React.useRef();
+  //   React.useEffect(() => {
+  //     ref.current = value;
+  //   });
+  //   return ref.current;
+  // };
+  // const prevLocation = usePrevious(location.pathname);
   /* history 관련 끝 */
 
   /* 로딩 */
@@ -125,8 +125,6 @@ function App() {
   //알림 설정 끝
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
-  const GoToMainPage = () => <Redirect to="/"/>
 
   return (
     <div>
