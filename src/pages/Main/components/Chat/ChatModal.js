@@ -30,7 +30,7 @@ const ChatModal = ({ modalIsOpen, setModalIsOpen, setUseChat }) => {
       <span className='chat_close' onClick={closeModal}>
         &times;
       </span>
-      <Modal isOpen={modalIsOpen} style={reportcustomStyles} onRequestClose={closeModal}>
+      <Modal closeTimeoutMS={200} isOpen={modalIsOpen} style={reportcustomStyles} onRequestClose={closeModal}>
         <SmallChat />
       </Modal>
     </div>

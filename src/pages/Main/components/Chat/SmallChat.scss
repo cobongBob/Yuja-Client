@@ -1,7 +1,6 @@
 .small_chat_body {
   text-align: center;
   font-family: "scdream5";
-  background-color: #fff2f2;
 }
 
 .small_chat_frame {
@@ -17,9 +16,8 @@
 
 .small_chat_frame > iframe {
   font-family: "scdream5";
-  width: 45vw;
+  width: 100%;
   min-height: 90vh;
   background-color: white;
-  border-radius: 8%;
   border: 2px solid black;
 }

@@ -38,9 +38,10 @@
 
 .chat_button {
   position: fixed;
-  font-size: 2rem;
   z-index: 50;
   top: 80%;
   left: 90%;
-  border-radius: 10%;
+  color: #c4302b;
+  font-size: 4rem;
+  cursor: pointer;
 }
