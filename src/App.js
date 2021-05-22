@@ -15,7 +15,7 @@ import YoutuberProfile from "./pages/Profile/YoutuberProfile";
 import Yregister from "./pages/Main/Youtuber/Yregister";
 import Switch from "react-bootstrap/Switch";
 import YmodifyTest from "./pages/Main/Youtuber/YmodifyTest";
-import { useLocation } from "react-router-dom";
+import { useLocation, Redirect } from "react-router-dom";
 import MainWrapper from "./MainWrapper";
 import PageNotFound from "./pages/Error/PageNotFound";
 import Footer from "./components/Footer";
@@ -125,6 +125,8 @@ function App() {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  const GoToMainPage = () => <Redirect to="/"/>
+
   return (
     <div>
       {userData && userData.id !== 0 && (
@@ -135,10 +137,6 @@ function App() {
       )}
       {exceptArray.indexOf(location.pathname) < 0 && <Navi />}
       {exceptArray.indexOf(location.pathname) < 0 && <Logo />}
-      {console.log("전페이지", prevLocation)}
-      {exceptArray.includes(prevLocation) === true && location.pathname === "/"
-        ? console.log("회원가입에서 왔군")
-        : console.log("그냥 왔군")}
       <div>
         {loading && <Loader type='spin' color='#ff9411' />}
         <Switch>
@@ -171,7 +169,8 @@ function App() {
           <Route path='/PasswordModify' component={PasswordModify} />
           <Route path='/Admin/:board_type' component={Admin_main} />
           <Route path='/SignOut' component={SignOut} />
-          {/* <Route component={PageNotFound} /> 이게 왜 나올까요? */}
+          {/*<Route path='PageNotFound' component={PageNotFound} />*/}
+          {/*<Redirect to='/' />*/}
         </Switch>
       </div>
       <Footer />
