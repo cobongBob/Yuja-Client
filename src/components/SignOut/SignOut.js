@@ -1,9 +1,9 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from 'react';
 import './SignOut.scss'
 import { Link } from 'react-router-dom';
 import { executeJwtAuthenticationService, getLoggedInUserData } from '../../apiService/AuthenticationService';
 import * as auth from '../../apiService/AuthenticationService';
-import { deleteUser } from '../../apiService/UserApiService';
+import { deleteUser, getUserData } from '../../apiService/UserApiService';
 import { userLogin, userLogout } from '../../redux/redux-login/loginReducer';
 import { useDispatch } from 'react-redux';
 import { ToastTopRight } from '../../modules/ToastModule';
@@ -24,7 +24,14 @@ const SignOut = ({ history }) => {
   const [googleSubmitHandler, setGoogleSubmitHandler] = useState(true);
   const dispatch = useDispatch();
 
-  console.log('SignOut loggedInUserData',loggedInUserData)
+  console.log('SignOut', loggedInUserData)
+  console.log('SignOut loggedInUserData',loggedInUserData.providedId)
+
+  useEffect(() => {
+    getUserData(loggedInUserData.id).then((res) => {
+      setGetProviderId(res.data.providedId);
+    });
+  }, []);
 
   const inputHandler = useCallback(
     (e) => {
@@ -110,7 +117,7 @@ const SignOut = ({ history }) => {
       </div>
       <div className='signOutContentBox'>
         <div className='overlay'>
-          {loginData.providedId === null || undefined ?
+          {getProviderId === null || undefined ?
             <div className='signOutBox'>
               <div className='signOutDescBox'>
                 <span>{loggedInUserData.nickname}</span>
