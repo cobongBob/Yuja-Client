@@ -64,6 +64,7 @@ export default function loginReducer(state = initialState, action) {
         userData: action.payload,
         userLoginStatus: action.userLoginStatus,
         authorities:
+          action.payload &&
           action.payload.authorities &&
           action.payload.authorities.map((authority) => {
             return authority.authority;
@@ -72,7 +73,7 @@ export default function loginReducer(state = initialState, action) {
     case USER_LOGOUT:
       return {
         userLoginStatus: false,
-        userData: "",
+        userData: { id: 0 },
         authorities: [],
       };
     case USER_STATUS:
@@ -85,6 +86,7 @@ export default function loginReducer(state = initialState, action) {
         userData: action.payload,
         userLoginStatus: action.userLoginStatus,
         authorities:
+          action.payload &&
           action.payload.authorities &&
           action.payload.authorities.map((authority) => {
             return authority.authority;

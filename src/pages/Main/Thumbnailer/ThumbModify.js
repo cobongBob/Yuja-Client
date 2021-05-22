@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
-import { getOneEBoard } from '../../../apiService/EditerApiService';
-import { ToastCenter } from '../../../modules/ToastModule';
-import './ThumbRegister.scss';
-import * as EditerApiService from '../../../apiService/EditerApiService';
-import QuillModify from '../../../components/Quill/QuillModify';
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import { getOneEBoard } from "../../../apiService/EditerApiService";
+import { ToastCenter } from "../../../modules/ToastModule";
+import "./ThumbRegister.scss";
+import * as EditerApiService from "../../../apiService/EditerApiService";
+import QuillModify from "../../../components/Quill/QuillModify";
 
 const ThumbModify = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -17,11 +17,10 @@ const ThumbModify = ({ match }) => {
   const fileList = useRef([]);
   const history = useHistory();
   const ThumbId = useRef(0);
-  const [fileUrl, setFileUrl] = useState('');
+  const [fileUrl, setFileUrl] = useState("");
 
   let ThHistory = useCallback(
-    (board_id) =>
-      history.push(`/ThumbDetail/${board_type.current}/${board_id}/1`),
+    (board_id) => history.push(`/ThumbDetail/${board_type.current}/${board_id}/1`),
     [history, board_type]
   );
 
@@ -50,11 +49,11 @@ const ThumbModify = ({ match }) => {
   };
 
   const [input, setInput] = useState({
-    previewImage: '',
-    title: '',
-    career: '',
-    payType: '',
-    payAmount: '',
+    previewImage: "",
+    title: "",
+    career: "",
+    payType: "",
+    payAmount: "",
     tools: checkedlist.current,
   });
 
@@ -64,23 +63,21 @@ const ThumbModify = ({ match }) => {
       return;
     }
 
-    const acceptType = ['image/png', 'image/jpeg', 'image/gif', 'image/jpg'];
+    const acceptType = ["image/png", "image/jpeg", "image/gif", "image/jpg"];
     if (!acceptType.includes(file.type)) {
-      return ToastCenter('jpg, jpeg, png 만 가능합니다.');
+      return ToastCenter("jpg, jpeg, png 만 가능합니다.");
     }
     const config = {
       headers: {
-        'content-type': 'multipart/form-data',
+        "content-type": "multipart/form-data",
       },
     };
 
     if (e.target.files !== null) {
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append("file", file);
       EditerApiService.addThumb(formData, config).then((response) => {
-        setFileUrl(
-          `http://localhost:8888/files/temp/${response.data.fileName}`
-        );
+        setFileUrl(`http://localhost:8888/files/temp/${response.data.fileName}`);
         ThumbId.current = response.data.thumbnailId;
       });
     }
@@ -89,32 +86,25 @@ const ThumbModify = ({ match }) => {
   useEffect(() => {
     getOneEBoard(match.params.board_id, board_type.current).then((res) => {
       if (!userData || userData.id !== res.data.user.id) {
-        ToastCenter('권한이 없습니다.');
+        ToastCenter("권한이 없습니다.");
         return history.goBack();
       }
       fileList.current = res.data.boardAttachFileNames;
       setQModiData(res.data.content);
       setInput(res.data);
     });
-  }, [userData]);
+  }, [userData, history, match.params.board_id]);
 
   const testCheking = () => {
     if (!qModiData || !input.title) {
-      return ToastCenter('제목과 내용을 입력해주세요');
+      return ToastCenter("제목과 내용을 입력해주세요");
     }
-    let reg = new RegExp(
-      `http://localhost:8888/files/${board_type.current}/[0-9]+.[a-z]+`,
-      'gi'
-    );
+    let reg = new RegExp(`http://localhost:8888/files/${board_type.current}/[0-9]+.[a-z]+`, "gi");
     let imgSrcArr = String(qModiData).match(reg); // 불러왔던 글에 존재했던 이미지 태그들의 src
     // 서버에서 날아온 이미지 이름과 비교한다. 없으면 삭제된것이므로 삭제 리스트에 담아준다.
     if (imgSrcArr) {
       fileList.current.forEach((src) => {
-        if (
-          !imgSrcArr.includes(
-            `http://localhost:8888/files/${board_type.current}/${src}`
-          )
-        ) {
+        if (!imgSrcArr.includes(`http://localhost:8888/files/${board_type.current}/${src}`)) {
           deletedFileList.current.push(src);
         }
       });
@@ -132,11 +122,7 @@ const ThumbModify = ({ match }) => {
       boardAttachIds: addingFileList.current,
       boardAttachToBeDeleted: deletedFileList.current,
     };
-    EditerApiService.modifyBoard(
-      match.params.board_id,
-      modifyingData,
-      board_type.current
-    ).then((res) => {
+    EditerApiService.modifyBoard(match.params.board_id, modifyingData, board_type.current).then((res) => {
       ThHistory(res.data.id);
     });
   };
@@ -157,7 +143,7 @@ const ThumbModify = ({ match }) => {
                 id='first-link'
                 onChange={onChange}
                 maxLength='45'
-                value={input.title || ''}
+                value={input.title || ""}
               />
             </li>
             <li className='li-item2'>
@@ -178,7 +164,7 @@ const ThumbModify = ({ match }) => {
                 onChange={radioCheck}
                 value='신입'
                 type='radio'
-                checked={input.career === '신입'}
+                checked={input.career === "신입"}
               />
               <label htmlFor='newbie'>신입</label>
               <input
@@ -187,7 +173,7 @@ const ThumbModify = ({ match }) => {
                 name='career'
                 value='경력'
                 type='radio'
-                checked={input.career === '경력'}
+                checked={input.career === "경력"}
               />
               <label htmlFor='career'>경력</label>
             </li>
@@ -205,18 +191,12 @@ const ThumbModify = ({ match }) => {
                 placeholder='희망급여'
                 name='payAmount'
                 onChange={onChange}
-                value={input.payAmount || ''}
+                value={input.payAmount || ""}
               />
             </li>
             <li className='li-item5'>
               <span>사용기술</span>
-              <input
-                id='Epremiere'
-                name='Epremiere'
-                value='프리미어 프로'
-                type='checkbox'
-                onChange={checkboxCheck}
-              />
+              <input id='Epremiere' name='Epremiere' value='프리미어 프로' type='checkbox' onChange={checkboxCheck} />
               <label htmlFor='Epremiere'>프리미어 프로 </label>
               <input
                 id='Eaftereffect'
@@ -226,29 +206,11 @@ const ThumbModify = ({ match }) => {
                 onChange={checkboxCheck}
               />
               <label htmlFor='Eaftereffect'>애프터이펙트 </label>
-              <input
-                id='Ephotoshop'
-                name='Ephotoshop'
-                value='포토샵'
-                type='checkbox'
-                onChange={checkboxCheck}
-              />
+              <input id='Ephotoshop' name='Ephotoshop' value='포토샵' type='checkbox' onChange={checkboxCheck} />
               <label htmlFor='Ephotoshop'>포토샵 </label>
-              <input
-                id='Eillustrater'
-                name='Eillustrater'
-                onChange={checkboxCheck}
-                value='일러스트'
-                type='checkbox'
-              />
+              <input id='Eillustrater' name='Eillustrater' onChange={checkboxCheck} value='일러스트' type='checkbox' />
               <label htmlFor='Eillustrater'>베가스</label>
-              <input
-                id='Efinalcut'
-                name='Efinalcut'
-                value='파이널컷'
-                type='checkbox'
-                onChange={checkboxCheck}
-              />
+              <input id='Efinalcut' name='Efinalcut' value='파이널컷' type='checkbox' onChange={checkboxCheck} />
               <label htmlFor='Efinalcut'>파이널컷 </label>
               <input
                 id='Epowerdirector'

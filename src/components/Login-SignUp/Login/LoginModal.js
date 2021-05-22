@@ -11,6 +11,7 @@ import googleLoginIcon from "./googleLoginIcon2.svg";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastTopRight } from "../../../modules/ToastModule";
+import { getLoaded, getLoading } from "../../../redux/loading/loadingReducer";
 toast.configure();
 Modal.setAppElement("#root");
 function LoginModal() {
@@ -114,7 +115,9 @@ function LoginModal() {
         setIsOpen(true);
       } else {
         loginNotify();
+        dispatch(getLoading(res.payload.id));
         setIsOpen(false);
+        dispatch(getLoaded());
       }
     });
   }, [loginData, dispatch, loginNotify]);
@@ -153,21 +156,14 @@ function LoginModal() {
     <>
       <div className='navChangeBox'>
         {userLoginStatus === false ? (
-          <button
-            className='button-login'
-            id='button-login'
-            onClick={openModal}
-          >
+          <button className='button-login' id='button-login' onClick={openModal}>
             로그인/회원가입
           </button>
         ) : (
           <div>
             <div className='welcomeBox'>안녕하세요, {userData.nickname}님!</div>
             <div className='modifyBox'>
-              <Link
-                to='/BeforeModify'
-                className='modifyBtn'
-              >
+              <Link to='/BeforeModify' className='modifyBtn'>
                 정보수정
               </Link>
             </div>
@@ -217,13 +213,7 @@ function LoginModal() {
                   </Link>
                 </div>
               </div>
-              <input
-                type='submit'
-                className='loginBtn'
-                value='로그인'
-                onClick={logInHandler}
-              >
-              </input>
+              <input type='submit' className='loginBtn' value='로그인' onClick={logInHandler}></input>
               <GoogleLogin
                 className='googleLoginBtn'
                 clientId='373267940764-jujlpjtg3qtd21bg6496vaj7k9ooj56e.apps.googleusercontent.com'
