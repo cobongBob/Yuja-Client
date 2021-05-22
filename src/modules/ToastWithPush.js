@@ -1,11 +1,15 @@
-export const toastWithPush = (txt, history) => (
+import { BoardTypeConvertUrl } from "./BoardTypeConvert";
+
+export const toastWithPush = (txt, notification, history) => (
   <>
     {txt}
-    <button onClick={() => pushToPage(history)}>글 보러가기</button>
+    <button onClick={() => pushToPage(notification, history)}>글 보러가기</button>
   </>
 );
 
-const pushToPage = (history) => {
-  alert("구현중");
-  console.log(123123, history);
+const pushToPage = (notification, history) => {
+  let boardCode = notification.comment.board.boardType.boardCode;
+  let boardId = notification.comment.board.id;
+  const boardUrl = BoardTypeConvertUrl(boardCode, boardId);
+  history.push(boardUrl);
 };

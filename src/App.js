@@ -108,11 +108,12 @@ function App() {
   //알림
   useEffect(() => {
     if (notificationData.length > 0 && notificationData[0].notiId !== 0 && userData && userData.id !== 0) {
-      notificationData.forEach((notification, idx) => {
+      notificationData.forEach((notification) => {
         if (notification.type === "commentNoti") {
           ToastAlert(() =>
             toastWithPush(
               `${notification.resipeint.nickname}님께서 ${notification.comment.board.title}글에 댓글을 남기셨습니다.`,
+              notification,
               history
             )
           );
