@@ -16,6 +16,7 @@ import {
   promoteUserService,
   rejectUserService,
   fetchAllNoticeBoards,
+  noticePrivateSwitch,
 } from "../../apiService/AdminApiService";
 import AdminBoard from "./AdminBoard";
 
@@ -106,6 +107,14 @@ const Admin_main = () => {
     });
   }, []);
 
+  const noticeSwitch = useCallback((board_id) => {
+    noticePrivateSwitch(board_id).then((result) => {
+      fetchAllNoticeBoards().then((res) => {
+        setAllBoards(res.data);
+      });
+    });
+  }, []);
+
   return (
     allUsers &&
     allReports &&
@@ -122,7 +131,9 @@ const Admin_main = () => {
               {pathname.includes("/AdminReports") ? (
                 <AdminReports allReports={allReports} deleteReported={deleteReported} />
               ) : null}
-              {pathname.includes("/AdminBoard") ? <AdminBoard allBoards={allBoards} /> : null}
+              {pathname.includes("/AdminBoard") ? (
+                <AdminBoard allBoards={allBoards} noticeSwitch={noticeSwitch} />
+              ) : null}
             </div>
           </div>
         </div>

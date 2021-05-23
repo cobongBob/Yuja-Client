@@ -6,6 +6,7 @@ import WinTable from "./WinTable";
 import Pagination from "../components/Pagination";
 import Search from "../components/Search";
 import WSide from "./WSide";
+import { fetchAllNoticeBoards } from "../../../apiService/AdminApiService";
 const Winwin = ({ match, history }) => {
   const dispatch = useDispatch();
   const path = history.location.pathname;
@@ -38,6 +39,14 @@ const Winwin = ({ match, history }) => {
     dispatch(getWinBoard(board_type.current));
   }, [userData, dispatch, match.params.board_type]);
 
+  //공지 가져오기
+  const [allNotices, setAllNotices] = useState([]);
+  useEffect(() => {
+    fetchAllNoticeBoards().then((res) => {
+      setAllNotices(res.data);
+    });
+  }, []);
+
   return winBoard.loading && !winBoard ? (
     <>
       <div className='loading'>
@@ -55,6 +64,7 @@ const Winwin = ({ match, history }) => {
           board_type={board_type.current}
           lastIdx={winBoard.wFilterData.length - 10 * (currentPage - 1)}
           currentPage={currentPage}
+          allNotices={allNotices}
         />
         <Search
           boardData={searchTerm.length < 1 ? winBoard.wFilterData : null}
