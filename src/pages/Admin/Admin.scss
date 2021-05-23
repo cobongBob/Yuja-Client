@@ -18,5 +18,32 @@
   cursor: pointer;
 }
 .admin_report_modal {
+  font-size: 20px;
+  font-family: scdream4;
+  vertical-align: middle;
+  padding: 2rem;
+}
+
+.admin_report_modal_user {
   text-align: center;
+  margin: 2rem;
+  background-color: bisque;
+}
+.admin_report_modal_content {
+  background-color: bisque;
+  margin: 2rem;
+  min-height: 24vh;
+}
+.admin_report_modal_date {
+  text-align: center;
+  background-color: bisque;
+  margin: 2rem;
+}
+
+.admin_modal_btn {
+  text-align: center;
+}
+
+.notice_option {
+  cursor: pointer;
 }

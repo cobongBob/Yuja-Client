@@ -1,20 +1,14 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import "./Chat.scss";
-import { AiFillWechat } from "react-icons/ai";
+import "./SmallChat.scss";
 
-const Chat = () => {
+const SmallChat = () => {
   const { userData } = useSelector((state) => state.loginReducer);
 
   return (
-    <div className='chat_body'>
-      <div className='ChatIconsWrapper'>
-        <h1>
-          <AiFillWechat className='ChatIcons'></AiFillWechat>유자톡
-        </h1>
-      </div>
-      <div className='chat_frame_wrapper'>
-        <div className='chat_frame'>
+    <div className='small_chat_body'>
+      <div className='small_chat_frame_wrapper'>
+        <div className='small_chat_frame'>
           {userData.id ? (
             <iframe className='chattingFrame' src='http://localhost:8888/rooms' title='YujaChat'></iframe>
           ) : (
@@ -26,4 +20,4 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default SmallChat;

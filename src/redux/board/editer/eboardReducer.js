@@ -112,9 +112,9 @@ export function EboardReducer(state = initialState, action) {
         detailData: { id: 0, likes: 0, liked: false, user: { id: 0 } },
         // eslint-disable-next-line array-callback-return
         filterData: action.payload.sort((a, b) => {
-          if (a.updatedDate < b.updatedDate) return 1;
-          if (a.updatedDate > b.updatedDate) return -1;
-          if (a.updatedDate === b.updatedDate) return 0;
+          if (a.boardUpdatedDate < b.boardUpdatedDate) return 1;
+          if (a.boardUpdatedDate > b.boardUpdatedDate) return -1;
+          if (a.boardUpdatedDate === b.boardUpdatedDate) return 0;
         }),
         sortedLike: false,
         error: "",
@@ -143,9 +143,9 @@ export function EboardReducer(state = initialState, action) {
         ...state,
         // eslint-disable-next-line array-callback-return
         filterData: state.eBoardData.sort((a, b) => {
-          if (a.updatedDate < b.updatedDate) return 1;
-          if (a.updatedDate > b.updatedDate) return -1;
-          if (a.updatedDate === b.updatedDate) return 0;
+          if (a.boardUpdatedDate < b.boardUpdatedDate) return 1;
+          if (a.boardUpdatedDate > b.boardUpdatedDate) return -1;
+          if (a.boardUpdatedDate === b.boardUpdatedDate) return 0;
         }),
         sortedLike: false,
       };

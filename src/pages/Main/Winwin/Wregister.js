@@ -41,6 +41,9 @@ const Wregister = ({ match }) => {
     if (!qData || !inputData.title) {
       return ToastCenter("제목과 내용을 입력해주세요");
     }
+    if (!userData) {
+      return ToastCenter("로그인 해주세요");
+    }
     let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
     let imgSrcArr = String(qData).match(reg);
     if (imgSrcArr) {
@@ -65,16 +68,21 @@ const Wregister = ({ match }) => {
     insertWinBoard(sendingData, board_type.current).then((res) => {
       whistory(res.data.id);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userData, qData, whistory]);
+  }, [userData, qData, whistory, checked, inputData]);
 
   return (
     <div>
       <div>
-        <input name='title' onChange={inputHandler} placeholder='제목' maxLength='200' type='text' />
+        <input name='title' onChange={inputHandler} placeholder='제목' maxLength='45' type='text' />
         {board_type.current === "CustomService" ? (
           <>
             <label htmlFor='secret'>비밀글</label>
+            <input id='secret' name='isPrivate' onChange={checkboxHandler} type='checkbox' />
+          </>
+        ) : null}
+        {board_type.current === "Notice" ? (
+          <>
+            <label htmlFor='secret'>공지 공개</label>
             <input id='secret' name='isPrivate' onChange={checkboxHandler} type='checkbox' />
           </>
         ) : null}

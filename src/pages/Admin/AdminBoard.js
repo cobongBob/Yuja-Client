@@ -1,30 +1,34 @@
 import React, { useCallback, useState } from "react";
+import { Link } from "react-router-dom";
 import Pagination from "../Main/components/Pagination";
-import AdminReportsTable from "./AdminReportsTable";
+import AdminBoardTable from "./AdminBoardTable";
 
-const AdminReports = ({ allReports, deleteReported }) => {
-  //페이징
+const AdminBoard = ({ allBoards, noticeSwitch }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [boardPerPage] = useState(10);
   const indexOfLastData = currentPage * boardPerPage;
   const indexOfFirstData = indexOfLastData - boardPerPage;
-  const currentData = allReports.slice(indexOfFirstData, indexOfLastData);
+  const currentData = allBoards.slice(indexOfFirstData, indexOfLastData);
   const clickPage = useCallback((pages) => {
     setCurrentPage(pages);
   }, []);
-
   return (
     <div className='admin_board'>
-      <h1>신고게시판</h1>
-      <AdminReportsTable
+      <h1>공지게시판</h1>
+      <div className='community-options'>
+        <Link to={`/BoardRegister/Notice`} className='registerBtn'>
+          글쓰기
+        </Link>
+      </div>
+      <AdminBoardTable
         currentData={currentData}
-        lastIdx={allReports.length - 10 * (currentPage - 1)}
+        lastIdx={allBoards.length - 10 * (currentPage - 1)}
         currentPage={currentPage}
-        deleteReported={deleteReported}
+        noticeSwitch={noticeSwitch}
       />
       <Pagination
         boardPerPage={boardPerPage}
-        totalBoards={allReports.length}
+        totalBoards={allBoards.length}
         currentPage={currentPage}
         clickPage={clickPage}
       />
@@ -32,4 +36,4 @@ const AdminReports = ({ allReports, deleteReported }) => {
   );
 };
 
-export default AdminReports;
+export default AdminBoard;

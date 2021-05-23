@@ -18,7 +18,7 @@ export const getWinBoard = (board_type) => {
     dispatch(getWinBoardRequest());
     getWinBoards(board_type)
       .then((res) => dispatch(getWinBoardSuccess(res.data)))
-      .catch((err) => dispatch(getWinBoardFailure(err.response.massage)));
+      .catch((err) => dispatch(getWinBoardFailure(err.response)));
   };
 };
 

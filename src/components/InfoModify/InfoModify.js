@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./InfoModify.scss";
 import { Link } from "react-router-dom";
-import { getLoggedInUserData, isUserLoggedIn } from "../../apiService/AuthenticationService";
-import { ToastCenter, ToastPreventAccess, ToastTopRight } from "../../modules/ToastModule";
+import { getLoggedInUserData } from "../../apiService/AuthenticationService";
+import { ToastCenter, ToastTopRight } from "../../modules/ToastModule";
 import UserApiService, { getUserData, modifyUserData } from "../../apiService/UserApiService";
 import axios from "axios";
 import AddressApi from "../Login-SignUp/SignUp/AddressApi";
@@ -26,7 +26,9 @@ const InfoModify = ({ history }) => {
   const youtubeConfirmId = useRef(0);
 
   const [userData, setUserData] = useState({
-    id:"",
+    id: "",
+    providedId: "",
+    provider: "",
     username: "",
     realName: "",
     nickname: "",
@@ -55,7 +57,9 @@ const InfoModify = ({ history }) => {
     getUserData(userId).then((res) => {
       console.log("res.data의 값", res.data);
       setUserData({
-        id:res.data.id,
+        id: res.data.id,
+        providedId: res.data.providedId,
+        provider: res.data.provider,
         username: res.data.username,
         realName: res.data.realName,
         nickname: res.data.nickname,
@@ -69,10 +73,7 @@ const InfoModify = ({ history }) => {
         youtubeConfirmImg: res.data.youtubeConfirmImg,
       });
     });
-  }, [
-
-
-  ]);
+  }, [userId]);
 
   console.log("userData의 값", userData);
 
@@ -117,7 +118,7 @@ const InfoModify = ({ history }) => {
   /* 사업자 등록번호 확인식 */
   const bsnCheck = (e) => {
     let bsn = e.target.value;
-    const checkId = [1, 3, 7, 1, 3, 7, 1, 3,  5, 1];
+    const checkId = [1, 3, 7, 1, 3, 7, 1, 3, 5, 1];
     let sum = 0;
 
     if (bsn !== "") {
@@ -200,7 +201,8 @@ const InfoModify = ({ history }) => {
     }
   };
 
-  let profile_preview, youtuberPic_preview = "";
+  let profile_preview,
+    youtuberPic_preview = "";
 
   profile_preview = (
     <img
@@ -220,7 +222,7 @@ const InfoModify = ({ history }) => {
   /* 파일 업로드 끝 */
 
   const modifyBtn = useCallback(() => {
-    console.log('===========================',userData)
+    console.log("===========================", userData);
     console.log(userId);
     modifyUserData(userId, userData)
       .then((r) => {
@@ -380,7 +382,7 @@ const InfoModify = ({ history }) => {
                 </td>
               </tr>
             </table>
-            {userData.youtubeUrl !== null ? (
+            {userData.youtubeUrl !== null && "" ? (
               <div className='youtuberDiv'>
                 <div className='youtuberDiv_Title'>
                   유튜버 분들은 원활한 서비스 이용을 위해
@@ -449,11 +451,7 @@ const InfoModify = ({ history }) => {
               ""
             )}
             <div className='infoModifySubmitBtnBox'>
-              <button
-                type='submit'
-                className='btn btn-warning'
-                onClick={modifyBtn}
-              >
+              <button type='submit' className='btn btn-warning' onClick={modifyBtn}>
                 수정완료
               </button>
             </div>

@@ -1,4 +1,5 @@
 import instance from "../AxiosConfig.js";
+import BoardTypeConvert from "../modules/BoardTypeConvert.js";
 
 export const fetchUsers = async () => {
   return await instance({
@@ -9,6 +10,13 @@ export const fetchUsers = async () => {
 export const fetchAllUnauthYoutuber = async () => {
   return await instance({
     url: "/admin/promote/youtuber",
+    method: "get",
+  });
+};
+
+export const fetchAllNoticeBoards = async () => {
+  return await instance({
+    url: 9 + "/board",
     method: "get",
   });
 };
@@ -30,5 +38,19 @@ export const rejectUserService = async (youtubeConfirmId) => {
   return await instance({
     url: `/admin/promote/youtuber/${youtubeConfirmId}`,
     method: "delete",
+  });
+};
+
+export const deleteReportedBoard = async (board_id, board_type) => {
+  let board_code = BoardTypeConvert(board_type);
+  return await instance({
+    url: board_code + "/board/" + board_id,
+    method: "delete",
+  });
+};
+
+export const noticePrivateSwitch = async (board_id) => {
+  return await instance({
+    url: `/notice/private/${board_id}`,
   });
 };

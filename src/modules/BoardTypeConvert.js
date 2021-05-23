@@ -16,9 +16,49 @@ const BoardTypeConvert = (board_type) => {
       return 7;
     case "Report":
       return 8;
+    case "Notice":
+      return 9;
     default:
       return 0;
   }
+};
+export const BoardTypeConvertReverse = (board_code) => {
+  switch (board_code) {
+    case 1:
+      return "Youtuber";
+    case 2:
+      return "Editor";
+    case 3:
+      return "Thumb";
+    case 4:
+      return "Winwin";
+    case 5:
+      return "Collabo";
+    case 6:
+      return "CustomService";
+    case 7:
+      return "Free";
+    case 8:
+      return "Report";
+    case 9:
+      return "Notice";
+    default:
+      return 0;
+  }
+};
+export const BoardTypeConvertUrl = (reportedBoardCode, reportedBoardId) => {
+  let boardUrl = "";
+  const reportedBoardType = BoardTypeConvertReverse(reportedBoardCode);
+  if (reportedBoardCode === 1) {
+    boardUrl = `/Ydetail/${reportedBoardId}`;
+  } else if (reportedBoardId === 2) {
+    boardUrl = `/EDetail/Editor/${reportedBoardId}/1`;
+  } else if (reportedBoardId === 3) {
+    boardUrl = `ThumbDetail/Thumb/${reportedBoardId}/1`;
+  } else {
+    boardUrl = `/BoardDetail/${reportedBoardType}/${reportedBoardId}/1`;
+  }
+  return boardUrl;
 };
 
 export default BoardTypeConvert;

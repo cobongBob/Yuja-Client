@@ -1,17 +1,13 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  addLike,
-  deleteLike,
-  getDetailData,
-} from '../../../redux/board/editer/eboardReducer';
-import * as EditerApiService from '../../../apiService/EditerApiService';
-import { useHistory } from 'react-router';
-import ReactQuill from 'react-quill';
-import { ToastCenter, ToastTopRight } from '../../../modules/ToastModule';
-import { AiFillStar, AiOutlineFileSearch, AiOutlineStar } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
-import Report from '../components/Report';
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addLike, deleteLike, getDetailData } from "../../../redux/board/editer/eboardReducer";
+import * as EditerApiService from "../../../apiService/EditerApiService";
+import { useHistory } from "react-router";
+import ReactQuill from "react-quill";
+import { ToastCenter, ToastTopRight } from "../../../modules/ToastModule";
+import { AiFillStar, AiOutlineFileSearch, AiOutlineStar } from "react-icons/ai";
+import { Link } from "react-router-dom";
+import Report from "../components/Report";
 
 const ThumbDetail = ({ match }) => {
   const { current: board_type } = useRef(match.params.board_type);
@@ -53,7 +49,7 @@ const ThumbDetail = ({ match }) => {
         });
       }
     } else {
-      ToastCenter('로그인 해주세요');
+      ToastCenter("로그인 해주세요");
     }
   }, [userData, dispatch, match, detailData]);
 
@@ -66,14 +62,9 @@ const ThumbDetail = ({ match }) => {
           </div>
           <div className='detail-btn'>
             <div className='detail-btn-box'>
-              {userData &&
-              detailData.user &&
-              userData.id === detailData.user.id ? (
+              {userData && detailData.user && userData.id === detailData.user.id ? (
                 <div>
-                  <Link
-                    to={`/ThumbModify/Thumb/${detailData.id}/1`}
-                    className='detail-update-btn'
-                  >
+                  <Link to={`/ThumbModify/Thumb/${detailData.id}/1`} className='detail-update-btn'>
                     이력서 수정하기
                   </Link>
                   <button className='detail-update-btn' onClick={deleteBoard}>
@@ -81,11 +72,7 @@ const ThumbDetail = ({ match }) => {
                   </button>
                 </div>
               ) : (
-                <Report
-                  board_id={match.params.board_id}
-                  modalIsOpen={modalIsOpen}
-                  setModalIsOpen={setModalIsOpen}
-                />
+                <Report board_id={match.params.board_id} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
               )}
               <Link className='detail-update-btn' to={`/Thboard/Thumb/1`}>
                 목록보기
@@ -114,12 +101,13 @@ const ThumbDetail = ({ match }) => {
           </li>
           <div className='Thumb-content-wrapper'>
             <li className='Thumb-content-profile-pic'>
-              <img src='/img/board_pic/thumbnailer_pic/thum2.PNG'></img>
+              <img src='/img/board_pic/thumbnailer_pic/thum2.PNG' alt='썸네일'></img>
             </li>
-
             <li className='Thumb-content-hit'></li>
             <li className='Thumb-content-title'>{detailData.title}</li>
             <li className='Thumb-content-user'>작성자</li>
+            <li className='Thumb-content-user-data'>{detailData.career}</li>
+            <li className='Thumb-content-user-data'>연락처 {detailData.user.phone}</li>
             <li className='Thumb-content-pay'>
               급여방식 <span> {detailData.payType}</span>
               희망급여 <span>{detailData.payAmount} 원</span>
@@ -132,9 +120,9 @@ const ThumbDetail = ({ match }) => {
               <div className='thumb-pr-content'>
                 <ReactQuill
                   className='QuillContent'
-                  value={detailData.content || ''}
+                  value={detailData.content || ""}
                   readOnly={true}
-                  theme={'bubble'}
+                  theme={"bubble"}
                 />
               </div>
             </li>
