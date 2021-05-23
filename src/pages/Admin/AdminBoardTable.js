@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const AdminBoardTable = ({ currentData, lastIdx, currentPage }) => {
+const AdminBoardTable = ({ currentData, lastIdx, currentPage, noticeSwitch }) => {
   return (
     <div>
       <div className='community-table-wrapper'>
@@ -30,7 +30,15 @@ const AdminBoardTable = ({ currentData, lastIdx, currentPage }) => {
                   <td>{notice.user.nickname}</td>
                   <td>{notice.hit}</td>
                   <td>{notice.createDate.substr(0, 10)}</td>
-                  <td className='notice_option'>공지하기</td>
+                  {notice.isPrivate ? (
+                    <td className='notice_option' onClick={() => noticeSwitch(notice.id)}>
+                      공지 숨기기
+                    </td>
+                  ) : (
+                    <td className='notice_option' onClick={() => noticeSwitch(notice.id)}>
+                      공지 공개
+                    </td>
+                  )}
                 </tr>
               ))}
           </tbody>

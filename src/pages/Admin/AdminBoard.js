@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Pagination from "../Main/components/Pagination";
 import AdminBoardTable from "./AdminBoardTable";
 
-const AdminBoard = ({ allBoards }) => {
+const AdminBoard = ({ allBoards, noticeSwitch }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [boardPerPage] = useState(10);
   const indexOfLastData = currentPage * boardPerPage;
@@ -24,6 +24,7 @@ const AdminBoard = ({ allBoards }) => {
         currentData={currentData}
         lastIdx={allBoards.length - 10 * (currentPage - 1)}
         currentPage={currentPage}
+        noticeSwitch={noticeSwitch}
       />
       <Pagination
         boardPerPage={boardPerPage}
