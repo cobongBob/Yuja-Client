@@ -13,3 +13,7 @@ const pushToPage = (notification, history) => {
   const boardUrl = BoardTypeConvertUrl(boardCode, boardId);
   history.push(boardUrl);
 };
+
+export const noticeWithPush = (notification, history) => {
+  pushToPage(notification, history);
+};

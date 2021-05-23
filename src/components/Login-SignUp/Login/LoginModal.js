@@ -161,7 +161,7 @@ function LoginModal() {
           </button>
         ) : (
           <div>
-            <div className='welcomeBox'>안녕하세요, {userData.nickname}님!</div>
+            <div className='welcomeBox'>{userData.nickname}</div>
             <div className='modifyBox'>
               <Link to='/BeforeModify' className='modifyBtn'>
                 정보수정
