@@ -145,6 +145,13 @@ section > footer {
 }
 .welcomeBox {
   display: inline-block;
+  width: 11vw;
+  word-break: nowrap;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  font-size: medium;
 }
 /* 모달창 제어 */
 .ReactModal__Body--open,
