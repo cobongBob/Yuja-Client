@@ -48,3 +48,9 @@ export const deleteReportedBoard = async (board_id, board_type) => {
     method: "delete",
   });
 };
+
+export const noticePrivateSwitch = async (board_id) => {
+  return await instance({
+    url: `/notice/private/${board_id}`,
+  });
+};
