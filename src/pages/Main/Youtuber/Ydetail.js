@@ -10,10 +10,11 @@ import { getDetailData, addLike, deleteLike } from "../../../redux/board/youtube
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-modal";
 import Report from "../components/Report";
-import { ToastCenter } from "../../../modules/ToastModule";
+import { ToastCenter } from '../../../modules/ToastModule';
 
 Modal.setAppElement("#root");
 const Ydetail = (props) => {
+
   const dispatch = useDispatch();
   const { userData } = useSelector((state) => state.loginReducer);
   const { detailData } = useSelector((state) => state.YboardReducer);
