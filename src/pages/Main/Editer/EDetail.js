@@ -53,7 +53,7 @@ const EDetail = (props) => {
       ToastTopRight('로그인 해주세요');
     }
   }, [userData, dispatch, props.match.params.board_id, detailData]);
-  console.log(555, detailData.user);
+
   return (
     detailData && (
       <div>
@@ -132,7 +132,7 @@ const EDetail = (props) => {
               희망급여 <span>{detailData.payAmount} 원</span>
             </li>
             <li className='editordetail-content-tools'>
-              사용기술 <span>{detailData.tools}</span>
+              사용기술 <span>{detailData.tools} </span>
             </li>
             <li className='editordetail-content-pr'>
               <div className='pr-div'> 경력 및 소개 </div>
