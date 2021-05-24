@@ -64,7 +64,6 @@ const NotiReducer = (state = initialState, action) => {
       };
     case GET_NOTICES_SUCCESS:
       return {
-        ...state,
         allNotifications: action.payload,
         notiLoading: false,
         error: "",
