@@ -4,7 +4,6 @@ import { Link, useHistory } from 'react-router-dom';
 import { format } from 'date-fns';
 import '../Youtuber/Ylist.scss';
 import BackToList from '../components/BackToList';
-import SortingToDeadline from '../components/SortingToDeadline';
 import SortingToLiked from '../components/SortingToLiked';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 

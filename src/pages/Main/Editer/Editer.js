@@ -1,17 +1,12 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import EditerTable from './EditerTable';
-import '../Youtuber/Youtuber.scss';
-import Pagination from '../components/Pagination';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  addLike,
-  deleteLike,
-  getEBoards,
-  getFilterData,
-} from '../../../redux/board/editer/eboardReducer';
-import Search from '../components/Search';
-import { ToastCenter } from '../../../modules/ToastModule';
-import { RiScissorsCutFill } from 'react-icons/ri';
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import EditerTable from "./EditerTable";
+import "../Youtuber/Youtuber.scss";
+import Pagination from "../components/Pagination";
+import { useDispatch, useSelector } from "react-redux";
+import { addLike, deleteLike, getEBoards, getFilterData } from "../../../redux/board/editer/eboardReducer";
+import Search from "../components/Search";
+import { ToastCenter } from "../../../modules/ToastModule";
+import { RiScissorsCutFill } from "react-icons/ri";
 
 const Editer = ({ match, history }) => {
   const dispatch = useDispatch();
@@ -21,10 +16,10 @@ const Editer = ({ match, history }) => {
   const { userData } = useSelector((state) => state.loginReducer);
   const board_type = useRef(match.params.board_type);
   const path = history.location.pathname;
-  const lastPageNum = path.substr(path.lastIndexOf('/') + 1);
+  const lastPageNum = path.substr(path.lastIndexOf("/") + 1);
   const pageNum = useRef(lastPageNum ? lastPageNum : 1);
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const searchHandler = (keyword) => {
     setSearchTerm(keyword);
     getFilterData(keyword).then((res) => {
@@ -36,10 +31,7 @@ const Editer = ({ match, history }) => {
   const [boardPerPage] = useState(12);
   const indexOfLastData = currentPage * boardPerPage;
   const indexOfFirstData = indexOfLastData - boardPerPage;
-  const currentData = eBoardData.filterData.slice(
-    indexOfFirstData,
-    indexOfLastData
-  );
+  const currentData = eBoardData.filterData.slice(indexOfFirstData, indexOfLastData);
 
   const clickPage = useCallback((pages) => {
     setCurrentPage(pages);
@@ -57,7 +49,7 @@ const Editer = ({ match, history }) => {
           dispatch(res);
         });
       } else {
-        ToastCenter('로그인 해주세요');
+        ToastCenter("로그인 해주세요");
       }
     },
     [userData, dispatch]
@@ -69,7 +61,7 @@ const Editer = ({ match, history }) => {
           dispatch(res);
         });
       } else {
-        ToastCenter('로그인 해주세요');
+        ToastCenter("로그인 해주세요");
       }
     },
     [userData, dispatch]

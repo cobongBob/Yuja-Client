@@ -14,11 +14,21 @@ const EditorRegister = ({ match }) => {
   const board_type = useRef(match.params.board_type);
 
   const history = useHistory();
-
+  const checkedlist = useRef([]);
   let Ehistory = useCallback(
     (board_id) => history.push(`/EDetail/${board_type.current}/${board_id}/1`),
     [history]
   );
+
+  const [input, setInput] = useState({
+    previewImage: '',
+    title: '',
+    career: '',
+    payType: '',
+    payAmount: '',
+    tools: checkedlist.current,
+  });
+
   const testCheking = useCallback(() => {
     if (
       !qData ||
@@ -67,7 +77,7 @@ const EditorRegister = ({ match }) => {
         checkedlist.current.splice(index, 1);
       }
     },
-    [checkedlist.current]
+    [checkedlist]
   );
 
   const radioCheck = useCallback(
@@ -80,17 +90,6 @@ const EditorRegister = ({ match }) => {
     },
     [input]
   );
-
-  const checkedlist = useRef([]);
-
-  const [input, setInput] = useState({
-    previewImage: '',
-    title: '',
-    career: '',
-    payType: '',
-    payAmount: '',
-    tools: checkedlist.current,
-  });
 
   const onChange = useCallback(
     (e) => {
