@@ -71,20 +71,38 @@ const Wregister = ({ match }) => {
     });
   }, [userData, qData, whistory, checked, inputData]);
 
+  const goList = useCallback(() => {
+    if (board_type === 'Notice') {
+      history.push(`/Admin/AdminBoard`);
+    } else {
+      history.push(`/Community/${board_type.current}/1`);
+    }
+  }, [history, board_type]);
+
   return (
     <div className='comment-wrapper'>
       <div className='comment-content'>
-        <div className='comment-detail-title'>
+        <div className='comment-register-category'>
+          {board_type.current === 'Winwin' && '윈윈'}
+          {board_type.current === 'Collabo' && '합방'}
+          {board_type.current === 'Free' && '자유'}
+          {board_type.current === 'CustomService' && '건의'}
+          게시판
+        </div>
+        <div className='comment-options'>
+          <button onClick={goList}>목록</button>
+        </div>
+        <div className='comment-register-title'>
           <input
             name='title'
             onChange={inputHandler}
-            placeholder='제목'
+            placeholder='글제목'
             maxLength='45'
             type='text'
           />
         </div>
         {board_type.current === 'CustomService' ? (
-          <>
+          <div className='secret-option'>
             <label htmlFor='secret'>비밀글</label>
             <input
               id='secret'
@@ -92,20 +110,21 @@ const Wregister = ({ match }) => {
               onChange={checkboxHandler}
               type='checkbox'
             />
-          </>
+          </div>
         ) : null}
         {board_type.current === 'Notice' ? (
-          <>
-            <label htmlFor='secret'>공지 공개</label>
+          <div className='secret-option'>
+            <label htmlFor='secret'>공지공개</label>
             <input
               id='secret'
               name='isPrivate'
               onChange={checkboxHandler}
               type='checkbox'
             />
-          </>
+          </div>
         ) : null}
-        <h2>상세 내용</h2>
+        <br />
+        <h2>글내용</h2>
         <QuillRegister
           register={testCheking}
           addingFileList={addingFileList}
