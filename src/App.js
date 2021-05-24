@@ -52,6 +52,7 @@ import { AiFillWechat } from 'react-icons/ai';
 import { toastWithPush } from './modules/ToastWithPush';
 import YoutuberRequest from './components/InfoModify/YoutuberRequest';
 import { getAllNotifications } from './redux/loading/notiReducer';
+import RouteIf from './routerif/RouteIf';
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ['/SignUp1', '/SignUp1/Required', '/SignUp1/NonRequired'];
 
@@ -78,6 +79,9 @@ function App() {
     (state) => state.NotiReducer
   );
   const { userData } = useSelector((state) => state.loginReducer);
+
+  const { authorities } = useSelector((state) => state.loginReducer);
+
   useEffect(() => {
     instance.interceptors.request.use(
       function (config) {
@@ -184,7 +188,14 @@ function App() {
           <Route path='/YoutuberProfile' component={YoutuberProfile} />
           <Route path='/Youtuber/:current_page' component={Youtuber} />
           <Route path='/Ydetail/:board_id/:current_page' component={Ydetail} />
-          <Route path='/YoutuberRegister' component={Yregister} />
+          {/* 유튜버 or ADMIN */}
+          <RouteIf
+            path='/YoutuberRegister'
+            exact
+            component={Yregister}
+            authorities={authorities}
+          />
+
           <Route
             path='/YboardModify/:board_id/:current_page'
             component={YmodifyTest}
@@ -194,6 +205,7 @@ function App() {
             path='/EditorRegister/:board_type'
             component={EditorRegister}
           />
+
           <Route
             path='/EDetail/:board_type/:board_id/:current_page'
             component={EDetail}
