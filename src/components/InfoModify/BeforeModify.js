@@ -21,14 +21,13 @@ const BeforeModify = ({ history }) => {
   // }
 
   const loggedInUserData = getLoggedInUserData();
-  console.log(loggedInUserData)
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
   });
 
   const [passwordDesc, setPasswordDesc] = useState();
-  const [getProviderId, setGetProviderId] = useState();
+  const [getProviderId, setGetProviderId] = useState("");
   const dispatch = useDispatch();
 
   const inputHandler = useCallback(
@@ -74,7 +73,7 @@ const BeforeModify = ({ history }) => {
   const customStyle = {
     background: "royalblue",
     height: "40px",
-    width: "100%",
+    width: "70%",
     fontSize: "14px",
     color: "white",
     lineHeight: "1px",
@@ -88,9 +87,7 @@ const BeforeModify = ({ history }) => {
     getUserData(loggedInUserData.id).then((res) => {
       setGetProviderId(res.data.providedId);
     });
-  }, []);
-
-  console.log(getProviderId)
+  }, [loggedInUserData.id]);
 
   return (
     <div className='BeforeModifyFrag'>
@@ -101,7 +98,7 @@ const BeforeModify = ({ history }) => {
       </div>
       <div className='beforeModifyContentBox'>
         <div className='overlay'>
-          {getProviderId === null || undefined ?
+          {getProviderId === null || getProviderId === undefined || getProviderId === "" ?
           <div className='modifyBox'>
             <div className='beforeModifyDescBoxDescBox'>
               <span>{loggedInUserData.nickname}</span>
@@ -121,6 +118,7 @@ const BeforeModify = ({ history }) => {
               autoComplete='off'
               onChange={inputHandler}
               autoFocus
+              maxLength='15'
             />
             <div className='warningBox'>{passwordDesc}</div>
             <div className='beforeModifyBtnBox'>

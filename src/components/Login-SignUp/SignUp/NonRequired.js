@@ -305,7 +305,7 @@ const NonRequired = ({ location, history }) => {
                     name='bsn'
                     id='companyRegNumInput'
                     type='tel'
-                    maxLength={10}
+                    maxLength='10'
                     placeholder='-을 제외한 10자리 숫자'
                     autoComplete='off'
                     onChange={changeValue}
@@ -324,6 +324,7 @@ const NonRequired = ({ location, history }) => {
                     type='text'
                     placeholder='유튜브 고유 주소를 입력해주세요'
                     autoComplete='off'
+                    maxLength='70'
                     onChange={changeValue}
                     onKeyUp={permalinkCheck}
                   />

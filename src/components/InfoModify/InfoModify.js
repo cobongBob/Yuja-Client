@@ -17,7 +17,6 @@ const InfoModify = ({ history }) => {
   //   history.replace("/");
   //  }
   const loggedInUserData = getLoggedInUserData();
-  console.log("갖고오자마자 값 ", loggedInUserData);
   const userId = loggedInUserData && loggedInUserData.id ? loggedInUserData.id : null;
 
   const [previewURL, setpreviewUrl] = useState();
@@ -70,10 +69,12 @@ const InfoModify = ({ history }) => {
         bsn: res.data.bsn,
         youtubeUrl: res.data.youtubeUrl,
         profilePic: res.data.profilePic,
+        profilePicId: res.data.profilePicId,
         youtubeConfirmImg: res.data.youtubeConfirmImg,
       });
     });
-  }, [userId]);
+
+    }, [userId]);
 
   console.log("userData의 값", userData);
 
@@ -177,6 +178,8 @@ const InfoModify = ({ history }) => {
     }
   };
 
+  console.log('handleFileOnChange 실행 후 값', userData.profilePicId)
+
   const handleFileOnChange2 = (e) => {
     let file2 = e.target.files[0];
     const config2 = {
@@ -222,9 +225,14 @@ const InfoModify = ({ history }) => {
   /* 파일 업로드 끝 */
 
   const modifyBtn = useCallback(() => {
-    console.log("===========================", userData);
-    console.log(userId);
-    modifyUserData(userId, userData)
+    console.log("===========================수정 userdata의 값", userData);
+    const data = {
+      ...userData,
+      profilePicId: profilePicId.current,
+      youtubeConfirmId: youtubeConfirmId.current,
+    };
+    console.log(' data ',data)
+    modifyUserData(userId, data)
       .then((r) => {
         if (r) {
           ToastTopRight("🎉 정보가 수정 되었습니다.");
@@ -382,7 +390,7 @@ const InfoModify = ({ history }) => {
                 </td>
               </tr>
             </table>
-            {userData.youtubeUrl !== null && "" ? (
+            {userData.youtubeUrl !== null || userData.youtubeUrl !== "" ? (
               <div className='youtuberDiv'>
                 <div className='youtuberDiv_Title'>
                   유튜버 분들은 원활한 서비스 이용을 위해

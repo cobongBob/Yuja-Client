@@ -5,8 +5,6 @@ import "./AddressApi.scss";
 
 const AddressApi = ( props ) => {
 
-  console.log('AddressApi의 값', props)
-
   /* 모달 설정 */
   const AddressModalCustomStyles = {
     content: {
@@ -72,9 +70,6 @@ const AddressApi = ( props ) => {
   const modifyAddress = props.address
   const detailAddress = props.detailAddress
 
-  console.log('detailAddress', detailAddress)
-  console.log('props.detailAddress', props.detailAddress)
-
   const changeValue = useCallback((e) => {
     console.log("changeValue");
       props.setNonRequiredData({
@@ -138,6 +133,7 @@ const AddressApi = ( props ) => {
               :
               changeValue
           }
+          maxLength='30'
         />
         <Modal
           isOpen={modalIsOpen}
