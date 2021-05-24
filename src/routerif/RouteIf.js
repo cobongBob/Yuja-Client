@@ -2,21 +2,19 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import PageNotFound from '../pages/Error/PageNotFound';
 
-export const ROLE = {
-  NONE: 'NONE',
-};
-
-const RouteIf = ({ role, component: Component, ...rest }) => {
+const RouteIf = ({ authorities, component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
       render={(props) => {
-        if (role === ROLE.NONE) {
+        if (
+          !(authorities.includes('YOUTUBER') || authorities.includes('ADMIN'))
+        ) {
           return <PageNotFound />;
         }
 
         if (Component) {
-          return <Component {...props} role={role} />;
+          return <Component {...props} role={authorities} />;
         }
 
         return null;
