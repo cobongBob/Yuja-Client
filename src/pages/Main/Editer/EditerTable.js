@@ -25,8 +25,7 @@ export default function EditorTable({
       </div>
       <div className='card-options'>
         <BackToList />
-        <SortingToDeadline boardData={eBoardData} />
-        <SortingToLiked boardData={eBoardData} />
+        <SortingToLiked board_type={board_type} />
       </div>
       <ul>
         {eBoardData?.map((data) => (

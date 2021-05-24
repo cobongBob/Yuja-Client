@@ -17,6 +17,10 @@ class UserApiService {
     return await axios.post(USER_API_BASE_URL + "/youtubeconfirm", data, config);
   }
 
+  async addYoutuberRequest(data) {
+    return await axios.post(USER_API_BASE_URL + "/applyyoutuber", data);
+  }
+
 }
 
 export default new UserApiService();

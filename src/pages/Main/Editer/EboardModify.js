@@ -54,6 +54,8 @@ const EboardModify = ({ match }) => {
     tools: checkedlist.current,
   });
 
+  const originalUrl = useRef('');
+
   useEffect(() => {
     getOneEBoard(match.params.board_id, board_type.current).then((res) => {
       if (!userData || userData.id !== res.data.user.id) {
@@ -63,6 +65,9 @@ const EboardModify = ({ match }) => {
       fileList.current = res.data.boardAttachFileNames;
       setQModiData(res.data.content);
       setInput(res.data);
+      originalUrl.current = res.data.previewImage && res.data.previewImage;
+      const firstIndex = originalUrl.current.indexOf('/vi');
+      originalUrl.current = originalUrl.current.substr(firstIndex + 4, 11);
     });
   }, [userData, history, match.params.board_id]);
 
@@ -132,6 +137,9 @@ const EboardModify = ({ match }) => {
               <input
                 type='text'
                 placeholder='대표영상의 링크를 적어주세요.'
+                value={`https://www.youtube.com/watch?v=${
+                  originalUrl.current || ''
+                }`}
                 name='previewImage'
                 onChange={onChange}
               />
@@ -158,7 +166,7 @@ const EboardModify = ({ match }) => {
               <label htmlFor='career'>경력</label>
             </li>
             <li className='li-item4'>
-              <select name='payType' onChange={onChange}>
+              <select name='payType' value={input.payType} onChange={onChange}>
                 <option>선택</option>
                 <option value='연봉'>연봉</option>
                 <option value='월급'>월급</option>
@@ -172,6 +180,15 @@ const EboardModify = ({ match }) => {
                 name='payAmount'
                 onChange={onChange}
                 value={input.payAmount || ''}
+                maxLength={12}
+                onInput={({ target }) => {
+                  target.value = target.value.replace(/[^0-9]/g, '');
+                  target.value = target.value.replace(/,/g, '');
+                  target.value = target.value.replace(
+                    /\B(?=(\d{3})+(?!\d))/g,
+                    ','
+                  ); // 정규식을 이용해서 3자리 마다 , 추가
+                }}
               />
             </li>
             <li className='li-item5'>
@@ -203,9 +220,9 @@ const EboardModify = ({ match }) => {
               <input
                 id='Evegas'
                 name='Evegas'
-                onChange={checkboxCheck}
                 value='베가스'
                 type='checkbox'
+                onChange={checkboxCheck}
               />
               <label htmlFor='Evegas'>베가스</label>
               <input
@@ -216,6 +233,38 @@ const EboardModify = ({ match }) => {
                 onChange={checkboxCheck}
               />
               <label htmlFor='Epowerdirector'>파워 디렉터</label>
+              <input
+                id='Yphotoshop'
+                name='yphotoshop'
+                value='포토샵'
+                type='checkbox'
+                onChange={checkboxCheck}
+              />
+              <label htmlFor='Yphotoshop'>포토샵</label>
+              <input
+                id='Yillustrater'
+                name='yillustrater'
+                value='일러스트'
+                type='checkbox'
+                onChange={checkboxCheck}
+              />
+              <label htmlFor='Yillustrater'>일러스트</label>
+              <input
+                id='Yblender'
+                onChange={checkboxCheck}
+                name='yblender'
+                value='블렌더'
+                type='checkbox'
+              />
+              <label htmlFor='Yblender'>블렌더</label>
+              <input
+                id='Ymaya'
+                onChange={checkboxCheck}
+                name='ymaya'
+                value='마야'
+                type='checkbox'
+              />
+              <label htmlFor='Ymaya'>마야</label>
             </li>
           </ul>
         </div>

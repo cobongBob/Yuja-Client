@@ -5,7 +5,7 @@ import { executeJwtAuthenticationService, getLoggedInUserData } from "../../apiS
 import * as auth from "../../apiService/AuthenticationService";
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogin } from '../../redux/redux-login/loginReducer';
-import { ToastTopRight } from '../../modules/ToastModule';
+import { ToastCenter, ToastTopRight } from '../../modules/ToastModule';
 import { getUserData } from '../../apiService/UserApiService';
 import GoogleLogin from 'react-google-login';
 import googleLoginIcon from '../Login-SignUp/Login/googleLoginIcon2.svg';
@@ -21,15 +21,16 @@ const BeforeModify = ({ history }) => {
   // }
 
   const loggedInUserData = getLoggedInUserData();
-  console.log(loggedInUserData)
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
   });
 
+  const { authorities } = useSelector((state) => state.loginReducer);
   const [passwordDesc, setPasswordDesc] = useState();
   const [getProviderId, setGetProviderId] = useState();
   const dispatch = useDispatch();
+  const userId = loggedInUserData && loggedInUserData.id ? loggedInUserData.id : null;
 
   const inputHandler = useCallback(
     (e) => {
@@ -74,7 +75,7 @@ const BeforeModify = ({ history }) => {
   const customStyle = {
     background: "royalblue",
     height: "40px",
-    width: "100%",
+    width: "70%",
     fontSize: "14px",
     color: "white",
     lineHeight: "1px",
@@ -85,12 +86,10 @@ const BeforeModify = ({ history }) => {
   };
 
   useEffect(() => {
-    getUserData(loggedInUserData.id).then((res) => {
+    getUserData(userId).then((res) => {
       setGetProviderId(res.data.providedId);
     });
-  }, []);
-
-  console.log(getProviderId)
+  }, [userId]);
 
   return (
     <div className='BeforeModifyFrag'>
@@ -101,7 +100,7 @@ const BeforeModify = ({ history }) => {
       </div>
       <div className='beforeModifyContentBox'>
         <div className='overlay'>
-          {getProviderId === null || undefined ?
+          {getProviderId === null || getProviderId === undefined || getProviderId === "" ?
           <div className='modifyBox'>
             <div className='beforeModifyDescBoxDescBox'>
               <span>{loggedInUserData.nickname}</span>
@@ -121,6 +120,7 @@ const BeforeModify = ({ history }) => {
               autoComplete='off'
               onChange={inputHandler}
               autoFocus
+              maxLength='15'
             />
             <div className='warningBox'>{passwordDesc}</div>
             <div className='beforeModifyBtnBox'>
@@ -135,6 +135,16 @@ const BeforeModify = ({ history }) => {
               다른 서비스가 필요하신가요?
             </div>
             <div className='beforeModifyOtherBox'>
+              {authorities && !authorities.includes("YOUTUBER") ?
+                <Link
+                  to='/YoutuberRequest'
+                  className='btn btn-warning'
+                  name='YoutuberRequestBtn'
+                >
+                  유튜버 인증
+                </Link>
+                :
+                "" }
               <Link
                 to='/PasswordModify'
                 className='btn btn-warning'
@@ -182,6 +192,15 @@ const BeforeModify = ({ history }) => {
               다른 서비스가 필요하신가요?
             </div>
             <div className='beforeModifyOtherBox'>
+              {authorities && !authorities.includes("YOUTUBER") ?
+                <Link
+                  to='/YoutuberRequest'
+                  className='btn btn-warning'
+                  name='YoutuberRequestBtn'
+                >
+                  유튜버 인증
+                </Link>
+                : "" }
               <Link
                 to='/SignOut'
                 className='btn btn-warning'

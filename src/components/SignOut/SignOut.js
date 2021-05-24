@@ -117,11 +117,12 @@ const SignOut = ({ history }) => {
       </div>
       <div className='signOutContentBox'>
         <div className='overlay'>
-          {getProviderId === null || undefined ?
+          {getProviderId === null || getProviderId === undefined || getProviderId === "" ?
             <div className='signOutBox'>
               <div className='signOutDescBox'>
                 <span>{loggedInUserData.nickname}</span>
-                님, 회원 탈퇴시 게시물 등을 포함한
+                님,<br />
+                회원 탈퇴시 게시물 등을 포함한
                 <br />
                 유자 내 모든 이용 정보는 1년간 보관 됩니다.
                 <br />
@@ -143,6 +144,7 @@ const SignOut = ({ history }) => {
                 placeholder='비밀번호'
                 autoComplete='off'
                 onChange={inputHandler}
+                maxLength='15'
                 autoFocus
               />
               <div className='warningBox'>{passwordDesc}</div>
@@ -160,7 +162,8 @@ const SignOut = ({ history }) => {
             <div className='signOutBox'>
               <div className='signOutDescBox'>
                 <span>{loggedInUserData.nickname}</span>
-                님, 회원 탈퇴시 게시물 등을 포함한
+                님, <br />
+                회원 탈퇴시 게시물 등을 포함한
                 <br />
                 유자 내 모든 이용 정보는 1년간 보관 됩니다.
                 <br />

@@ -31,7 +31,11 @@ import { userLogout } from './redux/redux-login/loginReducer';
 import Chat from './pages/Main/components/Chat/Chat';
 import EDetail from './pages/Main/Editer/EDetail';
 import ResetPassword from './components/Login-SignUp/Login/ResetPassword';
-import { ToastAlert, ToastCenter } from './modules/ToastModule';
+import {
+  ToastAlert,
+  ToastCenter,
+  ToastAlertNoDupl,
+} from './modules/ToastModule';
 import WModify from './pages/Main/Winwin/WModify';
 import ThumbRegister from './pages/Main/Thumbnailer/ThumbRegister';
 import ThumbDetail from './pages/Main/Thumbnailer/ThumbDetail';
@@ -46,12 +50,12 @@ import { deleteNotifications } from './apiService/MainApiService';
 import ChatModal from './pages/Main/components/Chat/ChatModal';
 import { AiFillWechat } from 'react-icons/ai';
 import { toastWithPush } from './modules/ToastWithPush';
+import YoutuberRequest from './components/InfoModify/YoutuberRequest';
+import { getAllNotifications } from './redux/loading/notiReducer';
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ['/SignUp1', '/SignUp1/Required', '/SignUp1/NonRequired'];
 
 function App() {
-  //권한 alert
-
   /* history 관련 */
   const location = useLocation();
   const history = useHistory();
@@ -70,12 +74,18 @@ function App() {
   const { loading, notificationData } = useSelector(
     (state) => state.loadingReducer
   );
+  const { allNotifications, notiLoading } = useSelector(
+    (state) => state.NotiReducer
+  );
   const { userData } = useSelector((state) => state.loginReducer);
   useEffect(() => {
     instance.interceptors.request.use(
       function (config) {
         //로딩과 알림 호출
         dispatch(getLoading(userData && userData.id));
+        if (!notiLoading && userData && userData.id > 0) {
+          dispatch(getAllNotifications(userData.id));
+        }
         return config;
       },
       function (error) {
@@ -104,7 +114,7 @@ function App() {
         return Promise.reject(error);
       }
     );
-  }, [dispatch, userData]);
+  }, [userData]);
 
   /* 로딩 끝 */
   //알림
@@ -119,13 +129,27 @@ function App() {
         if (notification.type === 'commentNoti') {
           ToastAlert(() =>
             toastWithPush(
-              `${notification.resipeint.nickname}님께서 ${notification.comment.board.title}글에 댓글을 남기셨습니다.`,
+              `${notification.sender.nickname}님께서 ${notification.comment.board.title}글에 댓글을 남기셨습니다.`,
               notification,
               history
             )
           );
-          deleteNotifications(notification.notiId);
+        } else if (notification.type === 'chatNoti') {
+          ToastAlertNoDupl(
+            `${notification.sender.nickname}님으로부터 새로운 채팅이 있습니다.`
+          );
+        } else if (notification.type === 'editNoti') {
+          ToastAlertNoDupl(`에디터로 등록되셨습니다.`);
+        } else if (notification.type === 'thumbNoti') {
+          ToastAlertNoDupl(`썸네일러로 등록되셨습니다.`);
+        } else if (notification.type === 'youtubeNoti') {
+          ToastAlertNoDupl(`유튜버로 등록되셨습니다.`);
+        } else if (notification.type === 'rejectNoti') {
+          ToastAlertNoDupl(
+            `유튜버로 등록이 거절되었습니다. 신청 절차를 다시 확인해주세요.`
+          );
         }
+        deleteNotifications(notification.notiId);
       });
     }
   }, [notificationData, userData, history]);
@@ -149,27 +173,35 @@ function App() {
           )}
         </>
       )}
-      {exceptArray.indexOf(location.pathname) < 0 && <Navi />}
+      {exceptArray.indexOf(location.pathname) < 0 && (
+        <Navi allNotifications={allNotifications} />
+      )}
       {exceptArray.indexOf(location.pathname) < 0 && <Logo />}
       <div>
         {loading && <Loader type='spin' color='#ff9411' />}
         <Switch>
           <Route exact path='/' component={MainWrapper} />
-          <Route path='/Youtuber' component={Youtuber} />
+          <Route path='/YoutuberProfile' component={YoutuberProfile} />
+          <Route path='/Youtuber/:current_page' component={Youtuber} />
+          <Route path='/Ydetail/:board_id/:current_page' component={Ydetail} />
+          <Route path='/YoutuberRegister' component={Yregister} />
+          <Route
+            path='/YboardModify/:board_id/:current_page'
+            component={YmodifyTest}
+          />
           <Route path='/Eboard/:board_type/:current_page' component={Editer} />
           <Route
-            path='/Community/:board_type/:current_page'
-            component={Winwin}
+            path='/EditorRegister/:board_type'
+            component={EditorRegister}
           />
           <Route
-            path='/BoardDetail/:board_type/:board_id/:current_page'
-            component={Wdetail}
+            path='/EDetail/:board_type/:board_id/:current_page'
+            component={EDetail}
           />
           <Route
-            path='/BoardModify/:board_type/:board_id/:current_page'
-            component={WModify}
+            path='/EboardModify/:board_type/:board_id/:current_page'
+            component={EboardModify}
           />
-          <Route path='/BoardRegister/:board_type' component={Wregister} />
           <Route
             path='/Thboard/:board_type/:current_page'
             component={Thumbnailer}
@@ -183,32 +215,29 @@ function App() {
             path='/ThumbModify/:board_type/:board_id/:current_page'
             component={ThumbModify}
           />
-          <Route path='/Help' component={Help} />
+          <Route
+            path='/Community/:board_type/:current_page'
+            component={Winwin}
+          />
+          <Route
+            path='/BoardDetail/:board_type/:board_id/:current_page'
+            component={Wdetail}
+          />
+          <Route
+            path='/BoardModify/:board_type/:board_id/:current_page'
+            component={WModify}
+          />
+          <Route path='/BoardRegister/:board_type' component={Wregister} />
           <Route path='/SignUp1' component={SignUp1} />
-          <Route path='/YoutuberProfile' component={YoutuberProfile} />
-          <Route path='/Ydetail/:board_id' component={Ydetail} />
-          <Route path='/Yregister' component={Yregister} />
-          <Route path='/YmodifyTest/:board_id' component={YmodifyTest} />
-          <Route path='/PageNotFound' component={PageNotFound} />
-          <Route
-            path='/EditorRegister/:board_type'
-            component={EditorRegister}
-          />
-          <Route
-            path='/EDetail/:board_type/:board_id/:current_page'
-            component={EDetail}
-          />
-          <Route
-            path='/EboardModify/:board_type/:board_id/1'
-            component={EboardModify}
-          />
           <Route path='/FindPassword' component={FindPassword} />
           <Route path='/ResetPassword' component={ResetPassword} />
-          <Route path='/Chat' component={Chat} />
           <Route path='/BeforeModify' component={BeforeModify} />
           <Route path='/InfoModify' component={InfoModify} />
           <Route path='/PasswordModify' component={PasswordModify} />
+          <Route path='/YoutuberRequest' component={YoutuberRequest} />
           <Route path='/Admin/:board_type' component={Admin_main} />
+          <Route path='/Help' component={Help} />
+          <Route path='/Chat' component={Chat} />
           <Route path='/SignOut' component={SignOut} />
           {/*<Route path='PageNotFound' component={PageNotFound} />*/}
           {/*<Redirect to='/' />*/}
