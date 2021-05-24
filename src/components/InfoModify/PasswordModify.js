@@ -130,6 +130,7 @@ const PasswordModify = ({ history, location }) => {
             autoComplete='off'
             onChange={changeValue}
             onKeyUp={passwordTotalCheck}
+            maxLength='15'
           />
           <div className='warningBox'>{resetPasswordDesc}</div>
           <div className='labelWrapper'>
@@ -143,6 +144,7 @@ const PasswordModify = ({ history, location }) => {
             onChange={getResetPassCheckNum}
             onKeyUp={passwordTotalCheck}
             autoComplete='off'
+            maxLength='15'
           />
           <div className='warningBox'>{resetPasswordCheckDesc}</div>
           <div className='resetPasswordSubmitBtnBox'>

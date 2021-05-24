@@ -21,7 +21,6 @@ const BeforeModify = ({ history }) => {
   // }
 
   const loggedInUserData = getLoggedInUserData();
-  console.log(loggedInUserData)
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
@@ -74,7 +73,7 @@ const BeforeModify = ({ history }) => {
   const customStyle = {
     background: "royalblue",
     height: "40px",
-    width: "100%",
+    width: "70%",
     fontSize: "14px",
     color: "white",
     lineHeight: "1px",
@@ -86,13 +85,9 @@ const BeforeModify = ({ history }) => {
 
   useEffect(() => {
     getUserData(loggedInUserData.id).then((res) => {
-      console.log('res.data',res.data)
-      console.log('res.data',res.data.providedId)
       setGetProviderId(res.data.providedId);
     });
   }, [loggedInUserData.id]);
-
-  console.log(getProviderId)
 
   return (
     <div className='BeforeModifyFrag'>
@@ -123,6 +118,7 @@ const BeforeModify = ({ history }) => {
               autoComplete='off'
               onChange={inputHandler}
               autoFocus
+              maxLength='15'
             />
             <div className='warningBox'>{passwordDesc}</div>
             <div className='beforeModifyBtnBox'>
