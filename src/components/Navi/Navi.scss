@@ -5,7 +5,7 @@
   list-style: none !important;
   z-index: 3;
   background-color: white;
-  font-family: 'scdream5';
+  font-family: "scdream5";
   width: 100%;
   height: 3.5rem;
   top: 0;
@@ -95,7 +95,7 @@
     list-style: none !important;
     z-index: 3;
     background-color: white;
-    font-family: 'scdream5';
+    font-family: "scdream5";
     width: 100%;
     height: 3.5rem;
     top: 0;
@@ -151,6 +151,22 @@
     }
   }
 }
+.notiOnNav {
+  display: inline-block;
+}
+.noti_icon {
+  color: #ff9411;
+}
+.notice_delete {
+  float: left;
+  cursor: pointer;
+}
+.dropdown-item {
+  clear: none !important;
+}
+.each_notice {
+  clear: both;
+}
 
 @media only screen and (max-width: 870px) {
   .nav {
@@ -160,7 +176,7 @@
     list-style: none !important;
     z-index: 3;
     background-color: white;
-    font-family: 'scdream5';
+    font-family: "scdream5";
     width: 100%;
     height: 6rem;
     top: 0;
