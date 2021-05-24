@@ -1,26 +1,32 @@
-import React from "react";
-import { Card } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
-import { format } from "date-fns";
-import "../Youtuber/Ylist.scss";
-import SortingToDeadline from "../components/SortingToDeadline";
-import SortingToLiked from "../components/SortingToLiked";
-import BackToList from "../components/BackToList";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import React from 'react';
+import { Card } from 'react-bootstrap';
+import { Link, useHistory } from 'react-router-dom';
+import { format } from 'date-fns';
+import '../Youtuber/Ylist.scss';
+import SortingToDeadline from '../components/SortingToDeadline';
+import SortingToLiked from '../components/SortingToLiked';
+import BackToList from '../components/BackToList';
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
-const YoutuberTable = ({ boardData, likeHandler, dislikeHandler }) => {
+const YoutuberTable = ({
+  boardData,
+  likeHandler,
+  dislikeHandler,
+  currentPage,
+  board_type,
+}) => {
   const history = useHistory();
   return (
     <div className='card-container'>
       <div className='card-options'>
-        <Link to='/Yregister' className='registerBtn'>
+        <Link to='/YoutuberRegister' className='registerBtn'>
           공고 등록하기
         </Link>
       </div>
       <div className='card-options'>
         <BackToList />
         <SortingToDeadline boardData={boardData} />
-        <SortingToLiked boardData={boardData} />
+        <SortingToLiked boardData={boardData} board_type={board_type} />
       </div>
       <ul>
         {boardData?.map((data) => (
@@ -28,7 +34,9 @@ const YoutuberTable = ({ boardData, likeHandler, dislikeHandler }) => {
             <Card>
               <Card.Img
                 className='Card-Img'
-                onClick={() => history.push(`/Ydetail/${data.id}`)}
+                onClick={() =>
+                  history.push(`/Ydetail/${data.id}/${currentPage}`)
+                }
                 src='/img/board_pic/thumbnailer_pic/thum3.PNG'
               ></Card.Img>
               <Card.Header>
@@ -40,16 +48,22 @@ const YoutuberTable = ({ boardData, likeHandler, dislikeHandler }) => {
                   <div> 모집분야 {data.worker} </div>
                   <div className='card-deadline'>
                     <span>마감일 </span>
-                    {format(new Date(data.expiredDate), "yyyy-MM-dd")}
+                    {format(new Date(data.expiredDate), 'yyyy-MM-dd')}
                   </div>
                   <div className='card-like'>
                     {data && data.liked ? (
-                      <button onClick={() => likeHandler(data.id)} className='starButton'>
+                      <button
+                        onClick={() => likeHandler(data.id)}
+                        className='starButton'
+                      >
                         <AiFillStar size={30} />
                         <span>{data.likes}</span>
                       </button>
                     ) : (
-                      <button onClick={() => dislikeHandler(data.id)} className='starButton'>
+                      <button
+                        onClick={() => dislikeHandler(data.id)}
+                        className='starButton'
+                      >
                         <AiOutlineStar size={30} />
                         <span>{data.likes}</span>
                       </button>
@@ -74,7 +88,7 @@ const YoutuberTable = ({ boardData, likeHandler, dislikeHandler }) => {
                   <div>
                     <strong>
                       <span>수정일 </span>
-                      {format(new Date(data.boardUpdatedDate), "yyyy-MM-dd")}
+                      {format(new Date(data.boardUpdatedDate), 'yyyy-MM-dd')}
                     </strong>
                   </div>
                 </Card.Footer>

@@ -1,17 +1,20 @@
-import { getWinBoards, getWinOneBoard } from "../../../apiService/winBoardApiService";
-import * as likeService from "../../../apiService/likeService";
+import {
+  getWinBoards,
+  getWinOneBoard,
+} from '../../../apiService/winBoardApiService';
+import * as likeService from '../../../apiService/likeService';
 
-const WADD_LIKE = "WADD_LIKE";
-const WDELETE_LIKE = "WDELETE_LIKE";
-const GET_WINBOARD_REQUEST = "GET_WINBOARD_REQUEST";
-const GET_WINBOARD_SUCCESS = "GET_WINBOARD_SUCCESS";
-const GET_WINBOARD_FAILURE = "GET_WINBOARD_FAILURE";
-const GET_WDETAILS_DATA = "GET_WDETAILS_DATA";
-const GET_SEARCH_DATA = "GET_SEARCH_DATA";
-const GET_SORTED_LIKE_DATA = "GET_SORTED_LIKE_DATA";
-const GET_SORTED_HIT_DATA = "GET_SORTED_HIT_DATA";
-const GET_SORTED_DATE_DATA = "GET_SORTED_DATE_DATA";
-const GET_SORTED_COMMENT_DATA = "GET_SORTED_COMMENT_DATA";
+const WADD_LIKE = 'WADD_LIKE';
+const WDELETE_LIKE = 'WDELETE_LIKE';
+const GET_WINBOARD_REQUEST = 'GET_WINBOARD_REQUEST';
+const GET_WINBOARD_SUCCESS = 'GET_WINBOARD_SUCCESS';
+const GET_WINBOARD_FAILURE = 'GET_WINBOARD_FAILURE';
+const GET_WDETAILS_DATA = 'GET_WDETAILS_DATA';
+const GET_SEARCH_DATA = 'GET_SEARCH_DATA';
+const GET_SORTED_LIKE_DATA = 'GET_SORTED_LIKE_DATA';
+const GET_SORTED_HIT_DATA = 'GET_SORTED_HIT_DATA';
+const GET_SORTED_DATE_DATA = 'GET_SORTED_DATE_DATA';
+const GET_SORTED_COMMENT_DATA = 'GET_SORTED_COMMENT_DATA';
 
 export const getWinBoard = (board_type) => {
   return (dispatch) => {
@@ -93,8 +96,8 @@ const initialState = {
   loading: false,
   wBoards: [],
   wDetails: {
-    title: "",
-    content: "",
+    title: '',
+    content: '',
     likes: 0,
     liked: false,
     user: {
@@ -105,7 +108,7 @@ const initialState = {
   sortedwLike: false,
   sortedwComment: false,
   sortedwHit: false,
-  error: "",
+  error: '',
 };
 
 const winBoardReducer = (state = initialState, action) => {
@@ -121,8 +124,8 @@ const winBoardReducer = (state = initialState, action) => {
         loading: false,
         wBoards: action.payload,
         wDetails: {
-          title: "",
-          content: "",
+          title: '',
+          content: '',
           likes: 0,
           liked: false,
           user: {
@@ -133,15 +136,15 @@ const winBoardReducer = (state = initialState, action) => {
         sortedwLike: false,
         sortedwComment: false,
         sortedwHit: false,
-        error: "",
+        error: '',
       };
     case GET_WINBOARD_FAILURE:
       return {
         loading: false,
         wBoards: [],
         wDetails: {
-          title: "",
-          content: "",
+          title: '',
+          content: '',
           likes: 0,
           liked: false,
           user: {
@@ -152,7 +155,7 @@ const winBoardReducer = (state = initialState, action) => {
         sortedwLike: false,
         sortedwComment: false,
         sortedwHit: false,
-        error: "",
+        error: '',
       };
     case GET_WDETAILS_DATA:
       return {
@@ -162,23 +165,40 @@ const winBoardReducer = (state = initialState, action) => {
     case WADD_LIKE:
       return {
         ...state,
-        wDetails: { ...state.wDetails, likes: state.wDetails.likes + 1, liked: true },
+        wDetails: {
+          ...state.wDetails,
+          likes: state.wDetails.likes + 1,
+          liked: true,
+        },
       };
     case WDELETE_LIKE:
       return {
         ...state,
-        wDetails: { ...state.wDetails, likes: state.wDetails.likes - 1, liked: false },
+        wDetails: {
+          ...state.wDetails,
+          likes: state.wDetails.likes - 1,
+          liked: false,
+        },
       };
     case GET_SEARCH_DATA:
       return {
         ...state,
         // eslint-disable-next-line array-callback-return
         wFilterData: state.wBoards.filter((data) => {
-          if (Object && Object.values(data.title).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
+          if (
+            Object &&
+            Object.values(data.title)
+              .join('')
+              .toLowerCase()
+              .includes(action.keyword.toLowerCase())
+          ) {
             return data;
           } else if (
             Object &&
-            Object.values(data.user.username).join("").toLowerCase().includes(action.keyword.toLowerCase())
+            Object.values(data.user.username)
+              .join('')
+              .toLowerCase()
+              .includes(action.keyword.toLowerCase())
           ) {
             return data;
           }

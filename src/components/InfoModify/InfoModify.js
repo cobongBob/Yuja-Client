@@ -1,23 +1,27 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./InfoModify.scss";
 import { Link } from "react-router-dom";
-import { getLoggedInUserData } from "../../apiService/AuthenticationService";
-import { ToastCenter, ToastTopRight } from "../../modules/ToastModule";
+import { getLoggedInUserData } from '../../apiService/AuthenticationService';
+import { ToastCenter, ToastPreventAccess, ToastTopRight } from '../../modules/ToastModule';
 import UserApiService, { getUserData, modifyUserData } from "../../apiService/UserApiService";
 import axios from "axios";
 import AddressApi from "../Login-SignUp/SignUp/AddressApi";
+import { useSelector } from 'react-redux';
 
 const InfoModify = ({ history }) => {
-  // /* 잘못된 접근 막기 */
-  //  if (history.action === "POP") {
-  //    ToastPreventAccess("❌ 잘못된 접근 입니다.");
-  //    history.replace("/");
-  //  } else if(isUserLoggedIn === false) {
-  //    ToastPreventAccess("❌ 먼저 로그인 하셔야 합니다.");
-  //   history.replace("/");
-  //  }
+
+  const { authorities, userLoginStatus } = useSelector((state) => state.loginReducer)
+
+  /* 잘못된 접근 막기 */
+   if (history.action === "POP") {
+     ToastPreventAccess("❌ 잘못된 접근 입니다.");
+     history.replace("/");
+   } else if(userLoginStatus === false) {
+     ToastPreventAccess("❌ 먼저 로그인 하셔야 합니다.");
+    history.replace("/");
+   }
+
   const loggedInUserData = getLoggedInUserData();
-  console.log("갖고오자마자 값 ", loggedInUserData);
   const userId = loggedInUserData && loggedInUserData.id ? loggedInUserData.id : null;
 
   const [previewURL, setpreviewUrl] = useState();
@@ -45,8 +49,13 @@ const InfoModify = ({ history }) => {
   const [nicknameDesc, setNicknameDesc] = useState();
   const [birthDesc, setBirthDesc] = useState();
   const [isCompanyRegNumFill, setIsCompanyRegNumFill] = useState();
-  const [isPermalinkFill, setIsPermalinkFill] = useState();
-  const [isYoutuberPicFill, setIsYoutuberPicFill] = useState();
+  const [isPermalinkFill, setIsPermalinkFill] = useState(
+    "https://www.youtube.com/channel/고유코드 형식이여야 합니다."
+  );
+  const [isYoutuberPicFill, setIsYoutuberPicFill] = useState(
+    "시간이 보이는 본인의 유튜브 스튜디오/콘텐츠 화면 스크린샷을 업로드 해주세요."
+  );
+
 
   const modifyProfilePicUrl = new URL("http://localhost:8888/files/profiles/" + userData.profilePic);
   const modifyConfirmPicUrl = new URL("http://localhost:8888/files/youtubeConfirm/" + userData.youtubeConfirmImg);
@@ -70,10 +79,12 @@ const InfoModify = ({ history }) => {
         bsn: res.data.bsn,
         youtubeUrl: res.data.youtubeUrl,
         profilePic: res.data.profilePic,
+        profilePicId: res.data.profilePicId,
         youtubeConfirmImg: res.data.youtubeConfirmImg,
       });
     });
-  }, [userId]);
+
+    }, [userId]);
 
   console.log("userData의 값", userData);
 
@@ -143,7 +154,11 @@ const InfoModify = ({ history }) => {
   const permalinkCheck = useCallback(
     (e) => {
       let checkContent = e.target.value;
-      if (checkContent !== "" && checkContent.startsWith("https://www.youtube.com/")) {
+      if (checkContent !== "" &&
+        checkContent.startsWith("https://www.youtube.com/") &&
+        checkContent.indexOf("channel") > -1 &&
+        !checkContent.endsWith("/featured")
+      ) {
         setIsPermalinkFill("");
       } else {
         setIsPermalinkFill("유튜브 고유주소를 확인해주세요.");
@@ -176,6 +191,8 @@ const InfoModify = ({ history }) => {
         });
     }
   };
+
+  console.log('handleFileOnChange 실행 후 값', userData.profilePicId)
 
   const handleFileOnChange2 = (e) => {
     let file2 = e.target.files[0];
@@ -222,9 +239,14 @@ const InfoModify = ({ history }) => {
   /* 파일 업로드 끝 */
 
   const modifyBtn = useCallback(() => {
-    console.log("===========================", userData);
-    console.log(userId);
-    modifyUserData(userId, userData)
+    console.log("===========================수정 userdata의 값", userData);
+    const data = {
+      ...userData,
+      profilePicId: profilePicId.current,
+      youtubeConfirmId: youtubeConfirmId.current,
+    };
+    console.log(' data ',data)
+    modifyUserData(userId, data)
       .then((r) => {
         if (r) {
           ToastTopRight("🎉 정보가 수정 되었습니다.");
@@ -382,7 +404,7 @@ const InfoModify = ({ history }) => {
                 </td>
               </tr>
             </table>
-            {userData.youtubeUrl !== null && "" ? (
+            {authorities && authorities.includes("YOUTUBER") ? (
               <div className='youtuberDiv'>
                 <div className='youtuberDiv_Title'>
                   유튜버 분들은 원활한 서비스 이용을 위해

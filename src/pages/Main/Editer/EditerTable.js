@@ -1,14 +1,20 @@
-import React from "react";
-import { Card } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
-import { format } from "date-fns";
-import "../Youtuber/Ylist.scss";
-import BackToList from "../components/BackToList";
-import SortingToDeadline from "../components/SortingToDeadline";
-import SortingToLiked from "../components/SortingToLiked";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import React from 'react';
+import { Card } from 'react-bootstrap';
+import { Link, useHistory } from 'react-router-dom';
+import { format } from 'date-fns';
+import '../Youtuber/Ylist.scss';
+import BackToList from '../components/BackToList';
+import SortingToDeadline from '../components/SortingToDeadline';
+import SortingToLiked from '../components/SortingToLiked';
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
-export default function EditorTable({ eBoardData, board_type, currentPage, likeHandler, dislikeHandler }) {
+export default function EditorTable({
+  eBoardData,
+  board_type,
+  currentPage,
+  likeHandler,
+  dislikeHandler,
+}) {
   const history = useHistory();
   return (
     <div className='card-container'>
@@ -19,8 +25,7 @@ export default function EditorTable({ eBoardData, board_type, currentPage, likeH
       </div>
       <div className='card-options'>
         <BackToList />
-        <SortingToDeadline boardData={eBoardData} />
-        <SortingToLiked boardData={eBoardData} />
+        <SortingToLiked board_type={board_type} />
       </div>
       <ul>
         {eBoardData?.map((data) => (
@@ -28,7 +33,11 @@ export default function EditorTable({ eBoardData, board_type, currentPage, likeH
             <Card>
               <Card.Img
                 className='Card-Img'
-                onClick={() => history.push(`/EDetail/${board_type}/${data.id}/${currentPage}`)}
+                onClick={() =>
+                  history.push(
+                    `/EDetail/${board_type}/${data.id}/${currentPage}`
+                  )
+                }
                 src={`${data.previewImage}`}
               ></Card.Img>
               <Card.Header>
@@ -39,16 +48,22 @@ export default function EditorTable({ eBoardData, board_type, currentPage, likeH
                   <div> 사용기술 {data.tools[0]} </div>
                   <div className='card-deadline'>
                     <span>마감일 </span>
-                    {format(new Date(data.expiredDate), "yyyy-MM-dd")}
+                    {format(new Date(data.expiredDate), 'yyyy-MM-dd')}
                   </div>
                   <div className='card-like'>
                     {data && data.liked ? (
-                      <button onClick={() => likeHandler(data.id)} className='starButton'>
+                      <button
+                        onClick={() => likeHandler(data.id)}
+                        className='starButton'
+                      >
                         <AiFillStar size={30} />
                         <span>{data.likes}</span>
                       </button>
                     ) : (
-                      <button onClick={() => dislikeHandler(data.id)} className='starButton'>
+                      <button
+                        onClick={() => dislikeHandler(data.id)}
+                        className='starButton'
+                      >
                         <AiOutlineStar size={30} />
                         <span>{data.likes}</span>
                       </button>
@@ -60,7 +75,10 @@ export default function EditorTable({ eBoardData, board_type, currentPage, likeH
                 <Card.Text>
                   <div>{data.user.username}</div>
                   <div>
-                    <Link to={`/EDetail/${board_type}/${data.id}/${currentPage}`} className='card-link'>
+                    <Link
+                      to={`/EDetail/${board_type}/${data.id}/${currentPage}`}
+                      className='card-link'
+                    >
                       {data.title}
                     </Link>
                   </div>
@@ -69,7 +87,7 @@ export default function EditorTable({ eBoardData, board_type, currentPage, likeH
                   <div>
                     <strong>
                       <span>수정일 </span>
-                      {format(new Date(data.boardUpdatedDate), "yyyy-MM-dd")}
+                      {format(new Date(data.boardUpdatedDate), 'yyyy-MM-dd')}
                     </strong>
                   </div>
                 </Card.Footer>

@@ -1,9 +1,9 @@
-import React, { useCallback, useRef, useState } from "react";
-import { insertWinBoard } from "../../../apiService/winBoardApiService";
-import { useHistory } from "react-router";
-import { useSelector } from "react-redux";
-import QuillRegister from "../../../components/Quill/QuillRegister";
-import { ToastCenter } from "../../../modules/ToastModule";
+import React, { useCallback, useRef, useState } from 'react';
+import { insertWinBoard } from '../../../apiService/winBoardApiService';
+import { useHistory } from 'react-router';
+import { useSelector } from 'react-redux';
+import QuillRegister from '../../../components/Quill/QuillRegister';
+import { ToastCenter } from '../../../modules/ToastModule';
 
 const Wregister = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -14,12 +14,13 @@ const Wregister = ({ match }) => {
   const history = useHistory();
 
   let whistory = useCallback(
-    (board_id) => history.push(`/BoardDetail/${board_type.current}/${board_id}/1`),
+    (board_id) =>
+      history.push(`/BoardDetail/${board_type.current}/${board_id}/1`),
     [history, board_type]
   );
 
   const [inputData, setInputData] = useState({
-    title: "",
+    title: '',
   });
   const [checked, setCheckd] = useState({
     isPrivate: false,
@@ -39,10 +40,10 @@ const Wregister = ({ match }) => {
 
   const testCheking = useCallback(() => {
     if (!qData || !inputData.title) {
-      return ToastCenter("제목과 내용을 입력해주세요");
+      return ToastCenter('제목과 내용을 입력해주세요');
     }
     if (!userData) {
-      return ToastCenter("로그인 해주세요");
+      return ToastCenter('로그인 해주세요');
     }
     let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
     let imgSrcArr = String(qData).match(reg);
@@ -71,19 +72,37 @@ const Wregister = ({ match }) => {
   }, [userData, qData, whistory, checked, inputData]);
 
   return (
-    <div>
-      <div>
-        <input name='title' onChange={inputHandler} placeholder='제목' maxLength='45' type='text' />
-        {board_type.current === "CustomService" ? (
+    <div className='comment-wrapper'>
+      <div className='comment-content'>
+        <div className='comment-detail-title'>
+          <input
+            name='title'
+            onChange={inputHandler}
+            placeholder='제목'
+            maxLength='45'
+            type='text'
+          />
+        </div>
+        {board_type.current === 'CustomService' ? (
           <>
             <label htmlFor='secret'>비밀글</label>
-            <input id='secret' name='isPrivate' onChange={checkboxHandler} type='checkbox' />
+            <input
+              id='secret'
+              name='isPrivate'
+              onChange={checkboxHandler}
+              type='checkbox'
+            />
           </>
         ) : null}
-        {board_type.current === "Notice" ? (
+        {board_type.current === 'Notice' ? (
           <>
             <label htmlFor='secret'>공지 공개</label>
-            <input id='secret' name='isPrivate' onChange={checkboxHandler} type='checkbox' />
+            <input
+              id='secret'
+              name='isPrivate'
+              onChange={checkboxHandler}
+              type='checkbox'
+            />
           </>
         ) : null}
         <h2>상세 내용</h2>
