@@ -36,11 +36,12 @@
   min-height: 0 !important;
 }
 
+/* 채팅 아이콘*/
 .chat_button {
   position: fixed;
   z-index: 50;
-  top: 80%;
-  left: 90%;
+  top: 88%;
+  left: 94%;
   color: #c4302b;
   font-size: 4rem;
   cursor: pointer;
