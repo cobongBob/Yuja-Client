@@ -52,8 +52,6 @@ import { getAllNotifications } from "./redux/loading/notiReducer";
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
 
 function App() {
-  //권한 alert
-
   /* history 관련 */
   const location = useLocation();
   const history = useHistory();
