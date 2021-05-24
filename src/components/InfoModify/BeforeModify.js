@@ -28,7 +28,7 @@ const BeforeModify = ({ history }) => {
   });
 
   const [passwordDesc, setPasswordDesc] = useState();
-  const [getProviderId, setGetProviderId] = useState();
+  const [getProviderId, setGetProviderId] = useState("");
   const dispatch = useDispatch();
 
   const inputHandler = useCallback(
@@ -90,8 +90,6 @@ const BeforeModify = ({ history }) => {
     });
   }, []);
 
-  console.log(getProviderId)
-
   return (
     <div className='BeforeModifyFrag'>
       <div className='beforeModifyTitleBox'>
@@ -101,7 +99,7 @@ const BeforeModify = ({ history }) => {
       </div>
       <div className='beforeModifyContentBox'>
         <div className='overlay'>
-          {getProviderId === null || undefined ?
+          {getProviderId === null || undefined || "" ?
           <div className='modifyBox'>
             <div className='beforeModifyDescBoxDescBox'>
               <span>{loggedInUserData.nickname}</span>
