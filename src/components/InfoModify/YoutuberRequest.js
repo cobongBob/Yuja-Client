@@ -22,7 +22,9 @@ const YoutuberRequest = ( { history } ) => {
   const userId = loggedInUserData && loggedInUserData.id ? loggedInUserData.id : null;
 
   const [isCompanyRegNumFill, setIsCompanyRegNumFill] = useState();
-  const [isPermalinkFill, setIsPermalinkFill] = useState();
+  const [isPermalinkFill, setIsPermalinkFill] = useState(
+    "https://www.youtube.com/channel/고유코드 형식이여야 합니다."
+  );
   const [isYoutuberPicFill, setIsYoutuberPicFill] = useState(
     "아래 예시처럼 시간이 보이는 본인의 유튜브 스튜디오/콘텐츠 화면 스크린샷을 업로드 해주세요."
   );
@@ -38,9 +40,7 @@ const YoutuberRequest = ( { history } ) => {
     youtubeConfirmId: youtubeConfirmId.current,
   });
 
-  const { userData } = useSelector((state) => state.loginReducer);
-  const userAuthLevel = userData.authorities[0][1];
-  console.log(userAuthLevel)
+  const { authorities } = useSelector((state) => state.loginReducer);
 
   /* 파일 업로드 관련 */
   let youtuberPic_preview = "";
@@ -117,7 +117,11 @@ const YoutuberRequest = ( { history } ) => {
   const permalinkCheck = useCallback(
     (e) => {
       let checkContent = e.target.value;
-      if (checkContent !== "" && checkContent.startsWith("https://www.youtube.com/")) {
+      if (checkContent !== "" &&
+        checkContent.startsWith("https://www.youtube.com/") &&
+        checkContent.indexOf("channel") > -1 &&
+        !checkContent.endsWith("/featured")
+      ) {
         setIsPermalinkFill("");
       } else {
         setIsPermalinkFill("유튜브 고유주소를 확인해주세요.");
@@ -184,7 +188,9 @@ const YoutuberRequest = ( { history } ) => {
       <div className='youtuberDiv_Title'>
         유튜브를 시작하셨나요?
         <br />
-        유튜버 확인을 위해 추가 정보를 입력해주세요!
+        <span>유튜버 인증</span>을 위해 추가 정보를 입력해주세요!
+        <br />
+        <br />신청 후 확인을 위해 <span>2~3일</span>의 시간이 소요 됩니다.
       </div>
       <div className='youtuberInputBox'>
         <div className='companyRegNumBox'>
@@ -249,11 +255,6 @@ const YoutuberRequest = ( { history } ) => {
         </button>
       </div>
     </div>
-        <footer className='YoutuberRequestFooter'>
-          <Link className='linkToMain' to='/'>
-            이미 회원이신가요? <span>로그인</span>
-          </Link>
-        </footer>
       </div>
     </div>
 

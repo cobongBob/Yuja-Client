@@ -5,7 +5,7 @@ import { executeJwtAuthenticationService, getLoggedInUserData } from "../../apiS
 import * as auth from "../../apiService/AuthenticationService";
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogin } from '../../redux/redux-login/loginReducer';
-import { ToastTopRight } from '../../modules/ToastModule';
+import { ToastCenter, ToastTopRight } from '../../modules/ToastModule';
 import { getUserData } from '../../apiService/UserApiService';
 import GoogleLogin from 'react-google-login';
 import googleLoginIcon from '../Login-SignUp/Login/googleLoginIcon2.svg';
@@ -27,12 +27,10 @@ const BeforeModify = ({ history }) => {
   });
 
   const { authorities } = useSelector((state) => state.loginReducer);
-  const userAuthLevel = authorities[0];
-
   const [passwordDesc, setPasswordDesc] = useState();
-  const [getProviderId, setGetProviderId] = useState("");
-  const [getYoutubeUrl, setGetYoutubeUrl] = useState("");
+  const [getProviderId, setGetProviderId] = useState();
   const dispatch = useDispatch();
+  const userId = loggedInUserData && loggedInUserData.id ? loggedInUserData.id : null;
 
   const inputHandler = useCallback(
     (e) => {
@@ -88,13 +86,10 @@ const BeforeModify = ({ history }) => {
   };
 
   useEffect(() => {
-    getUserData(loggedInUserData.id).then((res) => {
+    getUserData(userId).then((res) => {
       setGetProviderId(res.data.providedId);
-      setGetYoutubeUrl(res.data.youtubeUrl);
     });
-  }, [loggedInUserData.id]);
-
-  console.log(getYoutubeUrl)
+  }, [userId]);
 
   return (
     <div className='BeforeModifyFrag'>
@@ -140,7 +135,7 @@ const BeforeModify = ({ history }) => {
               다른 서비스가 필요하신가요?
             </div>
             <div className='beforeModifyOtherBox'>
-              {getYoutubeUrl === null || getYoutubeUrl === undefined || getYoutubeUrl === "" ?
+              {authorities && !authorities.includes("YOUTUBER") ?
                 <Link
                   to='/YoutuberRequest'
                   className='btn btn-warning'
@@ -196,16 +191,16 @@ const BeforeModify = ({ history }) => {
             <div className='beforeModifyOtherBoxDesc'>
               다른 서비스가 필요하신가요?
             </div>
-            {getYoutubeUrl === null || getYoutubeUrl === undefined || getYoutubeUrl === "" ?
-              <Link
-                to='/YoutuberRequest'
-                className='btn btn-warning'
-                name='YoutuberRequestBtn'
-              >
-                유튜버 인증
-              </Link>
-              : "" }
             <div className='beforeModifyOtherBox'>
+              {authorities && !authorities.includes("YOUTUBER") ?
+                <Link
+                  to='/YoutuberRequest'
+                  className='btn btn-warning'
+                  name='YoutuberRequestBtn'
+                >
+                  유튜버 인증
+                </Link>
+                : "" }
               <Link
                 to='/SignOut'
                 className='btn btn-warning'
