@@ -44,8 +44,13 @@ const InfoModify = ({ history }) => {
   const [nicknameDesc, setNicknameDesc] = useState();
   const [birthDesc, setBirthDesc] = useState();
   const [isCompanyRegNumFill, setIsCompanyRegNumFill] = useState();
-  const [isPermalinkFill, setIsPermalinkFill] = useState();
-  const [isYoutuberPicFill, setIsYoutuberPicFill] = useState();
+  const [isPermalinkFill, setIsPermalinkFill] = useState(
+    "https://www.youtube.com/channel/고유코드 형식이여야 합니다."
+  );
+  const [isYoutuberPicFill, setIsYoutuberPicFill] = useState(
+    "시간이 보이는 본인의 유튜브 스튜디오/콘텐츠 화면 스크린샷을 업로드 해주세요."
+  );
+
 
   const modifyProfilePicUrl = new URL("http://localhost:8888/files/profiles/" + userData.profilePic);
   const modifyConfirmPicUrl = new URL("http://localhost:8888/files/youtubeConfirm/" + userData.youtubeConfirmImg);
@@ -144,7 +149,11 @@ const InfoModify = ({ history }) => {
   const permalinkCheck = useCallback(
     (e) => {
       let checkContent = e.target.value;
-      if (checkContent !== "" && checkContent.startsWith("https://www.youtube.com/")) {
+      if (checkContent !== "" &&
+        checkContent.startsWith("https://www.youtube.com/") &&
+        checkContent.indexOf("channel") > -1 &&
+        !checkContent.endsWith("/featured")
+      ) {
         setIsPermalinkFill("");
       } else {
         setIsPermalinkFill("유튜브 고유주소를 확인해주세요.");

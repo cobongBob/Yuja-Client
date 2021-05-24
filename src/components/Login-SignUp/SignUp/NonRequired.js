@@ -190,7 +190,9 @@ const NonRequired = ({ location, history }) => {
   const [submitDisableHandler, setSubmitDisableHandler] = useState();
 
   const [isCompanyRegNumFill, setIsCompanyRegNumFill] = useState();
-  const [isPermalinkFill, setIsPermalinkFill] = useState();
+  const [isPermalinkFill, setIsPermalinkFill] = useState(
+    "https://www.youtube.com/channel/고유코드 형식이여야 합니다."
+  );
   const [isYoutuberPicFill, setIsYoutuberPicFill] = useState(
     "아래 예시처럼 시간이 보이는 본인의 유튜브 스튜디오/콘텐츠 화면 스크린샷을 업로드 해주세요."
   );
@@ -206,14 +208,22 @@ const NonRequired = ({ location, history }) => {
     }
   }, [isYoutuberChecked, isPermalinkFill, isYoutuberPicFill, setSubmitDisableHandler]);
 
-  const permalinkCheck = useCallback((e) => {
-    let checkContent = e.target.value;
-    if (checkContent !== "" && checkContent.startsWith("https://www.youtube.com/")) {
-      setIsPermalinkFill("");
-    } else {
-      setIsPermalinkFill("유튜브 고유주소를 확인해주세요.");
-    }
-  }, [setIsPermalinkFill]);
+  const permalinkCheck = useCallback(
+    (e) => {
+      let checkContent = e.target.value;
+      if (checkContent !== "" &&
+        checkContent.startsWith("https://www.youtube.com/") &&
+        checkContent.indexOf("channel") > -1 &&
+        !checkContent.endsWith("/featured")
+      ) {
+        setIsPermalinkFill("");
+      } else {
+        setIsPermalinkFill("유튜브 고유주소를 확인해주세요.");
+      }
+    },
+    [setIsPermalinkFill]
+  );
+
   /* 버튼 활성화 끝 */
 
   useEffect(() => {
