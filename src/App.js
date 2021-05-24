@@ -70,14 +70,14 @@ function App() {
   /* 로딩 */
   const dispatch = useDispatch();
   const { loading, notificationData } = useSelector((state) => state.loadingReducer);
-  const { allNotifications } = useSelector((state) => state.NotiReducer);
+  const { allNotifications, notiLoading } = useSelector((state) => state.NotiReducer);
   const { userData } = useSelector((state) => state.loginReducer);
   useEffect(() => {
     instance.interceptors.request.use(
       function (config) {
         //로딩과 알림 호출
         dispatch(getLoading(userData && userData.id));
-        if (userData && userData.id > 0) {
+        if (!notiLoading && userData && userData.id > 0) {
           dispatch(getAllNotifications(userData.id));
         }
         return config;

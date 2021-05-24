@@ -49,7 +49,7 @@ const getNotificationsFailure = (error) => {
 
 // 초기값
 const initialState = {
-  loading: false,
+  notiLoading: false,
   allNotifications: [],
   error: "",
 };
@@ -60,20 +60,20 @@ const NotiReducer = (state = initialState, action) => {
     case GET_NOTICES_REQUEST:
       return {
         ...state,
-        loading: true,
+        notiLoading: true,
       };
     case GET_NOTICES_SUCCESS:
       return {
         ...state,
         allNotifications: action.payload,
-        loading: false,
+        notiLoading: false,
         error: "",
       };
     case GET_NOTICES_FAILURE:
       return {
         allNotifications: [],
         error: action.payload,
-        loading: false,
+        notiLoading: false,
       };
     case DELETE_NOTIFICATION:
       return {
