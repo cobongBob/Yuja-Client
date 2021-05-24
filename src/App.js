@@ -181,21 +181,27 @@ function App() {
         {loading && <Loader type='spin' color='#ff9411' />}
         <Switch>
           <Route exact path='/' component={MainWrapper} />
-          <Route path='/Youtuber' component={Youtuber} />
+          <Route path='/YoutuberProfile' component={YoutuberProfile} />
+          <Route path='/Youtuber/:current_page' component={Youtuber} />
+          <Route path='/Ydetail/:board_id/:current_page' component={Ydetail} />
+          <Route path='/YoutuberRegister' component={Yregister} />
+          <Route
+            path='/YboardModify/:board_id/:current_page'
+            component={YmodifyTest}
+          />
           <Route path='/Eboard/:board_type/:current_page' component={Editer} />
           <Route
-            path='/Community/:board_type/:current_page'
-            component={Winwin}
+            path='/EditorRegister/:board_type'
+            component={EditorRegister}
           />
           <Route
-            path='/BoardDetail/:board_type/:board_id/:current_page'
-            component={Wdetail}
+            path='/EDetail/:board_type/:board_id/:current_page'
+            component={EDetail}
           />
           <Route
-            path='/BoardModify/:board_type/:board_id/:current_page'
-            component={WModify}
+            path='/EboardModify/:board_type/:board_id/:current_page'
+            component={EboardModify}
           />
-          <Route path='/BoardRegister/:board_type' component={Wregister} />
           <Route
             path='/Thboard/:board_type/:current_page'
             component={Thumbnailer}
@@ -209,34 +215,30 @@ function App() {
             path='/ThumbModify/:board_type/:board_id/:current_page'
             component={ThumbModify}
           />
-          <Route path='/Help' component={Help} />
+          <Route
+            path='/Community/:board_type/:current_page'
+            component={Winwin}
+          />
+          <Route
+            path='/BoardDetail/:board_type/:board_id/:current_page'
+            component={Wdetail}
+          />
+          <Route
+            path='/BoardModify/:board_type/:board_id/:current_page'
+            component={WModify}
+          />
+          <Route path='/BoardRegister/:board_type' component={Wregister} />
           <Route path='/SignUp1' component={SignUp1} />
-          <Route path='/YoutuberProfile' component={YoutuberProfile} />
-          <Route path='/Ydetail/:board_id' component={Ydetail} />
-          <Route path='/Yregister' component={Yregister} />
-          <Route path='/YmodifyTest/:board_id' component={YmodifyTest} />
-          <Route path='/PageNotFound' component={PageNotFound} />
-          <Route
-            path='/EditorRegister/:board_type'
-            component={EditorRegister}
-          />
-          <Route
-            path='/EDetail/:board_type/:board_id/:current_page'
-            component={EDetail}
-          />
-          <Route
-            path='/EboardModify/:board_type/:board_id/1'
-            component={EboardModify}
-          />
           <Route path='/FindPassword' component={FindPassword} />
           <Route path='/ResetPassword' component={ResetPassword} />
-          <Route path='/Chat' component={Chat} />
           <Route path='/BeforeModify' component={BeforeModify} />
           <Route path='/InfoModify' component={InfoModify} />
           <Route path='/PasswordModify' component={PasswordModify} />
-          <Route path='/Admin/:board_type' component={Admin_main} />
-          <Route path='/SignOut' component={SignOut} />\
           <Route path='/YoutuberRequest' component={YoutuberRequest} />
+          <Route path='/Admin/:board_type' component={Admin_main} />
+          <Route path='/Help' component={Help} />
+          <Route path='/Chat' component={Chat} />
+          <Route path='/SignOut' component={SignOut} />
           {/*<Route path='PageNotFound' component={PageNotFound} />*/}
           {/*<Redirect to='/' />*/}
         </Switch>

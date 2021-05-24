@@ -16,7 +16,7 @@ const Yregister = () => {
   const history = useHistory();
 
   let Yhistory = useCallback(
-    (board_id) => history.push(`/YDetail/${board_id}`),
+    (board_id) => history.push(`/YDetail/${board_id}/1`),
     [history]
   );
 
