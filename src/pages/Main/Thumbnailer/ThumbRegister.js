@@ -40,8 +40,15 @@ const ThumbRegister = ({ match }) => {
   };
 
   const testCheking = useCallback(() => {
-    if (!qData || !inputData.title) {
-      return ToastCenter('제목과 내용을 입력해주세요');
+    if (
+      !qData ||
+      !inputData.title ||
+      !inputData.payType ||
+      !inputData.payAmount ||
+      !inputData.career ||
+      !inputData.tools
+    ) {
+      return ToastCenter('내용을 모두 입력해주세요.');
     }
 
     let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
@@ -138,7 +145,7 @@ const ThumbRegister = ({ match }) => {
                 name='title'
                 id='first-link'
                 onChange={inputHandler}
-                maxLength='40'
+                maxLength='45'
               />
             </li>
 
@@ -185,6 +192,15 @@ const ThumbRegister = ({ match }) => {
                 placeholder='희망급여'
                 name='payAmount'
                 onChange={inputHandler}
+                maxLength={12}
+                onInput={({ target }) => {
+                  target.value = target.value.replace(/[^0-9]/g, '');
+                  target.value = target.value.replace(/,/g, '');
+                  target.value = target.value.replace(
+                    /\B(?=(\d{3})+(?!\d))/g,
+                    ','
+                  ); // 정규식을 이용해서 3자리 마다 , 추가
+                }}
               />
             </li>
             <li className='li-item5'>
@@ -206,22 +222,6 @@ const ThumbRegister = ({ match }) => {
               />
               <label htmlFor='Eaftereffect'>애프터이펙트 </label>
               <input
-                id='Ephotoshop'
-                name='Ephotoshop'
-                value='포토샵'
-                type='checkbox'
-                onChange={checkboxCheck}
-              />
-              <label htmlFor='Ephotoshop'>포토샵 </label>
-              <input
-                id='Eillustrater'
-                name='Eillustrater'
-                onChange={checkboxCheck}
-                value='일러스트'
-                type='checkbox'
-              />
-              <label htmlFor='Eillustrater'>베가스</label>
-              <input
                 id='Efinalcut'
                 name='Efinalcut'
                 value='파이널컷'
@@ -230,6 +230,14 @@ const ThumbRegister = ({ match }) => {
               />
               <label htmlFor='Efinalcut'>파이널컷 </label>
               <input
+                id='Evegas'
+                name='Evegas'
+                onChange={checkboxCheck}
+                value='베가스'
+                type='checkbox'
+              />
+              <label htmlFor='Evegas'>베가스</label>
+              <input
                 id='Epowerdirector'
                 name='Epowerdirector'
                 value='파워 디렉터'
@@ -237,6 +245,38 @@ const ThumbRegister = ({ match }) => {
                 onChange={checkboxCheck}
               />
               <label htmlFor='Epowerdirector'>파워 디렉터</label>
+              <input
+                id='Yphotoshop'
+                name='yphotoshop'
+                value='포토샵'
+                type='checkbox'
+                onChange={checkboxCheck}
+              />
+              <label htmlFor='Yphotoshop'>포토샵</label>
+              <input
+                id='Yillustrater'
+                name='yillustrater'
+                value='일러스트'
+                type='checkbox'
+                onChange={checkboxCheck}
+              />
+              <label htmlFor='Yillustrater'>일러스트</label>
+              <input
+                id='Yblender'
+                onChange={checkboxCheck}
+                name='yblender'
+                value='블렌더'
+                type='checkbox'
+              />
+              <label htmlFor='Yblender'>블렌더</label>
+              <input
+                id='Ymaya'
+                onChange={checkboxCheck}
+                name='ymaya'
+                value='마야'
+                type='checkbox'
+              />
+              <label htmlFor='Ymaya'>마야</label>
             </li>
           </ul>
         </div>

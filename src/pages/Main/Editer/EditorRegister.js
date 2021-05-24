@@ -20,8 +20,16 @@ const EditorRegister = () => {
     [history, board_type]
   );
   const testCheking = useCallback(() => {
-    if (!qData || !input.title) {
-      return ToastCenter('제목과 내용을 입력해주세요');
+    if (
+      !qData ||
+      !input.title ||
+      !input.previewImage ||
+      !input.career ||
+      !input.payType ||
+      !input.payAmount ||
+      !input.tools
+    ) {
+      return ToastCenter('내용을 모두 적어주세요.');
     }
 
     let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
@@ -145,6 +153,15 @@ const EditorRegister = () => {
                 placeholder='희망급여'
                 name='payAmount'
                 onChange={onChange}
+                maxLength={12}
+                onInput={({ target }) => {
+                  target.value = target.value.replace(/[^0-9]/g, '');
+                  target.value = target.value.replace(/,/g, '');
+                  target.value = target.value.replace(
+                    /\B(?=(\d{3})+(?!\d))/g,
+                    ','
+                  ); // 정규식을 이용해서 3자리 마다 , 추가
+                }}
               />
             </li>
             <li className='li-item5'>
@@ -189,6 +206,38 @@ const EditorRegister = () => {
                 onChange={checkboxCheck}
               />
               <label htmlFor='Epowerdirector'>파워 디렉터</label>
+              <input
+                id='Yphotoshop'
+                name='yphotoshop'
+                value='포토샵'
+                type='checkbox'
+                onChange={checkboxCheck}
+              />
+              <label htmlFor='Yphotoshop'>포토샵</label>
+              <input
+                id='Yillustrater'
+                name='yillustrater'
+                value='일러스트'
+                type='checkbox'
+                onChange={checkboxCheck}
+              />
+              <label htmlFor='Yillustrater'>일러스트</label>
+              <input
+                id='Yblender'
+                onChange={checkboxCheck}
+                name='yblender'
+                value='블렌더'
+                type='checkbox'
+              />
+              <label htmlFor='Yblender'>블렌더</label>
+              <input
+                id='Ymaya'
+                onChange={checkboxCheck}
+                name='ymaya'
+                value='마야'
+                type='checkbox'
+              />
+              <label htmlFor='Ymaya'>마야</label>
             </li>
           </ul>
         </div>
