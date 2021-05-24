@@ -8,7 +8,6 @@
 .comment-content {
   font-family: scdream4;
   margin-bottom: 1rem;
-  border-bottom: 2px solid black;
 }
 
 .comment-options {
@@ -41,9 +40,55 @@
   text-align: left;
   margin-bottom: 0.5rem;
 }
+
+.comment-register-category {
+  display: inline-block;
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+  background-color: #ff9411;
+  padding: 0.25rem;
+  border-radius: 20px;
+}
+
+.comment-register-title {
+  float: left;
+}
+.comment-register-title > input[type='text'] {
+  margin-top: 1rem;
+  margin-right: 1rem;
+  border: none;
+  border-bottom: 4px solid #ff9411;
+  display: inline-block;
+  font-size: 30px;
+  width: 35rem;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 1rem;
+  &:focus {
+    outline: 0;
+    border: none;
+    border-bottom: 4px solid black;
+  }
+}
+
+.secret-option {
+  font-family: scdream5;
+  display: block;
+  font-size: 20px;
+  padding-top: 2rem;
+  float: rigth;
+}
+
+.comment-register-title > h2 {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
 .detail-show {
   vertical-align: middle;
 }
+
 .show-user-name {
   margin-top: 0.25rem;
   float: left;
@@ -83,6 +128,12 @@
   border-radius: 10px;
   padding: 1rem;
   margin-bottom: 1rem;
+}
+
+.parentComment > div > button {
+  border: 1px solid black;
+  margin-right: 0.25rem;
+  border-radius: 5px;
 }
 
 .childComment {
@@ -146,17 +197,14 @@
 .comment-area {
   background-color: #f5f5f5;
   border-radius: 10px;
-  text-align: right;
-  padding: 0.5rem;
+  padding: 1rem;
 }
 
 .comment-area > button {
   border: 1px solid black;
   border-radius: 5px;
 }
-.commentDate > div {
-  text-align: right;
-}
+
 .commentDate > div > button {
   border: 1px solid black;
   margin-right: 0.5rem;

@@ -1,15 +1,24 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import ReactQuill from "react-quill";
-import { deleteWinBoard } from "../../../apiService/winBoardApiService";
-import { deleteComment, fetchComments, insertComment, updateComment } from "../../../apiService/CommentApiService";
-import { useDispatch, useSelector } from "react-redux";
-import "./Wdetail.scss";
-import ParentsComments from "../components/Comment/ParentsComments";
-import { FcLike } from "react-icons/fc";
-import { AiOutlineHeart, AiOutlineFileSearch } from "react-icons/ai";
-import { getWDetailsData, wAddLike, wDeleteLike } from "../../../redux/board/winwin/winBoardReducer";
-import { useHistory } from "react-router";
-import { ToastCenter } from "../../../modules/ToastModule";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import ReactQuill from 'react-quill';
+import { deleteWinBoard } from '../../../apiService/winBoardApiService';
+import {
+  deleteComment,
+  fetchComments,
+  insertComment,
+  updateComment,
+} from '../../../apiService/CommentApiService';
+import { useDispatch, useSelector } from 'react-redux';
+import './Wdetail.scss';
+import ParentsComments from '../components/Comment/ParentsComments';
+import { FcLike } from 'react-icons/fc';
+import { AiOutlineHeart, AiOutlineFileSearch } from 'react-icons/ai';
+import {
+  getWDetailsData,
+  wAddLike,
+  wDeleteLike,
+} from '../../../redux/board/winwin/winBoardReducer';
+import { useHistory } from 'react-router';
+import { ToastCenter } from '../../../modules/ToastModule';
 const Wdetail = ({ match }) => {
   const { current: board_type } = useRef(match.params.board_type);
   const { current: pageNum } = useRef(match.params.current_page);
@@ -25,7 +34,7 @@ const Wdetail = ({ match }) => {
 
   //root댓글 input
   const [inputReply, setInputReply] = useState({
-    content: "",
+    content: '',
   });
 
   const { userData } = useSelector((state) => state.loginReducer);
@@ -34,9 +43,13 @@ const Wdetail = ({ match }) => {
   const history = useHistory();
 
   useEffect(() => {
-    if (wDetails && wDetails.isPrivate && (!userData || userData.id !== wDetails.user.id)) {
+    if (
+      wDetails &&
+      wDetails.isPrivate &&
+      (!userData || userData.id !== wDetails.user.id)
+    ) {
       //어드민 권한 추가 필요
-      ToastCenter("권한이 없습니다.");
+      ToastCenter('권한이 없습니다.');
       return history.goBack();
     }
   }, [history, userData, wDetails]);
@@ -57,7 +70,7 @@ const Wdetail = ({ match }) => {
   //댓글 삭제
   const deleteReply = useCallback(
     (commentId) => {
-      if (window.confirm("댓글을 삭제하시겠습니까?")) {
+      if (window.confirm('댓글을 삭제하시겠습니까?')) {
         deleteComment(commentId).then(() => {
           fetchComments(match.params.board_id).then((res) => {
             setComments(res.data);
@@ -70,8 +83,8 @@ const Wdetail = ({ match }) => {
 
   //root댓글입력 저장
   const insertReply = useCallback(() => {
-    if (inputReply.content === "") {
-      ToastCenter("내용을 입력해 주세요");
+    if (inputReply.content === '') {
+      ToastCenter('내용을 입력해 주세요');
       return;
     }
     const insertData = {
@@ -83,7 +96,7 @@ const Wdetail = ({ match }) => {
     insertComment(insertData).then(() => {
       fetchComments(match.params.board_id).then((res) => {
         setComments(res.data);
-        setInputReply({ content: "" });
+        setInputReply({ content: '' });
       });
     });
   }, [match.params.board_id, userData, inputReply]);
@@ -114,8 +127,8 @@ const Wdetail = ({ match }) => {
   // 대댓글 입력 저장
   const reReplyInsert = useCallback(
     (reReplyData) => {
-      if (reReplyData.content === "") {
-        ToastCenter("내용을 입력해 주세요");
+      if (reReplyData.content === '') {
+        ToastCenter('내용을 입력해 주세요');
         return;
       }
       const insertData = {
@@ -140,8 +153,8 @@ const Wdetail = ({ match }) => {
   //댓글 수정 저장
   const modifyComment = useCallback(
     (modifyData) => {
-      if (modifyData.content === "") {
-        ToastCenter("내용을 입력해 주세요");
+      if (modifyData.content === '') {
+        ToastCenter('내용을 입력해 주세요');
         return;
       }
       const modiContent = {
@@ -168,12 +181,12 @@ const Wdetail = ({ match }) => {
         });
       }
     } else {
-      ToastCenter("로그인 해주세요");
+      ToastCenter('로그인 해주세요');
     }
   }, [userData, wDetails, dispatch, match.params.board_id]);
 
   const deleteBoard = useCallback(() => {
-    if (window.confirm("게시글을 삭제 하시겠습니까?")) {
+    if (window.confirm('게시글을 삭제 하시겠습니까?')) {
       deleteWinBoard(match.params.board_id, board_type).then(() => {
         history.push(`/Community/${board_type}/${pageNum}`);
       });
@@ -181,11 +194,13 @@ const Wdetail = ({ match }) => {
   }, [match.params.board_id, history, board_type, pageNum]);
 
   const modifyBoard = useCallback(() => {
-    history.push(`/BoardModify/${board_type}/${match.params.board_id}/${pageNum}`);
+    history.push(
+      `/BoardModify/${board_type}/${match.params.board_id}/${pageNum}`
+    );
   }, [history, board_type, pageNum, match]);
 
   const goList = useCallback(() => {
-    if (board_type === "Notice") {
+    if (board_type === 'Notice') {
       history.push(`/Admin/AdminBoard`);
     } else {
       history.push(`/Community/${board_type}/${pageNum}`);
@@ -208,7 +223,9 @@ const Wdetail = ({ match }) => {
           ) : null}
           <div>
             <div className='detail-show'>
-              <div className='show-user-name'>작성자 {wDetails.user.username}</div>
+              <div className='show-user-name'>
+                작성자 {wDetails.user.username}
+              </div>
               <div className='likeWrapper'>
                 {wDetails && wDetails.liked ? (
                   <button className='likeButton' onClick={likeHandler}>
@@ -223,12 +240,18 @@ const Wdetail = ({ match }) => {
                 )}
               </div>
               <div className='hitWrapper'>
-                <AiOutlineFileSearch className='hit' size={29} /> <span className='hitCount'>{wDetails.hit}</span>
+                <AiOutlineFileSearch className='hit' size={29} />{' '}
+                <span className='hitCount'>{wDetails.hit}</span>
               </div>
             </div>
           </div>
           <div className='DetailQuill'>
-            <ReactQuill className='QuillContent' value={wDetails.content || ""} readOnly={true} theme={"bubble"} />
+            <ReactQuill
+              className='QuillContent'
+              value={wDetails.content || ''}
+              readOnly={true}
+              theme={'bubble'}
+            />
           </div>
         </div>
         <div className='commentWrapper'>
