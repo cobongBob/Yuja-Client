@@ -31,7 +31,7 @@ import { userLogout } from "./redux/redux-login/loginReducer";
 import Chat from "./pages/Main/components/Chat/Chat";
 import EDetail from "./pages/Main/Editer/EDetail";
 import ResetPassword from "./components/Login-SignUp/Login/ResetPassword";
-import { ToastAlert, ToastCenter } from "./modules/ToastModule";
+import { ToastAlert, ToastCenter, ToastAlertNoDupl } from "./modules/ToastModule";
 import WModify from "./pages/Main/Winwin/WModify";
 import ThumbRegister from "./pages/Main/Thumbnailer/ThumbRegister";
 import ThumbDetail from "./pages/Main/Thumbnailer/ThumbDetail";
@@ -112,13 +112,23 @@ function App() {
         if (notification.type === "commentNoti") {
           ToastAlert(() =>
             toastWithPush(
-              `${notification.resipeint.nickname}님께서 ${notification.comment.board.title}글에 댓글을 남기셨습니다.`,
+              `${notification.sender.nickname}님께서 ${notification.comment.board.title}글에 댓글을 남기셨습니다.`,
               notification,
               history
             )
           );
-          deleteNotifications(notification.notiId);
+        } else if (notification.type === "chatNoti") {
+          ToastAlertNoDupl(`${notification.sender.nickname}님으로부터 새로운 채팅이 있습니다.`);
+        } else if (notification.type === "editNoti") {
+          ToastAlertNoDupl(`에디터로 등록되셨습니다.`);
+        } else if (notification.type === "thumbNoti") {
+          ToastAlertNoDupl(`썸네일러로 등록되셨습니다.`);
+        } else if (notification.type === "youtubeNoti") {
+          ToastAlertNoDupl(`유튜버로 등록되셨습니다.`);
+        } else if (notification.type === "rejectNoti") {
+          ToastAlertNoDupl(`유튜버로 등록이 거절되었습니다. 신청 절차를 다시 확인해주세요.`);
         }
+        deleteNotifications(notification.notiId);
       });
     }
   }, [notificationData, userData, history]);
