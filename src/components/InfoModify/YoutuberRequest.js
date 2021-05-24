@@ -5,8 +5,9 @@ import { getLoggedInUserData } from '../../apiService/AuthenticationService';
 import UserApiService, { modifyUserData } from '../../apiService/UserApiService';
 import { ToastCenter, ToastTopRight } from '../../modules/ToastModule';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-const YoutuberRequest = ( { } ) => {
+const YoutuberRequest = ( { history } ) => {
 
   // /* 잘못된 접근 막기 */
   //  if (history.action === "POP") {
@@ -25,17 +26,21 @@ const YoutuberRequest = ( { } ) => {
   const [isYoutuberPicFill, setIsYoutuberPicFill] = useState(
     "아래 예시처럼 시간이 보이는 본인의 유튜브 스튜디오/콘텐츠 화면 스크린샷을 업로드 해주세요."
   );
-  const [submitDisableHandler, setSubmitDisableHandler] = useState();
+  const [submitDisableHandler, setSubmitDisableHandler] = useState(true);
 
   const [previewURL, setpreviewUrl] = useState();
   const youtubeConfirmId = useRef(0);
 
-  const [userData, setUserData] = useState({
+  const [requestUserData, setRequestUserData] = useState({
     userId:userId,
     bsn: "",
     youtubeUrl: "",
     youtubeConfirmId: youtubeConfirmId.current,
   });
+
+  const { userData } = useSelector((state) => state.loginReducer);
+  const userAuthLevel = userData.authorities[0][1];
+  console.log(userAuthLevel)
 
   /* 파일 업로드 관련 */
   let youtuberPic_preview = "";
@@ -76,12 +81,12 @@ const YoutuberRequest = ( { } ) => {
   const onChange = useCallback(
     (e) => {
       console.log("onChange");
-      setUserData({
-        ...userData,
+      setRequestUserData({
+        ...requestUserData,
         [e.target.name]: e.target.value,
       });
     },
-    [userData]
+    [requestUserData]
   );
 
   /* 사업자 등록번호 확인식 */
@@ -122,19 +127,30 @@ const YoutuberRequest = ( { } ) => {
   );
   /* 고유 주소 확인 끝 */
 
+
+  /* 유효성 검사 */
+  const submitDisabledCheck = useCallback(() => {
+    if (isPermalinkFill === "" && isYoutuberPicFill === "") {
+      setSubmitDisableHandler(false);
+    }
+  }, [isPermalinkFill, isYoutuberPicFill, setSubmitDisableHandler]);
+
+  useEffect(() => {
+    submitDisabledCheck();
+  }, [submitDisabledCheck]);
+
+  /* 유효성 검사 끝 */
+
   const totalAction = (e) => {
     insertUserData(e);
   };
 
   const insertUserData = (e) => {
-
     const data = {
-      ...userData,
+      ...requestUserData,
       youtubeConfirmId: youtubeConfirmId.current,
     };
-
-    console.log('NonRequiredData', data)
-
+    console.log('insertUserData', data)
     UserApiService.addYoutuberRequest(data)
       .then((r) => {
         if (r) {
@@ -151,6 +167,18 @@ const YoutuberRequest = ( { } ) => {
 
   return (
     <div className='YoutuberRequestFrag'>
+      <div className='SignUpHeader'>
+        <Link className='header-title' to='/'>
+          유자 유튜버 인증 신청
+        </Link>
+        {/*<div className="signUpBar">*/}
+        {/*  <div className="bar1"></div>*/}
+        {/*  <div className="bar2"></div>*/}
+        {/*  <div className="bar3"></div>*/}
+        {/*  <div className="bar4"></div>*/}
+        {/*  <div className="mvBar"></div>*/}
+        {/*</div>*/}
+      </div>
       <div className='overlay'>
     <div className='youtuberDiv'>
       <div className='youtuberDiv_Title'>
@@ -217,7 +245,7 @@ const YoutuberRequest = ( { } ) => {
           className='btn btn-warning'
           onClick={totalAction}
           disabled={submitDisableHandler}>
-          회원가입
+          인증 신청하기
         </button>
       </div>
     </div>

@@ -46,6 +46,7 @@ import { deleteNotifications } from "./apiService/MainApiService";
 import ChatModal from "./pages/Main/components/Chat/ChatModal";
 import { AiFillWechat } from "react-icons/ai";
 import { toastWithPush } from "./modules/ToastWithPush";
+import YoutuberRequest from './components/InfoModify/YoutuberRequest';
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
 
@@ -177,7 +178,8 @@ function App() {
           <Route path='/InfoModify' component={InfoModify} />
           <Route path='/PasswordModify' component={PasswordModify} />
           <Route path='/Admin/:board_type' component={Admin_main} />
-          <Route path='/SignOut' component={SignOut} />
+          <Route path='/SignOut' component={SignOut} />\
+          <Route path='/YoutuberRequest' component={YoutuberRequest} />
           {/*<Route path='PageNotFound' component={PageNotFound} />*/}
           {/*<Redirect to='/' />*/}
         </Switch>
