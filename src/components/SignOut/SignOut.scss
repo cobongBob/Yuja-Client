@@ -25,7 +25,7 @@
 
 }
 .signOutDescBox {
-  margin-bottom:7%;
+  margin-bottom:2%;
   &>span {
     color: #ffb963;
   }
@@ -33,7 +33,9 @@
 input::placeholder {
   color: #999999;
 }
-
+.SignOutGoogleBtnBox {
+  margin-top: 5%;
+}
 
 /* 오버레이 (보더) */
 .overlay {

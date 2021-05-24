@@ -5,7 +5,6 @@ import winBoardReducer from "./board/winwin/winBoardReducer";
 import loginReducer from "./redux-login/loginReducer";
 import mainReducer from "./main/mainReducer";
 import loadingReducer from "./loading/loadingReducer";
-import NotificationReducer from "./notification/notifiReducer";
 
 const rootReducer = combineReducers({
   YboardReducer,
@@ -14,7 +13,6 @@ const rootReducer = combineReducers({
   winBoardReducer,
   mainReducer,
   loadingReducer,
-  NotificationReducer,
 });
 
 export default rootReducer;

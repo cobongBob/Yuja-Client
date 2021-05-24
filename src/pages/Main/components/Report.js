@@ -62,7 +62,7 @@ const Report = ({ board_id, modalIsOpen, setModalIsOpen, board_code }) => {
         ToastCenter("내용을 입력해주세요");
       }
     },
-    [board_id, userData, closeModal, input]
+    [board_id, userData, closeModal, input, board_code]
   );
 
   return (

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router";
 import { ToastCenter, ToastTopRight } from "../../modules/ToastModule";
 import AdminReports from "./AdminReports";
@@ -15,16 +15,18 @@ import {
   fetchUsers,
   promoteUserService,
   rejectUserService,
+  fetchAllNoticeBoards,
+  noticePrivateSwitch,
 } from "../../apiService/AdminApiService";
-import { getNotificationsData } from "../../redux/notification/notifiReducer";
+import AdminBoard from "./AdminBoard";
 
 const Admin_main = () => {
-  const { userData, authorities } = useSelector((state) => state.loginReducer);
+  const { authorities } = useSelector((state) => state.loginReducer);
   const history = useHistory();
   const [allUsers, setAllUsers] = useState([]);
   const [youtuberConfirm, setYoutuberConfirm] = useState([]);
   const [allReports, setAllReports] = useState([]);
-  const dispatch = useDispatch();
+  const [allBoards, setAllBoards] = useState([]);
   useEffect(() => {
     if (authorities && !authorities.includes("ADMIN")) {
       ToastCenter("잘못 된 접근입니다");
@@ -41,6 +43,9 @@ const Admin_main = () => {
     });
     fetchAllUnauthYoutuber().then((res) => {
       setYoutuberConfirm(res.data);
+    });
+    fetchAllNoticeBoards().then((res) => {
+      setAllBoards(res.data);
     });
   }, []);
 
@@ -102,6 +107,14 @@ const Admin_main = () => {
     });
   }, []);
 
+  const noticeSwitch = useCallback((board_id) => {
+    noticePrivateSwitch(board_id).then((result) => {
+      fetchAllNoticeBoards().then((res) => {
+        setAllBoards(res.data);
+      });
+    });
+  }, []);
+
   return (
     allUsers &&
     allReports &&
@@ -118,14 +131,9 @@ const Admin_main = () => {
               {pathname.includes("/AdminReports") ? (
                 <AdminReports allReports={allReports} deleteReported={deleteReported} />
               ) : null}
-              <button
-                onClick={() => {
-                  console.log(123123, userData);
-                  dispatch(getNotificationsData(userData && userData.id));
-                }}
-              >
-                하위
-              </button>
+              {pathname.includes("/AdminBoard") ? (
+                <AdminBoard allBoards={allBoards} noticeSwitch={noticeSwitch} />
+              ) : null}
             </div>
           </div>
         </div>

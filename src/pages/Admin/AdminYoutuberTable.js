@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from "react";
 import Modal from "react-modal";
 import { ToastCenter } from "../../modules/ToastModule";
-
+Modal.setAppElement("#root");
 const AdminYoutuberTable = ({ currentData, promoteUser, rejectUser }) => {
   const reportcustomStyles = useMemo(
     () => ({
@@ -54,7 +54,12 @@ const AdminYoutuberTable = ({ currentData, promoteUser, rejectUser }) => {
                       alt='컨펌이미지'
                     ></img>
                   </td>
-                  <Modal isOpen={modalIsOpen} style={reportcustomStyles} onRequestClose={closeModal}>
+                  <Modal
+                    closeTimeoutMS={200}
+                    isOpen={modalIsOpen}
+                    style={reportcustomStyles}
+                    onRequestClose={closeModal}
+                  >
                     <div>
                       <img
                         src={`http://localhost:8888/files/youtubeConfirm/${youtuber.youtubeConfirmImg}`}

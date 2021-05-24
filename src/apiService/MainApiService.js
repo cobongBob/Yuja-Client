@@ -1,4 +1,7 @@
+import axios from "axios";
 import instance from "../AxiosConfig.js";
+
+const USER_API_BASE_URL = "http://localhost:8888/api";
 
 export const getfetchMainData = async () => {
   return await instance({
@@ -8,9 +11,12 @@ export const getfetchMainData = async () => {
 };
 
 export const fetchNotifications = async (user_id) => {
-  console.log("gigigigigigigigi");
-  return await instance({
-    url: `notiUnread/${user_id}`,
-    method: "get",
-  });
+  if (!user_id) {
+    user_id = 0;
+  }
+  return await axios.get(`${USER_API_BASE_URL}/notiUnread/${user_id}`, { withCredentials: true });
+};
+
+export const deleteNotifications = async (noti_id) => {
+  return await axios.get(`${USER_API_BASE_URL}/notiread/${noti_id}`, { withCredentials: true });
 };

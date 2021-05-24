@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import { useHistory } from "react-router";
 import { BoardTypeConvertUrl } from "../../modules/BoardTypeConvert";
 
+Modal.setAppElement("#root");
 const AdminReportsTable = ({ currentData, lastIdx, currentPage, deleteReported }) => {
   const reportcustomStyles = useMemo(
     () => ({
@@ -66,7 +67,12 @@ const AdminReportsTable = ({ currentData, lastIdx, currentPage, deleteReported }
                     <td>{report.createDate.substr(0, 10)}</td>
                     <td>처리중...</td>
                   </tr>
-                  <Modal isOpen={modalIsOpen} style={reportcustomStyles} onRequestClose={closeModal}>
+                  <Modal
+                    closeTimeoutMS={200}
+                    isOpen={modalIsOpen}
+                    style={reportcustomStyles}
+                    onRequestClose={closeModal}
+                  >
                     <div className='admin_report_modal'>
                       <div className='admin_report_modal_user'>
                         <span style={{ fontWeight: "bold" }}>신고자</span> : {report.user.username}

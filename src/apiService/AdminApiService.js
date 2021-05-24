@@ -14,6 +14,13 @@ export const fetchAllUnauthYoutuber = async () => {
   });
 };
 
+export const fetchAllNoticeBoards = async () => {
+  return await instance({
+    url: 9 + "/board",
+    method: "get",
+  });
+};
+
 export const banUser = async (user_id) => {
   return await instance({
     url: `/banned/${user_id}`,
@@ -39,5 +46,11 @@ export const deleteReportedBoard = async (board_id, board_type) => {
   return await instance({
     url: board_code + "/board/" + board_id,
     method: "delete",
+  });
+};
+
+export const noticePrivateSwitch = async (board_id) => {
+  return await instance({
+    url: `/notice/private/${board_id}`,
   });
 };

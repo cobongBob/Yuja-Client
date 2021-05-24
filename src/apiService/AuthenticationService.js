@@ -53,6 +53,7 @@ export const googleLoginService = async (response) => {
       password: resFromServer.data.password,
       providerId: null,
     };
+    console.log('구글 로그인 유저 데이터', loginData)
     return loginData;
     // 이 데이터를 가지고 로그인으로 이동 후 자동 로그인
   }

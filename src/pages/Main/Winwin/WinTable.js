@@ -9,7 +9,7 @@ import SortingLike from "../components/Community/SortingLike";
 import SortingComment from "../components/Community/SortingComment";
 import "./Winwin.scss";
 
-const WinTable = ({ currentData, board_type, lastIdx, currentPage }) => {
+const WinTable = ({ currentData, board_type, lastIdx, currentPage, allNotices }) => {
   let board_name = "";
   switch (board_type) {
     case "Winwin":
@@ -55,12 +55,38 @@ const WinTable = ({ currentData, board_type, lastIdx, currentPage }) => {
             </tr>
           </thead>
           <tbody>
+            {allNotices &&
+              allNotices.map(
+                (notice, idx) =>
+                  notice.isPrivate && (
+                    <tr key={notice.id} className='community_notice'>
+                      <td>{idx + 1}</td>
+                      <td>
+                        <Link className='table_link' to={`/BoardDetail/${board_type}/${notice.id}/${currentPage}`}>
+                          {notice.title}
+                          <span className='commentNum'> [{notice.comments}] </span>
+                        </Link>
+                        {notice.createDate.substr(0, 10) === getFormatDate(new Date()) ? (
+                          <MdFiberNew className='new_icon' size='25' />
+                        ) : null}
+                      </td>
+                      <td>{notice.user.nickname}</td>
+                      <td>{notice.createDate.substr(0, 10)}</td>
+                      <td>{notice.hit}</td>
+                      <td>{notice.likes}</td>
+                    </tr>
+                  )
+              )}
+          </tbody>
+          <tbody>
             {currentData &&
               currentData.map((board, idx) => (
                 <tr key={board.id}>
                   <td>{lastIdx - idx}</td>
                   <td>
-                    {board.isPrivate ? <RiGitRepositoryPrivateFill /> : null}
+                    {board.isPrivate && board.boardType.boardName !== "NoticeBoard" ? (
+                      <RiGitRepositoryPrivateFill />
+                    ) : null}
                     <Link className='table_link' to={`/BoardDetail/${board_type}/${board.id}/${currentPage}`}>
                       {board.title}
                       <span className='commentNum'> [{board.comments}] </span>
