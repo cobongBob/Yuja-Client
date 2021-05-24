@@ -1,7 +1,7 @@
-import React, { useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { getSortLikeData } from "../../../redux/board/youtube/yboardReducer";
-import "./Components.scss";
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { getSortLikeData } from '../../../redux/board/youtube/yboardReducer';
+import './Components.scss';
 
 const SortingToLiked = () => {
   const dispatch = useDispatch();

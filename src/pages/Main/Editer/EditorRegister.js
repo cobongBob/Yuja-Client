@@ -6,22 +6,30 @@ import * as EditerApiService from '../../../apiService/EditerApiService';
 import './EditorRegister.scss';
 import { ToastCenter } from '../../../modules/ToastModule';
 
-const EditorRegister = () => {
+const EditorRegister = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
   const currFileList = useRef([]);
   const addingFileList = useRef([]);
   const [qData, setQData] = useState();
-  const { current: board_type } = useRef('Editor');
+  const board_type = useRef(match.params.board_type);
 
   const history = useHistory();
 
   let Ehistory = useCallback(
     (board_id) => history.push(`/EDetail/${board_type.current}/${board_id}/1`),
-    [history, board_type]
+    [history]
   );
   const testCheking = useCallback(() => {
-    if (!qData || !input.title) {
-      return ToastCenter('제목과 내용을 입력해주세요');
+    if (
+      !qData ||
+      !input.title ||
+      !input.previewImage ||
+      !input.career ||
+      !input.payType ||
+      !input.payAmount ||
+      !input.tools
+    ) {
+      return ToastCenter('내용을 모두 적어주세요.');
     }
 
     let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
@@ -44,28 +52,34 @@ const EditorRegister = () => {
       ), //업로드된 이미지들은 temp가 아닌 Editor에 저장된다.
       boardAttachNames: currFileList.current,
     };
-    EditerApiService.addBoards(sendingData, board_type).then((res) => {
+    EditerApiService.addBoards(sendingData, board_type.current).then((res) => {
       Ehistory(res.data.id);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData, qData, Ehistory]);
 
-  const checkboxCheck = (e) => {
-    if (e.target.checked) {
-      checkedlist.current.push(e.target.value);
-    } else {
-      const index = checkedlist.current.indexOf(e.target.value);
-      checkedlist.current.splice(index, 1);
-    }
-  };
+  const checkboxCheck = useCallback(
+    (e) => {
+      if (e.target.checked) {
+        checkedlist.current.push(e.target.value);
+      } else {
+        const index = checkedlist.current.indexOf(e.target.value);
+        checkedlist.current.splice(index, 1);
+      }
+    },
+    [checkedlist.current]
+  );
 
-  const radioCheck = (e) => {
-    const { name, value } = e.target;
-    setInput((prevInput) => ({
-      ...prevInput,
-      [name]: value,
-    }));
-  };
+  const radioCheck = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      setInput((prevInput) => ({
+        ...prevInput,
+        [name]: value,
+      }));
+    },
+    [input]
+  );
 
   const checkedlist = useRef([]);
 
@@ -78,12 +92,15 @@ const EditorRegister = () => {
     tools: checkedlist.current,
   });
 
-  const onChange = (e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const onChange = useCallback(
+    (e) => {
+      setInput({
+        ...input,
+        [e.target.name]: e.target.value,
+      });
+    },
+    [input]
+  );
 
   return (
     <div>
@@ -145,6 +162,15 @@ const EditorRegister = () => {
                 placeholder='희망급여'
                 name='payAmount'
                 onChange={onChange}
+                maxLength={12}
+                onInput={({ target }) => {
+                  target.value = target.value.replace(/[^0-9]/g, '');
+                  target.value = target.value.replace(/,/g, '');
+                  target.value = target.value.replace(
+                    /\B(?=(\d{3})+(?!\d))/g,
+                    ','
+                  ); // 정규식을 이용해서 3자리 마다 , 추가
+                }}
               />
             </li>
             <li className='li-item5'>
@@ -189,6 +215,38 @@ const EditorRegister = () => {
                 onChange={checkboxCheck}
               />
               <label htmlFor='Epowerdirector'>파워 디렉터</label>
+              <input
+                id='Yphotoshop'
+                name='yphotoshop'
+                value='포토샵'
+                type='checkbox'
+                onChange={checkboxCheck}
+              />
+              <label htmlFor='Yphotoshop'>포토샵</label>
+              <input
+                id='Yillustrater'
+                name='yillustrater'
+                value='일러스트'
+                type='checkbox'
+                onChange={checkboxCheck}
+              />
+              <label htmlFor='Yillustrater'>일러스트</label>
+              <input
+                id='Yblender'
+                onChange={checkboxCheck}
+                name='yblender'
+                value='블렌더'
+                type='checkbox'
+              />
+              <label htmlFor='Yblender'>블렌더</label>
+              <input
+                id='Ymaya'
+                onChange={checkboxCheck}
+                name='ymaya'
+                value='마야'
+                type='checkbox'
+              />
+              <label htmlFor='Ymaya'>마야</label>
             </li>
           </ul>
         </div>
@@ -199,7 +257,7 @@ const EditorRegister = () => {
             addingFileList={addingFileList}
             qData={qData}
             setQData={setQData}
-            board_type={board_type}
+            board_type={board_type.current}
           />
         </div>
       </div>
