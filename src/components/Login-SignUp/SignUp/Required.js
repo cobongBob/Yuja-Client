@@ -250,10 +250,10 @@ const Required = ({ location, history }) => {
     }
   }, [isValidateInput]);
 
-  // 유효성 검사 on/off
-  // useEffect(() => {
-  //   totalCheck();
-  // }, [requiredData, passCheckNum, nextBtnDisabledHandler, totalCheck, securityCode]);
+  //유효성 검사 on/off
+  useEffect(() => {
+     totalCheck();
+   }, [requiredData, passCheckNum, nextBtnDisabledHandler, totalCheck, securityCode]);
 
   /* new 유효성 검사 끝 */
 
@@ -369,6 +369,7 @@ const Required = ({ location, history }) => {
                     onKeyUp={checkEmailValidate}
                     disabled={emailDisableHandler}
                     autoComplete='off'
+                    maxLength='40'
                     autoFocus
                   />
                   <div className='warningBox'>{EmailValidateResData}</div>

@@ -5,8 +5,6 @@ import "./AddressApi.scss";
 
 const AddressApi = ( props ) => {
 
-  console.log('AddressApi의 값', props)
-
   /* 모달 설정 */
   const AddressModalCustomStyles = {
     content: {
@@ -71,9 +69,6 @@ const AddressApi = ( props ) => {
   /* 수정창에서 받아온 주소, 상세주소 */
   const modifyAddress = props.address
   const detailAddress = props.detailAddress
-
-  console.log('detailAddress', detailAddress)
-  console.log('props.detailAddress', props.detailAddress)
 
   const changeValue = useCallback((e) => {
     console.log("changeValue");
