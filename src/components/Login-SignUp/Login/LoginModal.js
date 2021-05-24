@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastTopRight } from "../../../modules/ToastModule";
 import { getLoaded, getLoading } from "../../../redux/loading/loadingReducer";
+import { getAllNotifications } from "../../../redux/loading/notiReducer";
 toast.configure();
 Modal.setAppElement("#root");
 function LoginModal() {
@@ -116,6 +117,9 @@ function LoginModal() {
       } else {
         loginNotify();
         dispatch(getLoading(res.payload.id));
+        if (res.payload && res.payload.id > 0) {
+          dispatch(getAllNotifications(res.payload.id));
+        }
         setIsOpen(false);
         dispatch(getLoaded());
       }

@@ -25,7 +25,9 @@ export const fetchAllNotifications = async (user_id) => {
   if (!user_id) {
     user_id = 0;
   }
-  return await axios.get(`${USER_API_BASE_URL}/findnoti/${user_id}`, { withCredentials: true });
+  if (user_id !== 0) {
+    return await axios.get(`${USER_API_BASE_URL}/findnoti/${user_id}`, { withCredentials: true });
+  }
 };
 
 export const removeNotiPermanently = async (noti_id) => {
