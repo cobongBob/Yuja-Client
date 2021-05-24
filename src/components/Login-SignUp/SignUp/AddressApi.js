@@ -133,6 +133,7 @@ const AddressApi = ( props ) => {
               :
               changeValue
           }
+          maxLength='50'
         />
         <Modal
           isOpen={modalIsOpen}

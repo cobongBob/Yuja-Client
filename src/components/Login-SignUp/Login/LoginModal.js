@@ -196,6 +196,7 @@ function LoginModal() {
                 type='text'
                 placeholder='아이디'
                 onChange={inputHandler}
+                maxLength='40'
                 autoFocus
               />
               <input
@@ -204,6 +205,7 @@ function LoginModal() {
                 type='password'
                 placeholder='비밀번호'
                 onChange={inputHandler}
+                maxLength='20'
               />
               <div className='loginMid'>
                 <div className='warningBox'>{loginValidateDesc}</div>
