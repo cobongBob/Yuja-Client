@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import './Youtuber.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import YoutuberTable from './YoutuberTable';
@@ -14,16 +14,15 @@ import Search from '../components/Search';
 import { AiFillYoutube } from 'react-icons/ai';
 import { ToastCenter } from '../../../modules/ToastModule';
 // nav에서 유튜버를 누르면 보이는 전체 컴포넌트
-const Youtuber = () => {
+const Youtuber = ({ match }) => {
   const dispatch = useDispatch();
   // Youtuber의 전체 데이터 불러오기
   const yBoardData = useSelector((state) => state.YboardReducer);
   const { userData } = useSelector((state) => state.loginReducer);
-
   const [searchTerm, setSearchTerm] = useState('');
-
+  const board_type = useRef('Youtuber');
   //페이징 처리하기
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(match.params.current_page);
   const [boardPerPage] = useState(12);
 
   const indexOfLastData = currentPage * boardPerPage;
@@ -94,6 +93,8 @@ const Youtuber = () => {
         boardData={currentData}
         likeHandler={likeHandler}
         dislikeHandler={dislikeHandler}
+        currentPage={currentPage}
+        board_type={board_type.current}
       />
       <Pagination
         boardPerPage={boardPerPage}

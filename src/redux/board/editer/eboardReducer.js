@@ -11,7 +11,7 @@ const GET_EBOARD_SUCCESS = 'GET_EBOARD_SUCCESS';
 const GET_EBOARD_FAILURE = 'GET_EBOARD_FAILURE';
 const MODE_RESET_DATA = 'MODE_RESET_DATA';
 const MODE_ESORTLIKE_DATA = 'MODE_ESORTLIKE_DATA';
-const MODE_SORTED_HIT_DATA = 'MODE_SORTED_HIT_DATA';
+const MODE_ESORTED_HIT_DATA = 'MODE_ESORTED_HIT_DATA';
 
 // 액션함수
 
@@ -58,7 +58,7 @@ export const getResetData = async () => {
   };
 };
 
-export const getSortLikeData = async () => {
+export const getESortLikeData = async () => {
   return {
     type: MODE_ESORTLIKE_DATA,
   };
@@ -66,7 +66,7 @@ export const getSortLikeData = async () => {
 
 export const getSortHitData = async () => {
   return {
-    type: MODE_SORTED_HIT_DATA,
+    type: MODE_ESORTED_HIT_DATA,
   };
 };
 
@@ -163,7 +163,7 @@ export function EboardReducer(state = initialState, action) {
         sortedLike: !state.sortedLike,
         sortedHit: false,
       };
-    case MODE_SORTED_HIT_DATA:
+    case MODE_ESORTED_HIT_DATA:
       return {
         ...state,
         filterData: state.sortedHit
