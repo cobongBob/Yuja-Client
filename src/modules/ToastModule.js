@@ -48,6 +48,22 @@ export const ToastAlert = (msg) => {
     className: "notify",
   });
 };
+export const ToastAlertNoDupl = (msg) => {
+  toast(msg, {
+    toastId: "preventDuplicate",
+    autoClose: false,
+    closeButton: true,
+    closeOnClick: true,
+    hideProgressBar: true,
+    bodyStyle: {
+      color: "black",
+      fontSize: "17px",
+      fontWeight: "bold",
+      fontFamily: "scdream4",
+    },
+    className: "notify",
+  });
+};
 
 export const ToastPreventAccess = (msg) => {
   toast(msg, {
