@@ -141,9 +141,7 @@ const ThumbRegister = ({ match }) => {
                 maxLength='40'
               />
             </li>
-            <li className='li-item2'>
-              <input type='text' placeholder='급여방식' name='payType' />
-            </li>
+
             <li className='li-item2'>
               <img className='preview_Thubnail' src={fileUrl} alt='' /> <br />
               <input

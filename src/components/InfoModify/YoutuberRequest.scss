@@ -1,0 +1,149 @@
+.YoutuberRequestFrag {
+  margin-right: 10vw;
+  margin-left: 10vw;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  font-family: "scdream4";
+}
+.SignUpHeader {
+  text-align: center;
+  margin-bottom: 2%;
+}
+.youtuberDiv {
+  text-align: center;
+  align-content: center;
+  position: relative;
+  margin: 1rem auto;
+  width: 100%;
+}
+.youtuberDiv_Title {
+  font-size: 0.9em;
+}
+.youtuberDiv_Title span {
+  color:red;
+}
+.youtuberUrlBoxLabel {
+  font-size: 0.9em;
+  text-align: left;
+  margin-top: 1rem;
+  width:100%;
+  span {
+    color:red;
+  }
+}
+.youtuberUrlBoxInput{
+  margin-top: 5px;
+  margin-bottom: 12px;
+  border-radius: 2px;
+  width: 100%;
+  height: 40px;
+  border: 1px solid #e5e5e5;
+  padding: 9px 12px;
+  outline: none;
+  box-sizing: border-box;
+  font-size: 0.9em;
+  &:focus {
+    box-shadow: 1px 1px 3px 2px #ffb963;
+  }
+}
+.companyRegNumBox {
+  width:100%;
+}
+.companyRegNumLabel {
+  font-size: 0.9em;
+  text-align: left;
+  margin-top: 2rem;
+  width:100%;
+}
+.companyRegNumInput {
+  margin-top: 5px;
+  margin-bottom: 12px;
+  border-radius: 2px;
+  width: 100%;
+  height: 40px;
+  border: 1px solid #e5e5e5;
+  padding: 9px 12px;
+  outline: none;
+  box-sizing: border-box;
+  font-size: 0.9em;
+}
+.companyRegNumInput:focus {
+  box-shadow: 1px 1px 3px 2px #ffb963;
+}
+.youtuberPicLabel {
+  font-size: 0.9em;
+  text-align: left;
+  margin-top: 2rem;
+  width:100%;
+  span {
+    color:red;
+  }
+}
+.youtuberPicInputWrapper {
+  margin-top: 5px;
+  margin-bottom: 12px;
+  font-size: 0.85em;
+  padding: 9px 12px;
+  margin-left: 20%;
+}
+.youtuberPicInput {
+  width:100%;
+}
+.signUpProfilePic {
+  width:100%;
+}
+/* 키업박스 */
+.warningBox {
+  text-align: left;
+  margin-top: -1%;
+  margin-bottom: 1%;
+  font-size:0.77em;
+  color:red;
+}
+
+/* Number input 화살표 삭제용 */
+YoutuberRequest > input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* 오버레이 (보더) */
+.overlay {
+  border: 2px solid gray;
+  padding: 2em;
+  margin: auto;
+  width: 30%;
+  box-shadow: 5px 5px darkgray;
+}
+
+/* 페이지 반응형 */
+@media screen and (max-width: 1480px) {
+  .overlay {
+    width: 350px;
+  }
+  .YoutuberRequestFrag {
+    margin-right: 1vw;
+    margin-left: 1vw;
+    margin-top: 1%;
+    margin-bottom: 1%;
+  }
+}
+
+/* footer */
+.YoutuberRequestFooter {
+  text-align: center;
+  margin-top: 2%;
+}
+.linkToMain {
+  color: darkgray;
+}
+.linkToMain:hover {
+  text-decoration: none;
+  color: darkgray;
+}
+.linkToMain > span {
+  color: #ffb963;
+  text-decoration: underline;
+  cursor: pointer;
+}

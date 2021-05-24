@@ -46,6 +46,8 @@ import { deleteNotifications } from "./apiService/MainApiService";
 import ChatModal from "./pages/Main/components/Chat/ChatModal";
 import { AiFillWechat } from "react-icons/ai";
 import { toastWithPush } from "./modules/ToastWithPush";
+import YoutuberRequest from "./components/InfoModify/YoutuberRequest";
+import { getAllNotifications } from "./redux/loading/notiReducer";
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
 
@@ -68,12 +70,16 @@ function App() {
   /* 로딩 */
   const dispatch = useDispatch();
   const { loading, notificationData } = useSelector((state) => state.loadingReducer);
+  const { allNotifications } = useSelector((state) => state.NotiReducer);
   const { userData } = useSelector((state) => state.loginReducer);
   useEffect(() => {
     instance.interceptors.request.use(
       function (config) {
         //로딩과 알림 호출
         dispatch(getLoading(userData && userData.id));
+        if (userData && userData.id > 0) {
+          dispatch(getAllNotifications(userData.id));
+        }
         return config;
       },
       function (error) {
@@ -102,7 +108,7 @@ function App() {
         return Promise.reject(error);
       }
     );
-  }, [dispatch, userData]);
+  }, [userData]);
 
   /* 로딩 끝 */
   //알림
@@ -144,7 +150,7 @@ function App() {
           {modalIsOpen && <ChatModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />}
         </>
       )}
-      {exceptArray.indexOf(location.pathname) < 0 && <Navi />}
+      {exceptArray.indexOf(location.pathname) < 0 && <Navi allNotifications={allNotifications} />}
       {exceptArray.indexOf(location.pathname) < 0 && <Logo />}
       <div>
         {loading && <Loader type='spin' color='#ff9411' />}
@@ -177,7 +183,8 @@ function App() {
           <Route path='/InfoModify' component={InfoModify} />
           <Route path='/PasswordModify' component={PasswordModify} />
           <Route path='/Admin/:board_type' component={Admin_main} />
-          <Route path='/SignOut' component={SignOut} />
+          <Route path='/SignOut' component={SignOut} />\
+          <Route path='/YoutuberRequest' component={YoutuberRequest} />
           {/*<Route path='PageNotFound' component={PageNotFound} />*/}
           {/*<Redirect to='/' />*/}
         </Switch>

@@ -324,7 +324,7 @@ const NonRequired = ({ location, history }) => {
                     type='text'
                     placeholder='유튜브 고유 주소를 입력해주세요'
                     autoComplete='off'
-                    maxLength='60'
+                    maxLength='70'
                     onChange={changeValue}
                     onKeyUp={permalinkCheck}
                   />

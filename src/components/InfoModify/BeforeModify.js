@@ -21,14 +21,17 @@ const BeforeModify = ({ history }) => {
   // }
 
   const loggedInUserData = getLoggedInUserData();
-  console.log(loggedInUserData)
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
   });
 
+  const { authorities } = useSelector((state) => state.loginReducer);
+  const userAuthLevel = authorities[0];
+
   const [passwordDesc, setPasswordDesc] = useState();
   const [getProviderId, setGetProviderId] = useState("");
+  const [getYoutubeUrl, setGetYoutubeUrl] = useState("");
   const dispatch = useDispatch();
 
   const inputHandler = useCallback(
@@ -74,7 +77,7 @@ const BeforeModify = ({ history }) => {
   const customStyle = {
     background: "royalblue",
     height: "40px",
-    width: "100%",
+    width: "70%",
     fontSize: "14px",
     color: "white",
     lineHeight: "1px",
@@ -86,13 +89,12 @@ const BeforeModify = ({ history }) => {
 
   useEffect(() => {
     getUserData(loggedInUserData.id).then((res) => {
-      console.log('res.data',res.data)
-      console.log('res.data',res.data.providedId)
       setGetProviderId(res.data.providedId);
+      setGetYoutubeUrl(res.data.youtubeUrl);
     });
   }, [loggedInUserData.id]);
 
-  console.log(getProviderId)
+  console.log(getYoutubeUrl)
 
   return (
     <div className='BeforeModifyFrag'>
@@ -123,6 +125,7 @@ const BeforeModify = ({ history }) => {
               autoComplete='off'
               onChange={inputHandler}
               autoFocus
+              maxLength='15'
             />
             <div className='warningBox'>{passwordDesc}</div>
             <div className='beforeModifyBtnBox'>
@@ -137,6 +140,16 @@ const BeforeModify = ({ history }) => {
               다른 서비스가 필요하신가요?
             </div>
             <div className='beforeModifyOtherBox'>
+              {getYoutubeUrl === null || getYoutubeUrl === undefined || getYoutubeUrl === "" ?
+                <Link
+                  to='/YoutuberRequest'
+                  className='btn btn-warning'
+                  name='YoutuberRequestBtn'
+                >
+                  유튜버 인증
+                </Link>
+                :
+                "" }
               <Link
                 to='/PasswordModify'
                 className='btn btn-warning'
@@ -183,6 +196,15 @@ const BeforeModify = ({ history }) => {
             <div className='beforeModifyOtherBoxDesc'>
               다른 서비스가 필요하신가요?
             </div>
+            {getYoutubeUrl === null || getYoutubeUrl === undefined || getYoutubeUrl === "" ?
+              <Link
+                to='/YoutuberRequest'
+                className='btn btn-warning'
+                name='YoutuberRequestBtn'
+              >
+                유튜버 인증
+              </Link>
+              : "" }
             <div className='beforeModifyOtherBox'>
               <Link
                 to='/SignOut'
