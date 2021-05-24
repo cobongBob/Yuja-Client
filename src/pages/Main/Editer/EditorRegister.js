@@ -6,18 +6,18 @@ import * as EditerApiService from '../../../apiService/EditerApiService';
 import './EditorRegister.scss';
 import { ToastCenter } from '../../../modules/ToastModule';
 
-const EditorRegister = () => {
+const EditorRegister = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
   const currFileList = useRef([]);
   const addingFileList = useRef([]);
   const [qData, setQData] = useState();
-  const { current: board_type } = useRef('Editor');
+  const board_type = useRef(match.params.board_type);
 
   const history = useHistory();
 
   let Ehistory = useCallback(
     (board_id) => history.push(`/EDetail/${board_type.current}/${board_id}/1`),
-    [history, board_type]
+    [history]
   );
   const testCheking = useCallback(() => {
     if (
@@ -52,28 +52,34 @@ const EditorRegister = () => {
       ), //업로드된 이미지들은 temp가 아닌 Editor에 저장된다.
       boardAttachNames: currFileList.current,
     };
-    EditerApiService.addBoards(sendingData, board_type).then((res) => {
+    EditerApiService.addBoards(sendingData, board_type.current).then((res) => {
       Ehistory(res.data.id);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData, qData, Ehistory]);
 
-  const checkboxCheck = (e) => {
-    if (e.target.checked) {
-      checkedlist.current.push(e.target.value);
-    } else {
-      const index = checkedlist.current.indexOf(e.target.value);
-      checkedlist.current.splice(index, 1);
-    }
-  };
+  const checkboxCheck = useCallback(
+    (e) => {
+      if (e.target.checked) {
+        checkedlist.current.push(e.target.value);
+      } else {
+        const index = checkedlist.current.indexOf(e.target.value);
+        checkedlist.current.splice(index, 1);
+      }
+    },
+    [checkedlist.current]
+  );
 
-  const radioCheck = (e) => {
-    const { name, value } = e.target;
-    setInput((prevInput) => ({
-      ...prevInput,
-      [name]: value,
-    }));
-  };
+  const radioCheck = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      setInput((prevInput) => ({
+        ...prevInput,
+        [name]: value,
+      }));
+    },
+    [input]
+  );
 
   const checkedlist = useRef([]);
 
@@ -86,12 +92,15 @@ const EditorRegister = () => {
     tools: checkedlist.current,
   });
 
-  const onChange = (e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const onChange = useCallback(
+    (e) => {
+      setInput({
+        ...input,
+        [e.target.name]: e.target.value,
+      });
+    },
+    [input]
+  );
 
   return (
     <div>
@@ -248,7 +257,7 @@ const EditorRegister = () => {
             addingFileList={addingFileList}
             qData={qData}
             setQData={setQData}
-            board_type={board_type}
+            board_type={board_type.current}
           />
         </div>
       </div>

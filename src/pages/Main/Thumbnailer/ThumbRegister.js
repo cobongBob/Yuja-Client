@@ -32,12 +32,15 @@ const ThumbRegister = ({ match }) => {
     tools: checkedlist.current,
   });
 
-  const inputHandler = (e) => {
-    setInputData({
-      ...inputData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const inputHandler = useCallback(
+    (e) => {
+      setInputData({
+        ...inputData,
+        [e.target.name]: e.target.value,
+      });
+    },
+    [inputData]
+  );
 
   const testCheking = useCallback(() => {
     if (
@@ -78,22 +81,28 @@ const ThumbRegister = ({ match }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData, qData, ThHistory]);
 
-  const checkboxCheck = (e) => {
-    if (e.target.checked) {
-      checkedlist.current.push(e.target.value);
-    } else {
-      const index = checkedlist.current.indexOf(e.target.value);
-      checkedlist.current.splice(index, 1);
-    }
-  };
+  const checkboxCheck = useCallback(
+    (e) => {
+      if (e.target.checked) {
+        checkedlist.current.push(e.target.value);
+      } else {
+        const index = checkedlist.current.indexOf(e.target.value);
+        checkedlist.current.splice(index, 1);
+      }
+    },
+    [checkedlist]
+  );
 
-  const radioCheck = (e) => {
-    const { name, value } = e.target;
-    setInputData((prevInput) => ({
-      ...prevInput,
-      [name]: value,
-    }));
-  };
+  const radioCheck = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      setInputData((prevInput) => ({
+        ...prevInput,
+        [name]: value,
+      }));
+    },
+    [inputData]
+  );
 
   const handleImg = (e) => {
     let file = e.target.files[0];
@@ -123,12 +132,15 @@ const ThumbRegister = ({ match }) => {
     }
   };
 
-  const onChange = (e) => {
-    setInputData({
-      ...inputData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const onChange = useCallback(
+    (e) => {
+      setInputData({
+        ...inputData,
+        [e.target.name]: e.target.value,
+      });
+    },
+    [inputData]
+  );
 
   return (
     <div>

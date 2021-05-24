@@ -25,10 +25,15 @@ const Editer = ({ match, history }) => {
   const pageNum = useRef(lastPageNum ? lastPageNum : 1);
 
   const [searchTerm, setSearchTerm] = useState('');
+  const searchHandler = (keyword) => {
+    setSearchTerm(keyword);
+    getFilterData(keyword).then((res) => {
+      dispatch(res);
+    });
+  };
 
   const [currentPage, setCurrentPage] = useState(pageNum.current);
   const [boardPerPage] = useState(12);
-
   const indexOfLastData = currentPage * boardPerPage;
   const indexOfFirstData = indexOfLastData - boardPerPage;
   const currentData = eBoardData.filterData.slice(
@@ -36,21 +41,14 @@ const Editer = ({ match, history }) => {
     indexOfLastData
   );
 
-  const clickPage = (pages) => {
+  const clickPage = useCallback((pages) => {
     setCurrentPage(pages);
-  };
+  }, []);
 
   useEffect(() => {
     board_type.current = match.params.board_type;
     dispatch(getEBoards(board_type.current));
   }, [userData, dispatch, match.params.board_type]);
-
-  const searchHandler = (searchTerm) => {
-    setSearchTerm(searchTerm);
-    getFilterData(searchTerm).then((res) => {
-      dispatch(res);
-    });
-  };
 
   const likeHandler = useCallback(
     (board_id) => {
