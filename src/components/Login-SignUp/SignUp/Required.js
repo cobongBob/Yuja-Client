@@ -304,6 +304,7 @@ const Required = ({ location, history }) => {
                       location.state && location.state.googleSignupData && location.state.googleSignupData.password
                     }
                     autoComplete='off'
+                    maxLength='20'
                   />
                   <div className='warningBox'>{passwordValidateDesc}</div>
                 </td>
@@ -325,6 +326,7 @@ const Required = ({ location, history }) => {
                       location.state && location.state.googleSignupData && location.state.googleSignupData.password
                     }
                     autoComplete='off'
+                    maxLength='20'
                   />
                   <div className='warningBox'>{checkPasswordValidateDesc}</div>
                 </td>
@@ -426,6 +428,7 @@ const Required = ({ location, history }) => {
                     placeholder='비밀번호'
                     onChange={changeValue}
                     onKeyUp={passwordTotalCheck}
+                    maxLength='20'
                     autoComplete='off'
                   />
                   <div className='warningBox'>{passwordValidateDesc}</div>
@@ -443,6 +446,7 @@ const Required = ({ location, history }) => {
                     placeholder='비밀번호 확인'
                     onChange={getPassCheckNum}
                     onKeyUp={passwordTotalCheck}
+                    maxLength='20'
                     autoComplete='off'
                   />
                   <div className='warningBox'>{checkPasswordValidateDesc}</div>
@@ -460,6 +464,7 @@ const Required = ({ location, history }) => {
                     placeholder='이름(실명)'
                     onChange={changeValue}
                     onKeyUp={checkNameValidate}
+                    maxLength='20'
                     autoComplete='off'
                   />
                   <div className='warningBox'>{nameValidateDesc}</div>

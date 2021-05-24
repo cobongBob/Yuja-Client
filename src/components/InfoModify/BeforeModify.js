@@ -86,9 +86,13 @@ const BeforeModify = ({ history }) => {
 
   useEffect(() => {
     getUserData(loggedInUserData.id).then((res) => {
+      console.log('res.data',res.data)
+      console.log('res.data',res.data.providedId)
       setGetProviderId(res.data.providedId);
     });
-  }, []);
+  }, [loggedInUserData.id]);
+
+  console.log(getProviderId)
 
   return (
     <div className='BeforeModifyFrag'>
@@ -99,7 +103,7 @@ const BeforeModify = ({ history }) => {
       </div>
       <div className='beforeModifyContentBox'>
         <div className='overlay'>
-          {getProviderId === null || undefined || "" ?
+          {getProviderId === null || getProviderId === undefined || getProviderId === "" ?
           <div className='modifyBox'>
             <div className='beforeModifyDescBoxDescBox'>
               <span>{loggedInUserData.nickname}</span>
