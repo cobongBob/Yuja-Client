@@ -52,6 +52,51 @@ const NotificationDropdown = () => {
                       </Dropdown.Item>
                     </div>
                   );
+                } else if (notice.type === "chatNoti") {
+                  return (
+                    <div key={idx} className='each_notice'>
+                      <AiTwotoneDelete onClick={() => deleteNoti(notice.notiId)} size='22' className='notice_delete' />
+                      <Dropdown.Item>
+                        <span>{`${notice.sender.nickname}님으로부터 새로운 채팅이 있습니다.`}</span>
+                      </Dropdown.Item>
+                    </div>
+                  );
+                } else if (notice.type === "editNoti") {
+                  return (
+                    <div key={idx} className='each_notice'>
+                      <AiTwotoneDelete onClick={() => deleteNoti(notice.notiId)} size='22' className='notice_delete' />
+                      <Dropdown.Item>
+                        <span>{`에디터로 등록되셨습니다.`}</span>
+                      </Dropdown.Item>
+                    </div>
+                  );
+                } else if (notice.type === "thumbNoti") {
+                  return (
+                    <div key={idx} className='each_notice'>
+                      <AiTwotoneDelete onClick={() => deleteNoti(notice.notiId)} size='22' className='notice_delete' />
+                      <Dropdown.Item>
+                        <span>{`썸네일러로 등록되셨습니다.`}</span>
+                      </Dropdown.Item>
+                    </div>
+                  );
+                } else if (notice.type === "youtubeNoti") {
+                  return (
+                    <div key={idx} className='each_notice'>
+                      <AiTwotoneDelete onClick={() => deleteNoti(notice.notiId)} size='22' className='notice_delete' />
+                      <Dropdown.Item>
+                        <span>{`유튜버로 등록되셨습니다.`}</span>
+                      </Dropdown.Item>
+                    </div>
+                  );
+                } else if (notice.type === "rejectNoti") {
+                  return (
+                    <div key={idx} className='each_notice'>
+                      <AiTwotoneDelete onClick={() => deleteNoti(notice.notiId)} size='22' className='notice_delete' />
+                      <Dropdown.Item>
+                        <span>{`유튜버로 등록이 거절되었습니다. 신청 절차를 다시 확인해주세요.`}</span>
+                      </Dropdown.Item>
+                    </div>
+                  );
                 } else {
                   return null;
                 }
