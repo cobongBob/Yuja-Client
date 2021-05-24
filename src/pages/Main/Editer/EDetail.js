@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   addLike,
@@ -10,30 +10,33 @@ import './EditorDetail.scss';
 import ReactQuill from 'react-quill';
 import { AiFillStar, AiOutlineFileSearch, AiOutlineStar } from 'react-icons/ai';
 import { ToastTopRight } from '../../../modules/ToastModule';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Report from '../components/Report';
 
-const EDetail = (props) => {
+const EDetail = ({ match }) => {
+  const { current: board_type } = useRef(match.params.board_type);
+  const { current: pageNum } = useRef(match.params.current_page);
   const dispatch = useDispatch();
+  const history = useHistory();
   const { userData } = useSelector((state) => state.loginReducer);
   const { detailData } = useSelector((state) => state.EboardReducer);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
-    const board_id = props.match.params.board_id;
+    const board_id = match.params.board_id;
     if (board_id) {
       getDetailData(board_id).then((res) => {
         dispatch(res);
       });
     }
-  }, [dispatch, props.match.params.board_id, userData]);
+  }, [dispatch, match.params.board_id, userData]);
 
   const deleteBoard = () => {
     if (window.confirm(`정말 삭제 하시겠습니까?`)) {
-      EditerApiService.deleteBoard(props.match.params.board_id).then((res) => {
+      EditerApiService.deleteBoard(match.params.board_id).then((res) => {
         ToastTopRight(res.data);
-        props.history.push('/Editor');
+        history.push(`/Eboard/${board_type}/${pageNum}`);
       });
     }
   };
@@ -41,18 +44,18 @@ const EDetail = (props) => {
   const likeHandler = useCallback(() => {
     if (userData && userData.id) {
       if (detailData && detailData.liked) {
-        deleteLike(props.match.params.board_id, userData.id).then((res) => {
+        deleteLike(match.params.board_id, userData.id).then((res) => {
           dispatch(res);
         });
       } else {
-        addLike(props.match.params.board_id, userData.id).then((res) => {
+        addLike(match.params.board_id, userData.id).then((res) => {
           dispatch(res);
         });
       }
     } else {
       ToastTopRight('로그인 해주세요');
     }
-  }, [userData, dispatch, props.match.params.board_id, detailData]);
+  }, [userData, dispatch, match.params.board_id, detailData]);
 
   return (
     detailData && (
@@ -79,7 +82,7 @@ const EDetail = (props) => {
                 </div>
               ) : (
                 <Report
-                  board_id={props.match.params.board_id}
+                  board_id={match.params.board_id}
                   modalIsOpen={modalIsOpen}
                   setModalIsOpen={setModalIsOpen}
                 />
@@ -132,7 +135,7 @@ const EDetail = (props) => {
               희망급여 <span>{detailData.payAmount} 원</span>
             </li>
             <li className='editordetail-content-tools'>
-              사용기술 <span>{detailData.tools} </span>
+              사용기술 <span>{detailData.tools + '\t'}</span>
             </li>
             <li className='editordetail-content-pr'>
               <div className='pr-div'> 경력 및 소개 </div>

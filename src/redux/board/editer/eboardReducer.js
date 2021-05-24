@@ -1,16 +1,17 @@
-import * as eService from "../../../apiService/EditerApiService";
-import * as likeService from "../../../apiService/likeService";
+import * as eService from '../../../apiService/EditerApiService';
+import * as likeService from '../../../apiService/likeService';
 
 // 액션
-const ADD_LIKE = "ADD_LIKE";
-const DELETE_LIKE = "DELETE_LIKE";
-const MODE_GET_EDETAIL_DATA = "getEDetailData";
-const MODE_EFILTER_DATA = "MODE_EFILTER_DATA";
-const MODE_ESORTLIKE_DATA = "MODE_ESORTLIKE_DATA";
-const GET_EBOARD_REQUEST = "GET_EBOARD_REQUEST";
-const GET_EBOARD_SUCCESS = "GET_EBOARD_SUCCESS";
-const GET_EBOARD_FAILURE = "GET_EBOARD_FAILURE";
-const MODE_RESET_DATA = "MODE_RESET_DATA";
+const ADD_LIKE = 'ADD_LIKE';
+const DELETE_LIKE = 'DELETE_LIKE';
+const MODE_GET_EDETAIL_DATA = 'MODE_GET_EDETAIL_DATA';
+const MODE_EFILTER_DATA = 'MODE_EFILTER_DATA';
+const GET_EBOARD_REQUEST = 'GET_EBOARD_REQUEST';
+const GET_EBOARD_SUCCESS = 'GET_EBOARD_SUCCESS';
+const GET_EBOARD_FAILURE = 'GET_EBOARD_FAILURE';
+const MODE_RESET_DATA = 'MODE_RESET_DATA';
+const MODE_ESORTLIKE_DATA = 'MODE_ESORTLIKE_DATA';
+const MODE_SORTED_HIT_DATA = 'MODE_SORTED_HIT_DATA';
 
 // 액션함수
 
@@ -50,14 +51,22 @@ export const getFilterData = async (keyword) => {
     keyword: keyword,
   };
 };
+
+export const getResetData = async () => {
+  return {
+    type: MODE_RESET_DATA,
+  };
+};
+
 export const getSortLikeData = async () => {
   return {
     type: MODE_ESORTLIKE_DATA,
   };
 };
-export const getResetData = async () => {
+
+export const getSortHitData = async () => {
   return {
-    type: MODE_RESET_DATA,
+    type: MODE_SORTED_HIT_DATA,
   };
 };
 
@@ -88,12 +97,13 @@ export const deleteLike = async (board_id) => {
 
 // 초기값
 const initialState = {
+  loading: false,
   eBoardData: [],
   detailData: { id: 0, likes: 0, liked: false, user: { id: 0 } },
   filterData: [],
-  loading: false,
   sortedLike: false,
-  error: "",
+  sortedHit: false,
+  error: '',
 };
 
 // 리듀서
@@ -111,24 +121,21 @@ export function EboardReducer(state = initialState, action) {
         eBoardData: action.payload,
         detailData: { id: 0, likes: 0, liked: false, user: { id: 0 } },
         // eslint-disable-next-line array-callback-return
-        filterData: action.payload.sort((a, b) => {
-          if (a.boardUpdatedDate < b.boardUpdatedDate) return 1;
-          if (a.boardUpdatedDate > b.boardUpdatedDate) return -1;
-          if (a.boardUpdatedDate === b.boardUpdatedDate) return 0;
-        }),
+        filterData: action.payload.sort((a, b) => b.id - a.id),
         sortedLike: false,
-        error: "",
+        sortedHit: false,
+        error: '',
       };
 
     case GET_EBOARD_FAILURE:
       return {
+        loading: false,
         eBoardData: [],
         detailData: { id: 0, likes: 0, liked: false, user: { id: 0 } },
         filterData: [],
-        loading: false,
-        sortedExpired: false,
         sortedLike: false,
-        error: action.payload,
+        sortedHit: false,
+        error: '',
       };
 
     case MODE_GET_EDETAIL_DATA:
@@ -142,33 +149,48 @@ export function EboardReducer(state = initialState, action) {
       return {
         ...state,
         // eslint-disable-next-line array-callback-return
-        filterData: state.eBoardData.sort((a, b) => {
-          if (a.boardUpdatedDate < b.boardUpdatedDate) return 1;
-          if (a.boardUpdatedDate > b.boardUpdatedDate) return -1;
-          if (a.boardUpdatedDate === b.boardUpdatedDate) return 0;
-        }),
+        filterData: state.eBoardData.sort((a, b) => b.id - a.id),
         sortedLike: false,
+        sortedHit: false,
       };
 
     case MODE_ESORTLIKE_DATA:
       return {
         ...state,
         filterData: state.sortedLike
-          ? state.filterData.sort((a, b) => a.likes - b.likes)
-          : state.filterData.sort((a, b) => b.likes - a.likes),
+          ? state.eBoardData.sort((a, b) => a.likes - b.likes)
+          : state.eBoardData.sort((a, b) => b.likes - a.likes),
         sortedLike: !state.sortedLike,
+        sortedHit: false,
       };
-
+    case MODE_SORTED_HIT_DATA:
+      return {
+        ...state,
+        filterData: state.sortedHit
+          ? state.eBoardData.sort((a, b) => a.hit - b.hit)
+          : state.eBoardData.sort((a, b) => b.hit - a.hit),
+        sortedHit: !state.sortedHit,
+        sortedLike: false,
+      };
     case MODE_EFILTER_DATA:
       return {
         ...state,
         // eslint-disable-next-line array-callback-return
         filterData: state.eBoardData.filter((data) => {
-          if (Object && Object.values(data.title).join("").toLowerCase().includes(action.keyword.toLowerCase())) {
+          if (
+            Object &&
+            Object.values(data.title)
+              .join('')
+              .toLowerCase()
+              .includes(action.keyword.toLowerCase())
+          ) {
             return data;
           } else if (
             Object &&
-            Object.values(data.user.username).join("").toLowerCase().includes(action.keyword.toLowerCase())
+            Object.values(data.user.username)
+              .join('')
+              .toLowerCase()
+              .includes(action.keyword.toLowerCase())
           ) {
             return data;
           }

@@ -220,7 +220,7 @@ const Yregister = () => {
             type='checkbox'
             onChange={checkboxCheck}
           />
-          <label htmlFor='Ypremiere'>프리미어 프로 </label>
+          <label htmlFor='Ypremiere'>프리미어 프로</label>
           <input
             id='Yaftereffect'
             name='yaftereffect'
@@ -228,7 +228,7 @@ const Yregister = () => {
             type='checkbox'
             onChange={checkboxCheck}
           />
-          <label htmlFor='Yaftereffect'>애프터이펙트 </label>
+          <label htmlFor='Yaftereffect'>애프터이펙트</label>
           <input
             id='Yfinalcut'
             name='yfinalcut'
@@ -236,7 +236,7 @@ const Yregister = () => {
             type='checkbox'
             onChange={checkboxCheck}
           />
-          <label htmlFor='Yfinalcut'>파이널컷 </label>
+          <label htmlFor='Yfinalcut'>파이널컷</label>
           <input
             id='Yvegas'
             name='yvegas'
