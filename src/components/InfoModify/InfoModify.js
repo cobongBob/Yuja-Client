@@ -1,21 +1,26 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./InfoModify.scss";
 import { Link } from "react-router-dom";
-import { getLoggedInUserData } from "../../apiService/AuthenticationService";
-import { ToastCenter, ToastTopRight } from "../../modules/ToastModule";
+import { getLoggedInUserData } from '../../apiService/AuthenticationService';
+import { ToastCenter, ToastPreventAccess, ToastTopRight } from '../../modules/ToastModule';
 import UserApiService, { getUserData, modifyUserData } from "../../apiService/UserApiService";
 import axios from "axios";
 import AddressApi from "../Login-SignUp/SignUp/AddressApi";
+import { useSelector } from 'react-redux';
 
 const InfoModify = ({ history }) => {
-  // /* 잘못된 접근 막기 */
-  //  if (history.action === "POP") {
-  //    ToastPreventAccess("❌ 잘못된 접근 입니다.");
-  //    history.replace("/");
-  //  } else if(isUserLoggedIn === false) {
-  //    ToastPreventAccess("❌ 먼저 로그인 하셔야 합니다.");
-  //   history.replace("/");
-  //  }
+
+  const { authorities, userLoginStatus } = useSelector((state) => state.loginReducer)
+
+  /* 잘못된 접근 막기 */
+   if (history.action === "POP") {
+     ToastPreventAccess("❌ 잘못된 접근 입니다.");
+     history.replace("/");
+   } else if(userLoginStatus === false) {
+     ToastPreventAccess("❌ 먼저 로그인 하셔야 합니다.");
+    history.replace("/");
+   }
+
   const loggedInUserData = getLoggedInUserData();
   const userId = loggedInUserData && loggedInUserData.id ? loggedInUserData.id : null;
 
@@ -399,7 +404,7 @@ const InfoModify = ({ history }) => {
                 </td>
               </tr>
             </table>
-            {userData.youtubeUrl !== null || userData.youtubeUrl !== "" ? (
+            {authorities && authorities.includes("YOUTUBER") ? (
               <div className='youtuberDiv'>
                 <div className='youtuberDiv_Title'>
                   유튜버 분들은 원활한 서비스 이용을 위해
