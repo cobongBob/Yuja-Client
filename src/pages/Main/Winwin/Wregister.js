@@ -92,39 +92,44 @@ const Wregister = ({ match }) => {
         <div className='comment-options'>
           <button onClick={goList}>목록</button>
         </div>
-        <div className='comment-register-title'>
-          <input
-            name='title'
-            onChange={inputHandler}
-            placeholder='글제목'
-            maxLength='45'
-            type='text'
-          />
-        </div>
-        {board_type.current === 'CustomService' ? (
-          <div className='secret-option'>
-            <label htmlFor='secret'>비밀글</label>
+        <ul>
+          <li className='comment-register-title'>
             <input
-              id='secret'
-              name='isPrivate'
-              onChange={checkboxHandler}
-              type='checkbox'
+              name='title'
+              onChange={inputHandler}
+              placeholder='글제목'
+              maxLength='45'
+              type='text'
             />
-          </div>
-        ) : null}
-        {board_type.current === 'Notice' ? (
-          <div className='secret-option'>
-            <label htmlFor='secret'>공지공개</label>
-            <input
-              id='secret'
-              name='isPrivate'
-              onChange={checkboxHandler}
-              type='checkbox'
-            />
-          </div>
-        ) : null}
-        <br />
-        <h2>글내용</h2>
+            <div>
+              {board_type.current === 'CustomService' ? (
+                <div className='secret-option'>
+                  <label htmlFor='secret'>비밀글</label>
+                  <input
+                    id='secret'
+                    name='isPrivate'
+                    onChange={checkboxHandler}
+                    type='checkbox'
+                  />
+                </div>
+              ) : null}
+              {board_type.current === 'Notice' ? (
+                <div className='secret-option'>
+                  <label htmlFor='secret'>공지공개</label>
+                  <input
+                    id='secret'
+                    name='isPrivate'
+                    onChange={checkboxHandler}
+                    type='checkbox'
+                  />
+                </div>
+              ) : null}
+            </div>
+          </li>
+          <li>
+            <h2>글내용</h2>
+          </li>
+        </ul>
         <QuillRegister
           register={testCheking}
           addingFileList={addingFileList}

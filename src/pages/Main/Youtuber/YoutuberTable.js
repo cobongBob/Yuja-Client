@@ -7,6 +7,7 @@ import SortingToDeadline from '../components/SortingToDeadline';
 import SortingToLiked from '../components/SortingToLiked';
 import BackToList from '../components/BackToList';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
+import { ToastAlert } from '../../../modules/ToastModule';
 
 const YoutuberTable = ({
   boardData,
@@ -14,14 +15,28 @@ const YoutuberTable = ({
   dislikeHandler,
   currentPage,
   board_type,
+  wrote,
 }) => {
   const history = useHistory();
   return (
     <div className='card-container'>
       <div className='card-options'>
-        <Link to='/YoutuberRegister' className='registerBtn'>
-          공고 등록하기
-        </Link>
+        {wrote.length < 3 ? (
+          <Link to='/YoutuberRegister' className='registerBtn'>
+            공고 등록하기
+          </Link>
+        ) : (
+          <Link
+            onClick={() => {
+              ToastAlert(
+                `공고가 3개 이상있어 새로 글 작성시 가장 오래된 공고 1개가 삭제됩니다.`
+              );
+            }}
+            to='/YoutuberRegister'
+            className='registerBtn'>
+            공고 등록하기
+          </Link>
+        )}
       </div>
       <div className='card-options'>
         <BackToList />
@@ -37,8 +52,7 @@ const YoutuberTable = ({
                 onClick={() =>
                   history.push(`/Ydetail/${data.id}/${currentPage}`)
                 }
-                src='/img/board_pic/thumbnailer_pic/thum3.PNG'
-              ></Card.Img>
+                src='/img/board_pic/thumbnailer_pic/thum3.PNG'></Card.Img>
               <Card.Header>
                 <Card.Title>
                   <div>
@@ -54,16 +68,14 @@ const YoutuberTable = ({
                     {data && data.liked ? (
                       <button
                         onClick={() => likeHandler(data.id)}
-                        className='starButton'
-                      >
+                        className='starButton'>
                         <AiFillStar size={30} />
                         <span>{data.likes}</span>
                       </button>
                     ) : (
                       <button
                         onClick={() => dislikeHandler(data.id)}
-                        className='starButton'
-                      >
+                        className='starButton'>
                         <AiOutlineStar size={30} />
                         <span>{data.likes}</span>
                       </button>
