@@ -15,12 +15,7 @@ const ChatFrame = (props) => {
          </div>
        </React.Fragment>
      );
-
    }
-
-    return (
-      ""
-    );
 
 };
 
