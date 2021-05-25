@@ -100,9 +100,13 @@ function App() {
     instance.interceptors.response.use(
       (config) => {
         //완료시 로딩창 종료
-        dispatch(getLoaded());
-        pendingFroLoading = false;
-        pendingFroNotifications = false;
+        if (pendingFroLoading) {
+          pendingFroLoading = false;
+          dispatch(getLoaded());
+        }
+        if (pendingFroNotifications) {
+          pendingFroNotifications = false;
+        }
         return config;
       },
       (error) => {
@@ -124,7 +128,7 @@ function App() {
   useEffect(() => {
     if (notificationData.length > 0 && notificationData[0].notiId !== 0 && userData && userData.id !== 0) {
       notificationData.forEach((notification) => {
-        if (notification.type === "commentNoti") {
+        if (notification.type === "commentNoti" && notification.resipeint === userData.id) {
           ToastAlert(() =>
             toastWithPush(
               `${notification.sender.nickname}님께서 ${notification.comment.board.title}글에 댓글을 남기셨습니다.`,
@@ -132,18 +136,20 @@ function App() {
               history
             )
           );
-        } else if (notification.type === "chatNoti") {
+        } else if (notification.type === "chatNoti" && notification.resipeint === userData.id) {
           ToastAlertNoDupl(`${notification.sender.nickname}님으로부터 새로운 채팅이 있습니다.`);
-        } else if (notification.type === "editNoti") {
+        } else if (notification.type === "editNoti" && notification.resipeint === userData.id) {
           ToastAlertNoDupl(`에디터로 등록되셨습니다.`);
-        } else if (notification.type === "thumbNoti") {
+        } else if (notification.type === "thumbNoti" && notification.resipeint === userData.id) {
           ToastAlertNoDupl(`썸네일러로 등록되셨습니다.`);
-        } else if (notification.type === "youtubeNoti") {
+        } else if (notification.type === "youtubeNoti" && notification.resipeint === userData.id) {
           ToastAlertNoDupl(`유튜버로 등록되셨습니다.`);
-        } else if (notification.type === "rejectNoti") {
+        } else if (notification.type === "rejectNoti" && notification.resipeint === userData.id) {
           ToastAlertNoDupl(`유튜버로 등록이 거절되었습니다. 신청 절차를 다시 확인해주세요.`);
         }
-        deleteNotifications(notification.notiId);
+        if (notification.resipeint === userData.id) {
+          deleteNotifications(notification.notiId);
+        }
       });
     }
   }, [notificationData, userData, history]);
@@ -153,12 +159,12 @@ function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   //자동로그아웃
-  const signoutTime = useRef(1000 * 60 * 2); //2시간
+  const signoutTime = useRef(1000 * 59 * 2); //2시간
   let logoutTimeout = useRef();
   const logout = useCallback(() => {
     userLogout().then((res) => {
       dispatch(res);
-      ToastAlert(`자동 로그아웃 되셨습니다.`);
+      ToastAlert(`장시간 입력이 없어 안전하게 자동 로그아웃 되셨습니다.`);
     });
   }, [dispatch]);
   const setTimeouts = useCallback(() => {
@@ -168,21 +174,23 @@ function App() {
     if (logoutTimeout.current) clearTimeout(logoutTimeout.current);
   }, []);
   useEffect(() => {
-    const events = ["load", "click"];
-    const resetTimeout = () => {
-      clearTimeouts();
-      setTimeouts();
-    };
-    for (let i in events) {
-      window.addEventListener(events[i], resetTimeout);
-    }
-    setTimeouts();
-    return () => {
-      for (let i in events) {
-        window.removeEventListener(events[i], resetTimeout);
+    if (userData && userData.id > 0) {
+      const events = ["load", "click"];
+      const resetTimeout = () => {
         clearTimeouts();
+        setTimeouts();
+      };
+      for (let i in events) {
+        window.addEventListener(events[i], resetTimeout);
       }
-    };
+      setTimeouts();
+      return () => {
+        for (let i in events) {
+          window.removeEventListener(events[i], resetTimeout);
+          clearTimeouts();
+        }
+      };
+    }
   }, [clearTimeouts, setTimeouts, userData]);
   //자동로그아웃 끝
 
