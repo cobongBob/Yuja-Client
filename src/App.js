@@ -279,11 +279,13 @@ function App() {
             authorities={authorities}
             roles={[role[2], role[6]]} // path에 해당하는 권한
           />
-          <Route
+          <RouteIf
             path='/YboardModify/:board_id/:current_page'
+            exact
+            authorities={authorities}
+            roles={[role[2], role[6]]} // path에 해당하는 권한
             component={YmodifyTest}
           />
-          {/* modify 안에서 본인인지 아닌지 확인 -> 주소 접근 막아야함 */}
 
           <Route path='/Eboard/:board_type/:current_page' component={Editer} />
           {/* GENERAL or ADMIN */}
@@ -294,16 +296,17 @@ function App() {
             authorities={authorities}
             roles={[role[1], role[6]]}
           />
+          <RouteIf
+            path='/EboardModify/:board_type/:board_id/:current_page'
+            component={EboardModify}
+            authorities={authorities}
+            roles={[role[1], role[6]]}
+          />
 
           <Route
             path='/EDetail/:board_type/:board_id/:current_page'
             component={EDetail}
           />
-          <Route
-            path='/EboardModify/:board_type/:board_id/:current_page'
-            component={EboardModify}
-          />
-          {/* modify 안에서 본인인지 아닌지 확인 -> 주소 접근 막아야함 */}
 
           <Route
             path='/Thboard/:board_type/:current_page'
@@ -317,15 +320,16 @@ function App() {
             role={[role[1], role[6]]}
             component={ThumbRegister}
           />
+          <RouteIf
+            path='/ThumbModify/:board_type/:board_id/:current_page'
+            component={ThumbModify}
+            authorities={authorities}
+            role={[role[1], role[6]]}
+          />
           <Route
             path='/ThumbDetail/:board_type/:board_id/:current_page'
             component={ThumbDetail}
           />
-          <Route
-            path='/ThumbModify/:board_type/:board_id/:current_page'
-            component={ThumbModify}
-          />
-          {/* modify 안에서 본인인지 아닌지 확인 -> 주소 접근 막아야함 */}
           <Route
             path='/Community/:board_type/:current_page'
             component={Winwin}
@@ -337,14 +341,16 @@ function App() {
             authorities={authorities}
             role={[role[1], role[6]]}
           />
+          <RouteIf
+            path='/BoardModify/:board_type/:board_id/:current_page'
+            component={WModify}
+            authorities={authorities}
+            role={[role[1], role[6]]}
+          />
 
           <Route
             path='/BoardDetail/:board_type/:board_id/:current_page'
             component={Wdetail}
-          />
-          <Route
-            path='/BoardModify/:board_type/:board_id/:current_page'
-            component={WModify}
           />
           <Route path='/SignUp1' component={SignUp1} />
           <Route path='/FindPassword' component={FindPassword} />
