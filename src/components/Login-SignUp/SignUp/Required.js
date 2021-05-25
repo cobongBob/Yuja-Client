@@ -259,6 +259,11 @@ const Required = ({ location, history }) => {
 
   return (
     <div className='contentBox2'>
+      <div className="signUpBar">
+        <div className="dot2"></div>
+        <div className="dot1"></div>
+        <div className="dot3"></div>
+      </div>
       <div className='overlay'>
         <div className='required'>* 필수입력 정보입니다.</div>
         <table className='signUpTable'>

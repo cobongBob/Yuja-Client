@@ -21,15 +21,7 @@ const SignUp1 = ({ location, history, match }) => {
         <Link className='header-title' to='/'>
           유자 회원가입
         </Link>
-        {/*<div className="signUpBar">*/}
-        {/*  <div className="bar1"></div>*/}
-        {/*  <div className="bar2"></div>*/}
-        {/*  <div className="bar3"></div>*/}
-        {/*  <div className="bar4"></div>*/}
-        {/*  <div className="mvBar"></div>*/}
-        {/*</div>*/}
       </header>
-      <content>
         <div className='contentBox'>
           <Switch>
             <Route
@@ -42,7 +34,6 @@ const SignUp1 = ({ location, history, match }) => {
             <Route path='/SignUp1/NonRequired' component={NonRequired} />
           </Switch>
         </div>
-      </content>
       <footer className='SignUpFooter'>
         <Link className='linkToMain' to='/'>
           이미 회원이신가요? <span>로그인</span>
