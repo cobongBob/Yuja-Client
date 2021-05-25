@@ -37,9 +37,11 @@ section {
   box-sizing: border-box;
   font-size: 0.85em;
 }
+
 input::placeholder {
   color: #999999;
 }
+
 .loginPw {
   margin-top: 15px;
   border-radius: 2px;
@@ -121,31 +123,44 @@ section > footer {
 }
 /* 수정 버튼 */
 .modifyBox {
-  display: inline-block;
+  display: block;
+  padding: 0.25rem;
 }
 .modifyBtn {
   display: inline-block;
   margin: auto;
-  border-radius: 0.25rem;
-  padding: 0.5rem 1rem;
   color: #ff9411;
   background-color: transparent;
   border: none;
+  padding: 0.25rem;
   &:hover {
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    background-color: #ff9411;
-    color: white;
-    text-decoration: none;
+    text-decoration: 2px underline #ff9411;
+    color: #ff9411;
   }
 }
 /* nav 로그인 전/후 변하는 컴포넌트들 */
 .navChangeBox {
   display: inline-block;
 }
+.navChangeBox > div > ul {
+  margin-top: 0.5rem;
+  margin-left: 3rem;
+  padding-left: 0;
+  list-style: none;
+  width: 13rem;
+  background-color: white;
+  border: 1px solid #ff9411;
+}
+.navChangeBox > div > ul > li > button {
+  padding: 0.25rem;
+}
 .welcomeBox {
+  margin-top: 0.5rem;
+  border: none;
+  background-color: transparent;
   display: inline-block;
-  width: 11vw;
+  width: 11rem;
+  margin-right: 14rem;
   word-break: nowrap;
   white-space: nowrap;
   overflow-x: hidden;

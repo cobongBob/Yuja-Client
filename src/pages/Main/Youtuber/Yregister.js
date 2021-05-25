@@ -87,7 +87,6 @@ const Yregister = () => {
     career: '',
     ywhen: '',
     expiredDate: '',
-    receptionType: '',
     manager: '',
     receptionMethod: '',
     tools: checkedlist.current,
@@ -322,7 +321,13 @@ const Yregister = () => {
           {/* default = 회원 이름 */}
         </li>
         <li className='wanted-way'>
-          <input id='Ycontact' placeholder='담당자 연락처' type='text' />
+          <input
+            id='YreceptionMethod'
+            onChange={onChange}
+            placeholder='담당자 연락처'
+            name='receptionMethod'
+            type='text'
+          />
         </li>
       </ul>
       <div className='register-add-input'>

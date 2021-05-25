@@ -26,7 +26,9 @@ const RouteIf = ({ authorities, roles, component: Component, ...rest }) => {
           }
 
           if (isValidate) {
-            return <PageNotFound />;
+            history.push('/');
+            ToastCenter('권한이 없습니다!');
+            return;
           }
 
           if (Component) {
@@ -36,8 +38,8 @@ const RouteIf = ({ authorities, roles, component: Component, ...rest }) => {
           return null;
         } else {
           history.push('/');
-          ToastCenter('로그인 해주세요!');
-          // 로그인 모달을 열도록...?
+          ToastCenter('잘못된 접근 입니다!');
+          return;
           // 주소를 직접 치고 들어가면 로그인해주세요...?
         }
       }}></Route>

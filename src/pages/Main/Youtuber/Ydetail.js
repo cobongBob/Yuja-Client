@@ -101,6 +101,14 @@ const Ydetail = ({ match }) => {
                           공고 삭제하기
                         </button>
                       </div>
+                    ) : userData &&
+                      detailData.user &&
+                      authorities.includes('ADMIN') ? (
+                      <button
+                        className='detail-update-btn'
+                        onClick={deleteBoard}>
+                        공고 삭제하기
+                      </button>
                     ) : null}
                     <Link
                       className='detail-update-btn'
