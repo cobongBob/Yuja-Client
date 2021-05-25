@@ -188,7 +188,11 @@ const Wdetail = ({ match }) => {
   const deleteBoard = useCallback(() => {
     if (window.confirm('게시글을 삭제 하시겠습니까?')) {
       deleteWinBoard(match.params.board_id, board_type).then(() => {
-        history.push(`/Community/${board_type}/${pageNum}`);
+        if (board_type === 'Notice') {
+          history.push(`/Admin/AdminBoard`);
+        } else {
+          history.push(`/Community/${board_type}/${pageNum}`);
+        }
       });
     }
   }, [match.params.board_id, history, board_type, pageNum]);

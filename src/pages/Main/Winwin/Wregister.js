@@ -124,6 +124,7 @@ const Wregister = ({ match }) => {
           </div>
         ) : null}
         <br />
+        <br />
         <h2>글내용</h2>
         <QuillRegister
           register={testCheking}
