@@ -244,7 +244,7 @@ function App() {
     'MANAGER',
     'ADMIN',
   ];
-  console.log(modalIsOpen)
+  console.log(modalIsOpen);
 
   return (
     <div>
@@ -253,19 +253,12 @@ function App() {
           <AiFillWechat
             className='chat_button'
             onClick={
-              modalIsOpen === false ?
-              () => setModalIsOpen(true)
-                :
-                () => setModalIsOpen(false)
+              modalIsOpen === false
+                ? () => setModalIsOpen(true)
+                : () => setModalIsOpen(false)
             }
           />
-          { modalIsOpen === true ?
-            <ChatFrame
-              modalIsOpen={modalIsOpen}
-            />
-            :
-            ''
-          }
+          {modalIsOpen === true ? <ChatFrame modalIsOpen={modalIsOpen} /> : ''}
         </>
       )}
       {exceptArray.indexOf(location.pathname) < 0 && (
@@ -302,13 +295,13 @@ function App() {
             exact
             component={EditorRegister}
             authorities={authorities}
-            roles={[role[1], role[6]]}
+            roles={[role[1], role[2], role[3], role[4], role[6]]}
           />
           <RouteIf
             path='/EboardModify/:board_type/:board_id/:current_page'
             component={EboardModify}
             authorities={authorities}
-            roles={[role[1], role[6]]}
+            roles={[role[1], role[2], role[3], role[4], role[6]]}
           />
 
           <Route
@@ -325,14 +318,14 @@ function App() {
             path='/ThumbRegister/:board_type'
             exact
             authorities={authorities}
-            role={[role[1], role[6]]}
+            roles={[role[1], role[2], role[3], role[4], role[6]]}
             component={ThumbRegister}
           />
           <RouteIf
             path='/ThumbModify/:board_type/:board_id/:current_page'
             component={ThumbModify}
             authorities={authorities}
-            role={[role[1], role[6]]}
+            roles={[role[1], role[2], role[3], role[4], role[6]]}
           />
           <Route
             path='/ThumbDetail/:board_type/:board_id/:current_page'
@@ -347,13 +340,13 @@ function App() {
             path='/BoardRegister/:board_type'
             component={Wregister}
             authorities={authorities}
-            role={[role[1], role[6]]}
+            roles={[role[1], role[2], role[3], role[4], role[6]]}
           />
           <RouteIf
             path='/BoardModify/:board_type/:board_id/:current_page'
             component={WModify}
             authorities={authorities}
-            role={[role[1], role[6]]}
+            roles={[role[1], role[2], role[3], role[4], role[6]]}
           />
 
           <Route

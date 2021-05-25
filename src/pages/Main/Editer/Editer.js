@@ -1,26 +1,31 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import EditerTable from "./EditerTable";
-import "../Youtuber/Youtuber.scss";
-import Pagination from "../components/Pagination";
-import { useDispatch, useSelector } from "react-redux";
-import { addLike, deleteLike, getEBoards, getFilterData } from "../../../redux/board/editer/eboardReducer";
-import Search from "../components/Search";
-import { ToastCenter } from "../../../modules/ToastModule";
-import { RiScissorsCutFill } from "react-icons/ri";
-import { getEBoardWrittenBySelf } from "../../../apiService/EditerApiService";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import EditerTable from './EditerTable';
+import '../Youtuber/Youtuber.scss';
+import Pagination from '../components/Pagination';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addLike,
+  deleteLike,
+  getEBoards,
+  getFilterData,
+} from '../../../redux/board/editer/eboardReducer';
+import Search from '../components/Search';
+import { ToastCenter } from '../../../modules/ToastModule';
+import { RiScissorsCutFill } from 'react-icons/ri';
+import { getEBoardWrittenBySelf } from '../../../apiService/EditerApiService';
 
 const Editer = ({ match, history }) => {
   const dispatch = useDispatch();
 
   // Youtuber의 전체 데이터 불러오기
   const eBoardData = useSelector((state) => state.EboardReducer);
-  const { userData } = useSelector((state) => state.loginReducer);
+  const { userData, authorities } = useSelector((state) => state.loginReducer);
   const board_type = useRef(match.params.board_type);
   const path = history.location.pathname;
-  const lastPageNum = path.substr(path.lastIndexOf("/") + 1);
+  const lastPageNum = path.substr(path.lastIndexOf('/') + 1);
   const pageNum = useRef(lastPageNum ? lastPageNum : 1);
 
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const searchHandler = (keyword) => {
     setSearchTerm(keyword);
     getFilterData(keyword).then((res) => {
@@ -32,7 +37,10 @@ const Editer = ({ match, history }) => {
   const [boardPerPage] = useState(12);
   const indexOfLastData = currentPage * boardPerPage;
   const indexOfFirstData = indexOfLastData - boardPerPage;
-  const currentData = eBoardData.filterData.slice(indexOfFirstData, indexOfLastData);
+  const currentData = eBoardData.filterData.slice(
+    indexOfFirstData,
+    indexOfLastData
+  );
 
   const clickPage = useCallback((pages) => {
     setCurrentPage(pages);
@@ -45,27 +53,44 @@ const Editer = ({ match, history }) => {
 
   const likeHandler = useCallback(
     (board_id) => {
-      if (userData && userData.id) {
+      if (
+        (userData &&
+          userData.id &&
+          authorities &&
+          authorities.includes('YOUTUBER')) ||
+        authorities.includes('EDITOR') ||
+        authorities.includes('THUMBNAILER') ||
+        authorities.includes('ADMIN')
+      ) {
         deleteLike(board_id, userData.id).then((res) => {
           dispatch(res);
         });
       } else {
-        ToastCenter("로그인 해주세요");
+        ToastCenter('로그인 해주세요');
       }
     },
-    [userData, dispatch]
+    [userData, dispatch, authorities]
   );
+
   const dislikeHandler = useCallback(
     (board_id) => {
-      if (userData && userData.id) {
+      if (
+        (userData &&
+          userData.id &&
+          authorities &&
+          authorities.includes('YOUTUBER')) ||
+        authorities.includes('EDITOR') ||
+        authorities.includes('THUMBNAILER') ||
+        authorities.includes('ADMIN')
+      ) {
         addLike(board_id, userData.id).then((res) => {
           dispatch(res);
         });
       } else {
-        ToastCenter("로그인 해주세요");
+        ToastCenter('권한이 없습니다.');
       }
     },
-    [userData, dispatch]
+    [userData, dispatch, authorities]
   );
 
   //해당 유저의 글 갯수
