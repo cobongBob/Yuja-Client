@@ -39,3 +39,11 @@ export const deleteWinBoard = async (board_id, board_type) => {
     method: "delete",
   });
 };
+
+export const getWBoardWrittenBySelf = async (userId, board_type) => {
+  board_code = BoardTypeConvert(board_type);
+  return await instance({
+    url: `/user/board/${board_code}/${userId}`,
+    method: "get",
+  });
+};

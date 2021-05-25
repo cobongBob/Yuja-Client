@@ -16,7 +16,7 @@ Modal.setAppElement("#root");
 const Ydetail = ({ match }) => {
   console.log(22222, match);
   const dispatch = useDispatch();
-  const { userData } = useSelector((state) => state.loginReducer);
+  const { userData, authorities } = useSelector((state) => state.loginReducer);
   const { detailData } = useSelector((state) => state.YboardReducer);
   const history = useHistory();
   // 신고하기 modal 쓸때마다 해당 component 에서 선언해줘야함
@@ -84,6 +84,10 @@ const Ydetail = ({ match }) => {
                           공고 삭제하기
                         </button>
                       </div>
+                    ) : userData && detailData.user && authorities.includes("ADMIN") ? (
+                      <button className='detail-update-btn' onClick={deleteBoard}>
+                        이력서 삭제하기
+                      </button>
                     ) : null}
                     <Link className='detail-update-btn' to={`/Youtuber/${current_page.current}`}>
                       목록보기
