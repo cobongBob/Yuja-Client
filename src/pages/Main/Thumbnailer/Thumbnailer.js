@@ -1,13 +1,18 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import ThumbnailerTable from "./ThumbnailerTable";
-import "../Youtuber/Youtuber.scss";
-import Pagination from "../components/Pagination";
-import { useDispatch, useSelector } from "react-redux";
-import Search from "../components/Search";
-import { addLike, deleteLike, getEBoards, getFilterData } from "../../../redux/board/editer/eboardReducer";
-import { ToastCenter } from "../../../modules/ToastModule";
-import { FaPaintBrush } from "react-icons/fa";
-import { getEBoardWrittenBySelf } from "../../../apiService/EditerApiService";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import ThumbnailerTable from './ThumbnailerTable';
+import '../Youtuber/Youtuber.scss';
+import Pagination from '../components/Pagination';
+import { useDispatch, useSelector } from 'react-redux';
+import Search from '../components/Search';
+import {
+  addLike,
+  deleteLike,
+  getEBoards,
+  getFilterData,
+} from '../../../redux/board/editer/eboardReducer';
+import { ToastCenter } from '../../../modules/ToastModule';
+import { FaPaintBrush } from 'react-icons/fa';
+import { getEBoardWrittenBySelf } from '../../../apiService/EditerApiService';
 
 // nav에서 썸네일러를 누르면 보이는 전체 컴포넌트
 const Thumbnailer = ({ match, history }) => {
@@ -15,20 +20,23 @@ const Thumbnailer = ({ match, history }) => {
 
   // Youtuber의 전체 데이터 불러오기
   const thBoardData = useSelector((state) => state.EboardReducer);
-  const { userData } = useSelector((state) => state.loginReducer);
+  const { userData, authorities } = useSelector((state) => state.loginReducer);
   const board_type = useRef(match.params.board_type);
   const path = history.location.pathname;
-  const lastPageNum = path.substr(path.lastIndexOf("/") + 1);
+  const lastPageNum = path.substr(path.lastIndexOf('/') + 1);
   const pageNum = useRef(lastPageNum ? lastPageNum : 1);
 
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
 
   const [currentPage, setCurrentPage] = useState(pageNum.current);
   const [boardPerPage] = useState(12);
 
   const indexOfLastData = currentPage * boardPerPage;
   const indexOfFirstData = indexOfLastData - boardPerPage;
-  const currentData = thBoardData.filterData.slice(indexOfFirstData, indexOfLastData);
+  const currentData = thBoardData.filterData.slice(
+    indexOfFirstData,
+    indexOfLastData
+  );
 
   const clickPage = (pages) => {
     setCurrentPage(pages);
@@ -48,27 +56,44 @@ const Thumbnailer = ({ match, history }) => {
 
   const likeHandler = useCallback(
     (board_id) => {
-      if (userData && userData.id) {
+      if (
+        (userData &&
+          userData.id &&
+          authorities &&
+          authorities.includes('YOUTUBER')) ||
+        authorities.includes('EDITOR') ||
+        authorities.includes('THUMBNAILER') ||
+        authorities.includes('ADMIN')
+      ) {
         deleteLike(board_id, userData.id).then((res) => {
           dispatch(res);
         });
       } else {
-        ToastCenter("로그인 해주세요");
+        ToastCenter('로그인 해주세요');
       }
     },
-    [userData, dispatch]
+    [userData, dispatch, authorities]
   );
+
   const dislikeHandler = useCallback(
     (board_id) => {
-      if (userData && userData.id) {
+      if (
+        (userData &&
+          userData.id &&
+          authorities &&
+          authorities.includes('YOUTUBER')) ||
+        authorities.includes('EDITOR') ||
+        authorities.includes('THUMBNAILER') ||
+        authorities.includes('ADMIN')
+      ) {
         addLike(board_id, userData.id).then((res) => {
           dispatch(res);
         });
       } else {
-        ToastCenter("로그인 해주세요");
+        ToastCenter('권한이 없습니다.');
       }
     },
-    [userData, dispatch]
+    [userData, dispatch, authorities]
   );
 
   //해당 유저의 글 갯수

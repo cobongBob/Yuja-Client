@@ -67,8 +67,9 @@ const Youtuber = ({ match }) => {
         ToastCenter('로그인 해주세요');
       }
     },
-    [userData, dispatch]
+    [userData, dispatch, authorities]
   );
+
   const dislikeHandler = useCallback(
     (board_id) => {
       if (
@@ -87,7 +88,7 @@ const Youtuber = ({ match }) => {
         ToastCenter('권한이 없습니다.');
       }
     },
-    [userData, dispatch]
+    [userData, dispatch, authorities]
   );
 
   //해당 유저의 글 갯수
