@@ -159,7 +159,7 @@ function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   //자동로그아웃
-  const signoutTime = useRef(1000 * 59 * 2); //2시간
+  const signoutTime = useRef(1000 * 60 * 59 * 2); //1시간 58분
   let logoutTimeout = useRef();
   const logout = useCallback(() => {
     userLogout().then((res) => {
