@@ -36,6 +36,7 @@ function LoginModal() {
   const [modalIsOpen, setIsOpen] = useState();
 
   function openModal() {
+    console.log('================================',userData)
     setIsOpen(true);
   }
   function closeModal() {
@@ -92,6 +93,7 @@ function LoginModal() {
     userLogout().then((res) => {
       dispatch(res);
       logoutNotify();
+      setLoginData('');
       history.push("/");
     });
   }, [dispatch, history, logoutNotify]);
@@ -110,7 +112,9 @@ function LoginModal() {
     [loginData]
   );
   const logInHandler = useCallback(async () => {
+    console.log('logInHandler의 loginData', loginData)
     userLogin(loginData, setLoginValidateDesc).then((res) => {
+      console.log('============res ================', res)
       dispatch(res);
       if (res.userLoginStatus === false) {
         setIsOpen(true);

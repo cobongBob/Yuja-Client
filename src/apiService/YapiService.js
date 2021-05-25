@@ -44,3 +44,9 @@ export const getliked = async () => {
     method: "post",
   });
 };
+export const getYBoardWrittenBySelf = async (userId) => {
+  return await instance({
+    url: `/user/board/${BoardType}/${userId}`,
+    method: "get",
+  });
+};
