@@ -5,35 +5,45 @@ import SmallChat from "./SmallChat";
 
 Modal.setAppElement("#root");
 const ChatModal = ({ modalIsOpen, setModalIsOpen, setUseChat }) => {
+
   function closeModal() {
     setModalIsOpen(false);
   }
-  const reportcustomStyles = useMemo(
+  const chatModalCustomStyles = useMemo(
     () => ({
       content: {
-        top: "50%",
-        left: "50%",
+        top: "57%",
+        left: "82%",
         right: "auto",
         bottom: "auto",
         marginRight: "-50%",
         transform: "translate(-50%, -50%)",
-        background: "#edfcfc",
-        height: "100%",
-        width: "50%",
+        height: "50%",
+        width: "30%",
+        zIndex: 9999,
       },
-      overlay: { zIndex: 100 },
     }),
     []
   );
   return (
-    <div>
-      <span className='chat_close' onClick={closeModal}>
-        &times;
-      </span>
-      <Modal closeTimeoutMS={200} isOpen={modalIsOpen} style={reportcustomStyles} onRequestClose={closeModal}>
-        <SmallChat />
-      </Modal>
-    </div>
+    <React.Fragment>
+      <div className='chatModalFrag'>
+        <span className='chat_close' onClick={closeModal}>
+          &times;
+        </span>
+        <div className='chatModalOverlay'>
+          <Modal
+            closeTimeoutMS={200}
+            isOpen={modalIsOpen}
+            style={chatModalCustomStyles}
+            onRequestClose={closeModal}
+            shouldCloseOnEsc={true}
+          >
+            <SmallChat />
+          </Modal>
+        </div>
+      </div>
+    </React.Fragment>
   );
 };
 

@@ -53,6 +53,7 @@ import { toastWithPush } from './modules/ToastWithPush';
 import YoutuberRequest from './components/InfoModify/YoutuberRequest';
 import { getAllNotifications } from './redux/loading/notiReducer';
 import RouteIf from './routerif/RouteIf';
+import ChatFrame from './pages/Main/components/NewChat/ChatFrame';
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ['/SignUp1', '/SignUp1/Required', '/SignUp1/NonRequired'];
 
@@ -243,6 +244,7 @@ function App() {
     'MANAGER',
     'ADMIN',
   ];
+  console.log(modalIsOpen)
 
   return (
     <div>
@@ -250,14 +252,20 @@ function App() {
         <>
           <AiFillWechat
             className='chat_button'
-            onClick={() => setModalIsOpen(true)}
+            onClick={
+              modalIsOpen === false ?
+              () => setModalIsOpen(true)
+                :
+                () => setModalIsOpen(false)
+            }
           />
-          {modalIsOpen && (
-            <ChatModal
+          { modalIsOpen === true ?
+            <ChatFrame
               modalIsOpen={modalIsOpen}
-              setModalIsOpen={setModalIsOpen}
             />
-          )}
+            :
+            ''
+          }
         </>
       )}
       {exceptArray.indexOf(location.pathname) < 0 && (

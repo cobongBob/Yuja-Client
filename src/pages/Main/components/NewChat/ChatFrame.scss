@@ -1,27 +1,36 @@
 .chatFrameFrag {
-  margin-right: 10vw;
-  margin-left: 10vw;
+  margin-right: 1vw;
+  margin-left: 1vw;
   margin-top: 1%;
   margin-bottom: 1%;
   font-family: 'scdream4';
+  position: fixed;
+  z-index: 99;
+  left: 71.5%;
+  bottom: 11%;
+  width: 25vw;
 }
 .chatFrameOverlay {
-    border: 2px solid gray;
-    padding: 2em;
     margin: auto;
-    width: 30%;
-    box-shadow: 5px 5px darkgray;
+    width: 100%;
 }
 
 /* 채팅 반응형 */
 @media screen and (max-width: 1480px) {
-  .chatFrameOverlay {
-    width:350px;
-  }
   .chatFrameFrag {
     margin-right: 1vw;
     margin-left: 1vw;
     margin-top: 1%;
     margin-bottom: 1%;
+    font-family: 'scdream4';
+    position: fixed;
+    z-index: 99;
+    left: 71.5%;
+    bottom: 11%;
+    width: 360px;
+  }
+  .chatFrameOverlay {
+    margin: auto;
+    width: 100%;
   }
 }
