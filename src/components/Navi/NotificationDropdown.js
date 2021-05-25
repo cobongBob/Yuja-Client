@@ -25,7 +25,7 @@ const NotificationDropdown = ({ allNotifications }) => {
         {allNotifications.length > 0 &&
         userData &&
         userData.id !== 0 &&
-        allNotifications[0].resipeint === userData.id ? (
+        allNotifications[0].resipeint.id === userData.id ? (
           <>
             <Dropdown.Toggle variant='' id='dropdown-basic'>
               <IoMdNotifications className='noti_icon' size='30' />

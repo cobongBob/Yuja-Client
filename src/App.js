@@ -128,7 +128,7 @@ function App() {
   useEffect(() => {
     if (notificationData.length > 0 && notificationData[0].notiId !== 0 && userData && userData.id !== 0) {
       notificationData.forEach((notification) => {
-        if (notification.type === "commentNoti" && notification.resipeint === userData.id) {
+        if (notification.type === "commentNoti" && notification.resipeint.id === userData.id) {
           ToastAlert(() =>
             toastWithPush(
               `${notification.sender.nickname}님께서 ${notification.comment.board.title}글에 댓글을 남기셨습니다.`,
@@ -136,15 +136,15 @@ function App() {
               history
             )
           );
-        } else if (notification.type === "chatNoti" && notification.resipeint === userData.id) {
+        } else if (notification.type === "chatNoti" && notification.resipeint.id === userData.id) {
           ToastAlertNoDupl(`${notification.sender.nickname}님으로부터 새로운 채팅이 있습니다.`);
-        } else if (notification.type === "editNoti" && notification.resipeint === userData.id) {
+        } else if (notification.type === "editNoti" && notification.resipeint.id === userData.id) {
           ToastAlertNoDupl(`에디터로 등록되셨습니다.`);
-        } else if (notification.type === "thumbNoti" && notification.resipeint === userData.id) {
+        } else if (notification.type === "thumbNoti" && notification.resipeint.id === userData.id) {
           ToastAlertNoDupl(`썸네일러로 등록되셨습니다.`);
-        } else if (notification.type === "youtubeNoti" && notification.resipeint === userData.id) {
+        } else if (notification.type === "youtubeNoti" && notification.resipeint.id === userData.id) {
           ToastAlertNoDupl(`유튜버로 등록되셨습니다.`);
-        } else if (notification.type === "rejectNoti" && notification.resipeint === userData.id) {
+        } else if (notification.type === "rejectNoti" && notification.resipeint.id === userData.id) {
           ToastAlertNoDupl(`유튜버로 등록이 거절되었습니다. 신청 절차를 다시 확인해주세요.`);
         }
         if (notification.resipeint === userData.id) {
