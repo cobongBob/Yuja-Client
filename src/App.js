@@ -1,56 +1,60 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import Logo from "./components/Logo/Logo";
-import "./App.css";
-import { Route, useHistory } from "react-router";
-import Youtuber from "./pages/Main/Youtuber/Youtuber";
-import Editer from "./pages/Main/Editer/Editer";
-import Thumbnailer from "./pages/Main/Thumbnailer/Thumbnailer";
-import Winwin from "./pages/Main/Winwin/Winwin";
-import Help from "./pages/Main/Help/Help";
-import Ydetail from "./pages/Main/Youtuber/Ydetail";
-import SignUp1 from "./components/Login-SignUp/SignUp/SignUp1";
-import { withRouter } from "react-router";
-import Navi from "./components/Navi/Navi";
-import YoutuberProfile from "./pages/Profile/YoutuberProfile";
-import Yregister from "./pages/Main/Youtuber/Yregister";
-import Switch from "react-bootstrap/Switch";
-import YmodifyTest from "./pages/Main/Youtuber/YmodifyTest";
-import { useLocation } from "react-router-dom";
-import MainWrapper from "./MainWrapper";
-import PageNotFound from "./pages/Error/PageNotFound";
-import Footer from "./components/Footer";
-import FindPassword from "./components/Login-SignUp/Login/FindPassword";
-import Wdetail from "./pages/Main/Winwin/Wdetail";
-import Wregister from "./pages/Main/Winwin/Wregister";
-import EditorRegister from "./pages/Main/Editer/EditorRegister";
-import { useDispatch, useSelector } from "react-redux";
-import { getLoaded, getLoading } from "./redux/loading/loadingReducer";
-import Loader from "./components/Loading/Loader";
-import instance from "./AxiosConfig";
-import { userLogout } from "./redux/redux-login/loginReducer";
-import Chat from "./pages/Main/components/Chat/Chat";
-import EDetail from "./pages/Main/Editer/EDetail";
-import ResetPassword from "./components/Login-SignUp/Login/ResetPassword";
-import { ToastAlert, ToastCenter, ToastAlertNoDupl } from "./modules/ToastModule";
-import WModify from "./pages/Main/Winwin/WModify";
-import ThumbRegister from "./pages/Main/Thumbnailer/ThumbRegister";
-import ThumbDetail from "./pages/Main/Thumbnailer/ThumbDetail";
-import BeforeModify from "./components/InfoModify/BeforeModify";
-import Admin_main from "./pages/Admin/Admin_main";
-import PasswordModify from "./components/InfoModify/PasswordModify";
-import InfoModify from "./components/InfoModify/InfoModify";
-import EboardModify from "./pages/Main/Editer/EboardModify";
-import ThumbModify from "./pages/Main/Thumbnailer/ThumbModify";
-import SignOut from "./components/SignOut/SignOut";
-import { deleteNotifications } from "./apiService/MainApiService";
-import ChatModal from "./pages/Main/components/Chat/ChatModal";
-import { AiFillWechat } from "react-icons/ai";
-import { toastWithPush } from "./modules/ToastWithPush";
-import YoutuberRequest from "./components/InfoModify/YoutuberRequest";
-import { getAllNotifications } from "./redux/loading/notiReducer";
-import RouteIf from "./routerif/RouteIf";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import Logo from './components/Logo/Logo';
+import './App.css';
+import { Route, useHistory } from 'react-router';
+import Youtuber from './pages/Main/Youtuber/Youtuber';
+import Editer from './pages/Main/Editer/Editer';
+import Thumbnailer from './pages/Main/Thumbnailer/Thumbnailer';
+import Winwin from './pages/Main/Winwin/Winwin';
+import Help from './pages/Main/Help/Help';
+import Ydetail from './pages/Main/Youtuber/Ydetail';
+import SignUp1 from './components/Login-SignUp/SignUp/SignUp1';
+import { withRouter } from 'react-router';
+import Navi from './components/Navi/Navi';
+import YoutuberProfile from './pages/Profile/YoutuberProfile';
+import Yregister from './pages/Main/Youtuber/Yregister';
+import Switch from 'react-bootstrap/Switch';
+import YmodifyTest from './pages/Main/Youtuber/YmodifyTest';
+import { useLocation } from 'react-router-dom';
+import MainWrapper from './MainWrapper';
+import PageNotFound from './pages/Error/PageNotFound';
+import Footer from './components/Footer';
+import FindPassword from './components/Login-SignUp/Login/FindPassword';
+import Wdetail from './pages/Main/Winwin/Wdetail';
+import Wregister from './pages/Main/Winwin/Wregister';
+import EditorRegister from './pages/Main/Editer/EditorRegister';
+import { useDispatch, useSelector } from 'react-redux';
+import { getLoaded, getLoading } from './redux/loading/loadingReducer';
+import Loader from './components/Loading/Loader';
+import instance from './AxiosConfig';
+import { userLogout } from './redux/redux-login/loginReducer';
+import Chat from './pages/Main/components/Chat/Chat';
+import EDetail from './pages/Main/Editer/EDetail';
+import ResetPassword from './components/Login-SignUp/Login/ResetPassword';
+import {
+  ToastAlert,
+  ToastCenter,
+  ToastAlertNoDupl,
+} from './modules/ToastModule';
+import WModify from './pages/Main/Winwin/WModify';
+import ThumbRegister from './pages/Main/Thumbnailer/ThumbRegister';
+import ThumbDetail from './pages/Main/Thumbnailer/ThumbDetail';
+import BeforeModify from './components/InfoModify/BeforeModify';
+import Admin_main from './pages/Admin/Admin_main';
+import PasswordModify from './components/InfoModify/PasswordModify';
+import InfoModify from './components/InfoModify/InfoModify';
+import EboardModify from './pages/Main/Editer/EboardModify';
+import ThumbModify from './pages/Main/Thumbnailer/ThumbModify';
+import SignOut from './components/SignOut/SignOut';
+import { deleteNotifications } from './apiService/MainApiService';
+import ChatModal from './pages/Main/components/Chat/ChatModal';
+import { AiFillWechat } from 'react-icons/ai';
+import { toastWithPush } from './modules/ToastWithPush';
+import YoutuberRequest from './components/InfoModify/YoutuberRequest';
+import { getAllNotifications } from './redux/loading/notiReducer';
+import RouteIf from './routerif/RouteIf';
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
-const exceptArray = ["/SignUp1", "/SignUp1/Required", "/SignUp1/NonRequired"];
+const exceptArray = ['/SignUp1', '/SignUp1/Required', '/SignUp1/NonRequired'];
 
 function App() {
   /* history 관련 */
@@ -68,8 +72,12 @@ function App() {
 
   /* 로딩 */
   const dispatch = useDispatch();
-  const { loading, notificationData } = useSelector((state) => state.loadingReducer);
-  const { allNotifications, notiLoading } = useSelector((state) => state.NotiReducer);
+  const { loading, notificationData } = useSelector(
+    (state) => state.loadingReducer
+  );
+  const { allNotifications, notiLoading } = useSelector(
+    (state) => state.NotiReducer
+  );
   const { userData } = useSelector((state) => state.loginReducer);
   const { authorities } = useSelector((state) => state.loginReducer);
 
@@ -82,7 +90,12 @@ function App() {
         if (userData && loading === false && !pendingFroLoading) {
           dispatch(getLoading(userData.id));
         }
-        if (notiLoading === false && userData && userData.id > 0 && !pendingFroNotifications) {
+        if (
+          notiLoading === false &&
+          userData &&
+          userData.id > 0 &&
+          !pendingFroNotifications
+        ) {
           dispatch(getAllNotifications(userData.id));
         }
         pendingFroLoading = true;
@@ -126,9 +139,17 @@ function App() {
   /* 로딩 끝 */
   //알림
   useEffect(() => {
-    if (notificationData.length > 0 && notificationData[0].notiId !== 0 && userData && userData.id !== 0) {
+    if (
+      notificationData.length > 0 &&
+      notificationData[0].notiId !== 0 &&
+      userData &&
+      userData.id !== 0
+    ) {
       notificationData.forEach((notification) => {
-        if (notification.type === "commentNoti" && notification.resipeint.id === userData.id) {
+        if (
+          notification.type === 'commentNoti' &&
+          notification.resipeint.id === userData.id
+        ) {
           ToastAlert(() =>
             toastWithPush(
               `${notification.sender.nickname}님께서 ${notification.comment.board.title}글에 댓글을 남기셨습니다.`,
@@ -136,16 +157,35 @@ function App() {
               history
             )
           );
-        } else if (notification.type === "chatNoti" && notification.resipeint.id === userData.id) {
-          ToastAlertNoDupl(`${notification.sender.nickname}님으로부터 새로운 채팅이 있습니다.`);
-        } else if (notification.type === "editNoti" && notification.resipeint.id === userData.id) {
+        } else if (
+          notification.type === 'chatNoti' &&
+          notification.resipeint.id === userData.id
+        ) {
+          ToastAlertNoDupl(
+            `${notification.sender.nickname}님으로부터 새로운 채팅이 있습니다.`
+          );
+        } else if (
+          notification.type === 'editNoti' &&
+          notification.resipeint.id === userData.id
+        ) {
           ToastAlertNoDupl(`에디터로 등록되셨습니다.`);
-        } else if (notification.type === "thumbNoti" && notification.resipeint.id === userData.id) {
+        } else if (
+          notification.type === 'thumbNoti' &&
+          notification.resipeint.id === userData.id
+        ) {
           ToastAlertNoDupl(`썸네일러로 등록되셨습니다.`);
-        } else if (notification.type === "youtubeNoti" && notification.resipeint.id === userData.id) {
+        } else if (
+          notification.type === 'youtubeNoti' &&
+          notification.resipeint.id === userData.id
+        ) {
           ToastAlertNoDupl(`유튜버로 등록되셨습니다.`);
-        } else if (notification.type === "rejectNoti" && notification.resipeint.id === userData.id) {
-          ToastAlertNoDupl(`유튜버로 등록이 거절되었습니다. 신청 절차를 다시 확인해주세요.`);
+        } else if (
+          notification.type === 'rejectNoti' &&
+          notification.resipeint.id === userData.id
+        ) {
+          ToastAlertNoDupl(
+            `유튜버로 등록이 거절되었습니다. 신청 절차를 다시 확인해주세요.`
+          );
         }
         if (notification.resipeint.id === userData.id) {
           deleteNotifications(notification.notiId);
@@ -175,7 +215,7 @@ function App() {
   }, []);
   useEffect(() => {
     if (userData && userData.id > 0) {
-      const events = ["load", "click"];
+      const events = ['load', 'click'];
       const resetTimeout = () => {
         clearTimeouts();
         setTimeouts();
@@ -194,15 +234,35 @@ function App() {
   }, [clearTimeouts, setTimeouts, userData]);
   //자동로그아웃 끝
 
+  const role = [
+    'STRANGER',
+    'GENERAL',
+    'YOUTUBER',
+    'EDITOR',
+    'THUMBNAILER',
+    'MANAGER',
+    'ADMIN',
+  ];
+
   return (
     <div>
       {userData && userData.id !== 0 && (
         <>
-          <AiFillWechat className='chat_button' onClick={() => setModalIsOpen(true)} />
-          {modalIsOpen && <ChatModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />}
+          <AiFillWechat
+            className='chat_button'
+            onClick={() => setModalIsOpen(true)}
+          />
+          {modalIsOpen && (
+            <ChatModal
+              modalIsOpen={modalIsOpen}
+              setModalIsOpen={setModalIsOpen}
+            />
+          )}
         </>
       )}
-      {exceptArray.indexOf(location.pathname) < 0 && <Navi allNotifications={allNotifications} />}
+      {exceptArray.indexOf(location.pathname) < 0 && (
+        <Navi allNotifications={allNotifications} />
+      )}
       {exceptArray.indexOf(location.pathname) < 0 && <Logo />}
       <div>
         {loading && <Loader type='spin' color='#ff9411' />}
@@ -211,23 +271,81 @@ function App() {
           <Route path='/YoutuberProfile' component={YoutuberProfile} />
           <Route path='/Youtuber/:current_page' component={Youtuber} />
           <Route path='/Ydetail/:board_id/:current_page' component={Ydetail} />
-          {/* 유튜버 or ADMIN */}
-          <RouteIf path='/YoutuberRegister' exact component={Yregister} authorities={authorities} />
+          {/* YOUTUBER or ADMIN */}
+          <RouteIf
+            path='/YoutuberRegister'
+            exact
+            component={Yregister}
+            authorities={authorities}
+            roles={[role[2], role[6]]} // path에 해당하는 권한
+          />
+          <Route
+            path='/YboardModify/:board_id/:current_page'
+            component={YmodifyTest}
+          />
+          {/* modify 안에서 본인인지 아닌지 확인 -> 주소 접근 막아야함 */}
 
-          <Route path='/YboardModify/:board_id/:current_page' component={YmodifyTest} />
           <Route path='/Eboard/:board_type/:current_page' component={Editer} />
-          <Route path='/EditorRegister/:board_type' component={EditorRegister} />
+          {/* GENERAL or ADMIN */}
+          <RouteIf
+            path='/EditorRegister/:board_type'
+            exact
+            component={EditorRegister}
+            authorities={authorities}
+            roles={[role[1], role[6]]}
+          />
 
-          <Route path='/EDetail/:board_type/:board_id/:current_page' component={EDetail} />
-          <Route path='/EboardModify/:board_type/:board_id/:current_page' component={EboardModify} />
-          <Route path='/Thboard/:board_type/:current_page' component={Thumbnailer} />
-          <Route path='/ThumbRegister/:board_type' component={ThumbRegister} />
-          <Route path='/ThumbDetail/:board_type/:board_id/:current_page' component={ThumbDetail} />
-          <Route path='/ThumbModify/:board_type/:board_id/:current_page' component={ThumbModify} />
-          <Route path='/Community/:board_type/:current_page' component={Winwin} />
-          <Route path='/BoardDetail/:board_type/:board_id/:current_page' component={Wdetail} />
-          <Route path='/BoardModify/:board_type/:board_id/:current_page' component={WModify} />
-          <Route path='/BoardRegister/:board_type' component={Wregister} />
+          <Route
+            path='/EDetail/:board_type/:board_id/:current_page'
+            component={EDetail}
+          />
+          <Route
+            path='/EboardModify/:board_type/:board_id/:current_page'
+            component={EboardModify}
+          />
+          {/* modify 안에서 본인인지 아닌지 확인 -> 주소 접근 막아야함 */}
+
+          <Route
+            path='/Thboard/:board_type/:current_page'
+            component={Thumbnailer}
+          />
+          {/* GENERAL or ADMIN */}
+          <RouteIf
+            path='/ThumbRegister/:board_type'
+            exact
+            authorities={authorities}
+            role={[role[1], role[6]]}
+            component={ThumbRegister}
+          />
+          <Route
+            path='/ThumbDetail/:board_type/:board_id/:current_page'
+            component={ThumbDetail}
+          />
+          <Route
+            path='/ThumbModify/:board_type/:board_id/:current_page'
+            component={ThumbModify}
+          />
+          {/* modify 안에서 본인인지 아닌지 확인 -> 주소 접근 막아야함 */}
+          <Route
+            path='/Community/:board_type/:current_page'
+            component={Winwin}
+          />
+          {/* GENERAL or ADMIN */}
+          <RouteIf
+            path='/BoardRegister/:board_type'
+            component={Wregister}
+            authorities={authorities}
+            role={[role[1], role[6]]}
+          />
+
+          <Route
+            path='/BoardDetail/:board_type/:board_id/:current_page'
+            component={Wdetail}
+          />
+          <Route
+            path='/BoardModify/:board_type/:board_id/:current_page'
+            component={WModify}
+          />
           <Route path='/SignUp1' component={SignUp1} />
           <Route path='/FindPassword' component={FindPassword} />
           <Route path='/ResetPassword' component={ResetPassword} />
