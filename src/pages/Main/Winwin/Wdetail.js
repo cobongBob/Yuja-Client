@@ -204,16 +204,16 @@ const Wdetail = ({ match }) => {
             <button onClick={goList}>목록</button>
           </div>
           <div className='comment-detail-title'>{wDetails.title}</div>
-          {userData && userData.id === wDetails.user.id ? (
-            <div className='comment-options-user'>
-              <button onClick={modifyBoard}>수정</button>
+          <div className='comment-options-user'>
+            {userData && userData.id === wDetails.user.id ? (
+              <>
+                <button onClick={modifyBoard}>수정</button>
+                <button onClick={deleteBoard}>삭제</button>
+              </>
+            ) : userData && wDetails.user && authorities.includes("ADMIN") ? (
               <button onClick={deleteBoard}>삭제</button>
-            </div>
-          ) : userData && wDetails.user && authorities.includes("ADMIN") ? (
-            <button className='detail-update-btn' onClick={deleteBoard}>
-              이력서 삭제하기
-            </button>
-          ) : null}
+            ) : null}
+          </div>
           <div>
             <div className='detail-show'>
               <div className='show-user-name'>작성자 {wDetails.user.username}</div>
