@@ -102,12 +102,13 @@ const ChannelBox = () => {
               <label htmlFor=''>구합니다.</label>
             </li>
             <li>
-              <span>
-                {detailData.career} / {detailData.recruitingNum}명
-              </span>
+              <span>모집자격 {detailData.career}</span>
             </li>
             <li>
-              <span>{detailData.payType} / </span>
+              <span> 모집인원 {detailData.recruitingNum}명</span>
+            </li>
+            <li>
+              <span>{detailData.payType} </span>
               <span>{detailData.payAmount}원</span>
             </li>
             <li>
@@ -126,6 +127,10 @@ const ChannelBox = () => {
             <li>
               <span>담당자 : </span>
               <span>{detailData.manager}</span>
+            </li>
+            <li>
+              <span>담당자연락처 : </span>
+              <span>{detailData.receptionMethod}</span>
             </li>
           </ul>
         </div>

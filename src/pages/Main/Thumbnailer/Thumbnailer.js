@@ -12,6 +12,7 @@ import {
 } from '../../../redux/board/editer/eboardReducer';
 import { ToastCenter } from '../../../modules/ToastModule';
 import { FaPaintBrush } from 'react-icons/fa';
+import { getEBoardWrittenBySelf } from '../../../apiService/EditerApiService';
 
 // nav에서 썸네일러를 누르면 보이는 전체 컴포넌트
 const Thumbnailer = ({ match, history }) => {
@@ -19,7 +20,7 @@ const Thumbnailer = ({ match, history }) => {
 
   // Youtuber의 전체 데이터 불러오기
   const thBoardData = useSelector((state) => state.EboardReducer);
-  const { userData } = useSelector((state) => state.loginReducer);
+  const { userData, authorities } = useSelector((state) => state.loginReducer);
   const board_type = useRef(match.params.board_type);
   const path = history.location.pathname;
   const lastPageNum = path.substr(path.lastIndexOf('/') + 1);
@@ -55,7 +56,15 @@ const Thumbnailer = ({ match, history }) => {
 
   const likeHandler = useCallback(
     (board_id) => {
-      if (userData && userData.id) {
+      if (
+        (userData &&
+          userData.id &&
+          authorities &&
+          authorities.includes('YOUTUBER')) ||
+        authorities.includes('EDITOR') ||
+        authorities.includes('THUMBNAILER') ||
+        authorities.includes('ADMIN')
+      ) {
         deleteLike(board_id, userData.id).then((res) => {
           dispatch(res);
         });
@@ -63,20 +72,39 @@ const Thumbnailer = ({ match, history }) => {
         ToastCenter('로그인 해주세요');
       }
     },
-    [userData, dispatch]
+    [userData, dispatch, authorities]
   );
+
   const dislikeHandler = useCallback(
     (board_id) => {
-      if (userData && userData.id) {
+      if (
+        (userData &&
+          userData.id &&
+          authorities &&
+          authorities.includes('YOUTUBER')) ||
+        authorities.includes('EDITOR') ||
+        authorities.includes('THUMBNAILER') ||
+        authorities.includes('ADMIN')
+      ) {
         addLike(board_id, userData.id).then((res) => {
           dispatch(res);
         });
       } else {
-        ToastCenter('로그인 해주세요');
+        ToastCenter('권한이 없습니다.');
       }
     },
-    [userData, dispatch]
+    [userData, dispatch, authorities]
   );
+
+  //해당 유저의 글 갯수
+  const [wrote, setWrote] = useState([]);
+  useEffect(() => {
+    if (userData && userData.id) {
+      getEBoardWrittenBySelf(userData.id, board_type.current).then((res) => {
+        setWrote(res.data);
+      });
+    }
+  }, [userData]);
 
   return thBoardData.loading && !thBoardData ? (
     <div className='loading'></div>
@@ -101,6 +129,7 @@ const Thumbnailer = ({ match, history }) => {
         currentPage={currentPage}
         likeHandler={likeHandler}
         dislikeHandler={dislikeHandler}
+        wrote={wrote}
       />
       <Pagination
         boardPerPage={boardPerPage}

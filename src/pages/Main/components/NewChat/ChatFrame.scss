@@ -1,0 +1,35 @@
+.chatFrameFrag {
+  margin-right: 1vw;
+  margin-left: 1vw;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  font-family: 'scdream4';
+  position: fixed;
+  z-index: 99;
+  left: 76%;
+  bottom: 11%;
+}
+.chatFrameOverlay {
+    margin: auto;
+    width: 100%;
+}
+
+/* 채팅 반응형 */
+@media screen and (max-width: 1480px) {
+  .chatFrameFrag {
+    margin-right: 1vw;
+    margin-left: 1vw;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-family: 'scdream4';
+    position: fixed;
+    z-index: 99;
+    left: 71.5%;
+    bottom: 11%;
+    width: 360px;
+  }
+  .chatFrameOverlay {
+    margin: auto;
+    width: 100%;
+  }
+}

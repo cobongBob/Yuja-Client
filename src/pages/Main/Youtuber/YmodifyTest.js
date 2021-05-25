@@ -20,6 +20,30 @@ const YmodifyTest = (props) => {
     [history]
   );
 
+  const checkboxCheck = (e) => {
+    if (e.target.checked) {
+      checkedlist.current.push(e.target.value);
+    } else {
+      const index = checkedlist.current.indexOf(e.target.value);
+      checkedlist.current.splice(index, 1);
+    }
+  };
+
+  const radioCheck = (e) => {
+    const { name, value } = e.target;
+    setInput((prevInput) => ({
+      ...prevInput,
+      [name]: value,
+    }));
+  };
+
+  const onChange = (e) => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const [input, setInput] = useState({
     title: '',
     channelName: '',
@@ -30,12 +54,16 @@ const YmodifyTest = (props) => {
     career: '',
     ywhen: '',
     expiredDate: '',
-    receptionType: '',
     manager: '',
     receptionMethod: '',
   });
+
   useEffect(() => {
     YapiService.fetchBoard(props.match.params.board_id).then((res) => {
+      if (!userData || userData.id !== res.data.user.id) {
+        ToastCenter('권한이 없습니다.');
+        return history.goBack();
+      }
       fileList.current = res.data.boardAttachFileNames;
       setQModiData(res.data.content);
       setInput(res.data);
@@ -80,30 +108,6 @@ const YmodifyTest = (props) => {
         Yhistory(res.data.id);
       }
     );
-  };
-
-  const checkboxCheck = (e) => {
-    if (e.target.checked) {
-      checkedlist.current.push(e.target.value);
-    } else {
-      const index = checkedlist.current.indexOf(e.target.value);
-      checkedlist.current.splice(index, 1);
-    }
-  };
-
-  const radioCheck = (e) => {
-    const { name, value } = e.target;
-    setInput((prevInput) => ({
-      ...prevInput,
-      [name]: value,
-    }));
-  };
-
-  const onChange = (e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
   };
 
   return (
@@ -352,10 +356,12 @@ const YmodifyTest = (props) => {
         </li>
         <li className='wanted-way'>
           <input
-            id='Ycontact'
+            id='YreceptionMethod'
+            name='receptionMethod'
             placeholder='담당자 연락처'
+            onChange={onChange}
             type='text'
-            value={input.Ycontact || ''}
+            value={input.receptionMethod || ''}
           />
         </li>
       </ul>

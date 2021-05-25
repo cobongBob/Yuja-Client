@@ -59,6 +59,7 @@ const Navi = ({ allNotifications }) => {
             고객센터
           </li>
         </Link>
+        {/*
         <Link to='/Chat'>
           <li
             className={pathname === '/Chat' ? 'nav-link-disabled' : 'nav-link'}
@@ -66,6 +67,7 @@ const Navi = ({ allNotifications }) => {
             채팅
           </li>
         </Link>
+        */}
         {authorities && authorities.includes('ADMIN') && (
           <>
             <Link to='/Admin/AdminUsers'>

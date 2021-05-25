@@ -9,7 +9,7 @@ import * as EditerApiService from '../../../apiService/EditerApiService';
 import './EditorDetail.scss';
 import ReactQuill from 'react-quill';
 import { AiFillStar, AiOutlineFileSearch, AiOutlineStar } from 'react-icons/ai';
-import { ToastTopRight } from '../../../modules/ToastModule';
+import { ToastCenter, ToastTopRight } from '../../../modules/ToastModule';
 import { Link, useHistory } from 'react-router-dom';
 import Report from '../components/Report';
 
@@ -18,7 +18,7 @@ const EDetail = ({ match }) => {
   const { current: pageNum } = useRef(match.params.current_page);
   const dispatch = useDispatch();
   const history = useHistory();
-  const { userData } = useSelector((state) => state.loginReducer);
+  const { userData, authorities } = useSelector((state) => state.loginReducer);
   const { detailData } = useSelector((state) => state.EboardReducer);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -42,20 +42,29 @@ const EDetail = ({ match }) => {
   };
 
   const likeHandler = useCallback(() => {
-    if (userData && userData.id) {
-      if (detailData && detailData.liked) {
-        deleteLike(match.params.board_id, userData.id).then((res) => {
-          dispatch(res);
-        });
+    if (userData && userData.id > 0) {
+      if (
+        (authorities && authorities.includes('YOUTUBER')) ||
+        authorities.includes('EDITOR') ||
+        authorities.includes('THUMBNAILER') ||
+        authorities.includes('ADMIN')
+      ) {
+        if (detailData && detailData.liked) {
+          deleteLike(match.params.board_id, userData.id).then((res) => {
+            dispatch(res);
+          });
+        } else {
+          addLike(match.params.board_id, userData.id).then((res) => {
+            dispatch(res);
+          });
+        }
       } else {
-        addLike(match.params.board_id, userData.id).then((res) => {
-          dispatch(res);
-        });
+        ToastCenter('권한이 없습니다.');
       }
     } else {
-      ToastTopRight('로그인 해주세요');
+      ToastCenter('로그인 해주세요');
     }
-  }, [userData, dispatch, match.params.board_id, detailData]);
+  }, [userData, dispatch, match.params.board_id, detailData, authorities]);
 
   return (
     detailData && (
@@ -72,19 +81,27 @@ const EDetail = ({ match }) => {
                 <div>
                   <Link
                     to={`/EboardModify/Editor/${detailData.id}/1`}
-                    className='detail-update-btn'
-                  >
+                    className='detail-update-btn'>
                     이력서 수정하기
                   </Link>
                   <button className='detail-update-btn' onClick={deleteBoard}>
                     이력서 삭제하기
                   </button>
                 </div>
+              ) : userData &&
+                detailData.user &&
+                authorities.includes('ADMIN') ? (
+                <button className='detail-update-btn' onClick={deleteBoard}>
+                  이력서 삭제하기
+                </button>
               ) : (
                 <Report
                   board_id={match.params.board_id}
                   modalIsOpen={modalIsOpen}
                   setModalIsOpen={setModalIsOpen}
+                  board_code={
+                    detailData.boardType && detailData.boardType.boardCode
+                  }
                 />
               )}
               <Link className='detail-update-btn' to={`/Eboard/Editor/1`}>
@@ -116,8 +133,7 @@ const EDetail = ({ match }) => {
             <li className='editordetail-content-profile-pic'>
               <img
                 src='/img/board_pic/thumbnailer_pic/thum2.PNG'
-                alt='썸네일'
-              ></img>
+                alt='썸네일'></img>
             </li>
             <li className='editordetail-content-hit'></li>
             <li className='editordetail-content-title'>{detailData.title}</li>
