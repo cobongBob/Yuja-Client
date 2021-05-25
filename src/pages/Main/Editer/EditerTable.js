@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Card } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import { format } from "date-fns";
@@ -6,20 +6,43 @@ import "../Youtuber/Ylist.scss";
 import BackToList from "../components/BackToList";
 import SortingToLiked from "../components/SortingToLiked";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { ToastCenter } from "../../../modules/ToastModule";
 
-export default function EditorTable({ eBoardData, board_type, currentPage, likeHandler, dislikeHandler, wrote }) {
+export default function EditorTable({
+  userData,
+  eBoardData,
+  board_type,
+  currentPage,
+  likeHandler,
+  dislikeHandler,
+  wrote,
+}) {
   const history = useHistory();
+  const writeBoard = useCallback(() => {
+    if (userData && userData.id > 0) {
+      history.push(`/EditorRegister/${board_type}`);
+    } else {
+      ToastCenter(`로그인 해주세요`);
+    }
+  }, [userData, history, board_type]);
+  const modifyBoard = useCallback(() => {
+    if (userData && userData.id > 0) {
+      history.push(`/EboardModify/Editor/${wrote[0].id}/1`);
+    } else {
+      ToastCenter(`로그인 해주세요`);
+    }
+  }, [userData, history, wrote]);
   return (
     <div className='card-container'>
       <div className='card-options'>
         {wrote.length === 0 ? (
-          <Link to={`/EditorRegister/${board_type}`} className='registerBtn'>
+          <button onClick={writeBoard} className='registerBtn'>
             이력서 등록하기
-          </Link>
+          </button>
         ) : (
-          <Link to={`/EboardModify/Editor/${wrote[0].id}/1`} className='detail-update-btn'>
+          <button onClick={modifyBoard} className='detail-update-btn'>
             이력서 수정하기
-          </Link>
+          </button>
         )}
       </div>
       <div className='card-options'>

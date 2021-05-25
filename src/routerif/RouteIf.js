@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Route, useHistory } from 'react-router-dom';
 import { ToastCenter } from '../modules/ToastModule';
-import PageNotFound from '../pages/Error/PageNotFound';
 
 const RouteIf = ({ authorities, roles, component: Component, ...rest }) => {
   const { userData } = useSelector((state) => state.loginReducer);
