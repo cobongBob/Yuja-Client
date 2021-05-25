@@ -82,8 +82,8 @@ const Navi = ({ allNotifications }) => {
           </>
         )}
         <li className='nav-login'>
-          <LoginModal />
           <NotificationDropdown allNotifications={allNotifications} />
+          <LoginModal />
         </li>
       </ul>
     </div>
