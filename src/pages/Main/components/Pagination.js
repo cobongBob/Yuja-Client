@@ -17,13 +17,13 @@ export default function Pagination(props) {
   }
 
   const prevBtn = () => {
-    if (currentPage === 1) return;
+    if (Number(currentPage) === 1) return;
     clickPage(currentPage - 1);
   };
 
   const nextBtn = () => {
-    if (currentPage === endPages) return;
-    clickPage(currentPage + 1);
+    if (Number(currentPage) === endPages) return;
+    clickPage(Number(currentPage) + 1);
   };
 
   return (
