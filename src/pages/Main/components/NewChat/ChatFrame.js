@@ -10,7 +10,7 @@ const ChatFrame = (props) => {
        <React.Fragment>
          <div className='chatFrameFrag'>
            <div className='chatFrameOverlay'>
-             <SmallChat />
+             <SmallChat/>
            </div>
          </div>
        </React.Fragment>

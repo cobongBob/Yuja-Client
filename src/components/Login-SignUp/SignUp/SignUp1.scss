@@ -12,15 +12,6 @@
   width: 10%;
   margin: 2em 0 1em 2em;
 }
-.signUpBar {
-  background-color: #ffb963;
-  width: 60%;
-  height: 10px;
-  margin-bottom: 1%;
-  margin-left: 20%;
-  text-align: center;
-  border-radius: 12px;
-}
 /* 콘텐츠 박스 */
 .contentBox {
 }
@@ -29,12 +20,10 @@
   align-items: center;
 }
 .contentBox2 {
-  margin-top: 2%;
   text-align: center;
   align-content: center;
 }
 .contentBox3 {
-  margin-top: 2%;
 }
 /* 선택 /필수 입력 정보입니다, 제목 */
 .required {
@@ -396,6 +385,35 @@ SignUp1 > input[type='number']::-webkit-outer-spin-button,
 input[type='number']::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.signUpBar {
+  text-align: center;
+  margin-bottom: 1%;
+  .dot1 {
+    width:10px;
+    height:10px;
+    background-color: #ffb963;
+    border-radius: 50%;
+    display: inline-block;
+    margin:10px;
+  }
+  .dot2 {
+    width:10px;
+    height:10px;
+    background-color: darkgray;
+    border-radius: 50%;
+    display: inline-block;
+    margin:10px;
+  }
+  .dot3 {
+    width:10px;
+    height:10px;
+    background-color: darkgray;
+    border-radius: 50%;
+    display: inline-block;
+    margin:10px;
+  }
 }
 
 /* 회원가입 전체 페이지 반응형 */
