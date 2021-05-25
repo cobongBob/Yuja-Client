@@ -72,7 +72,7 @@ const Svideo = () => {
                   <div className='item item_red'>
                     <div className='top'>{video.user.nickname}</div>
                     <div className='bottom'>{video.title}</div>
-                    <img src='/img/board_pic/editor_pic/thum5.png' alt='' />
+                    <img src={video.previewImage} alt='' />
                   </div>
                 </div>
               </div>
