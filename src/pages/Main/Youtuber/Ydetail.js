@@ -38,7 +38,7 @@ const Ydetail = ({ match }) => {
 
   const deleteBoard = () => {
     YapiService.deleteBoard(match.params.board_id).then((res) => {
-      history.push('/Youtuber');
+      history.push('/Youtuber/1');
     });
   };
 
