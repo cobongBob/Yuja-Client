@@ -601,6 +601,11 @@ const Agreement = ({ location }) => {
 
   return (
     <div className='contentBox3'>
+      <div className="signUpBar">
+        <div className="dot1"></div>
+        <div className="dot2"></div>
+        <div className="dot3"></div>
+      </div>
       <div className='dotBox'>
         <div className='dot1' />
         <div className='dot2' />
