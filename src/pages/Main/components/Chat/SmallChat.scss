@@ -9,7 +9,7 @@
 }
 
 .small_chat_frame_wrapper {
-  min-height: 35vh;
+  min-height: 40vh;
   margin-left: auto;
   margin-right: auto;
 }
@@ -17,7 +17,7 @@
 .small_chat_frame > iframe {
   font-family: "scdream5";
   width: 100%;
-  min-height: 90vh;
+  min-height: 60vh;
   background-color: white;
-  border: 2px solid black;
+  border: 2px solid orangered;
 }

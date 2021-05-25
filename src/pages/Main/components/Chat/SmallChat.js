@@ -10,7 +10,12 @@ const SmallChat = () => {
       <div className='small_chat_frame_wrapper'>
         <div className='small_chat_frame'>
           {userData.id ? (
-            <iframe className='chattingFrame' src='http://localhost:8888/rooms' title='YujaChat'></iframe>
+            <iframe
+              className='chattingFrame'
+              src='http://localhost:8888/rooms'
+              title='YujaChat'
+            >
+            </iframe>
           ) : (
             <h1>로그인해주세요</h1>
           )}
