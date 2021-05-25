@@ -51,10 +51,10 @@ export const BoardTypeConvertUrl = (reportedBoardCode, reportedBoardId) => {
   const reportedBoardType = BoardTypeConvertReverse(reportedBoardCode);
   if (reportedBoardCode === 1) {
     boardUrl = `/Ydetail/${reportedBoardId}`;
-  } else if (reportedBoardId === 2) {
+  } else if (reportedBoardCode === 2) {
     boardUrl = `/EDetail/Editor/${reportedBoardId}/1`;
-  } else if (reportedBoardId === 3) {
-    boardUrl = `ThumbDetail/Thumb/${reportedBoardId}/1`;
+  } else if (reportedBoardCode === 3) {
+    boardUrl = `/ThumbDetail/Thumb/${reportedBoardId}/1`;
   } else {
     boardUrl = `/BoardDetail/${reportedBoardType}/${reportedBoardId}/1`;
   }

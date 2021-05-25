@@ -15,7 +15,6 @@ const YmodifyTest = (props) => {
   const checkedlist = useRef([]);
   const current_page = useRef(props.match.params.current_page);
   const history = useHistory();
-
   let Yhistory = useCallback(
     (board_id) => history.push(`/Ydetail/${board_id}/${current_page.current}`),
     [history]

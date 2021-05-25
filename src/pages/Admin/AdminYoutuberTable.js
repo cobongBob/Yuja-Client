@@ -44,14 +44,15 @@ const AdminYoutuberTable = ({ currentData, promoteUser, rejectUser }) => {
           <tbody>
             {currentData &&
               currentData.map((youtuber, idx) => (
-                <tr key={idx}>
+                <tr key={idx} onClick={openModal}>
                   <td>{youtuber.youtubeConfirmId}</td>
                   <td>{youtuber.user.username}</td>
                   <td>{youtuber.user.nickname}</td>
-                  <td className='img_wrapper' onClick={openModal}>
+                  <td className='img_wrapper'>
                     <img
                       src={`http://localhost:8888/files/youtubeConfirm/${youtuber.youtubeConfirmImg}`}
                       alt='컨펌이미지'
+                      className='Admin_confirm_small'
                     ></img>
                   </td>
                   <Modal
