@@ -15,10 +15,35 @@ const YmodifyTest = (props) => {
   const checkedlist = useRef([]);
   const current_page = useRef(props.match.params.current_page);
   const history = useHistory();
+
   let Yhistory = useCallback(
     (board_id) => history.push(`/Ydetail/${board_id}/${current_page.current}`),
     [history]
   );
+
+  const checkboxCheck = (e) => {
+    if (e.target.checked) {
+      checkedlist.current.push(e.target.value);
+    } else {
+      const index = checkedlist.current.indexOf(e.target.value);
+      checkedlist.current.splice(index, 1);
+    }
+  };
+
+  const radioCheck = (e) => {
+    const { name, value } = e.target;
+    setInput((prevInput) => ({
+      ...prevInput,
+      [name]: value,
+    }));
+  };
+
+  const onChange = (e) => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const [input, setInput] = useState({
     title: '',
@@ -30,10 +55,10 @@ const YmodifyTest = (props) => {
     career: '',
     ywhen: '',
     expiredDate: '',
-    receptionType: '',
     manager: '',
     receptionMethod: '',
   });
+
   useEffect(() => {
     YapiService.fetchBoard(props.match.params.board_id).then((res) => {
       if (!userData || userData.id !== res.data.user.id) {
@@ -84,30 +109,6 @@ const YmodifyTest = (props) => {
         Yhistory(res.data.id);
       }
     );
-  };
-
-  const checkboxCheck = (e) => {
-    if (e.target.checked) {
-      checkedlist.current.push(e.target.value);
-    } else {
-      const index = checkedlist.current.indexOf(e.target.value);
-      checkedlist.current.splice(index, 1);
-    }
-  };
-
-  const radioCheck = (e) => {
-    const { name, value } = e.target;
-    setInput((prevInput) => ({
-      ...prevInput,
-      [name]: value,
-    }));
-  };
-
-  const onChange = (e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
   };
 
   return (
@@ -356,10 +357,12 @@ const YmodifyTest = (props) => {
         </li>
         <li className='wanted-way'>
           <input
-            id='Ycontact'
+            id='YreceptionMethod'
+            name='receptionMethod'
             placeholder='담당자 연락처'
+            onChange={onChange}
             type='text'
-            value={input.Ycontact || ''}
+            value={input.receptionMethod || ''}
           />
         </li>
       </ul>

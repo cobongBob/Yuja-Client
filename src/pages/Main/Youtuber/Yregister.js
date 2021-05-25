@@ -87,9 +87,8 @@ const Yregister = () => {
     career: '',
     ywhen: '',
     expiredDate: '',
-    receptionType: '',
     manager: '',
-    Ycontact: '',
+    receptionMethod: '',
     tools: checkedlist.current,
   });
 
@@ -323,9 +322,10 @@ const Yregister = () => {
         </li>
         <li className='wanted-way'>
           <input
-            id='Ycontact'
+            id='YreceptionMethod'
+            onChange={onChange}
             placeholder='담당자 연락처'
-            name='Ycontact'
+            name='receptionMethod'
             type='text'
           />
         </li>
