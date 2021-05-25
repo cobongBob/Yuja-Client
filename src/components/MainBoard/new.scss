@@ -21,15 +21,6 @@
   display: inline-block;
 }
 
-.ListTitle {
-  display: inline-block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* 라인수 */
-  -webkit-box-orient: vertical;
-}
-
 .editor-profile {
   border: 10px solid #3d5ba5;
   border-radius: 50%;
@@ -45,17 +36,28 @@
 }
 
 .wanted-content {
-  max-width: 20vw;
-  max-height: 12vh;
   font-family: 'scdream5';
 }
 
 .wanted-content-detail {
   margin-top: 1%;
-  float: left;
   font-size: 1.3rem;
   margin-bottom: 0;
   padding-right: 2%;
+}
+
+.ListTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 라인수 */
+  -webkit-box-orient: vertical;
+}
+
+.TitleWrapper {
+  display: inline-block;
+  max-width: 19vw;
+  margin-bottom: 1%;
 }
 
 .NewList {
@@ -77,10 +79,6 @@
   text-align: left;
   vertical-align: middle;
   border-bottom: 3px solid #dddddd;
-}
-.TitleWrapper {
-  display: inline-block;
-  max-width: 19vw;
 }
 
 .wanted-name {
