@@ -213,7 +213,7 @@ const NonRequired = ({ location, history }) => {
       let checkContent = e.target.value;
       if (checkContent !== "" &&
         checkContent.startsWith("https://www.youtube.com/") &&
-        checkContent.indexOf("channel") > -1 &&
+        checkContent.indexOf("c" || "channel") > -1 &&
         !checkContent.endsWith("/featured")
       ) {
         setIsPermalinkFill("");
@@ -232,10 +232,14 @@ const NonRequired = ({ location, history }) => {
 
   return (
     <div className='contentBox2'>
+      <div className="signUpBar">
+        <div className="dot2"></div>
+        <div className="dot3"></div>
+        <div className="dot1"></div>
+      </div>
       <div className='overlay'>
         <div className='required2'>* 선택입력 정보입니다.</div>
         <table className='signUpTable'>
-
           <tr>
             <td>
               <div className='labelWrapper'>
@@ -247,7 +251,7 @@ const NonRequired = ({ location, history }) => {
                   className='signUpProfilePic'
                   type='file'
                   name='profile_img'
-                  accept='image/jpeg, image/jpg, img/png'
+                  accept='image/jpeg, image/jpg, image/png'
                   placeholder='프로필 사진'
                   onChange={handleFileOnChange}
                 />
@@ -355,7 +359,7 @@ const NonRequired = ({ location, history }) => {
                   className='youtuberPicInput'
                   id='youtuberPicInput'
                   type='file'
-                  accept='image/jpeg, image/jpg, img/png'
+                  accept='image/jpeg, image/jpg, image/png'
                   onChange={handleFileOnChange2}
                 />
               </div>
