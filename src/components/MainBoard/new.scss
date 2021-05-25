@@ -1,16 +1,21 @@
 .new-youtuber {
   width: 95%;
-  min-height: 12vh;
   background-color: white;
   border-radius: 10px;
   display: inline-block;
   list-style: none;
 }
+
+.ProfileWrapper {
+  display: flex;
+  align-items: center;
+}
+
 .user-profile-pic {
   display: inline-block;
-  margin-top: 7.5%;
   margin-left: 3%;
-  margin-right: 3%;
+  margin-right: 2%;
+  vertical-align: middle;
 }
 
 .youtuber-profile {
@@ -19,6 +24,20 @@
   background-color: #c4302b;
   color: white;
   display: inline-block;
+}
+
+.wanted-content {
+  font-family: 'scdream5';
+  display: inline-block;
+  padding: 1%;
+}
+
+.wanted-content-detail {
+  margin-top: 1%;
+  max-width: 18vw;
+  font-size: 1.3rem;
+  margin-bottom: 0;
+  padding-right: 2%;
 }
 
 .editor-profile {
@@ -35,29 +54,20 @@
   color: white;
 }
 
-.wanted-content {
-  font-family: 'scdream5';
-}
-
-.wanted-content-detail {
-  margin-top: 1%;
-  font-size: 1.3rem;
-  margin-bottom: 0;
-  padding-right: 2%;
-}
-
 .ListTitle {
-  overflow: hidden;
-  text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2; /* 라인수 */
   -webkit-box-orient: vertical;
+  // display: inline-block;
+  // white-space: nowrap;
+  overflow: hidden;
+  max-width: 18vw;
+  text-overflow: ellipsis;
 }
 
 .TitleWrapper {
-  display: inline-block;
   max-width: 19vw;
-  margin-bottom: 1%;
+  padding-right: 1%;
 }
 
 .NewList {
@@ -65,10 +75,6 @@
   margin-top: 5%;
   margin-bottom: 5%;
   text-align: center;
-}
-
-.ProfileWrapper {
-  display: flex;
 }
 
 .NameWorkerWrapper {
