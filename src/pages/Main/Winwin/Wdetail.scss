@@ -10,6 +10,11 @@
   margin-bottom: 1rem;
 }
 
+.comment-content > ul {
+  list-style: none;
+  padding-left: 0;
+}
+
 .comment-options {
   display: block;
   text-align: right;
@@ -51,9 +56,6 @@
   border-radius: 20px;
 }
 
-.comment-register-title {
-  float: left;
-}
 .comment-register-title > input[type='text'] {
   margin-top: 1rem;
   margin-right: 1rem;
@@ -68,21 +70,20 @@
   &:focus {
     outline: 0;
     border: none;
-    border-bottom: 4px solid black;
+    border-bottom: 4px solid #ff9411;
   }
 }
 
 .secret-option {
   font-family: scdream5;
-  display: block;
+  display: inline-block;
   font-size: 20px;
-  padding-top: 2rem;
-  float: rigth;
 }
 
 .comment-register-title > h2 {
   font-weight: bold;
   margin-bottom: 0.5rem;
+  text-align: left;
 }
 
 .detail-show {
