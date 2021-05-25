@@ -37,8 +37,7 @@ const YoutuberTable = ({
                 onClick={() =>
                   history.push(`/Ydetail/${data.id}/${currentPage}`)
                 }
-                src='/img/board_pic/thumbnailer_pic/thum3.PNG'
-              ></Card.Img>
+                src='/img/board_pic/thumbnailer_pic/thum3.PNG'></Card.Img>
               <Card.Header>
                 <Card.Title>
                   <div>
@@ -54,16 +53,14 @@ const YoutuberTable = ({
                     {data && data.liked ? (
                       <button
                         onClick={() => likeHandler(data.id)}
-                        className='starButton'
-                      >
+                        className='starButton'>
                         <AiFillStar size={30} />
                         <span>{data.likes}</span>
                       </button>
                     ) : (
                       <button
                         onClick={() => dislikeHandler(data.id)}
-                        className='starButton'
-                      >
+                        className='starButton'>
                         <AiOutlineStar size={30} />
                         <span>{data.likes}</span>
                       </button>

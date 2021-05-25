@@ -19,6 +19,7 @@ const Youtuber = ({ match }) => {
   // Youtuber의 전체 데이터 불러오기
   const yBoardData = useSelector((state) => state.YboardReducer);
   const { userData } = useSelector((state) => state.loginReducer);
+  const { authorities } = useSelector((state) => state.loginReducer);
   const [searchTerm, setSearchTerm] = useState('');
   const board_type = useRef('Youtuber');
   //페이징 처리하기
@@ -50,7 +51,15 @@ const Youtuber = ({ match }) => {
 
   const likeHandler = useCallback(
     (board_id) => {
-      if (userData && userData.id) {
+      if (
+        (userData &&
+          userData.id &&
+          authorities &&
+          authorities.includes('YOUTUBER')) ||
+        authorities.includes('EDITOR') ||
+        authorities.includes('THUMBNAILER') ||
+        authorities.includes('ADMIN')
+      ) {
         deleteLike(board_id, userData.id).then((res) => {
           dispatch(res);
         });
@@ -62,12 +71,20 @@ const Youtuber = ({ match }) => {
   );
   const dislikeHandler = useCallback(
     (board_id) => {
-      if (userData && userData.id) {
+      if (
+        (userData &&
+          userData.id &&
+          authorities &&
+          authorities.includes('YOUTUBER')) ||
+        authorities.includes('EDITOR') ||
+        authorities.includes('THUMBNAILER') ||
+        authorities.includes('ADMIN')
+      ) {
         addLike(board_id, userData.id).then((res) => {
           dispatch(res);
         });
       } else {
-        ToastCenter('로그인 해주세요');
+        ToastCenter('권한이 없습니다.');
       }
     },
     [userData, dispatch]
