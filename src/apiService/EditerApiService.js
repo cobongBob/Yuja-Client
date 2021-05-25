@@ -48,3 +48,11 @@ export const addThumb = async (data, config, board_type) => {
   board_code = BoardTypeConvert(board_type);
   return await instance({ url: `${board_code}/thumbnail/upload`, method: "post", data: data, config: config });
 };
+
+export const getEBoardWrittenBySelf = async (userId, board_type) => {
+  board_code = BoardTypeConvert(board_type);
+  return await instance({
+    url: `/user/board/${board_code}/${userId}`,
+    method: "get",
+  });
+};

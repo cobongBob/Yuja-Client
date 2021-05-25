@@ -20,9 +20,8 @@ Modal.setAppElement('#root');
 const Ydetail = ({ match }) => {
   console.log(22222, match);
   const dispatch = useDispatch();
-  const { userData } = useSelector((state) => state.loginReducer);
+  const { userData, authorities } = useSelector((state) => state.loginReducer);
   const { detailData } = useSelector((state) => state.YboardReducer);
-  const { authorities } = useSelector((state) => state.loginReducer);
   const history = useHistory();
   // 신고하기 modal 쓸때마다 해당 component 에서 선언해줘야함
   const current_page = useRef(match.params.current_page);
@@ -44,29 +43,29 @@ const Ydetail = ({ match }) => {
   };
 
   const likeHandler = useCallback(() => {
-    if (
-      (userData &&
-        userData.id &&
-        authorities &&
-        authorities.includes('YOUTUBER')) ||
-      authorities.includes('EDITOR') ||
-      authorities.includes('THUMBNAILER') ||
-      authorities.includes('ADMIN')
-    ) {
-      if (detailData && detailData.liked) {
-        deleteLike(match.params.board_id, userData.id).then((res) => {
-          dispatch(res);
-        });
+    if (userData && userData.id > 0) {
+      if (
+        (authorities && authorities.includes('YOUTUBER')) ||
+        authorities.includes('EDITOR') ||
+        authorities.includes('THUMBNAILER') ||
+        authorities.includes('ADMIN')
+      ) {
+        if (detailData && detailData.liked) {
+          deleteLike(match.params.board_id, userData.id).then((res) => {
+            dispatch(res);
+          });
+        } else {
+          addLike(match.params.board_id, userData.id).then((res) => {
+            dispatch(res);
+          });
+        }
       } else {
-        addLike(match.params.board_id, userData.id).then((res) => {
-          dispatch(res);
-        });
+        ToastCenter('권한이 없습니다.');
       }
     } else {
-      ToastCenter('권한이 없습니다.');
-      //로그인 창으로
+      ToastCenter('로그인 해주세요');
     }
-  }, [userData, dispatch, match.params.board_id, detailData]);
+  }, [userData, dispatch, match.params.board_id, detailData, authorities]);
 
   return (
     detailData && (

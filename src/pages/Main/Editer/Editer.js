@@ -7,6 +7,7 @@ import { addLike, deleteLike, getEBoards, getFilterData } from "../../../redux/b
 import Search from "../components/Search";
 import { ToastCenter } from "../../../modules/ToastModule";
 import { RiScissorsCutFill } from "react-icons/ri";
+import { getEBoardWrittenBySelf } from "../../../apiService/EditerApiService";
 
 const Editer = ({ match, history }) => {
   const dispatch = useDispatch();
@@ -67,6 +68,16 @@ const Editer = ({ match, history }) => {
     [userData, dispatch]
   );
 
+  //해당 유저의 글 갯수
+  const [wrote, setWrote] = useState([]);
+  useEffect(() => {
+    if (userData && userData.id) {
+      getEBoardWrittenBySelf(userData.id, board_type.current).then((res) => {
+        setWrote(res.data);
+      });
+    }
+  }, [userData]);
+
   return eBoardData.loading && !eBoardData ? (
     <div className='loading'></div>
   ) : eBoardData.err ? (
@@ -90,6 +101,7 @@ const Editer = ({ match, history }) => {
         currentPage={currentPage}
         likeHandler={likeHandler}
         dislikeHandler={dislikeHandler}
+        wrote={wrote}
       />
       <Pagination
         boardPerPage={boardPerPage}
