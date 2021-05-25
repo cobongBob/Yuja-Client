@@ -13,9 +13,10 @@ const YmodifyTest = (props) => {
   const [qModiData, setQModiData] = useState();
   const fileList = useRef([]);
   const checkedlist = useRef([]);
+  const current_page = useRef(props.match.params.current_page);
   const history = useHistory();
   let Yhistory = useCallback(
-    (board_id) => history.push(`/Ydetail/${board_id}`),
+    (board_id) => history.push(`/Ydetail/${board_id}/${current_page.current}`),
     [history]
   );
 
@@ -68,7 +69,7 @@ const YmodifyTest = (props) => {
       tools: checkedlist.current,
       content: qModiData.replaceAll(
         `src="http://localhost:8888/files/temp/`,
-        `src="http://localhost:8888/files/YoutuberBoard/`
+        `src="http://localhost:8888/files/Youtuber/`
       ),
       thumbnail: '썸네일 수정 테스트',
       boardAttachIds: addingFileList.current,
@@ -365,6 +366,7 @@ const YmodifyTest = (props) => {
           addingFileList={addingFileList}
           qModiData={qModiData}
           setQModiData={setQModiData}
+          board_type='Youtuber'
         />
       </div>
     </div>

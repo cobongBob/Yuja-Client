@@ -1,36 +1,42 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import getFormatDate from "../../../modules/getFormatDate";
-import { MdFiberNew } from "react-icons/md";
-import { RiGitRepositoryPrivateFill } from "react-icons/ri";
-import SortingDate from "../components/Community/SortingDate";
-import SortingHit from "../components/Community/SortingHit";
-import SortingLike from "../components/Community/SortingLike";
-import SortingComment from "../components/Community/SortingComment";
-import "./Winwin.scss";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import getFormatDate from '../../../modules/getFormatDate';
+import { MdFiberNew } from 'react-icons/md';
+import { RiGitRepositoryPrivateFill } from 'react-icons/ri';
+import SortingDate from '../components/Community/SortingDate';
+import SortingHit from '../components/Community/SortingHit';
+import SortingLike from '../components/Community/SortingLike';
+import SortingComment from '../components/Community/SortingComment';
+import './Winwin.scss';
 
-const WinTable = ({ currentData, board_type, lastIdx, currentPage, allNotices }) => {
-  let board_name = "";
+const WinTable = ({
+  currentData,
+  board_type,
+  lastIdx,
+  currentPage,
+  allNotices,
+}) => {
+  let board_name = '';
   switch (board_type) {
-    case "Winwin":
-      board_name = "윈윈";
+    case 'Winwin':
+      board_name = '성장';
       break;
-    case "Collabo":
-      board_name = "합방해요";
+    case 'Collabo':
+      board_name = '합방';
       break;
-    case "CustomService":
-      board_name = "건의게시판";
+    case 'CustomService':
+      board_name = '건의';
       break;
-    case "Free":
-      board_name = "자유게시판";
+    case 'Free':
+      board_name = '자유';
       break;
     default:
-      board_name = "???";
+      board_name = '???';
       break;
   }
   return (
     <div className='table-Wrapper'>
-      <h2>{board_name}</h2>
+      <h2>{board_name}게시판</h2>
       <div className='community-options'>
         <Link to={`/BoardRegister/${board_type}`} className='registerBtn'>
           글쓰기
@@ -62,11 +68,18 @@ const WinTable = ({ currentData, board_type, lastIdx, currentPage, allNotices })
                     <tr key={notice.id} className='community_notice'>
                       <td>{idx + 1}</td>
                       <td>
-                        <Link className='table_link' to={`/BoardDetail/${board_type}/${notice.id}/${currentPage}`}>
+                        <Link
+                          className='table_link'
+                          to={`/BoardDetail/${board_type}/${notice.id}/${currentPage}`}
+                        >
                           {notice.title}
-                          <span className='commentNum'> [{notice.comments}] </span>
+                          <span className='commentNum'>
+                            {' '}
+                            [{notice.comments}]{' '}
+                          </span>
                         </Link>
-                        {notice.createDate.substr(0, 10) === getFormatDate(new Date()) ? (
+                        {notice.createDate.substr(0, 10) ===
+                        getFormatDate(new Date()) ? (
                           <MdFiberNew className='new_icon' size='25' />
                         ) : null}
                       </td>
@@ -84,14 +97,19 @@ const WinTable = ({ currentData, board_type, lastIdx, currentPage, allNotices })
                 <tr key={board.id}>
                   <td>{lastIdx - idx}</td>
                   <td>
-                    {board.isPrivate && board.boardType.boardName !== "NoticeBoard" ? (
+                    {board.isPrivate &&
+                    board.boardType.boardName !== 'NoticeBoard' ? (
                       <RiGitRepositoryPrivateFill />
                     ) : null}
-                    <Link className='table_link' to={`/BoardDetail/${board_type}/${board.id}/${currentPage}`}>
+                    <Link
+                      className='table_link'
+                      to={`/BoardDetail/${board_type}/${board.id}/${currentPage}`}
+                    >
                       {board.title}
                       <span className='commentNum'> [{board.comments}] </span>
                     </Link>
-                    {board.createDate.substr(0, 10) === getFormatDate(new Date()) ? (
+                    {board.createDate.substr(0, 10) ===
+                    getFormatDate(new Date()) ? (
                       <MdFiberNew className='new_icon' size='25' />
                     ) : null}
                   </td>

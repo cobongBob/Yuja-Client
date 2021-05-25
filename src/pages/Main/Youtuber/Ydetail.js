@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import * as YapiService from "../../../apiService/YapiService";
 import "./Ydetail.scss";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { AiOutlineFileSearch } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import ReactQuill from "react-quill";
 import ChannelBox from "./api_practice/ChannelBox";
 import { getDetailData, addLike, deleteLike } from "../../../redux/board/youtube/yboardReducer";
@@ -13,37 +13,39 @@ import Report from "../components/Report";
 import { ToastCenter } from "../../../modules/ToastModule";
 
 Modal.setAppElement("#root");
-const Ydetail = (props) => {
+const Ydetail = ({ match }) => {
+  console.log(22222, match);
   const dispatch = useDispatch();
   const { userData } = useSelector((state) => state.loginReducer);
   const { detailData } = useSelector((state) => state.YboardReducer);
-
+  const history = useHistory();
   // 신고하기 modal 쓸때마다 해당 component 에서 선언해줘야함
+  const current_page = useRef(match.params.current_page);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
-    const board_id = props.match.params.board_id;
+    const board_id = match.params.board_id;
     if (board_id) {
       getDetailData(board_id).then((res) => {
         dispatch(res);
       });
     }
-  }, [dispatch, props.match.params.board_id, userData]);
+  }, [dispatch, match.params.board_id, userData]);
 
   const deleteBoard = () => {
-    YapiService.deleteBoard(props.match.params.board_id).then((res) => {
-      props.history.push("/Youtuber");
+    YapiService.deleteBoard(match.params.board_id).then((res) => {
+      history.push("/Youtuber");
     });
   };
 
   const likeHandler = useCallback(() => {
     if (userData && userData.id) {
       if (detailData && detailData.liked) {
-        deleteLike(props.match.params.board_id, userData.id).then((res) => {
+        deleteLike(match.params.board_id, userData.id).then((res) => {
           dispatch(res);
         });
       } else {
-        addLike(props.match.params.board_id, userData.id).then((res) => {
+        addLike(match.params.board_id, userData.id).then((res) => {
           dispatch(res);
         });
       }
@@ -51,7 +53,7 @@ const Ydetail = (props) => {
       ToastCenter("로그인 해주세요");
       //로그인 창으로
     }
-  }, [userData, dispatch, props.match.params.board_id, detailData]);
+  }, [userData, dispatch, match.params.board_id, detailData]);
 
   return (
     detailData && (
@@ -72,7 +74,10 @@ const Ydetail = (props) => {
                   <div className='detail-btn-box'>
                     {userData && detailData.user && userData.id === detailData.user.id ? (
                       <div>
-                        <Link to={`/YmodifyTest/${detailData.id}`} className='detail-update-btn'>
+                        <Link
+                          to={`/YboardModify/${detailData.id}/${current_page.current}`}
+                          className='detail-update-btn'
+                        >
                           공고 수정하기
                         </Link>
                         <button className='detail-update-btn' onClick={deleteBoard}>
@@ -80,12 +85,12 @@ const Ydetail = (props) => {
                         </button>
                       </div>
                     ) : null}
-                    <Link className='detail-update-btn' to='/Youtuber'>
+                    <Link className='detail-update-btn' to={`/Youtuber/${current_page.current}`}>
                       목록보기
                     </Link>
                     {/* 모달 열리는 부분 */}
                     <Report
-                      board_id={props.match.params.board_id}
+                      board_id={match.params.board_id}
                       modalIsOpen={modalIsOpen}
                       setModalIsOpen={setModalIsOpen}
                       board_code={detailData.boardType && detailData.boardType.boardCode}

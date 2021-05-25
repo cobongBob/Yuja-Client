@@ -1,12 +1,12 @@
 import React, { Component, FC } from 'react';
 
-interface Props {
-  path: string | string[];
-  component: FC;
-  fallBack: FC;
-  exact?: boolean;
-  authId: number;
-}
+// interface Props {
+//   path: string | string[];
+//   component: FC;
+//   fallBack: FC;
+//   exact?: boolean;
+//   authId: number;
+// }
 
 // export const RestrictRoute = ({
 //   component: Component,

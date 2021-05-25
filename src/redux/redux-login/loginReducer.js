@@ -51,7 +51,7 @@ export const userCheck = async () => {
 /* 초기값 */
 const initialState = {
   userLoginStatus: false,
-  userData: "",
+  userData: { id: 0 },
   authorities: [],
 };
 
