@@ -147,7 +147,7 @@ function App() {
         } else if (notification.type === "rejectNoti" && notification.resipeint.id === userData.id) {
           ToastAlertNoDupl(`유튜버로 등록이 거절되었습니다. 신청 절차를 다시 확인해주세요.`);
         }
-        if (notification.resipeint === userData.id) {
+        if (notification.resipeint.id === userData.id) {
           deleteNotifications(notification.notiId);
         }
       });
