@@ -162,8 +162,8 @@ const YmodifyTest = (props) => {
             id='both'
             onChange={radioCheck}
             name='worker'
-            value='편집자 + 썸네일러'
-            checked={input.worker === '영상편집자 + 썸네일러'}
+            value='편집자+썸네일러'
+            checked={input.worker === '편집자+썸네일러'}
           />
           <label htmlFor='both'>편집자+썸네일러</label>
         </li>
