@@ -72,29 +72,23 @@ const Yregister = () => {
     }));
   });
 
-  const onChange = useCallback(
-    (e) => {
-      setInput({
-        ...input,
-        [e.target.name]: e.target.value,
-      });
-    },
-    [input]
-  );
+  const onChange = useCallback((e) => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+  });
 
   const checkedlist = useRef([]);
 
-  const checkboxCheck = useCallback(
-    (e) => {
-      if (e.target.checked) {
-        checkedlist.current.push(e.target.value);
-      } else {
-        const index = checkedlist.current.indexOf(e.target.value);
-        checkedlist.current.splice(index, 1);
-      }
-    },
-    [input]
-  );
+  const checkboxCheck = useCallback((e) => {
+    if (e.target.checked) {
+      checkedlist.current.push(e.target.value);
+    } else {
+      const index = checkedlist.current.indexOf(e.target.value);
+      checkedlist.current.splice(index, 1);
+    }
+  });
 
   const [input, setInput] = useState({
     title: '',
