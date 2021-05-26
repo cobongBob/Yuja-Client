@@ -30,8 +30,10 @@ const EDetail = ({ match }) => {
         let previewImageUrl = res.data.previewImage;
         if (previewImageUrl) {
           let idx = previewImageUrl.indexOf("com/vi/") + 7;
-          let youtubeCode = previewImageUrl.substr(idx, 11);
-          setRepresentVideo(youtubeCodeToIframe(youtubeCode));
+          if (idx >= 7) {
+            let youtubeCode = previewImageUrl.substr(idx, 11);
+            setRepresentVideo(youtubeCodeToIframe(youtubeCode));
+          }
         }
       });
     }
