@@ -46,6 +46,21 @@ const EboardModify = ({ match }) => {
     tools: checkedlist.current,
   });
 
+  const checkboxCheck = useCallback(
+    (e) => {
+      if (e.target.checked) {
+        checkedlist.current.push(e.target.value);
+      } else {
+        const index = checkedlist.current.indexOf(e.target.value);
+        checkedlist.current.splice(index, 1);
+      }
+      if (!e.target.checked) {
+        checkedlist.current.push('선택안됨');
+      }
+    },
+    [checkedlist]
+  );
+
   const originalUrl = useRef('');
 
   useEffect(() => {
@@ -71,7 +86,7 @@ const EboardModify = ({ match }) => {
       !input.career ||
       !input.payType ||
       !input.payAmount ||
-      !input.tools
+      input.tools === '선택안됨'
     ) {
       return ToastCenter('내용을 모두 적어주세요.');
     }
@@ -112,15 +127,6 @@ const EboardModify = ({ match }) => {
     ).then((res) => {
       eHistory(res.data.id);
     });
-  };
-
-  const checkboxCheck = (e) => {
-    if (e.target.checked) {
-      checkedlist.current.push(e.target.value);
-    } else {
-      const index = checkedlist.current.indexOf(e.target.value);
-      checkedlist.current.splice(index, 1);
-    }
   };
 
   return (
@@ -204,7 +210,7 @@ const EboardModify = ({ match }) => {
               <span>사용기술</span>
               <input
                 id='Epremiere'
-                name='tools'
+                name='Epremiere'
                 value='프리미어 프로'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -212,7 +218,7 @@ const EboardModify = ({ match }) => {
               <label htmlFor='Epremiere'>프리미어 프로 </label>
               <input
                 id='Eaftereffect'
-                name='tools'
+                name='Eaftereffect'
                 value='애프터이펙트'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -220,7 +226,7 @@ const EboardModify = ({ match }) => {
               <label htmlFor='Eaftereffect'>애프터이펙트 </label>
               <input
                 id='Efinalcut'
-                name='tools'
+                name='Efinalcut'
                 value='파이널컷'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -228,15 +234,15 @@ const EboardModify = ({ match }) => {
               <label htmlFor='Efinalcut'>파이널컷 </label>
               <input
                 id='Evegas'
-                name='tools'
+                name='Evegas'
+                onChange={checkboxCheck}
                 value='베가스'
                 type='checkbox'
-                onChange={checkboxCheck}
               />
               <label htmlFor='Evegas'>베가스</label>
               <input
                 id='Epowerdirector'
-                name='tools'
+                name='Epowerdirector'
                 value='파워 디렉터'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -244,7 +250,7 @@ const EboardModify = ({ match }) => {
               <label htmlFor='Epowerdirector'>파워 디렉터</label>
               <input
                 id='Yphotoshop'
-                name='tools'
+                name='yphotoshop'
                 value='포토샵'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -252,7 +258,7 @@ const EboardModify = ({ match }) => {
               <label htmlFor='Yphotoshop'>포토샵</label>
               <input
                 id='Yillustrater'
-                name='tools'
+                name='yillustrater'
                 value='일러스트'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -261,7 +267,7 @@ const EboardModify = ({ match }) => {
               <input
                 id='Yblender'
                 onChange={checkboxCheck}
-                name='tools'
+                name='yblender'
                 value='블렌더'
                 type='checkbox'
               />
@@ -269,7 +275,7 @@ const EboardModify = ({ match }) => {
               <input
                 id='Ymaya'
                 onChange={checkboxCheck}
-                name='tools'
+                name='ymaya'
                 value='마야'
                 type='checkbox'
               />
