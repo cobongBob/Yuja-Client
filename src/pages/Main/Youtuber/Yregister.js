@@ -21,7 +21,20 @@ const Yregister = () => {
   );
 
   const testCheking = useCallback(() => {
-    if (!qData || !input.title) {
+    if (
+      !qData ||
+      !input.title ||
+      !input.channelName ||
+      !input.worker ||
+      !input.career ||
+      !input.recruitingNum ||
+      !input.payType ||
+      !input.payAmount ||
+      input.tools === false ||
+      !input.ywhen ||
+      !input.manager ||
+      !input.receptionMethod
+    ) {
       return ToastCenter('제목과 내용을 입력해주세요');
     }
     let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
@@ -51,15 +64,6 @@ const Yregister = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData, qData, Yhistory]);
 
-  const checkboxCheck = (e) => {
-    if (e.target.checked) {
-      checkedlist.current.push(e.target.value);
-    } else {
-      const index = checkedlist.current.indexOf(e.target.value);
-      checkedlist.current.splice(index, 1);
-    }
-  };
-
   const radioCheck = (e) => {
     const { name, value } = e.target;
     setInput((prevInput) => ({
@@ -75,7 +79,16 @@ const Yregister = () => {
     });
   };
 
-  const checkedlist = useRef([]);
+  const checkedlist = useRef([false]);
+
+  const checkboxCheck = (e) => {
+    if (e.target.checked === true) {
+      checkedlist.current.push(e.target.value);
+    } else {
+      const index = checkedlist.current.indexOf(e.target.value);
+      checkedlist.current.splice(index, 1);
+    }
+  };
 
   const [input, setInput] = useState({
     title: '',
@@ -214,7 +227,7 @@ const Yregister = () => {
           <span>사용기술</span>
           <input
             id='Ypremiere'
-            name='ypremiere'
+            name='tools'
             value='프리미어 프로'
             type='checkbox'
             onChange={checkboxCheck}
@@ -222,7 +235,7 @@ const Yregister = () => {
           <label htmlFor='Ypremiere'>프리미어 프로</label>
           <input
             id='Yaftereffect'
-            name='yaftereffect'
+            name='tools'
             value='애프터이펙트'
             type='checkbox'
             onChange={checkboxCheck}
@@ -230,7 +243,7 @@ const Yregister = () => {
           <label htmlFor='Yaftereffect'>애프터이펙트</label>
           <input
             id='Yfinalcut'
-            name='yfinalcut'
+            name='tools'
             value='파이널컷'
             type='checkbox'
             onChange={checkboxCheck}
@@ -238,7 +251,7 @@ const Yregister = () => {
           <label htmlFor='Yfinalcut'>파이널컷</label>
           <input
             id='Yvegas'
-            name='yvegas'
+            name='tools'
             onChange={checkboxCheck}
             value='베가스'
             type='checkbox'
@@ -246,7 +259,7 @@ const Yregister = () => {
           <label htmlFor='Yvegas'>베가스</label>
           <input
             id='Ypowerdirector'
-            name='ypowerdirector'
+            name='tools'
             value='파워 디렉터'
             type='checkbox'
             onChange={checkboxCheck}
@@ -254,7 +267,7 @@ const Yregister = () => {
           <label htmlFor='Ypowerdirector'>파워 디렉터</label>
           <input
             id='Yphotoshop'
-            name='yphotoshop'
+            name='tools'
             value='포토샵'
             type='checkbox'
             onChange={checkboxCheck}
@@ -262,7 +275,7 @@ const Yregister = () => {
           <label htmlFor='Yphotoshop'>포토샵</label>
           <input
             id='Yillustrater'
-            name='yillustrater'
+            name='tools'
             value='일러스트'
             type='checkbox'
             onChange={checkboxCheck}
@@ -271,7 +284,7 @@ const Yregister = () => {
           <input
             id='Yblender'
             onChange={checkboxCheck}
-            name='yblender'
+            name='tools'
             value='블렌더'
             type='checkbox'
           />
@@ -279,7 +292,7 @@ const Yregister = () => {
           <input
             id='Ymaya'
             onChange={checkboxCheck}
-            name='ymaya'
+            name='tools'
             value='마야'
             type='checkbox'
           />

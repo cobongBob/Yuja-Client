@@ -18,7 +18,6 @@ import { ToastCenter } from '../../../modules/ToastModule';
 
 Modal.setAppElement('#root');
 const Ydetail = ({ match }) => {
-  console.log(22222, match);
   const dispatch = useDispatch();
   const { userData, authorities } = useSelector((state) => state.loginReducer);
   const { detailData } = useSelector((state) => state.YboardReducer);
@@ -94,12 +93,14 @@ const Ydetail = ({ match }) => {
                       <div>
                         <Link
                           to={`/YboardModify/${detailData.id}/${current_page.current}`}
-                          className='detail-update-btn'>
+                          className='detail-update-btn'
+                        >
                           공고 수정하기
                         </Link>
                         <button
                           className='detail-update-btn'
-                          onClick={deleteBoard}>
+                          onClick={deleteBoard}
+                        >
                           공고 삭제하기
                         </button>
                       </div>
@@ -108,13 +109,15 @@ const Ydetail = ({ match }) => {
                       authorities.includes('ADMIN') ? (
                       <button
                         className='detail-update-btn'
-                        onClick={deleteBoard}>
+                        onClick={deleteBoard}
+                      >
                         공고 삭제하기
                       </button>
                     ) : null}
                     <Link
                       className='detail-update-btn'
-                      to={`/Youtuber/${current_page.current}`}>
+                      to={`/Youtuber/${current_page.current}`}
+                    >
                       목록보기
                     </Link>
                     {/* 모달 열리는 부분 */}
