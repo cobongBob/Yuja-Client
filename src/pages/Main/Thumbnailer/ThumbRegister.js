@@ -53,7 +53,6 @@ const ThumbRegister = ({ match }) => {
     ) {
       return ToastCenter('내용을 모두 입력해주세요.');
     }
-
     let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
     let imgSrcArr = String(qData).match(reg);
     if (imgSrcArr) {
