@@ -127,27 +127,6 @@ const NonRequired = ({ location, history }) => {
   /* 이 페이지(nonRequired) 데이터 담기 끝 */
   /* 회원가입 데이터 넘겨주기 끝 */
 
-  /* 이 페이지(nonRequired) 유효성 검사 */
-  const checkNonRequiredUserData = (e) => {
-    let address = nonRequiredData.address;
-    let phone = nonRequiredData.phone;
-
-    const addressCheck = /^[a-zA-Z0-9가-힣ㄱ-ㅎ ]{2,20}$/;
-    const phoneCheck = /^(01[016789]{1})\d{3,4}\d{4}$/;
-
-    if (address.length !== 0 && false === addressCheck.test(address)) {
-      alert("주소를 확인해주세요!");
-      e.preventDefault();
-      return false;
-    } else if (phone.length !== 0 && false === phoneCheck.test(phone)) {
-      alert("연락처를 확인해주세요!");
-      e.preventDefault();
-      return false;
-    } else {
-      return true;
-    }
-  };
-
   /* 사업자 등록번호 확인식 */
   const bsnCheck = (e) => {
     let bsn = e.target.value;
@@ -351,7 +330,6 @@ const NonRequired = ({ location, history }) => {
               <label className='youtuberPicLabel' htmlFor='youtuberPicInput'>
                 유튜브 계정 스크린샷
                 <span> (필수)</span>
-              </label>
               <div className='youtuberPicDesc'>{isYoutuberPicFill}</div>
               <div className='youtuberPic_PreviewBox'>{youtuberPic_preview}</div>
               <div className='youtuberPicInputWrapper'>
@@ -363,6 +341,7 @@ const NonRequired = ({ location, history }) => {
                   onChange={handleFileOnChange2}
                 />
               </div>
+              </label>
             </div>
           </div>
         ) : (

@@ -232,7 +232,6 @@ const YoutuberRequest = ( { history } ) => {
         <label className='youtuberPicLabel' htmlFor='youtuberPicInput'>
           유튜브 계정 스크린샷
           <span> (필수)</span>
-        </label>
         <div className='youtuberPicDesc'>{isYoutuberPicFill}</div>
         <div className='youtuberPic_PreviewBox'>{youtuberPic_preview}</div>
         <div className='youtuberPicInputWrapper'>
@@ -244,17 +243,18 @@ const YoutuberRequest = ( { history } ) => {
             onChange={handleFileOnChange}
           />
         </div>
-      </div>
-      <div className='signUpSubmitBtnBox'>
-        <button
-          type='submit'
-          className='btn btn-warning'
-          onClick={totalAction}
-          disabled={submitDisableHandler}>
-          인증 신청하기
-        </button>
+        </label>
       </div>
     </div>
+        <div className='signUpSubmitBtnBox'>
+          <button
+            type='submit'
+            className='btn btn-warning'
+            onClick={totalAction}
+            disabled={submitDisableHandler}>
+            인증 신청하기
+          </button>
+        </div>
       </div>
     </div>
 

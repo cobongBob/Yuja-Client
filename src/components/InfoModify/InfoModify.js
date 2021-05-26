@@ -49,22 +49,46 @@ const InfoModify = ({ history }) => {
   const [nicknameDesc, setNicknameDesc] = useState();
   const [birthDesc, setBirthDesc] = useState();
   const [isCompanyRegNumFill, setIsCompanyRegNumFill] = useState();
-  const [isPermalinkFill, setIsPermalinkFill] = useState(
-    "https://www.youtube.com/channel/고유코드 형식이여야 합니다."
-  );
-  const [isYoutuberPicFill, setIsYoutuberPicFill] = useState(
-    "시간이 보이는 본인의 유튜브 스튜디오/콘텐츠 화면 스크린샷을 업로드 해주세요."
-  );
-
+  const [isPermalinkFill, setIsPermalinkFill] = useState();
+  const [isYoutuberPicFill, setIsYoutuberPicFill] = useState();
 
   const modifyProfilePicUrl = new URL("http://localhost:8888/files/profiles/" + userData.profilePic);
   const modifyConfirmPicUrl = new URL("http://localhost:8888/files/youtubeConfirm/" + userData.youtubeConfirmImg);
-
   const { current: birthCheck } = useRef(/^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/);
+  const [modifyBtnDisabledHandler, setModifyBtnDisabledHandler] = useState(false);
+
+  const totalCheck = useCallback(() => {
+    console.log('============================ totalcheck 실행')
+    console.log(nicknameDesc)
+    console.log(birthDesc)
+    console.log(isCompanyRegNumFill)
+    console.log(isPermalinkFill)
+    console.log(isYoutuberPicFill)
+
+    if(
+      nicknameDesc === '' ||
+      nicknameDesc === undefined &&
+      birthDesc === '' ||
+      birthDesc === undefined &&
+      isCompanyRegNumFill === '' ||
+      isCompanyRegNumFill === undefined &&
+      isPermalinkFill === '' &&
+      isYoutuberPicFill === '' &&
+      userData.nickname !== '' &&
+      userData.bday !== '' &&
+      userData.youtubeUrl !== '' &&
+      userData.youtubeConfirmImg !== ''
+    ) {
+      console.log('======================= totalcheck 1')
+      setModifyBtnDisabledHandler(false)
+    } else {
+      console.log('======================= totalcheck 2')
+      setModifyBtnDisabledHandler(true)
+    }
+  }, [nicknameDesc, birthDesc, isCompanyRegNumFill, isPermalinkFill, isYoutuberPicFill, userData]);
 
   useEffect(() => {
     getUserData(userId).then((res) => {
-      console.log("res.data의 값", res.data);
       setUserData({
         id: res.data.id,
         providedId: res.data.providedId,
@@ -83,8 +107,11 @@ const InfoModify = ({ history }) => {
         youtubeConfirmImg: res.data.youtubeConfirmImg,
       });
     });
-
     }, [userId]);
+
+  useEffect(()=> {
+    totalCheck()
+  }, [userData])
 
   console.log("userData의 값", userData);
 
@@ -108,9 +135,13 @@ const InfoModify = ({ history }) => {
 
   const onClick = useCallback((e) => {
     e.target.value = "";
-  }, []);
+    setUserData({
+      ...userData,
+      [e.target.name]: "",
+    });
+  }, [userData]);
 
-  const checkNicknameValidate = useCallback(() => {
+  const checkNicknameValidate = useCallback((e) => {
     axios.post("http://localhost:8888/api/auth/checknickname", userData).then((res) => {
       if (res.data !== "") {
         setNicknameDesc(res.data);
@@ -192,8 +223,6 @@ const InfoModify = ({ history }) => {
     }
   };
 
-  console.log('handleFileOnChange 실행 후 값', userData.profilePicId)
-
   const handleFileOnChange2 = (e) => {
     let file2 = e.target.files[0];
     const config2 = {
@@ -216,6 +245,9 @@ const InfoModify = ({ history }) => {
           ToastCenter(error.response.data ? error.response.data.message : "Server Error!");
         });
     }
+
+    totalCheck()
+
   };
 
   let profile_preview,
@@ -455,7 +487,6 @@ const InfoModify = ({ history }) => {
                   <label className='youtuberPicLabel' htmlFor='youtuberPicInput'>
                     유튜브 계정 스크린샷
                     <span> (필수)</span>
-                  </label>
                   <div className='youtuberPicDesc'>{isYoutuberPicFill}</div>
                   <div className='youtuberPic_PreviewBox'>{youtuberPic_preview}</div>
                   <div className='youtuberPicInputWrapper'>
@@ -467,13 +498,19 @@ const InfoModify = ({ history }) => {
                       onChange={handleFileOnChange2}
                     />
                   </div>
+                  </label>
                 </div>
               </div>
             ) : (
               ""
             )}
             <div className='infoModifySubmitBtnBox'>
-              <button type='submit' className='btn btn-warning' onClick={modifyBtn}>
+              <button
+                type='submit'
+                className='btn btn-warning'
+                disabled={modifyBtnDisabledHandler}
+                onClick={modifyBtn}
+              >
                 수정완료
               </button>
             </div>
