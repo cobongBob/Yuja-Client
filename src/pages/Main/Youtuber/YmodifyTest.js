@@ -155,6 +155,7 @@ const YmodifyTest = (props) => {
             onChange={onChange}
             name='channelName'
             type='text'
+            maxLength='50'
             value={input.channelName || ''}
           />
         </li>
@@ -373,6 +374,7 @@ const YmodifyTest = (props) => {
             name='manager'
             type='text'
             placeholder='담당자'
+            maxLength='30'
             value={input.manager || ''}
           />
         </li>
@@ -383,6 +385,7 @@ const YmodifyTest = (props) => {
             placeholder='담당자 연락처'
             onChange={onChange}
             type='text'
+            maxLength='255'
             value={input.receptionMethod || ''}
           />
         </li>
