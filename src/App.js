@@ -275,7 +275,7 @@ function App() {
         </>
       )}
       {exceptArray.indexOf(location.pathname) < 0 && (
-        <Navi allNotifications={allNotifications} />
+        <Navi allNotifications={allNotifications} setModalIsOpen={setModalIsOpen}/>
       )}
       {exceptArray.indexOf(location.pathname) < 0 && <Logo />}
       <div>

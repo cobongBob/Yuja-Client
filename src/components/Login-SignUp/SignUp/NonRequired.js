@@ -191,8 +191,9 @@ const NonRequired = ({ location, history }) => {
     (e) => {
       let checkContent = e.target.value;
       if (checkContent !== "" &&
-        checkContent.startsWith("https://www.youtube.com/") &&
-        checkContent.indexOf("c" || "channel") > -1 &&
+        checkContent.startsWith(
+          "https://www.youtube.com/c" || "https://www.youtube.com/channel"
+        ) &&
         !checkContent.endsWith("/featured")
       ) {
         setIsPermalinkFill("");
@@ -230,7 +231,7 @@ const NonRequired = ({ location, history }) => {
                   className='signUpProfilePic'
                   type='file'
                   name='profile_img'
-                  accept='image/jpeg, image/jpg, image/png'
+                  accept='.jpeg, .jpg, .png'
                   placeholder='프로필 사진'
                   onChange={handleFileOnChange}
                 />

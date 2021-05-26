@@ -6,6 +6,7 @@ import { Link, Route } from "react-router-dom";
 import NonRequired from "./NonRequired";
 import Required from "./Required";
 import { ToastPreventAccess } from "../../../modules/ToastModule";
+import SignUpEnd from './SignUpEnd';
 
 const SignUp1 = ({ location, history, match }) => {
 
@@ -32,6 +33,7 @@ const SignUp1 = ({ location, history, match }) => {
             />
             <Route path='/SignUp1/Required' component={Required} />
             <Route path='/SignUp1/NonRequired' component={NonRequired} />
+            <Route path='/SignUp1/SignUpEnd' component={SignUpEnd}/>
           </Switch>
         </div>
       <footer className='SignUpFooter'>
