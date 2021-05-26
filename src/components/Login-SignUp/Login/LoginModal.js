@@ -19,6 +19,7 @@ import { getLoaded, getLoading } from '../../../redux/loading/loadingReducer';
 import { getAllNotifications } from '../../../redux/loading/notiReducer';
 import NotificationDropdown from '../../Navi/NotificationDropdown';
 import { IoMdNotificationsOutline } from 'react-icons/io';
+import '../../Navi/Notification.scss';
 
 toast.configure();
 Modal.setAppElement('#root');
@@ -194,12 +195,12 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
             </button>
             {hideMenu === true && (
               <ul>
+                <NotificationDropdown allNotifications={allNotifications} />
                 <li className='modifyBox'>
                   <button className='modifyBtn' onClick={logout}>
                     로그아웃
                   </button>
                 </li>
-                <NotificationDropdown allNotifications={allNotifications} />
               </ul>
             )}
           </div>

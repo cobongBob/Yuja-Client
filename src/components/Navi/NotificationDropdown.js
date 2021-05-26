@@ -1,10 +1,9 @@
 import React, { useCallback } from 'react';
-import { Dropdown } from 'react-bootstrap';
 import { IoMdNotifications } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { noticeWithPush } from '../../modules/ToastWithPush';
-import { AiTwotoneDelete } from 'react-icons/ai';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 import { deleteNotification } from '../../redux/loading/notiReducer';
 import { Link } from 'react-router-dom';
 
@@ -35,97 +34,93 @@ const NotificationDropdown = ({ allNotifications }) => {
         userData.id !== 0 &&
         allNotifications[0].resipeint.id === userData.id ? (
           <div>
+            <div variant='' id='dropdown-basic'>
+              <IoMdNotifications className='noti_icon' size='30' />
+            </div>
             <ul>
-              <li variant='' id='dropdown-basic'>
-                <IoMdNotifications className='noti_icon' size='30' />
-              </li>
-              <Dropdown.Menu>
-                {allNotifications.map((notice, idx) => {
-                  if (notice.type === 'commentNoti') {
-                    return (
-                      <div key={idx} className='each_notice'>
-                        <AiTwotoneDelete
-                          onClick={() => deleteNoti(notice.notiId)}
-                          size='22'
-                          className='notice_delete'
-                        />
-                        <Dropdown.Item
-                          onClick={() => noticeWithPush(notice, history)}
-                        >
-                          <span>{`${notice.resipeint.nickname}님께서 ${notice.comment.board.title}글에 댓글을 남기셨습니다.`}</span>
-                        </Dropdown.Item>
-                      </div>
-                    );
-                  } else if (notice.type === 'chatNoti') {
-                    return (
-                      <div key={idx} className='each_notice'>
-                        <AiTwotoneDelete
-                          onClick={() => deleteNoti(notice.notiId)}
-                          size='22'
-                          className='notice_delete'
-                        />
-                        <Dropdown.Item>
-                          <span>{`${notice.sender.nickname}님으로부터 새로운 채팅이 있습니다.`}</span>
-                        </Dropdown.Item>
-                      </div>
-                    );
-                  } else if (notice.type === 'editNoti') {
-                    return (
-                      <div key={idx} className='each_notice'>
-                        <AiTwotoneDelete
-                          onClick={() => deleteNoti(notice.notiId)}
-                          size='22'
-                          className='notice_delete'
-                        />
-                        <Dropdown.Item>
-                          <span>{`에디터로 등록되셨습니다.`}</span>
-                        </Dropdown.Item>
-                      </div>
-                    );
-                  } else if (notice.type === 'thumbNoti') {
-                    return (
-                      <div key={idx} className='each_notice'>
-                        <AiTwotoneDelete
-                          onClick={() => deleteNoti(notice.notiId)}
-                          size='22'
-                          className='notice_delete'
-                        />
-                        <Dropdown.Item>
-                          <span>{`썸네일러로 등록되셨습니다.`}</span>
-                        </Dropdown.Item>
-                      </div>
-                    );
-                  } else if (notice.type === 'youtubeNoti') {
-                    return (
-                      <div key={idx} className='each_notice'>
-                        <AiTwotoneDelete
-                          onClick={() => deleteNoti(notice.notiId)}
-                          size='22'
-                          className='notice_delete'
-                        />
-                        <Dropdown.Item>
-                          <span>{`유튜버로 등록되셨습니다.`}</span>
-                        </Dropdown.Item>
-                      </div>
-                    );
-                  } else if (notice.type === 'rejectNoti') {
-                    return (
-                      <div key={idx} className='each_notice'>
-                        <AiTwotoneDelete
-                          onClick={() => deleteNoti(notice.notiId)}
-                          size='22'
-                          className='notice_delete'
-                        />
-                        <Dropdown.Item>
-                          <span>{`유튜버로 등록이 거절되었습니다. 신청 절차를 다시 확인해주세요.`}</span>
-                        </Dropdown.Item>
-                      </div>
-                    );
-                  } else {
-                    return null;
-                  }
-                })}
-              </Dropdown.Menu>
+              {allNotifications.map((notice, idx) => {
+                if (notice.type === 'commentNoti') {
+                  return (
+                    <div key={idx} className='each_notice'>
+                      <RiDeleteBin6Line
+                        onClick={() => deleteNoti(notice.notiId)}
+                        size='22'
+                        className='notice_delete'
+                      />
+                      <li onClick={() => noticeWithPush(notice, history)}>
+                        <span>{`${notice.resipeint.nickname}님께서 ${notice.comment.board.title}글에 댓글을 남기셨습니다.`}</span>
+                      </li>
+                    </div>
+                  );
+                } else if (notice.type === 'chatNoti') {
+                  return (
+                    <div key={idx} className='each_notice'>
+                      <RiDeleteBin6Line
+                        onClick={() => deleteNoti(notice.notiId)}
+                        size='10'
+                        className='notice_delete'
+                      />
+                      <li>
+                        <span>{`${notice.sender.nickname}님으로부터 새로운 채팅이 있습니다.`}</span>
+                      </li>
+                    </div>
+                  );
+                } else if (notice.type === 'editNoti') {
+                  return (
+                    <div key={idx} className='each_notice'>
+                      <RiDeleteBin6Line
+                        onClick={() => deleteNoti(notice.notiId)}
+                        size='22'
+                        className='notice_delete'
+                      />
+                      <li>
+                        <span>{`에디터로 등록되셨습니다.`}</span>
+                      </li>
+                    </div>
+                  );
+                } else if (notice.type === 'thumbNoti') {
+                  return (
+                    <div key={idx} className='each_notice'>
+                      <RiDeleteBin6Line
+                        onClick={() => deleteNoti(notice.notiId)}
+                        size='22'
+                        className='notice_delete'
+                      />
+                      <li>
+                        <span>{`썸네일러로 등록되셨습니다.`}</span>
+                      </li>
+                    </div>
+                  );
+                } else if (notice.type === 'youtubeNoti') {
+                  return (
+                    <div key={idx} className='each_notice'>
+                      <RiDeleteBin6Line
+                        onClick={() => deleteNoti(notice.notiId)}
+                        size='22'
+                        className='notice_delete'
+                      />
+                      <li>
+                        <span>{`유튜버로 등록되셨습니다.`}</span>
+                      </li>
+                    </div>
+                  );
+                } else if (notice.type === 'rejectNoti') {
+                  return (
+                    <div key={idx} className='each_notice'>
+                      <RiDeleteBin6Line
+                        onClick={() => deleteNoti(notice.notiId)}
+                        size='22'
+                        className='notice_delete'
+                      />
+                      <li>
+                        <span>{`유튜버로 등록이 거절되었습니다. 신청 절차를 다시 확인해주세요.`}</span>
+                      </li>
+                    </div>
+                  );
+                } else {
+                  return null;
+                }
+              })}
             </ul>
           </div>
         ) : (

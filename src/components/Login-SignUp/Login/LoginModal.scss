@@ -139,21 +139,7 @@ section > footer {
   }
 }
 /* nav 로그인 전/후 변하는 컴포넌트들 */
-.navChangeBox {
-  display: inline-block;
-}
-.navChangeBox > div > ul {
-  margin-top: 0.5rem;
-  margin-left: 3rem;
-  padding-left: 0;
-  list-style: none;
-  width: 13rem;
-  background-color: white;
-  border: 1px solid #ff9411;
-}
-.navChangeBox > div > ul > li > button {
-  padding: 0.25rem;
-}
+
 .welcomeBox {
   padding: 0.5rem;
   border: none;
@@ -168,9 +154,11 @@ section > footer {
   vertical-align: middle;
   font-size: medium;
 }
-.welcomeBox > .noti_icon {
-  color: #ff9411;
+
+.notiOnNav > ul > li {
+  padding-left: 0;
 }
+
 /* 모달창 제어 */
 .ReactModal__Body--open,
 .ReactModal__Html--open {
