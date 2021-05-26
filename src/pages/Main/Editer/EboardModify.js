@@ -6,6 +6,7 @@ import { ToastCenter } from "../../../modules/ToastModule";
 import "./EditorRegister.scss";
 import * as EditerApiService from "../../../apiService/EditerApiService";
 import QuillModify from "../../../components/Quill/QuillModify";
+import { previewToYoutubeLink } from "../../../modules/QuillYoutubeConvert";
 
 const EboardModify = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -76,8 +77,7 @@ const EboardModify = ({ match }) => {
       setQModiData(res.data.content);
       setInput(res.data);
       originalUrl.current = res.data.previewImage && res.data.previewImage;
-      const firstIndex = originalUrl.current.indexOf("/vi");
-      originalUrl.current = originalUrl.current.substr(firstIndex + 4, 11);
+      originalUrl.current = previewToYoutubeLink(originalUrl.current);
     });
   }, [userData, history, match.params.board_id]);
 
@@ -144,7 +144,7 @@ const EboardModify = ({ match }) => {
               <input
                 type='text'
                 placeholder='대표영상의 링크를 적어주세요.'
-                value={`https://www.youtube.com/watch?v=${originalUrl.current || ""}`}
+                value={`${originalUrl.current || ""}`}
                 name='previewImage'
                 onChange={onChange}
               />

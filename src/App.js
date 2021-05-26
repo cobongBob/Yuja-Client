@@ -27,7 +27,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getLoaded, getLoading } from "./redux/loading/loadingReducer";
 import Loader from "./components/Loading/Loader";
 import instance from "./AxiosConfig";
-import { userLogout } from "./redux/redux-login/loginReducer";
+import { addAuthority, userLogout } from "./redux/redux-login/loginReducer";
 import Chat from "./pages/Main/components/Chat/Chat";
 import EDetail from "./pages/Main/Editer/EDetail";
 import ResetPassword from "./components/Login-SignUp/Login/ResetPassword";
@@ -141,10 +141,19 @@ function App() {
           ToastAlertNoDupl(`${notification.sender.nickname}님으로부터 새로운 채팅이 있습니다.`);
         } else if (notification.type === "editNoti" && notification.resipeint.id === userData.id) {
           ToastAlertNoDupl(`에디터로 등록되셨습니다.`);
+          addAuthority("EDITOR").then((res) => {
+            dispatch(res);
+          });
         } else if (notification.type === "thumbNoti" && notification.resipeint.id === userData.id) {
           ToastAlertNoDupl(`썸네일러로 등록되셨습니다.`);
+          addAuthority("THUMBNAILER").then((res) => {
+            dispatch(res);
+          });
         } else if (notification.type === "youtubeNoti" && notification.resipeint.id === userData.id) {
           ToastAlertNoDupl(`유튜버로 등록되셨습니다.`);
+          addAuthority("YOUTUBER").then((res) => {
+            dispatch(res);
+          });
         } else if (notification.type === "rejectNoti" && notification.resipeint.id === userData.id) {
           ToastAlertNoDupl(`유튜버로 등록이 거절되었습니다. 신청 절차를 다시 확인해주세요.`);
         }
