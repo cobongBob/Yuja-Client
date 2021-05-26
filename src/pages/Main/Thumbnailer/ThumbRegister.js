@@ -78,8 +78,7 @@ const ThumbRegister = ({ match }) => {
     EditerApiService.addBoards(sendingData, board_type.current).then((res) => {
       ThHistory(res.data.id);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userData, qData, ThHistory]);
+  }, [userData, qData, ThHistory, inputData]);
 
   const checkboxCheck = useCallback(
     (e) => {

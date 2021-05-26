@@ -25,29 +25,29 @@ const ThumbModify = ({ match }) => {
     [history, board_type]
   );
 
-  const checkboxCheck = (e) => {
+  const checkboxCheck = useCallback((e) => {
     if (e.target.checked) {
       checkedlist.current.push(e.target.value);
     } else {
       const index = checkedlist.current.indexOf(e.target.value);
       checkedlist.current.splice(index, 1);
     }
-  };
+  });
 
-  const onChange = (e) => {
+  const onChange = useCallback((e) => {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     });
-  };
+  });
 
-  const radioCheck = (e) => {
+  const radioCheck = useCallback((e) => {
     const { name, value } = e.target;
     setInput((prevInput) => ({
       ...prevInput,
       [name]: value,
     }));
-  };
+  });
 
   const [input, setInput] = useState({
     previewImage: '',

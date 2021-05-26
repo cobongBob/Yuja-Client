@@ -22,20 +22,20 @@ const EboardModify = ({ match }) => {
     [history, board_type]
   );
 
-  const onChange = (e) => {
+  const onChange = useCallback((e) => {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     });
-  };
+  });
 
-  const radioCheck = (e) => {
+  const radioCheck = useCallback((e) => {
     const { name, value } = e.target;
     setInput((prevInput) => ({
       ...prevInput,
       [name]: value,
     }));
-  };
+  });
 
   const [input, setInput] = useState({
     previewImage: '',
@@ -78,7 +78,7 @@ const EboardModify = ({ match }) => {
     });
   }, [userData, history, match.params.board_id]);
 
-  const testCheking = () => {
+  const testCheking = useCallback(() => {
     if (
       !qModiData ||
       !input.title ||
@@ -127,7 +127,7 @@ const EboardModify = ({ match }) => {
     ).then((res) => {
       eHistory(res.data.id);
     });
-  };
+  }, []);
 
   return (
     <div>
