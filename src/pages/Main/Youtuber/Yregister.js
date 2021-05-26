@@ -35,7 +35,7 @@ const Yregister = () => {
       !input.manager ||
       !input.receptionMethod
     ) {
-      return ToastCenter('제목과 내용을 입력해주세요');
+      return ToastCenter('내용을 모두 적어주세요.');
     }
     let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
     let imgSrcArr = String(qData).match(reg);

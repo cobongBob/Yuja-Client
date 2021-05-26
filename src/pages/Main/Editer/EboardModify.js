@@ -32,36 +32,6 @@ const EboardModify = ({ match }) => {
     [history, board_type]
   );
 
-  const onChange = useCallback(
-    (e) => {
-      setInput({
-        ...input,
-        [e.target.name]: e.target.value,
-      });
-    },
-    [input]
-  );
-
-  const radioCheck = useCallback((e) => {
-    const { name, value } = e.target;
-    setInput((prevInput) => ({
-      ...prevInput,
-      [name]: value,
-    }));
-  }, []);
-
-  const checkboxCheck = useCallback(
-    (e) => {
-      if (e.target.checked) {
-        checkedlist.current.push(e.target.value);
-      } else {
-        const index = checkedlist.current.indexOf(e.target.value);
-        checkedlist.current.splice(index, 1);
-      }
-    },
-    [checkedlist]
-  );
-
   const originalUrl = useRef('');
 
   useEffect(() => {
@@ -128,6 +98,36 @@ const EboardModify = ({ match }) => {
       eHistory(res.data.id);
     });
   }, [eHistory, input, match.params.board_id, qModiData]);
+
+  const onChange = useCallback(
+    (e) => {
+      setInput({
+        ...input,
+        [e.target.name]: e.target.value,
+      });
+    },
+    [input]
+  );
+
+  const radioCheck = useCallback((e) => {
+    const { name, value } = e.target;
+    setInput((prevInput) => ({
+      ...prevInput,
+      [name]: value,
+    }));
+  }, []);
+
+  const checkboxCheck = useCallback(
+    (e) => {
+      if (e.target.checked) {
+        checkedlist.current.push(e.target.value);
+      } else {
+        const index = checkedlist.current.indexOf(e.target.value);
+        checkedlist.current.splice(index, 1);
+      }
+    },
+    [checkedlist]
+  );
 
   return (
     <div>
