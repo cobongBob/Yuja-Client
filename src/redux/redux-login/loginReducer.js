@@ -5,6 +5,7 @@ const USER_LOGIN = "userLogin";
 const USER_LOGOUT = "userLogout";
 const USER_CHECK = "userCheck";
 const USER_STATUS = "userStatus";
+const ADD_AUTHORITY = "ADD_AUTHORITY";
 
 /* 액션 함수 */
 export const userLogin = async (loginData, setLoginValidateDesc) => {
@@ -45,6 +46,13 @@ export const userCheck = async () => {
     type: USER_CHECK,
     payload: userData,
     userLoginStatus: isUserLoggedIn,
+  };
+};
+
+export const addAuthority = async (newAuthority) => {
+  return {
+    type: ADD_AUTHORITY,
+    payload: newAuthority,
   };
 };
 
@@ -91,6 +99,11 @@ export default function loginReducer(state = initialState, action) {
           action.payload.authorities.map((authority) => {
             return authority.authority;
           }),
+      };
+    case ADD_AUTHORITY:
+      return {
+        ...state,
+        authorities: state.authorities.concat(action.payload),
       };
     default:
       return state;
