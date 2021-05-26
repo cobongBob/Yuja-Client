@@ -1,12 +1,12 @@
-import React, { useCallback } from "react";
-import { Card } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
-import { format } from "date-fns";
-import "../Youtuber/Ylist.scss";
-import BackToList from "../components/BackToList";
-import SortingToLiked from "../components/SortingToLiked";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import { ToastCenter } from "../../../modules/ToastModule";
+import React, { useCallback } from 'react';
+import { Card } from 'react-bootstrap';
+import { Link, useHistory } from 'react-router-dom';
+import { format } from 'date-fns';
+import '../Youtuber/Ylist.scss';
+import BackToList from '../components/BackToList';
+import SortingToLiked from '../components/SortingToLiked';
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
+import { ToastCenter } from '../../../modules/ToastModule';
 
 export default function EditorTable({
   userData,
@@ -55,9 +55,12 @@ export default function EditorTable({
             <Card>
               <Card.Img
                 className='Card-Img'
-                onClick={() => history.push(`/EDetail/${board_type}/${data.id}/${currentPage}`)}
-                src={`${data.previewImage}`}
-              ></Card.Img>
+                onClick={() =>
+                  history.push(
+                    `/EDetail/${board_type}/${data.id}/${currentPage}`
+                  )
+                }
+                src={`${data.previewImage}`}></Card.Img>
               <Card.Header>
                 <Card.Title>
                   <div>
@@ -65,17 +68,21 @@ export default function EditorTable({
                   </div>
                   <div> 사용기술 {data.tools[0]} </div>
                   <div className='card-deadline'>
-                    <span>마감일 </span>
-                    {format(new Date(data.expiredDate), "yyyy-MM-dd")}
+                    <span>수정일 </span>
+                    {format(new Date(data.boardUpdatedDate), 'yyyy-MM-dd')}
                   </div>
                   <div className='card-like'>
                     {data && data.liked ? (
-                      <button onClick={() => likeHandler(data.id)} className='starButton'>
+                      <button
+                        onClick={() => likeHandler(data.id)}
+                        className='starButton'>
                         <AiFillStar size={30} />
                         <span>{data.likes}</span>
                       </button>
                     ) : (
-                      <button onClick={() => dislikeHandler(data.id)} className='starButton'>
+                      <button
+                        onClick={() => dislikeHandler(data.id)}
+                        className='starButton'>
                         <AiOutlineStar size={30} />
                         <span>{data.likes}</span>
                       </button>
@@ -87,19 +94,14 @@ export default function EditorTable({
                 <Card.Text>
                   <div>{data.user.username}</div>
                   <div>
-                    <Link to={`/EDetail/${board_type}/${data.id}/${currentPage}`} className='card-link'>
+                    <Link
+                      to={`/EDetail/${board_type}/${data.id}/${currentPage}`}
+                      className='card-link'>
                       {data.title}
                     </Link>
                   </div>
                 </Card.Text>
-                <Card.Footer>
-                  <div>
-                    <strong>
-                      <span>수정일 </span>
-                      {format(new Date(data.boardUpdatedDate), "yyyy-MM-dd")}
-                    </strong>
-                  </div>
-                </Card.Footer>
+                <Card.Footer></Card.Footer>
               </Card.Body>
             </Card>
           </li>
