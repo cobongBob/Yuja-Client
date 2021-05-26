@@ -176,7 +176,7 @@ const EditorRegister = ({ match }) => {
               <span>사용기술</span>
               <input
                 id='Epremiere'
-                name='Epremiere'
+                name='tools'
                 value='프리미어 프로'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -184,7 +184,7 @@ const EditorRegister = ({ match }) => {
               <label htmlFor='Epremiere'>프리미어 프로 </label>
               <input
                 id='Eaftereffect'
-                name='Eaftereffect'
+                name='tools'
                 value='애프터이펙트'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -192,7 +192,7 @@ const EditorRegister = ({ match }) => {
               <label htmlFor='Eaftereffect'>애프터이펙트 </label>
               <input
                 id='Efinalcut'
-                name='Efinalcut'
+                name='tools'
                 value='파이널컷'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -200,7 +200,7 @@ const EditorRegister = ({ match }) => {
               <label htmlFor='Efinalcut'>파이널컷 </label>
               <input
                 id='Evegas'
-                name='Evegas'
+                name='tools'
                 onChange={checkboxCheck}
                 value='베가스'
                 type='checkbox'
@@ -208,7 +208,7 @@ const EditorRegister = ({ match }) => {
               <label htmlFor='Evegas'>베가스</label>
               <input
                 id='Epowerdirector'
-                name='Epowerdirector'
+                name='tools'
                 value='파워 디렉터'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -216,7 +216,7 @@ const EditorRegister = ({ match }) => {
               <label htmlFor='Epowerdirector'>파워 디렉터</label>
               <input
                 id='Yphotoshop'
-                name='yphotoshop'
+                name='tools'
                 value='포토샵'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -224,7 +224,7 @@ const EditorRegister = ({ match }) => {
               <label htmlFor='Yphotoshop'>포토샵</label>
               <input
                 id='Yillustrater'
-                name='yillustrater'
+                name='tools'
                 value='일러스트'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -233,7 +233,7 @@ const EditorRegister = ({ match }) => {
               <input
                 id='Yblender'
                 onChange={checkboxCheck}
-                name='yblender'
+                name='tools'
                 value='블렌더'
                 type='checkbox'
               />
@@ -241,7 +241,7 @@ const EditorRegister = ({ match }) => {
               <input
                 id='Ymaya'
                 onChange={checkboxCheck}
-                name='ymaya'
+                name='tools'
                 value='마야'
                 type='checkbox'
               />

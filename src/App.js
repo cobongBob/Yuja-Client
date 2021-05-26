@@ -246,6 +246,12 @@ function App() {
   ];
   console.log(modalIsOpen);
 
+  window.onkeydown = function(e) {
+    if(e.keyCode == 27) {
+      setModalIsOpen(false)
+    }
+  }
+
   return (
     <div>
       {userData && userData.id !== 0 && (
@@ -258,7 +264,7 @@ function App() {
                 : () => setModalIsOpen(false)
             }
           />
-          {modalIsOpen === true ? <ChatFrame modalIsOpen={modalIsOpen} /> : ''}
+          {modalIsOpen === true ? <ChatFrame modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} /> : ''}
         </>
       )}
       {exceptArray.indexOf(location.pathname) < 0 && (
@@ -371,6 +377,6 @@ function App() {
       <Footer />
     </div>
   );
-};
+}
 
 export default withRouter(App);

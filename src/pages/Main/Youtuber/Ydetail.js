@@ -37,9 +37,11 @@ const Ydetail = ({ match }) => {
   }, [dispatch, match.params.board_id, userData]);
 
   const deleteBoard = () => {
-    YapiService.deleteBoard(match.params.board_id).then((res) => {
-      history.push('/Youtuber');
-    });
+    if (window.confirm('정말 삭제 하시겠습니까?')) {
+      YapiService.deleteBoard(match.params.board_id).then((res) => {
+        history.push('/Youtuber/1');
+      });
+    }
   };
 
   const likeHandler = useCallback(() => {

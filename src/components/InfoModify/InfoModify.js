@@ -156,7 +156,7 @@ const InfoModify = ({ history }) => {
       let checkContent = e.target.value;
       if (checkContent !== "" &&
         checkContent.startsWith("https://www.youtube.com/") &&
-        checkContent.indexOf("channel") > -1 &&
+        checkContent.indexOf("c" || "channel") > -1 &&
         !checkContent.endsWith("/featured")
       ) {
         setIsPermalinkFill("");
@@ -365,7 +365,7 @@ const InfoModify = ({ history }) => {
                       className='signUpProfilePic'
                       type='file'
                       name='profile_img'
-                      accept='image/jpeg, image/jpg, img/png'
+                      accept='image/jpeg, image/jpg, image/png'
                       placeholder='프로필 사진'
                       onChange={handleFileOnChange}
                     />
@@ -463,7 +463,7 @@ const InfoModify = ({ history }) => {
                       className='youtuberPicInput'
                       id='youtuberPicInput'
                       type='file'
-                      accept='image/jpeg, image/jpg, img/png'
+                      accept='image/jpeg, image/jpg, image/png'
                       onChange={handleFileOnChange2}
                     />
                   </div>

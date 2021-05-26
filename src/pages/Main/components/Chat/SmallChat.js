@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import "./SmallChat.scss";
 
-const SmallChat = () => {
+const SmallChat = (props) => {
   const { userData } = useSelector((state) => state.loginReducer);
 
   return (

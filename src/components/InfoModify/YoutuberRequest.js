@@ -119,7 +119,7 @@ const YoutuberRequest = ( { history } ) => {
       let checkContent = e.target.value;
       if (checkContent !== "" &&
         checkContent.startsWith("https://www.youtube.com/") &&
-        checkContent.indexOf("channel") > -1 &&
+        checkContent.indexOf("c" || "channel") > -1 &&
         !checkContent.endsWith("/featured")
       ) {
         setIsPermalinkFill("");
@@ -171,7 +171,7 @@ const YoutuberRequest = ( { history } ) => {
 
   return (
     <div className='YoutuberRequestFrag'>
-      <div className='SignUpHeader'>
+      <div className='YoutuberRequestHeader'>
         <Link className='header-title' to='/'>
           유자 유튜버 인증 신청
         </Link>
@@ -240,7 +240,7 @@ const YoutuberRequest = ( { history } ) => {
             className='youtuberPicInput'
             id='youtuberPicInput'
             type='file'
-            accept='image/jpeg, image/jpg, img/png'
+            accept='image/jpeg, image/jpg, image/png'
             onChange={handleFileOnChange}
           />
         </div>

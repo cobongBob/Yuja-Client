@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Card } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
 import { format } from 'date-fns';
@@ -7,7 +7,7 @@ import SortingToDeadline from '../components/SortingToDeadline';
 import SortingToLiked from '../components/SortingToLiked';
 import BackToList from '../components/BackToList';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
-import { ToastAlert } from '../../../modules/ToastModule';
+import { ToastAlertNoDupl, ToastCenter } from '../../../modules/ToastModule';
 
 const YoutuberTable = ({
   boardData,
@@ -16,26 +16,34 @@ const YoutuberTable = ({
   currentPage,
   board_type,
   wrote,
+  userData,
 }) => {
   const history = useHistory();
+  const writeBoard = useCallback(() => {
+    if (userData && userData.id > 0) {
+      history.push('/YoutuberRegister');
+    } else {
+      ToastCenter(`로그인 해주세요`);
+    }
+  }, [userData, history]);
   return (
     <div className='card-container'>
       <div className='card-options'>
         {wrote.length < 3 ? (
-          <Link to='/YoutuberRegister' className='registerBtn'>
+          <button onClick={writeBoard} className='registerBtn'>
             공고 등록하기
-          </Link>
+          </button>
         ) : (
-          <Link
+          <button
             onClick={() => {
-              ToastAlert(
+              ToastAlertNoDupl(
                 `공고가 3개 이상있어 새로 글 작성시 가장 오래된 공고 1개가 삭제됩니다.`
               );
+              writeBoard();
             }}
-            to='/YoutuberRegister'
             className='registerBtn'>
             공고 등록하기
-          </Link>
+          </button>
         )}
       </div>
       <div className='card-options'>
