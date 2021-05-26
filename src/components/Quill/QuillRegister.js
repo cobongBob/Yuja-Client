@@ -7,6 +7,7 @@ import ImageResize from "@looop/quill-image-resize-module-react";
 import QuillImageDropAndPaste from "quill-image-drop-and-paste";
 import { useHistory } from "react-router";
 import { ToastCenter } from "../../modules/ToastModule";
+import { changeYoutubeUrlToIframe } from "../../modules/QuillYoutubeConvert";
 Quill.register("modules/imageResize", ImageResize);
 Quill.register("modules/imageDropAndPaste", QuillImageDropAndPaste);
 let Image = Quill.import("formats/image");
@@ -125,6 +126,19 @@ const QuillRegister = ({ register, addingFileList, qData, setQData, board_type }
       value: qData,
     });
     quill.on("text-change", (delta, oldDelta, source) => {
+      const inserted = delta.ops.filter((i) => i.insert);
+      if (inserted.length) {
+        const acceptType = "";
+        if (typeof inserted[0].insert === typeof acceptType) {
+          const emebedurl = changeYoutubeUrlToIframe(inserted[0].insert);
+          const len = inserted[0].insert.length;
+          if (emebedurl) {
+            const range = quill.getSelection(true) !== null ? quill.getSelection(true) : 0;
+            quill.insertEmbed(range.index, "video", emebedurl);
+            quill.deleteText(range.index + 1, len);
+          }
+        }
+      }
       setQData(quill.root.innerHTML);
     });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
