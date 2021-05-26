@@ -118,8 +118,9 @@ const YoutuberRequest = ( { history } ) => {
     (e) => {
       let checkContent = e.target.value;
       if (checkContent !== "" &&
-        checkContent.startsWith("https://www.youtube.com/") &&
-        checkContent.indexOf("c" || "channel") > -1 &&
+        checkContent.startsWith(
+          "https://www.youtube.com/c" || "https://www.youtube.com/channel"
+        ) &&
         !checkContent.endsWith("/featured")
       ) {
         setIsPermalinkFill("");

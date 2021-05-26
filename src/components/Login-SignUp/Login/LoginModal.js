@@ -19,7 +19,7 @@ import { getLoaded, getLoading } from '../../../redux/loading/loadingReducer';
 import { getAllNotifications } from '../../../redux/loading/notiReducer';
 toast.configure();
 Modal.setAppElement('#root');
-function LoginModal() {
+function LoginModal( {setModalIsOpen} ) {
   const history = useHistory();
 
   /* 모달 설정 */
@@ -97,6 +97,7 @@ function LoginModal() {
   /* 로그인 관련 */
   const logout = useCallback(() => {
     userLogout().then((res) => {
+      setModalIsOpen(false)
       dispatch(res);
       logoutNotify();
       setLoginData('');

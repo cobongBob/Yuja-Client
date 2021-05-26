@@ -162,7 +162,7 @@ function App() {
         }
       });
     }
-  }, [notificationData, userData, history]);
+  }, [notificationData, userData, history, dispatch]);
   //알림 설정 끝
 
   //채팅모달
@@ -223,7 +223,9 @@ function App() {
           {modalIsOpen === true ? <ChatFrame modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} /> : ""}
         </>
       )}
-      {exceptArray.indexOf(location.pathname) < 0 && <Navi allNotifications={allNotifications} />}
+      {exceptArray.indexOf(location.pathname) < 0 && (
+        <Navi allNotifications={allNotifications} setModalIsOpen={setModalIsOpen} />
+      )}
       {exceptArray.indexOf(location.pathname) < 0 && <Logo />}
       <div>
         {loading && <Loader type='spin' color='#ff9411' />}
