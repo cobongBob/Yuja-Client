@@ -78,8 +78,7 @@ const ThumbRegister = ({ match }) => {
     EditerApiService.addBoards(sendingData, board_type.current).then((res) => {
       ThHistory(res.data.id);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userData, qData, ThHistory]);
+  }, [userData, qData, ThHistory, inputData]);
 
   const checkboxCheck = useCallback(
     (e) => {
@@ -93,18 +92,15 @@ const ThumbRegister = ({ match }) => {
     [checkedlist]
   );
 
-  const radioCheck = useCallback(
-    (e) => {
-      const { name, value } = e.target;
-      setInputData((prevInput) => ({
-        ...prevInput,
-        [name]: value,
-      }));
-    },
-    [inputData]
-  );
+  const radioCheck = useCallback((e) => {
+    const { name, value } = e.target;
+    setInputData((prevInput) => ({
+      ...prevInput,
+      [name]: value,
+    }));
+  }, []);
 
-  const handleImg = (e) => {
+  const handleImg = useCallback((e) => {
     let file = e.target.files[0];
     if (!file) {
       return;
@@ -130,7 +126,7 @@ const ThumbRegister = ({ match }) => {
         ThumbId.current = response.data.thumbnailId;
       });
     }
-  };
+  }, []);
 
   const onChange = useCallback(
     (e) => {

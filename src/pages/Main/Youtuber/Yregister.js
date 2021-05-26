@@ -30,7 +30,7 @@ const Yregister = () => {
       !input.recruitingNum ||
       !input.payType ||
       !input.payAmount ||
-      input.tools === false ||
+      !input.tools ||
       !input.ywhen ||
       !input.manager ||
       !input.receptionMethod
@@ -64,31 +64,37 @@ const Yregister = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData, qData, Yhistory]);
 
-  const radioCheck = (e) => {
+  const radioCheck = useCallback((e) => {
     const { name, value } = e.target;
     setInput((prevInput) => ({
       ...prevInput,
       [name]: value,
     }));
-  };
+  });
 
-  const onChange = (e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const onChange = useCallback(
+    (e) => {
+      setInput({
+        ...input,
+        [e.target.name]: e.target.value,
+      });
+    },
+    [input]
+  );
 
-  const checkedlist = useRef([false]);
+  const checkedlist = useRef([]);
 
-  const checkboxCheck = (e) => {
-    if (e.target.checked === true) {
-      checkedlist.current.push(e.target.value);
-    } else {
-      const index = checkedlist.current.indexOf(e.target.value);
-      checkedlist.current.splice(index, 1);
-    }
-  };
+  const checkboxCheck = useCallback(
+    (e) => {
+      if (e.target.checked) {
+        checkedlist.current.push(e.target.value);
+      } else {
+        const index = checkedlist.current.indexOf(e.target.value);
+        checkedlist.current.splice(index, 1);
+      }
+    },
+    [input]
+  );
 
   const [input, setInput] = useState({
     title: '',
