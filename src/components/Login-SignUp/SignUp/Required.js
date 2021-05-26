@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import AuthCodeTimer from "./AuthCodeTimer";
 import AuthBtnBox from "./AuthBtnBox";
@@ -89,7 +89,7 @@ const Required = ({ location, history }) => {
     auth.verifyEmailSend(requiredData.username).then((res) => {
       setSecurityCode(res.data);
       console.log("res.data를 sc에 넣은 후 sc의 값", securityCode);
-      console.log('auth', authCode)
+      console.log("auth", authCode);
       setTimeout(() => {
         setSecurityCode("내일점심은부대찌개!");
       }, securityCodeDelay);
@@ -259,10 +259,10 @@ const Required = ({ location, history }) => {
 
   return (
     <div className='contentBox2'>
-      <div className="signUpBar">
-        <div className="dot2"></div>
-        <div className="dot1"></div>
-        <div className="dot3"></div>
+      <div className='signUpBar'>
+        <div className='dot2'></div>
+        <div className='dot1'></div>
+        <div className='dot3'></div>
       </div>
       <div className='overlay'>
         <div className='required'>* 필수입력 정보입니다.</div>
