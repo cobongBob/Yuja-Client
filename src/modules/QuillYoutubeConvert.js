@@ -24,3 +24,14 @@ export const youtubeCodeToIframe = (code) => {
   const emebedUrl = `https://www.youtube.com/embed/${code}?showinfo=0`;
   return `<iframe class="ql-video" frameborder="0" allowfullscreen="true" src="${emebedUrl}"></iframe><p><br></p>`;
 };
+
+export const previewToYoutubeLink = (previewImage) => {
+  if (previewImage) {
+    const idx = previewImage.indexOf("com/vi/") + 7;
+    if (idx >= 7) {
+      const youtubeCode = previewImage.substr(idx, 11);
+      return `https://www.youtube.com/watch?v=${youtubeCode}`;
+    }
+  }
+  return "";
+};
