@@ -20,19 +20,14 @@ const Enew = () => {
                   </div>
                   <div className='wanted-content'>
                     <div className='NameWorkerWrapper'>
-                      <span className='wanted-name'>
-                        <Link to={`/EDetail/Editor/${list.id}/1`}>
-                          {list.user.nickname}
-                        </Link>
-                      </span>
+                      <span className='wanted-name'>{list.user.nickname}</span>
                     </div>
                     <div className='TitleWrapper'>
                       <p className='wanted-content-detail'>
                         <strong>
                           <Link
                             className='ListTitle'
-                            to={`/EDetail/Editor/${list.id}/1`}
-                          >
+                            to={`/EDetail/Editor/${list.id}/1`}>
                             {list.title}
                           </Link>
                         </strong>

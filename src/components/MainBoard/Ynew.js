@@ -20,19 +20,17 @@ const Ynew = () => {
                   </div>
                   <div className='wanted-content'>
                     <div className='NameWorkerWrapper'>
-                      <span className='wanted-name'>
-                        <Link to={`/Ydetail/${list.id}`}>
-                          {list.user.nickname}
-                        </Link>
-                      </span>
-                      <span className='wanted-type-editer'>{list.worker}</span>{' '}
+                      <span className='wanted-name'>{list.user.nickname}</span>
+                      <span className='wanted-type-editer'>
+                        {list.worker}
+                      </span>{' '}
                     </div>
                     <div className='TitleWrapper'>
                       <p className='wanted-content-detail'>
                         <strong>
                           <Link
                             className='ListTitle'
-                            to={`/Ydetail/${list.id}`}>
+                            to={`/Ydetail/${list.id}/1`}>
                             {list.title}
                           </Link>
                         </strong>
