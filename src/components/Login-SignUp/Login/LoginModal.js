@@ -17,9 +17,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastTopRight } from '../../../modules/ToastModule';
 import { getLoaded, getLoading } from '../../../redux/loading/loadingReducer';
 import { getAllNotifications } from '../../../redux/loading/notiReducer';
+import NotificationDropdown from '../../Navi/NotificationDropdown';
+import { IoMdNotificationsOutline } from 'react-icons/io';
+
 toast.configure();
 Modal.setAppElement('#root');
-function LoginModal() {
+function LoginModal({ allNotifications }) {
   const history = useHistory();
 
   /* 모달 설정 */
@@ -186,20 +189,11 @@ function LoginModal() {
           <div>
             <button className='welcomeBox' onClick={showMenu}>
               {userData.nickname}
+              <IoMdNotificationsOutline className='noti_icon' size='30' />
             </button>
             {hideMenu === true && (
               <ul>
-                <li className='modifyBox'>
-                  <Link to='/BeforeModify' className='modifyBtn'>
-                    정보수정
-                  </Link>
-                </li>
-                <li className='modifyBox'>
-                  <button className='modifyBtn' onClick={logout}>
-                    로그아웃
-                  </button>
-                </li>
-                <li></li>
+                <NotificationDropdown allNotifications={allNotifications} />
               </ul>
             )}
           </div>

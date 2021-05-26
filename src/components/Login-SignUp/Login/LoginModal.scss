@@ -155,7 +155,7 @@ section > footer {
   padding: 0.25rem;
 }
 .welcomeBox {
-  margin-top: 0.5rem;
+  padding: 0.5rem;
   border: none;
   background-color: transparent;
   display: inline-block;
@@ -167,6 +167,9 @@ section > footer {
   text-overflow: ellipsis;
   vertical-align: middle;
   font-size: medium;
+}
+.welcomeBox > .noti_icon {
+  color: #ff9411;
 }
 /* 모달창 제어 */
 .ReactModal__Body--open,

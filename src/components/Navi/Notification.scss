@@ -1,0 +1,17 @@
+.notiOnNav {
+  display: inline-block;
+  z-index: 9999;
+}
+.noti_icon {
+  color: #ff9411;
+}
+.notice_delete {
+  float: left;
+  cursor: pointer;
+}
+.dropdown-item {
+  clear: none !important;
+}
+.each_notice {
+  clear: both;
+}
