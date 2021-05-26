@@ -18,7 +18,7 @@ const Svideo = () => {
     arrows: true,
     prevArrow: <PrevArrow></PrevArrow>,
     nextArrow: <NextArrow></NextArrow>,
-    infinite: true,
+    infinite: false,
     autoplay: false,
     speed: 3000,
     autoplaySpeed: 5000,
@@ -72,7 +72,7 @@ const Svideo = () => {
                   <div className='item item_red'>
                     <div className='top'>{video.user.nickname}</div>
                     <div className='bottom'>{video.title}</div>
-                    <img src={video.previewImage} alt='' />
+                    <img className='videoImg' src={video.previewImage} alt='' />
                   </div>
                 </div>
               </div>

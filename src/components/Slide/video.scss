@@ -94,6 +94,10 @@ p {
   white-space: nowrap;
 }
 
+.slick-list {
+  overflow-y: hidden;
+}
+
 .item > .bottom {
   position: absolute;
   max-width: 13vw;

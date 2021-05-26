@@ -12,16 +12,14 @@ const RouteIf = ({ authorities, roles, component: Component, ...rest }) => {
       {...rest}
       render={(props) => {
         if (userData && userData.id > 0) {
-          let isValidate = false;
+          let isValidate = true;
           if (authorities && authorities.length !== 0) {
             authorities.forEach((authority) => {
-              if (roles && !roles.includes(authority)) {
-                isValidate = true;
-                return false;
+              if (roles && roles.includes(authority)) {
+                isValidate = false;
+                return false; // break
               }
             });
-          } else {
-            isValidate = true;
           }
 
           if (isValidate) {

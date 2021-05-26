@@ -246,11 +246,11 @@ function App() {
   ];
   console.log(modalIsOpen);
 
-  window.onkeydown = function(e) {
-    if(e.keyCode == 27) {
-      setModalIsOpen(false)
+  window.onkeydown = function (e) {
+    if (e.keyCode == 27) {
+      setModalIsOpen(false);
     }
-  }
+  };
 
   return (
     <div>
@@ -264,7 +264,14 @@ function App() {
                 : () => setModalIsOpen(false)
             }
           />
-          {modalIsOpen === true ? <ChatFrame modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} /> : ''}
+          {modalIsOpen === true ? (
+            <ChatFrame
+              modalIsOpen={modalIsOpen}
+              setModalIsOpen={setModalIsOpen}
+            />
+          ) : (
+            ''
+          )}
         </>
       )}
       {exceptArray.indexOf(location.pathname) < 0 && (
@@ -290,7 +297,7 @@ function App() {
             path='/YboardModify/:board_id/:current_page'
             exact
             authorities={authorities}
-            roles={[role[2], role[6]]} // path에 해당하는 권한
+            roles={[role[2], role[6]]}
             component={YmodifyTest}
           />
 
@@ -301,13 +308,13 @@ function App() {
             exact
             component={EditorRegister}
             authorities={authorities}
-            roles={[role[1], role[2], role[3], role[4], role[6]]}
+            roles={[role[1], role[6]]}
           />
           <RouteIf
             path='/EboardModify/:board_type/:board_id/:current_page'
             component={EboardModify}
             authorities={authorities}
-            roles={[role[1], role[2], role[3], role[4], role[6]]}
+            roles={[role[3], role[6]]}
           />
 
           <Route
@@ -324,14 +331,14 @@ function App() {
             path='/ThumbRegister/:board_type'
             exact
             authorities={authorities}
-            roles={[role[1], role[2], role[3], role[4], role[6]]}
+            roles={[role[1], role[6]]}
             component={ThumbRegister}
           />
           <RouteIf
             path='/ThumbModify/:board_type/:board_id/:current_page'
             component={ThumbModify}
             authorities={authorities}
-            roles={[role[1], role[2], role[3], role[4], role[6]]}
+            roles={[role[4], role[6]]}
           />
           <Route
             path='/ThumbDetail/:board_type/:board_id/:current_page'
@@ -346,13 +353,13 @@ function App() {
             path='/BoardRegister/:board_type'
             component={Wregister}
             authorities={authorities}
-            roles={[role[1], role[2], role[3], role[4], role[6]]}
+            roles={[role[1], role[6]]}
           />
           <RouteIf
             path='/BoardModify/:board_type/:board_id/:current_page'
             component={WModify}
             authorities={authorities}
-            roles={[role[1], role[2], role[3], role[4], role[6]]}
+            roles={[role[1], role[6]]}
           />
 
           <Route
