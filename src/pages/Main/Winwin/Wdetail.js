@@ -216,7 +216,7 @@ const Wdetail = ({ match }) => {
           </div>
           <div>
             <div className='detail-show'>
-              <div className='show-user-name'>작성자 {wDetails.user.username}</div>
+              <div className='show-user-name'>작성자 {wDetails.user.nickname}</div>
               <div className='likeWrapper'>
                 {wDetails && wDetails.liked ? (
                   <button className='likeButton' onClick={likeHandler}>
@@ -236,7 +236,7 @@ const Wdetail = ({ match }) => {
             </div>
           </div>
           <div className='DetailQuill'>
-            <ReactQuill className='QuillContent' value={wDetails.content || ""} readOnly={true} theme={"bubble"} />
+            <ReactQuill id="wQuill" className='QuillContent' value={wDetails.content || ""} readOnly={true} theme={"bubble"} />
           </div>
         </div>
         <div className='commentWrapper'>

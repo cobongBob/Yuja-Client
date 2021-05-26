@@ -46,11 +46,11 @@ const InfoModify = ({ history }) => {
     youtubeConfirmId: youtubeConfirmId.current,
     profilePic: "",
   });
-  const [nicknameDesc, setNicknameDesc] = useState();
-  const [birthDesc, setBirthDesc] = useState();
-  const [isCompanyRegNumFill, setIsCompanyRegNumFill] = useState();
-  const [isPermalinkFill, setIsPermalinkFill] = useState();
-  const [isYoutuberPicFill, setIsYoutuberPicFill] = useState();
+  const [nicknameDesc, setNicknameDesc] = useState("");
+  const [birthDesc, setBirthDesc] = useState("");
+  const [isCompanyRegNumFill, setIsCompanyRegNumFill] = useState("");
+  const [isPermalinkFill, setIsPermalinkFill] = useState("");
+  const [isYoutuberPicFill, setIsYoutuberPicFill] = useState("");
 
   const modifyProfilePicUrl = new URL("http://localhost:8888/files/profiles/" + userData.profilePic);
   const modifyConfirmPicUrl = new URL("http://localhost:8888/files/youtubeConfirm/" + userData.youtubeConfirmImg);
@@ -66,12 +66,9 @@ const InfoModify = ({ history }) => {
     console.log(isYoutuberPicFill)
 
     if(
-      nicknameDesc === '' ||
-      nicknameDesc === undefined &&
-      birthDesc === '' ||
-      birthDesc === undefined &&
-      isCompanyRegNumFill === '' ||
-      isCompanyRegNumFill === undefined &&
+      nicknameDesc === '' &&
+      birthDesc === '' &&
+      isCompanyRegNumFill === '' &&
       isPermalinkFill === '' &&
       isYoutuberPicFill === '' &&
       userData.nickname !== '' &&
@@ -85,7 +82,7 @@ const InfoModify = ({ history }) => {
       console.log('======================= totalcheck 2')
       setModifyBtnDisabledHandler(true)
     }
-  }, [nicknameDesc, birthDesc, isCompanyRegNumFill, isPermalinkFill, isYoutuberPicFill, userData]);
+  }, [nicknameDesc, birthDesc, userData, isCompanyRegNumFill, isPermalinkFill, isYoutuberPicFill]);
 
   useEffect(() => {
     getUserData(userId).then((res) => {
@@ -111,7 +108,7 @@ const InfoModify = ({ history }) => {
 
   useEffect(()=> {
     totalCheck()
-  }, [userData])
+  }, [userData, nicknameDesc, birthDesc, isCompanyRegNumFill, isPermalinkFill, isYoutuberPicFill])
 
   console.log("userData의 값", userData);
 
@@ -129,6 +126,7 @@ const InfoModify = ({ history }) => {
         ...userData,
         [e.target.name]: e.target.value,
       });
+      totalCheck()
     },
     [userData]
   );
@@ -186,8 +184,9 @@ const InfoModify = ({ history }) => {
     (e) => {
       let checkContent = e.target.value;
       if (checkContent !== "" &&
-        checkContent.startsWith("https://www.youtube.com/") &&
-        checkContent.indexOf("c" || "channel") > -1 &&
+        checkContent.startsWith(
+          "https://www.youtube.com/c" || "https://www.youtube.com/channel"
+        ) &&
         !checkContent.endsWith("/featured")
       ) {
         setIsPermalinkFill("");

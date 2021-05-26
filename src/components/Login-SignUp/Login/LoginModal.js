@@ -22,7 +22,7 @@ import { IoMdNotificationsOutline } from 'react-icons/io';
 
 toast.configure();
 Modal.setAppElement('#root');
-function LoginModal({ allNotifications }) {
+function LoginModal({ allNotifications, setModalIsOpen }) {
   const history = useHistory();
 
   /* 모달 설정 */
@@ -100,6 +100,7 @@ function LoginModal({ allNotifications }) {
   /* 로그인 관련 */
   const logout = useCallback(() => {
     userLogout().then((res) => {
+      setModalIsOpen(false);
       dispatch(res);
       logoutNotify();
       setLoginData('');
@@ -193,6 +194,11 @@ function LoginModal({ allNotifications }) {
             </button>
             {hideMenu === true && (
               <ul>
+                <li className='modifyBox'>
+                  <button className='modifyBtn' onClick={logout}>
+                    로그아웃
+                  </button>
+                </li>
                 <NotificationDropdown allNotifications={allNotifications} />
               </ul>
             )}

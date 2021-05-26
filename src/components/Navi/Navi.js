@@ -4,8 +4,8 @@ import { Link, useLocation } from 'react-router-dom';
 import './SignButton.scss';
 import LoginModal from '../Login-SignUp/Login/LoginModal';
 import { useSelector } from 'react-redux';
-import NotificationDropdown from './NotificationDropdown';
-const Navi = ({ allNotifications }) => {
+
+const Navi = ({ allNotifications, setModalIsOpen }) => {
   const pathname = useLocation().pathname;
   const { authorities } = useSelector((state) => state.loginReducer);
   return (
@@ -82,7 +82,10 @@ const Navi = ({ allNotifications }) => {
           </>
         )}
         <li className='nav-login'>
-          <LoginModal allNotifications={allNotifications} />
+          <LoginModal
+            allNotifications={allNotifications}
+            setModalIsOpen={setModalIsOpen}
+          />
         </li>
       </ul>
     </div>

@@ -29,11 +29,6 @@ const NotificationDropdown = ({ allNotifications }) => {
               정보수정
             </Link>
           </li>
-          <li className='modifyBox'>
-            {/* <button className='modifyBtn' onClick={logout}> */}
-            로그아웃
-            {/* </button> */}
-          </li>
         </ul>
         {allNotifications.length > 0 &&
         userData &&
