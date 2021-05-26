@@ -20,3 +20,7 @@ export const findYoutubeUrl = (text) => {
     return text;
   }
 };
+export const youtubeCodeToIframe = (code) => {
+  const emebedUrl = `https://www.youtube.com/embed/${code}?showinfo=0`;
+  return `<iframe class="ql-video" frameborder="0" allowfullscreen="true" src="${emebedUrl}"></iframe><p><br></p>`;
+};
