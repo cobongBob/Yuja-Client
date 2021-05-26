@@ -63,16 +63,20 @@ const Svideo = () => {
         {ThvideoData &&
           ThvideoData.map((video, index) => (
             <div key={index} className='wrapper'>
-              <div className='thumbnails'>
+              <div className='thumbnails_'>
                 <div
                   onClick={() =>
                     history.push(`/ThumbDetail/Thumb/${video.id}/1`)
                   }
-                  className='thumbnails-item'>
-                  <div className='item item_red'>
-                    <div className='top'>{video.user.nickname}</div>
-                    <div className='bottom'>{video.title}</div>
-                    <img className='videoImg' src={video.previewImage} alt='' />
+                  className='thumbnails-item_'>
+                  <div className='item_ item_red'>
+                    <div className='top_'>{video.user.nickname}</div>
+                    <div className='bottom_'>{video.title}</div>
+                    <img
+                      className='videoImg_'
+                      src={video.previewImage}
+                      alt=''
+                    />
                   </div>
                 </div>
               </div>

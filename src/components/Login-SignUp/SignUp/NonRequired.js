@@ -1,14 +1,17 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import UserApiService from "../../../apiService/UserApiService";
-import "./SignUp1.scss";
-import AddressApi from "./AddressApi";
-import { ToastCenter, ToastPreventAccess, ToastTopRight } from "../../../modules/ToastModule";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import UserApiService from '../../../apiService/UserApiService';
+import './SignUp1.scss';
+import AddressApi from './AddressApi';
+import {
+  ToastCenter,
+  ToastPreventAccess,
+  ToastTopRight,
+} from '../../../modules/ToastModule';
 
 const NonRequired = ({ location, history }) => {
-
-  if (history.action === "POP") {
-    ToastPreventAccess("❌ 잘못된 접근 입니다.");
-    history.replace("/");
+  if (history.action === 'POP') {
+    ToastPreventAccess('❌ 잘못된 접근 입니다.');
+    history.replace('/');
   }
 
   /* 파일 업로드 관련 */
@@ -21,21 +24,25 @@ const NonRequired = ({ location, history }) => {
     let file = e.target.files[0];
     const config = {
       headers: {
-        "content-type": "multipart/form-data",
+        'content-type': 'multipart/form-data',
       },
     };
 
     if (e.target.files !== null) {
       const fd = new FormData();
-      fd.append("file", file);
+      fd.append('file', file);
       UserApiService.addProfileImg(fd, config)
         .then((response) => {
-          const fileUrl = new URL("http://localhost:8888/files/temp/" + response.data.fileName);
+          const fileUrl = new URL(
+            'http://localhost:8888/files/temp/' + response.data.fileName
+          );
           setpreviewUrl(fileUrl);
           profilePicId.current = response.data.profilePicId;
         })
         .catch((error) => {
-          ToastCenter(error.response.data ? error.response.data.message : "Server Error!");
+          ToastCenter(
+            error.response.data ? error.response.data.message : 'Server Error!'
+          );
         });
     }
   };
@@ -44,32 +51,38 @@ const NonRequired = ({ location, history }) => {
     let file2 = e.target.files[0];
     const config2 = {
       headers: {
-        "content-type": "multipart/form-data",
+        'content-type': 'multipart/form-data',
       },
     };
 
     if (e.target.files !== null) {
       const fd2 = new FormData();
-      fd2.append("file", file2);
+      fd2.append('file', file2);
       UserApiService.addYoutuberConfirmPic(fd2, config2)
         .then((response) => {
-          const fileUrl2 = new URL("http://localhost:8888/files/temp/" + response.data.fileName);
+          const fileUrl2 = new URL(
+            'http://localhost:8888/files/temp/' + response.data.fileName
+          );
           setpreviewUrl2(fileUrl2);
-          setIsYoutuberPicFill("");
+          setIsYoutuberPicFill('');
           youtubeConfirmId.current = response.data.youtubeConfirmId;
         })
         .catch((error) => {
-          ToastCenter(error.response.data ? error.response.data.message : "Server Error!");
+          ToastCenter(
+            error.response.data ? error.response.data.message : 'Server Error!'
+          );
         });
     }
   };
 
   let profile_preview,
-    youtuberPic_preview = "";
+    youtuberPic_preview = '';
 
   profile_preview = <img className='profile_preview' src={previewURL} alt='' />;
 
-  youtuberPic_preview = <img className='youtuberPic_preview' src={previewURL2} alt='' />;
+  youtuberPic_preview = (
+    <img className='youtuberPic_preview' src={previewURL2} alt='' />
+  );
   /* 파일 업로드 끝 */
 
   /* 회원가입 데이터 넘겨주기 시작 */
@@ -78,12 +91,12 @@ const NonRequired = ({ location, history }) => {
 
   /* 이 페이지(nonRequired) 데이터 담기 시작 */
   const [nonRequiredData, setNonRequiredData] = useState({
-    address: "",
-    detailAddress: "",
-    phone: "",
-    isYoutuber: "",
-    bsn: "",
-    youtubeUrl: "",
+    address: '',
+    detailAddress: '',
+    phone: '',
+    isYoutuber: '',
+    bsn: '',
+    youtubeUrl: '',
     profilePicId: profilePicId.current,
     youtubeConfirmId: youtubeConfirmId.current,
   });
@@ -96,7 +109,7 @@ const NonRequired = ({ location, history }) => {
   };
 
   const changeValue = (e) => {
-    console.log('changeValue 실행')
+    console.log('changeValue 실행');
     setNonRequiredData({
       ...nonRequiredData,
       [e.target.name]: e.target.value,
@@ -110,18 +123,20 @@ const NonRequired = ({ location, history }) => {
       profilePicId: profilePicId.current,
       youtubeConfirmId: youtubeConfirmId.current,
     };
-    console.log('NonRequiredData', data)
+    console.log('NonRequiredData', data);
     UserApiService.addUser(data)
       .then((r) => {
         if (r) {
-          ToastTopRight("🎉 회원가입을 축하합니다!");
-          history.push("/");
+          ToastTopRight('🎉 회원가입을 축하합니다!');
+          history.push('/');
         } else {
-          ToastTopRight("❗ 오류가 발생했습니다.");
+          ToastTopRight('❗ 오류가 발생했습니다.');
         }
       })
       .catch((error) => {
-        ToastCenter(error.response.data ? error.response.data.message : "Server Error!");
+        ToastCenter(
+          error.response.data ? error.response.data.message : 'Server Error!'
+        );
       });
   };
   /* 이 페이지(nonRequired) 데이터 담기 끝 */
@@ -133,7 +148,7 @@ const NonRequired = ({ location, history }) => {
     const checkId = [1, 3, 7, 1, 3, 7, 1, 3, 5, 1];
     let sum = 0;
 
-    if (bsn !== "") {
+    if (bsn !== '') {
       for (let i = 0; i < 9; i++) {
         sum += checkId[i] * Number(bsn[i]);
       }
@@ -143,9 +158,9 @@ const NonRequired = ({ location, history }) => {
       let reminder = (10 - (sum % 10)) % 10;
 
       if (reminder === Number(bsn[9])) {
-        setIsCompanyRegNumFill("");
+        setIsCompanyRegNumFill('');
       } else {
-        setIsCompanyRegNumFill("사업자등록번호를 확인해주세요.");
+        setIsCompanyRegNumFill('사업자등록번호를 확인해주세요.');
       }
     }
   };
@@ -161,7 +176,9 @@ const NonRequired = ({ location, history }) => {
   const isYoutuberRef = useRef();
   const [isYoutuberChecked, setIsYoutuberChecked] = useState();
   const youtuberCheckHandler = useCallback(() => {
-    isYoutuberRef.current.checked === true ? setIsYoutuberChecked(true) : setIsYoutuberChecked(false);
+    isYoutuberRef.current.checked === true
+      ? setIsYoutuberChecked(true)
+      : setIsYoutuberChecked(false);
   }, []);
   /* 유튜버 박스 끝 */
 
@@ -170,34 +187,40 @@ const NonRequired = ({ location, history }) => {
 
   const [isCompanyRegNumFill, setIsCompanyRegNumFill] = useState();
   const [isPermalinkFill, setIsPermalinkFill] = useState(
-    "https://www.youtube.com/channel/고유코드 형식이여야 합니다."
+    'https://www.youtube.com/channel/고유코드 형식이여야 합니다.'
   );
   const [isYoutuberPicFill, setIsYoutuberPicFill] = useState(
-    "아래 예시처럼 시간이 보이는 본인의 유튜브 스튜디오/콘텐츠 화면 스크린샷을 업로드 해주세요."
+    '아래 예시처럼 시간이 보이는 본인의 유튜브 스튜디오/콘텐츠 화면 스크린샷을 업로드 해주세요.'
   );
 
   const submitDisabledCheck = useCallback(() => {
     if (isYoutuberChecked === true) {
       setSubmitDisableHandler(true);
-      if (isPermalinkFill === "" && isYoutuberPicFill === "") {
+      if (isPermalinkFill === '' && isYoutuberPicFill === '') {
         setSubmitDisableHandler(false);
       }
     } else if (isYoutuberChecked === false) {
       setSubmitDisableHandler(false);
     }
-  }, [isYoutuberChecked, isPermalinkFill, isYoutuberPicFill, setSubmitDisableHandler]);
+  }, [
+    isYoutuberChecked,
+    isPermalinkFill,
+    isYoutuberPicFill,
+    setSubmitDisableHandler,
+  ]);
 
   const permalinkCheck = useCallback(
     (e) => {
       let checkContent = e.target.value;
-      if (checkContent !== "" &&
-        checkContent.startsWith("https://www.youtube.com/") &&
-        checkContent.indexOf("c" || "channel") > -1 &&
-        !checkContent.endsWith("/featured")
+      if (
+        checkContent !== '' &&
+        checkContent.startsWith('https://www.youtube.com/') &&
+        checkContent.indexOf('c' || 'channel') > -1 &&
+        !checkContent.endsWith('/featured')
       ) {
-        setIsPermalinkFill("");
+        setIsPermalinkFill('');
       } else {
-        setIsPermalinkFill("유튜브 고유주소를 확인해주세요.");
+        setIsPermalinkFill('유튜브 고유주소를 확인해주세요.');
       }
     },
     [setIsPermalinkFill]
@@ -211,10 +234,10 @@ const NonRequired = ({ location, history }) => {
 
   return (
     <div className='contentBox2'>
-      <div className="signUpBar">
-        <div className="dot2"></div>
-        <div className="dot3"></div>
-        <div className="dot1"></div>
+      <div className='signUpBar'>
+        <div className='dot2'></div>
+        <div className='dot3'></div>
+        <div className='dot1'></div>
       </div>
       <div className='overlay'>
         <div className='required2'>* 선택입력 정보입니다.</div>
@@ -268,7 +291,7 @@ const NonRequired = ({ location, history }) => {
           <tr>
             <td>
               <label className='signUpLabel' htmlFor='isYoutuber'>
-                유튜버이신가요?{" "}
+                유튜버이신가요?{' '}
                 <input
                   className='YoutuberCheck'
                   name='YoutuberCheck'
@@ -291,7 +314,9 @@ const NonRequired = ({ location, history }) => {
             </div>
             <div className='youtuberInputBox'>
               <div className='companyRegNumBox'>
-                <label className='companyRegNumLabel' htmlFor='companyRegNumInput'>
+                <label
+                  className='companyRegNumLabel'
+                  htmlFor='companyRegNumInput'>
                   사업자등록번호 <span> (선택)</span>
                   <input
                     className='companyRegNumInput'
@@ -308,7 +333,9 @@ const NonRequired = ({ location, history }) => {
               </div>
               <div className='warningBox'>{isCompanyRegNumFill}</div>
               <div className='youtuberUrlBox'>
-                <label className='youtuberUrlBoxLabel' htmlFor='youtuberUrlBoxInput'>
+                <label
+                  className='youtuberUrlBoxLabel'
+                  htmlFor='youtuberUrlBoxInput'>
                   유튜브 고유 주소 <span>(필수)</span>
                   <input
                     className='youtuberUrlBoxInput'
@@ -330,22 +357,24 @@ const NonRequired = ({ location, history }) => {
               <label className='youtuberPicLabel' htmlFor='youtuberPicInput'>
                 유튜브 계정 스크린샷
                 <span> (필수)</span>
-              <div className='youtuberPicDesc'>{isYoutuberPicFill}</div>
-              <div className='youtuberPic_PreviewBox'>{youtuberPic_preview}</div>
-              <div className='youtuberPicInputWrapper'>
-                <input
-                  className='youtuberPicInput'
-                  id='youtuberPicInput'
-                  type='file'
-                  accept='image/jpeg, image/jpg, image/png'
-                  onChange={handleFileOnChange2}
-                />
-              </div>
+                <div className='youtuberPicDesc'>{isYoutuberPicFill}</div>
+                <div className='youtuberPic_PreviewBox'>
+                  {youtuberPic_preview}
+                </div>
+                <div className='youtuberPicInputWrapper'>
+                  <input
+                    className='youtuberPicInput'
+                    id='youtuberPicInput'
+                    type='file'
+                    accept='image/jpeg, image/jpg, image/png'
+                    onChange={handleFileOnChange2}
+                  />
+                </div>
               </label>
             </div>
           </div>
         ) : (
-          ""
+          ''
         )}
         <div className='signUpSubmitBtnBox'>
           <button
