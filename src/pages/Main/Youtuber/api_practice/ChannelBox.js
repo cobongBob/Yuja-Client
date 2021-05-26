@@ -75,7 +75,7 @@ const ChannelBox = () => {
         <div className='ChannelThumbnail'>
           <img src={thumb} alt='' />
         </div>
-        <div className='TitleWrapper'>
+        <div className='ChannelBoxTitleWrapper'>
           {detailData && detailData.user ? (
             <a target='blank' href={detailData.user.youtubeUrl}>
               {title}
