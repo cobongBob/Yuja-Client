@@ -16,19 +16,11 @@ const EboardModify = ({ match }) => {
   const checkedlist = useRef([]);
   const fileList = useRef([]);
   const history = useHistory();
+
   let eHistory = useCallback(
     (board_id) => history.push(`/EDetail/${board_type.current}/${board_id}/1`),
     [history, board_type]
   );
-
-  const checkboxCheck = (e) => {
-    if (e.target.checked) {
-      checkedlist.current.push(e.target.value);
-    } else {
-      const index = checkedlist.current.indexOf(e.target.value);
-      checkedlist.current.splice(index, 1);
-    }
-  };
 
   const onChange = (e) => {
     setInput({
@@ -72,8 +64,16 @@ const EboardModify = ({ match }) => {
   }, [userData, history, match.params.board_id]);
 
   const testCheking = () => {
-    if (!qModiData || !input.title) {
-      return ToastCenter('제목과 내용을 입력해주세요');
+    if (
+      !qModiData ||
+      !input.title ||
+      !input.previewImage ||
+      !input.career ||
+      !input.payType ||
+      !input.payAmount ||
+      !input.tools
+    ) {
+      return ToastCenter('내용을 모두 적어주세요.');
     }
     let reg = new RegExp(
       `http://localhost:8888/files/${board_type.current}/[0-9]+.[a-z]+`,
@@ -112,6 +112,15 @@ const EboardModify = ({ match }) => {
     ).then((res) => {
       eHistory(res.data.id);
     });
+  };
+
+  const checkboxCheck = (e) => {
+    if (e.target.checked) {
+      checkedlist.current.push(e.target.value);
+    } else {
+      const index = checkedlist.current.indexOf(e.target.value);
+      checkedlist.current.splice(index, 1);
+    }
   };
 
   return (
@@ -195,7 +204,7 @@ const EboardModify = ({ match }) => {
               <span>사용기술</span>
               <input
                 id='Epremiere'
-                name='Epremiere'
+                name='tools'
                 value='프리미어 프로'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -203,7 +212,7 @@ const EboardModify = ({ match }) => {
               <label htmlFor='Epremiere'>프리미어 프로 </label>
               <input
                 id='Eaftereffect'
-                name='Eaftereffect'
+                name='tools'
                 value='애프터이펙트'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -211,7 +220,7 @@ const EboardModify = ({ match }) => {
               <label htmlFor='Eaftereffect'>애프터이펙트 </label>
               <input
                 id='Efinalcut'
-                name='Efinalcut'
+                name='tools'
                 value='파이널컷'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -219,7 +228,7 @@ const EboardModify = ({ match }) => {
               <label htmlFor='Efinalcut'>파이널컷 </label>
               <input
                 id='Evegas'
-                name='Evegas'
+                name='tools'
                 value='베가스'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -227,7 +236,7 @@ const EboardModify = ({ match }) => {
               <label htmlFor='Evegas'>베가스</label>
               <input
                 id='Epowerdirector'
-                name='Epowerdirector'
+                name='tools'
                 value='파워 디렉터'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -235,7 +244,7 @@ const EboardModify = ({ match }) => {
               <label htmlFor='Epowerdirector'>파워 디렉터</label>
               <input
                 id='Yphotoshop'
-                name='yphotoshop'
+                name='tools'
                 value='포토샵'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -243,7 +252,7 @@ const EboardModify = ({ match }) => {
               <label htmlFor='Yphotoshop'>포토샵</label>
               <input
                 id='Yillustrater'
-                name='yillustrater'
+                name='tools'
                 value='일러스트'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -252,7 +261,7 @@ const EboardModify = ({ match }) => {
               <input
                 id='Yblender'
                 onChange={checkboxCheck}
-                name='yblender'
+                name='tools'
                 value='블렌더'
                 type='checkbox'
               />
@@ -260,7 +269,7 @@ const EboardModify = ({ match }) => {
               <input
                 id='Ymaya'
                 onChange={checkboxCheck}
-                name='ymaya'
+                name='tools'
                 value='마야'
                 type='checkbox'
               />
