@@ -30,12 +30,12 @@ const Yregister = () => {
       !input.recruitingNum ||
       !input.payType ||
       !input.payAmount ||
-      !input.tools ||
+      !input.tools[0] ||
       !input.ywhen ||
       !input.manager ||
       !input.receptionMethod
     ) {
-      return ToastCenter('제목과 내용을 입력해주세요');
+      return ToastCenter('내용을 모두 적어주세요.');
     }
     let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
     let imgSrcArr = String(qData).match(reg);
@@ -72,28 +72,27 @@ const Yregister = () => {
     }));
   });
 
-  const onChange = useCallback(
-    (e) => {
-      setInput({
-        ...input,
-        [e.target.name]: e.target.value,
-      });
-    },
-    [input]
-  );
+  const onChange = useCallback((e) => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+  });
 
   const checkedlist = useRef([]);
 
   const checkboxCheck = useCallback(
     (e) => {
+      // 체크박스가 선택될 경우
       if (e.target.checked) {
         checkedlist.current.push(e.target.value);
       } else {
+        // 체크박스의 선택이 해제될 경우
         const index = checkedlist.current.indexOf(e.target.value);
         checkedlist.current.splice(index, 1);
       }
     },
-    [input]
+    [checkedlist]
   );
 
   const [input, setInput] = useState({
@@ -133,6 +132,7 @@ const Yregister = () => {
             id='YregisterChannel'
             onChange={onChange}
             name='channelName'
+            maxLength='50'
             type='text'
           />
         </li>
@@ -336,6 +336,7 @@ const Yregister = () => {
             name='manager'
             type='text'
             placeholder='담당자'
+            maxLength='30'
           />
           {/* default = 회원 이름 */}
         </li>
@@ -344,6 +345,7 @@ const Yregister = () => {
             id='YreceptionMethod'
             onChange={onChange}
             placeholder='담당자 연락처'
+            maxLength='255'
             name='receptionMethod'
             type='text'
           />

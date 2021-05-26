@@ -17,9 +17,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastTopRight } from '../../../modules/ToastModule';
 import { getLoaded, getLoading } from '../../../redux/loading/loadingReducer';
 import { getAllNotifications } from '../../../redux/loading/notiReducer';
+import NotificationDropdown from '../../Navi/NotificationDropdown';
+import { IoMdNotificationsOutline } from 'react-icons/io';
+import '../../Navi/Notification.scss';
+
 toast.configure();
 Modal.setAppElement('#root');
-function LoginModal( {setModalIsOpen} ) {
+function LoginModal({ allNotifications, setModalIsOpen }) {
   const history = useHistory();
 
   /* 모달 설정 */
@@ -97,7 +101,7 @@ function LoginModal( {setModalIsOpen} ) {
   /* 로그인 관련 */
   const logout = useCallback(() => {
     userLogout().then((res) => {
-      setModalIsOpen(false)
+      setModalIsOpen(false);
       dispatch(res);
       logoutNotify();
       setLoginData('');
@@ -187,20 +191,16 @@ function LoginModal( {setModalIsOpen} ) {
           <div>
             <button className='welcomeBox' onClick={showMenu}>
               {userData.nickname}
+              <IoMdNotificationsOutline className='noti_icon' size='30' />
             </button>
             {hideMenu === true && (
               <ul>
-                <li className='modifyBox'>
-                  <Link to='/BeforeModify' className='modifyBtn'>
-                    정보수정
-                  </Link>
-                </li>
+                <NotificationDropdown allNotifications={allNotifications} />
                 <li className='modifyBox'>
                   <button className='modifyBtn' onClick={logout}>
                     로그아웃
                   </button>
                 </li>
-                <li></li>
               </ul>
             )}
           </div>
