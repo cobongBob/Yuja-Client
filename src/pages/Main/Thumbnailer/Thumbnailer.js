@@ -78,6 +78,7 @@ const Thumbnailer = ({ match, history }) => {
 
   const dislikeHandler = useCallback(
     (board_id) => {
+      console.log(1111111, authorities);
       if (userData && userData.id > 0) {
         if (
           (authorities && authorities.includes('YOUTUBER')) ||
