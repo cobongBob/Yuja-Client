@@ -132,6 +132,7 @@ const Yregister = () => {
             id='YregisterChannel'
             onChange={onChange}
             name='channelName'
+            maxLength='50'
             type='text'
           />
         </li>
@@ -335,6 +336,7 @@ const Yregister = () => {
             name='manager'
             type='text'
             placeholder='담당자'
+            maxLength='30'
           />
           {/* default = 회원 이름 */}
         </li>
@@ -343,6 +345,7 @@ const Yregister = () => {
             id='YreceptionMethod'
             onChange={onChange}
             placeholder='담당자 연락처'
+            maxLength='255'
             name='receptionMethod'
             type='text'
           />
