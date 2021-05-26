@@ -24,18 +24,24 @@ const Wregister = ({ match }) => {
   const [checked, setCheckd] = useState({
     isPrivate: false,
   });
-  const inputHandler = (e) => {
-    setInputData({
-      ...inputData,
-      [e.target.name]: e.target.value,
-    });
-  };
-  const checkboxHandler = (e) => {
-    setCheckd({
-      ...checked,
-      [e.target.name]: e.target.checked,
-    });
-  };
+  const inputHandler = useCallback(
+    (e) => {
+      setInputData({
+        ...inputData,
+        [e.target.name]: e.target.value,
+      });
+    },
+    [inputData]
+  );
+  const checkboxHandler = useCallback(
+    (e) => {
+      setCheckd({
+        ...checked,
+        [e.target.name]: e.target.checked,
+      });
+    },
+    [checked]
+  );
 
   const testCheking = useCallback(() => {
     if (!qData || !inputData.title) {

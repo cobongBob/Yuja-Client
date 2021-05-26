@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
-import { getOneEBoard } from '../../../apiService/EditerApiService';
-import { ToastCenter } from '../../../modules/ToastModule';
-import './EditorRegister.scss';
-import * as EditerApiService from '../../../apiService/EditerApiService';
-import QuillModify from '../../../components/Quill/QuillModify';
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import { getOneEBoard } from "../../../apiService/EditerApiService";
+import { ToastCenter } from "../../../modules/ToastModule";
+import "./EditorRegister.scss";
+import * as EditerApiService from "../../../apiService/EditerApiService";
+import QuillModify from "../../../components/Quill/QuillModify";
 
 const EboardModify = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -17,17 +17,29 @@ const EboardModify = ({ match }) => {
   const fileList = useRef([]);
   const history = useHistory();
 
+  const [input, setInput] = useState({
+    previewImage: "",
+    title: "",
+    career: "",
+    payType: "",
+    payAmount: "",
+    tools: checkedlist.current,
+  });
+
   let eHistory = useCallback(
     (board_id) => history.push(`/EDetail/${board_type.current}/${board_id}/1`),
     [history, board_type]
   );
 
-  const onChange = useCallback((e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-  });
+  const onChange = useCallback(
+    (e) => {
+      setInput({
+        ...input,
+        [e.target.name]: e.target.value,
+      });
+    },
+    [input]
+  );
 
   const radioCheck = useCallback((e) => {
     const { name, value } = e.target;
@@ -35,16 +47,7 @@ const EboardModify = ({ match }) => {
       ...prevInput,
       [name]: value,
     }));
-  });
-
-  const [input, setInput] = useState({
-    previewImage: '',
-    title: '',
-    career: '',
-    payType: '',
-    payAmount: '',
-    tools: checkedlist.current,
-  });
+  }, []);
 
   const checkboxCheck = useCallback(
     (e) => {
@@ -55,25 +58,25 @@ const EboardModify = ({ match }) => {
         checkedlist.current.splice(index, 1);
       }
       if (!e.target.checked) {
-        checkedlist.current.push('선택안됨');
+        checkedlist.current.push("선택안됨");
       }
     },
     [checkedlist]
   );
 
-  const originalUrl = useRef('');
+  const originalUrl = useRef("");
 
   useEffect(() => {
     getOneEBoard(match.params.board_id, board_type.current).then((res) => {
       if (!userData || userData.id !== res.data.user.id) {
-        ToastCenter('권한이 없습니다.');
+        ToastCenter("권한이 없습니다.");
         return history.goBack();
       }
       fileList.current = res.data.boardAttachFileNames;
       setQModiData(res.data.content);
       setInput(res.data);
       originalUrl.current = res.data.previewImage && res.data.previewImage;
-      const firstIndex = originalUrl.current.indexOf('/vi');
+      const firstIndex = originalUrl.current.indexOf("/vi");
       originalUrl.current = originalUrl.current.substr(firstIndex + 4, 11);
     });
   }, [userData, history, match.params.board_id]);
@@ -86,23 +89,16 @@ const EboardModify = ({ match }) => {
       !input.career ||
       !input.payType ||
       !input.payAmount ||
-      input.tools === '선택안됨'
+      input.tools === "선택안됨"
     ) {
-      return ToastCenter('내용을 모두 적어주세요.');
+      return ToastCenter("내용을 모두 적어주세요.");
     }
-    let reg = new RegExp(
-      `http://localhost:8888/files/${board_type.current}/[0-9]+.[a-z]+`,
-      'gi'
-    );
+    let reg = new RegExp(`http://localhost:8888/files/${board_type.current}/[0-9]+.[a-z]+`, "gi");
     let imgSrcArr = String(qModiData).match(reg); // 불러왔던 글에 존재했던 이미지 태그들의 src
     // 서버에서 날아온 이미지 이름과 비교한다. 없으면 삭제된것이므로 삭제 리스트에 담아준다.
     if (imgSrcArr) {
       fileList.current.forEach((src) => {
-        if (
-          !imgSrcArr.includes(
-            `http://localhost:8888/files/${board_type.current}/${src}`
-          )
-        ) {
+        if (!imgSrcArr.includes(`http://localhost:8888/files/${board_type.current}/${src}`)) {
           deletedFileList.current.push(src);
         }
       });
@@ -120,14 +116,10 @@ const EboardModify = ({ match }) => {
       boardAttachIds: addingFileList.current,
       boardAttachToBeDeleted: deletedFileList.current,
     };
-    EditerApiService.modifyBoard(
-      match.params.board_id,
-      modifyingData,
-      board_type.current
-    ).then((res) => {
+    EditerApiService.modifyBoard(match.params.board_id, modifyingData, board_type.current).then((res) => {
       eHistory(res.data.id);
     });
-  }, []);
+  }, [eHistory, input, match.params.board_id, qModiData]);
 
   return (
     <div>
@@ -145,16 +137,14 @@ const EboardModify = ({ match }) => {
                 id='first-link'
                 onChange={onChange}
                 maxLength='45'
-                value={input.title || ''}
+                value={input.title || ""}
               />
             </li>
             <li className='li-item2'>
               <input
                 type='text'
                 placeholder='대표영상의 링크를 적어주세요.'
-                value={`https://www.youtube.com/watch?v=${
-                  originalUrl.current || ''
-                }`}
+                value={`https://www.youtube.com/watch?v=${originalUrl.current || ""}`}
                 name='previewImage'
                 onChange={onChange}
               />
@@ -167,7 +157,7 @@ const EboardModify = ({ match }) => {
                 onChange={radioCheck}
                 value='신입'
                 type='radio'
-                checked={input.career === '신입'}
+                checked={input.career === "신입"}
               />
               <label htmlFor='newbie'>신입</label>
               <input
@@ -176,7 +166,7 @@ const EboardModify = ({ match }) => {
                 name='career'
                 value='경력'
                 type='radio'
-                checked={input.career === '경력'}
+                checked={input.career === "경력"}
               />
               <label htmlFor='career'>경력</label>
             </li>
@@ -194,27 +184,18 @@ const EboardModify = ({ match }) => {
                 placeholder='희망급여'
                 name='payAmount'
                 onChange={onChange}
-                value={input.payAmount || ''}
+                value={input.payAmount || ""}
                 maxLength={12}
                 onInput={({ target }) => {
-                  target.value = target.value.replace(/[^0-9]/g, '');
-                  target.value = target.value.replace(/,/g, '');
-                  target.value = target.value.replace(
-                    /\B(?=(\d{3})+(?!\d))/g,
-                    ','
-                  ); // 정규식을 이용해서 3자리 마다 , 추가
+                  target.value = target.value.replace(/[^0-9]/g, "");
+                  target.value = target.value.replace(/,/g, "");
+                  target.value = target.value.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // 정규식을 이용해서 3자리 마다 , 추가
                 }}
               />
             </li>
             <li className='li-item5'>
               <span>사용기술</span>
-              <input
-                id='Epremiere'
-                name='Epremiere'
-                value='프리미어 프로'
-                type='checkbox'
-                onChange={checkboxCheck}
-              />
+              <input id='Epremiere' name='Epremiere' value='프리미어 프로' type='checkbox' onChange={checkboxCheck} />
               <label htmlFor='Epremiere'>프리미어 프로 </label>
               <input
                 id='Eaftereffect'
@@ -224,21 +205,9 @@ const EboardModify = ({ match }) => {
                 onChange={checkboxCheck}
               />
               <label htmlFor='Eaftereffect'>애프터이펙트 </label>
-              <input
-                id='Efinalcut'
-                name='Efinalcut'
-                value='파이널컷'
-                type='checkbox'
-                onChange={checkboxCheck}
-              />
+              <input id='Efinalcut' name='Efinalcut' value='파이널컷' type='checkbox' onChange={checkboxCheck} />
               <label htmlFor='Efinalcut'>파이널컷 </label>
-              <input
-                id='Evegas'
-                name='Evegas'
-                onChange={checkboxCheck}
-                value='베가스'
-                type='checkbox'
-              />
+              <input id='Evegas' name='Evegas' onChange={checkboxCheck} value='베가스' type='checkbox' />
               <label htmlFor='Evegas'>베가스</label>
               <input
                 id='Epowerdirector'
@@ -248,37 +217,13 @@ const EboardModify = ({ match }) => {
                 onChange={checkboxCheck}
               />
               <label htmlFor='Epowerdirector'>파워 디렉터</label>
-              <input
-                id='Yphotoshop'
-                name='yphotoshop'
-                value='포토샵'
-                type='checkbox'
-                onChange={checkboxCheck}
-              />
+              <input id='Yphotoshop' name='yphotoshop' value='포토샵' type='checkbox' onChange={checkboxCheck} />
               <label htmlFor='Yphotoshop'>포토샵</label>
-              <input
-                id='Yillustrater'
-                name='yillustrater'
-                value='일러스트'
-                type='checkbox'
-                onChange={checkboxCheck}
-              />
+              <input id='Yillustrater' name='yillustrater' value='일러스트' type='checkbox' onChange={checkboxCheck} />
               <label htmlFor='Yillustrater'>일러스트</label>
-              <input
-                id='Yblender'
-                onChange={checkboxCheck}
-                name='yblender'
-                value='블렌더'
-                type='checkbox'
-              />
+              <input id='Yblender' onChange={checkboxCheck} name='yblender' value='블렌더' type='checkbox' />
               <label htmlFor='Yblender'>블렌더</label>
-              <input
-                id='Ymaya'
-                onChange={checkboxCheck}
-                name='ymaya'
-                value='마야'
-                type='checkbox'
-              />
+              <input id='Ymaya' onChange={checkboxCheck} name='ymaya' value='마야' type='checkbox' />
               <label htmlFor='Ymaya'>마야</label>
             </li>
           </ul>

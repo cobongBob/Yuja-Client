@@ -1,10 +1,10 @@
-import React, { useCallback, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
-import QuillRegister from '../../../components/Quill/QuillRegister';
-import * as EditerApiService from '../../../apiService/EditerApiService';
-import './EditorRegister.scss';
-import { ToastCenter } from '../../../modules/ToastModule';
+import React, { useCallback, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import QuillRegister from "../../../components/Quill/QuillRegister";
+import * as EditerApiService from "../../../apiService/EditerApiService";
+import "./EditorRegister.scss";
+import { ToastCenter } from "../../../modules/ToastModule";
 
 const EditorRegister = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -14,17 +14,14 @@ const EditorRegister = ({ match }) => {
   const board_type = useRef(match.params.board_type);
   const history = useHistory();
   const checkedlist = useRef([]);
-  let Ehistory = useCallback(
-    (board_id) => history.push(`/EDetail/${board_type.current}/${board_id}/1`),
-    [history]
-  );
+  let Ehistory = useCallback((board_id) => history.push(`/EDetail/${board_type.current}/${board_id}/1`), [history]);
 
   const [input, setInput] = useState({
-    previewImage: '',
-    title: '',
-    career: '',
-    payType: '',
-    payAmount: '',
+    previewImage: "",
+    title: "",
+    career: "",
+    payType: "",
+    payAmount: "",
     tools: checkedlist.current,
   });
 
@@ -38,7 +35,7 @@ const EditorRegister = ({ match }) => {
       !input.payAmount ||
       !input.tools
     ) {
-      return ToastCenter('내용을 모두 적어주세요.');
+      return ToastCenter("내용을 모두 적어주세요.");
     }
 
     let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
@@ -78,16 +75,13 @@ const EditorRegister = ({ match }) => {
     [checkedlist]
   );
 
-  const radioCheck = useCallback(
-    (e) => {
-      const { name, value } = e.target;
-      setInput((prevInput) => ({
-        ...prevInput,
-        [name]: value,
-      }));
-    },
-    [input]
-  );
+  const radioCheck = useCallback((e) => {
+    const { name, value } = e.target;
+    setInput((prevInput) => ({
+      ...prevInput,
+      [name]: value,
+    }));
+  }, []);
 
   const onChange = useCallback(
     (e) => {
@@ -108,14 +102,7 @@ const EditorRegister = ({ match }) => {
         <div className='editor-register-default-input'>
           <ul>
             <li className='li-item1'>
-              <input
-                type='text'
-                placeholder='제목'
-                name='title'
-                id='first-link'
-                onChange={onChange}
-                maxLength='45'
-              />
+              <input type='text' placeholder='제목' name='title' id='first-link' onChange={onChange} maxLength='45' />
             </li>
             <li className='li-item2'>
               <input
@@ -128,21 +115,9 @@ const EditorRegister = ({ match }) => {
             </li>
             <li className='li-item3'>
               <div>경력사항</div>
-              <input
-                id='newbie'
-                name='career'
-                onChange={radioCheck}
-                value='신입'
-                type='radio'
-              />
+              <input id='newbie' name='career' onChange={radioCheck} value='신입' type='radio' />
               <label htmlFor='newbie'>신입</label>
-              <input
-                id='career'
-                onChange={radioCheck}
-                name='career'
-                value='경력'
-                type='radio'
-              />
+              <input id='career' onChange={radioCheck} name='career' value='경력' type='radio' />
               <label htmlFor='career'>경력</label>
             </li>
             <li className='li-item4'>
@@ -161,24 +136,15 @@ const EditorRegister = ({ match }) => {
                 onChange={onChange}
                 maxLength={12}
                 onInput={({ target }) => {
-                  target.value = target.value.replace(/[^0-9]/g, '');
-                  target.value = target.value.replace(/,/g, '');
-                  target.value = target.value.replace(
-                    /\B(?=(\d{3})+(?!\d))/g,
-                    ','
-                  ); // 정규식을 이용해서 3자리 마다 , 추가
+                  target.value = target.value.replace(/[^0-9]/g, "");
+                  target.value = target.value.replace(/,/g, "");
+                  target.value = target.value.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // 정규식을 이용해서 3자리 마다 , 추가
                 }}
               />
             </li>
             <li className='li-item5'>
               <span>사용기술</span>
-              <input
-                id='Epremiere'
-                name='Epremiere'
-                value='프리미어 프로'
-                type='checkbox'
-                onChange={checkboxCheck}
-              />
+              <input id='Epremiere' name='Epremiere' value='프리미어 프로' type='checkbox' onChange={checkboxCheck} />
               <label htmlFor='Epremiere'>프리미어 프로 </label>
               <input
                 id='Eaftereffect'
@@ -188,21 +154,9 @@ const EditorRegister = ({ match }) => {
                 onChange={checkboxCheck}
               />
               <label htmlFor='Eaftereffect'>애프터이펙트 </label>
-              <input
-                id='Efinalcut'
-                name='Efinalcut'
-                value='파이널컷'
-                type='checkbox'
-                onChange={checkboxCheck}
-              />
+              <input id='Efinalcut' name='Efinalcut' value='파이널컷' type='checkbox' onChange={checkboxCheck} />
               <label htmlFor='Efinalcut'>파이널컷 </label>
-              <input
-                id='Evegas'
-                name='Evegas'
-                onChange={checkboxCheck}
-                value='베가스'
-                type='checkbox'
-              />
+              <input id='Evegas' name='Evegas' onChange={checkboxCheck} value='베가스' type='checkbox' />
               <label htmlFor='Evegas'>베가스</label>
               <input
                 id='Epowerdirector'
@@ -212,37 +166,13 @@ const EditorRegister = ({ match }) => {
                 onChange={checkboxCheck}
               />
               <label htmlFor='Epowerdirector'>파워 디렉터</label>
-              <input
-                id='Yphotoshop'
-                name='yphotoshop'
-                value='포토샵'
-                type='checkbox'
-                onChange={checkboxCheck}
-              />
+              <input id='Yphotoshop' name='yphotoshop' value='포토샵' type='checkbox' onChange={checkboxCheck} />
               <label htmlFor='Yphotoshop'>포토샵</label>
-              <input
-                id='Yillustrater'
-                name='yillustrater'
-                value='일러스트'
-                type='checkbox'
-                onChange={checkboxCheck}
-              />
+              <input id='Yillustrater' name='yillustrater' value='일러스트' type='checkbox' onChange={checkboxCheck} />
               <label htmlFor='Yillustrater'>일러스트</label>
-              <input
-                id='Yblender'
-                onChange={checkboxCheck}
-                name='yblender'
-                value='블렌더'
-                type='checkbox'
-              />
+              <input id='Yblender' onChange={checkboxCheck} name='yblender' value='블렌더' type='checkbox' />
               <label htmlFor='Yblender'>블렌더</label>
-              <input
-                id='Ymaya'
-                onChange={checkboxCheck}
-                name='ymaya'
-                value='마야'
-                type='checkbox'
-              />
+              <input id='Ymaya' onChange={checkboxCheck} name='ymaya' value='마야' type='checkbox' />
               <label htmlFor='Ymaya'>마야</label>
             </li>
           </ul>
