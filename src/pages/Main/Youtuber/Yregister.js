@@ -81,16 +81,19 @@ const Yregister = () => {
 
   const checkedlist = useRef([]);
 
-  const checkboxCheck = useCallback((e) => {
-    // 체크박스가 선택될 경우
-    if (e.target.checked) {
-      checkedlist.current.push(e.target.value);
-    } else {
-      // 체크박스의 선택이 해제될 경우
-      const index = checkedlist.current.indexOf(e.target.value);
-      checkedlist.current.splice(index, 1);
-    }
-  });
+  const checkboxCheck = useCallback(
+    (e) => {
+      // 체크박스가 선택될 경우
+      if (e.target.checked) {
+        checkedlist.current.push(e.target.value);
+      } else {
+        // 체크박스의 선택이 해제될 경우
+        const index = checkedlist.current.indexOf(e.target.value);
+        checkedlist.current.splice(index, 1);
+      }
+    },
+    [checkedlist]
+  );
 
   const [input, setInput] = useState({
     title: '',
