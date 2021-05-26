@@ -30,7 +30,7 @@ const Yregister = () => {
       !input.recruitingNum ||
       !input.payType ||
       !input.payAmount ||
-      input.tools[0] === false ||
+      !input.tools ||
       !input.ywhen ||
       !input.manager ||
       !input.receptionMethod
@@ -72,23 +72,29 @@ const Yregister = () => {
     }));
   });
 
-  const onChange = useCallback((e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-  });
+  const onChange = useCallback(
+    (e) => {
+      setInput({
+        ...input,
+        [e.target.name]: e.target.value,
+      });
+    },
+    [input]
+  );
 
-  const checkedlist = useRef([false]);
+  const checkedlist = useRef([]);
 
-  const checkboxCheck = useCallback((e) => {
-    if (e.target.checked === true) {
-      checkedlist.current.push(e.target.value);
-    } else {
-      const index = checkedlist.current.indexOf(e.target.value);
-      checkedlist.current.splice(index, 1);
-    }
-  });
+  const checkboxCheck = useCallback(
+    (e) => {
+      if (e.target.checked) {
+        checkedlist.current.push(e.target.value);
+      } else {
+        const index = checkedlist.current.indexOf(e.target.value);
+        checkedlist.current.splice(index, 1);
+      }
+    },
+    [input]
+  );
 
   const [input, setInput] = useState({
     title: '',
