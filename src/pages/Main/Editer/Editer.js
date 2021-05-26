@@ -53,18 +53,19 @@ const Editer = ({ match, history }) => {
 
   const likeHandler = useCallback(
     (board_id) => {
-      if (
-        (userData &&
-          userData.id &&
-          authorities &&
-          authorities.includes('YOUTUBER')) ||
-        authorities.includes('EDITOR') ||
-        authorities.includes('THUMBNAILER') ||
-        authorities.includes('ADMIN')
-      ) {
-        deleteLike(board_id, userData.id).then((res) => {
-          dispatch(res);
-        });
+      if (userData && userData.id > 0) {
+        if (
+          (authorities && authorities.includes('YOUTUBER')) ||
+          authorities.includes('EDITOR') ||
+          authorities.includes('THUMBNAILER') ||
+          authorities.includes('ADMIN')
+        ) {
+          deleteLike(board_id, userData.id).then((res) => {
+            dispatch(res);
+          });
+        } else {
+          ToastCenter('권한이 없습니다!');
+        }
       } else {
         ToastCenter('로그인 해주세요');
       }
@@ -74,20 +75,21 @@ const Editer = ({ match, history }) => {
 
   const dislikeHandler = useCallback(
     (board_id) => {
-      if (
-        (userData &&
-          userData.id &&
-          authorities &&
-          authorities.includes('YOUTUBER')) ||
-        authorities.includes('EDITOR') ||
-        authorities.includes('THUMBNAILER') ||
-        authorities.includes('ADMIN')
-      ) {
-        addLike(board_id, userData.id).then((res) => {
-          dispatch(res);
-        });
+      if (userData && userData.id > 0) {
+        if (
+          (authorities && authorities.includes('YOUTUBER')) ||
+          authorities.includes('EDITOR') ||
+          authorities.includes('THUMBNAILER') ||
+          authorities.includes('ADMIN')
+        ) {
+          addLike(board_id, userData.id).then((res) => {
+            dispatch(res);
+          });
+        } else {
+          ToastCenter('권한이 없습니다!');
+        }
       } else {
-        ToastCenter('권한이 없습니다.');
+        ToastCenter('로그인 해주세요!');
       }
     },
     [userData, dispatch, authorities]

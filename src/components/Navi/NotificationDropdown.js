@@ -1,11 +1,11 @@
-import React, { useCallback } from "react";
-import { Dropdown } from "react-bootstrap";
-import { IoMdNotifications, IoMdNotificationsOutline } from "react-icons/io";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
-import { noticeWithPush } from "../../modules/ToastWithPush";
-import { AiTwotoneDelete } from "react-icons/ai";
-import { deleteNotification } from "../../redux/loading/notiReducer";
+import React, { useCallback } from 'react';
+import { IoMdNotifications } from 'react-icons/io';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
+import { noticeWithPush } from '../../modules/ToastWithPush';
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import { deleteNotification } from '../../redux/loading/notiReducer';
+import { Link } from 'react-router-dom';
 
 const NotificationDropdown = ({ allNotifications }) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -21,87 +21,114 @@ const NotificationDropdown = ({ allNotifications }) => {
   return (
     userData &&
     userData.id !== 0 && (
-      <Dropdown className='notiOnNav'>
+      <div className='notiOnNav'>
+        <ul>
+          <li className='modifyBox'>
+            <Link to='/BeforeModify' className='modifyBtn'>
+              정보수정
+            </Link>
+          </li>
+        </ul>
         {allNotifications.length > 0 &&
         userData &&
         userData.id !== 0 &&
         allNotifications[0].resipeint.id === userData.id ? (
-          <>
-            <Dropdown.Toggle variant='' id='dropdown-basic'>
+          <div>
+            <div variant='' id='dropdown-basic'>
               <IoMdNotifications className='noti_icon' size='30' />
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
+            </div>
+            <ul>
               {allNotifications.map((notice, idx) => {
-                if (notice.type === "commentNoti") {
+                if (notice.type === 'commentNoti') {
                   return (
                     <div key={idx} className='each_notice'>
-                      <AiTwotoneDelete onClick={() => deleteNoti(notice.notiId)} size='22' className='notice_delete' />
-                      <Dropdown.Item onClick={() => noticeWithPush(notice, history)}>
+                      <RiDeleteBin6Line
+                        onClick={() => deleteNoti(notice.notiId)}
+                        size='22'
+                        className='notice_delete'
+                      />
+                      <li onClick={() => noticeWithPush(notice, history)}>
                         <span>{`${notice.resipeint.nickname}님께서 ${notice.comment.board.title}글에 댓글을 남기셨습니다.`}</span>
-                      </Dropdown.Item>
+                      </li>
                     </div>
                   );
-                } else if (notice.type === "chatNoti") {
+                } else if (notice.type === 'chatNoti') {
                   return (
                     <div key={idx} className='each_notice'>
-                      <AiTwotoneDelete onClick={() => deleteNoti(notice.notiId)} size='22' className='notice_delete' />
-                      <Dropdown.Item>
+                      <RiDeleteBin6Line
+                        onClick={() => deleteNoti(notice.notiId)}
+                        size='10'
+                        className='notice_delete'
+                      />
+                      <li>
                         <span>{`${notice.sender.nickname}님으로부터 새로운 채팅이 있습니다.`}</span>
-                      </Dropdown.Item>
+                      </li>
                     </div>
                   );
-                } else if (notice.type === "editNoti") {
+                } else if (notice.type === 'editNoti') {
                   return (
                     <div key={idx} className='each_notice'>
-                      <AiTwotoneDelete onClick={() => deleteNoti(notice.notiId)} size='22' className='notice_delete' />
-                      <Dropdown.Item>
+                      <RiDeleteBin6Line
+                        onClick={() => deleteNoti(notice.notiId)}
+                        size='22'
+                        className='notice_delete'
+                      />
+                      <li>
                         <span>{`에디터로 등록되셨습니다.`}</span>
-                      </Dropdown.Item>
+                      </li>
                     </div>
                   );
-                } else if (notice.type === "thumbNoti") {
+                } else if (notice.type === 'thumbNoti') {
                   return (
                     <div key={idx} className='each_notice'>
-                      <AiTwotoneDelete onClick={() => deleteNoti(notice.notiId)} size='22' className='notice_delete' />
-                      <Dropdown.Item>
+                      <RiDeleteBin6Line
+                        onClick={() => deleteNoti(notice.notiId)}
+                        size='22'
+                        className='notice_delete'
+                      />
+                      <li>
                         <span>{`썸네일러로 등록되셨습니다.`}</span>
-                      </Dropdown.Item>
+                      </li>
                     </div>
                   );
-                } else if (notice.type === "youtubeNoti") {
+                } else if (notice.type === 'youtubeNoti') {
                   return (
                     <div key={idx} className='each_notice'>
-                      <AiTwotoneDelete onClick={() => deleteNoti(notice.notiId)} size='22' className='notice_delete' />
-                      <Dropdown.Item>
+                      <RiDeleteBin6Line
+                        onClick={() => deleteNoti(notice.notiId)}
+                        size='22'
+                        className='notice_delete'
+                      />
+                      <li>
                         <span>{`유튜버로 등록되셨습니다.`}</span>
-                      </Dropdown.Item>
+                      </li>
                     </div>
                   );
-                } else if (notice.type === "rejectNoti") {
+                } else if (notice.type === 'rejectNoti') {
                   return (
                     <div key={idx} className='each_notice'>
-                      <AiTwotoneDelete onClick={() => deleteNoti(notice.notiId)} size='22' className='notice_delete' />
-                      <Dropdown.Item>
+                      <RiDeleteBin6Line
+                        onClick={() => deleteNoti(notice.notiId)}
+                        size='22'
+                        className='notice_delete'
+                      />
+                      <li>
                         <span>{`유튜버로 등록이 거절되었습니다. 신청 절차를 다시 확인해주세요.`}</span>
-                      </Dropdown.Item>
+                      </li>
                     </div>
                   );
                 } else {
                   return null;
                 }
               })}
-            </Dropdown.Menu>
-          </>
+            </ul>
+          </div>
         ) : (
           <>
-            <Dropdown.Toggle variant='' id='dropdown-basic'>
-              <IoMdNotificationsOutline className='noti_icon' size='30' />
-            </Dropdown.Toggle>
-            <Dropdown.Menu>비어있습니다.</Dropdown.Menu>
+            <li>비어있습니다.</li>
           </>
         )}
-      </Dropdown>
+      </div>
     )
   );
 };

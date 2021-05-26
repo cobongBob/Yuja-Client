@@ -15,34 +15,6 @@ const YmodifyTest = (props) => {
   const checkedlist = useRef([]);
   const current_page = useRef(props.match.params.current_page);
   const history = useHistory();
-  let Yhistory = useCallback(
-    (board_id) => history.push(`/Ydetail/${board_id}/${current_page.current}`),
-    [history]
-  );
-
-  const checkboxCheck = (e) => {
-    if (e.target.checked) {
-      checkedlist.current.push(e.target.value);
-    } else {
-      const index = checkedlist.current.indexOf(e.target.value);
-      checkedlist.current.splice(index, 1);
-    }
-  };
-
-  const radioCheck = (e) => {
-    const { name, value } = e.target;
-    setInput((prevInput) => ({
-      ...prevInput,
-      [name]: value,
-    }));
-  };
-
-  const onChange = (e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   const [input, setInput] = useState({
     title: '',
@@ -56,7 +28,13 @@ const YmodifyTest = (props) => {
     expiredDate: '',
     manager: '',
     receptionMethod: '',
+    tools: checkedlist.current,
   });
+
+  let Yhistory = useCallback(
+    (board_id) => history.push(`/Ydetail/${board_id}/${current_page.current}`),
+    [history]
+  );
 
   useEffect(() => {
     YapiService.fetchBoard(props.match.params.board_id).then((res) => {
@@ -70,9 +48,22 @@ const YmodifyTest = (props) => {
     });
   }, [userData]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const testCheking = () => {
-    if (!qModiData || !input.title) {
-      return ToastCenter('제목과 내용을 입력해주세요');
+  const testCheking = useCallback(() => {
+    if (
+      !qModiData ||
+      !input.title ||
+      !input.channelName ||
+      !input.worker ||
+      !input.recruitingNum ||
+      !input.payType ||
+      !input.payAmount ||
+      !input.career ||
+      !input.ywhen ||
+      !input.manager ||
+      !input.receptionMethod ||
+      checkedlist.current.length === 0
+    ) {
+      return ToastCenter('내용을 모두 적어주세요.');
     }
     let currentBoardType = 'YoutuberBoard/';
     let reg = /http:\/\/localhost:8888\/files\/Youtuber\/[0-9]+.[a-z]+/g;
@@ -108,7 +99,37 @@ const YmodifyTest = (props) => {
         Yhistory(res.data.id);
       }
     );
-  };
+  }, [Yhistory, input, props.match.params.board_id, qModiData]);
+
+  const checkboxCheck = useCallback(
+    (e) => {
+      if (e.target.checked) {
+        checkedlist.current.push(e.target.value);
+      } else {
+        const index = checkedlist.current.indexOf(e.target.value);
+        checkedlist.current.splice(index, 1);
+      }
+    },
+    [checkedlist]
+  );
+
+  const radioCheck = useCallback((e) => {
+    const { name, value } = e.target;
+    setInput((prevInput) => ({
+      ...prevInput,
+      [name]: value,
+    }));
+  }, []);
+
+  const onChange = useCallback(
+    (e) => {
+      setInput({
+        ...input,
+        [e.target.name]: e.target.value,
+      });
+    },
+    [input]
+  );
 
   return (
     <div className='register-container'>
@@ -134,6 +155,7 @@ const YmodifyTest = (props) => {
             onChange={onChange}
             name='channelName'
             type='text'
+            maxLength='50'
             value={input.channelName || ''}
           />
         </li>
@@ -204,6 +226,7 @@ const YmodifyTest = (props) => {
             onChange={onChange}
             name='recruitingNum'
             type='text'
+            value={input.recruitingNum || ''}
             maxLength='3'
             onInput={({ target }) => {
               target.value = target.value.replace(/[^0-9]/g, '');
@@ -214,7 +237,7 @@ const YmodifyTest = (props) => {
         </li>
         <li className='wanted-pay'>
           <div>급여</div>
-          <select name='payType' onChange={onChange}>
+          <select name='payType' value={input.payType} onChange={onChange}>
             <option>선택</option>
             <option value='연봉'>연봉</option>
             <option value='월급'>월급</option>
@@ -241,7 +264,7 @@ const YmodifyTest = (props) => {
           <span>사용기술</span>
           <input
             id='Ypremiere'
-            name='ypremiere'
+            name='tools'
             value='프리미어 프로'
             type='checkbox'
             onChange={checkboxCheck}
@@ -249,7 +272,7 @@ const YmodifyTest = (props) => {
           <label htmlFor='Ypremiere'>프리미어 프로 </label>
           <input
             id='Yaftereffect'
-            name='yaftereffect'
+            name='tools'
             value='애프터이펙트'
             type='checkbox'
             onChange={checkboxCheck}
@@ -257,7 +280,7 @@ const YmodifyTest = (props) => {
           <label htmlFor='Yaftereffect'>애프터이펙트 </label>
           <input
             id='Yfinalcut'
-            name='yfinalcut'
+            name='tools'
             value='파이널컷'
             type='checkbox'
             onChange={checkboxCheck}
@@ -265,7 +288,7 @@ const YmodifyTest = (props) => {
           <label htmlFor='Yfinalcut'>파이널컷 </label>
           <input
             id='Yvegas'
-            name='yvegas'
+            name='tools'
             onChange={checkboxCheck}
             value='베가스'
             type='checkbox'
@@ -273,7 +296,7 @@ const YmodifyTest = (props) => {
           <label htmlFor='Yvegas'>베가스</label>
           <input
             id='Ypowerdirector'
-            name='ypowerdirector'
+            name='tools'
             value='파워 디렉터'
             type='checkbox'
             onChange={checkboxCheck}
@@ -281,7 +304,7 @@ const YmodifyTest = (props) => {
           <label htmlFor='Ypowerdirector'>파워 디렉터</label>
           <input
             id='Yphotoshop'
-            name='yphotoshop'
+            name='tools'
             value='포토샵'
             type='checkbox'
             onChange={checkboxCheck}
@@ -289,7 +312,7 @@ const YmodifyTest = (props) => {
           <label htmlFor='Yphotoshop'>포토샵</label>
           <input
             id='Yillustrater'
-            name='yillustrater'
+            name='tools'
             value='일러스트'
             type='checkbox'
             onChange={checkboxCheck}
@@ -298,7 +321,7 @@ const YmodifyTest = (props) => {
           <input
             id='Yblender'
             onChange={checkboxCheck}
-            name='yblender'
+            name='tools'
             value='블렌더'
             type='checkbox'
           />
@@ -306,7 +329,7 @@ const YmodifyTest = (props) => {
           <input
             id='Ymaya'
             onChange={checkboxCheck}
-            name='ymaya'
+            name='tools'
             value='마야'
             type='checkbox'
           />
@@ -351,6 +374,7 @@ const YmodifyTest = (props) => {
             name='manager'
             type='text'
             placeholder='담당자'
+            maxLength='30'
             value={input.manager || ''}
           />
         </li>
@@ -361,6 +385,7 @@ const YmodifyTest = (props) => {
             placeholder='담당자 연락처'
             onChange={onChange}
             type='text'
+            maxLength='255'
             value={input.receptionMethod || ''}
           />
         </li>

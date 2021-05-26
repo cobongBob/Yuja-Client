@@ -1,0 +1,49 @@
+.notiOnNav {
+  display: inline-block;
+  z-index: 9999;
+}
+.noti_icon {
+  color: #ff9411;
+}
+.notice_delete {
+  float: left;
+  cursor: pointer;
+}
+.dropdown-item {
+  clear: none !important;
+}
+.each_notice {
+  clear: both;
+}
+
+.navChangeBox {
+  display: inline-block;
+}
+
+.navChangeBox > div > ul > li > button {
+  padding: 0.25rem;
+}
+
+.navChangeBox > div > ul {
+  padding-left: 0;
+  font-size: 15px;
+  margin-top: 0.5rem;
+  margin-left: 3rem;
+  list-style: none;
+  width: 13rem;
+  background-color: white;
+  border: 1px solid #ff9411;
+}
+
+.notiOnNav > ul {
+  padding-left: 0;
+}
+
+.notiOnNav > div > ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.welcomeBox > .noti_icon {
+  color: #ff9411;
+}

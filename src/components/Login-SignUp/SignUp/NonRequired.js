@@ -5,7 +5,6 @@ import AddressApi from "./AddressApi";
 import { ToastCenter, ToastPreventAccess, ToastTopRight } from "../../../modules/ToastModule";
 
 const NonRequired = ({ location, history }) => {
-
   if (history.action === "POP") {
     ToastPreventAccess("❌ 잘못된 접근 입니다.");
     history.replace("/");
@@ -96,7 +95,7 @@ const NonRequired = ({ location, history }) => {
   };
 
   const changeValue = (e) => {
-    console.log('changeValue 실행')
+    console.log("changeValue 실행");
     setNonRequiredData({
       ...nonRequiredData,
       [e.target.name]: e.target.value,
@@ -110,7 +109,7 @@ const NonRequired = ({ location, history }) => {
       profilePicId: profilePicId.current,
       youtubeConfirmId: youtubeConfirmId.current,
     };
-    console.log('NonRequiredData', data)
+    console.log("NonRequiredData", data);
     UserApiService.addUser(data)
       .then((r) => {
         if (r) {
@@ -126,27 +125,6 @@ const NonRequired = ({ location, history }) => {
   };
   /* 이 페이지(nonRequired) 데이터 담기 끝 */
   /* 회원가입 데이터 넘겨주기 끝 */
-
-  /* 이 페이지(nonRequired) 유효성 검사 */
-  const checkNonRequiredUserData = (e) => {
-    let address = nonRequiredData.address;
-    let phone = nonRequiredData.phone;
-
-    const addressCheck = /^[a-zA-Z0-9가-힣ㄱ-ㅎ ]{2,20}$/;
-    const phoneCheck = /^(01[016789]{1})\d{3,4}\d{4}$/;
-
-    if (address.length !== 0 && false === addressCheck.test(address)) {
-      alert("주소를 확인해주세요!");
-      e.preventDefault();
-      return false;
-    } else if (phone.length !== 0 && false === phoneCheck.test(phone)) {
-      alert("연락처를 확인해주세요!");
-      e.preventDefault();
-      return false;
-    } else {
-      return true;
-    }
-  };
 
   /* 사업자 등록번호 확인식 */
   const bsnCheck = (e) => {
@@ -190,9 +168,7 @@ const NonRequired = ({ location, history }) => {
   const [submitDisableHandler, setSubmitDisableHandler] = useState();
 
   const [isCompanyRegNumFill, setIsCompanyRegNumFill] = useState();
-  const [isPermalinkFill, setIsPermalinkFill] = useState(
-    "https://www.youtube.com/channel/고유코드 형식이여야 합니다."
-  );
+  const [isPermalinkFill, setIsPermalinkFill] = useState("https://www.youtube.com/channel/고유코드 형식이여야 합니다.");
   const [isYoutuberPicFill, setIsYoutuberPicFill] = useState(
     "아래 예시처럼 시간이 보이는 본인의 유튜브 스튜디오/콘텐츠 화면 스크린샷을 업로드 해주세요."
   );
@@ -211,9 +187,9 @@ const NonRequired = ({ location, history }) => {
   const permalinkCheck = useCallback(
     (e) => {
       let checkContent = e.target.value;
-      if (checkContent !== "" &&
-        checkContent.startsWith("https://www.youtube.com/") &&
-        checkContent.indexOf("c" || "channel") > -1 &&
+      if (
+        checkContent !== "" &&
+        checkContent.startsWith("https://www.youtube.com/c" || "https://www.youtube.com/channel") &&
         !checkContent.endsWith("/featured")
       ) {
         setIsPermalinkFill("");
@@ -232,10 +208,10 @@ const NonRequired = ({ location, history }) => {
 
   return (
     <div className='contentBox2'>
-      <div className="signUpBar">
-        <div className="dot2"></div>
-        <div className="dot3"></div>
-        <div className="dot1"></div>
+      <div className='signUpBar'>
+        <div className='dot2'></div>
+        <div className='dot3'></div>
+        <div className='dot1'></div>
       </div>
       <div className='overlay'>
         <div className='required2'>* 선택입력 정보입니다.</div>
@@ -251,7 +227,7 @@ const NonRequired = ({ location, history }) => {
                   className='signUpProfilePic'
                   type='file'
                   name='profile_img'
-                  accept='image/jpeg, image/jpg, image/png'
+                  accept='.jpeg, .jpg, .png'
                   placeholder='프로필 사진'
                   onChange={handleFileOnChange}
                 />
@@ -351,29 +327,25 @@ const NonRequired = ({ location, history }) => {
               <label className='youtuberPicLabel' htmlFor='youtuberPicInput'>
                 유튜브 계정 스크린샷
                 <span> (필수)</span>
+                <div className='youtuberPicDesc'>{isYoutuberPicFill}</div>
+                <div className='youtuberPic_PreviewBox'>{youtuberPic_preview}</div>
+                <div className='youtuberPicInputWrapper'>
+                  <input
+                    className='youtuberPicInput'
+                    id='youtuberPicInput'
+                    type='file'
+                    accept='image/jpeg, image/jpg, image/png'
+                    onChange={handleFileOnChange2}
+                  />
+                </div>
               </label>
-              <div className='youtuberPicDesc'>{isYoutuberPicFill}</div>
-              <div className='youtuberPic_PreviewBox'>{youtuberPic_preview}</div>
-              <div className='youtuberPicInputWrapper'>
-                <input
-                  className='youtuberPicInput'
-                  id='youtuberPicInput'
-                  type='file'
-                  accept='image/jpeg, image/jpg, image/png'
-                  onChange={handleFileOnChange2}
-                />
-              </div>
             </div>
           </div>
         ) : (
           ""
         )}
         <div className='signUpSubmitBtnBox'>
-          <button
-            type='submit'
-            className='btn btn-warning'
-            onClick={totalAction}
-            disabled={submitDisableHandler}>
+          <button type='submit' className='btn btn-warning' onClick={totalAction} disabled={submitDisableHandler}>
             회원가입
           </button>
         </div>

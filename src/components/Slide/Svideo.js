@@ -18,7 +18,7 @@ const Svideo = () => {
     arrows: true,
     prevArrow: <PrevArrow></PrevArrow>,
     nextArrow: <NextArrow></NextArrow>,
-    infinite: true,
+    infinite: false,
     autoplay: false,
     speed: 3000,
     autoplaySpeed: 5000,
@@ -63,16 +63,20 @@ const Svideo = () => {
         {ThvideoData &&
           ThvideoData.map((video, index) => (
             <div key={index} className='wrapper'>
-              <div className='thumbnails'>
+              <div className='thumbnails_'>
                 <div
                   onClick={() =>
                     history.push(`/ThumbDetail/Thumb/${video.id}/1`)
                   }
-                  className='thumbnails-item'>
-                  <div className='item item_red'>
-                    <div className='top'>{video.user.nickname}</div>
-                    <div className='bottom'>{video.title}</div>
-                    <img src='/img/board_pic/editor_pic/thum5.png' alt='' />
+                  className='thumbnails-item_'>
+                  <div className='item_ item_red'>
+                    <div className='top_'>{video.user.nickname}</div>
+                    <div className='bottom_'>{video.title}</div>
+                    <img
+                      className='videoImg_'
+                      src={video.previewImage}
+                      alt=''
+                    />
                   </div>
                 </div>
               </div>

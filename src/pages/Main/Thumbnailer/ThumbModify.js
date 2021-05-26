@@ -25,30 +25,6 @@ const ThumbModify = ({ match }) => {
     [history, board_type]
   );
 
-  const checkboxCheck = (e) => {
-    if (e.target.checked) {
-      checkedlist.current.push(e.target.value);
-    } else {
-      const index = checkedlist.current.indexOf(e.target.value);
-      checkedlist.current.splice(index, 1);
-    }
-  };
-
-  const onChange = (e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const radioCheck = (e) => {
-    const { name, value } = e.target;
-    setInput((prevInput) => ({
-      ...prevInput,
-      [name]: value,
-    }));
-  };
-
   const [input, setInput] = useState({
     previewImage: '',
     title: '',
@@ -58,7 +34,39 @@ const ThumbModify = ({ match }) => {
     tools: checkedlist.current,
   });
 
-  const handleImg = (e) => {
+  const checkboxCheck = useCallback(
+    (e) => {
+      if (e.target.checked) {
+        checkedlist.current.push(e.target.value);
+        console.log('선택함', checkedlist.current);
+      } else {
+        const index = checkedlist.current.indexOf(e.target.value);
+        checkedlist.current.splice(index, 1);
+        console.log('선택안함', checkedlist.current);
+      }
+    },
+    [checkedlist]
+  );
+
+  const onChange = useCallback(
+    (e) => {
+      setInput({
+        ...input,
+        [e.target.name]: e.target.value,
+      });
+    },
+    [input]
+  );
+
+  const radioCheck = useCallback((e) => {
+    const { name, value } = e.target;
+    setInput((prevInput) => ({
+      ...prevInput,
+      [name]: value,
+    }));
+  }, []);
+
+  const handleImg = useCallback((e) => {
     let file = e.target.files[0];
     if (!file) {
       return;
@@ -84,7 +92,7 @@ const ThumbModify = ({ match }) => {
         ThumbId.current = response.data.thumbnailId;
       });
     }
-  };
+  }, []);
 
   useEffect(() => {
     getOneEBoard(match.params.board_id, board_type.current).then((res) => {
@@ -98,9 +106,16 @@ const ThumbModify = ({ match }) => {
     });
   }, [userData, history, match.params.board_id]);
 
-  const testCheking = () => {
-    if (!qModiData || !input.title) {
-      return ToastCenter('제목과 내용을 입력해주세요');
+  const testCheking = useCallback(() => {
+    if (
+      !qModiData ||
+      !input.title ||
+      !input.payType ||
+      !input.payAmount ||
+      !input.career ||
+      checkedlist.current.length === 0
+    ) {
+      return ToastCenter('내용을 모두 입력해주세요.');
     }
     let reg = new RegExp(
       `http://localhost:8888/files/${board_type.current}/[0-9]+.[a-z]+`,
@@ -132,6 +147,7 @@ const ThumbModify = ({ match }) => {
       boardAttachIds: addingFileList.current,
       boardAttachToBeDeleted: deletedFileList.current,
     };
+
     EditerApiService.modifyBoard(
       match.params.board_id,
       modifyingData,
@@ -139,7 +155,7 @@ const ThumbModify = ({ match }) => {
     ).then((res) => {
       ThHistory(res.data.id);
     });
-  };
+  }, [ThHistory, match.params.board_id, input, qModiData]);
 
   return (
     <div>
@@ -221,7 +237,7 @@ const ThumbModify = ({ match }) => {
               <span>사용기술</span>
               <input
                 id='Epremiere'
-                name='Epremiere'
+                name='tools'
                 value='프리미어 프로'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -229,7 +245,7 @@ const ThumbModify = ({ match }) => {
               <label htmlFor='Epremiere'>프리미어 프로 </label>
               <input
                 id='Eaftereffect'
-                name='Eaftereffect'
+                name='tools'
                 value='애프터이펙트'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -237,7 +253,7 @@ const ThumbModify = ({ match }) => {
               <label htmlFor='Eaftereffect'>애프터이펙트 </label>
               <input
                 id='Efinalcut'
-                name='Efinalcut'
+                name='tools'
                 value='파이널컷'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -245,7 +261,7 @@ const ThumbModify = ({ match }) => {
               <label htmlFor='Efinalcut'>파이널컷 </label>
               <input
                 id='Evegas'
-                name='Evegas'
+                name='tools'
                 onChange={checkboxCheck}
                 value='베가스'
                 type='checkbox'
@@ -253,7 +269,7 @@ const ThumbModify = ({ match }) => {
               <label htmlFor='Evegas'>베가스</label>
               <input
                 id='Epowerdirector'
-                name='Epowerdirector'
+                name='tools'
                 value='파워 디렉터'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -261,7 +277,7 @@ const ThumbModify = ({ match }) => {
               <label htmlFor='Epowerdirector'>파워 디렉터</label>
               <input
                 id='Yphotoshop'
-                name='yphotoshop'
+                name='tools'
                 value='포토샵'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -269,7 +285,7 @@ const ThumbModify = ({ match }) => {
               <label htmlFor='Yphotoshop'>포토샵</label>
               <input
                 id='Yillustrater'
-                name='yillustrater'
+                name='tools'
                 value='일러스트'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -278,7 +294,7 @@ const ThumbModify = ({ match }) => {
               <input
                 id='Yblender'
                 onChange={checkboxCheck}
-                name='yblender'
+                name='tools'
                 value='블렌더'
                 type='checkbox'
               />
@@ -286,7 +302,7 @@ const ThumbModify = ({ match }) => {
               <input
                 id='Ymaya'
                 onChange={checkboxCheck}
-                name='ymaya'
+                name='tools'
                 value='마야'
                 type='checkbox'
               />

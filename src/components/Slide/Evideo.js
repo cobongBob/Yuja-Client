@@ -18,7 +18,7 @@ const Evideo = () => {
     arrows: true,
     prevArrow: <PrevArrow></PrevArrow>,
     nextArrow: <NextArrow></NextArrow>,
-    infinite: true,
+    infinite: false,
     autoplay: false,
     speed: 3000,
     autoplaySpeed: 5000,

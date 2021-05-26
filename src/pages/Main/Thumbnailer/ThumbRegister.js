@@ -49,11 +49,10 @@ const ThumbRegister = ({ match }) => {
       !inputData.payType ||
       !inputData.payAmount ||
       !inputData.career ||
-      !inputData.tools
+      !inputData.tools[0]
     ) {
       return ToastCenter('내용을 모두 입력해주세요.');
     }
-
     let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
     let imgSrcArr = String(qData).match(reg);
     if (imgSrcArr) {
@@ -78,8 +77,7 @@ const ThumbRegister = ({ match }) => {
     EditerApiService.addBoards(sendingData, board_type.current).then((res) => {
       ThHistory(res.data.id);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userData, qData, ThHistory]);
+  }, [userData, qData, ThHistory, inputData]);
 
   const checkboxCheck = useCallback(
     (e) => {
@@ -93,18 +91,15 @@ const ThumbRegister = ({ match }) => {
     [checkedlist]
   );
 
-  const radioCheck = useCallback(
-    (e) => {
-      const { name, value } = e.target;
-      setInputData((prevInput) => ({
-        ...prevInput,
-        [name]: value,
-      }));
-    },
-    [inputData]
-  );
+  const radioCheck = useCallback((e) => {
+    const { name, value } = e.target;
+    setInputData((prevInput) => ({
+      ...prevInput,
+      [name]: value,
+    }));
+  }, []);
 
-  const handleImg = (e) => {
+  const handleImg = useCallback((e) => {
     let file = e.target.files[0];
     if (!file) {
       return;
@@ -130,7 +125,7 @@ const ThumbRegister = ({ match }) => {
         ThumbId.current = response.data.thumbnailId;
       });
     }
-  };
+  }, []);
 
   const onChange = useCallback(
     (e) => {
@@ -219,7 +214,7 @@ const ThumbRegister = ({ match }) => {
               <span>사용기술</span>
               <input
                 id='Epremiere'
-                name='Epremiere'
+                name='tools'
                 value='프리미어 프로'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -227,7 +222,7 @@ const ThumbRegister = ({ match }) => {
               <label htmlFor='Epremiere'>프리미어 프로 </label>
               <input
                 id='Eaftereffect'
-                name='Eaftereffect'
+                name='tools'
                 value='애프터이펙트'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -235,7 +230,7 @@ const ThumbRegister = ({ match }) => {
               <label htmlFor='Eaftereffect'>애프터이펙트 </label>
               <input
                 id='Efinalcut'
-                name='Efinalcut'
+                name='tools'
                 value='파이널컷'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -243,7 +238,7 @@ const ThumbRegister = ({ match }) => {
               <label htmlFor='Efinalcut'>파이널컷 </label>
               <input
                 id='Evegas'
-                name='Evegas'
+                name='tools'
                 onChange={checkboxCheck}
                 value='베가스'
                 type='checkbox'
@@ -251,7 +246,7 @@ const ThumbRegister = ({ match }) => {
               <label htmlFor='Evegas'>베가스</label>
               <input
                 id='Epowerdirector'
-                name='Epowerdirector'
+                name='tools'
                 value='파워 디렉터'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -259,7 +254,7 @@ const ThumbRegister = ({ match }) => {
               <label htmlFor='Epowerdirector'>파워 디렉터</label>
               <input
                 id='Yphotoshop'
-                name='yphotoshop'
+                name='tools'
                 value='포토샵'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -267,7 +262,7 @@ const ThumbRegister = ({ match }) => {
               <label htmlFor='Yphotoshop'>포토샵</label>
               <input
                 id='Yillustrater'
-                name='yillustrater'
+                name='tools'
                 value='일러스트'
                 type='checkbox'
                 onChange={checkboxCheck}
@@ -276,7 +271,7 @@ const ThumbRegister = ({ match }) => {
               <input
                 id='Yblender'
                 onChange={checkboxCheck}
-                name='yblender'
+                name='tools'
                 value='블렌더'
                 type='checkbox'
               />
@@ -284,7 +279,7 @@ const ThumbRegister = ({ match }) => {
               <input
                 id='Ymaya'
                 onChange={checkboxCheck}
-                name='ymaya'
+                name='tools'
                 value='마야'
                 type='checkbox'
               />

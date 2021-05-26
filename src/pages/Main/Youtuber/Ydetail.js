@@ -18,7 +18,6 @@ import { ToastCenter } from '../../../modules/ToastModule';
 
 Modal.setAppElement('#root');
 const Ydetail = ({ match }) => {
-  console.log(22222, match);
   const dispatch = useDispatch();
   const { userData, authorities } = useSelector((state) => state.loginReducer);
   const { detailData } = useSelector((state) => state.YboardReducer);

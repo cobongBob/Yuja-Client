@@ -23,7 +23,7 @@ section {
   font-size: 1.5em;
   outline: none;
   cursor: pointer;
-  margin-right: 0.2em;
+  margin-right: -15px;
 }
 
 .loginId {
@@ -139,23 +139,9 @@ section > footer {
   }
 }
 /* nav 로그인 전/후 변하는 컴포넌트들 */
-.navChangeBox {
-  display: inline-block;
-}
-.navChangeBox > div > ul {
-  margin-top: 0.5rem;
-  margin-left: 3rem;
-  padding-left: 0;
-  list-style: none;
-  width: 13rem;
-  background-color: white;
-  border: 1px solid #ff9411;
-}
-.navChangeBox > div > ul > li > button {
-  padding: 0.25rem;
-}
+
 .welcomeBox {
-  margin-top: 0.5rem;
+  padding: 0.5rem;
   border: none;
   background-color: transparent;
   display: inline-block;
@@ -168,6 +154,11 @@ section > footer {
   vertical-align: middle;
   font-size: medium;
 }
+
+.notiOnNav > ul > li {
+  padding-left: 0;
+}
+
 /* 모달창 제어 */
 .ReactModal__Body--open,
 .ReactModal__Html--open {

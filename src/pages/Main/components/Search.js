@@ -18,7 +18,7 @@ export default function Search({ boardData, term, setTerm, searchKeyword }) {
           <input
             type='text'
             ref={inputEl}
-            placeholder='검색어를 입력해주세요.'
+            placeholder='제목 또는 작성자를 입력해주세요.'
             value={term}
             onChange={(e) => setTerm(e.target.value)}
           />

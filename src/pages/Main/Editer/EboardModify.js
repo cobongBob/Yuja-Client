@@ -6,6 +6,7 @@ import { ToastCenter } from '../../../modules/ToastModule';
 import './EditorRegister.scss';
 import * as EditerApiService from '../../../apiService/EditerApiService';
 import QuillModify from '../../../components/Quill/QuillModify';
+import { previewToYoutubeLink } from '../../../modules/QuillYoutubeConvert';
 
 const EboardModify = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -17,26 +18,6 @@ const EboardModify = ({ match }) => {
   const fileList = useRef([]);
   const history = useHistory();
 
-  let eHistory = useCallback(
-    (board_id) => history.push(`/EDetail/${board_type.current}/${board_id}/1`),
-    [history, board_type]
-  );
-
-  const onChange = (e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const radioCheck = (e) => {
-    const { name, value } = e.target;
-    setInput((prevInput) => ({
-      ...prevInput,
-      [name]: value,
-    }));
-  };
-
   const [input, setInput] = useState({
     previewImage: '',
     title: '',
@@ -45,6 +26,11 @@ const EboardModify = ({ match }) => {
     payAmount: '',
     tools: checkedlist.current,
   });
+
+  let eHistory = useCallback(
+    (board_id) => history.push(`/EDetail/${board_type.current}/${board_id}/1`),
+    [history, board_type]
+  );
 
   const originalUrl = useRef('');
 
@@ -56,14 +42,13 @@ const EboardModify = ({ match }) => {
       }
       fileList.current = res.data.boardAttachFileNames;
       setQModiData(res.data.content);
-      setInput(res.data);
       originalUrl.current = res.data.previewImage && res.data.previewImage;
-      const firstIndex = originalUrl.current.indexOf('/vi');
-      originalUrl.current = originalUrl.current.substr(firstIndex + 4, 11);
+      originalUrl.current = previewToYoutubeLink(originalUrl.current);
+      setInput({ ...res.data, previewImage: originalUrl.current });
     });
   }, [userData, history, match.params.board_id]);
 
-  const testCheking = () => {
+  const testCheking = useCallback(() => {
     if (
       !qModiData ||
       !input.title ||
@@ -71,7 +56,7 @@ const EboardModify = ({ match }) => {
       !input.career ||
       !input.payType ||
       !input.payAmount ||
-      !input.tools
+      checkedlist.current.length === 0
     ) {
       return ToastCenter('내용을 모두 적어주세요.');
     }
@@ -112,16 +97,37 @@ const EboardModify = ({ match }) => {
     ).then((res) => {
       eHistory(res.data.id);
     });
-  };
+  }, [eHistory, input, match.params.board_id, qModiData]);
 
-  const checkboxCheck = (e) => {
-    if (e.target.checked) {
-      checkedlist.current.push(e.target.value);
-    } else {
-      const index = checkedlist.current.indexOf(e.target.value);
-      checkedlist.current.splice(index, 1);
-    }
-  };
+  const onChange = useCallback(
+    (e) => {
+      setInput({
+        ...input,
+        [e.target.name]: e.target.value,
+      });
+    },
+    [input]
+  );
+
+  const radioCheck = useCallback((e) => {
+    const { name, value } = e.target;
+    setInput((prevInput) => ({
+      ...prevInput,
+      [name]: value,
+    }));
+  }, []);
+
+  const checkboxCheck = useCallback(
+    (e) => {
+      if (e.target.checked) {
+        checkedlist.current.push(e.target.value);
+      } else {
+        const index = checkedlist.current.indexOf(e.target.value);
+        checkedlist.current.splice(index, 1);
+      }
+    },
+    [checkedlist]
+  );
 
   return (
     <div>
@@ -146,9 +152,7 @@ const EboardModify = ({ match }) => {
               <input
                 type='text'
                 placeholder='대표영상의 링크를 적어주세요.'
-                value={`https://www.youtube.com/watch?v=${
-                  originalUrl.current || ''
-                }`}
+                value={input.previewImage}
                 name='previewImage'
                 onChange={onChange}
               />
@@ -229,9 +233,9 @@ const EboardModify = ({ match }) => {
               <input
                 id='Evegas'
                 name='tools'
+                onChange={checkboxCheck}
                 value='베가스'
                 type='checkbox'
-                onChange={checkboxCheck}
               />
               <label htmlFor='Evegas'>베가스</label>
               <input

@@ -12,7 +12,6 @@ const EditorRegister = ({ match }) => {
   const addingFileList = useRef([]);
   const [qData, setQData] = useState();
   const board_type = useRef(match.params.board_type);
-
   const history = useHistory();
   const checkedlist = useRef([]);
   let Ehistory = useCallback(
@@ -37,7 +36,7 @@ const EditorRegister = ({ match }) => {
       !input.career ||
       !input.payType ||
       !input.payAmount ||
-      !input.tools
+      !input.tools[0]
     ) {
       return ToastCenter('내용을 모두 적어주세요.');
     }
@@ -65,8 +64,7 @@ const EditorRegister = ({ match }) => {
     EditerApiService.addBoards(sendingData, board_type.current).then((res) => {
       Ehistory(res.data.id);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userData, qData, Ehistory]);
+  }, [userData, qData, Ehistory, input]);
 
   const checkboxCheck = useCallback(
     (e) => {
@@ -80,16 +78,13 @@ const EditorRegister = ({ match }) => {
     [checkedlist]
   );
 
-  const radioCheck = useCallback(
-    (e) => {
-      const { name, value } = e.target;
-      setInput((prevInput) => ({
-        ...prevInput,
-        [name]: value,
-      }));
-    },
-    [input]
-  );
+  const radioCheck = useCallback((e) => {
+    const { name, value } = e.target;
+    setInput((prevInput) => ({
+      ...prevInput,
+      [name]: value,
+    }));
+  }, []);
 
   const onChange = useCallback(
     (e) => {
