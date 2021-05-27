@@ -144,7 +144,7 @@ const YoutuberRequest = ({ history }) => {
     UserApiService.addYoutuberRequest(data)
       .then((r) => {
         if (r) {
-          ToastTopRight("🎉 신청이 완료 되었습니다! 확인까지 2~3일이 소요 됩니다.");
+          ToastTopRight("🎉 신청이 완료 되었습니다! 3일 내 확인이 완료 됩니다.");
           history.push("/");
         } else {
           ToastTopRight("❗ 오류가 발생했습니다.");
