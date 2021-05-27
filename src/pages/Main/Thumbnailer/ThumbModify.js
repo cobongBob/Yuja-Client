@@ -6,6 +6,7 @@ import { ToastCenter } from '../../../modules/ToastModule';
 import './ThumbRegister.scss';
 import * as EditerApiService from '../../../apiService/EditerApiService';
 import QuillModify from '../../../components/Quill/QuillModify';
+import { checkBoxConvert } from '../../../modules/CheckBoxConvert';
 
 const ThumbModify = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -33,19 +34,32 @@ const ThumbModify = ({ match }) => {
     payAmount: '',
     tools: checkedlist.current,
   });
+  const [checkBoxInput, setcheckBoxInput] = useState({
+    premiere: false,
+    aftereffect: false,
+    finalcut: false,
+    vegas: false,
+    powerdirector: false,
+    photoshop: false,
+    illustrater: false,
+    blender: false,
+    maya: false,
+  });
 
   const checkboxCheck = useCallback(
     (e) => {
+      setcheckBoxInput({
+        ...checkBoxInput,
+        [e.target.name]: e.target.checked,
+      });
       if (e.target.checked) {
         checkedlist.current.push(e.target.value);
-        console.log('선택함', checkedlist.current);
       } else {
         const index = checkedlist.current.indexOf(e.target.value);
         checkedlist.current.splice(index, 1);
-        console.log('선택안함', checkedlist.current);
       }
     },
-    [checkedlist]
+    [checkedlist, checkBoxInput]
   );
 
   const onChange = useCallback(
@@ -103,6 +117,15 @@ const ThumbModify = ({ match }) => {
       fileList.current = res.data.boardAttachFileNames;
       setQModiData(res.data.content);
       setInput(res.data);
+      if (res.data.thumbnail) {
+        setFileUrl(
+          `http://localhost:8888/files/thumbnail/${res.data.thumbnail.substr(
+            8
+          )}`
+        );
+      }
+      setcheckBoxInput(checkBoxConvert(res.data.tools));
+      checkedlist.current = res.data.tools;
     });
   }, [userData, history, match.params.board_id]);
 
@@ -146,6 +169,7 @@ const ThumbModify = ({ match }) => {
       ),
       boardAttachIds: addingFileList.current,
       boardAttachToBeDeleted: deletedFileList.current,
+      thumbnailId: ThumbId.current,
     };
 
     EditerApiService.modifyBoard(
@@ -214,7 +238,6 @@ const ThumbModify = ({ match }) => {
                 <option value='월급'>월급</option>
                 <option value='주급'>주급</option>
                 <option value='건당'>건당</option>
-                <option value='분당'>분당</option>
               </select>
               <input
                 type='text'
@@ -237,74 +260,83 @@ const ThumbModify = ({ match }) => {
               <span>사용기술</span>
               <input
                 id='Epremiere'
-                name='tools'
+                name='premiere'
                 value='프리미어 프로'
                 type='checkbox'
                 onChange={checkboxCheck}
+                checked={checkBoxInput.premiere}
               />
               <label htmlFor='Epremiere'>프리미어 프로 </label>
               <input
                 id='Eaftereffect'
-                name='tools'
+                name='aftereffect'
                 value='애프터이펙트'
                 type='checkbox'
                 onChange={checkboxCheck}
+                checked={checkBoxInput.aftereffect}
               />
               <label htmlFor='Eaftereffect'>애프터이펙트 </label>
               <input
                 id='Efinalcut'
-                name='tools'
+                name='finalcut'
                 value='파이널컷'
                 type='checkbox'
                 onChange={checkboxCheck}
+                checked={checkBoxInput.finalcut}
               />
               <label htmlFor='Efinalcut'>파이널컷 </label>
               <input
                 id='Evegas'
-                name='tools'
+                name='vegas'
                 onChange={checkboxCheck}
                 value='베가스'
                 type='checkbox'
+                checked={checkBoxInput.vegas}
               />
               <label htmlFor='Evegas'>베가스</label>
               <input
                 id='Epowerdirector'
-                name='tools'
+                name='powerdirector'
                 value='파워 디렉터'
                 type='checkbox'
                 onChange={checkboxCheck}
+                checked={checkBoxInput.powerdirector}
               />
               <label htmlFor='Epowerdirector'>파워 디렉터</label>
               <input
                 id='Yphotoshop'
-                name='tools'
+                name='photoshop'
                 value='포토샵'
                 type='checkbox'
                 onChange={checkboxCheck}
+                checked={checkBoxInput.photoshop}
               />
               <label htmlFor='Yphotoshop'>포토샵</label>
               <input
                 id='Yillustrater'
-                name='tools'
+                name='illustrater'
                 value='일러스트'
                 type='checkbox'
                 onChange={checkboxCheck}
+                checked={checkBoxInput.illustrater}
               />
               <label htmlFor='Yillustrater'>일러스트</label>
               <input
                 id='Yblender'
                 onChange={checkboxCheck}
-                name='tools'
+                name='blender'
                 value='블렌더'
                 type='checkbox'
+                checked={checkBoxInput.blender}
               />
               <label htmlFor='Yblender'>블렌더</label>
               <input
                 id='Ymaya'
                 onChange={checkboxCheck}
-                name='tools'
+                name='maya'
                 value='마야'
                 type='checkbox'
+                checked={checkBoxInput.maya}
               />
               <label htmlFor='Ymaya'>마야</label>
             </li>

@@ -122,30 +122,20 @@ section > footer {
   }
 }
 /* 수정 버튼 */
-.modifyBox {
-  display: block;
-  padding: 0.25rem;
-}
+
 .modifyBtn {
   display: inline-block;
-  margin: auto;
   color: #ff9411;
-  background-color: transparent;
   border: none;
-  padding: 0.25rem;
-  &:hover {
-    text-decoration: 2px underline #ff9411;
-    color: #ff9411;
-  }
 }
 /* nav 로그인 전/후 변하는 컴포넌트들 */
 
 .welcomeBox {
+  margin-top: 0.5rem;
   padding: 0.5rem;
   border: none;
   background-color: transparent;
   display: inline-block;
-  width: 11rem;
   margin-right: 14rem;
   word-break: nowrap;
   white-space: nowrap;
@@ -153,10 +143,25 @@ section > footer {
   text-overflow: ellipsis;
   vertical-align: middle;
   font-size: medium;
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.welcomeBox > div {
+  display: inline-block;
 }
 
 .notiOnNav > ul > li {
   padding-left: 0;
+}
+
+.modifyBtn {
+  border: none;
+  background-color: transparent;
+  &:hover {
+    opacity: 0.7;
+  }
 }
 
 /* 모달창 제어 */

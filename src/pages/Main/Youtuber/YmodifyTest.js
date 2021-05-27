@@ -5,6 +5,7 @@ import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
 import QuillModify from '../../../components/Quill/QuillModify';
 import { ToastCenter } from '../../../modules/ToastModule';
+import { checkBoxConvert } from '../../../modules/CheckBoxConvert';
 
 const YmodifyTest = (props) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -30,6 +31,17 @@ const YmodifyTest = (props) => {
     receptionMethod: '',
     tools: checkedlist.current,
   });
+  const [checkBoxInput, setcheckBoxInput] = useState({
+    premiere: false,
+    aftereffect: false,
+    finalcut: false,
+    vegas: false,
+    powerdirector: false,
+    photoshop: false,
+    illustrater: false,
+    blender: false,
+    maya: false,
+  });
 
   let Yhistory = useCallback(
     (board_id) => history.push(`/Ydetail/${board_id}/${current_page.current}`),
@@ -45,6 +57,8 @@ const YmodifyTest = (props) => {
       fileList.current = res.data.boardAttachFileNames;
       setQModiData(res.data.content);
       setInput(res.data);
+      setcheckBoxInput(checkBoxConvert(res.data.tools));
+      checkedlist.current = res.data.tools;
     });
   }, [userData]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -103,6 +117,10 @@ const YmodifyTest = (props) => {
 
   const checkboxCheck = useCallback(
     (e) => {
+      setcheckBoxInput({
+        ...checkBoxInput,
+        [e.target.name]: e.target.checked,
+      });
       if (e.target.checked) {
         checkedlist.current.push(e.target.value);
       } else {
@@ -110,7 +128,7 @@ const YmodifyTest = (props) => {
         checkedlist.current.splice(index, 1);
       }
     },
-    [checkedlist]
+    [checkedlist, checkBoxInput]
   );
 
   const radioCheck = useCallback((e) => {
@@ -264,74 +282,83 @@ const YmodifyTest = (props) => {
           <span>사용기술</span>
           <input
             id='Ypremiere'
-            name='tools'
+            name='premiere'
             value='프리미어 프로'
             type='checkbox'
             onChange={checkboxCheck}
+            checked={checkBoxInput.premiere}
           />
           <label htmlFor='Ypremiere'>프리미어 프로 </label>
           <input
             id='Yaftereffect'
-            name='tools'
+            name='aftereffect'
             value='애프터이펙트'
             type='checkbox'
             onChange={checkboxCheck}
+            checked={checkBoxInput.aftereffect}
           />
           <label htmlFor='Yaftereffect'>애프터이펙트 </label>
           <input
             id='Yfinalcut'
-            name='tools'
+            name='finalcut'
             value='파이널컷'
             type='checkbox'
             onChange={checkboxCheck}
+            checked={checkBoxInput.finalcut}
           />
           <label htmlFor='Yfinalcut'>파이널컷 </label>
           <input
             id='Yvegas'
-            name='tools'
+            name='vegas'
             onChange={checkboxCheck}
             value='베가스'
             type='checkbox'
+            checked={checkBoxInput.vegas}
           />
           <label htmlFor='Yvegas'>베가스</label>
           <input
             id='Ypowerdirector'
-            name='tools'
+            name='powerdirector'
             value='파워 디렉터'
             type='checkbox'
             onChange={checkboxCheck}
+            checked={checkBoxInput.powerdirector}
           />
           <label htmlFor='Ypowerdirector'>파워 디렉터</label>
           <input
             id='Yphotoshop'
-            name='tools'
+            name='photoshop'
             value='포토샵'
             type='checkbox'
             onChange={checkboxCheck}
+            checked={checkBoxInput.photoshop}
           />
           <label htmlFor='Yphotoshop'>포토샵</label>
           <input
             id='Yillustrater'
-            name='tools'
+            name='illustrater'
             value='일러스트'
             type='checkbox'
             onChange={checkboxCheck}
+            checked={checkBoxInput.illustrater}
           />
           <label htmlFor='Yillustrater'>일러스트</label>
           <input
             id='Yblender'
             onChange={checkboxCheck}
-            name='tools'
+            name='blender'
             value='블렌더'
             type='checkbox'
+            checked={checkBoxInput.blender}
           />
           <label htmlFor='Yblender'>블렌더</label>
           <input
             id='Ymaya'
             onChange={checkboxCheck}
-            name='tools'
+            name='maya'
             value='마야'
             type='checkbox'
+            checked={checkBoxInput.maya}
           />
           <label htmlFor='Ymaya'>마야</label>
         </li>

@@ -119,8 +119,11 @@ const Admin_main = () => {
     allUsers &&
     allReports &&
     youtuberConfirm && (
+      <>
+        <div className='sideBox'>
+          <AdminSide />
+        </div>
       <div className='admin_main'>
-        <AdminSide />
         <div className='admin_items'>
           <div className='admin_item'>
             <div>
@@ -138,6 +141,7 @@ const Admin_main = () => {
           </div>
         </div>
       </div>
+      </>
     )
   );
 };

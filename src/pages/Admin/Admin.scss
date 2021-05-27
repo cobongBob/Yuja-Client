@@ -1,12 +1,38 @@
 .admin_main {
   font-family: scdream4;
+  margin-top: 2rem;
+  margin-left: 10rem;
+  margin-bottom: 5rem;
 }
-
-.admin_item {
-  width: 66%;
+.admin_board > h1 {
   display: inline-block;
-  min-height: 75vh;
-  margin-top: 4rem;
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+  background-color: #ff9411;
+  padding: 0.5rem;
+  border-radius: 20px;
+}
+.sideBox {
+  display: inline-block;
+  margin: auto;
+  top: 19vh;
+  position: relative;
+  left: 3%;
+}
+.admin-table-wrapper {
+
+}
+.admin_item {
+  //width: 66%;
+  //display: inline-block;
+  //min-height: 75vh;
+  //margin-top: 4rem;
+  display: inline-block;
+  width: 65vw;
+  position: relative;
+  margin-left: 9%;
+  margin-top: -15%;
 }
 
 .Admin_confirm_big {
