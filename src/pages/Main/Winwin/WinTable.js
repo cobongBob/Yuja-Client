@@ -38,7 +38,7 @@ const WinTable = ({ currentData, board_type, lastIdx, currentPage, allNotices, u
     }
   }, [userData, board_type, history]);
   return (
-    <div className='table-Wrapper'>
+    <div className='winTable-Table-Wrapper'>
       <h2>{board_name}게시판</h2>
       <div className='community-options'>
         <button onClick={writeBoard} className='registerBtn'>

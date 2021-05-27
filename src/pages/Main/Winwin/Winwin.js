@@ -56,9 +56,12 @@ const Winwin = ({ match, history }) => {
   ) : winBoard.err ? (
     <h2>{winBoard.err}</h2>
   ) : (
-    <div>
-      <WSide />
-      <div className='table-Wrapper'>
+    <>
+      <div className='sideBox'>
+        <WSide />
+      </div>
+    <div className='winwinFrag'>
+      <div className='winwin-Table-Wrapper'>
         <WinTable
           currentData={currentData}
           board_type={board_type.current}
@@ -81,6 +84,7 @@ const Winwin = ({ match, history }) => {
         />
       </div>
     </div>
+    </>
   );
 };
 

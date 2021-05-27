@@ -31,7 +31,7 @@ const AdminYoutuberTable = ({ currentData, promoteUser, rejectUser }) => {
   }, []);
   return (
     <div>
-      <div className='community-table-wrapper'>
+      <div className='admin-table-wrapper'>
         <table>
           <thead>
             <tr>

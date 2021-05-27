@@ -117,9 +117,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
     [loginData]
   );
   const logInHandler = useCallback(async () => {
-    console.log("logInHandler의 loginData", loginData);
     userLogin(loginData, setLoginValidateDesc).then((res) => {
-      console.log("============res ================", res);
       dispatch(res);
       if (res.userLoginStatus === false) {
         setIsOpen(true);
