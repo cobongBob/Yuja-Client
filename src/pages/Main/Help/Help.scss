@@ -1,12 +1,43 @@
 .HelpPageWrapper {
   margin-left: 5%;
   margin-right: 5%;
-  border: 2px solid black;
   margin-top: 3%;
-  height: 100vh;
   margin-bottom: 3%;
+  font-family: 'scdream4';
 }
 
-.HelpPageWrapper > .AccordionWrapper {
+.IconTitleWrapper {
+  text-align: center;
+  margin-bottom: 2%;
+}
+
+.HelpPageWrapper > .IconTitleWrapper > h1 {
+  display: inline-block;
+  font-size: 2.5rem;
+  font-family: 'scdream4';
+  border-bottom: 3px solid chocolate;
+}
+
+.HelpIcon {
+  font-size: 3rem;
+  margin-bottom: 1.5%;
+  margin-right: 0.3%;
+  color: chocolate;
+}
+
+.HelpPageWrapper > .AccordionBigWrapper > .AccordionWrapper {
+  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+}
+
+.QuestionIcon {
+  display: inline-block;
+  font-size: 2rem;
+  margin-right: 1%;
+}
+
+.Answer {
   text-align: center;
 }

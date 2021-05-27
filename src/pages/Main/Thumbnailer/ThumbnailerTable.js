@@ -1,13 +1,13 @@
-import React, { useCallback } from "react";
-import { Card } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
-import { format } from "date-fns";
-import "../Youtuber/Ylist.scss";
-import BackToList from "../components/BackToList";
-import SortingToLiked from "../components/SortingToLiked";
-import "./Thumb.scss";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import { ToastCenter } from "../../../modules/ToastModule";
+import React, { useCallback } from 'react';
+import { Card } from 'react-bootstrap';
+import { Link, useHistory } from 'react-router-dom';
+import { format } from 'date-fns';
+import '../Youtuber/Ylist.scss';
+import BackToList from '../components/BackToList';
+import SortingToLiked from '../components/SortingToLiked';
+import './Thumb.scss';
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
+import { ToastCenter } from '../../../modules/ToastModule';
 
 export default function ThumbnailerTable({
   userData,
@@ -54,11 +54,19 @@ export default function ThumbnailerTable({
         {boardData?.map((data) => (
           <li key={data.id}>
             <Card>
-              <Card.Img
-                className='thumbnail-for-Main'
-                onClick={() => history.push(`/ThumbDetail/${board_type}/${data.id}/${currentPage}`)}
-                src={data.thumbnail && `http://localhost:8888/files/thumbnail/${data.thumbnail}`}
-              ></Card.Img>
+              <div class='thumbnail-for-Main-Wrapper'>
+                <Card.Img
+                  className='thumbnail-for-Main'
+                  onClick={() =>
+                    history.push(
+                      `/ThumbDetail/${board_type}/${data.id}/${currentPage}`
+                    )
+                  }
+                  src={
+                    data.thumbnail &&
+                    `http://localhost:8888/files/thumbnail/${data.thumbnail}`
+                  }></Card.Img>
+              </div>
               <Card.Header>
                 <Card.Title>
                   <div>
@@ -67,16 +75,20 @@ export default function ThumbnailerTable({
                   <div> 사용기술 {data.tools[0]} </div>
                   <div className='card-deadline'>
                     <span>수정일 </span>
-                    {format(new Date(data.boardUpdatedDate), "yyyy-MM-dd")}
+                    {format(new Date(data.boardUpdatedDate), 'yyyy-MM-dd')}
                   </div>
                   <div className='card-like'>
                     {data && data.liked ? (
-                      <button onClick={() => likeHandler(data.id)} className='starButton'>
+                      <button
+                        onClick={() => likeHandler(data.id)}
+                        className='starButton'>
                         <AiFillStar size={30} />
                         <span>{data.likes}</span>
                       </button>
                     ) : (
-                      <button onClick={() => dislikeHandler(data.id)} className='starButton'>
+                      <button
+                        onClick={() => dislikeHandler(data.id)}
+                        className='starButton'>
                         <AiOutlineStar size={30} />
                         <span>{data.likes}</span>
                       </button>
@@ -86,9 +98,11 @@ export default function ThumbnailerTable({
               </Card.Header>
               <Card.Body>
                 <Card.Text>
-                  <div>{data.user.username}</div>
+                  <div>{data.user.nickname}</div>
                   <div>
-                    <Link to={`/ThumbDetail/${board_type}/${data.id}/${currentPage}`} className='card-link'>
+                    <Link
+                      to={`/ThumbDetail/${board_type}/${data.id}/${currentPage}`}
+                      className='card-link'>
                       {data.title}
                     </Link>
                   </div>

@@ -23,7 +23,7 @@ const Svideo = () => {
     speed: 3000,
     autoplaySpeed: 5000,
     pauseOnHover: true,
-    draggable: true,
+    draggable: false,
     slidesToShow: 4,
     slidesToScroll: 4,
     responsive: [
