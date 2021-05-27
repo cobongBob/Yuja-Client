@@ -175,8 +175,8 @@ const EditorRegister = ({ match }) => {
                 }}
               />
             </li>
+              <span className='registerSpan'>사용기술</span>
             <li className='li-item5'>
-              <span>사용기술</span>
               <input
                 id='Epremiere'
                 name='tools'
