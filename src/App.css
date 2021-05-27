@@ -16,7 +16,7 @@
 }
 
 ::-webkit-scrollbar {
-  width: 0.5em;
+  width: 0.25em;
   overflow-y: scroll;
 }
 
@@ -48,6 +48,6 @@
 }
 
 .Toastify__toast-container--top-right {
-  top: 2em !important;
+  top: 40em !important;
   right: 1em;
 }
