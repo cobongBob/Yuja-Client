@@ -1,25 +1,24 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./InfoModify.scss";
 import { Link } from "react-router-dom";
-import { getLoggedInUserData } from '../../apiService/AuthenticationService';
-import { ToastCenter, ToastPreventAccess, ToastTopRight } from '../../modules/ToastModule';
+import { getLoggedInUserData } from "../../apiService/AuthenticationService";
+import { ToastCenter, ToastPreventAccess, ToastTopRight } from "../../modules/ToastModule";
 import UserApiService, { getUserData, modifyUserData } from "../../apiService/UserApiService";
 import axios from "axios";
 import AddressApi from "../Login-SignUp/SignUp/AddressApi";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 const InfoModify = ({ history }) => {
-
-  const { authorities, userLoginStatus } = useSelector((state) => state.loginReducer)
+  const { authorities, userLoginStatus } = useSelector((state) => state.loginReducer);
 
   /* 잘못된 접근 막기 */
-   if (history.action === "POP") {
-     ToastPreventAccess("❌ 잘못된 접근 입니다.");
-     history.replace("/");
-   } else if(userLoginStatus === false) {
-     ToastPreventAccess("❌ 먼저 로그인 하셔야 합니다.");
+  if (history.action === "POP") {
+    ToastPreventAccess("❌ 잘못된 접근 입니다.");
     history.replace("/");
-   }
+  } else if (userLoginStatus === false) {
+    ToastPreventAccess("❌ 먼저 로그인 하셔야 합니다.");
+    history.replace("/");
+  }
 
   const loggedInUserData = getLoggedInUserData();
   const userId = loggedInUserData && loggedInUserData.id ? loggedInUserData.id : null;
@@ -58,29 +57,29 @@ const InfoModify = ({ history }) => {
   const [modifyBtnDisabledHandler, setModifyBtnDisabledHandler] = useState(false);
 
   const totalCheck = useCallback(() => {
-    console.log('============================ totalcheck 실행')
-    console.log(nicknameDesc)
-    console.log(birthDesc)
-    console.log(isCompanyRegNumFill)
-    console.log(isPermalinkFill)
-    console.log(isYoutuberPicFill)
+    console.log("============================ totalcheck 실행");
+    console.log(nicknameDesc);
+    console.log(birthDesc);
+    console.log(isCompanyRegNumFill);
+    console.log(isPermalinkFill);
+    console.log(isYoutuberPicFill);
 
-    if(
-      nicknameDesc === '' &&
-      birthDesc === '' &&
-      isCompanyRegNumFill === '' &&
-      isPermalinkFill === '' &&
-      isYoutuberPicFill === '' &&
-      userData.nickname !== '' &&
-      userData.bday !== '' &&
-      userData.youtubeUrl !== '' &&
-      userData.youtubeConfirmImg !== ''
+    if (
+      nicknameDesc === "" &&
+      birthDesc === "" &&
+      isCompanyRegNumFill === "" &&
+      isPermalinkFill === "" &&
+      isYoutuberPicFill === "" &&
+      userData.nickname !== "" &&
+      userData.bday !== "" &&
+      userData.youtubeUrl !== "" &&
+      userData.youtubeConfirmImg !== ""
     ) {
-      console.log('======================= totalcheck 1')
-      setModifyBtnDisabledHandler(false)
+      console.log("======================= totalcheck 1");
+      setModifyBtnDisabledHandler(false);
     } else {
-      console.log('======================= totalcheck 2')
-      setModifyBtnDisabledHandler(true)
+      console.log("======================= totalcheck 2");
+      setModifyBtnDisabledHandler(true);
     }
   }, [nicknameDesc, birthDesc, userData, isCompanyRegNumFill, isPermalinkFill, isYoutuberPicFill]);
 
@@ -104,11 +103,11 @@ const InfoModify = ({ history }) => {
         youtubeConfirmImg: res.data.youtubeConfirmImg,
       });
     });
-    }, [userId]);
+  }, [userId]);
 
-  useEffect(()=> {
-    totalCheck()
-  }, [userData, nicknameDesc, birthDesc, isCompanyRegNumFill, isPermalinkFill, isYoutuberPicFill])
+  useEffect(() => {
+    totalCheck();
+  }, [userData, nicknameDesc, birthDesc, isCompanyRegNumFill, isPermalinkFill, isYoutuberPicFill, totalCheck]);
 
   console.log("userData의 값", userData);
 
@@ -126,28 +125,34 @@ const InfoModify = ({ history }) => {
         ...userData,
         [e.target.name]: e.target.value,
       });
-      totalCheck()
+      totalCheck();
+    },
+    [userData, totalCheck]
+  );
+
+  const onClick = useCallback(
+    (e) => {
+      e.target.value = "";
+      setUserData({
+        ...userData,
+        [e.target.name]: "",
+      });
     },
     [userData]
   );
 
-  const onClick = useCallback((e) => {
-    e.target.value = "";
-    setUserData({
-      ...userData,
-      [e.target.name]: "",
-    });
-  }, [userData]);
-
-  const checkNicknameValidate = useCallback((e) => {
-    axios.post("http://localhost:8888/api/auth/checknickname", userData).then((res) => {
-      if (res.data !== "") {
-        setNicknameDesc(res.data);
-      } else if (res.data === "") {
-        setNicknameDesc("");
-      }
-    });
-  }, [userData]);
+  const checkNicknameValidate = useCallback(
+    (e) => {
+      axios.post("http://localhost:8888/api/auth/checknickname", userData).then((res) => {
+        if (res.data !== "") {
+          setNicknameDesc(res.data);
+        } else if (res.data === "") {
+          setNicknameDesc("");
+        }
+      });
+    },
+    [userData]
+  );
 
   const checkBirthValidate = useCallback(() => {
     birthCheck.test(userData.bday) === false && userData.bday !== ""
@@ -183,10 +188,9 @@ const InfoModify = ({ history }) => {
   const permalinkCheck = useCallback(
     (e) => {
       let checkContent = e.target.value;
-      if (checkContent !== "" &&
-        checkContent.startsWith(
-          "https://www.youtube.com/c" || "https://www.youtube.com/channel"
-        ) &&
+      if (
+        checkContent !== "" &&
+        checkContent.startsWith("https://www.youtube.com/c" || "https://www.youtube.com/channel") &&
         !checkContent.endsWith("/featured")
       ) {
         setIsPermalinkFill("");
@@ -245,8 +249,7 @@ const InfoModify = ({ history }) => {
         });
     }
 
-    totalCheck()
-
+    totalCheck();
   };
 
   let profile_preview,
@@ -276,7 +279,7 @@ const InfoModify = ({ history }) => {
       profilePicId: profilePicId.current,
       youtubeConfirmId: youtubeConfirmId.current,
     };
-    console.log(' data ',data)
+    console.log(" data ", data);
     modifyUserData(userId, data)
       .then((r) => {
         if (r) {
@@ -486,17 +489,17 @@ const InfoModify = ({ history }) => {
                   <label className='youtuberPicLabel' htmlFor='youtuberPicInput'>
                     유튜브 계정 스크린샷
                     <span> (필수)</span>
-                  <div className='youtuberPicDesc'>{isYoutuberPicFill}</div>
-                  <div className='youtuberPic_PreviewBox'>{youtuberPic_preview}</div>
-                  <div className='youtuberPicInputWrapper'>
-                    <input
-                      className='youtuberPicInput'
-                      id='youtuberPicInput'
-                      type='file'
-                      accept='image/jpeg, image/jpg, image/png'
-                      onChange={handleFileOnChange2}
-                    />
-                  </div>
+                    <div className='youtuberPicDesc'>{isYoutuberPicFill}</div>
+                    <div className='youtuberPic_PreviewBox'>{youtuberPic_preview}</div>
+                    <div className='youtuberPicInputWrapper'>
+                      <input
+                        className='youtuberPicInput'
+                        id='youtuberPicInput'
+                        type='file'
+                        accept='image/jpeg, image/jpg, image/png'
+                        onChange={handleFileOnChange2}
+                      />
+                    </div>
                   </label>
                 </div>
               </div>
@@ -504,12 +507,7 @@ const InfoModify = ({ history }) => {
               ""
             )}
             <div className='infoModifySubmitBtnBox'>
-              <button
-                type='submit'
-                className='btn btn-warning'
-                disabled={modifyBtnDisabledHandler}
-                onClick={modifyBtn}
-              >
+              <button type='submit' className='btn btn-warning' disabled={modifyBtnDisabledHandler} onClick={modifyBtn}>
                 수정완료
               </button>
             </div>

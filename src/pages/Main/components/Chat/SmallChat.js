@@ -2,8 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import "./SmallChat.scss";
 
-const SmallChat = (props) => {
-
+const SmallChat = ({ frameOnload }) => {
   const { userData } = useSelector((state) => state.loginReducer);
 
   return (
@@ -15,8 +14,8 @@ const SmallChat = (props) => {
               className='chattingFrame'
               src='http://localhost:8888/rooms'
               title='YujaChat'
-            >
-            </iframe>
+              onLoad={(e) => frameOnload(e)}
+            ></iframe>
           ) : (
             <h1>로그인해주세요</h1>
           )}

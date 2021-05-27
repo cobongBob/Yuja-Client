@@ -1,14 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from "react";
 import "./BeforeModify.scss";
 import { Link } from "react-router-dom";
 import { executeJwtAuthenticationService, getLoggedInUserData } from "../../apiService/AuthenticationService";
 import * as auth from "../../apiService/AuthenticationService";
-import { useDispatch, useSelector } from 'react-redux';
-import { userLogin } from '../../redux/redux-login/loginReducer';
-import { ToastCenter, ToastTopRight } from '../../modules/ToastModule';
-import { getUserData } from '../../apiService/UserApiService';
-import GoogleLogin from 'react-google-login';
-import googleLoginIcon from '../Login-SignUp/Login/googleLoginIcon2.svg';
+import { useDispatch, useSelector } from "react-redux";
+import { userLogin } from "../../redux/redux-login/loginReducer";
+import { getUserData } from "../../apiService/UserApiService";
+import GoogleLogin from "react-google-login";
+import googleLoginIcon from "../Login-SignUp/Login/googleLoginIcon2.svg";
 
 const BeforeModify = ({ history }) => {
   /* 잘못된 접근 막기 */
@@ -58,15 +57,19 @@ const BeforeModify = ({ history }) => {
     };
   }, [loginData, setPasswordDesc, history]);
 
-  const resGoogle = useCallback(async (response) => {
-      await auth.googleLoginService(response).then((res) => {
+  const resGoogle = useCallback(
+    async (response) => {
+      await auth
+        .googleLoginService(response)
+        .then((res) => {
           userLogin(res).then((respon) => {
             dispatch(respon);
             history.push("/InfoModify");
           });
-      }).catch(()=> {
-        setPasswordDesc("비밀번호를 확인해주세요.");
-      })
+        })
+        .catch(() => {
+          setPasswordDesc("비밀번호를 확인해주세요.");
+        });
     },
     [dispatch, setPasswordDesc, history]
   );
@@ -100,117 +103,90 @@ const BeforeModify = ({ history }) => {
       </div>
       <div className='beforeModifyContentBox'>
         <div className='overlay'>
-          {getProviderId === null || getProviderId === undefined || getProviderId === "" ?
-          <div className='modifyBox'>
-            <div className='beforeModifyDescBoxDescBox'>
-              <span>{loggedInUserData.nickname}</span>
-              님의 회원정보를 안전하게 <br/>보호하기 위해
-              비밀번호를 한번 더 확인해주세요.
-            </div>
-            <div className='labelWrapper'>
-              <label className='beforeModifyPasswordLabel' htmlFor='password' autoFocus='on'>
-                비밀번호 입력
-              </label>
-            </div>
-            <input
-              className='beforeModifyPassword'
-              name='password'
-              type='password'
-              placeholder='비밀번호'
-              autoComplete='off'
-              onChange={inputHandler}
-              autoFocus
-              maxLength='15'
-            />
-            <div className='warningBox'>{passwordDesc}</div>
-            <div className='beforeModifyBtnBox'>
+          {getProviderId === null || getProviderId === undefined || getProviderId === "" ? (
+            <div className='modifyBox'>
+              <div className='beforeModifyDescBoxDescBox'>
+                <span>{loggedInUserData.nickname}</span>
+                님의 회원정보를 안전하게 <br />
+                보호하기 위해 비밀번호를 한번 더 확인해주세요.
+              </div>
+              <div className='labelWrapper'>
+                <label className='beforeModifyPasswordLabel' htmlFor='password' autoFocus='on'>
+                  비밀번호 입력
+                </label>
+              </div>
               <input
-                type='submit'
-                className='btn btn-warning'
-                value='비밀번호 확인'
-                onClick={loginHandler}
-              ></input>
-            </div>
-            <div className='beforeModifyOtherBoxDesc'>
-              다른 서비스가 필요하신가요?
-            </div>
-            <div className='beforeModifyOtherBox'>
-              {authorities && !authorities.includes("YOUTUBER") ?
-                <Link
-                  to='/YoutuberRequest'
-                  className='btn btn-warning'
-                  name='YoutuberRequestBtn'
-                >
-                  유튜버 인증
-                </Link>
-                :
-                "" }
-              <Link
-                to='/PasswordModify'
-                className='btn btn-warning'
-                name='passwordModifyBtn'
-              >
-                비밀번호 변경
-              </Link>
-              <Link
-                to='/SignOut'
-                className='btn btn-warning'
-                name='signOutBtn'
-              >
-                회원탈퇴
-              </Link>
-            </div>
-          </div>
-          /* ===================================== 여기부터 구글 유저일때 */
-          :
-          <div className='modifyBox'>
-            <div className='beforeModifyDescBoxDescBox'>
-              <span>{loggedInUserData.nickname}</span>
-              님의 회원정보를 안전하게 <br/>보호하기 위해
-              한번 더 로그인해주세요.
-            </div>
-            <div className='labelWrapper'>
-            </div>
-            <div className='warningBox'>{passwordDesc}</div>
-            <div className='beforeModifyBtnBox'>
-              <GoogleLogin
-                className='googleLoginBtn'
-                clientId='373267940764-jujlpjtg3qtd21bg6496vaj7k9ooj56e.apps.googleusercontent.com'
-                buttonText='구글 로그인'
-                onSuccess={resGoogle}
-                onFailure={resGoogle}
-                cookiePolicy={"single_host_origin"}
-                render={(renderProps) => (
-                  <button onClick={renderProps.onClick} style={customStyle}>
-                    <img src={googleLoginIcon} alt='안보임' className='googleIcon' />
-                    구글 로그인
-                  </button>
-                )}
+                className='beforeModifyPassword'
+                name='password'
+                type='password'
+                placeholder='비밀번호'
+                autoComplete='off'
+                onChange={inputHandler}
+                autoFocus
+                maxLength='15'
               />
-            </div>
-            <div className='beforeModifyOtherBoxDesc'>
-              다른 서비스가 필요하신가요?
-            </div>
-            <div className='beforeModifyOtherBox'>
-              {authorities && !authorities.includes("YOUTUBER") ?
-                <Link
-                  to='/YoutuberRequest'
-                  className='btn btn-warning'
-                  name='YoutuberRequestBtn'
-                >
-                  유튜버 인증
+              <div className='warningBox'>{passwordDesc}</div>
+              <div className='beforeModifyBtnBox'>
+                <input type='submit' className='btn btn-warning' value='비밀번호 확인' onClick={loginHandler}></input>
+              </div>
+              <div className='beforeModifyOtherBoxDesc'>다른 서비스가 필요하신가요?</div>
+              <div className='beforeModifyOtherBox'>
+                {authorities && !authorities.includes("YOUTUBER") ? (
+                  <Link to='/YoutuberRequest' className='btn btn-warning' name='YoutuberRequestBtn'>
+                    유튜버 인증
+                  </Link>
+                ) : (
+                  ""
+                )}
+                <Link to='/PasswordModify' className='btn btn-warning' name='passwordModifyBtn'>
+                  비밀번호 변경
                 </Link>
-                : "" }
-              <Link
-                to='/SignOut'
-                className='btn btn-warning'
-                name='signOutBtn'
-              >
-                회원탈퇴
-              </Link>
+                <Link to='/SignOut' className='btn btn-warning' name='signOutBtn'>
+                  회원탈퇴
+                </Link>
+              </div>
             </div>
-          </div>
-          }
+          ) : (
+            /* ===================================== 여기부터 구글 유저일때 */
+            <div className='modifyBox'>
+              <div className='beforeModifyDescBoxDescBox'>
+                <span>{loggedInUserData.nickname}</span>
+                님의 회원정보를 안전하게 <br />
+                보호하기 위해 한번 더 로그인해주세요.
+              </div>
+              <div className='labelWrapper'></div>
+              <div className='warningBox'>{passwordDesc}</div>
+              <div className='beforeModifyBtnBox'>
+                <GoogleLogin
+                  className='googleLoginBtn'
+                  clientId='373267940764-jujlpjtg3qtd21bg6496vaj7k9ooj56e.apps.googleusercontent.com'
+                  buttonText='구글 로그인'
+                  onSuccess={resGoogle}
+                  onFailure={resGoogle}
+                  cookiePolicy={"single_host_origin"}
+                  render={(renderProps) => (
+                    <button onClick={renderProps.onClick} style={customStyle}>
+                      <img src={googleLoginIcon} alt='안보임' className='googleIcon' />
+                      구글 로그인
+                    </button>
+                  )}
+                />
+              </div>
+              <div className='beforeModifyOtherBoxDesc'>다른 서비스가 필요하신가요?</div>
+              <div className='beforeModifyOtherBox'>
+                {authorities && !authorities.includes("YOUTUBER") ? (
+                  <Link to='/YoutuberRequest' className='btn btn-warning' name='YoutuberRequestBtn'>
+                    유튜버 인증
+                  </Link>
+                ) : (
+                  ""
+                )}
+                <Link to='/SignOut' className='btn btn-warning' name='signOutBtn'>
+                  회원탈퇴
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
         <footer className='beforeModifyFooter'></footer>
       </div>

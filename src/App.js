@@ -43,7 +43,6 @@ import EboardModify from "./pages/Main/Editer/EboardModify";
 import ThumbModify from "./pages/Main/Thumbnailer/ThumbModify";
 import SignOut from "./components/SignOut/SignOut";
 import { deleteNotifications } from "./apiService/MainApiService";
-import ChatModal from "./pages/Main/components/Chat/ChatModal";
 import { AiFillWechat } from "react-icons/ai";
 import { toastWithPush } from "./modules/ToastWithPush";
 import YoutuberRequest from "./components/InfoModify/YoutuberRequest";
@@ -206,11 +205,11 @@ function App() {
 
   const role = useMemo(() => ["STRANGER", "GENERAL", "YOUTUBER", "EDITOR", "THUMBNAILER", "MANAGER", "ADMIN"], []);
 
-  window.onkeydown = function (e) {
-    if (e.keyCode == 27) {
+  window.onkeydown = useCallback((e) => {
+    if (e.keyCode === 27) {
       setModalIsOpen(false);
     }
-  };
+  }, []);
 
   return (
     <div>

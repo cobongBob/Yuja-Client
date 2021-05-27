@@ -1,14 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./YoutuberRequest.scss";
-import axios from"axios";
-import { getLoggedInUserData } from '../../apiService/AuthenticationService';
-import UserApiService, { modifyUserData } from '../../apiService/UserApiService';
-import { ToastCenter, ToastTopRight } from '../../modules/ToastModule';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { getLoggedInUserData } from "../../apiService/AuthenticationService";
+import UserApiService from "../../apiService/UserApiService";
+import { ToastCenter, ToastTopRight } from "../../modules/ToastModule";
+import { Link } from "react-router-dom";
 
-const YoutuberRequest = ( { history } ) => {
-
+const YoutuberRequest = ({ history }) => {
   // /* 잘못된 접근 막기 */
   //  if (history.action === "POP") {
   //    ToastPreventAccess("❌ 잘못된 접근 입니다.");
@@ -22,9 +19,7 @@ const YoutuberRequest = ( { history } ) => {
   const userId = loggedInUserData && loggedInUserData.id ? loggedInUserData.id : null;
 
   const [isCompanyRegNumFill, setIsCompanyRegNumFill] = useState();
-  const [isPermalinkFill, setIsPermalinkFill] = useState(
-    "https://www.youtube.com/channel/고유코드 형식이여야 합니다."
-  );
+  const [isPermalinkFill, setIsPermalinkFill] = useState("https://www.youtube.com/channel/고유코드 형식이여야 합니다.");
   const [isYoutuberPicFill, setIsYoutuberPicFill] = useState(
     "아래 예시처럼 시간이 보이는 본인의 유튜브 스튜디오/콘텐츠 화면 스크린샷을 업로드 해주세요."
   );
@@ -34,23 +29,15 @@ const YoutuberRequest = ( { history } ) => {
   const youtubeConfirmId = useRef(0);
 
   const [requestUserData, setRequestUserData] = useState({
-    userId:userId,
+    userId: userId,
     bsn: "",
     youtubeUrl: "",
     youtubeConfirmId: youtubeConfirmId.current,
   });
 
-  const { authorities } = useSelector((state) => state.loginReducer);
-
   /* 파일 업로드 관련 */
   let youtuberPic_preview = "";
-  youtuberPic_preview = (
-    <img
-      className='youtuberPic_preview'
-      src={previewURL}
-      alt=''
-    />
-  );
+  youtuberPic_preview = <img className='youtuberPic_preview' src={previewURL} alt='' />;
 
   const handleFileOnChange = (e) => {
     let file = e.target.files[0];
@@ -117,10 +104,9 @@ const YoutuberRequest = ( { history } ) => {
   const permalinkCheck = useCallback(
     (e) => {
       let checkContent = e.target.value;
-      if (checkContent !== "" &&
-        checkContent.startsWith(
-          "https://www.youtube.com/c" || "https://www.youtube.com/channel"
-        ) &&
+      if (
+        checkContent !== "" &&
+        checkContent.startsWith("https://www.youtube.com/c" || "https://www.youtube.com/channel") &&
         !checkContent.endsWith("/featured")
       ) {
         setIsPermalinkFill("");
@@ -131,7 +117,6 @@ const YoutuberRequest = ( { history } ) => {
     [setIsPermalinkFill]
   );
   /* 고유 주소 확인 끝 */
-
 
   /* 유효성 검사 */
   const submitDisabledCheck = useCallback(() => {
@@ -155,7 +140,7 @@ const YoutuberRequest = ( { history } ) => {
       ...requestUserData,
       youtubeConfirmId: youtubeConfirmId.current,
     };
-    console.log('insertUserData', data)
+    console.log("insertUserData", data);
     UserApiService.addYoutuberRequest(data)
       .then((r) => {
         if (r) {
@@ -185,80 +170,76 @@ const YoutuberRequest = ( { history } ) => {
         {/*</div>*/}
       </div>
       <div className='overlay'>
-    <div className='youtuberDiv'>
-      <div className='youtuberDiv_Title'>
-        유튜브를 시작하셨나요?
-        <br />
-        <span>유튜버 인증</span>을 위해 추가 정보를 입력해주세요!
-        <br />
-        <br />신청 후 확인을 위해 <span>2~3일</span>의 시간이 소요 됩니다.
-      </div>
-      <div className='youtuberInputBox'>
-        <div className='companyRegNumBox'>
-          <label className='companyRegNumLabel' htmlFor='companyRegNumInput'>
-            사업자등록번호 <span> (선택)</span>
-            <input
-              className='companyRegNumInput'
-              name='bsn'
-              id='companyRegNumInput'
-              type='tel'
-              maxLength='10'
-              placeholder='-을 제외한 10자리 숫자'
-              autoComplete='off'
-              onChange={onChange}
-              onKeyUp={bsnCheck}
-            />
-          </label>
+        <div className='youtuberDiv'>
+          <div className='youtuberDiv_Title'>
+            유튜브를 시작하셨나요?
+            <br />
+            <span>유튜버 인증</span>을 위해 추가 정보를 입력해주세요!
+            <br />
+            <br />
+            신청 후 확인을 위해 <span>2~3일</span>의 시간이 소요 됩니다.
+          </div>
+          <div className='youtuberInputBox'>
+            <div className='companyRegNumBox'>
+              <label className='companyRegNumLabel' htmlFor='companyRegNumInput'>
+                사업자등록번호 <span> (선택)</span>
+                <input
+                  className='companyRegNumInput'
+                  name='bsn'
+                  id='companyRegNumInput'
+                  type='tel'
+                  maxLength='10'
+                  placeholder='-을 제외한 10자리 숫자'
+                  autoComplete='off'
+                  onChange={onChange}
+                  onKeyUp={bsnCheck}
+                />
+              </label>
+            </div>
+            <div className='warningBox'>{isCompanyRegNumFill}</div>
+            <div className='youtuberUrlBox'>
+              <label className='youtuberUrlBoxLabel' htmlFor='youtuberUrlBoxInput'>
+                유튜브 고유 주소 <span>(필수)</span>
+                <input
+                  className='youtuberUrlBoxInput'
+                  name='youtubeUrl'
+                  id='youtuberUrlBoxInput'
+                  type='text'
+                  placeholder='유튜브 고유 주소를 입력해주세요'
+                  autoComplete='off'
+                  maxLength='70'
+                  onChange={onChange}
+                  onKeyUp={permalinkCheck}
+                />
+              </label>
+            </div>
+            <div className='warningBox'>{isPermalinkFill}</div>
+          </div>
+          <div className='youtuberPicBox'>
+            <label className='youtuberPicLabel' htmlFor='youtuberPicInput'>
+              유튜브 계정 스크린샷
+              <span> (필수)</span>
+              <div className='youtuberPicDesc'>{isYoutuberPicFill}</div>
+              <div className='youtuberPic_PreviewBox'>{youtuberPic_preview}</div>
+              <div className='youtuberPicInputWrapper'>
+                <input
+                  className='youtuberPicInput'
+                  id='youtuberPicInput'
+                  type='file'
+                  accept='image/jpeg, image/jpg, image/png'
+                  onChange={handleFileOnChange}
+                />
+              </div>
+            </label>
+          </div>
         </div>
-        <div className='warningBox'>{isCompanyRegNumFill}</div>
-        <div className='youtuberUrlBox'>
-          <label className='youtuberUrlBoxLabel' htmlFor='youtuberUrlBoxInput'>
-            유튜브 고유 주소 <span>(필수)</span>
-            <input
-              className='youtuberUrlBoxInput'
-              name='youtubeUrl'
-              id='youtuberUrlBoxInput'
-              type='text'
-              placeholder='유튜브 고유 주소를 입력해주세요'
-              autoComplete='off'
-              maxLength='70'
-              onChange={onChange}
-              onKeyUp={permalinkCheck}
-            />
-          </label>
-        </div>
-        <div className='warningBox'>{isPermalinkFill}</div>
-      </div>
-      <div className='youtuberPicBox'>
-        <label className='youtuberPicLabel' htmlFor='youtuberPicInput'>
-          유튜브 계정 스크린샷
-          <span> (필수)</span>
-        <div className='youtuberPicDesc'>{isYoutuberPicFill}</div>
-        <div className='youtuberPic_PreviewBox'>{youtuberPic_preview}</div>
-        <div className='youtuberPicInputWrapper'>
-          <input
-            className='youtuberPicInput'
-            id='youtuberPicInput'
-            type='file'
-            accept='image/jpeg, image/jpg, image/png'
-            onChange={handleFileOnChange}
-          />
-        </div>
-        </label>
-      </div>
-    </div>
         <div className='signUpSubmitBtnBox'>
-          <button
-            type='submit'
-            className='btn btn-warning'
-            onClick={totalAction}
-            disabled={submitDisableHandler}>
+          <button type='submit' className='btn btn-warning' onClick={totalAction} disabled={submitDisableHandler}>
             인증 신청하기
           </button>
         </div>
       </div>
     </div>
-
   );
 };
 

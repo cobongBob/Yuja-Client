@@ -1,18 +1,17 @@
-import React from 'react';
-import './video.scss';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import PrevArrow from './PrevArrow';
-import NextArrow from './NextArrow';
-import { useSelector } from 'react-redux';
-import { RiScissorsCutFill } from 'react-icons/ri';
-import { useHistory } from 'react-router';
+import React from "react";
+import "./video.scss";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import PrevArrow from "./PrevArrow";
+import NextArrow from "./NextArrow";
+import { useSelector } from "react-redux";
+import { RiScissorsCutFill } from "react-icons/ri";
+import { useHistory } from "react-router";
 
 const Evideo = () => {
   const history = useHistory();
   const { EvideoData } = useSelector((state) => state.mainReducer);
-  console.log(111111111, EvideoData);
 
   const settings = {
     dots: false,
@@ -59,8 +58,8 @@ const Evideo = () => {
       <div className='best-editor'>
         <span>
           <RiScissorsCutFill></RiScissorsCutFill>
-        </span>{' '}
-        인기 편집자{' '}
+        </span>{" "}
+        인기 편집자{" "}
       </div>
       <Slider {...settings}>
         {EvideoData &&
@@ -69,7 +68,8 @@ const Evideo = () => {
               <div className='thumbnails'>
                 <div
                   onClick={() => history.push(`EDetail/Editor/${video.id}/1`)} // 편집자 detail 완성되면 주소 바꿔줘야함
-                  className='thumbnails-item'>
+                  className='thumbnails-item'
+                >
                   <div className='item item_red'>
                     <div className='top'>{video.user.nickname}</div>
                     <div className='bottom'>{video.title}</div>
