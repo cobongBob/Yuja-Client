@@ -49,5 +49,6 @@
 
 .Toastify__toast-container--top-right {
   top: 40em !important;
-  right: 1em;
+  right: 1em !important;
+  z-index: 30 !important;
 }
