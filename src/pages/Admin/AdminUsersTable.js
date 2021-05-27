@@ -79,40 +79,50 @@ const AdminUsersTable = ({ currentData, userSetBan }) => {
         {currentData && currentData.length > 0 && currentData[seleted] && (
           <Modal closeTimeoutMS={200} isOpen={modalIsOpen} style={reportcustomStyles} onRequestClose={closeModal}>
             <div>
-              <table>
-                <thead>
-                  <tr>
-                    <th className='user_no'>번호</th>
-                    <th className='user_id'>아이디</th>
-                    <th className='user_nickname'>닉네임</th>
-                    <th className='user_regDate'>가입일</th>
-                    <th className='user_authority'>권한</th>
-                    <th className='user_option'>옵션</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{currentData[seleted].id}</td>
-                    <td>{currentData[seleted].username}</td>
-                    <td>{currentData[seleted].nickname}</td>
-                    <td>{currentData[seleted].createDate}</td>
-                    <td>
-                      {currentData[seleted].authorities.map((auth, idx) => {
-                        if (idx === currentData[seleted].authorities.length - 1) {
-                          return auth.authority;
-                        } else {
-                          return auth.authority + ", ";
-                        }
-                      })}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <div>
+                <table className='editordetail-wrapper'>
+                  <div className='editordetail-header-wrapper'>
+                    <tr>
+                      <td className='editordetail-header'>회원정보</td>
+                    </tr>
+                  </div>
+                  <div className='admin_user_details'>
+                    <tr>
+                      <th className='admin_user_detail'>번호 </th>
+                      <td> {currentData[seleted].id}</td>
+                    </tr>
+                    <tr>
+                      <th className='admin_user_detail'>아이디 </th>
+                      <td> {currentData[seleted].username}</td>
+                    </tr>
+                    <tr>
+                      <th className='admin_user_detail'>활동명 </th>
+                      <td> {currentData[seleted].nickname}</td>
+                    </tr>
+                    <tr>
+                      <th className='admin_user_detail'>주소 </th>
+                      <td> {currentData[seleted].address}</td>
+                    </tr>
+                    <tr>
+                      <th className='admin_user_detail'>상세주소 </th>
+                      <td> {currentData[seleted].detailAddress}</td>
+                    </tr>
+                    <tr>
+                      <th className='admin_user_detail'>연락처 </th>
+                      <td> {currentData[seleted].phone}</td>
+                    </tr>
+                    <tr>
+                      <th className='admin_user_detail'>유튜브 주소 </th>
+                      <td> {currentData[seleted].youtubeUrl}</td>
+                    </tr>
+                  </div>
+                </table>
+              </div>
               <button
                 onClick={() =>
                   userSetBan(currentData[seleted].id, currentData[seleted].username, currentData[seleted].banned)
                 }
-                className='btn btn-warning'
+                className='YCBtn'
               >
                 {!currentData[seleted].banned ? (
                   <span style={{ color: "red" }}>밴 하기</span>
@@ -120,7 +130,7 @@ const AdminUsersTable = ({ currentData, userSetBan }) => {
                   <span style={{ color: "blue" }}>밴 해제</span>
                 )}
               </button>
-              <button className='btn btn-warning' onClick={closeModal}>
+              <button className='YCBtn' onClick={closeModal}>
                 닫기
               </button>
             </div>

@@ -112,7 +112,7 @@ function App() {
       (error) => {
         //실패시 로딩창 종료
         if (error.response && error.response.data) {
-          if (error.response.data.message && error.response.data.message.startWith("해당글 없음")) {
+          if (error.response.data.message && error.response.data.message.startsWith("해당글 없음")) {
             history.push("/");
           }
           ToastCenter(error.response.data.message);
