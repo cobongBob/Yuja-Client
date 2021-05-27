@@ -1,10 +1,12 @@
-.notiOnNav {
+.notiOnNav > div > ul {
+  list-style: none;
   display: inline-block;
   z-index: 9999;
   font-family: scdream5;
   font-size: small;
   text-align: left;
   padding: 0.25rem;
+  padding-bottom: 0;
 }
 
 .notice_delete {
@@ -17,45 +19,24 @@
   clear: both;
 }
 
-.navChangeBox {
-  display: inline-block;
-}
-
-.navChangeBox > div > ul > li > button {
-  padding: 0.25rem;
-}
-
-.notice_ul {
-  width: 15rem;
-  padding: 0.5rem;
-  text-align: right;
-  font-size: 15px;
-  margin-left: -8rem;
-  list-style: none;
-  background-color: white;
-  border: 1px solid #ff9411;
-  border-radius: 20px;
-}
-
 .span_title {
-  width: 12.5rem;
   display: block;
+  width: 12.5rem;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
 
-.notiOnNav > div > li {
+.notiOnNav > div > ul > li {
   padding: 0.5rem;
   background-color: #f5f5f5;
   border-radius: 10px;
   cursor: pointer;
+  margin-bottom: 0.5rem;
   &:hover {
     opacity: 0.7;
   }
 }
-.noti_icon {
-  margin-top: -0.25rem;
-  color: #ff9411;
-  margin-left: 0.25rem;
+.notiOnNav > div > ul > li > li {
+  display: inline;
 }

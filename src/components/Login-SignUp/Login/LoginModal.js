@@ -91,6 +91,11 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
         auth.authLogout();
       }
     });
+
+    document.addEventListener('click', dropMenuOutside, true);
+    return () => {
+      document.removeEventListener('click', dropMenuOutside, true);
+    };
   }, [dispatch]);
   /* 리덕스 관련 끝 */
 
@@ -175,16 +180,21 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
 
   /* 로그인 워닝 박스 끝 */
 
-  const dropMenu = useRef('');
-  const dropMenuOutside = '';
   const [hideMenu, setHideMenu] = useState(false);
-  const showMenu = (e) => {
-    if (hideMenu === true && !dropMenu) {
-      console.log(5555, dropMenu);
+  const dropMenu = useRef('');
+  const menu = useRef('');
+
+  const showMenu = () => {
+    setHideMenu(!hideMenu);
+  };
+
+  const dropMenuOutside = (e) => {
+    if (
+      dropMenu.current &&
+      !dropMenu.current.contains(e.target) &&
+      !menu.current.contains(e.target)
+    ) {
       setHideMenu(false);
-    } else {
-      console.log(7777, dropMenu);
-      setHideMenu(!hideMenu);
     }
   };
 
@@ -201,7 +211,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
           </button>
         ) : (
           <div>
-            <button className='welcomeBox' onClick={showMenu} ref={dropMenu}>
+            <button className='welcomeBox' onClick={showMenu} ref={menu}>
               {userData.nickname}
               {allNotifications.length > 0 &&
               userData &&
@@ -216,21 +226,33 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
                 </div>
               )}
             </button>
-            {hideMenu === true && (
-              <ul className='notice_ul'>
-                <li>
-                  <button onClick={beforeModify} className='modifyBtn'>
-                    정보수정
-                  </button>
-                </li>
-                <li>
-                  <button className='modifyBtn' onClick={logout}>
-                    로그아웃
-                  </button>
-                </li>
-                <NotificationDropdown allNotifications={allNotifications} />
-              </ul>
-            )}
+            <div>
+              {hideMenu === true && (
+                <ul className='notice_ul' ref={dropMenu}>
+                  <li>
+                    <button onClick={beforeModify} className='modifyBtn'>
+                      정보수정
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className='modifyBtn'
+                      onClick={() => {
+                        setHideMenu(false);
+                        logout();
+                      }}
+                    >
+                      로그아웃
+                    </button>
+                  </li>
+                  <NotificationDropdown
+                    allNotifications={allNotifications}
+                    setHideMenu={setHideMenu}
+                    setModalIsOpen={setModalIsOpen}
+                  />
+                </ul>
+              )}
+            </div>
           </div>
         )}
       </div>

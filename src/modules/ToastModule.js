@@ -1,36 +1,35 @@
-import { toast, Zoom } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast, Zoom } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 toast.configure();
 
 export const ToastCenter = (msg) => {
   toast(msg, {
-    toastId: "authorize",
+    toastId: 'authorize',
     position: toast.POSITION.BOTTOM_CENTER,
     autoClose: 2000,
     hideProgressBar: true,
     bodyStyle: {
-      color: "black",
-      fontSize: "17px",
-      fontWeight: "bold",
-      fontFamily: "scdream4",
+      color: 'black',
+      fontSize: '17px',
+      fontWeight: 'bold',
+      fontFamily: 'scdream4',
     },
     transition: Zoom,
-    className: "alertNoti",
+    className: 'alertNoti',
   });
 };
 
 export const ToastTopRight = (msg) => {
   toast(msg, {
-    toastId: "authorize",
+    toastId: 'authorize',
     autoClose: 2000,
     hideProgressBar: true,
     bodyStyle: {
-      color: "black",
-      fontSize: "17px",
-      fontWeight: "bold",
-      fontFamily: "scdream4",
+      color: 'black',
+      fontSize: '17px',
+      fontFamily: 'scdream5',
     },
-    className: "notify",
+    className: 'notify',
   });
 };
 export const ToastAlert = (msg) => {
@@ -40,42 +39,42 @@ export const ToastAlert = (msg) => {
     closeOnClick: true,
     hideProgressBar: true,
     bodyStyle: {
-      color: "black",
-      fontSize: "17px",
-      fontWeight: "bold",
-      fontFamily: "scdream4",
+      color: 'black',
+      fontSize: '17px',
+      fontWeight: 'bold',
+      fontFamily: 'scdream4',
     },
-    className: "notify",
+    className: 'notify',
   });
 };
 export const ToastAlertNoDupl = (msg) => {
   toast(msg, {
-    toastId: "preventDuplicate",
+    toastId: 'preventDuplicate',
     autoClose: false,
     closeButton: true,
     closeOnClick: true,
     hideProgressBar: true,
     bodyStyle: {
-      color: "black",
-      fontSize: "17px",
-      fontWeight: "bold",
-      fontFamily: "scdream4",
+      color: 'black',
+      fontSize: '17px',
+      fontWeight: 'bold',
+      fontFamily: 'scdream4',
     },
-    className: "notify",
+    className: 'notify',
   });
 };
 
 export const ToastPreventAccess = (msg) => {
   toast(msg, {
-    toastId: "preventAccess",
+    toastId: 'preventAccess',
     autoClose: 2000,
     hideProgressBar: true,
     bodyStyle: {
-      color: "black",
-      fontSize: "17px",
-      fontWeight: "bold",
-      fontFamily: "scdream4",
+      color: 'black',
+      fontSize: '17px',
+      fontWeight: 'bold',
+      fontFamily: 'scdream4',
     },
-    className: "notify",
+    className: 'notify',
   });
 };
