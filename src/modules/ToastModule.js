@@ -24,6 +24,7 @@ export const ToastTopRight = (msg) => {
     toastId: 'authorize',
     autoClose: 2000,
     hideProgressBar: true,
+    position: 'bottom-right',
     bodyStyle: {
       color: 'black',
       fontSize: '17px',
@@ -34,6 +35,7 @@ export const ToastTopRight = (msg) => {
 };
 export const ToastAlert = (msg) => {
   toast(msg, {
+    position: 'bottom-right',
     autoClose: false,
     closeButton: true,
     closeOnClick: true,
@@ -49,6 +51,7 @@ export const ToastAlert = (msg) => {
 };
 export const ToastAlertNoDupl = (msg) => {
   toast(msg, {
+    position: 'bottom-right',
     toastId: 'preventDuplicate',
     autoClose: false,
     closeButton: true,
