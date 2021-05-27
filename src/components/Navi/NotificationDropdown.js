@@ -5,7 +5,11 @@ import { noticeWithPush } from '../../modules/ToastWithPush';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { deleteNotification } from '../../redux/loading/notiReducer';
 
-const NotificationDropdown = ({ allNotifications, setHideMenu }) => {
+const NotificationDropdown = ({
+  allNotifications,
+  setHideMenu,
+  setModalIsOpen,
+}) => {
   const { userData } = useSelector((state) => state.loginReducer);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -44,22 +48,32 @@ const NotificationDropdown = ({ allNotifications, setHideMenu }) => {
                         </span>
                         <span>글에 댓글을 남기셨습니다.</span>
                       </span>
-                      <RiDeleteBin6Line
-                        onClick={() => deleteNoti(notice.notiId)}
-                        size='20'
-                        className='notice_delete'
-                      />
+                      <li>
+                        <RiDeleteBin6Line
+                          onClick={() => deleteNoti(notice.notiId)}
+                          size='20'
+                          className='notice_delete'
+                        />
+                      </li>
                     </li>
                   );
                 } else if (notice.type === 'chatNoti') {
                   return (
-                    <li key={idx} className='each_notice'>
+                    <li
+                      key={idx}
+                      className='each_notice'
+                      onClick={() => {
+                        setModalIsOpen(true);
+                      }}
+                    >
                       <span>{`${notice.sender.nickname}님으로부터 새로운 채팅이 있습니다.`}</span>
-                      <RiDeleteBin6Line
-                        onClick={() => deleteNoti(notice.notiId)}
-                        size='20'
-                        className='notice_delete'
-                      />
+                      <li>
+                        <RiDeleteBin6Line
+                          onClick={() => deleteNoti(notice.notiId)}
+                          size='20'
+                          className='notice_delete'
+                        />
+                      </li>
                     </li>
                   );
                 } else if (notice.type === 'editNoti') {

@@ -1,9 +1,19 @@
-import { BoardTypeConvertUrl } from "./BoardTypeConvert";
+import { BoardTypeConvertUrl } from './BoardTypeConvert';
+import { TiArrowForward } from 'react-icons/ti';
 
 export const toastWithPush = (txt, notification, history) => (
   <>
     {txt}
-    <button onClick={() => pushToPage(notification, history)}>글 보러가기</button>
+    <button
+      onClick={() => pushToPage(notification, history)}
+      style={{
+        border: 'none',
+        backgroundColor: 'transparent',
+        color: '#ff9411',
+      }}
+    >
+      <TiArrowForward size={30} />
+    </button>
   </>
 );
 

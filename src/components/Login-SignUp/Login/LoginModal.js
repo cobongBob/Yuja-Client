@@ -182,12 +182,18 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
 
   const [hideMenu, setHideMenu] = useState(false);
   const dropMenu = useRef('');
+  const menu = useRef('');
+
   const showMenu = () => {
-    console.log(111, hideMenu);
     setHideMenu(!hideMenu);
   };
+
   const dropMenuOutside = (e) => {
-    if (dropMenu.current && !dropMenu.current.contains(e.target)) {
+    if (
+      dropMenu.current &&
+      !dropMenu.current.contains(e.target) &&
+      !menu.current.contains(e.target)
+    ) {
       setHideMenu(false);
     }
   };
@@ -205,7 +211,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
           </button>
         ) : (
           <div>
-            <button className='welcomeBox' onClick={showMenu}>
+            <button className='welcomeBox' onClick={showMenu} ref={menu}>
               {userData.nickname}
               {allNotifications.length > 0 &&
               userData &&
@@ -242,6 +248,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
                   <NotificationDropdown
                     allNotifications={allNotifications}
                     setHideMenu={setHideMenu}
+                    setModalIsOpen={setModalIsOpen}
                   />
                 </ul>
               )}
