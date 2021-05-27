@@ -10,6 +10,7 @@ import { AiOutlineHeart, AiOutlineFileSearch } from "react-icons/ai";
 import { getWDetailsData, wAddLike, wDeleteLike } from "../../../redux/board/winwin/winBoardReducer";
 import { useHistory } from "react-router";
 import { ToastCenter } from "../../../modules/ToastModule";
+import Report from "../components/Report";
 const Wdetail = ({ match }) => {
   const { current: board_type } = useRef(match.params.board_type);
   const { current: pageNum } = useRef(match.params.current_page);
@@ -19,6 +20,9 @@ const Wdetail = ({ match }) => {
     isReplying: false,
     reply_commentId: 0,
   });
+
+  //신고모달
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   //전체 댓글관리
   const [comments, setComments] = useState();
@@ -34,12 +38,24 @@ const Wdetail = ({ match }) => {
   const history = useHistory();
 
   useEffect(() => {
-    if (wDetails && wDetails.isPrivate && (!userData || userData.id !== wDetails.user.id)) {
-      //어드민 권한 추가 필요
-      ToastCenter("권한이 없습니다.");
-      return history.goBack();
+    if (wDetails && wDetails.boardType && wDetails.boardType.boardName === "NoticeBoard") {
+      if (!wDetails.isPrivate) {
+        //어드민 권한 추가 필요
+        ToastCenter("권한이 없습니다.");
+        return history.goBack();
+      }
+    } else {
+      if (
+        wDetails &&
+        wDetails.isPrivate &&
+        (!userData || !(userData.id === wDetails.user.id || authorities.includes("ADMIN")))
+      ) {
+        //어드민 권한 추가 필요
+        ToastCenter("권한이 없습니다.");
+        return history.goBack();
+      }
     }
-  }, [history, userData, wDetails]);
+  }, [history, userData, wDetails, authorities]);
 
   //게시글 상세정보 및 댓글 가져오기
   useEffect(() => {
@@ -202,6 +218,16 @@ const Wdetail = ({ match }) => {
         <div className='comment-content'>
           <div className='comment-options'>
             <button onClick={goList}>목록</button>
+            {userData && userData.id > 0 && !authorities.includes("ADMIN") ? (
+              <>
+                <Report
+                  board_id={match.params.board_id}
+                  modalIsOpen={modalIsOpen}
+                  setModalIsOpen={setModalIsOpen}
+                  board_code={wDetails.boardType && wDetails.boardType.boardCode}
+                />
+              </>
+            ) : null}
           </div>
           <div className='comment-detail-title'>{wDetails.title}</div>
           <div className='comment-options-user'>
@@ -230,13 +256,20 @@ const Wdetail = ({ match }) => {
                   </button>
                 )}
               </div>
+
               <div className='hitWrapper'>
                 <AiOutlineFileSearch className='hit' size={29} /> <span className='hitCount'>{wDetails.hit}</span>
               </div>
             </div>
           </div>
           <div className='DetailQuill'>
-            <ReactQuill id="wQuill" className='QuillContent' value={wDetails.content || ""} readOnly={true} theme={"bubble"} />
+            <ReactQuill
+              id='wQuill'
+              className='QuillContent'
+              value={wDetails.content || ""}
+              readOnly={true}
+              theme={"bubble"}
+            />
           </div>
         </div>
         <div className='commentWrapper'>

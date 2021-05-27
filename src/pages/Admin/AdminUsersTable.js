@@ -1,9 +1,7 @@
 import React, { useCallback, useMemo, useState } from "react";
 import "./AdminUser.scss";
 import Modal from "react-modal";
-import { ToastCenter } from "../../modules/ToastModule";
 Modal.setAppElement("#root");
-
 const AdminUsersTable = ({ currentData, userSetBan }) => {
   const reportcustomStyles = useMemo(
     () => ({
@@ -43,13 +41,13 @@ const AdminUsersTable = ({ currentData, userSetBan }) => {
               <th className='user_nickname'>닉네임</th>
               <th className='user_regDate'>가입일</th>
               <th className='user_authority'>권한</th>
-              <th className='user_option'>옵션</th>
+              <th className='user_option'>상태</th>
             </tr>
           </thead>
           <tbody>
             {currentData &&
               currentData.map((user, idx) => (
-                <tr key={idx} onClick={() => openModal(idx)}>
+                <tr key={idx} className='user_table_tr' onClick={() => openModal(idx)}>
                   <td>{user.id}.</td>
                   <td>{user.username}</td>
                   <td>{user.nickname}</td>
@@ -64,11 +62,11 @@ const AdminUsersTable = ({ currentData, userSetBan }) => {
                     })}
                   </td>
                   <td>
-                    <span onClick={() => userSetBan(user.id, user.username, user.banned)} className='option_ban'>
+                    <span>
                       {!user.banned ? (
-                        <span style={{ color: "red" }}>밴 하기</span>
+                        <span style={{ color: "blue" }}>활동중</span>
                       ) : (
-                        <span style={{ color: "blue" }}>밴 해제</span>
+                        <span style={{ color: "red" }}>정지됨</span>
                       )}
                     </span>
                   </td>
@@ -80,59 +78,80 @@ const AdminUsersTable = ({ currentData, userSetBan }) => {
           <Modal closeTimeoutMS={200} isOpen={modalIsOpen} style={reportcustomStyles} onRequestClose={closeModal}>
             <div>
               <div>
-                <table className='editordetail-wrapper'>
-                  <div className='editordetail-header-wrapper'>
-                    <tr>
-                      <td className='editordetail-header'>회원정보</td>
-                    </tr>
-                  </div>
-                  <div className='admin_user_details'>
-                    <tr>
-                      <th className='admin_user_detail'>번호 </th>
-                      <td> {currentData[seleted].id}</td>
-                    </tr>
-                    <tr>
-                      <th className='admin_user_detail'>아이디 </th>
-                      <td> {currentData[seleted].username}</td>
-                    </tr>
-                    <tr>
-                      <th className='admin_user_detail'>활동명 </th>
-                      <td> {currentData[seleted].nickname}</td>
-                    </tr>
-                    <tr>
-                      <th className='admin_user_detail'>주소 </th>
-                      <td> {currentData[seleted].address}</td>
-                    </tr>
-                    <tr>
-                      <th className='admin_user_detail'>상세주소 </th>
-                      <td> {currentData[seleted].detailAddress}</td>
-                    </tr>
-                    <tr>
-                      <th className='admin_user_detail'>연락처 </th>
-                      <td> {currentData[seleted].phone}</td>
-                    </tr>
-                    <tr>
-                      <th className='admin_user_detail'>유튜브 주소 </th>
-                      <td> {currentData[seleted].youtubeUrl}</td>
-                    </tr>
-                  </div>
+                <table className='editordetail-wrapper admin_user_details'>
+                  <tr className='editordetail-header-wrapper'>
+                    <td className='editordetail-header'>회원정보</td>
+                  </tr>
+                  <tr>
+                    <th className='admin_user_detail'>번호 </th>
+                    <td> {currentData[seleted].id}</td>
+                  </tr>
+                  <tr>
+                    <th className='admin_user_detail'>아이디 </th>
+                    <td> {currentData[seleted].username}</td>
+                  </tr>
+                  <tr>
+                    <th className='admin_user_detail'>활동명 </th>
+                    <td> {currentData[seleted].nickname}</td>
+                  </tr>
+                  <tr>
+                    <th className='admin_user_detail'>가입일 </th>
+                    <td> {currentData[seleted].createDate.substr(0, 10)}</td>
+                  </tr>
+                  <tr>
+                    <th className='admin_user_detail'>권한 </th>
+                    <td>
+                      {" "}
+                      {currentData[seleted].authorities.map((auth, idx) => {
+                        if (idx === currentData[seleted].authorities.length - 1) {
+                          return auth.authority;
+                        } else {
+                          return auth.authority + ", ";
+                        }
+                      })}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th className='admin_user_detail'>주소 </th>
+                    <td> {currentData[seleted].address}</td>
+                  </tr>
+                  <tr>
+                    <th className='admin_user_detail'>생년월일 </th>
+                    <td> {currentData[seleted].bday}</td>
+                  </tr>
+                  <tr>
+                    <th className='admin_user_detail'>상세주소 </th>
+                    <td> {currentData[seleted].detailAddress}</td>
+                  </tr>
+                  <tr>
+                    <th className='admin_user_detail'>연락처 </th>
+                    <td> {currentData[seleted].phone}</td>
+                  </tr>
+                  <tr>
+                    <th className='admin_user_detail'>유튜브 주소 </th>
+                    <td> {currentData[seleted].youtubeUrl}</td>
+                  </tr>
                 </table>
               </div>
-              <button
-                onClick={() =>
-                  userSetBan(currentData[seleted].id, currentData[seleted].username, currentData[seleted].banned)
-                }
-                className='YCBtn'
-              >
-                {!currentData[seleted].banned ? (
-                  <span style={{ color: "red" }}>밴 하기</span>
-                ) : (
-                  <span style={{ color: "blue" }}>밴 해제</span>
-                )}
-              </button>
-              <button className='YCBtn' onClick={closeModal}>
-                닫기
-              </button>
+              <br />
+              <div className='admin_modal_btn'>
+                <button
+                  onClick={() => {
+                    userSetBan(currentData[seleted].id, currentData[seleted].username, currentData[seleted].banned);
+                    closeModal();
+                  }}
+                  className='YCBtn'
+                >
+                  {!currentData[seleted].banned ? (
+                    <span style={{ color: "red" }}>밴 하기</span>
+                  ) : (
+                    <span style={{ color: "blue" }}>밴 해제</span>
+                  )}
+                </button>
+                <button className='YCBtn' onClick={closeModal}>
+                  닫기
+                </button>
+              </div>
             </div>
           </Modal>
         )}

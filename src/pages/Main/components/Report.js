@@ -66,7 +66,7 @@ const Report = ({ board_id, modalIsOpen, setModalIsOpen, board_code }) => {
   );
 
   return (
-    <div>
+    <>
       <button onClick={openModal}>신고하기</button>
       <Modal isOpen={modalIsOpen} style={reportcustomStyles} onRequestClose={closeModal}>
         <form id='ReportForm' onSubmit={(e) => onSubmit(e)}>
@@ -80,7 +80,7 @@ const Report = ({ board_id, modalIsOpen, setModalIsOpen, board_code }) => {
           </div>
         </form>
       </Modal>
-    </div>
+    </>
   );
 };
 
