@@ -1,7 +1,37 @@
-import React from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import "./AdminUser.scss";
+import Modal from "react-modal";
+import { ToastCenter } from "../../modules/ToastModule";
+Modal.setAppElement("#root");
 
 const AdminUsersTable = ({ currentData, userSetBan }) => {
+  const reportcustomStyles = useMemo(
+    () => ({
+      content: {
+        top: "50%",
+        left: "50%",
+        right: "auto",
+        bottom: "auto",
+        marginRight: "-50%",
+        transform: "translate(-50%, -50%)",
+        background: "#edfcfc",
+        width: "60%",
+        height: "80%",
+      },
+      overlay: { zIndex: 9999 },
+    }),
+    []
+  );
+  const [modalIsOpen, setModalIsOpen] = useState();
+  const [seleted, setSeleted] = useState(0);
+  const openModal = useCallback((idx) => {
+    setModalIsOpen(true);
+    setSeleted(idx);
+  }, []);
+
+  const closeModal = useCallback(() => {
+    setModalIsOpen(false);
+  }, []);
   return (
     <div>
       <div className='community-table-wrapper'>
@@ -19,14 +49,18 @@ const AdminUsersTable = ({ currentData, userSetBan }) => {
           <tbody>
             {currentData &&
               currentData.map((user, idx) => (
-                <tr key={idx}>
+                <tr key={idx} onClick={() => openModal(idx)}>
                   <td>{user.id}.</td>
                   <td>{user.username}</td>
                   <td>{user.nickname}</td>
                   <td>{user.createDate.substr(0, 10)}</td>
                   <td>
-                    {user.authorities.map((auth) => {
-                      return auth.authority;
+                    {user.authorities.map((auth, idx) => {
+                      if (idx === user.authorities.length - 1) {
+                        return auth.authority;
+                      } else {
+                        return auth.authority + ", ";
+                      }
                     })}
                   </td>
                   <td>
@@ -42,6 +76,66 @@ const AdminUsersTable = ({ currentData, userSetBan }) => {
               ))}
           </tbody>
         </table>
+        {currentData && currentData.length > 0 && currentData[seleted] && (
+          <Modal closeTimeoutMS={200} isOpen={modalIsOpen} style={reportcustomStyles} onRequestClose={closeModal}>
+            <div>
+              <div>
+                <table className='editordetail-wrapper'>
+                  <div className='editordetail-header-wrapper'>
+                    <tr>
+                      <td className='editordetail-header'>회원정보</td>
+                    </tr>
+                  </div>
+                  <div className='admin_user_details'>
+                    <tr>
+                      <th className='admin_user_detail'>번호 </th>
+                      <td> {currentData[seleted].id}</td>
+                    </tr>
+                    <tr>
+                      <th className='admin_user_detail'>아이디 </th>
+                      <td> {currentData[seleted].username}</td>
+                    </tr>
+                    <tr>
+                      <th className='admin_user_detail'>활동명 </th>
+                      <td> {currentData[seleted].nickname}</td>
+                    </tr>
+                    <tr>
+                      <th className='admin_user_detail'>주소 </th>
+                      <td> {currentData[seleted].address}</td>
+                    </tr>
+                    <tr>
+                      <th className='admin_user_detail'>상세주소 </th>
+                      <td> {currentData[seleted].detailAddress}</td>
+                    </tr>
+                    <tr>
+                      <th className='admin_user_detail'>연락처 </th>
+                      <td> {currentData[seleted].phone}</td>
+                    </tr>
+                    <tr>
+                      <th className='admin_user_detail'>유튜브 주소 </th>
+                      <td> {currentData[seleted].youtubeUrl}</td>
+                    </tr>
+                  </div>
+                </table>
+              </div>
+              <button
+                onClick={() =>
+                  userSetBan(currentData[seleted].id, currentData[seleted].username, currentData[seleted].banned)
+                }
+                className='YCBtn'
+              >
+                {!currentData[seleted].banned ? (
+                  <span style={{ color: "red" }}>밴 하기</span>
+                ) : (
+                  <span style={{ color: "blue" }}>밴 해제</span>
+                )}
+              </button>
+              <button className='YCBtn' onClick={closeModal}>
+                닫기
+              </button>
+            </div>
+          </Modal>
+        )}
       </div>
     </div>
   );
