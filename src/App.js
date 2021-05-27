@@ -139,6 +139,14 @@ function App() {
               history
             )
           );
+        } else if (notification.type === "nestedComment" && notification.resipeint.id === userData.id) {
+          ToastAlert(() =>
+            toastWithPush(
+              `${notification.sender.nickname}님께서 ${notification.comment.board.title}글의 댓글에 답글을 남기셨습니다.`,
+              notification,
+              history
+            )
+          );
         } else if (notification.type === "chatNoti" && notification.resipeint.id === userData.id) {
           ToastAlertNoDupl(`${notification.sender.nickname}님으로부터 새로운 채팅이 있습니다.`);
         } else if (notification.type === "editNoti" && notification.resipeint.id === userData.id) {
