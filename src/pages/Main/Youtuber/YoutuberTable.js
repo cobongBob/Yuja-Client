@@ -55,12 +55,14 @@ const YoutuberTable = ({
         {boardData?.map((data) => (
           <li key={data.id}>
             <Card>
-              <Card.Img
-                className='Card-Img'
-                onClick={() =>
-                  history.push(`/Ydetail/${data.id}/${currentPage}`)
-                }
-                src='/img/board_pic/thumbnailer_pic/thum3.PNG'></Card.Img>
+              <div className='CardImageWrapper'>
+                <Card.Img
+                  className='Card_Image'
+                  onClick={() =>
+                    history.push(`/Ydetail/${data.id}/${currentPage}`)
+                  }
+                  src={`${data.previewImage}`}></Card.Img>
+              </div>
               <Card.Header>
                 <Card.Title>
                   <div>
@@ -95,7 +97,7 @@ const YoutuberTable = ({
                 <Card.Text>
                   <div>
                     <Link to={`/YoutuberProfile/`} className='card-link'>
-                      {data.user.username}
+                      {data.user.nickname}
                     </Link>
                   </div>
                   <div>
