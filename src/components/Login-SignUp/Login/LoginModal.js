@@ -91,6 +91,11 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
         auth.authLogout();
       }
     });
+
+    document.addEventListener('click', dropMenuOutside, true);
+    return () => {
+      document.removeEventListener('click', dropMenuOutside, true);
+    };
   }, [dispatch]);
   /* 리덕스 관련 끝 */
 
@@ -177,12 +182,12 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
 
   const [hideMenu, setHideMenu] = useState(false);
   const dropMenu = useRef('');
-
   const showMenu = () => {
-    console.log('dropbox열림', dropMenu.current);
+    console.log(111, hideMenu);
     setHideMenu(!hideMenu);
-    if (!dropMenu.current) {
-      console.log('dropbox닫힘', dropMenu.current.contains);
+  };
+  const dropMenuOutside = (e) => {
+    if (dropMenu.current && !dropMenu.current.contains(e.target)) {
       setHideMenu(false);
     }
   };
@@ -200,7 +205,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
           </button>
         ) : (
           <div>
-            <button className='welcomeBox' onClick={showMenu} ref={dropMenu}>
+            <button className='welcomeBox' onClick={showMenu}>
               {userData.nickname}
               {allNotifications.length > 0 &&
               userData &&
@@ -215,21 +220,32 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
                 </div>
               )}
             </button>
-            {hideMenu === true && (
-              <ul className='notice_ul'>
-                <li>
-                  <button onClick={beforeModify} className='modifyBtn'>
-                    정보수정
-                  </button>
-                </li>
-                <li>
-                  <button className='modifyBtn' onClick={logout}>
-                    로그아웃
-                  </button>
-                </li>
-                <NotificationDropdown allNotifications={allNotifications} />
-              </ul>
-            )}
+            <div>
+              {hideMenu === true && (
+                <ul className='notice_ul' ref={dropMenu}>
+                  <li>
+                    <button onClick={beforeModify} className='modifyBtn'>
+                      정보수정
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className='modifyBtn'
+                      onClick={() => {
+                        setHideMenu(false);
+                        logout();
+                      }}
+                    >
+                      로그아웃
+                    </button>
+                  </li>
+                  <NotificationDropdown
+                    allNotifications={allNotifications}
+                    setHideMenu={setHideMenu}
+                  />
+                </ul>
+              )}
+            </div>
           </div>
         )}
       </div>

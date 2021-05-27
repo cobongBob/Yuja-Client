@@ -5,7 +5,7 @@ import { noticeWithPush } from '../../modules/ToastWithPush';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { deleteNotification } from '../../redux/loading/notiReducer';
 
-const NotificationDropdown = ({ allNotifications }) => {
+const NotificationDropdown = ({ allNotifications, setHideMenu }) => {
   const { userData } = useSelector((state) => state.loginReducer);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -25,22 +25,25 @@ const NotificationDropdown = ({ allNotifications }) => {
         userData.id !== 0 &&
         allNotifications[0].resipeint.id === userData.id ? (
           <div>
-            <li>
+            <ul>
               {allNotifications.map((notice, idx) => {
                 if (notice.type === 'commentNoti') {
                   return (
-                    <li
-                      key={idx}
-                      className='each_notice'
-                      onClick={() => noticeWithPush(notice, history)}
-                    >
-                      <span>{`${notice.sender.nickname}
+                    <li key={idx} className='each_notice'>
+                      <span
+                        onClick={() => {
+                          setHideMenu(false);
+                          noticeWithPush(notice, history);
+                        }}
+                      >
+                        <span>{`${notice.sender.nickname}
                         님께서 
                         `}</span>
-                      <span className='span_title'>
-                        {`${notice.comment.board.title}`}
+                        <span className='span_title'>
+                          {`${notice.comment.board.title}`}
+                        </span>
+                        <span>글에 댓글을 남기셨습니다.</span>
                       </span>
-                      <span>글에 댓글을 남기셨습니다.</span>
                       <RiDeleteBin6Line
                         onClick={() => deleteNoti(notice.notiId)}
                         size='20'
@@ -107,7 +110,7 @@ const NotificationDropdown = ({ allNotifications }) => {
                   return null;
                 }
               })}
-            </li>
+            </ul>
           </div>
         ) : (
           <li style={{ cursor: 'default', fontSize: '17px' }}>

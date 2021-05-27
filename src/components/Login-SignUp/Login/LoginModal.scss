@@ -148,6 +148,32 @@ section > footer {
   }
 }
 
+.navChangeBox {
+  display: inline-block;
+}
+
+.navChangeBox > div > ul > li > button {
+  padding: 0.25rem;
+}
+
+.notice_ul {
+  width: 15rem;
+  padding: 0.5rem;
+  text-align: right;
+  font-size: 15px;
+  margin-left: -8rem;
+  list-style: none;
+  background-color: white;
+  border: 1px solid #ff9411;
+  border-radius: 20px;
+}
+
+.noti_icon {
+  margin-top: -0.25rem;
+  color: #ff9411;
+  margin-left: 0.25rem;
+}
+
 .welcomeBox > div {
   display: inline-block;
 }
