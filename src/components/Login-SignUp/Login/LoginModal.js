@@ -175,16 +175,15 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
 
   /* 로그인 워닝 박스 끝 */
 
-  const dropMenu = useRef('');
-  const dropMenuOutside = '';
   const [hideMenu, setHideMenu] = useState(false);
-  const showMenu = (e) => {
-    if (hideMenu === true && !dropMenu) {
-      console.log(5555, dropMenu);
+  const dropMenu = useRef('');
+
+  const showMenu = () => {
+    console.log('dropbox열림', dropMenu.current);
+    setHideMenu(!hideMenu);
+    if (!dropMenu.current) {
+      console.log('dropbox닫힘', dropMenu.current.contains);
       setHideMenu(false);
-    } else {
-      console.log(7777, dropMenu);
-      setHideMenu(!hideMenu);
     }
   };
 
