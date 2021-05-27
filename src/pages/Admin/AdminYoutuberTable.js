@@ -31,7 +31,7 @@ const AdminYoutuberTable = ({ currentData, promoteUser, rejectUser }) => {
   }, []);
   return (
     <div>
-      <div className='community-table-wrapper'>
+      <div className='admin-table-wrapper'>
         <table>
           <thead>
             <tr>
@@ -64,7 +64,7 @@ const AdminYoutuberTable = ({ currentData, promoteUser, rejectUser }) => {
               ))}
           </tbody>
         </table>
-        {currentData && currentData.length > 0 && (
+        {currentData && currentData.length > 0 && currentData[seleted] && (
           <Modal closeTimeoutMS={200} isOpen={modalIsOpen} style={reportcustomStyles} onRequestClose={closeModal}>
             <div>
               <img

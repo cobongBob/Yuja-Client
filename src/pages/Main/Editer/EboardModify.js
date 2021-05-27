@@ -7,6 +7,7 @@ import './EditorRegister.scss';
 import * as EditerApiService from '../../../apiService/EditerApiService';
 import QuillModify from '../../../components/Quill/QuillModify';
 import { previewToYoutubeLink } from '../../../modules/QuillYoutubeConvert';
+import { checkBoxConvert } from '../../../modules/CheckBoxConvert';
 
 const EboardModify = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -27,6 +28,18 @@ const EboardModify = ({ match }) => {
     tools: checkedlist.current,
   });
 
+  const [checkBoxInput, setcheckBoxInput] = useState({
+    premiere: false,
+    aftereffect: false,
+    finalcut: false,
+    vegas: false,
+    powerdirector: false,
+    photoshop: false,
+    illustrater: false,
+    blender: false,
+    maya: false,
+  });
+
   let eHistory = useCallback(
     (board_id) => history.push(`/EDetail/${board_type.current}/${board_id}/1`),
     [history, board_type]
@@ -45,6 +58,8 @@ const EboardModify = ({ match }) => {
       originalUrl.current = res.data.previewImage && res.data.previewImage;
       originalUrl.current = previewToYoutubeLink(originalUrl.current);
       setInput({ ...res.data, previewImage: originalUrl.current });
+      setcheckBoxInput(checkBoxConvert(res.data.tools));
+      checkedlist.current = res.data.tools;
     });
   }, [userData, history, match.params.board_id]);
 
@@ -58,7 +73,7 @@ const EboardModify = ({ match }) => {
       !input.payAmount ||
       checkedlist.current.length === 0
     ) {
-      return ToastCenter('내용을 모두 적어주세요.');
+      ToastCenter('내용을 모두 적어주세요.');
     }
     let reg = new RegExp(
       `http://localhost:8888/files/${board_type.current}/[0-9]+.[a-z]+`,
@@ -90,13 +105,10 @@ const EboardModify = ({ match }) => {
       boardAttachIds: addingFileList.current,
       boardAttachToBeDeleted: deletedFileList.current,
     };
-    EditerApiService.modifyBoard(
-      match.params.board_id,
-      modifyingData,
-      board_type.current
-    ).then((res) => {
-      eHistory(res.data.id);
-    });
+    console.log(11111111, modifyingData);
+    // EditerApiService.modifyBoard(match.params.board_id, modifyingData, board_type.current).then((res) => {
+    //   eHistory(res.data.id);
+    // });
   }, [eHistory, input, match.params.board_id, qModiData]);
 
   const onChange = useCallback(
@@ -119,6 +131,10 @@ const EboardModify = ({ match }) => {
 
   const checkboxCheck = useCallback(
     (e) => {
+      setcheckBoxInput({
+        ...checkBoxInput,
+        [e.target.name]: e.target.checked,
+      });
       if (e.target.checked) {
         checkedlist.current.push(e.target.value);
       } else {
@@ -126,7 +142,7 @@ const EboardModify = ({ match }) => {
         checkedlist.current.splice(index, 1);
       }
     },
-    [checkedlist]
+    [checkedlist, checkBoxInput]
   );
 
   return (
@@ -208,74 +224,83 @@ const EboardModify = ({ match }) => {
               <span>사용기술</span>
               <input
                 id='Epremiere'
-                name='tools'
+                name='premiere'
                 value='프리미어 프로'
                 type='checkbox'
                 onChange={checkboxCheck}
+                checked={checkBoxInput.premiere}
               />
               <label htmlFor='Epremiere'>프리미어 프로 </label>
               <input
                 id='Eaftereffect'
-                name='tools'
+                name='aftereffect'
                 value='애프터이펙트'
                 type='checkbox'
                 onChange={checkboxCheck}
+                checked={checkBoxInput.aftereffect}
               />
               <label htmlFor='Eaftereffect'>애프터이펙트 </label>
               <input
                 id='Efinalcut'
-                name='tools'
+                name='finalcut'
                 value='파이널컷'
                 type='checkbox'
                 onChange={checkboxCheck}
+                checked={checkBoxInput.finalcut}
               />
               <label htmlFor='Efinalcut'>파이널컷 </label>
               <input
                 id='Evegas'
-                name='tools'
+                name='vegas'
                 onChange={checkboxCheck}
                 value='베가스'
                 type='checkbox'
+                checked={checkBoxInput.vegas}
               />
               <label htmlFor='Evegas'>베가스</label>
               <input
                 id='Epowerdirector'
-                name='tools'
+                name='powerdirector'
                 value='파워 디렉터'
                 type='checkbox'
                 onChange={checkboxCheck}
+                checked={checkBoxInput.powerdirector}
               />
               <label htmlFor='Epowerdirector'>파워 디렉터</label>
               <input
                 id='Yphotoshop'
-                name='tools'
+                name='photoshop'
                 value='포토샵'
                 type='checkbox'
                 onChange={checkboxCheck}
+                checked={checkBoxInput.photoshop}
               />
               <label htmlFor='Yphotoshop'>포토샵</label>
               <input
                 id='Yillustrater'
-                name='tools'
+                name='illustrater'
                 value='일러스트'
                 type='checkbox'
                 onChange={checkboxCheck}
+                checked={checkBoxInput.illustrater}
               />
               <label htmlFor='Yillustrater'>일러스트</label>
               <input
                 id='Yblender'
                 onChange={checkboxCheck}
-                name='tools'
+                name='blender'
                 value='블렌더'
                 type='checkbox'
+                checked={checkBoxInput.blender}
               />
               <label htmlFor='Yblender'>블렌더</label>
               <input
                 id='Ymaya'
                 onChange={checkboxCheck}
-                name='tools'
+                name='maya'
                 value='마야'
                 type='checkbox'
+                checked={checkBoxInput.maya}
               />
               <label htmlFor='Ymaya'>마야</label>
             </li>

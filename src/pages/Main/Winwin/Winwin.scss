@@ -1,17 +1,27 @@
-.table-Wrapper {
+.winwinFrag {
   margin-top: 2rem;
-  margin-left: 15rem;
-  margin-right: 8rem;
+  margin-left: 10rem;
   margin-bottom: 5rem;
 }
+.winwin-Table-Wrapper {
+  display: inline-block;
+  width: 65vw;
+  position: relative;
+  margin-left: 9%;
+  margin-top: -15%;
+}
 
-.table-Wrapper > h2 {
+.winTable-Table-Wrapper {
+  width: 100%;
+}
+
+.winTable-Table-Wrapper > h2 {
   display: inline-block;
   font-size: 30px;
   font-weight: bold;
   color: white;
   background-color: #ff9411;
-  padding: 0.25rem;
+  padding: 0.5rem;
   border-radius: 20px;
 }
 
@@ -91,16 +101,24 @@
     text-decoration: none;
   }
 }
-
+.sideBox {
+  display: inline-block;
+  margin: auto;
+  top: 19vh;
+  position: relative;
+  left: 3%;
+}
 .sideMenu {
-  float: left;
-  margin-left: 17rem;
-  margin-right: 3rem;
-  margin-top: 7rem;
+  //float: left;
+  //margin-left: 8rem;
+  //margin-top: 9rem;
+  //border-radius: 2px;
+  //min-height: 50vh;
+  //min-width: 10vw;
+  //border: none;
   border-radius: 2px;
-  min-height: 50vh;
-  min-width: 10vw;
   border: none;
+  display: inline-block;
 }
 
 .sideMenu-title {
@@ -117,10 +135,9 @@
 }
 
 .community-table-wrapper > table {
-  width: 90%;
-  margin: 2rem;
+  width: 100%;
+  margin: 0 2rem 2rem 0;
   font-family: scdream4;
-  table-layout: fixed;
   line-height: 2rem;
   white-space: nowrap;
 }
