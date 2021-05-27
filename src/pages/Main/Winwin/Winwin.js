@@ -37,6 +37,7 @@ const Winwin = ({ match, history }) => {
   useEffect(() => {
     board_type.current = match.params.board_type;
     dispatch(getWinBoard(board_type.current));
+    setSearchTerm("");
   }, [userData, dispatch, match.params.board_type]);
 
   //공지 가져오기

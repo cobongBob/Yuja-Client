@@ -195,7 +195,7 @@ const winBoardReducer = (state = initialState, action) => {
             return data;
           } else if (
             Object &&
-            Object.values(data.user.username)
+            Object.values(data.user.nickname)
               .join('')
               .toLowerCase()
               .includes(action.keyword.toLowerCase())
