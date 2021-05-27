@@ -1,27 +1,48 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import AuthCodeTimer from "./AuthCodeTimer";
-import AuthBtnBox from "./AuthBtnBox";
-import * as auth from "../../../apiService/AuthenticationService";
-import axios from "axios";
-import { ToastPreventAccess } from "../../../modules/ToastModule";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { Link } from 'react-router-dom';
+import AuthCodeTimer from './AuthCodeTimer';
+import AuthBtnBox from './AuthBtnBox';
+import * as auth from '../../../apiService/AuthenticationService';
+import axios from 'axios';
+import { ToastPreventAccess } from '../../../modules/ToastModule';
 
 const Required = ({ location, history }) => {
-  if (location.state === undefined || history.action === "POP") {
-    ToastPreventAccess("❌ 잘못된 접근 입니다.");
-    history.replace("/");
+  if (location.state === undefined || history.action === 'POP') {
+    ToastPreventAccess('❌ 잘못된 접근 입니다.');
+    history.replace('/');
   }
 
   /* 값 넘겨주기 */
   const [requiredData, setrequiredData] = useState({
     isMarketingChecked: location.state ? location.state.next : null,
-    username: location.state && location.state.googleSignupData ? location.state.googleSignupData.username : "",
-    password: location.state && location.state.googleSignupData ? location.state.googleSignupData.password : "",
-    realName: location.state && location.state.googleSignupData ? location.state.googleSignupData.realName : "",
-    provider: location.state && location.state.googleSignupData ? location.state.googleSignupData.provider : "",
-    providedId: location.state && location.state.googleSignupData ? location.state.googleSignupData.providerId : "",
-    bday: "",
-    nickname: "",
+    username:
+      location.state && location.state.googleSignupData
+        ? location.state.googleSignupData.username
+        : '',
+    password:
+      location.state && location.state.googleSignupData
+        ? location.state.googleSignupData.password
+        : '',
+    realName:
+      location.state && location.state.googleSignupData
+        ? location.state.googleSignupData.realName
+        : '',
+    provider:
+      location.state && location.state.googleSignupData
+        ? location.state.googleSignupData.provider
+        : '',
+    providedId:
+      location.state && location.state.googleSignupData
+        ? location.state.googleSignupData.providerId
+        : '',
+    bday: '',
+    nickname: '',
   });
 
   const isValidateInput = useMemo(
@@ -46,30 +67,30 @@ const Required = ({ location, history }) => {
 
   /* 인증코드 통신 및 확인 */
   const [authCode, setAuthCode] = useState();
-  const [securityCode, setSecurityCode] = useState("오늘점심은부대찌개!!");
+  const [securityCode, setSecurityCode] = useState('오늘점심은부대찌개!!');
   const [disabledHandler, setDisabledHandler] = useState(false);
   const [emailDisableHandler, setEmailDisableHandler] = useState(false);
-  const [btnTextHandler, setBtnTextHandler] = useState("인증번호 발송");
+  const [btnTextHandler, setBtnTextHandler] = useState('인증번호 발송');
 
   const getAuthCode = (e) => {
     setAuthCode(e.target.value);
   };
 
   const checkCodes = () => {
-    if (isValidateInput.id === "" || EmailValidateResData !== "") {
-      setSecurityCodeValidateDesc("이메일을 확인 해주세요.");
+    if (isValidateInput.id === '' || EmailValidateResData !== '') {
+      setSecurityCodeValidateDesc('이메일을 확인 해주세요.');
     } else if (securityCode === authCode) {
       clearTimeout(setSecurityCode);
       changeTimeSet();
       setDisabledHandler(true);
-      setBtnTextHandler("인증완료");
+      setBtnTextHandler('인증완료');
       totalCheck();
-      setSecurityCodeValidateDesc("");
+      setSecurityCodeValidateDesc('');
       setEmailDisableHandler(true);
       return true;
     } else {
       totalCheck();
-      setSecurityCodeValidateDesc("인증번호를 확인 해주세요.");
+      setSecurityCodeValidateDesc('인증번호를 확인 해주세요.');
       return false;
     }
   };
@@ -88,32 +109,33 @@ const Required = ({ location, history }) => {
   const changeStartTimer = () => {
     auth.verifyEmailSend(requiredData.username).then((res) => {
       setSecurityCode(res.data);
-      console.log("res.data를 sc에 넣은 후 sc의 값", securityCode);
-      console.log("auth", authCode);
+      console.log('res.data를 sc에 넣은 후 sc의 값', securityCode);
+      console.log('auth', authCode);
       setTimeout(() => {
-        setSecurityCode("내일점심은부대찌개!");
+        setSecurityCode('내일점심은부대찌개!');
       }, securityCodeDelay);
     });
     return setStartTimer(!startTimer);
   };
   const changeTimeSet = () => {
-    if (isValidateInput.id === "" || EmailValidateResData !== "") {
-      setSecurityCodeValidateDesc("이메일을 확인 해주세요.");
-      return "";
+    if (isValidateInput.id === '' || EmailValidateResData !== '') {
+      setSecurityCodeValidateDesc('이메일을 확인 해주세요.');
+      return '';
     }
     setTimerSet(!timerSet);
     changeStartTimer();
-    setSecurityCodeValidateDesc("");
+    setSecurityCodeValidateDesc('');
   };
   /* 인증 코드 발송 끝 */
 
   /* new 유효성 검사 */
-  const [EmailValidateResData, setEmailValidateResData] = useState("");
-  const [nicknameValidateResData, setNicknameValidateResData] = useState("");
-  const [passwordValidateDesc, setPasswordValidateDesc] = useState("");
-  const [checkPasswordValidateDesc, setCheckPasswordValidateDesc] = useState("");
-  const [nameValidateDesc, setNameValidateDesc] = useState("");
-  const [birthValidateDesc, setBirthValidateDesc] = useState("");
+  const [EmailValidateResData, setEmailValidateResData] = useState('');
+  const [nicknameValidateResData, setNicknameValidateResData] = useState('');
+  const [passwordValidateDesc, setPasswordValidateDesc] = useState('');
+  const [checkPasswordValidateDesc, setCheckPasswordValidateDesc] =
+    useState('');
+  const [nameValidateDesc, setNameValidateDesc] = useState('');
+  const [birthValidateDesc, setBirthValidateDesc] = useState('');
   const [securityCodeValidateDesc, setSecurityCodeValidateDesc] = useState();
   const [passCheckNum, setpassCheckNum] = useState();
 
@@ -121,18 +143,18 @@ const Required = ({ location, history }) => {
 
   const totalCheck = useCallback(() => {
     if (
-      EmailValidateResData === "" &&
-      nicknameValidateResData === "" &&
-      passwordValidateDesc === "" &&
-      checkPasswordValidateDesc === "" &&
-      nameValidateDesc === "" &&
-      birthValidateDesc === "" &&
-      isValidateInput.nick !== "" &&
-      isValidateInput.birth !== "" &&
-      isValidateInput.id !== "" &&
-      isValidateInput.name !== "" &&
-      isValidateInput.pass !== "" &&
-      btnTextHandler === "인증완료"
+      EmailValidateResData === '' &&
+      nicknameValidateResData === '' &&
+      passwordValidateDesc === '' &&
+      checkPasswordValidateDesc === '' &&
+      nameValidateDesc === '' &&
+      birthValidateDesc === '' &&
+      isValidateInput.nick !== '' &&
+      isValidateInput.birth !== '' &&
+      isValidateInput.id !== '' &&
+      isValidateInput.name !== '' &&
+      isValidateInput.pass !== '' &&
+      btnTextHandler === '인증완료'
     ) {
       setNextBtnDisabledHandler(false);
     } else {
@@ -152,7 +174,7 @@ const Required = ({ location, history }) => {
   const backSpaceCheck = useCallback(() => {
     totalCheck();
     if (location.state && location.state.googleSignupData) {
-      setBtnTextHandler("인증완료");
+      setBtnTextHandler('인증완료');
     }
   }, [totalCheck, location.state]);
 
@@ -160,7 +182,9 @@ const Required = ({ location, history }) => {
     /^(?=.*?[a-z])(?=.*?[#?!@$%^&*-])(?=.*?[0-9]).{8,}$/
   ); /* 비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다. */
   const { current: nameCheck } = useRef(/^[a-zA-Z가-힣]{2,10}$/);
-  const { current: birthCheck } = useRef(/^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/);
+  const { current: birthCheck } = useRef(
+    /^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/
+  );
 
   const getPassCheckNum = (e) => {
     setpassCheckNum(e.target.value);
@@ -168,53 +192,62 @@ const Required = ({ location, history }) => {
   };
 
   const checkEmailValidate = useCallback(() => {
-    axios.post("http://localhost:8888/api/auth/checkemail", requiredData).then((res) => {
-      if (res.data !== "") {
-        setEmailValidateResData(res.data);
-      } else if (res.data === "") {
-        setEmailValidateResData("");
-      }
-    });
+    axios
+      .post('http://localhost:8888/api/auth/checkemail', requiredData)
+      .then((res) => {
+        if (res.data !== '') {
+          setEmailValidateResData(res.data);
+        } else if (res.data === '') {
+          setEmailValidateResData('');
+        }
+      });
   }, [requiredData]);
 
   const checkNicknameValidate = useCallback(() => {
-    axios.post("http://localhost:8888/api/auth/checknickname", requiredData).then((res) => {
-      if (res.data !== "") {
-        setNicknameValidateResData(res.data);
-      } else if (res.data === "") {
-        setNicknameValidateResData("");
-      }
-    });
+    axios
+      .post('http://localhost:8888/api/auth/checknickname', requiredData)
+      .then((res) => {
+        if (res.data !== '') {
+          setNicknameValidateResData(res.data);
+        } else if (res.data === '') {
+          setNicknameValidateResData('');
+        }
+      });
   }, [requiredData]);
 
   const checkPasswordValidate = useCallback(() => {
-    passCheck.test(isValidateInput.pass) === false && isValidateInput.pass !== ""
-      ? setPasswordValidateDesc("비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.")
-      : setPasswordValidateDesc("");
+    passCheck.test(isValidateInput.pass) === false &&
+    isValidateInput.pass !== ''
+      ? setPasswordValidateDesc(
+          '비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.'
+        )
+      : setPasswordValidateDesc('');
   }, [isValidateInput, passCheck]);
 
   const checkPasswordCheckValidate = useCallback(() => {
-    isValidateInput.pass !== passCheckNum && passCheckNum !== ""
-      ? setCheckPasswordValidateDesc("비밀번호를 확인해주세요.")
-      : setCheckPasswordValidateDesc("");
+    isValidateInput.pass !== passCheckNum && passCheckNum !== ''
+      ? setCheckPasswordValidateDesc('비밀번호를 확인해주세요.')
+      : setCheckPasswordValidateDesc('');
   }, [isValidateInput, passCheckNum]);
 
   const passwordTotalCheck = useCallback(
     (e) => {
-      if (isValidateInput.password !== "" && passCheckNum !== "") {
+      if (isValidateInput.password !== '' && passCheckNum !== '') {
         if (passCheck.test(isValidateInput.pass) === false) {
-          setPasswordValidateDesc("비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.");
+          setPasswordValidateDesc(
+            '비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.'
+          );
         } else if (isValidateInput.pass !== passCheckNum) {
-          if (e.target.className === "signUpPw") {
-            setPasswordValidateDesc("비밀번호를 확인해주세요.");
+          if (e.target.className === 'signUpPw') {
+            setPasswordValidateDesc('비밀번호를 확인해주세요.');
           } else {
-            setCheckPasswordValidateDesc("비밀번호를 확인해주세요.");
+            setCheckPasswordValidateDesc('비밀번호를 확인해주세요.');
           }
         } else if (passCheck.test(isValidateInput.pass) === true) {
-          setPasswordValidateDesc("");
+          setPasswordValidateDesc('');
         }
         if (isValidateInput.pass === passCheckNum) {
-          setCheckPasswordValidateDesc("");
+          setCheckPasswordValidateDesc('');
         }
       } else {
       }
@@ -223,17 +256,23 @@ const Required = ({ location, history }) => {
   );
 
   const checkNameValidate = useCallback(() => {
-    if (nameCheck.test(isValidateInput.name) === false && isValidateInput.name !== "") {
-      setNameValidateDesc("이름은 2글자 이상의 영문자, 한글만 입력 가능합니다.");
+    if (
+      nameCheck.test(isValidateInput.name) === false &&
+      isValidateInput.name !== ''
+    ) {
+      setNameValidateDesc(
+        '이름은 2글자 이상의 영문자, 한글만 입력 가능합니다.'
+      );
     } else {
-      setNameValidateDesc("");
+      setNameValidateDesc('');
     }
   }, [nameCheck, isValidateInput]);
 
   const checkBirthValidate = useCallback(() => {
-    birthCheck.test(isValidateInput.birth) === false && isValidateInput.birth !== ""
-      ? setBirthValidateDesc("-을 제외한 생년월일 6자리만 입력해주세요.")
-      : setBirthValidateDesc("");
+    birthCheck.test(isValidateInput.birth) === false &&
+    isValidateInput.birth !== ''
+      ? setBirthValidateDesc('-을 제외한 생년월일 6자리만 입력해주세요.')
+      : setBirthValidateDesc('');
   }, [birthCheck, isValidateInput]);
 
   const requiredNextBtnHandler = useCallback(() => {
@@ -244,16 +283,22 @@ const Required = ({ location, history }) => {
         isValidateInput.birth,
         isValidateInput.name,
         isValidateInput.pass,
-      ].includes("")
+      ].includes('')
     ) {
       setNextBtnDisabledHandler(true);
     }
   }, [isValidateInput]);
 
   // //유효성 검사 on/off
-  // useEffect(() => {
-  //    totalCheck();
-  //  }, [requiredData, passCheckNum, nextBtnDisabledHandler, totalCheck, securityCode]);
+  useEffect(() => {
+    totalCheck();
+  }, [
+    requiredData,
+    passCheckNum,
+    nextBtnDisabledHandler,
+    totalCheck,
+    securityCode,
+  ]);
 
   /* new 유효성 검사 끝 */
 
@@ -284,7 +329,9 @@ const Required = ({ location, history }) => {
                     onKeyUp={checkEmailValidate}
                     disabled={true}
                     value={
-                      location.state && location.state.googleSignupData && location.state.googleSignupData.username
+                      location.state &&
+                      location.state.googleSignupData &&
+                      location.state.googleSignupData.username
                     }
                     autoComplete='off'
                     maxLength='30'
@@ -307,7 +354,9 @@ const Required = ({ location, history }) => {
                     onKeyUp={checkPasswordValidate}
                     disabled={true}
                     value={
-                      location.state && location.state.googleSignupData && location.state.googleSignupData.password
+                      location.state &&
+                      location.state.googleSignupData &&
+                      location.state.googleSignupData.password
                     }
                     autoComplete='off'
                     maxLength='15'
@@ -329,7 +378,9 @@ const Required = ({ location, history }) => {
                     onKeyUp={checkPasswordCheckValidate}
                     disabled={true}
                     value={
-                      location.state && location.state.googleSignupData && location.state.googleSignupData.password
+                      location.state &&
+                      location.state.googleSignupData &&
+                      location.state.googleSignupData.password
                     }
                     autoComplete='off'
                     maxLength='15'
@@ -351,7 +402,9 @@ const Required = ({ location, history }) => {
                     onKeyUp={checkNameValidate}
                     disabled={true}
                     value={
-                      location.state && location.state.googleSignupData && location.state.googleSignupData.realName
+                      location.state &&
+                      location.state.googleSignupData &&
+                      location.state.googleSignupData.realName
                     }
                     autoComplete='off'
                     maxLength='15'
@@ -387,7 +440,9 @@ const Required = ({ location, history }) => {
               <tr>
                 <td>
                   <div className='labelWrapper'>
-                    <label htmlFor='authenticationCodeCheck'>이메일 인증번호 입력</label>
+                    <label htmlFor='authenticationCodeCheck'>
+                      이메일 인증번호 입력
+                    </label>
                   </div>
                   <div className='authCodeCheckBox'>
                     <div className='authenticationCodeBox'>
@@ -415,8 +470,7 @@ const Required = ({ location, history }) => {
                         checkCodes={checkCodes}
                         btnTextHandler={btnTextHandler}
                         disabledHandler={disabledHandler}
-                        autoComplete='off'
-                      ></AuthBtnBox>
+                        autoComplete='off'></AuthBtnBox>
                     </div>
                     <div className='warningBox'>{securityCodeValidateDesc}</div>
                   </div>
@@ -522,7 +576,7 @@ const Required = ({ location, history }) => {
           {nextBtnDisabledHandler === false ? (
             <Link
               to={{
-                pathname: "/SignUp1/NonRequired",
+                pathname: '/SignUp1/NonRequired',
                 state: {
                   requiredData: requiredData,
                 },
