@@ -192,7 +192,6 @@ const ThumbRegister = ({ match }) => {
                 <option value='월급'>월급</option>
                 <option value='주급'>주급</option>
                 <option value='건당'>건당</option>
-                <option value='분당'>분당</option>
               </select>
               <input
                 type='text'
