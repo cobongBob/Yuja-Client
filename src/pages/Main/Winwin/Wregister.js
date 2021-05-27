@@ -99,7 +99,7 @@ const Wregister = ({ match }) => {
         </div>
         <ul>
           <li className='comment-register-title'>
-            <input name='title' onChange={inputHandler} placeholder='글제목' maxLength='45' type='text' />
+            <input name='title' onChange={inputHandler} placeholder='제목' maxLength='45' type='text' autoFocus />
             <div>
               {board_type.current === "CustomService" ? (
                 <div className='secret-option'>
@@ -114,9 +114,6 @@ const Wregister = ({ match }) => {
                 </div>
               ) : null}
             </div>
-          </li>
-          <li>
-            <h2>글내용</h2>
           </li>
         </ul>
         <QuillRegister

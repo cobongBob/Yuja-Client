@@ -75,8 +75,7 @@ const Yregister = () => {
     YapiService.addBoards(sendingData).then((res) => {
       Yhistory(res.data.id);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userData, qData, Yhistory]);
+  }, [userData, qData, Yhistory, board_type, input]);
 
   const radioCheck = useCallback((e) => {
     const { name, value } = e.target;

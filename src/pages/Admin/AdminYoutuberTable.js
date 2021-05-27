@@ -13,7 +13,8 @@ const AdminYoutuberTable = ({ currentData, promoteUser, rejectUser }) => {
         marginRight: "-50%",
         transform: "translate(-50%, -50%)",
         background: "#edfcfc",
-        width: "70%",
+        width: "60%",
+        height: "80%",
       },
       overlay: { zIndex: 9999 },
     }),
@@ -75,7 +76,7 @@ const AdminYoutuberTable = ({ currentData, promoteUser, rejectUser }) => {
             </div>
             <div className='admin_modal_btn'>
               <button
-                className='YCBtn'
+                className='btn btn-warning'
                 onClick={() => {
                   promoteUser(
                     currentData[seleted].youtubeConfirmId,
@@ -90,7 +91,7 @@ const AdminYoutuberTable = ({ currentData, promoteUser, rejectUser }) => {
                 인증 처리
               </button>
               <button
-                className='YCBtn'
+                className='btn btn-warning'
                 onClick={() => {
                   rejectUser(currentData[seleted].youtubeConfirmId);
                   closeModal();
@@ -99,7 +100,7 @@ const AdminYoutuberTable = ({ currentData, promoteUser, rejectUser }) => {
               >
                 인증 거절
               </button>
-              <button className='YCBtn' onClick={closeModal}>
+              <button className='btn btn-warning' onClick={closeModal}>
                 닫기
               </button>
             </div>
