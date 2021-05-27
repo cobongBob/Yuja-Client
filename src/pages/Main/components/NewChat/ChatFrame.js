@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import "./ChatFrame.scss";
 import SmallChat from "../Chat/SmallChat";
 import { useSelector } from "react-redux";
@@ -14,6 +14,10 @@ const ChatFrame = (props) => {
     }
   });
 
+  const frameOnload = useCallback((e) => {
+    e.target.contentWindow.postMessage({ enter: "enter" }, "*");
+  }, []);
+
   const { userLoginStatus } = useSelector((state) => state.loginReducer);
 
   if (props.modalIsOpen === true && userLoginStatus === true) {
@@ -21,7 +25,7 @@ const ChatFrame = (props) => {
       <React.Fragment>
         <div className='chatFrameFrag'>
           <div className='chatFrameOverlay'>
-            <SmallChat />
+            <SmallChat frameOnload={frameOnload} />
           </div>
         </div>
       </React.Fragment>
