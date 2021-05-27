@@ -92,7 +92,7 @@ export default function EditorTable({
               </Card.Header>
               <Card.Body>
                 <Card.Text>
-                  <div>{data.user.username}</div>
+                  <div>{data.user.nickname}</div>
                   <div>
                     <Link
                       to={`/EDetail/${board_type}/${data.id}/${currentPage}`}

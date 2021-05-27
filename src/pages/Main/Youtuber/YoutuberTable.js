@@ -95,7 +95,7 @@ const YoutuberTable = ({
                 <Card.Text>
                   <div>
                     <Link to={`/YoutuberProfile/`} className='card-link'>
-                      {data.user.username}
+                      {data.user.nickname}
                     </Link>
                   </div>
                   <div>

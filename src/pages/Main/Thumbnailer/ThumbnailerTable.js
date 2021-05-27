@@ -98,7 +98,7 @@ export default function ThumbnailerTable({
               </Card.Header>
               <Card.Body>
                 <Card.Text>
-                  <div>{data.user.username}</div>
+                  <div>{data.user.nickname}</div>
                   <div>
                     <Link
                       to={`/ThumbDetail/${board_type}/${data.id}/${currentPage}`}
