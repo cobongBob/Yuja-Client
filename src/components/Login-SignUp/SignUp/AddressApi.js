@@ -1,10 +1,9 @@
-import React, { useState, Fragment, useRef, useCallback, useEffect } from 'react';
+import React, { useState, Fragment, useRef, useCallback, useEffect } from "react";
 import DaumPostcode from "react-daum-postcode";
 import Modal from "react-modal";
 import "./AddressApi.scss";
 
-const AddressApi = ( props ) => {
-
+const AddressApi = (props) => {
   /* 모달 설정 */
   const AddressModalCustomStyles = {
     content: {
@@ -67,16 +66,19 @@ const AddressApi = ( props ) => {
   /* 주소입력 끝 */
 
   /* 수정창에서 받아온 주소, 상세주소 */
-  const modifyAddress = props.address
-  const detailAddress = props.detailAddress
+  const modifyAddress = props.address;
+  const detailAddress = props.detailAddress;
 
-  const changeValue = useCallback((e) => {
-    console.log("changeValue");
+  const changeValue = useCallback(
+    (e) => {
+      console.log("changeValue");
       props.setNonRequiredData({
         ...props.nonRequiredData,
         [e.target.name]: e.target.value,
       });
-    }, [props.nonRequiredData, props.setNonRequiredData]);
+    },
+    [props.nonRequiredData, props.setNonRequiredData]
+  );
 
   const onChange = useCallback(
     (e) => {
@@ -93,11 +95,11 @@ const AddressApi = ( props ) => {
     e.target.value = "";
   }, []);
 
-  useEffect(()=> {
-    if(props.address !== undefined && props.detailAddress !== undefined) {
-      setAddressContents(modifyAddress)
+  useEffect(() => {
+    if (props.address !== undefined && props.detailAddress !== undefined) {
+      setAddressContents(modifyAddress);
     }
-  }, [setAddressContents, modifyAddress])
+  }, [setAddressContents, modifyAddress, props.address, props.detailAddress]);
 
   return (
     <Fragment>
@@ -127,12 +129,7 @@ const AddressApi = ( props ) => {
           ref={signUpAddressRef}
           value={detailAddress}
           onClick={onClick}
-          onChange={
-            props.userData !== '' && props.userData !== undefined ?
-              onChange
-              :
-              changeValue
-          }
+          onChange={props.userData !== "" && props.userData !== undefined ? onChange : changeValue}
           maxLength='30'
         />
         <Modal

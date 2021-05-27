@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import "./Yregister.scss";
-import * as YapiService from "../../../apiService/YapiService";
-import { useHistory } from "react-router";
-import { useSelector } from "react-redux";
-import QuillModify from "../../../components/Quill/QuillModify";
-import { ToastCenter } from "../../../modules/ToastModule";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import './Yregister.scss';
+import * as YapiService from '../../../apiService/YapiService';
+import { useHistory } from 'react-router';
+import { useSelector } from 'react-redux';
+import QuillModify from '../../../components/Quill/QuillModify';
+import { ToastCenter } from '../../../modules/ToastModule';
 
 const YmodifyTest = (props) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -17,29 +17,101 @@ const YmodifyTest = (props) => {
   const history = useHistory();
 
   const [input, setInput] = useState({
-    title: "",
-    channelName: "",
-    worker: "",
-    recruitingNum: "",
-    payType: "",
-    payAmount: "",
-    career: "",
-    ywhen: "",
-    expiredDate: "",
-    manager: "",
-    receptionMethod: "",
+    title: '',
+    channelName: '',
+    worker: '',
+    recruitingNum: '',
+    payType: '',
+    payAmount: '',
+    career: '',
+    ywhen: '',
+    expiredDate: '',
+    manager: '',
+    receptionMethod: '',
+    tools: checkedlist.current,
   });
 
-  let Yhistory = useCallback((board_id) => history.push(`/Ydetail/${board_id}/${current_page.current}`), [history]);
+  let Yhistory = useCallback(
+    (board_id) => history.push(`/Ydetail/${board_id}/${current_page.current}`),
+    [history]
+  );
 
-  const checkboxCheck = useCallback((e) => {
-    if (e.target.checked) {
-      checkedlist.current.push(e.target.value);
-    } else {
-      const index = checkedlist.current.indexOf(e.target.value);
-      checkedlist.current.splice(index, 1);
+  useEffect(() => {
+    YapiService.fetchBoard(props.match.params.board_id).then((res) => {
+      if (!userData || userData.id !== res.data.user.id) {
+        ToastCenter('권한이 없습니다.');
+        return history.goBack();
+      }
+      fileList.current = res.data.boardAttachFileNames;
+      setQModiData(res.data.content);
+      setInput(res.data);
+    });
+  }, [userData]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const testCheking = useCallback(() => {
+    if (
+      !qModiData ||
+      !input.title ||
+      !input.channelName ||
+      !input.worker ||
+      !input.recruitingNum ||
+      !input.payType ||
+      !input.payAmount ||
+      !input.career ||
+      !input.ywhen ||
+      !input.manager ||
+      !input.receptionMethod ||
+      checkedlist.current.length === 0
+    ) {
+      return ToastCenter('내용을 모두 적어주세요.');
     }
-  }, []);
+    let currentBoardType = 'YoutuberBoard/';
+    let reg = /http:\/\/localhost:8888\/files\/Youtuber\/[0-9]+.[a-z]+/g;
+    let imgSrcArr = String(qModiData).match(reg); // 불러왔던 글에 존재했던 이미지 태그들의 src
+    // 서버에서 날아온 이미지 이름과 비교한다. 없으면 삭제된것이므로 삭제 리스트에 담아준다.
+    if (imgSrcArr) {
+      fileList.current.forEach((src) => {
+        if (
+          !imgSrcArr.includes(
+            `http://localhost:8888/files/${currentBoardType}${src}`
+          )
+        ) {
+          deletedFileList.current.push(src);
+        }
+      });
+    } else {
+      deletedFileList.current = fileList.current;
+    }
+
+    const modifyingData = {
+      ...input,
+      tools: checkedlist.current,
+      content: qModiData.replaceAll(
+        `src="http://localhost:8888/files/temp/`,
+        `src="http://localhost:8888/files/Youtuber/`
+      ),
+      thumbnail: '썸네일 수정 테스트',
+      boardAttachIds: addingFileList.current,
+      boardAttachToBeDeleted: deletedFileList.current,
+    };
+    YapiService.modifyBoard(props.match.params.board_id, modifyingData).then(
+      (res) => {
+        Yhistory(res.data.id);
+      }
+    );
+  }, [Yhistory, input, props.match.params.board_id, qModiData]);
+
+  const checkboxCheck = useCallback(
+    (e) => {
+      if (e.target.checked) {
+        checkedlist.current.push(e.target.value);
+      } else {
+        const index = checkedlist.current.indexOf(e.target.value);
+        checkedlist.current.splice(index, 1);
+      }
+    },
+    [checkedlist]
+  );
 
   const radioCheck = useCallback((e) => {
     const { name, value } = e.target;
@@ -59,52 +131,6 @@ const YmodifyTest = (props) => {
     [input]
   );
 
-  useEffect(() => {
-    YapiService.fetchBoard(props.match.params.board_id).then((res) => {
-      if (!userData || userData.id !== res.data.user.id) {
-        ToastCenter("권한이 없습니다.");
-        return history.goBack();
-      }
-      fileList.current = res.data.boardAttachFileNames;
-      setQModiData(res.data.content);
-      setInput(res.data);
-    });
-  }, [userData]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const testCheking = useCallback(() => {
-    if (!qModiData || !input.title) {
-      return ToastCenter("제목과 내용을 입력해주세요");
-    }
-    let currentBoardType = "YoutuberBoard/";
-    let reg = /http:\/\/localhost:8888\/files\/Youtuber\/[0-9]+.[a-z]+/g;
-    let imgSrcArr = String(qModiData).match(reg); // 불러왔던 글에 존재했던 이미지 태그들의 src
-    // 서버에서 날아온 이미지 이름과 비교한다. 없으면 삭제된것이므로 삭제 리스트에 담아준다.
-    if (imgSrcArr) {
-      fileList.current.forEach((src) => {
-        if (!imgSrcArr.includes(`http://localhost:8888/files/${currentBoardType}${src}`)) {
-          deletedFileList.current.push(src);
-        }
-      });
-    } else {
-      deletedFileList.current = fileList.current;
-    }
-
-    const modifyingData = {
-      ...input,
-      tools: checkedlist.current,
-      content: qModiData.replaceAll(
-        `src="http://localhost:8888/files/temp/`,
-        `src="http://localhost:8888/files/Youtuber/`
-      ),
-      thumbnail: "썸네일 수정 테스트",
-      boardAttachIds: addingFileList.current,
-      boardAttachToBeDeleted: deletedFileList.current,
-    };
-    YapiService.modifyBoard(props.match.params.board_id, modifyingData).then((res) => {
-      Yhistory(res.data.id);
-    });
-  }, [Yhistory, input, props.match.params.board_id, qModiData]);
-
   return (
     <div className='register-container'>
       <div className='register-header'>
@@ -119,7 +145,7 @@ const YmodifyTest = (props) => {
             placeholder='제목'
             maxLength='45'
             type='text'
-            value={input.title || ""}
+            value={input.title || ''}
           />
         </li>
         <li className='register-channelname'>
@@ -129,7 +155,8 @@ const YmodifyTest = (props) => {
             onChange={onChange}
             name='channelName'
             type='text'
-            value={input.channelName || ""}
+            maxLength='50'
+            value={input.channelName || ''}
           />
         </li>
         <li className='wanted-part'>
@@ -140,7 +167,7 @@ const YmodifyTest = (props) => {
             name='worker'
             value='영상편집'
             onChange={radioCheck}
-            checked={input.worker === "영상편집"}
+            checked={input.worker === '영상편집'}
           />
           <label htmlFor='editor'>편집자</label>
           <input
@@ -149,7 +176,7 @@ const YmodifyTest = (props) => {
             name='worker'
             value='썸네일러'
             onChange={radioCheck}
-            checked={input.worker === "썸네일러"}
+            checked={input.worker === '썸네일러'}
           />
           <label htmlFor='thumbnailer'>썸네일러</label>
           <input
@@ -158,7 +185,7 @@ const YmodifyTest = (props) => {
             onChange={radioCheck}
             name='worker'
             value='편집자+썸네일러'
-            checked={input.worker === "편집자+썸네일러"}
+            checked={input.worker === '편집자+썸네일러'}
           />
           <label htmlFor='both'>편집자+썸네일러</label>
         </li>
@@ -170,7 +197,7 @@ const YmodifyTest = (props) => {
             onChange={radioCheck}
             value='신입'
             type='radio'
-            checked={input.career === "신입"}
+            checked={input.career === '신입'}
           />
           <label htmlFor='newbie'>신입</label>
           <input
@@ -179,7 +206,7 @@ const YmodifyTest = (props) => {
             name='career'
             value='경력'
             type='radio'
-            checked={input.career === "경력"}
+            checked={input.career === '경력'}
           />
           <label htmlFor='career'>경력</label>
           <input
@@ -188,7 +215,7 @@ const YmodifyTest = (props) => {
             value='경력무관'
             type='radio'
             onChange={radioCheck}
-            checked={input.career === "경력무관"}
+            checked={input.career === '경력무관'}
           />
           <label htmlFor='notcareer'>경력무관</label>
         </li>
@@ -199,17 +226,18 @@ const YmodifyTest = (props) => {
             onChange={onChange}
             name='recruitingNum'
             type='text'
+            value={input.recruitingNum || ''}
             maxLength='3'
             onInput={({ target }) => {
-              target.value = target.value.replace(/[^0-9]/g, "");
-              target.value = target.value.replace(/,/g, "");
+              target.value = target.value.replace(/[^0-9]/g, '');
+              target.value = target.value.replace(/,/g, '');
             }}
           />
           <div> 명 </div>
         </li>
         <li className='wanted-pay'>
           <div>급여</div>
-          <select name='payType' onChange={onChange}>
+          <select name='payType' value={input.payType} onChange={onChange}>
             <option>선택</option>
             <option value='연봉'>연봉</option>
             <option value='월급'>월급</option>
@@ -224,39 +252,87 @@ const YmodifyTest = (props) => {
             type='text'
             maxLength='11'
             onInput={({ target }) => {
-              target.value = target.value.replace(/[^0-9]/g, "");
-              target.value = target.value.replace(/,/g, "");
-              target.value = target.value.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // 정규식을 이용해서 3자리 마다 , 추가
+              target.value = target.value.replace(/[^0-9]/g, '');
+              target.value = target.value.replace(/,/g, '');
+              target.value = target.value.replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 정규식을 이용해서 3자리 마다 , 추가
             }}
-            value={input.payAmount || ""}
+            value={input.payAmount || ''}
           />
           원
         </li>
         <li className='watned-tools'>
           <span>사용기술</span>
-          <input id='Ypremiere' name='ypremiere' value='프리미어 프로' type='checkbox' onChange={checkboxCheck} />
+          <input
+            id='Ypremiere'
+            name='tools'
+            value='프리미어 프로'
+            type='checkbox'
+            onChange={checkboxCheck}
+          />
           <label htmlFor='Ypremiere'>프리미어 프로 </label>
-          <input id='Yaftereffect' name='yaftereffect' value='애프터이펙트' type='checkbox' onChange={checkboxCheck} />
+          <input
+            id='Yaftereffect'
+            name='tools'
+            value='애프터이펙트'
+            type='checkbox'
+            onChange={checkboxCheck}
+          />
           <label htmlFor='Yaftereffect'>애프터이펙트 </label>
-          <input id='Yfinalcut' name='yfinalcut' value='파이널컷' type='checkbox' onChange={checkboxCheck} />
+          <input
+            id='Yfinalcut'
+            name='tools'
+            value='파이널컷'
+            type='checkbox'
+            onChange={checkboxCheck}
+          />
           <label htmlFor='Yfinalcut'>파이널컷 </label>
-          <input id='Yvegas' name='yvegas' onChange={checkboxCheck} value='베가스' type='checkbox' />
+          <input
+            id='Yvegas'
+            name='tools'
+            onChange={checkboxCheck}
+            value='베가스'
+            type='checkbox'
+          />
           <label htmlFor='Yvegas'>베가스</label>
           <input
             id='Ypowerdirector'
-            name='ypowerdirector'
+            name='tools'
             value='파워 디렉터'
             type='checkbox'
             onChange={checkboxCheck}
           />
           <label htmlFor='Ypowerdirector'>파워 디렉터</label>
-          <input id='Yphotoshop' name='yphotoshop' value='포토샵' type='checkbox' onChange={checkboxCheck} />
+          <input
+            id='Yphotoshop'
+            name='tools'
+            value='포토샵'
+            type='checkbox'
+            onChange={checkboxCheck}
+          />
           <label htmlFor='Yphotoshop'>포토샵</label>
-          <input id='Yillustrater' name='yillustrater' value='일러스트' type='checkbox' onChange={checkboxCheck} />
+          <input
+            id='Yillustrater'
+            name='tools'
+            value='일러스트'
+            type='checkbox'
+            onChange={checkboxCheck}
+          />
           <label htmlFor='Yillustrater'>일러스트</label>
-          <input id='Yblender' onChange={checkboxCheck} name='yblender' value='블렌더' type='checkbox' />
+          <input
+            id='Yblender'
+            onChange={checkboxCheck}
+            name='tools'
+            value='블렌더'
+            type='checkbox'
+          />
           <label htmlFor='Yblender'>블렌더</label>
-          <input id='Ymaya' onChange={checkboxCheck} name='ymaya' value='마야' type='checkbox' />
+          <input
+            id='Ymaya'
+            onChange={checkboxCheck}
+            name='tools'
+            value='마야'
+            type='checkbox'
+          />
           <label htmlFor='Ymaya'>마야</label>
         </li>
         <li className='wanted-deadline'>
@@ -266,7 +342,11 @@ const YmodifyTest = (props) => {
             onChange={onChange}
             name='expiredDate'
             type='date'
-            value={input && input.expiredDate ? input.expiredDate.substr(0, 10) : null}
+            value={
+              input && input.expiredDate
+                ? input.expiredDate.substr(0, 10)
+                : null
+            }
           />
           <input
             id='always'
@@ -274,7 +354,7 @@ const YmodifyTest = (props) => {
             name='ywhen'
             value='상시모집'
             type='radio'
-            checked={input.ywhen === "상시모집"}
+            checked={input.ywhen === '상시모집'}
           />
           <label htmlFor='always'>상시모집</label>
           <input
@@ -283,7 +363,7 @@ const YmodifyTest = (props) => {
             value='채용시 마감'
             type='radio'
             onChange={radioCheck}
-            checked={input.ywhen === "채용시 마감"}
+            checked={input.ywhen === '채용시 마감'}
           />
           <label htmlFor='deadline'>채용시 마감</label>
         </li>
@@ -294,7 +374,8 @@ const YmodifyTest = (props) => {
             name='manager'
             type='text'
             placeholder='담당자'
-            value={input.manager || ""}
+            maxLength='30'
+            value={input.manager || ''}
           />
         </li>
         <li className='wanted-way'>
@@ -304,7 +385,8 @@ const YmodifyTest = (props) => {
             placeholder='담당자 연락처'
             onChange={onChange}
             type='text'
-            value={input.receptionMethod || ""}
+            maxLength='255'
+            value={input.receptionMethod || ''}
           />
         </li>
       </ul>
