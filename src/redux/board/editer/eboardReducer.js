@@ -189,7 +189,7 @@ export function EboardReducer(state = initialState, action) {
             return data;
           } else if (
             Object &&
-            Object.values(data.user.username).join("").toLowerCase().includes(action.keyword.toLowerCase())
+            Object.values(data.user.nickname).join("").toLowerCase().includes(action.keyword.toLowerCase())
           ) {
             return data;
           }
