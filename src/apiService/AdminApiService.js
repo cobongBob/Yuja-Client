@@ -54,3 +54,10 @@ export const noticePrivateSwitch = async (board_id) => {
     url: `/notice/private/${board_id}`,
   });
 };
+
+export const removeUserData = async (user_id) => {
+  return await instance({
+    url: `/user/remove/${user_id}`,
+    method: "delete",
+  });
+};
