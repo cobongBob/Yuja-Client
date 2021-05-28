@@ -17,8 +17,10 @@ import {
   rejectUserService,
   fetchAllNoticeBoards,
   noticePrivateSwitch,
+  removeUserData,
 } from "../../apiService/AdminApiService";
 import AdminBoard from "./AdminBoard";
+import { deleteUser } from "../../apiService/UserApiService";
 
 const Admin_main = () => {
   const { authorities } = useSelector((state) => state.loginReducer);
@@ -115,6 +117,25 @@ const Admin_main = () => {
     });
   }, []);
 
+  const userRecovery = useCallback((user_id) => {
+    deleteUser(user_id).then((res) => {
+      ToastCenter(res.data);
+      fetchUsers().then((result) => {
+        setAllUsers(result.data);
+      });
+    });
+  }, []);
+
+  const userRemove = useCallback((user_id) => {
+    if (window.confirm("삭제되면 복구하실수 없습니다. 정말 삭제 하시겠습니까?")) {
+      removeUserData(user_id).then((res) => {
+        ToastCenter(res.data);
+        fetchUsers().then((result) => {
+          setAllUsers(result.data);
+        });
+      });
+    }
+  }, []);
   return (
     allUsers &&
     allReports &&
@@ -123,24 +144,31 @@ const Admin_main = () => {
         <div className='sideBox'>
           <AdminSide />
         </div>
-      <div className='admin_main'>
-        <div className='admin_items'>
-          <div className='admin_item'>
-            <div>
-              {pathname.includes("/AdminUsers") ? <AdminUsers allUsers={allUsers} userSetBan={userSetBan} /> : null}
-              {pathname.includes("/AdminYoutuber") ? (
-                <AdminYoutuber youtuberConfirm={youtuberConfirm} promoteUser={promoteUser} rejectUser={rejectUser} />
-              ) : null}
-              {pathname.includes("/AdminReports") ? (
-                <AdminReports allReports={allReports} deleteReported={deleteReported} />
-              ) : null}
-              {pathname.includes("/AdminBoard") ? (
-                <AdminBoard allBoards={allBoards} noticeSwitch={noticeSwitch} />
-              ) : null}
+        <div className='admin_main'>
+          <div className='admin_items'>
+            <div className='admin_item'>
+              <div>
+                {pathname.includes("/AdminUsers") ? (
+                  <AdminUsers
+                    allUsers={allUsers}
+                    userSetBan={userSetBan}
+                    userRemove={userRemove}
+                    userRecovery={userRecovery}
+                  />
+                ) : null}
+                {pathname.includes("/AdminYoutuber") ? (
+                  <AdminYoutuber youtuberConfirm={youtuberConfirm} promoteUser={promoteUser} rejectUser={rejectUser} />
+                ) : null}
+                {pathname.includes("/AdminReports") ? (
+                  <AdminReports allReports={allReports} deleteReported={deleteReported} />
+                ) : null}
+                {pathname.includes("/AdminBoard") ? (
+                  <AdminBoard allBoards={allBoards} noticeSwitch={noticeSwitch} />
+                ) : null}
+              </div>
             </div>
           </div>
         </div>
-      </div>
       </>
     )
   );
