@@ -109,6 +109,15 @@ const Admin_main = () => {
     });
   }, []);
 
+  const reject = useCallback((id) => {
+    deleteReportedBoard(id, 8).then((result) => {
+      ToastCenter(result.data);
+      fetchReports().then((res) => {
+        setAllReports(res.data);
+      });
+    });
+  }, []);
+
   const noticeSwitch = useCallback((board_id) => {
     noticePrivateSwitch(board_id).then((result) => {
       fetchAllNoticeBoards().then((res) => {
@@ -160,7 +169,7 @@ const Admin_main = () => {
                   <AdminYoutuber youtuberConfirm={youtuberConfirm} promoteUser={promoteUser} rejectUser={rejectUser} />
                 ) : null}
                 {pathname.includes("/AdminReports") ? (
-                  <AdminReports allReports={allReports} deleteReported={deleteReported} />
+                  <AdminReports allReports={allReports} deleteReported={deleteReported} reject={reject} />
                 ) : null}
                 {pathname.includes("/AdminBoard") ? (
                   <AdminBoard allBoards={allBoards} noticeSwitch={noticeSwitch} />
