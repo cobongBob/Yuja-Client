@@ -3,15 +3,24 @@
   min-height: 70vh;
 }
 .notify {
-  margin-top: 2rem !important;
+  bottom: 6em !important;
+  z-index: 90 !important;
   background-color: bisque !important;
   border-radius: 8px !important;
   width: 100% !important;
 }
 
 .alertNoti {
-  margin-bottom: 20rem !important;
+  bottom: 6em !important;
+  z-index: 90 !important;
   background-color: bisque !important;
   border-radius: 8px !important;
   width: 100% !important;
+  z-index: 90 !important;
+}
+
+.Toastify__toast-container--bottom-right {
+  height: 100px !important;
+  bottom: 8em !important;
+  z-index: 90 !important;
 }

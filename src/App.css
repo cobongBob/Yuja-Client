@@ -46,8 +46,3 @@
   font-size: 4rem;
   cursor: pointer;
 }
-
-.Toastify__toast-container--top-right {
-  top: 40em !important;
-  right: 1em;
-}
