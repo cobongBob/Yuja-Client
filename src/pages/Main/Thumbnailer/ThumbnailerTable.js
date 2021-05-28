@@ -26,9 +26,9 @@ export default function ThumbnailerTable({
       ToastCenter(`로그인 해주세요`);
     }
   }, [userData, history, board_type]);
-  const modifyBoard = useCallback(() => {
+  const gotomyResume = useCallback(() => {
     if (userData && userData.id > 0) {
-      history.push(`/ThumbModify/Thumb/${wrote[0].id}/1`);
+      history.push(`/ThumbDetail/Thumb/${wrote[0].id}/1`);
     } else {
       ToastCenter(`로그인 해주세요`);
     }
@@ -41,8 +41,8 @@ export default function ThumbnailerTable({
             이력서 등록하기
           </button>
         ) : (
-          <button onClick={modifyBoard} className='detail-update-btn'>
-            이력서 수정하기
+          <button onClick={gotomyResume} className='detail-update-btn'>
+            내 이력서 보기
           </button>
         )}
       </div>
@@ -65,7 +65,8 @@ export default function ThumbnailerTable({
                   src={
                     data.thumbnail &&
                     `http://localhost:8888/files/thumbnail/${data.thumbnail}`
-                  }></Card.Img>
+                  }
+                ></Card.Img>
               </div>
               <Card.Header>
                 <Card.Title>
@@ -81,14 +82,16 @@ export default function ThumbnailerTable({
                     {data && data.liked ? (
                       <button
                         onClick={() => likeHandler(data.id)}
-                        className='starButton'>
+                        className='starButton'
+                      >
                         <AiFillStar size={30} />
                         <span>{data.likes}</span>
                       </button>
                     ) : (
                       <button
                         onClick={() => dislikeHandler(data.id)}
-                        className='starButton'>
+                        className='starButton'
+                      >
                         <AiOutlineStar size={30} />
                         <span>{data.likes}</span>
                       </button>
@@ -102,7 +105,8 @@ export default function ThumbnailerTable({
                   <div>
                     <Link
                       to={`/ThumbDetail/${board_type}/${data.id}/${currentPage}`}
-                      className='card-link'>
+                      className='card-link'
+                    >
                       {data.title}
                     </Link>
                   </div>

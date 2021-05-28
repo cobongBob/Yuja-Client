@@ -93,12 +93,14 @@ const Ydetail = ({ match }) => {
                       <div>
                         <Link
                           to={`/YboardModify/${detailData.id}/${current_page.current}`}
-                          className='detail-update-btn'>
+                          className='detail-update-btn'
+                        >
                           공고 수정하기
                         </Link>
                         <button
                           className='detail-update-btn'
-                          onClick={deleteBoard}>
+                          onClick={deleteBoard}
+                        >
                           공고 삭제하기
                         </button>
                       </div>
@@ -107,7 +109,8 @@ const Ydetail = ({ match }) => {
                       authorities.includes('ADMIN') ? (
                       <button
                         className='detail-update-btn'
-                        onClick={deleteBoard}>
+                        onClick={deleteBoard}
+                      >
                         공고 삭제하기
                       </button>
                     ) : (
@@ -122,7 +125,8 @@ const Ydetail = ({ match }) => {
                     )}
                     <Link
                       className='detail-update-btn'
-                      to={`/Youtuber/${current_page.current}`}>
+                      to={`/Youtuber/${current_page.current}`}
+                    >
                       목록보기
                     </Link>
                   </div>
@@ -155,9 +159,11 @@ const Ydetail = ({ match }) => {
                   ? detailData.boardUpdatedDate.substr(0, 10)
                   : ''}{' '}
                 ~{' '}
-                {detailData && detailData.expiredDate
-                  ? detailData.expiredDate.substr(0, 10)
-                  : '상시채용'}
+                {detailData.ywhen !== '' ? (
+                  <span>{detailData.ywhen}</span>
+                ) : (
+                  detailData.expiredDate.substr(0, 10)
+                )}
               </div>
               <div className='detail-content'>
                 <div className='DetailQuill'>

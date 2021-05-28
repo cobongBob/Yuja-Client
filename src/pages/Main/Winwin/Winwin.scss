@@ -3,6 +3,7 @@
   margin-left: 10rem;
   margin-bottom: 5rem;
 }
+
 .winwin-Table-Wrapper {
   display: inline-block;
   width: 65vw;
@@ -84,23 +85,20 @@
   }
 }
 
-.community-options > .registerBtn {
-  font-family: scdream5;
-  vertical-align: middle;
-  border: 2px solid green;
+.winTable-Table-Wrapper > .community-options > .registerBtn {
+  border: 1px solid #008744;
+  color: #008744;
   border-radius: 20px;
-  text-decoration: none;
-  color: green;
-  font-size: 15px;
+  background-color: white;
   padding: 0.5rem;
-  margin-right: 0.25rem;
-  margin-bottom: 1rem;
+  margin-right: 0.5rem;
   &:hover {
-    background-color: green;
-    color: white;
     text-decoration: none;
+    background-color: #008744;
+    color: white;
   }
 }
+
 .sideBox {
   display: inline-block;
   margin: auto;
@@ -195,23 +193,6 @@
   &:hover {
     text-decoration: none;
     color: black;
-  }
-}
-.registerBtn {
-  font-family: scdream5;
-  vertical-align: middle;
-  border: 2px solid green;
-  border-radius: 20px;
-  text-decoration: none;
-  color: green;
-  font-size: 20px;
-  padding: 0.5rem;
-  margin-left: 4.5rem;
-  background-color: white;
-  &:hover {
-    background-color: green;
-    color: white;
-    text-decoration: none;
   }
 }
 

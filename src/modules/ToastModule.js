@@ -36,15 +36,19 @@ export const ToastTopRight = (msg) => {
 export const ToastAlert = (msg) => {
   toast(msg, {
     position: 'bottom-right',
-    autoClose: false,
+    autoClose: 2000,
     closeButton: true,
     closeOnClick: true,
     hideProgressBar: true,
     bodyStyle: {
+      display: 'block',
       color: 'black',
-      fontSize: '17px',
+      fontSize: '15px',
       fontWeight: 'bold',
       fontFamily: 'scdream4',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
     },
     className: 'notify',
   });
