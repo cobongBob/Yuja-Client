@@ -16,7 +16,16 @@ const Ynew = () => {
               <li>
                 <div className='ProfileWrapper'>
                   <div className='user-profile-pic'>
-                    <FaUserAstronaut size={60} className='youtuber-profile' />
+                    {list.previewImage ? (
+                      <img
+                        className='MainProfileImage'
+                        src={`${list.previewImage}`}
+                        alt=''
+                      />
+                    ) : (
+                      <FaUserAstronaut size={60} className='youtuber-profile' />
+                    )}
+                    {/* previewImage가 defaultImage라 무적권 이미지가보임 default 아이콘이 안나오고 */}
                   </div>
                   <div className='wanted-content'>
                     <div className='NameWorkerWrapper'>
