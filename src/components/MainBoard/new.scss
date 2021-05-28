@@ -12,10 +12,18 @@
 }
 
 .user-profile-pic {
-  display: inline-block;
+  height: 10vh;
   margin-left: 3%;
   margin-right: 2%;
-  vertical-align: middle;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+.MainProfileImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20%;
 }
 
 .youtuber-profile {
@@ -63,6 +71,8 @@
   overflow: hidden;
   max-width: 18vw;
   text-overflow: ellipsis;
+  text-align: left;
+  margin-left: 1%;
 }
 
 .TitleWrapper {
@@ -80,8 +90,7 @@
 .NameWorkerWrapper {
   padding-top: 1%;
   padding-left: 1%;
-  width: 19vw;
-  max-width: 19vw;
+  width: 17vw;
   text-align: left;
   vertical-align: middle;
   border-bottom: 3px solid #dddddd;

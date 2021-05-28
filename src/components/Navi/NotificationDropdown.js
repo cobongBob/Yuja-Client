@@ -1,13 +1,11 @@
-import React, { useCallback } from 'react';
-import { IoMdNotifications } from 'react-icons/io';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
-import { noticeWithPush } from '../../modules/ToastWithPush';
-import { RiDeleteBin6Line } from 'react-icons/ri';
-import { deleteNotification } from '../../redux/loading/notiReducer';
-import { Link } from 'react-router-dom';
+import React, { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import { noticeWithPush } from "../../modules/ToastWithPush";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { deleteNotification } from "../../redux/loading/notiReducer";
 
-const NotificationDropdown = ({ allNotifications }) => {
+const NotificationDropdown = ({ allNotifications, setHideMenu, setModalIsOpen }) => {
   const { userData } = useSelector((state) => state.loginReducer);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -22,100 +20,107 @@ const NotificationDropdown = ({ allNotifications }) => {
     userData &&
     userData.id !== 0 && (
       <div className='notiOnNav'>
-        <ul>
-          <li className='modifyBox'>
-            <Link to='/BeforeModify' className='modifyBtn'>
-              정보수정
-            </Link>
-          </li>
-        </ul>
         {allNotifications.length > 0 &&
         userData &&
         userData.id !== 0 &&
         allNotifications[0].resipeint.id === userData.id ? (
           <div>
-            <div variant='' id='dropdown-basic'>
-              <IoMdNotifications className='noti_icon' size='30' />
-            </div>
             <ul>
               {allNotifications.map((notice, idx) => {
-                if (notice.type === 'commentNoti') {
+                if (notice.type === "commentNoti") {
                   return (
-                    <div key={idx} className='each_notice'>
-                      <RiDeleteBin6Line
-                        onClick={() => deleteNoti(notice.notiId)}
-                        size='22'
-                        className='notice_delete'
-                      />
-                      <li onClick={() => noticeWithPush(notice, history)}>
-                        <span>{`${notice.resipeint.nickname}님께서 ${notice.comment.board.title}글에 댓글을 남기셨습니다.`}</span>
-                      </li>
-                    </div>
-                  );
-                } else if (notice.type === 'chatNoti') {
-                  return (
-                    <div key={idx} className='each_notice'>
-                      <RiDeleteBin6Line
-                        onClick={() => deleteNoti(notice.notiId)}
-                        size='10'
-                        className='notice_delete'
-                      />
+                    <li key={idx} className='each_notice'>
+                      <span
+                        onClick={() => {
+                          setHideMenu(false);
+                          noticeWithPush(notice, history);
+                        }}
+                      >
+                        <span>{`${notice.sender.nickname}
+                        님께서 
+                        `}</span>
+                        <span className='span_title'>{`${notice.comment.board.title}`}</span>
+                        <span>글에 댓글을 남기셨습니다.</span>
+                      </span>
                       <li>
-                        <span>{`${notice.sender.nickname}님으로부터 새로운 채팅이 있습니다.`}</span>
+                        <RiDeleteBin6Line
+                          onClick={() => deleteNoti(notice.notiId)}
+                          size='20'
+                          className='notice_delete'
+                        />
                       </li>
-                    </div>
+                    </li>
                   );
-                } else if (notice.type === 'editNoti') {
+                } else if (notice.type === "nestedComment") {
                   return (
-                    <div key={idx} className='each_notice'>
-                      <RiDeleteBin6Line
-                        onClick={() => deleteNoti(notice.notiId)}
-                        size='22'
-                        className='notice_delete'
-                      />
+                    <li key={idx} className='each_notice'>
+                      <span
+                        onClick={() => {
+                          setHideMenu(false);
+                          noticeWithPush(notice, history);
+                        }}
+                      >
+                        <span>{`${notice.sender.nickname}
+                        님께서 
+                        `}</span>
+                        <span className='span_title'>{`${notice.comment.board.title}`}</span>
+                        <span>글의 댓글에 답글을 남기셨습니다.</span>
+                      </span>
                       <li>
-                        <span>{`에디터로 등록되셨습니다.`}</span>
+                        <RiDeleteBin6Line
+                          onClick={() => deleteNoti(notice.notiId)}
+                          size='20'
+                          className='notice_delete'
+                        />
                       </li>
-                    </div>
+                    </li>
                   );
-                } else if (notice.type === 'thumbNoti') {
+                } else if (notice.type === "chatNoti") {
                   return (
-                    <div key={idx} className='each_notice'>
-                      <RiDeleteBin6Line
-                        onClick={() => deleteNoti(notice.notiId)}
-                        size='22'
-                        className='notice_delete'
-                      />
+                    <li
+                      key={idx}
+                      className='each_notice'
+                      onClick={() => {
+                        setModalIsOpen(true);
+                      }}
+                    >
+                      <span>{`${notice.sender.nickname}님으로부터 새로운 채팅이 있습니다.`}</span>
                       <li>
-                        <span>{`썸네일러로 등록되셨습니다.`}</span>
+                        <RiDeleteBin6Line
+                          onClick={() => deleteNoti(notice.notiId)}
+                          size='20'
+                          className='notice_delete'
+                        />
                       </li>
-                    </div>
+                    </li>
                   );
-                } else if (notice.type === 'youtubeNoti') {
+                } else if (notice.type === "editNoti") {
                   return (
-                    <div key={idx} className='each_notice'>
-                      <RiDeleteBin6Line
-                        onClick={() => deleteNoti(notice.notiId)}
-                        size='22'
-                        className='notice_delete'
-                      />
-                      <li>
-                        <span>{`유튜버로 등록되셨습니다.`}</span>
-                      </li>
-                    </div>
+                    <li key={idx}>
+                      <span>{`에디터로 등록되셨습니다.`}</span>
+                      <RiDeleteBin6Line onClick={() => deleteNoti(notice.notiId)} size='20' className='notice_delete' />
+                    </li>
                   );
-                } else if (notice.type === 'rejectNoti') {
+                } else if (notice.type === "thumbNoti") {
                   return (
-                    <div key={idx} className='each_notice'>
-                      <RiDeleteBin6Line
-                        onClick={() => deleteNoti(notice.notiId)}
-                        size='22'
-                        className='notice_delete'
-                      />
-                      <li>
-                        <span>{`유튜버로 등록이 거절되었습니다. 신청 절차를 다시 확인해주세요.`}</span>
-                      </li>
-                    </div>
+                    <li key={idx} className='each_notice'>
+                      <span>{`썸네일러로 등록되셨습니다.`}</span>
+                      <RiDeleteBin6Line onClick={() => deleteNoti(notice.notiId)} size='20' className='notice_delete' />
+                    </li>
+                  );
+                } else if (notice.type === "youtubeNoti") {
+                  return (
+                    <li key={idx} className='each_notice'>
+                      <span>{`유튜버로 등록되셨습니다.`}</span>
+                      <RiDeleteBin6Line onClick={() => deleteNoti(notice.notiId)} size='20' className='notice_delete' />
+                    </li>
+                  );
+                } else if (notice.type === "rejectNoti") {
+                  return (
+                    <li key={idx} className='each_notice'>
+                      <span>{`유튜버로 등록이 거절되었습니다. 신청 절차를 다시 확인해주세요.`}</span>
+                      <RiDeleteBin6Line onClick={() => deleteNoti(notice.notiId)} size='20' className='notice_delete' />
+                    </li>
                   );
                 } else {
                   return null;
@@ -124,9 +129,7 @@ const NotificationDropdown = ({ allNotifications }) => {
             </ul>
           </div>
         ) : (
-          <>
-            <li>비어있습니다.</li>
-          </>
+          <li style={{ cursor: "default", fontSize: "17px" }}>새로운 알림이 없습니다.</li>
         )}
       </div>
     )

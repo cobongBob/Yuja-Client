@@ -1,12 +1,15 @@
-.notiOnNav {
+.notiOnNav > div > ul {
+  list-style: none;
   display: inline-block;
   z-index: 9999;
+  font-family: scdream5;
+  font-size: small;
+  text-align: left;
+  padding: 0.25rem;
+  padding-bottom: 0;
 }
-.noti_icon {
-  color: #ff9411;
-}
+
 .notice_delete {
-  float: left;
   cursor: pointer;
 }
 .dropdown-item {
@@ -16,34 +19,24 @@
   clear: both;
 }
 
-.navChangeBox {
-  display: inline-block;
+.span_title {
+  display: block;
+  width: 12.5rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-.navChangeBox > div > ul > li > button {
-  padding: 0.25rem;
+.notiOnNav > div > ul > li {
+  padding: 0.5rem;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  &:hover {
+    opacity: 0.7;
+  }
 }
-
-.navChangeBox > div > ul {
-  padding-left: 0;
-  font-size: 15px;
-  margin-top: 0.5rem;
-  margin-left: 3rem;
-  list-style: none;
-  width: 13rem;
-  background-color: white;
-  border: 1px solid #ff9411;
-}
-
-.notiOnNav > ul {
-  padding-left: 0;
-}
-
-.notiOnNav > div > ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.welcomeBox > .noti_icon {
-  color: #ff9411;
+.notiOnNav > div > ul > li > li {
+  display: inline;
 }

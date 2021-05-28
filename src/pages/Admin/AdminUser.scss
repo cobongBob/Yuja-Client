@@ -25,7 +25,7 @@
 .report_user {
   width: 20%;
 }
-.option_ban {
+.user_table_tr {
   cursor: pointer;
 }
 .board_content {
@@ -39,7 +39,18 @@
   display: inline-block;
   border-radius: 5px;
   vertical-align: bottom;
+  font-family: scdream4;
 }
 .img_wrapper {
   cursor: pointer;
+}
+
+.admin_user_detail {
+  font-weight: bolder;
+  width: 10vw;
+  font-size: 20px;
+}
+.admin_user_details {
+  font-family: scdream4;
+  font-size: large;
 }

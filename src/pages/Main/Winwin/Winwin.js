@@ -37,6 +37,7 @@ const Winwin = ({ match, history }) => {
   useEffect(() => {
     board_type.current = match.params.board_type;
     dispatch(getWinBoard(board_type.current));
+    setSearchTerm("");
   }, [userData, dispatch, match.params.board_type]);
 
   //공지 가져오기
@@ -56,9 +57,12 @@ const Winwin = ({ match, history }) => {
   ) : winBoard.err ? (
     <h2>{winBoard.err}</h2>
   ) : (
-    <div>
-      <WSide />
-      <div className='table-Wrapper'>
+    <>
+      <div className='sideBox'>
+        <WSide />
+      </div>
+    <div className='winwinFrag'>
+      <div className='winwin-Table-Wrapper'>
         <WinTable
           currentData={currentData}
           board_type={board_type.current}
@@ -81,6 +85,7 @@ const Winwin = ({ match, history }) => {
         />
       </div>
     </div>
+    </>
   );
 };
 

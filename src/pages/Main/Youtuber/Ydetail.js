@@ -110,21 +110,21 @@ const Ydetail = ({ match }) => {
                         onClick={deleteBoard}>
                         공고 삭제하기
                       </button>
-                    ) : null}
+                    ) : (
+                      <Report
+                        board_id={match.params.board_id}
+                        modalIsOpen={modalIsOpen}
+                        setModalIsOpen={setModalIsOpen}
+                        board_code={
+                          detailData.boardType && detailData.boardType.boardCode
+                        }
+                      />
+                    )}
                     <Link
                       className='detail-update-btn'
                       to={`/Youtuber/${current_page.current}`}>
                       목록보기
                     </Link>
-                    {/* 모달 열리는 부분 */}
-                    <Report
-                      board_id={match.params.board_id}
-                      modalIsOpen={modalIsOpen}
-                      setModalIsOpen={setModalIsOpen}
-                      board_code={
-                        detailData.boardType && detailData.boardType.boardCode
-                      }
-                    />
                   </div>
                 </div>
                 <div className='detail-title'>

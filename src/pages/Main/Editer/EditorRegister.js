@@ -97,17 +97,20 @@ const EditorRegister = ({ match }) => {
   );
 
   return (
-    <div>
+    <div className='editorRegisterFrag'>
       <div className='register-container'>
         <div className='editor-register-header'>
-          <h1>이력서 등록</h1>
+          <h1>포트폴리오 등록</h1>
         </div>
         <div className='editor-register-default-input'>
-          <ul>
+          <ul className='leftUl'>
+            <div className='li_Title_Title'>
+              제목
+            </div>
             <li className='li-item1'>
               <input
                 type='text'
-                placeholder='제목'
+                placeholder='포트폴리오의 제목을 작성해주세요.'
                 name='title'
                 id='first-link'
                 onChange={onChange}
@@ -115,14 +118,19 @@ const EditorRegister = ({ match }) => {
               />
             </li>
             <li className='li-item2'>
+              <div className='li_Title_Link'>
+                대표 영상 링크
+              </div>
               <input
                 type='text'
                 id='thumb-PicInput'
-                placeholder='대표영상의 링크를 적어주세요.'
+                placeholder='이 영상은 포트폴리오 썸네일로 사용 됩니다.'
                 name='previewImage'
                 onChange={onChange}
               />
             </li>
+          </ul>
+            <ul className='rightUl'>
             <li className='li-item3'>
               <div>경력사항</div>
               <input
@@ -167,8 +175,8 @@ const EditorRegister = ({ match }) => {
                 }}
               />
             </li>
+              <span className='registerSpan'>사용기술</span>
             <li className='li-item5'>
-              <span>사용기술</span>
               <input
                 id='Epremiere'
                 name='tools'
@@ -244,16 +252,16 @@ const EditorRegister = ({ match }) => {
             </li>
           </ul>
         </div>
-        <div className='editor-infomation'>자기소개</div>
-        <div className='editor-quill'>
-          <QuillRegister
-            register={testCheking}
-            addingFileList={addingFileList}
-            qData={qData}
-            setQData={setQData}
-            board_type={board_type.current}
-          />
-        </div>
+      </div>
+      <div className='editor-quill'>
+        <div className='editor-infomation'>상세 내용</div>
+        <QuillRegister
+          register={testCheking}
+          addingFileList={addingFileList}
+          qData={qData}
+          setQData={setQData}
+          board_type={board_type.current}
+        />
       </div>
     </div>
   );

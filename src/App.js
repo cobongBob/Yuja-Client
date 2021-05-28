@@ -112,6 +112,9 @@ function App() {
       (error) => {
         //실패시 로딩창 종료
         if (error.response && error.response.data) {
+          if (error.response.data.message && error.response.data.message.startsWith("해당글 없음")) {
+            history.push("/");
+          }
           ToastCenter(error.response.data.message);
         }
         dispatch(getLoaded());
@@ -132,6 +135,14 @@ function App() {
           ToastAlert(() =>
             toastWithPush(
               `${notification.sender.nickname}님께서 ${notification.comment.board.title}글에 댓글을 남기셨습니다.`,
+              notification,
+              history
+            )
+          );
+        } else if (notification.type === "nestedComment" && notification.resipeint.id === userData.id) {
+          ToastAlert(() =>
+            toastWithPush(
+              `${notification.sender.nickname}님께서 ${notification.comment.board.title}글의 댓글에 답글을 남기셨습니다.`,
               notification,
               history
             )
