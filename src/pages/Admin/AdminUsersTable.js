@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from "react";
 import "./AdminUser.scss";
 import Modal from "react-modal";
 Modal.setAppElement("#root");
-const AdminUsersTable = ({ currentData, userSetBan }) => {
+const AdminUsersTable = ({ currentData, userSetBan, userRemove, userRecovery }) => {
   const reportcustomStyles = useMemo(
     () => ({
       content: {
@@ -63,10 +63,12 @@ const AdminUsersTable = ({ currentData, userSetBan }) => {
                   </td>
                   <td>
                     <span>
-                      {!user.banned ? (
-                        <span style={{ color: "blue" }}>활동중</span>
-                      ) : (
+                      {user.deleted ? (
+                        <span style={{ color: "gray" }}>탈퇴됨</span>
+                      ) : user.banned ? (
                         <span style={{ color: "red" }}>정지됨</span>
+                      ) : (
+                        <span style={{ color: "blue" }}>활동중</span>
                       )}
                     </span>
                   </td>
@@ -79,62 +81,96 @@ const AdminUsersTable = ({ currentData, userSetBan }) => {
             <div>
               <div>
                 <table className='editordetail-wrapper admin_user_details'>
-                  <tr className='editordetail-header-wrapper'>
-                    <td className='editordetail-header'>회원정보</td>
-                  </tr>
-                  <tr>
-                    <th className='admin_user_detail'>번호 </th>
-                    <td> {currentData[seleted].id}</td>
-                  </tr>
-                  <tr>
-                    <th className='admin_user_detail'>아이디 </th>
-                    <td> {currentData[seleted].username}</td>
-                  </tr>
-                  <tr>
-                    <th className='admin_user_detail'>활동명 </th>
-                    <td> {currentData[seleted].nickname}</td>
-                  </tr>
-                  <tr>
-                    <th className='admin_user_detail'>가입일 </th>
-                    <td> {currentData[seleted].createDate.substr(0, 10)}</td>
-                  </tr>
-                  <tr>
-                    <th className='admin_user_detail'>권한 </th>
-                    <td>
-                      {" "}
-                      {currentData[seleted].authorities.map((auth, idx) => {
-                        if (idx === currentData[seleted].authorities.length - 1) {
-                          return auth.authority;
-                        } else {
-                          return auth.authority + ", ";
-                        }
-                      })}
-                    </td>
-                  </tr>
-                  <tr>
-                    <th className='admin_user_detail'>주소 </th>
-                    <td> {currentData[seleted].address}</td>
-                  </tr>
-                  <tr>
-                    <th className='admin_user_detail'>생년월일 </th>
-                    <td> {currentData[seleted].bday}</td>
-                  </tr>
-                  <tr>
-                    <th className='admin_user_detail'>상세주소 </th>
-                    <td> {currentData[seleted].detailAddress}</td>
-                  </tr>
-                  <tr>
-                    <th className='admin_user_detail'>연락처 </th>
-                    <td> {currentData[seleted].phone}</td>
-                  </tr>
-                  <tr>
-                    <th className='admin_user_detail'>유튜브 주소 </th>
-                    <td> {currentData[seleted].youtubeUrl}</td>
-                  </tr>
+                  <tbody>
+                    <tr className='editordetail-header-wrapper'>
+                      <td className='editordetail-header'>
+                        회원정보
+                        {currentData[seleted].deleted ? (
+                          <span style={{ color: "gray", fontSize: "1rem" }}> 탈퇴됨</span>
+                        ) : currentData[seleted].banned ? (
+                          <span style={{ color: "red", fontSize: "1rem" }}> 정지됨</span>
+                        ) : (
+                          <span style={{ color: "blue", fontSize: "1rem" }}> 활동중</span>
+                        )}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='admin_user_detail'>번호 </th>
+                      <td> {currentData[seleted].id}</td>
+                    </tr>
+                    <tr>
+                      <th className='admin_user_detail'>아이디 </th>
+                      <td> {currentData[seleted].username}</td>
+                    </tr>
+                    <tr>
+                      <th className='admin_user_detail'>활동명 </th>
+                      <td> {currentData[seleted].nickname}</td>
+                    </tr>
+                    <tr>
+                      <th className='admin_user_detail'>가입일 </th>
+                      <td> {currentData[seleted].createDate.substr(0, 10)}</td>
+                    </tr>
+                    <tr>
+                      <th className='admin_user_detail'>권한 </th>
+                      <td>
+                        {" "}
+                        {currentData[seleted].authorities.map((auth, idx) => {
+                          if (idx === currentData[seleted].authorities.length - 1) {
+                            return auth.authority;
+                          } else {
+                            return auth.authority + ", ";
+                          }
+                        })}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='admin_user_detail'>주소 </th>
+                      <td> {currentData[seleted].address}</td>
+                    </tr>
+                    <tr>
+                      <th className='admin_user_detail'>생년월일 </th>
+                      <td> {currentData[seleted].bday}</td>
+                    </tr>
+                    <tr>
+                      <th className='admin_user_detail'>상세주소 </th>
+                      <td> {currentData[seleted].detailAddress}</td>
+                    </tr>
+                    <tr>
+                      <th className='admin_user_detail'>연락처 </th>
+                      <td> {currentData[seleted].phone}</td>
+                    </tr>
+                    <tr>
+                      <th className='admin_user_detail'>유튜브 주소 </th>
+                      <td> {currentData[seleted].youtubeUrl}</td>
+                    </tr>
+                    {currentData[seleted].banned && (
+                      <tr>
+                        <th className='admin_user_detail'>밴 날짜</th>
+                        <td> {currentData[seleted].updatedDate.substr(0, 10)}</td>
+                      </tr>
+                    )}
+                    {currentData[seleted].deleted && (
+                      <tr>
+                        <th className='admin_user_detail'>탈퇴일</th>
+                        <td> {currentData[seleted].updatedDate.substr(0, 10)}</td>
+                      </tr>
+                    )}
+                  </tbody>
                 </table>
               </div>
               <br />
               <div className='admin_modal_btn'>
+                {currentData[seleted].deleted && (
+                  <button
+                    onClick={() => {
+                      userRecovery(currentData[seleted].id);
+                      closeModal();
+                    }}
+                    className='YCBtn'
+                  >
+                    <span>유저 복구</span>
+                  </button>
+                )}
                 <button
                   onClick={() => {
                     userSetBan(currentData[seleted].id, currentData[seleted].username, currentData[seleted].banned);
@@ -148,6 +184,16 @@ const AdminUsersTable = ({ currentData, userSetBan }) => {
                     <span style={{ color: "blue" }}>밴 해제</span>
                   )}
                 </button>
+                <button
+                  onClick={() => {
+                    userRemove(currentData[seleted].id);
+                    closeModal();
+                  }}
+                  className='YCBtn'
+                >
+                  <span style={{ color: "red" }}>유저 삭제</span>
+                </button>
+
                 <button className='YCBtn' onClick={closeModal}>
                   닫기
                 </button>

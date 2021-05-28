@@ -7,6 +7,7 @@ import "./ThumbRegister.scss";
 import * as EditerApiService from "../../../apiService/EditerApiService";
 import QuillModify from "../../../components/Quill/QuillModify";
 import { checkBoxConvert } from "../../../modules/CheckBoxConvert";
+import defaultImg from "./Thumdefault.png";
 
 const ThumbModify = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -18,7 +19,7 @@ const ThumbModify = ({ match }) => {
   const fileList = useRef([]);
   const history = useHistory();
   const ThumbId = useRef(0);
-  const [fileUrl, setFileUrl] = useState("");
+  const [fileUrl, setFileUrl] = useState(defaultImg);
 
   let ThHistory = useCallback(
     (board_id) => history.push(`/ThumbDetail/${board_type.current}/${board_id}/1`),
@@ -31,6 +32,7 @@ const ThumbModify = ({ match }) => {
     career: "",
     payType: "",
     payAmount: "",
+    receptionMethod: "",
     tools: checkedlist.current,
   });
   const [checkBoxInput, setcheckBoxInput] = useState({
@@ -114,7 +116,7 @@ const ThumbModify = ({ match }) => {
       fileList.current = res.data.boardAttachFileNames;
       setQModiData(res.data.content);
       setInput(res.data);
-      if (res.data.thumbnail) {
+      if (res.data.thumbnail && res.data.thumbnail.length > 8) {
         setFileUrl(`http://localhost:8888/files/thumbnail/${res.data.thumbnail.substr(8)}`);
       }
       setcheckBoxInput(checkBoxConvert(res.data.tools));
@@ -128,6 +130,7 @@ const ThumbModify = ({ match }) => {
       !input.title ||
       !input.payType ||
       !input.payAmount ||
+      !input.receptionMethod ||
       !input.career ||
       checkedlist.current.length === 0
     ) {
@@ -157,7 +160,6 @@ const ThumbModify = ({ match }) => {
       boardAttachToBeDeleted: deletedFileList.current,
       thumbnailId: ThumbId.current,
     };
-
     EditerApiService.modifyBoard(match.params.board_id, modifyingData, board_type.current).then((res) => {
       ThHistory(res.data.id);
     });
@@ -215,7 +217,7 @@ const ThumbModify = ({ match }) => {
             </li>
             <li className='li-item4'>
               <select name='payType' value={input.payType} onChange={onChange}>
-                <option>선택</option>
+                <option value=''>선택</option>
                 <option value='연봉'>연봉</option>
                 <option value='월급'>월급</option>
                 <option value='주급'>주급</option>
@@ -233,6 +235,17 @@ const ThumbModify = ({ match }) => {
                   target.value = target.value.replace(/,/g, "");
                   target.value = target.value.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // 정규식을 이용해서 3자리 마다 , 추가
                 }}
+              />
+            </li>
+            <li className='li-item1'>
+              <input
+                id='YreceptionMethod'
+                onChange={onChange}
+                placeholder='연락방법'
+                maxLength='50'
+                name='receptionMethod'
+                type='text'
+                value={input.receptionMethod || ""}
               />
             </li>
             <li className='li-item5'>
