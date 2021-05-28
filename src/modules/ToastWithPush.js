@@ -3,17 +3,21 @@ import { TiArrowForward } from 'react-icons/ti';
 
 export const toastWithPush = (txt, notification, history) => (
   <>
-    {txt}
     <button
       onClick={() => pushToPage(notification, history)}
       style={{
         border: 'none',
         backgroundColor: 'transparent',
-        color: '#ff9411',
       }}
     >
-      <TiArrowForward size={30} />
+      <TiArrowForward
+        size={30}
+        style={{
+          color: '#ff9411',
+        }}
+      />
     </button>
+    {txt}
   </>
 );
 

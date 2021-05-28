@@ -41,8 +41,11 @@ export const ToastAlert = (msg) => {
     closeOnClick: true,
     hideProgressBar: true,
     bodyStyle: {
+      textOverflow: 'ellipsis',
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
       color: 'black',
-      fontSize: '17px',
+      fontSize: '15px',
       fontWeight: 'bold',
       fontFamily: 'scdream4',
     },
