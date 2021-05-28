@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import QuillModify from '../../../components/Quill/QuillModify';
 import { ToastCenter } from '../../../modules/ToastModule';
 import { checkBoxConvert } from '../../../modules/CheckBoxConvert';
+import getFormatDate from '../../../modules/getFormatDate';
 
 const YmodifyTest = (props) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -16,6 +17,8 @@ const YmodifyTest = (props) => {
   const checkedlist = useRef([]);
   const current_page = useRef(props.match.params.current_page);
   const history = useHistory();
+
+  const [showDate, setShowDate] = useState(false);
 
   const [input, setInput] = useState({
     title: '',
@@ -31,6 +34,7 @@ const YmodifyTest = (props) => {
     receptionMethod: '',
     tools: checkedlist.current,
   });
+
   const [checkBoxInput, setcheckBoxInput] = useState({
     premiere: false,
     aftereffect: false,
@@ -59,6 +63,9 @@ const YmodifyTest = (props) => {
       setInput(res.data);
       setcheckBoxInput(checkBoxConvert(res.data.tools));
       checkedlist.current = res.data.tools;
+      if (res.data.ywhen === '마감일') {
+        setShowDate(true);
+      }
     });
   }, [userData]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -72,6 +79,7 @@ const YmodifyTest = (props) => {
       !input.payType ||
       !input.payAmount ||
       !input.career ||
+      (input.ywhen === '마감일' && !input.expiredDate) ||
       !input.ywhen ||
       !input.manager ||
       !input.receptionMethod ||
@@ -137,6 +145,15 @@ const YmodifyTest = (props) => {
       ...prevInput,
       [name]: value,
     }));
+    if (e.target.value === '마감일') {
+      setShowDate(true);
+    } else {
+      setShowDate(false);
+      setInput((prevInput) => ({
+        ...prevInput,
+        expiredDate: '',
+      }));
+    }
   }, []);
 
   const onChange = useCallback(
@@ -365,17 +382,6 @@ const YmodifyTest = (props) => {
         <li className='wanted-deadline'>
           <div>마감일</div>
           <input
-            id='YendDate'
-            onChange={onChange}
-            name='expiredDate'
-            type='date'
-            value={
-              input && input.expiredDate
-                ? input.expiredDate.substr(0, 10)
-                : null
-            }
-          />
-          <input
             id='always'
             onChange={radioCheck}
             name='ywhen'
@@ -393,6 +399,29 @@ const YmodifyTest = (props) => {
             checked={input.ywhen === '채용시 마감'}
           />
           <label htmlFor='deadline'>채용시 마감</label>
+          <input
+            id='date'
+            onChange={radioCheck}
+            name='ywhen'
+            value='마감일'
+            type='radio'
+            checked={input.ywhen === '마감일'}
+          />
+          <label htmlFor='date'>마감일</label>
+          {showDate && (
+            <input
+              id='YendDate'
+              onChange={onChange}
+              name='expiredDate'
+              type='date'
+              min={getFormatDate(new Date())}
+              value={
+                input && input.expiredDate
+                  ? input.expiredDate.substr(0, 10)
+                  : null
+              }
+            />
+          )}
         </li>
         <li className='wanted-manager'>
           <input

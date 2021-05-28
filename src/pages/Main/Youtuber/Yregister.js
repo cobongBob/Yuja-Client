@@ -5,6 +5,7 @@ import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
 import QuillRegister from '../../../components/Quill/QuillRegister';
 import { ToastCenter } from '../../../modules/ToastModule';
+import getFormatDate from '../../../modules/getFormatDate';
 
 const Yregister = () => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -12,6 +13,7 @@ const Yregister = () => {
   const addingFileList = useRef([]);
   const [qData, setQData] = useState();
   const { current: board_type } = useRef('Youtuber');
+  const [showDate, setShowDate] = useState(false);
 
   const history = useHistory();
 
@@ -48,7 +50,8 @@ const Yregister = () => {
       !input.payType ||
       !input.payAmount ||
       !input.tools[0] ||
-      (!input.ywhen && !input.expiredDate) ||
+      (input.ywhen === '마감일' && !input.expiredDate) ||
+      !input.ywhen ||
       !input.manager ||
       !input.receptionMethod
     ) {
@@ -86,6 +89,15 @@ const Yregister = () => {
       ...prevInput,
       [name]: value,
     }));
+    if (e.target.value === '마감일') {
+      setShowDate(true);
+    } else {
+      setShowDate(false);
+      setInput((prevInput) => ({
+        ...prevInput,
+        expiredDate: '',
+      }));
+    }
   }, []);
 
   const onChange = useCallback(
@@ -309,12 +321,6 @@ const Yregister = () => {
         <li className='wanted-deadline'>
           <div>마감일</div>
           <input
-            id='YendDate'
-            onChange={onChange}
-            name='expiredDate'
-            type='date'
-          />
-          <input
             id='always'
             onChange={radioCheck}
             name='ywhen'
@@ -330,6 +336,23 @@ const Yregister = () => {
             onChange={radioCheck}
           />
           <label htmlFor='deadline'>채용시 마감</label>
+          <input
+            id='date'
+            onChange={radioCheck}
+            name='ywhen'
+            value='마감일'
+            type='radio'
+          />
+          <label htmlFor='date'>마감일</label>
+          {showDate && (
+            <input
+              id='YendDate'
+              onChange={onChange}
+              name='expiredDate'
+              type='date'
+              min={getFormatDate(new Date())}
+            />
+          )}
         </li>
         <li className='wanted-manager'>
           <input
