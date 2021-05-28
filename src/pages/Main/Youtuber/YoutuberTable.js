@@ -73,7 +73,7 @@ const YoutuberTable = ({
                   <div> 사용기술 {data.tools[0]} </div>
                   <div> 모집분야 {data.worker} </div>
                   <div className='card-deadline'>
-                    {data.ywhen !== '' ? (
+                    {data.ywhen !== '마감일' ? (
                       <span>{data.ywhen}</span>
                     ) : (
                       <span>

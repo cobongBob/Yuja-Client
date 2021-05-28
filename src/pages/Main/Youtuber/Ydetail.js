@@ -159,7 +159,7 @@ const Ydetail = ({ match }) => {
                   ? detailData.boardUpdatedDate.substr(0, 10)
                   : ''}{' '}
                 ~{' '}
-                {detailData.ywhen !== '' ? (
+                {detailData.ywhen !== '마감일' ? (
                   <span>{detailData.ywhen}</span>
                 ) : (
                   detailData.expiredDate.substr(0, 10)
