@@ -104,9 +104,7 @@ const EditorRegister = ({ match }) => {
         </div>
         <div className='editor-register-default-input'>
           <ul className='leftUl'>
-            <div className='li_Title_Title'>
-              제목
-            </div>
+            <div className='li_Title_Title'>제목</div>
             <li className='li-item1'>
               <input
                 type='text'
@@ -118,9 +116,7 @@ const EditorRegister = ({ match }) => {
               />
             </li>
             <li className='li-item2'>
-              <div className='li_Title_Link'>
-                대표 영상 링크
-              </div>
+              <div className='li_Title_Link'>대표 영상 링크</div>
               <input
                 type='text'
                 id='thumb-PicInput'
@@ -130,7 +126,7 @@ const EditorRegister = ({ match }) => {
               />
             </li>
           </ul>
-            <ul className='rightUl'>
+          <ul className='rightUl'>
             <li className='li-item3'>
               <div>경력사항</div>
               <input
@@ -175,7 +171,7 @@ const EditorRegister = ({ match }) => {
                 }}
               />
             </li>
-              <span className='registerSpan'>사용기술</span>
+            <span className='registerSpan'>사용기술</span>
             <li className='li-item5'>
               <input
                 id='Epremiere'

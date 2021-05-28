@@ -14,9 +14,22 @@ const Thnew = () => {
             <div className='new-youtuber'>
               <li>
                 <div className='ProfileWrapper'>
-                  <div className='user-profile-pic'>
-                    <FaUserAstronaut size={60} className='thumbnail-profile' />
-                  </div>
+                  {list.previewImage ? (
+                    <div className='user-profile-pic_'>
+                      <img
+                        className='MainProfileImage'
+                        src={`${list.previewImage}`}
+                        alt=''
+                      />
+                    </div>
+                  ) : (
+                    <div className='user-profile-pic'>
+                      <FaUserAstronaut
+                        size={60}
+                        className='thumbnail-profile'
+                      />
+                    </div>
+                  )}
                   <div className='wanted-content'>
                     <div className='NameWorkerWrapper'>
                       <span className='wanted-name'>{list.user.nickname}</span>

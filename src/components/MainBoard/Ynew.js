@@ -15,18 +15,19 @@ const Ynew = () => {
             <div className='new-youtuber'>
               <li>
                 <div className='ProfileWrapper'>
-                  <div className='user-profile-pic'>
-                    {list.previewImage ? (
+                  {list.previewImage ? (
+                    <div className='user-profile-pic_'>
                       <img
                         className='MainProfileImage'
                         src={`${list.previewImage}`}
                         alt=''
                       />
-                    ) : (
+                    </div>
+                  ) : (
+                    <div className='user-profile-pic'>
                       <FaUserAstronaut size={60} className='youtuber-profile' />
-                    )}
-                    {/* previewImage가 defaultImage라 무적권 이미지가보임 default 아이콘이 안나오고 */}
-                  </div>
+                    </div>
+                  )}
                   <div className='wanted-content'>
                     <div className='NameWorkerWrapper'>
                       <span className='wanted-name'>{list.user.nickname}</span>

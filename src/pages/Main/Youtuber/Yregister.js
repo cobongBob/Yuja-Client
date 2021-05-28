@@ -210,7 +210,7 @@ const Yregister = () => {
         <li className='wanted-pay'>
           <div>급여</div>
           <select name='payType' onChange={onChange}>
-            <option>선택</option>
+            <option value=''>선택</option>
             <option value='연봉'>연봉</option>
             <option value='월급'>월급</option>
             <option value='주급'>주급</option>

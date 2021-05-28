@@ -12,11 +12,19 @@
 }
 
 .user-profile-pic {
-  height: 10vh;
   margin-left: 3%;
   margin-right: 2%;
   padding-top: 1%;
   padding-bottom: 1%;
+  min-width: 5vw;
+}
+
+.user-profile-pic_ {
+  margin-left: 3%;
+  margin-right: 2%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  height: 10vh;
 }
 
 .MainProfileImage {
@@ -34,20 +42,6 @@
   display: inline-block;
 }
 
-.wanted-content {
-  font-family: 'scdream5';
-  display: inline-block;
-  padding: 1%;
-}
-
-.wanted-content-detail {
-  margin-top: 1%;
-  max-width: 18vw;
-  font-size: 1.3rem;
-  margin-bottom: 0;
-  padding-right: 2%;
-}
-
 .editor-profile {
   border: 10px solid #3d5ba5;
   border-radius: 50%;
@@ -60,6 +54,20 @@
   border-radius: 50%;
   background-color: #ff7c7c;
   color: white;
+}
+
+.wanted-content {
+  font-family: 'scdream5';
+  display: inline-block;
+  padding: 1%;
+}
+
+.wanted-content-detail {
+  margin-top: 1%;
+  max-width: 18vw;
+  font-size: 1.3rem;
+  margin-bottom: 0;
+  padding-right: 2%;
 }
 
 .ListTitle {
@@ -92,7 +100,6 @@
   padding-left: 1%;
   width: 17vw;
   text-align: left;
-  vertical-align: middle;
   border-bottom: 3px solid #dddddd;
 }
 
@@ -108,14 +115,13 @@
 }
 
 .wanted-type-editer {
-  display: inline-block;
-  font-family: scdream4;
+  font-family: 'scdream4';
   background-color: #3d5ba5;
   color: white;
   border-radius: 7px;
   padding: 2px;
   margin-top: 1%;
-  margin-right: 5%;
+  margin-right: 1%;
   float: right;
 }
 
