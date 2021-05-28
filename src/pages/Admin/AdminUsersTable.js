@@ -171,19 +171,22 @@ const AdminUsersTable = ({ currentData, userSetBan, userRemove, userRecovery }) 
                     <span>유저 복구</span>
                   </button>
                 )}
-                <button
-                  onClick={() => {
-                    userSetBan(currentData[seleted].id, currentData[seleted].username, currentData[seleted].banned);
-                    closeModal();
-                  }}
-                  className='YCBtn'
-                >
-                  {!currentData[seleted].banned ? (
-                    <span style={{ color: "red" }}>밴 하기</span>
-                  ) : (
-                    <span style={{ color: "blue" }}>밴 해제</span>
-                  )}
-                </button>
+
+                {!currentData[seleted].deleted && (
+                  <button
+                    onClick={() => {
+                      userSetBan(currentData[seleted].id, currentData[seleted].username, currentData[seleted].banned);
+                      closeModal();
+                    }}
+                    className='YCBtn'
+                  >
+                    {!currentData[seleted].banned ? (
+                      <span style={{ color: "red" }}>밴 하기</span>
+                    ) : (
+                      <span style={{ color: "blue" }}>밴 해제</span>
+                    )}
+                  </button>
+                )}
                 <button
                   onClick={() => {
                     userRemove(currentData[seleted].id);
