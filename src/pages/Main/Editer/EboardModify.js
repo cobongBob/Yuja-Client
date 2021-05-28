@@ -25,6 +25,7 @@ const EboardModify = ({ match }) => {
     career: "",
     payType: "",
     payAmount: "",
+    receptionMethod: "",
     tools: checkedlist.current,
   });
 
@@ -63,7 +64,8 @@ const EboardModify = ({ match }) => {
     });
   }, [userData, history, match.params.board_id]);
 
-  const testCheking = useCallback(() => {
+  const testCheking = useCallback((e) => {
+
     if (
       !qModiData ||
       !input.title ||
@@ -71,36 +73,43 @@ const EboardModify = ({ match }) => {
       !input.career ||
       !input.payType ||
       !input.payAmount ||
+      (input.payType === '선택') ||
       checkedlist.current.length === 0
     ) {
       ToastCenter("내용을 모두 적어주세요.");
-    }
-    let reg = new RegExp(`http://localhost:8888/files/${board_type.current}/[0-9]+.[a-z]+`, "gi");
-    let imgSrcArr = String(qModiData).match(reg); // 불러왔던 글에 존재했던 이미지 태그들의 src
-    // 서버에서 날아온 이미지 이름과 비교한다. 없으면 삭제된것이므로 삭제 리스트에 담아준다.
-    if (imgSrcArr) {
-      fileList.current.forEach((src) => {
-        if (!imgSrcArr.includes(`http://localhost:8888/files/${board_type.current}/${src}`)) {
-          deletedFileList.current.push(src);
-        }
-      });
+      e.preventDefault();
     } else {
-      deletedFileList.current = fileList.current;
+      let reg = new RegExp(`http://localhost:8888/files/${board_type.current}/[0-9]+.[a-z]+`, "gi");
+      let imgSrcArr = String(qModiData).match(reg); // 불러왔던 글에 존재했던 이미지 태그들의 src
+      // 서버에서 날아온 이미지 이름과 비교한다. 없으면 삭제된것이므로 삭제 리스트에 담아준다.
+      if (imgSrcArr) {
+        fileList.current.forEach((src) => {
+          if (!imgSrcArr.includes(`http://localhost:8888/files/${board_type.current}/${src}`)) {
+            deletedFileList.current.push(src);
+          }
+        });
+      } else {
+        deletedFileList.current = fileList.current;
+      }
+
+      const modifyingData = {
+        ...input,
+        tools: checkedlist.current,
+        content: qModiData.replaceAll(
+          `src="http://localhost:8888/files/temp/`,
+          `src="http://localhost:8888/files/${board_type.current}/`
+        ),
+        boardAttachIds: addingFileList.current,
+        boardAttachToBeDeleted: deletedFileList.current,
+      };
+      EditerApiService.modifyBoard(match.params.board_id, modifyingData, board_type.current).then((res) => {
+        eHistory(res.data.id);
+      });
     }
 
-    const modifyingData = {
-      ...input,
-      tools: checkedlist.current,
-      content: qModiData.replaceAll(
-        `src="http://localhost:8888/files/temp/`,
-        `src="http://localhost:8888/files/${board_type.current}/`
-      ),
-      boardAttachIds: addingFileList.current,
-      boardAttachToBeDeleted: deletedFileList.current,
-    };
-    EditerApiService.modifyBoard(match.params.board_id, modifyingData, board_type.current).then((res) => {
-      eHistory(res.data.id);
-    });
+    console.log('========================= 여기까지 옴')
+    
+
   }, [eHistory, input, match.params.board_id, qModiData]);
 
   const onChange = useCallback(
@@ -137,14 +146,34 @@ const EboardModify = ({ match }) => {
     [checkedlist, checkBoxInput]
   );
 
+  const [editorLinkDesc, setEditorLinkDesc] = useState("");
+
+  const editorLinkCheck = useCallback(
+    (e) => {
+      let checkContent = e.target.value;
+      if (
+        checkContent !== "" &&
+        checkContent.startsWith("https://www.youtube.com/watch?v=")
+      ) {
+        setEditorLinkDesc("");
+      } else {
+        setEditorLinkDesc("유튜브 링크는 'https://www.youtube.com/watch?v=고유주소' 의 형식이여야 합니다.");
+      }
+    },
+    [editorLinkDesc]
+  );
+
   return (
-    <div>
+    <div className='editorRegisterFrag'>
       <div className='register-container'>
         <div className='editor-register-header'>
-          <h1>이력서 등록</h1>
+          <h1>포트폴리오 수정</h1>
         </div>
         <div className='editor-register-default-input'>
-          <ul>
+          <ul className='leftUl'>
+            <div className='li_Title_Title'>
+              제목
+            </div>
             <li className='li-item1'>
               <input
                 type='text'
@@ -157,14 +186,38 @@ const EboardModify = ({ match }) => {
               />
             </li>
             <li className='li-item2'>
+              <div className='li_Title_Link'>
+                대표 영상 링크
+              </div>
               <input
                 type='text'
                 placeholder='대표영상의 링크를 적어주세요.'
                 value={input.previewImage}
                 name='previewImage'
                 onChange={onChange}
+                onKeyUp={editorLinkCheck}
+              />
+              <div className='warningBox'>
+                {editorLinkDesc}
+              </div>
+            </li>
+            <li className='li-item3'>
+              <div className='li_Title_ReceptionMethod'>
+                연락처
+              </div>
+              <input
+                id='YreceptionMethod'
+                onChange={onChange}
+                placeholder='연락처'
+                value={input.receptionMethod}
+                maxLength='50'
+                name='receptionMethod'
+                type='text'
               />
             </li>
+          </ul>
+
+        <ul className='rightUl'>
             <li className='li-item3'>
               <div>경력사항</div>
               <input
@@ -209,8 +262,10 @@ const EboardModify = ({ match }) => {
                 }}
               />
             </li>
+          <div className='registerSpanBox'>
+          <span className='registerSpan'>사용기술</span>
+          </div>
             <li className='li-item5'>
-              <span>사용기술</span>
               <input
                 id='Epremiere'
                 name='premiere'
@@ -295,8 +350,8 @@ const EboardModify = ({ match }) => {
             </li>
           </ul>
         </div>
-        <div className='editor-infomation'>자기소개</div>
         <div className='editor-quill'>
+          <div className='editor-infomation'>상세 내용</div>
           <QuillModify
             modify={testCheking}
             addingFileList={addingFileList}

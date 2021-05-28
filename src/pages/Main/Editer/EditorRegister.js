@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import QuillRegister from '../../../components/Quill/QuillRegister';
@@ -25,6 +25,7 @@ const EditorRegister = ({ match }) => {
     career: '',
     payType: '',
     payAmount: '',
+    receptionMethod: "",
     tools: checkedlist.current,
   });
 
@@ -36,6 +37,7 @@ const EditorRegister = ({ match }) => {
       !input.career ||
       !input.payType ||
       !input.payAmount ||
+      !input.receptionMethod ||
       !input.tools[0]
     ) {
       return ToastCenter('내용을 모두 적어주세요.');
@@ -96,6 +98,25 @@ const EditorRegister = ({ match }) => {
     [input]
   );
 
+  const [editorLinkDesc, setEditorLinkDesc] = useState("");
+
+  const editorLinkCheck = useCallback(
+    (e) => {
+      let checkContent = e.target.value;
+      if (
+        checkContent !== "" &&
+        checkContent.startsWith("https://www.youtube.com/watch?v=")
+      ) {
+        setEditorLinkDesc("");
+      } else {
+        setEditorLinkDesc("유튜브 링크는 'https://www.youtube.com/watch?v=고유주소' 의 형식이여야 합니다.");
+      }
+    },
+    [editorLinkDesc]
+  );
+
+  const [isCareerChecked, setIsCareerChecked] = useState(false);
+
   return (
     <div className='editorRegisterFrag'>
       <div className='register-container'>
@@ -104,9 +125,7 @@ const EditorRegister = ({ match }) => {
         </div>
         <div className='editor-register-default-input'>
           <ul className='leftUl'>
-            <div className='li_Title_Title'>
-              제목
-            </div>
+            <div className='li_Title_Title'>제목</div>
             <li className='li-item1'>
               <input
                 type='text'
@@ -118,19 +137,34 @@ const EditorRegister = ({ match }) => {
               />
             </li>
             <li className='li-item2'>
-              <div className='li_Title_Link'>
-                대표 영상 링크
-              </div>
+              <div className='li_Title_Link'>대표 영상 링크</div>
               <input
                 type='text'
                 id='thumb-PicInput'
                 placeholder='이 영상은 포트폴리오 썸네일로 사용 됩니다.'
                 name='previewImage'
                 onChange={onChange}
+                onKeyUp={editorLinkCheck}
+              />
+            </li>
+            <div className='warningBox'>
+              {editorLinkDesc}
+            </div>
+            <li className='li-item3'>
+              <div className='li_Title_ReceptionMethod'>
+                연락처
+              </div>
+              <input
+                id='YreceptionMethod'
+                onChange={onChange}
+                placeholder='연락처'
+                maxLength='50'
+                name='receptionMethod'
+                type='text'
               />
             </li>
           </ul>
-            <ul className='rightUl'>
+          <ul className='rightUl'>
             <li className='li-item3'>
               <div>경력사항</div>
               <input
@@ -149,6 +183,26 @@ const EditorRegister = ({ match }) => {
                 type='radio'
               />
               <label htmlFor='career'>경력</label>
+              {isCareerChecked ?
+              <div className='careerTimeBox'>
+              <input
+                id='careerTimeYear'
+                name='careerTimeYear'
+                type='text'
+                maxLength='1'
+              />
+              년
+              <input
+                id='careerTimeMonth'
+                name='careerTimeMonth'
+                type='text'
+                maxLength='2'
+              />
+              개월
+              </div>
+                :
+                ""
+              }
             </li>
             <li className='li-item4'>
               <select name='payType' onChange={onChange}>
@@ -175,7 +229,9 @@ const EditorRegister = ({ match }) => {
                 }}
               />
             </li>
-              <span className='registerSpan'>사용기술</span>
+              <div className='registerSpanBox'>
+                <span className='registerSpan'>사용기술</span>
+              </div>
             <li className='li-item5'>
               <input
                 id='Epremiere'
