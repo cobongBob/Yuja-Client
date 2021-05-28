@@ -37,22 +37,86 @@ const Yregister = () => {
     [history]
   );
 
+  const titleRef = useRef();
+  const channelNameRef = useRef();
+  const workerRef = useRef();
+  const careerRef = useRef();
+  const recruitingNumRef = useRef();
+  const payTypeRef = useRef();
+  const payAmountRef = useRef();
+  const toolsRef = useRef();
+  const ywhenRef = useRef();
+  const expiredDateRef = useRef();
+  const managerRef = useRef();
+  const receptionMethodRef = useRef();
+
+  const isNotFilled = useCallback(() => {
+    if (!input.title) {
+      titleRef.current.focus();
+      return false;
+    } else if (!input.channelName) {
+      channelNameRef.current.focus();
+      return false;
+    } else if (!input.worker) {
+      workerRef.current.focus();
+      return false;
+    } else if (!input.career) {
+      careerRef.current.focus();
+      return false;
+    } else if (!input.recruitingNum) {
+      recruitingNumRef.current.focus();
+      return false;
+    } else if (!input.payType) {
+      payTypeRef.current.focus();
+      return false;
+    } else if (!input.payAmount) {
+      payAmountRef.current.focus();
+      return false;
+    } else if (input.tools.length === 0) {
+      toolsRef.current.focus();
+      return false;
+    } else if (!input.ywhen) {
+      ywhenRef.current.focus();
+      return false;
+    } else if (!input.expiredDate) {
+      console.log(1111111111);
+      expiredDateRef.current.focus();
+      return false;
+    } else if (!input.manager) {
+      console.log(222222222, managerRef.current);
+      managerRef.current.focus();
+      return false;
+    } else if (!input.receptionMethod) {
+      console.log(33333333333);
+      receptionMethodRef.current.focus();
+      return false;
+    } else if (!qData) {
+      console.log(444444444444);
+      return false;
+    }
+    return true;
+  }, [input, qData]);
+
   const testCheking = useCallback(() => {
-    if (
-      !qData ||
-      !input.title ||
-      !input.channelName ||
-      !input.worker ||
-      !input.career ||
-      !input.recruitingNum ||
-      !input.payType ||
-      !input.payAmount ||
-      !input.tools[0] ||
-      (!input.ywhen && !input.expiredDate) ||
-      !input.manager ||
-      !input.receptionMethod
-    ) {
-      return ToastCenter('내용을 모두 적어주세요.');
+    // if (
+    //   !qData ||
+    //   !input.title ||
+    //   !input.channelName ||
+    //   !input.worker ||
+    //   !input.career ||
+    //   !input.recruitingNum ||
+    //   !input.payType ||
+    //   !input.payAmount ||
+    //   !input.tools[0] ||
+    //   (!input.ywhen && !input.expiredDate) ||
+    //   !input.manager ||
+    //   !input.receptionMethod
+    // ) {
+    //   return ToastCenter('내용을 모두 적어주세요.');
+    // }
+
+    if (!isNotFilled()) {
+      return ToastCenter('다 써주세요');
     }
 
     let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
@@ -126,7 +190,7 @@ const Yregister = () => {
             onChange={onChange}
             placeholder='제목'
             maxLength='45'
-            ref={(input) => input && input.focus()}
+            ref={titleRef}
             type='text'
           />
         </li>
@@ -136,6 +200,7 @@ const Yregister = () => {
             id='YregisterChannel'
             onChange={onChange}
             name='channelName'
+            ref={channelNameRef}
             maxLength='50'
             type='text'
           />
@@ -146,6 +211,7 @@ const Yregister = () => {
             id='editor'
             type='radio'
             name='worker'
+            ref={workerRef}
             value='영상편집'
             onChange={radioCheck}
           />
@@ -172,6 +238,7 @@ const Yregister = () => {
           <input
             id='newbie'
             name='career'
+            ref={careerRef}
             onChange={radioCheck}
             value='신입'
             type='radio'
@@ -200,6 +267,7 @@ const Yregister = () => {
             id='recruitingNum'
             onChange={onChange}
             name='recruitingNum'
+            ref={recruitingNumRef}
             type='text'
             maxLength='3'
             onInput={({ target }) => {
@@ -211,7 +279,7 @@ const Yregister = () => {
         </li>
         <li className='wanted-pay'>
           <div>급여</div>
-          <select name='payType' onChange={onChange}>
+          <select name='payType' ref={payTypeRef} onChange={onChange}>
             <option value=''>선택</option>
             <option value='연봉'>연봉</option>
             <option value='월급'>월급</option>
@@ -223,6 +291,7 @@ const Yregister = () => {
             id='payAmount'
             onChange={onChange}
             name='payAmount'
+            ref={payAmountRef}
             type='text'
             maxLength='11'
             onInput={({ target }) => {
@@ -238,6 +307,7 @@ const Yregister = () => {
           <input
             id='Ypremiere'
             name='tools'
+            ref={toolsRef}
             value='프리미어 프로'
             type='checkbox'
             onChange={checkboxCheck}
@@ -314,12 +384,14 @@ const Yregister = () => {
             id='YendDate'
             onChange={onChange}
             name='expiredDate'
+            ref={expiredDateRef}
             type='date'
           />
           <input
             id='always'
             onChange={radioCheck}
             name='ywhen'
+            ref={ywhenRef}
             value='상시모집'
             type='radio'
           />
@@ -338,6 +410,7 @@ const Yregister = () => {
             id='YregisterService'
             onChange={onChange}
             name='manager'
+            ref={managerRef}
             type='text'
             placeholder='담당자'
             maxLength='30'
@@ -351,6 +424,7 @@ const Yregister = () => {
             placeholder='담당자 연락처'
             maxLength='50'
             name='receptionMethod'
+            ref={receptionMethodRef}
             type='text'
           />
         </li>
