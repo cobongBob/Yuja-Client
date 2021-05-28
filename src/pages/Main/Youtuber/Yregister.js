@@ -347,7 +347,7 @@ const Yregister = () => {
             id='YreceptionMethod'
             onChange={onChange}
             placeholder='담당자 연락처'
-            maxLength='255'
+            maxLength='50'
             name='receptionMethod'
             type='text'
           />

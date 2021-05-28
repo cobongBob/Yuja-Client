@@ -157,7 +157,10 @@ const QuillModify = ({ modify, addingFileList, qModiData, setQModiData, board_ty
       </div>
       <div>
         <div className='button-line'>
-          <button onClick={modify} className='register-ok'>
+          <button
+            onClick={modify}
+            className='register-ok'
+          >
             확인
           </button>
           <button onClick={() => history.goBack()} className='register-back'>

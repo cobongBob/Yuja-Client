@@ -198,7 +198,7 @@ const ThumbRegister = ({ match }) => {
               <input
                 id='YreceptionMethod'
                 onChange={onChange}
-                placeholder='연락방법'
+                placeholder='연락처'
                 maxLength='50'
                 name='receptionMethod'
                 type='text'

@@ -18,6 +18,8 @@ const EDetail = ({ match }) => {
   const { userData, authorities } = useSelector((state) => state.loginReducer);
   const { detailData } = useSelector((state) => state.EboardReducer);
 
+  console.log('=======================', detailData)
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const [representVideo, setRepresentVideo] = useState("");
@@ -134,9 +136,9 @@ const EDetail = ({ match }) => {
             </li>
             <li className='editordetail-content-hit'></li>
             <li className='editordetail-content-title'>{detailData.title}</li>
-            <li className='editordetail-content-user'>{detailData.user.username}</li>
+            <li className='editordetail-content-user'>{detailData.user.nickname}</li>
             <li className='editordetail-content-user-data'>{detailData.career}</li>
-            <li className='editordetail-content-user-data'>연락처 {detailData.user.phone}</li>
+            <li className='editordetail-content-user-data'>연락처 {detailData.receptionMethod}</li>
             <li className='editordetail-content-pay'>
               급여방식 <span> {detailData.payType}</span>
               희망급여 <span>{detailData.payAmount} 원</span>
