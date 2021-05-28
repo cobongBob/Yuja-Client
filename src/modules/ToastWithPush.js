@@ -6,6 +6,7 @@ export const toastWithPush = (txt, notification, history) => (
     <button
       onClick={() => pushToPage(notification, history)}
       style={{
+        float: 'left',
         border: 'none',
         backgroundColor: 'transparent',
       }}

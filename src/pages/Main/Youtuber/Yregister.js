@@ -48,7 +48,7 @@ const Yregister = () => {
       !input.payType ||
       !input.payAmount ||
       !input.tools[0] ||
-      !input.ywhen ||
+      (!input.ywhen && !input.expiredDate) ||
       !input.manager ||
       !input.receptionMethod
     ) {

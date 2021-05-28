@@ -81,14 +81,12 @@ const NotificationDropdown = ({
                   );
                 } else if (notice.type === 'chatNoti') {
                   return (
-                    <li
-                      key={idx}
-                      className='each_notice'
-                      onClick={() => {
-                        setModalIsOpen(true);
-                      }}
-                    >
-                      <span>{`${notice.sender.nickname}님으로부터 새로운 채팅이 있습니다.`}</span>
+                    <li key={idx} className='each_notice'>
+                      <span
+                        onClick={() => {
+                          setModalIsOpen(true);
+                        }}
+                      >{`${notice.sender.nickname}님으로부터 새로운 채팅이 있습니다.`}</span>
                       <li>
                         <RiDeleteBin6Line
                           onClick={() => deleteNoti(notice.notiId)}

@@ -41,7 +41,8 @@ const YoutuberTable = ({
               );
               writeBoard();
             }}
-            className='registerBtn'>
+            className='registerBtn'
+          >
             공고 등록하기
           </button>
         )}
@@ -61,7 +62,8 @@ const YoutuberTable = ({
                   onClick={() =>
                     history.push(`/Ydetail/${data.id}/${currentPage}`)
                   }
-                  src={`${data.previewImage}`}></Card.Img>
+                  src={`${data.previewImage}`}
+                ></Card.Img>
               </div>
               <Card.Header>
                 <Card.Title>
@@ -71,21 +73,29 @@ const YoutuberTable = ({
                   <div> 사용기술 {data.tools[0]} </div>
                   <div> 모집분야 {data.worker} </div>
                   <div className='card-deadline'>
-                    <span>마감일 </span>
-                    {format(new Date(data.expiredDate), 'yyyy-MM-dd')}
+                    {data.ywhen !== '' ? (
+                      <span>{data.ywhen}</span>
+                    ) : (
+                      <span>
+                        마감일{' '}
+                        {format(new Date(data.expiredDate), 'yyyy-MM-dd')}
+                      </span>
+                    )}
                   </div>
                   <div className='card-like'>
                     {data && data.liked ? (
                       <button
                         onClick={() => likeHandler(data.id)}
-                        className='starButton'>
+                        className='starButton'
+                      >
                         <AiFillStar size={30} />
                         <span>{data.likes}</span>
                       </button>
                     ) : (
                       <button
                         onClick={() => dislikeHandler(data.id)}
-                        className='starButton'>
+                        className='starButton'
+                      >
                         <AiOutlineStar size={30} />
                         <span>{data.likes}</span>
                       </button>
