@@ -19,6 +19,8 @@ const EditorRegister = ({ match }) => {
     [history]
   );
 
+  const [totalCareer, setTotalCareer] = useState();
+
   const [input, setInput] = useState({
     previewImage: '',
     title: '',
@@ -56,6 +58,7 @@ const EditorRegister = ({ match }) => {
     }
     const sendingData = {
       ...input,
+      career:  input.career + totalCareer,
       userId: userData.id, //글쓰고있는 사람의 아이디로 변경요망
       content: qData.replaceAll(
         `src="http://localhost:8888/files/temp/`,
@@ -115,7 +118,13 @@ const EditorRegister = ({ match }) => {
     [editorLinkDesc]
   );
 
-  const [isCareerChecked, setIsCareerChecked] = useState(false);
+  console.log('!!!!!!!!!!!!!!', totalCareer)
+
+  const careerYear = useCallback((e) => {
+
+    setTotalCareer(' '+e.target.value+'년');
+
+  }, [totalCareer])
 
   return (
     <div className='editorRegisterFrag'>
@@ -183,22 +192,16 @@ const EditorRegister = ({ match }) => {
                 type='radio'
               />
               <label htmlFor='career'>경력</label>
-              {isCareerChecked ?
+              {input.career === '경력' ?
               <div className='careerTimeBox'>
               <input
-                id='careerTimeYear'
-                name='careerTimeYear'
+                id='careerYear'
+                name='careerYear'
                 type='text'
                 maxLength='1'
+                onChange={careerYear}
               />
               년
-              <input
-                id='careerTimeMonth'
-                name='careerTimeMonth'
-                type='text'
-                maxLength='2'
-              />
-              개월
               </div>
                 :
                 ""
