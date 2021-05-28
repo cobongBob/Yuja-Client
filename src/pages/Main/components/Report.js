@@ -55,8 +55,9 @@ const Report = ({ board_id, modalIsOpen, setModalIsOpen, board_code }) => {
         userId: userData.id,
       };
       if (userData && input.reportedReason !== "") {
-        ReportApiService.addReport(report);
-        ToastCenter("신고 접수 완료!");
+        ReportApiService.addReport(report).then((res) => {
+          ToastCenter("신고 접수 완료!");
+        });
         closeModal();
       } else {
         ToastCenter("내용을 입력해주세요");

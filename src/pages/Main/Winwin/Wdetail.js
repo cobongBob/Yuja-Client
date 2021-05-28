@@ -39,9 +39,9 @@ const Wdetail = ({ match }) => {
 
   useEffect(() => {
     if (wDetails && wDetails.boardType && wDetails.boardType.boardName === "NoticeBoard") {
-      if (!wDetails.isPrivate) {
+      if (!wDetails.isPrivate && !authorities.includes("ADMIN")) {
         ToastCenter("권한이 없습니다.");
-        return history.goBack();
+        return history.push("/");
       }
     } else {
       if (
