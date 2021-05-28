@@ -40,7 +40,6 @@ const Wdetail = ({ match }) => {
   useEffect(() => {
     if (wDetails && wDetails.boardType && wDetails.boardType.boardName === "NoticeBoard") {
       if (!wDetails.isPrivate) {
-        //어드민 권한 추가 필요
         ToastCenter("권한이 없습니다.");
         return history.goBack();
       }
@@ -50,7 +49,6 @@ const Wdetail = ({ match }) => {
         wDetails.isPrivate &&
         (!userData || !(userData.id === wDetails.user.id || authorities.includes("ADMIN")))
       ) {
-        //어드민 권한 추가 필요
         ToastCenter("권한이 없습니다.");
         return history.goBack();
       }
@@ -175,11 +173,11 @@ const Wdetail = ({ match }) => {
   const likeHandler = useCallback(() => {
     if (userData && userData.id) {
       if (wDetails && wDetails.liked) {
-        wDeleteLike(match.params.board_id, userData.id).then((res) => {
+        wDeleteLike(match.params.board_id).then((res) => {
           dispatch(res);
         });
       } else {
-        wAddLike(match.params.board_id, userData.id).then((res) => {
+        wAddLike(match.params.board_id).then((res) => {
           dispatch(res);
         });
       }
