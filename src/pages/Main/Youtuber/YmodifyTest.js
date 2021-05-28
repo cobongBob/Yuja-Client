@@ -31,6 +31,9 @@ const YmodifyTest = (props) => {
     receptionMethod: '',
     tools: checkedlist.current,
   });
+
+  const field = { input: [] };
+
   const [checkBoxInput, setcheckBoxInput] = useState({
     premiere: false,
     aftereffect: false,
@@ -156,15 +159,28 @@ const YmodifyTest = (props) => {
       </div>
       <ul className='register-default-input'>
         <li className='register-title'>
-          <input
-            id='YregisterWriter'
-            name='title'
-            onChange={onChange}
-            placeholder='제목'
-            maxLength='45'
-            type='text'
-            value={input.title || ''}
-          />
+          {input.title ? (
+            <input
+              id='YregisterWriter'
+              name='title'
+              onChange={onChange}
+              placeholder='제목'
+              maxLength='45'
+              type='text'
+              value={input.title || ''}
+            />
+          ) : (
+            <input
+              id='YregisterWriter'
+              name='title'
+              onChange={onChange}
+              placeholder='제목'
+              maxLength='45'
+              autoFocus
+              type='text'
+              value={input.title || ''}
+            />
+          )}
         </li>
         <li className='register-channelname'>
           <input

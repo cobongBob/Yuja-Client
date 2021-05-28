@@ -54,6 +54,7 @@ const Yregister = () => {
     ) {
       return ToastCenter('내용을 모두 적어주세요.');
     }
+
     let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
     let imgSrcArr = String(qData).match(reg);
     if (imgSrcArr) {
@@ -125,6 +126,7 @@ const Yregister = () => {
             onChange={onChange}
             placeholder='제목'
             maxLength='45'
+            ref={(input) => input && input.focus()}
             type='text'
           />
         </li>
