@@ -8,26 +8,26 @@
 export const isNotFilled = (inputs, refs) => {
   for (const input in inputs) {
     if (!inputs[input]) {
-      if (input === "title") {
+      if (input === 'title') {
         refs[0] && refs[0].current.focus();
         return false;
-      } else if (input === "channelName") {
+      } else if (input === 'channelName') {
         refs[1] && refs[1].current.focus();
         return false;
-      } else if (input === "recruitingNum") {
+      } else if (input === 'recruitingNum') {
         refs[2] && refs[2].current.focus();
         return false;
-      } else if (input === "payType") {
+      } else if (input === 'payType') {
         refs[3] && refs[3].current.focus();
         return false;
-      } else if (input === "payAmount") {
+      } else if (input === 'payAmount') {
         refs[4] && refs[4].current.focus();
         return false;
-      } else if (input === "manager") {
+      } else if (input === 'manager') {
         refs[7] && refs[7].current.focus();
         refs[5] && refs[5].current.focus();
         return false;
-      } else if (input === "receptionMethod") {
+      } else if (input === 'receptionMethod') {
         refs[7] && refs[7].current.focus();
         refs[6] && refs[6].current.focus();
         return false;

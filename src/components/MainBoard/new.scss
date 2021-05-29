@@ -76,6 +76,8 @@
   -webkit-box-orient: vertical;
   // display: inline-block;
   // white-space: nowrap;
+  word-wrap: break-word;
+  word-break: break-word;
   overflow: hidden;
   max-width: 18vw;
   text-overflow: ellipsis;
