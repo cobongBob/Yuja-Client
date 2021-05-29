@@ -14,16 +14,16 @@ const AdminSide = () => {
               <li className={pathname.includes("/AdminUsers") ? "li-link-disabled" : "li-winwin"}>유저관리</li>
             </Link>
             <br />
-            <Link to={`/Admin/AdminYoutuber`}>
-              <li className={pathname.includes("/AdminYoutuber") ? "li-link-disabled" : "li-winwin"}>유튜버 인증</li>
+            <Link to={`/Admin/AdminBoard`}>
+              <li className={pathname.includes("/AdminBoard") ? "li-link-disabled" : "li-winwin"}>공지관리</li>
             </Link>
             <br />
             <Link to={`/Admin/AdminReports`}>
-              <li className={pathname.includes("/AdminReports") ? "li-link-disabled" : "li-winwin"}>신고게시판</li>
+              <li className={pathname.includes("/AdminReports") ? "li-link-disabled" : "li-winwin"}>신고관리</li>
             </Link>
             <br />
-            <Link to={`/Admin/AdminBoard`}>
-              <li className={pathname.includes("/AdminBoard") ? "li-link-disabled" : "li-winwin"}>공지게시판</li>
+            <Link to={`/Admin/AdminYoutuber`}>
+              <li className={pathname.includes("/AdminYoutuber") ? "li-link-disabled" : "li-winwin"}>유튜버 인증</li>
             </Link>
           </ul>
         </div>

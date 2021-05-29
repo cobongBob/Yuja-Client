@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import './Yregister.scss';
 import * as YapiService from '../../../apiService/YapiService';
 import { useHistory } from 'react-router';
@@ -6,6 +12,8 @@ import { useSelector } from 'react-redux';
 import QuillModify from '../../../components/Quill/QuillModify';
 import { ToastCenter } from '../../../modules/ToastModule';
 import { checkBoxConvert } from '../../../modules/CheckBoxConvert';
+import getFormatDate from '../../../modules/getFormatDate';
+import { isNotFilled } from '../../../modules/InputFocus';
 
 const YmodifyTest = (props) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -16,6 +24,8 @@ const YmodifyTest = (props) => {
   const checkedlist = useRef([]);
   const current_page = useRef(props.match.params.current_page);
   const history = useHistory();
+
+  const [showDate, setShowDate] = useState(false);
 
   const [input, setInput] = useState({
     title: '',
@@ -31,6 +41,7 @@ const YmodifyTest = (props) => {
     receptionMethod: '',
     tools: checkedlist.current,
   });
+
   const [checkBoxInput, setcheckBoxInput] = useState({
     premiere: false,
     aftereffect: false,
@@ -59,25 +70,48 @@ const YmodifyTest = (props) => {
       setInput(res.data);
       setcheckBoxInput(checkBoxConvert(res.data.tools));
       checkedlist.current = res.data.tools;
+      if (res.data.ywhen === '마감일') {
+        setShowDate(true);
+      }
     });
   }, [userData]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const titleRef = useRef();
+  const channelNameRef = useRef();
+  const recruitingNumRef = useRef();
+  const payTypeRef = useRef();
+  const payAmountRef = useRef();
+  const managerRef = useRef();
+  const receptionMethodRef = useRef();
+  const workerRef = useRef();
+
+  const refsArray = useMemo(
+    () => [
+      titleRef,
+      channelNameRef,
+      recruitingNumRef,
+      payTypeRef,
+      payAmountRef,
+      managerRef,
+      receptionMethodRef,
+      workerRef,
+    ],
+    []
+  );
+
   const testCheking = useCallback(() => {
+    if (!isNotFilled(input, refsArray)) {
+      return ToastCenter('빈칸을 모두 적어주세요.');
+    }
     if (
-      !qModiData ||
-      !input.title ||
-      !input.channelName ||
-      !input.worker ||
-      !input.recruitingNum ||
-      !input.payType ||
-      !input.payAmount ||
-      !input.career ||
+      (input.ywhen === '마감일' && !input.expiredDate) ||
       !input.ywhen ||
-      !input.manager ||
-      !input.receptionMethod ||
-      checkedlist.current.length === 0
+      checkedlist.current.length === 0 ||
+      !input.career ||
+      !input.worker
     ) {
-      return ToastCenter('내용을 모두 적어주세요.');
+      workerRef.current.focus();
+      return ToastCenter('빈칸을 모두 적어주세요.');
     }
     let currentBoardType = 'YoutuberBoard/';
     let reg = /http:\/\/localhost:8888\/files\/Youtuber\/[0-9]+.[a-z]+/g;
@@ -113,7 +147,7 @@ const YmodifyTest = (props) => {
         Yhistory(res.data.id);
       }
     );
-  }, [Yhistory, input, props.match.params.board_id, qModiData]);
+  }, [Yhistory, input, props.match.params.board_id, qModiData, refsArray]);
 
   const checkboxCheck = useCallback(
     (e) => {
@@ -137,6 +171,15 @@ const YmodifyTest = (props) => {
       ...prevInput,
       [name]: value,
     }));
+    if (e.target.value === '마감일') {
+      setShowDate(true);
+    } else {
+      setShowDate(false);
+      setInput((prevInput) => ({
+        ...prevInput,
+        expiredDate: '',
+      }));
+    }
   }, []);
 
   const onChange = useCallback(
@@ -161,9 +204,10 @@ const YmodifyTest = (props) => {
             name='title'
             onChange={onChange}
             placeholder='제목'
-            maxLength='45'
+            maxLength='100'
             type='text'
             value={input.title || ''}
+            ref={titleRef}
           />
         </li>
         <li className='register-channelname'>
@@ -175,6 +219,7 @@ const YmodifyTest = (props) => {
             type='text'
             maxLength='50'
             value={input.channelName || ''}
+            ref={channelNameRef}
           />
         </li>
         <li className='wanted-part'>
@@ -186,6 +231,7 @@ const YmodifyTest = (props) => {
             value='영상편집'
             onChange={radioCheck}
             checked={input.worker === '영상편집'}
+            ref={workerRef}
           />
           <label htmlFor='editor'>편집자</label>
           <input
@@ -250,13 +296,18 @@ const YmodifyTest = (props) => {
               target.value = target.value.replace(/[^0-9]/g, '');
               target.value = target.value.replace(/,/g, '');
             }}
+            ref={recruitingNumRef}
           />
           <div> 명 </div>
         </li>
         <li className='wanted-pay'>
           <div>급여</div>
-          <select name='payType' value={input.payType} onChange={onChange}>
-            <option>선택</option>
+          <select
+            name='payType'
+            ref={payTypeRef}
+            value={input.payType}
+            onChange={onChange}>
+            <option value=''>선택</option>
             <option value='연봉'>연봉</option>
             <option value='월급'>월급</option>
             <option value='주급'>주급</option>
@@ -275,6 +326,7 @@ const YmodifyTest = (props) => {
               target.value = target.value.replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 정규식을 이용해서 3자리 마다 , 추가
             }}
             value={input.payAmount || ''}
+            ref={payAmountRef}
           />
           원
         </li>
@@ -365,17 +417,6 @@ const YmodifyTest = (props) => {
         <li className='wanted-deadline'>
           <div>마감일</div>
           <input
-            id='YendDate'
-            onChange={onChange}
-            name='expiredDate'
-            type='date'
-            value={
-              input && input.expiredDate
-                ? input.expiredDate.substr(0, 10)
-                : null
-            }
-          />
-          <input
             id='always'
             onChange={radioCheck}
             name='ywhen'
@@ -393,6 +434,29 @@ const YmodifyTest = (props) => {
             checked={input.ywhen === '채용시 마감'}
           />
           <label htmlFor='deadline'>채용시 마감</label>
+          <input
+            id='date'
+            onChange={radioCheck}
+            name='ywhen'
+            value='마감일'
+            type='radio'
+            checked={input.ywhen === '마감일'}
+          />
+          <label htmlFor='date'>마감일</label>
+          {showDate && (
+            <input
+              id='YendDate'
+              onChange={onChange}
+              name='expiredDate'
+              type='date'
+              min={getFormatDate(new Date())}
+              value={
+                input && input.expiredDate
+                  ? input.expiredDate.substr(0, 10)
+                  : null
+              }
+            />
+          )}
         </li>
         <li className='wanted-manager'>
           <input
@@ -403,6 +467,7 @@ const YmodifyTest = (props) => {
             placeholder='담당자'
             maxLength='30'
             value={input.manager || ''}
+            ref={managerRef}
           />
         </li>
         <li className='wanted-way'>
@@ -414,6 +479,7 @@ const YmodifyTest = (props) => {
             type='text'
             maxLength='255'
             value={input.receptionMethod || ''}
+            ref={receptionMethodRef}
           />
         </li>
       </ul>

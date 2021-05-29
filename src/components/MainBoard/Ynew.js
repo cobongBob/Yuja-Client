@@ -1,11 +1,12 @@
 import React from 'react';
 import './new.scss';
 import { FaUserAstronaut } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const Ynew = () => {
   const { YmainList } = useSelector((state) => state.mainReducer);
+  const history = useHistory();
 
   return (
     <div>
@@ -15,18 +16,23 @@ const Ynew = () => {
             <div className='new-youtuber'>
               <li>
                 <div className='ProfileWrapper'>
-                  <div className='user-profile-pic'>
-                    {list.previewImage ? (
+                  {list.previewImage ? (
+                    <div
+                      onClick={() => history.push(`/Ydetail/${list.id}/1`)}
+                      className='user-profile-pic_'>
                       <img
                         className='MainProfileImage'
                         src={`${list.previewImage}`}
                         alt=''
                       />
-                    ) : (
+                    </div>
+                  ) : (
+                    <div
+                      onClick={() => history.push(`/Ydetail/${list.id}/1`)}
+                      className='user-profile-pic'>
                       <FaUserAstronaut size={60} className='youtuber-profile' />
-                    )}
-                    {/* previewImage가 defaultImage라 무적권 이미지가보임 default 아이콘이 안나오고 */}
-                  </div>
+                    </div>
+                  )}
                   <div className='wanted-content'>
                     <div className='NameWorkerWrapper'>
                       <span className='wanted-name'>{list.user.nickname}</span>

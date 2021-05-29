@@ -21,6 +21,6 @@
 
 .Toastify__toast-container--bottom-right {
   height: 100px !important;
-  bottom: 8em !important;
+  margin-bottom: 2rem !important;
   z-index: 90 !important;
 }

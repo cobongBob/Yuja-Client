@@ -1,11 +1,13 @@
-import React, { useCallback, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
-import QuillRegister from '../../../components/Quill/QuillRegister';
-import * as EditerApiService from '../../../apiService/EditerApiService';
-import '../Editer/EditorRegister.scss';
-import { ToastCenter } from '../../../modules/ToastModule';
-import './ThumbRegister.scss';
+import React, { useCallback, useMemo, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import QuillRegister from "../../../components/Quill/QuillRegister";
+import * as EditerApiService from "../../../apiService/EditerApiService";
+import "../Editer/EditorRegister.scss";
+import { ToastCenter } from "../../../modules/ToastModule";
+import "./ThumbRegister.scss";
+import defaultImg from "./Thumdefault.png";
+import { isNotFilled } from "../../../modules/InputFocus";
 
 const ThumbRegister = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -15,20 +17,20 @@ const ThumbRegister = ({ match }) => {
   const board_type = useRef(match.params.board_type);
   const history = useHistory();
   const ThumbId = useRef(0);
-  const [fileUrl, setFileUrl] = useState('');
+  const [fileUrl, setFileUrl] = useState(defaultImg);
   let ThHistory = useCallback(
-    (board_id) =>
-      history.push(`/ThumbDetail/${board_type.current}/${board_id}/1`),
+    (board_id) => history.push(`/ThumbDetail/${board_type.current}/${board_id}/1`),
     [history]
   );
 
   const checkedlist = useRef([]);
 
   const [inputData, setInputData] = useState({
-    title: '',
-    payType: '',
-    payAmount: '',
-    career: '',
+    title: "",
+    payType: "",
+    payAmount: "",
+    career: "",
+    receptionMethod: "",
     tools: checkedlist.current,
   });
 
@@ -42,16 +44,24 @@ const ThumbRegister = ({ match }) => {
     [inputData]
   );
 
+  const titleRef = useRef();
+  const payTypeRef = useRef();
+  const payAmountRef = useRef();
+  const receptionMethodRef = useRef();
+  const workerRef = useRef();
+
+  const refsArray = useMemo(
+    () => [titleRef, null, null, payTypeRef, payAmountRef, null, receptionMethodRef, workerRef],
+    []
+  );
+
   const testCheking = useCallback(() => {
-    if (
-      !qData ||
-      !inputData.title ||
-      !inputData.payType ||
-      !inputData.payAmount ||
-      !inputData.career ||
-      !inputData.tools[0]
-    ) {
-      return ToastCenter('내용을 모두 입력해주세요.');
+    if (!isNotFilled(inputData, refsArray)) {
+      return ToastCenter("빈칸을 모두 적어주세요.");
+    }
+    if (checkedlist.current.length === 0 || !inputData.career) {
+      workerRef.current.focus();
+      return ToastCenter("빈칸을 모두 적어주세요.");
     }
     let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
     let imgSrcArr = String(qData).match(reg);
@@ -77,7 +87,7 @@ const ThumbRegister = ({ match }) => {
     EditerApiService.addBoards(sendingData, board_type.current).then((res) => {
       ThHistory(res.data.id);
     });
-  }, [userData, qData, ThHistory, inputData]);
+  }, [userData, qData, ThHistory, inputData, refsArray]);
 
   const checkboxCheck = useCallback(
     (e) => {
@@ -105,23 +115,21 @@ const ThumbRegister = ({ match }) => {
       return;
     }
 
-    const acceptType = ['image/png', 'image/jpeg', 'image/gif', 'image/jpg'];
+    const acceptType = ["image/png", "image/jpeg", "image/gif", "image/jpg"];
     if (!acceptType.includes(file.type)) {
-      return ToastCenter('jpg, jpeg, png 만 가능합니다.');
+      return ToastCenter("jpg, jpeg, png 만 가능합니다.");
     }
     const config = {
       headers: {
-        'content-type': 'multipart/form-data',
+        "content-type": "multipart/form-data",
       },
     };
 
     if (e.target.files !== null) {
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append("file", file);
       EditerApiService.addThumb(formData, config).then((response) => {
-        setFileUrl(
-          `http://localhost:8888/files/temp/${response.data.fileName}`
-        );
+        setFileUrl(`http://localhost:8888/files/temp/${response.data.fileName}`);
         ThumbId.current = response.data.thumbnailId;
       });
     }
@@ -141,7 +149,7 @@ const ThumbRegister = ({ match }) => {
     <div>
       <div className='register-container'>
         <div className='thumb-register-header'>
-          <h1>이력서 등록</h1>
+          <h1>포트폴리오 등록</h1>
         </div>
         <div className='thumb-register-default-input'>
           <ul>
@@ -153,6 +161,7 @@ const ThumbRegister = ({ match }) => {
                 id='first-link'
                 onChange={inputHandler}
                 maxLength='45'
+                ref={titleRef}
               />
             </li>
 
@@ -168,26 +177,14 @@ const ThumbRegister = ({ match }) => {
             </li>
             <li className='li-item3'>
               <div>경력사항</div>
-              <input
-                id='newbie'
-                name='career'
-                onChange={radioCheck}
-                value='신입'
-                type='radio'
-              />
+              <input ref={workerRef} id='newbie' name='career' onChange={radioCheck} value='신입' type='radio' />
               <label htmlFor='newbie'>신입</label>
-              <input
-                id='career'
-                onChange={radioCheck}
-                name='career'
-                value='경력'
-                type='radio'
-              />
+              <input id='career' onChange={radioCheck} name='career' value='경력' type='radio' />
               <label htmlFor='career'>경력</label>
             </li>
             <li className='li-item4'>
-              <select name='payType' onChange={onChange}>
-                <option>선택</option>
+              <select name='payType' ref={payTypeRef} onChange={onChange}>
+                <option value=''>선택</option>
                 <option value='연봉'>연봉</option>
                 <option value='월급'>월급</option>
                 <option value='주급'>주급</option>
@@ -200,88 +197,43 @@ const ThumbRegister = ({ match }) => {
                 onChange={inputHandler}
                 maxLength={12}
                 onInput={({ target }) => {
-                  target.value = target.value.replace(/[^0-9]/g, '');
-                  target.value = target.value.replace(/,/g, '');
-                  target.value = target.value.replace(
-                    /\B(?=(\d{3})+(?!\d))/g,
-                    ','
-                  ); // 정규식을 이용해서 3자리 마다 , 추가
+                  target.value = target.value.replace(/[^0-9]/g, "");
+                  target.value = target.value.replace(/,/g, "");
+                  target.value = target.value.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // 정규식을 이용해서 3자리 마다 , 추가
                 }}
+                ref={payAmountRef}
+              />
+            </li>
+            <li className='li-item1'>
+              <input
+                id='YreceptionMethod'
+                onChange={onChange}
+                placeholder='연락처'
+                maxLength='50'
+                name='receptionMethod'
+                type='text'
+                ref={receptionMethodRef}
               />
             </li>
             <li className='li-item5'>
               <span>사용기술</span>
-              <input
-                id='Epremiere'
-                name='tools'
-                value='프리미어 프로'
-                type='checkbox'
-                onChange={checkboxCheck}
-              />
+              <input id='Epremiere' name='tools' value='프리미어 프로' type='checkbox' onChange={checkboxCheck} />
               <label htmlFor='Epremiere'>프리미어 프로 </label>
-              <input
-                id='Eaftereffect'
-                name='tools'
-                value='애프터이펙트'
-                type='checkbox'
-                onChange={checkboxCheck}
-              />
+              <input id='Eaftereffect' name='tools' value='애프터이펙트' type='checkbox' onChange={checkboxCheck} />
               <label htmlFor='Eaftereffect'>애프터이펙트 </label>
-              <input
-                id='Efinalcut'
-                name='tools'
-                value='파이널컷'
-                type='checkbox'
-                onChange={checkboxCheck}
-              />
+              <input id='Efinalcut' name='tools' value='파이널컷' type='checkbox' onChange={checkboxCheck} />
               <label htmlFor='Efinalcut'>파이널컷 </label>
-              <input
-                id='Evegas'
-                name='tools'
-                onChange={checkboxCheck}
-                value='베가스'
-                type='checkbox'
-              />
+              <input id='Evegas' name='tools' onChange={checkboxCheck} value='베가스' type='checkbox' />
               <label htmlFor='Evegas'>베가스</label>
-              <input
-                id='Epowerdirector'
-                name='tools'
-                value='파워 디렉터'
-                type='checkbox'
-                onChange={checkboxCheck}
-              />
+              <input id='Epowerdirector' name='tools' value='파워 디렉터' type='checkbox' onChange={checkboxCheck} />
               <label htmlFor='Epowerdirector'>파워 디렉터</label>
-              <input
-                id='Yphotoshop'
-                name='tools'
-                value='포토샵'
-                type='checkbox'
-                onChange={checkboxCheck}
-              />
+              <input id='Yphotoshop' name='tools' value='포토샵' type='checkbox' onChange={checkboxCheck} />
               <label htmlFor='Yphotoshop'>포토샵</label>
-              <input
-                id='Yillustrater'
-                name='tools'
-                value='일러스트'
-                type='checkbox'
-                onChange={checkboxCheck}
-              />
+              <input id='Yillustrater' name='tools' value='일러스트' type='checkbox' onChange={checkboxCheck} />
               <label htmlFor='Yillustrater'>일러스트</label>
-              <input
-                id='Yblender'
-                onChange={checkboxCheck}
-                name='tools'
-                value='블렌더'
-                type='checkbox'
-              />
+              <input id='Yblender' onChange={checkboxCheck} name='tools' value='블렌더' type='checkbox' />
               <label htmlFor='Yblender'>블렌더</label>
-              <input
-                id='Ymaya'
-                onChange={checkboxCheck}
-                name='tools'
-                value='마야'
-                type='checkbox'
-              />
+              <input id='Ymaya' onChange={checkboxCheck} name='tools' value='마야' type='checkbox' />
               <label htmlFor='Ymaya'>마야</label>
             </li>
           </ul>

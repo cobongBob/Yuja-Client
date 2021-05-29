@@ -16,7 +16,13 @@ const ModifyComment = ({ comment, isModifying, setIsModifying, modifyComment }) 
   );
   return (
     <div>
-      <textarea name='content' value={modifyInput.content} className='textarea' onChange={modifyInputHandler} />
+      <textarea
+        name='content'
+        value={modifyInput.content}
+        className='textarea'
+        onChange={modifyInputHandler}
+        maxLength={2000}
+      />
       <button
         onClick={() => {
           modifyComment({ ...modifyInput });

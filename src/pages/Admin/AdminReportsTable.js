@@ -4,7 +4,7 @@ import { useHistory } from "react-router";
 import { BoardTypeConvertUrl } from "../../modules/BoardTypeConvert";
 
 Modal.setAppElement("#root");
-const AdminReportsTable = ({ currentData, lastIdx, currentPage, deleteReported }) => {
+const AdminReportsTable = ({ currentData, lastIdx, currentPage, deleteReported, reject }) => {
   const reportcustomStyles = useMemo(
     () => ({
       content: {
@@ -23,8 +23,10 @@ const AdminReportsTable = ({ currentData, lastIdx, currentPage, deleteReported }
   );
 
   const [modalIsOpen, setModalIsOpen] = useState();
-  const openModal = useCallback(() => {
+  const [seleted, setSeleted] = useState(0);
+  const openModal = useCallback((idx) => {
     setModalIsOpen(true);
+    setSeleted(idx);
   }, []);
 
   const closeModal = useCallback(() => {
@@ -59,7 +61,7 @@ const AdminReportsTable = ({ currentData, lastIdx, currentPage, deleteReported }
             {currentData &&
               currentData.map((report, idx) => (
                 <>
-                  <tr key={idx} onClick={openModal} className='admin_report_detail'>
+                  <tr key={idx} onClick={() => openModal(idx)} className='admin_report_detail'>
                     <td>{lastIdx - idx}</td>
                     <td>{report.title}</td>
                     <td>{report.user.username}</td>
@@ -67,52 +69,58 @@ const AdminReportsTable = ({ currentData, lastIdx, currentPage, deleteReported }
                     <td>{report.createDate.substr(0, 10)}</td>
                     <td>처리중...</td>
                   </tr>
-                  <Modal
-                    closeTimeoutMS={200}
-                    isOpen={modalIsOpen}
-                    style={reportcustomStyles}
-                    onRequestClose={closeModal}
-                  >
-                    <div className='admin_report_modal'>
-                      <div className='admin_report_modal_user'>
-                        <span style={{ fontWeight: "bold" }}>신고자</span> : {report.user.username}
-                      </div>
-                      <div className='admin_report_modal_date'>
-                        <span style={{ fontWeight: "bold" }}>신고날짜</span> : {report.createDate.substr(0, 10)}
-                      </div>
-                      <div className='admin_report_modal_content'>
-                        <span style={{ fontWeight: "bold" }}>신고내용</span> : {report.content}
-                      </div>
-                      <div className='admin_modal_btn'>
-                        {" "}
-                        <button
-                          className='YCBtn'
-                          onClick={() => {
-                            moveToBoard(report.title);
-                            closeModal();
-                          }}
-                        >
-                          해당 게시글로 이동
-                        </button>
-                        <button
-                          className='YCBtn'
-                          onClick={() => {
-                            deleteReported(report.title, report.id);
-                            closeModal();
-                          }}
-                        >
-                          해당 게시글 삭제
-                        </button>
-                        <button className='YCBtn' onClick={closeModal}>
-                          닫기
-                        </button>
-                      </div>
-                    </div>
-                  </Modal>
                 </>
               ))}
           </tbody>
         </table>
+        {currentData && currentData.length > 0 && currentData[seleted] && (
+          <Modal closeTimeoutMS={200} isOpen={modalIsOpen} style={reportcustomStyles} onRequestClose={closeModal}>
+            <div className='admin_report_modal'>
+              <div className='admin_report_modal_user'>
+                <span style={{ fontWeight: "bold" }}>신고자</span> : {currentData[seleted].user.username}
+              </div>
+              <div className='admin_report_modal_date'>
+                <span style={{ fontWeight: "bold" }}>신고날짜</span> : {currentData[seleted].createDate.substr(0, 10)}
+              </div>
+              <div className='admin_report_modal_content'>
+                <span style={{ fontWeight: "bold" }}>신고내용</span> : {currentData[seleted].content}
+              </div>
+              <div className='admin_modal_btn'>
+                {" "}
+                <button
+                  className='YCBtn'
+                  onClick={() => {
+                    moveToBoard(currentData[seleted].title);
+                    closeModal();
+                  }}
+                >
+                  해당 게시글로 이동
+                </button>
+                <button
+                  className='YCBtn'
+                  onClick={() => {
+                    deleteReported(currentData[seleted].title, currentData[seleted].id);
+                    closeModal();
+                  }}
+                >
+                  해당 게시글 삭제
+                </button>
+                <button
+                  className='YCBtn'
+                  onClick={() => {
+                    reject(currentData[seleted].id);
+                    closeModal();
+                  }}
+                >
+                  신고 반려 처리
+                </button>
+                <button className='YCBtn' onClick={closeModal}>
+                  닫기
+                </button>
+              </div>
+            </div>
+          </Modal>
+        )}
       </div>
     </div>
   );

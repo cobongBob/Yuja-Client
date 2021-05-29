@@ -1,11 +1,12 @@
 import React from 'react';
 import './new.scss';
 import { FaUserAstronaut } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const Enew = () => {
   const { EmainList } = useSelector((state) => state.mainReducer);
+  const history = useHistory();
 
   return (
     <div>
@@ -15,9 +16,27 @@ const Enew = () => {
             <div className='new-youtuber'>
               <li>
                 <div className='ProfileWrapper'>
-                  <div className='user-profile-pic'>
-                    <FaUserAstronaut size={60} className='editor-profile' />
-                  </div>
+                  {list.previewImage ? (
+                    <div
+                      onClick={() =>
+                        history.push(`/EDetail/Editor/${list.id}/1`)
+                      }
+                      className='user-profile-pic_'>
+                      <img
+                        className='MainProfileImage'
+                        src={`${list.previewImage}`}
+                        alt=''
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      onClick={() =>
+                        history.push(`/EDetail/Editor/${list.id}/1`)
+                      }
+                      className='user-profile-pic'>
+                      <FaUserAstronaut size={60} className='editor-profile' />
+                    </div>
+                  )}
                   <div className='wanted-content'>
                     <div className='NameWorkerWrapper'>
                       <span className='wanted-name'>{list.user.nickname}</span>

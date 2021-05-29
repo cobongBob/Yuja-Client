@@ -1,10 +1,12 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import './Yregister.scss';
 import * as YapiService from '../../../apiService/YapiService';
 import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
 import QuillRegister from '../../../components/Quill/QuillRegister';
 import { ToastCenter } from '../../../modules/ToastModule';
+import getFormatDate from '../../../modules/getFormatDate';
+import { isNotFilled } from '../../../modules/InputFocus';
 
 const Yregister = () => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -12,6 +14,7 @@ const Yregister = () => {
   const addingFileList = useRef([]);
   const [qData, setQData] = useState();
   const { current: board_type } = useRef('Youtuber');
+  const [showDate, setShowDate] = useState(false);
 
   const history = useHistory();
 
@@ -37,23 +40,44 @@ const Yregister = () => {
     [history]
   );
 
+  const titleRef = useRef();
+  const channelNameRef = useRef();
+  const recruitingNumRef = useRef();
+  const payTypeRef = useRef();
+  const payAmountRef = useRef();
+  const managerRef = useRef();
+  const receptionMethodRef = useRef();
+  const workerRef = useRef();
+
+  const refsArray = useMemo(
+    () => [
+      titleRef,
+      channelNameRef,
+      recruitingNumRef,
+      payTypeRef,
+      payAmountRef,
+      managerRef,
+      receptionMethodRef,
+      workerRef,
+    ],
+    []
+  );
+
   const testCheking = useCallback(() => {
-    if (
-      !qData ||
-      !input.title ||
-      !input.channelName ||
-      !input.worker ||
-      !input.career ||
-      !input.recruitingNum ||
-      !input.payType ||
-      !input.payAmount ||
-      !input.tools[0] ||
-      !input.ywhen ||
-      !input.manager ||
-      !input.receptionMethod
-    ) {
-      return ToastCenter('내용을 모두 적어주세요.');
+    if (!isNotFilled(input, refsArray)) {
+      return ToastCenter('빈칸을 모두 적어주세요.');
     }
+    if (
+      (input.ywhen === '마감일' && !input.expiredDate) ||
+      !input.ywhen ||
+      checkedlist.current.length === 0 ||
+      !input.career ||
+      !input.worker
+    ) {
+      workerRef.current.focus();
+      return ToastCenter('빈칸을 모두 적어주세요.');
+    }
+
     let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
     let imgSrcArr = String(qData).match(reg);
     if (imgSrcArr) {
@@ -78,7 +102,7 @@ const Yregister = () => {
     YapiService.addBoards(sendingData).then((res) => {
       Yhistory(res.data.id);
     });
-  }, [userData, qData, Yhistory, board_type, input]);
+  }, [userData, qData, Yhistory, board_type, input, refsArray]);
 
   const radioCheck = useCallback((e) => {
     const { name, value } = e.target;
@@ -86,6 +110,15 @@ const Yregister = () => {
       ...prevInput,
       [name]: value,
     }));
+    if (e.target.value === '마감일') {
+      setShowDate(true);
+    } else {
+      setShowDate(false);
+      setInput((prevInput) => ({
+        ...prevInput,
+        expiredDate: '',
+      }));
+    }
   }, []);
 
   const onChange = useCallback(
@@ -124,7 +157,8 @@ const Yregister = () => {
             name='title'
             onChange={onChange}
             placeholder='제목'
-            maxLength='45'
+            maxLength='100'
+            ref={titleRef}
             type='text'
           />
         </li>
@@ -134,6 +168,7 @@ const Yregister = () => {
             id='YregisterChannel'
             onChange={onChange}
             name='channelName'
+            ref={channelNameRef}
             maxLength='50'
             type='text'
           />
@@ -144,6 +179,7 @@ const Yregister = () => {
             id='editor'
             type='radio'
             name='worker'
+            ref={workerRef}
             value='영상편집'
             onChange={radioCheck}
           />
@@ -198,6 +234,7 @@ const Yregister = () => {
             id='recruitingNum'
             onChange={onChange}
             name='recruitingNum'
+            ref={recruitingNumRef}
             type='text'
             maxLength='3'
             onInput={({ target }) => {
@@ -209,8 +246,8 @@ const Yregister = () => {
         </li>
         <li className='wanted-pay'>
           <div>급여</div>
-          <select name='payType' onChange={onChange}>
-            <option>선택</option>
+          <select name='payType' ref={payTypeRef} onChange={onChange}>
+            <option value=''>선택</option>
             <option value='연봉'>연봉</option>
             <option value='월급'>월급</option>
             <option value='주급'>주급</option>
@@ -221,6 +258,7 @@ const Yregister = () => {
             id='payAmount'
             onChange={onChange}
             name='payAmount'
+            ref={payAmountRef}
             type='text'
             maxLength='11'
             onInput={({ target }) => {
@@ -309,12 +347,6 @@ const Yregister = () => {
         <li className='wanted-deadline'>
           <div>마감일</div>
           <input
-            id='YendDate'
-            onChange={onChange}
-            name='expiredDate'
-            type='date'
-          />
-          <input
             id='always'
             onChange={radioCheck}
             name='ywhen'
@@ -330,12 +362,30 @@ const Yregister = () => {
             onChange={radioCheck}
           />
           <label htmlFor='deadline'>채용시 마감</label>
+          <input
+            id='date'
+            onChange={radioCheck}
+            name='ywhen'
+            value='마감일'
+            type='radio'
+          />
+          <label htmlFor='date'>마감일</label>
+          {showDate && (
+            <input
+              id='YendDate'
+              onChange={onChange}
+              name='expiredDate'
+              type='date'
+              min={getFormatDate(new Date())}
+            />
+          )}
         </li>
         <li className='wanted-manager'>
           <input
             id='YregisterService'
             onChange={onChange}
             name='manager'
+            ref={managerRef}
             type='text'
             placeholder='담당자'
             maxLength='30'
@@ -347,8 +397,9 @@ const Yregister = () => {
             id='YreceptionMethod'
             onChange={onChange}
             placeholder='담당자 연락처'
-            maxLength='255'
+            maxLength='50'
             name='receptionMethod'
+            ref={receptionMethodRef}
             type='text'
           />
         </li>

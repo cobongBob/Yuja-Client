@@ -1,12 +1,14 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
-import { getOneEBoard } from '../../../apiService/EditerApiService';
-import { ToastCenter } from '../../../modules/ToastModule';
-import './ThumbRegister.scss';
-import * as EditerApiService from '../../../apiService/EditerApiService';
-import QuillModify from '../../../components/Quill/QuillModify';
-import { checkBoxConvert } from '../../../modules/CheckBoxConvert';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import { getOneEBoard } from "../../../apiService/EditerApiService";
+import { ToastCenter } from "../../../modules/ToastModule";
+import "./ThumbRegister.scss";
+import * as EditerApiService from "../../../apiService/EditerApiService";
+import QuillModify from "../../../components/Quill/QuillModify";
+import { checkBoxConvert } from "../../../modules/CheckBoxConvert";
+import defaultImg from "./Thumdefault.png";
+import { isNotFilled } from "../../../modules/InputFocus";
 
 const ThumbModify = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -18,20 +20,20 @@ const ThumbModify = ({ match }) => {
   const fileList = useRef([]);
   const history = useHistory();
   const ThumbId = useRef(0);
-  const [fileUrl, setFileUrl] = useState('');
+  const [fileUrl, setFileUrl] = useState(defaultImg);
 
   let ThHistory = useCallback(
-    (board_id) =>
-      history.push(`/ThumbDetail/${board_type.current}/${board_id}/1`),
+    (board_id) => history.push(`/ThumbDetail/${board_type.current}/${board_id}/1`),
     [history, board_type]
   );
 
   const [input, setInput] = useState({
-    previewImage: '',
-    title: '',
-    career: '',
-    payType: '',
-    payAmount: '',
+    previewImage: "",
+    title: "",
+    career: "",
+    payType: "",
+    payAmount: "",
+    receptionMethod: "",
     tools: checkedlist.current,
   });
   const [checkBoxInput, setcheckBoxInput] = useState({
@@ -86,23 +88,21 @@ const ThumbModify = ({ match }) => {
       return;
     }
 
-    const acceptType = ['image/png', 'image/jpeg', 'image/gif', 'image/jpg'];
+    const acceptType = ["image/png", "image/jpeg", "image/gif", "image/jpg"];
     if (!acceptType.includes(file.type)) {
-      return ToastCenter('jpg, jpeg, png 만 가능합니다.');
+      return ToastCenter("jpg, jpeg, png 만 가능합니다.");
     }
     const config = {
       headers: {
-        'content-type': 'multipart/form-data',
+        "content-type": "multipart/form-data",
       },
     };
 
     if (e.target.files !== null) {
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append("file", file);
       EditerApiService.addThumb(formData, config).then((response) => {
-        setFileUrl(
-          `http://localhost:8888/files/temp/${response.data.fileName}`
-        );
+        setFileUrl(`http://localhost:8888/files/temp/${response.data.fileName}`);
         ThumbId.current = response.data.thumbnailId;
       });
     }
@@ -111,48 +111,53 @@ const ThumbModify = ({ match }) => {
   useEffect(() => {
     getOneEBoard(match.params.board_id, board_type.current).then((res) => {
       if (!userData || userData.id !== res.data.user.id) {
-        ToastCenter('권한이 없습니다.');
+        ToastCenter("권한이 없습니다.");
         return history.goBack();
       }
       fileList.current = res.data.boardAttachFileNames;
       setQModiData(res.data.content);
-      setInput(res.data);
-      if (res.data.thumbnail) {
-        setFileUrl(
-          `http://localhost:8888/files/thumbnail/${res.data.thumbnail.substr(
-            8
-          )}`
-        );
+      setInput({
+        career: res.data.career,
+        payAmount: res.data.payAmount,
+        payType: res.data.payType,
+        previewImage: res.data.previewImage,
+        receptionMethod: res.data.receptionMethod,
+        title: res.data.title,
+        tools: res.data.tools,
+      });
+      if (res.data.thumbnail && res.data.thumbnail.length > 8) {
+        setFileUrl(`http://localhost:8888/files/thumbnail/${res.data.thumbnail.substr(8)}`);
       }
       setcheckBoxInput(checkBoxConvert(res.data.tools));
       checkedlist.current = res.data.tools;
     });
   }, [userData, history, match.params.board_id]);
 
+  const titleRef = useRef();
+  const payTypeRef = useRef();
+  const payAmountRef = useRef();
+  const receptionMethodRef = useRef();
+  const workerRef = useRef();
+
+  const refsArray = useMemo(
+    () => [titleRef, null, null, payTypeRef, payAmountRef, null, receptionMethodRef, workerRef],
+    []
+  );
+
   const testCheking = useCallback(() => {
-    if (
-      !qModiData ||
-      !input.title ||
-      !input.payType ||
-      !input.payAmount ||
-      !input.career ||
-      checkedlist.current.length === 0
-    ) {
-      return ToastCenter('내용을 모두 입력해주세요.');
+    if (!isNotFilled(input, refsArray)) {
+      return ToastCenter("빈칸을 모두 적어주세요.");
     }
-    let reg = new RegExp(
-      `http://localhost:8888/files/${board_type.current}/[0-9]+.[a-z]+`,
-      'gi'
-    );
+    if (checkedlist.current.length === 0 || !input.career) {
+      workerRef.current.focus();
+      return ToastCenter("빈칸을 모두 적어주세요.");
+    }
+    let reg = new RegExp(`http://localhost:8888/files/${board_type.current}/[0-9]+.[a-z]+`, "gi");
     let imgSrcArr = String(qModiData).match(reg); // 불러왔던 글에 존재했던 이미지 태그들의 src
     // 서버에서 날아온 이미지 이름과 비교한다. 없으면 삭제된것이므로 삭제 리스트에 담아준다.
     if (imgSrcArr) {
       fileList.current.forEach((src) => {
-        if (
-          !imgSrcArr.includes(
-            `http://localhost:8888/files/${board_type.current}/${src}`
-          )
-        ) {
+        if (!imgSrcArr.includes(`http://localhost:8888/files/${board_type.current}/${src}`)) {
           deletedFileList.current.push(src);
         }
       });
@@ -171,21 +176,16 @@ const ThumbModify = ({ match }) => {
       boardAttachToBeDeleted: deletedFileList.current,
       thumbnailId: ThumbId.current,
     };
-
-    EditerApiService.modifyBoard(
-      match.params.board_id,
-      modifyingData,
-      board_type.current
-    ).then((res) => {
+    EditerApiService.modifyBoard(match.params.board_id, modifyingData, board_type.current).then((res) => {
       ThHistory(res.data.id);
     });
-  }, [ThHistory, match.params.board_id, input, qModiData]);
+  }, [ThHistory, match.params.board_id, input, qModiData, refsArray]);
 
   return (
     <div>
       <div className='register-container'>
         <div className='thumb-register-header'>
-          <h1>이력서 수정</h1>
+          <h1>포트폴리오 수정</h1>
         </div>
         <div className='thumb-register-default-input'>
           <ul>
@@ -197,7 +197,8 @@ const ThumbModify = ({ match }) => {
                 id='first-link'
                 onChange={onChange}
                 maxLength='45'
-                value={input.title || ''}
+                value={input.title || ""}
+                ref={titleRef}
               />
             </li>
             <li className='li-item2'>
@@ -218,7 +219,8 @@ const ThumbModify = ({ match }) => {
                 onChange={radioCheck}
                 value='신입'
                 type='radio'
-                checked={input.career === '신입'}
+                checked={input.career === "신입"}
+                ref={workerRef}
               />
               <label htmlFor='newbie'>신입</label>
               <input
@@ -227,13 +229,13 @@ const ThumbModify = ({ match }) => {
                 name='career'
                 value='경력'
                 type='radio'
-                checked={input.career === '경력'}
+                checked={input.career === "경력"}
               />
               <label htmlFor='career'>경력</label>
             </li>
             <li className='li-item4'>
-              <select name='payType' value={input.payType} onChange={onChange}>
-                <option>선택</option>
+              <select name='payType' ref={payTypeRef} value={input.payType} onChange={onChange}>
+                <option value=''>선택</option>
                 <option value='연봉'>연봉</option>
                 <option value='월급'>월급</option>
                 <option value='주급'>주급</option>
@@ -244,16 +246,26 @@ const ThumbModify = ({ match }) => {
                 placeholder='희망급여'
                 name='payAmount'
                 onChange={onChange}
-                value={input.payAmount || ''}
+                value={input.payAmount || ""}
                 maxLength={12}
                 onInput={({ target }) => {
-                  target.value = target.value.replace(/[^0-9]/g, '');
-                  target.value = target.value.replace(/,/g, '');
-                  target.value = target.value.replace(
-                    /\B(?=(\d{3})+(?!\d))/g,
-                    ','
-                  ); // 정규식을 이용해서 3자리 마다 , 추가
+                  target.value = target.value.replace(/[^0-9]/g, "");
+                  target.value = target.value.replace(/,/g, "");
+                  target.value = target.value.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // 정규식을 이용해서 3자리 마다 , 추가
                 }}
+                ref={payAmountRef}
+              />
+            </li>
+            <li className='li-item1'>
+              <input
+                id='YreceptionMethod'
+                onChange={onChange}
+                placeholder='연락처'
+                maxLength='50'
+                name='receptionMethod'
+                type='text'
+                value={input.receptionMethod || ""}
+                ref={receptionMethodRef}
               />
             </li>
             <li className='li-item5'>
@@ -349,7 +361,7 @@ const ThumbModify = ({ match }) => {
             addingFileList={addingFileList}
             qModiData={qModiData}
             setQModiData={setQModiData}
-            board_type={board_type}
+            board_type={board_type.current}
           />
         </div>
       </div>

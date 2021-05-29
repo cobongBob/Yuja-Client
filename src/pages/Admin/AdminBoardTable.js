@@ -31,12 +31,12 @@ const AdminBoardTable = ({ currentData, lastIdx, currentPage, noticeSwitch }) =>
                   <td>{notice.hit}</td>
                   <td>{notice.createDate.substr(0, 10)}</td>
                   {notice.isPrivate ? (
-                    <td className='notice_option' onClick={() => noticeSwitch(notice.id)}>
-                      공지 숨기기
+                    <td className='notice_option' style={{ color: "blue" }} onClick={() => noticeSwitch(notice.id)}>
+                      공지 공개중
                     </td>
                   ) : (
-                    <td className='notice_option' onClick={() => noticeSwitch(notice.id)}>
-                      공지 공개
+                    <td className='notice_option' style={{ color: "gray" }} onClick={() => noticeSwitch(notice.id)}>
+                      공지 비공개중
                     </td>
                   )}
                 </tr>
