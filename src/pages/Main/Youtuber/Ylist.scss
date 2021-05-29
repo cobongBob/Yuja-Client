@@ -130,11 +130,13 @@
   float: left;
   font-weight: bold;
 }
+
 .card-text > div {
   font-weight: bold;
   font-size: 18px;
   font-family: scdream5;
 }
+
 .card-options {
   display: block;
   text-align: right;
@@ -147,19 +149,16 @@
   text-align: right;
 }
 
-.card-options > .registerBtn {
-  font-family: scdream5;
-  border: 2px solid green;
-  background-color: white;
+.card-container > .card-options > .registerBtn {
+  border: 1px solid #008744;
+  color: #008744;
   border-radius: 20px;
-  text-decoration: none;
-  color: green;
-  font-size: 20;
+  background-color: white;
   padding: 0.5rem;
-  margin-right: 0.25rem;
+  margin-right: 0.5rem;
   &:hover {
-    background-color: green;
-    color: white;
     text-decoration: none;
+    background-color: #008744;
+    color: white;
   }
 }

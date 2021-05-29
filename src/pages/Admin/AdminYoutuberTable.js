@@ -68,6 +68,7 @@ const AdminYoutuberTable = ({ currentData, promoteUser, rejectUser }) => {
         {currentData && currentData.length > 0 && currentData[seleted] && (
           <Modal closeTimeoutMS={200} isOpen={modalIsOpen} style={reportcustomStyles} onRequestClose={closeModal}>
             <div>
+              <h3>사업자 번호 : {currentData[seleted].bsn}</h3>
               <img
                 src={`http://localhost:8888/files/youtubeConfirm/${currentData[seleted].youtubeConfirmImg}`}
                 alt='컨펌이미지'
