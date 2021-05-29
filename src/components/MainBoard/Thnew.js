@@ -1,11 +1,12 @@
 import React from 'react';
 import './new.scss';
 import { FaUserAstronaut } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const Thnew = () => {
   const { ThmainList } = useSelector((state) => state.mainReducer);
+  const history = useHistory();
   return (
     <div>
       {ThmainList &&
@@ -15,7 +16,11 @@ const Thnew = () => {
               <li>
                 <div className='ProfileWrapper'>
                   {list.previewImage ? (
-                    <div className='user-profile-pic_'>
+                    <div
+                      onClick={() =>
+                        history.push(`/ThumbDetail/Thumb/${list.id}/1`)
+                      }
+                      className='user-profile-pic_'>
                       <img
                         className='MainProfileImage'
                         src={`${list.previewImage}`}
@@ -23,7 +28,11 @@ const Thnew = () => {
                       />
                     </div>
                   ) : (
-                    <div className='user-profile-pic'>
+                    <div
+                      onClick={() =>
+                        history.push(`/ThumbDetail/Thumb/${list.id}/1`)
+                      }
+                      className='user-profile-pic'>
                       <FaUserAstronaut
                         size={60}
                         className='thumbnail-profile'
