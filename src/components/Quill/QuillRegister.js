@@ -149,7 +149,16 @@ const QuillRegister = ({ register, addingFileList, qData, setQData, board_type }
         <div id='ReactQuill'></div>
       </div>
       <div className='button-line'>
-        <button onClick={register} className='register-ok'>
+        <button
+          onClick={() => {
+            if (!qData) {
+              ToastCenter(`내용을 입력해주세요`);
+              return quill.focus();
+            }
+            register();
+          }}
+          className='register-ok'
+        >
           등록하기
         </button>
         <button onClick={() => history.goBack()} className='register-back'>

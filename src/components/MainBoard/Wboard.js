@@ -40,6 +40,7 @@ const Wboard = () => {
                             style={{ cursor: "pointer" }}
                           >
                             {list.title}
+                            <span className='commentNum'> [{list.comments}] </span>
                           </td>
                           <td>{list.updatedDate.substr(0, 10)}</td>
                           <td>{list.hit}</td>
@@ -48,11 +49,6 @@ const Wboard = () => {
                   </tbody>
                 </table>
               </div>
-              {/* {WmainList &&
-                WmainList.map((list, index) => ({
-                   <span>{list.user.username}</span>
-                    <h1>{list.title}</h1> 
-                }))} */}
             </div>
           </div>
         </Col>
@@ -80,6 +76,7 @@ const Wboard = () => {
                             style={{ cursor: "pointer" }}
                           >
                             {list.title}
+                            <span className='commentNum'> [{list.comments}] </span>
                           </td>
                           <td>{list.updatedDate.substr(0, 10)}</td>
                           <td>{list.hit}</td>
