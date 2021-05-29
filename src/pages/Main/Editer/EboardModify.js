@@ -18,6 +18,7 @@ const EboardModify = ({ match }) => {
   const checkedlist = useRef([]);
   const fileList = useRef([]);
   const history = useHistory();
+  const [totalCareer, setTotalCareer] = useState();
 
   const [input, setInput] = useState({
     previewImage: "",
@@ -91,9 +92,10 @@ const EboardModify = ({ match }) => {
       } else {
         deletedFileList.current = fileList.current;
       }
-
+      console.log('totalCareer',totalCareer)
       const modifyingData = {
         ...input,
+        career: input.career + totalCareer,
         tools: checkedlist.current,
         content: qModiData.replaceAll(
           `src="http://localhost:8888/files/temp/`,
@@ -106,11 +108,7 @@ const EboardModify = ({ match }) => {
         eHistory(res.data.id);
       });
     }
-
-    console.log('========================= 여기까지 옴')
-    
-
-  }, [eHistory, input, match.params.board_id, qModiData]);
+  }, [eHistory, input, match.params.board_id, qModiData, totalCareer]);
 
   const onChange = useCallback(
     (e) => {
@@ -162,6 +160,20 @@ const EboardModify = ({ match }) => {
     },
     [editorLinkDesc]
   );
+
+  console.log('input.career', input.career)
+
+  const [combine, setCombine] = useState()
+  const regex = /[^0-9]/g;
+  let result = input.career.replace(regex, "");
+  console.log('result', result);
+
+  const careerYear = useCallback((e) => {
+
+    setTotalCareer(' '+e.target.value+'년');
+    setCombine(e.target.value)
+
+  }, [totalCareer])
 
   return (
     <div className='editorRegisterFrag'>
@@ -235,9 +247,24 @@ const EboardModify = ({ match }) => {
                 name='career'
                 value='경력'
                 type='radio'
-                checked={input.career === "경력"}
+                checked={input.career.includes('경력')}
               />
               <label htmlFor='career'>경력</label>
+              {input.career.includes('경력') ?
+                <div className='careerTimeBox'>
+                  <input
+                    id='careerYear'
+                    name='careerYear'
+                    type='text'
+                    maxLength='1'
+                    value={combine}
+                    onChange={careerYear}
+                  />
+                  년
+                </div>
+                :
+                ""
+              }
             </li>
             <li className='li-item4'>
               <select name='payType' value={input.payType} onChange={onChange}>

@@ -25,9 +25,9 @@ export default function EditorTable({
       ToastCenter(`로그인 해주세요`);
     }
   }, [userData, history, board_type]);
-  const modifyBoard = useCallback(() => {
+  const gotomyResume = useCallback(() => {
     if (userData && userData.id > 0) {
-      history.push(`/EboardModify/Editor/${wrote[0].id}/1`);
+      history.push(`/EDetail/Editor/${wrote[0].id}/1`);
     } else {
       ToastCenter(`로그인 해주세요`);
     }
@@ -36,12 +36,12 @@ export default function EditorTable({
     <div className='card-container'>
       <div className='card-options'>
         {wrote.length === 0 ? (
-          <button onClick={writeBoard} className='registerBtn'>
+          <button onClick={writeBoard} className='detail-update-btn'>
             이력서 등록하기
           </button>
         ) : (
-          <button onClick={modifyBoard} className='detail-update-btn'>
-            이력서 수정하기
+          <button onClick={gotomyResume} className='detail-update-btn'>
+            내 이력서 보기
           </button>
         )}
       </div>
@@ -53,14 +53,17 @@ export default function EditorTable({
         {eBoardData?.map((data) => (
           <li key={data.id}>
             <Card>
-              <Card.Img
-                className='Card-Img'
-                onClick={() =>
-                  history.push(
-                    `/EDetail/${board_type}/${data.id}/${currentPage}`
-                  )
-                }
-                src={`${data.previewImage}`}></Card.Img>
+              <div class='thumbnail-for-Main-Wrapper'>
+                <Card.Img
+                  className='thumbnail-for-Main'
+                  onClick={() =>
+                    history.push(
+                      `/EDetail/${board_type}/${data.id}/${currentPage}`
+                    )
+                  }
+                  src={`${data.previewImage}`}
+                ></Card.Img>
+              </div>
               <Card.Header>
                 <Card.Title>
                   <div>
@@ -75,14 +78,16 @@ export default function EditorTable({
                     {data && data.liked ? (
                       <button
                         onClick={() => likeHandler(data.id)}
-                        className='starButton'>
+                        className='starButton'
+                      >
                         <AiFillStar size={30} />
                         <span>{data.likes}</span>
                       </button>
                     ) : (
                       <button
                         onClick={() => dislikeHandler(data.id)}
-                        className='starButton'>
+                        className='starButton'
+                      >
                         <AiOutlineStar size={30} />
                         <span>{data.likes}</span>
                       </button>
@@ -96,7 +101,8 @@ export default function EditorTable({
                   <div>
                     <Link
                       to={`/EDetail/${board_type}/${data.id}/${currentPage}`}
-                      className='card-link'>
+                      className='card-link'
+                    >
                       {data.title}
                     </Link>
                   </div>

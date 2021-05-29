@@ -48,7 +48,7 @@ const AdminUsersTable = ({ currentData, userSetBan, userRemove, userRecovery }) 
             {currentData &&
               currentData.map((user, idx) => (
                 <tr key={idx} className='user_table_tr' onClick={() => openModal(idx)}>
-                  <td>{user.id}.</td>
+                  <td>{user.id}</td>
                   <td>{user.username}</td>
                   <td>{user.nickname}</td>
                   <td>{user.createDate.substr(0, 10)}</td>
@@ -142,6 +142,10 @@ const AdminUsersTable = ({ currentData, userSetBan, userRemove, userRecovery }) 
                     <tr>
                       <th className='admin_user_detail'>유튜브 주소 </th>
                       <td> {currentData[seleted].youtubeUrl}</td>
+                    </tr>
+                    <tr>
+                      <th className='admin_user_detail'>사업자 번호 </th>
+                      <td> {currentData[seleted].bsn}</td>
                     </tr>
                     {currentData[seleted].banned && (
                       <tr>
