@@ -116,7 +116,15 @@ const ThumbModify = ({ match }) => {
       }
       fileList.current = res.data.boardAttachFileNames;
       setQModiData(res.data.content);
-      setInput(res.data);
+      setInput({
+        career: res.data.career,
+        payAmount: res.data.payAmount,
+        payType: res.data.payType,
+        previewImage: res.data.previewImage,
+        receptionMethod: res.data.receptionMethod,
+        title: res.data.title,
+        tools: res.data.tools,
+      });
       if (res.data.thumbnail && res.data.thumbnail.length > 8) {
         setFileUrl(`http://localhost:8888/files/thumbnail/${res.data.thumbnail.substr(8)}`);
       }

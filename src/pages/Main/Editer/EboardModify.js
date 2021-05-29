@@ -60,7 +60,15 @@ const EboardModify = ({ match }) => {
       setQModiData(res.data.content);
       originalUrl.current = res.data.previewImage && res.data.previewImage;
       originalUrl.current = previewToYoutubeLink(originalUrl.current);
-      setInput({ ...res.data, previewImage: originalUrl.current });
+      setInput({
+        career: res.data.career,
+        payAmount: res.data.payAmount,
+        payType: res.data.payType,
+        previewImage: originalUrl.current,
+        receptionMethod: res.data.receptionMethod,
+        title: res.data.title,
+        tools: res.data.tools,
+      });
       setcheckBoxInput(checkBoxConvert(res.data.tools));
       checkedlist.current = res.data.tools;
     });
@@ -80,6 +88,7 @@ const EboardModify = ({ match }) => {
   const testCheking = useCallback(
     (e) => {
       if (!isNotFilled(input, refsArray)) {
+        console.log(input);
         return ToastCenter("빈칸을 모두 적어주세요.");
       }
       if (checkedlist.current.length === 0 || !input.career) {
@@ -263,7 +272,7 @@ const EboardModify = ({ match }) => {
             </li>
             <li className='li-item4'>
               <select name='payType' ref={payTypeRef} value={input.payType} onChange={onChange}>
-                <option>선택</option>
+                <option value=''>선택</option>
                 <option value='연봉'>연봉</option>
                 <option value='월급'>월급</option>
                 <option value='주급'>주급</option>

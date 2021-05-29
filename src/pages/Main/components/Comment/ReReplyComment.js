@@ -16,7 +16,13 @@ const ReReplyComment = ({ comment, isReplying, setIsReplying, reReplyInsert }) =
   );
   return (
     <div>
-      <textarea name='content' value={reReplyInput.content} className='textarea' onChange={reReplyInputHandler} />
+      <textarea
+        name='content'
+        value={reReplyInput.content}
+        className='textarea'
+        onChange={reReplyInputHandler}
+        maxLength={2000}
+      />
       <button
         onClick={() => {
           reReplyInsert({ ...reReplyInput });
