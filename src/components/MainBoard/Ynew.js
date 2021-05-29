@@ -1,11 +1,12 @@
 import React from 'react';
 import './new.scss';
 import { FaUserAstronaut } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const Ynew = () => {
   const { YmainList } = useSelector((state) => state.mainReducer);
+  const history = useHistory();
 
   return (
     <div>
@@ -16,7 +17,9 @@ const Ynew = () => {
               <li>
                 <div className='ProfileWrapper'>
                   {list.previewImage ? (
-                    <div className='user-profile-pic_'>
+                    <div
+                      onClick={() => history.push(`/Ydetail/${list.id}/1`)}
+                      className='user-profile-pic_'>
                       <img
                         className='MainProfileImage'
                         src={`${list.previewImage}`}
@@ -24,7 +27,9 @@ const Ynew = () => {
                       />
                     </div>
                   ) : (
-                    <div className='user-profile-pic'>
+                    <div
+                      onClick={() => history.push(`/Ydetail/${list.id}/1`)}
+                      className='user-profile-pic'>
                       <FaUserAstronaut size={60} className='youtuber-profile' />
                     </div>
                   )}
