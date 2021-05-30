@@ -1,6 +1,6 @@
-import React, { useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { getResetData } from "../../../redux/board/youtube/yboardReducer";
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { getResetData } from '../../../redux/board/youtube/yboardReducer';
 
 const BackToList = () => {
   const dispatch = useDispatch();
@@ -11,9 +11,9 @@ const BackToList = () => {
   }, [dispatch]);
 
   return (
-    <div className='sortingBtn'>
-      <button onClick={resetPage}>목록</button>
-    </div>
+    <button onClick={resetPage} className={'sortingBtn'}>
+      목록
+    </button>
   );
 };
 

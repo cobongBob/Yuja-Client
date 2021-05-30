@@ -11,9 +11,9 @@ const SortingDate = () => {
     });
   }, [dispatch]);
   return (
-    <div className='community-sortingBtn'>
-      <button onClick={likesData}>목록</button>
-    </div>
+    <button onClick={likesData} className='sortingBtn'>
+      목록
+    </button>
   );
 };
 

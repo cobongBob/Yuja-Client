@@ -10,7 +10,7 @@
   color: black;
 }
 
-.sortingBtn > button {
+.sortingBtn {
   display: inline-block;
   border: 2px solid #ff9411;
   background-color: white;
@@ -19,30 +19,23 @@
   color: #ff9411;
   margin: 0.25rem;
   cursor: pointer;
-  &:focus {
-    background-color: #ff9411;
-    color: white;
-  }
+}
+
+.sortingBtn-on {
+  display: inline-block;
+  background-color: #ff9411;
+  border: 2px solid #ff9411;
+  border-radius: 20px;
+  width: 5rem;
+  color: white;
+  margin: 0.25rem;
+  cursor: pointer;
 }
 
 .community-options > div {
   display: inline-block;
   text-decoration: none;
   color: black;
-}
-.community-sortingBtn > button {
-  display: inline-block;
-  border: 2px solid #ff9411;
-  background-color: white;
-  border-radius: 20px;
-  width: 5rem;
-  color: #ff9411;
-  margin: 0.25rem;
-  cursor: pointer;
-  &:focus {
-    background-color: #ff9411;
-    color: white;
-  }
 }
 
 .card-paging {

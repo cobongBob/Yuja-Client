@@ -1,9 +1,11 @@
 import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getSortedHitWData } from '../../../../redux/board/winwin/winBoardReducer';
 import '../Components.scss';
 
 const SortingHit = () => {
+  const data = useSelector((state) => state.winBoardReducer);
+  const checked = data.sortedwHit;
   const dispatch = useDispatch();
   const likesData = useCallback(() => {
     getSortedHitWData().then((res) => {
@@ -11,9 +13,12 @@ const SortingHit = () => {
     });
   }, [dispatch]);
   return (
-    <div className='community-sortingBtn'>
-      <button onClick={likesData}>조회순</button>
-    </div>
+    <button
+      onClick={likesData}
+      className={checked ? 'sortingBtn-on' : 'sortingBtn'}
+    >
+      조회순
+    </button>
   );
 };
 
