@@ -66,7 +66,15 @@ const EboardModify = ({ match }) => {
       setQModiData(res.data.content);
       originalUrl.current = res.data.previewImage && res.data.previewImage;
       originalUrl.current = previewToYoutubeLink(originalUrl.current);
-      setInput({ ...res.data, previewImage: originalUrl.current });
+      setInput({
+        career: res.data.career,
+        payAmount: res.data.payAmount,
+        payType: res.data.payType,
+        previewImage: originalUrl.current,
+        receptionMethod: res.data.receptionMethod,
+        title: res.data.title,
+        tools: res.data.tools,
+      });
       setcheckBoxInput(checkBoxConvert(res.data.tools));
       checkedlist.current = res.data.tools;
     });
@@ -232,7 +240,7 @@ const EboardModify = ({ match }) => {
               <input
                 type='text'
                 placeholder='대표영상의 링크를 적어주세요.'
-                value={input.previewImage}
+                value={input.previewImage || ''}
                 name='previewImage'
                 onChange={onChange}
                 onKeyUp={editorLinkCheck}
@@ -298,7 +306,7 @@ const EboardModify = ({ match }) => {
                 ref={payTypeRef}
                 value={input.payType}
                 onChange={onChange}>
-                <option>선택</option>
+                <option value=''>선택</option>
                 <option value='연봉'>연봉</option>
                 <option value='월급'>월급</option>
                 <option value='주급'>주급</option>

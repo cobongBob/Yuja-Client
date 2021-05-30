@@ -175,7 +175,7 @@ const QuillRegister = ({
       <div className='button-line'>
         <button
           onClick={() => {
-            if (!qData) {
+            if (!qData || qData === "<p><br></p>" || qData === "<p></p>") {
               ToastCenter(`내용을 입력해주세요`);
               return quill.focus();
             }
