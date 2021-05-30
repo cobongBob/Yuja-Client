@@ -13,7 +13,7 @@ const AdminBoardTable = ({ currentData, lastIdx, currentPage, noticeSwitch }) =>
               <th className='report_title'>작성자</th>
               <th className='user_no'>조회수</th>
               <th className='user_regDate'>작성일</th>
-              <th className='user_option'>옵션</th>
+              <th className='user_option'>상태</th>
             </tr>
           </thead>
           <tbody>
