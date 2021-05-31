@@ -16,6 +16,7 @@ import AddressApi from '../Login-SignUp/SignUp/AddressApi';
 import { useSelector } from 'react-redux';
 
 const InfoModify = ({ history }) => {
+
   const { authorities, userLoginStatus } = useSelector(
     (state) => state.loginReducer
   );
@@ -32,7 +33,7 @@ const InfoModify = ({ history }) => {
   const loggedInUserData = getLoggedInUserData();
   const userId =
     loggedInUserData && loggedInUserData.id ? loggedInUserData.id : null;
-
+  const userNickname = loggedInUserData.nickname
   const [previewURL, setpreviewUrl] = useState();
   const [previewURL2, setpreviewUrl2] = useState();
   const profilePicId = useRef(0);
@@ -74,16 +75,16 @@ const InfoModify = ({ history }) => {
     useState(false);
 
   const totalCheck = useCallback(() => {
-    if (
+    if(userData.youtubeUrl !== '' && userData.youtubeConfirmImg === '') {
+      setModifyBtnDisabledHandler(true);
+    } else if(
       nicknameDesc === '' &&
       birthDesc === '' &&
       isCompanyRegNumFill === '' &&
       isPermalinkFill === '' &&
       isYoutuberPicFill === '' &&
       userData.nickname !== '' &&
-      userData.bday !== '' &&
-      userData.youtubeUrl !== '' &&
-      userData.youtubeConfirmImg !== ''
+      userData.bday !== ''
     ) {
       setModifyBtnDisabledHandler(false);
     } else {
@@ -129,7 +130,7 @@ const InfoModify = ({ history }) => {
     isCompanyRegNumFill,
     isPermalinkFill,
     isYoutuberPicFill,
-    totalCheck,
+    totalCheck
   ]);
 
   const changeAddress = (value) => {
@@ -163,15 +164,19 @@ const InfoModify = ({ history }) => {
 
   const checkNicknameValidate = useCallback(
     (e) => {
-      axios
-        .post('http://localhost:8888/api/auth/checknickname', userData)
-        .then((res) => {
-          if (res.data !== '') {
-            setNicknameDesc(res.data);
-          } else if (res.data === '') {
-            setNicknameDesc('');
-          }
-        });
+      if(userNickname === e.target.value) {
+        setNicknameDesc('')
+      } else {
+        axios
+          .post('http://localhost:8888/api/auth/checknickname', userData)
+          .then((res) => {
+            if (res.data !== '') {
+              setNicknameDesc(res.data);
+            } else if (res.data === '') {
+              setNicknameDesc('');
+            }
+          });
+      }
     },
     [userData]
   );
@@ -355,7 +360,7 @@ const InfoModify = ({ history }) => {
                     placeholder='아이디(이메일)'
                     autoComplete='off'
                     disabled={true}
-                    value={userData.username}
+                    value={userData.username || ""}
                     autoFocus
                   />
                 </td>
@@ -372,7 +377,7 @@ const InfoModify = ({ history }) => {
                     placeholder='이름(실명)'
                     autoComplete='off'
                     disabled={true}
-                    value={userData.realName}
+                    value={userData.realName || ""}
                   />
                 </td>
               </tr>
@@ -388,7 +393,7 @@ const InfoModify = ({ history }) => {
                     maxLength='20'
                     placeholder='닉네임'
                     autoComplete='off'
-                    value={userData.nickname}
+                    value={userData.nickname || ""}
                     onChange={onChange}
                     onClick={onClick}
                     onKeyUp={checkNicknameValidate}
@@ -409,7 +414,7 @@ const InfoModify = ({ history }) => {
                     maxLength='6'
                     placeholder='생년월일(-을 제외한 6자리)'
                     autoComplete='off'
-                    value={userData.bday}
+                    value={userData.bday || ""}
                     onChange={onChange}
                     onClick={onClick}
                     onKeyUp={checkBirthValidate}
@@ -466,7 +471,7 @@ const InfoModify = ({ history }) => {
                     autoComplete='off'
                     maxLength='11'
                     onChange={onChange}
-                    value={userData.phone}
+                    value={userData.phone || ""}
                     onClick={onClick}
                   />
                 </td>
@@ -496,7 +501,7 @@ const InfoModify = ({ history }) => {
                         autoComplete='off'
                         onChange={onChange}
                         onKeyUp={bsnCheck}
-                        value={userData.bsn}
+                        value={userData.bsn || ""}
                         onClick={onClick}
                       />
                     </label>
@@ -517,8 +522,7 @@ const InfoModify = ({ history }) => {
                         autoComplete='off'
                         onChange={onChange}
                         onKeyUp={permalinkCheck}
-                        value={userData.youtubeUrl}
-                        onClick={onClick}
+                        value={userData.youtubeUrl || ""}
                       />
                     </label>
                   </div>
