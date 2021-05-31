@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import "./ChatFrame.scss";
-import SmallChat from "../Chat/SmallChat";
+import SmallChat from "./SmallChat";
 import { useSelector } from "react-redux";
 
 const ChatFrame = (props) => {

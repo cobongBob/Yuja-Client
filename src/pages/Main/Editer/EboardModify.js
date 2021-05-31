@@ -26,8 +26,9 @@ const EboardModify = ({ match }) => {
   const fileList = useRef([]);
   const history = useHistory();
   const regex = /[^0-9]/g;
+  const regex2 = /[0-9]/g;
   const [combine, setCombine] = useState({
-    combine:'',
+    combine:1,
   });
 
   const [input, setInput] = useState({
@@ -131,24 +132,48 @@ const EboardModify = ({ match }) => {
         } else {
           deletedFileList.current = fileList.current;
         }
-        const modifyingData = {
-          ...input,
-          career: '경력 '+combine.combine+'년',
-          tools: checkedlist.current,
-          content: qModiData.replaceAll(
-            `src="http://localhost:8888/files/temp/`,
-            `src="http://localhost:8888/files/${board_type.current}/`
-          ),
-          boardAttachIds: addingFileList.current,
-          boardAttachToBeDeleted: deletedFileList.current,
-        };
-        EditerApiService.modifyBoard(
-          match.params.board_id,
-          modifyingData,
-          board_type.current
-        ).then((res) => {
-          eHistory(res.data.id);
-        });
+
+        if(input.career !== "신입" && input.career.includes([0-9]) === false) {
+            const modifyingData = {
+              ...input,
+              career: '경력 '+combine.combine+'년',
+              tools: checkedlist.current,
+              content: qModiData.replaceAll(
+                `src="http://localhost:8888/files/temp/`,
+                `src="http://localhost:8888/files/${board_type.current}/`
+              ),
+              boardAttachIds: addingFileList.current,
+              boardAttachToBeDeleted: deletedFileList.current,
+            };
+
+            EditerApiService.modifyBoard(
+              match.params.board_id,
+              modifyingData,
+              board_type.current
+            ).then((res) => {
+              eHistory(res.data.id);
+            });
+        } else {
+          const modifyingData = {
+            ...input,
+            career: input.career.replaceAll(regex2, combine.combine),
+            tools: checkedlist.current,
+            content: qModiData.replaceAll(
+              `src="http://localhost:8888/files/temp/`,
+              `src="http://localhost:8888/files/${board_type.current}/`
+            ),
+            boardAttachIds: addingFileList.current,
+            boardAttachToBeDeleted: deletedFileList.current,
+          };
+
+          EditerApiService.modifyBoard(
+            match.params.board_id,
+            modifyingData,
+            board_type.current
+          ).then((res) => {
+            eHistory(res.data.id);
+          });
+        }
       }
     },
     [eHistory, input, match.params.board_id, qModiData, refsArray, combine]
@@ -219,7 +244,7 @@ const EboardModify = ({ match }) => {
   }, [combine]);
 
   useEffect(()=> {
-    counter()
+      counter()
   }, [input])
 
   return (
@@ -253,8 +278,8 @@ const EboardModify = ({ match }) => {
                 onChange={onChange}
                 onKeyUp={editorLinkCheck}
               />
-              <div className='warningBox'>{editorLinkDesc}</div>
             </li>
+            <div className='warningBox'>{editorLinkDesc}</div>
             <li className='li-item3'>
               <div className='li_Title_ReceptionMethod'>연락처</div>
               <input
@@ -298,7 +323,7 @@ const EboardModify = ({ match }) => {
                     id='careerYear'
                     name='careerYear'
                     type='text'
-                    maxLength='1'
+                    maxLength='2'
                     value={combine.combine}
                     onChange={careerYear}
                   />
