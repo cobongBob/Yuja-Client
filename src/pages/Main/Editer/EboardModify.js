@@ -128,7 +128,6 @@ const EboardModify = ({ match }) => {
         } else {
           deletedFileList.current = fileList.current;
         }
-        console.log('totalCareer', totalCareer);
         const modifyingData = {
           ...input,
           career: input.career + totalCareer,
@@ -202,12 +201,9 @@ const EboardModify = ({ match }) => {
     }
   }, []);
 
-  console.log('input.career', input.career);
-
   const [combine, setCombine] = useState();
   const regex = /[^0-9]/g;
   let result = input.career.replace(regex, '');
-  console.log('result', result);
 
   const careerYear = useCallback((e) => {
     setTotalCareer(' ' + e.target.value + '년');
@@ -305,7 +301,8 @@ const EboardModify = ({ match }) => {
                 name='payType'
                 ref={payTypeRef}
                 value={input.payType}
-                onChange={onChange}>
+                onChange={onChange}
+              >
                 <option value=''>선택</option>
                 <option value='연봉'>연봉</option>
                 <option value='월급'>월급</option>

@@ -1,7 +1,13 @@
-import React, { useState, Fragment, useRef, useCallback, useEffect } from "react";
-import DaumPostcode from "react-daum-postcode";
-import Modal from "react-modal";
-import "./AddressApi.scss";
+import React, {
+  useState,
+  Fragment,
+  useRef,
+  useCallback,
+  useEffect,
+} from 'react';
+import DaumPostcode from 'react-daum-postcode';
+import Modal from 'react-modal';
+import './AddressApi.scss';
 
 const AddressApi = ({
   changeAddress,
@@ -15,16 +21,16 @@ const AddressApi = ({
   /* 모달 설정 */
   const AddressModalCustomStyles = {
     content: {
-      top: "50%",
-      left: "50%",
-      right: "75%",
-      bottom: "50%",
-      marginBottom: "-50%",
-      marginRight: "-60%",
-      transform: "translate(-50%, -50%)",
-      overflow: "hidden",
-      WebkitOverflowScrolling: "touch",
-      preventScroll: "true",
+      top: '50%',
+      left: '50%',
+      right: '75%',
+      bottom: '50%',
+      marginBottom: '-50%',
+      marginRight: '-60%',
+      transform: 'translate(-50%, -50%)',
+      overflow: 'hidden',
+      WebkitOverflowScrolling: 'touch',
+      preventScroll: 'true',
     },
     overlay: { zIndex: 9999 },
   };
@@ -48,28 +54,29 @@ const AddressApi = ({
 
   const handlePostCode = (data) => {
     let fullAddress = data.address;
-    let extraAddress = "";
+    let extraAddress = '';
 
-    if (data.addressType === "R") {
-      if (data.bname !== "") {
+    if (data.addressType === 'R') {
+      if (data.bname !== '') {
         extraAddress += data.bname;
       }
-      if (data.buildingName !== "") {
-        extraAddress += extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+      if (data.buildingName !== '') {
+        extraAddress +=
+          extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
       }
-      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+      fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
-    setAddressContents(data.zonecode + ", " + fullAddress);
-    changeAddress(data.zonecode + ", " + fullAddress);
+    setAddressContents(data.zonecode + ', ' + fullAddress);
+    changeAddress(data.zonecode + ', ' + fullAddress);
     closeModal();
   };
 
   const postCodeStyle = {
-    display: "inline-block",
-    position: "relative",
-    width: "100%",
-    height: "100%",
-    padding: "3px",
+    display: 'inline-block',
+    position: 'relative',
+    width: '100%',
+    height: '100%',
+    padding: '3px',
   };
   /* 주소입력 끝 */
 
@@ -77,7 +84,6 @@ const AddressApi = ({
 
   const changeValue = useCallback(
     (e) => {
-      console.log("changeValue");
       setNonRequiredData({
         ...nonRequiredData,
         [e.target.name]: e.target.value,
@@ -88,7 +94,6 @@ const AddressApi = ({
 
   const onChange = useCallback(
     (e) => {
-      console.log("onChange");
       setUserData({
         ...userData,
         [e.target.name]: e.target.value,
@@ -98,7 +103,7 @@ const AddressApi = ({
   );
 
   const onClick = useCallback((e) => {
-    e.target.value = "";
+    e.target.value = '';
   }, []);
 
   useEffect(() => {
@@ -135,7 +140,9 @@ const AddressApi = ({
           ref={signUpAddressRef}
           value={detailAddress}
           onClick={onClick}
-          onChange={userData !== "" && userData !== undefined ? onChange : changeValue}
+          onChange={
+            userData !== '' && userData !== undefined ? onChange : changeValue
+          }
           maxLength='30'
         />
         <Modal
