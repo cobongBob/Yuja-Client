@@ -1,5 +1,5 @@
 import React from "react";
-import "./SignUp1.scss";
+import "./SignUp.scss";
 import Agreement from "./Agreement";
 import Switch from "react-bootstrap/Switch";
 import { Link, Route } from "react-router-dom";
@@ -8,7 +8,7 @@ import Required from "./Required";
 import { ToastPreventAccess } from "../../../modules/ToastModule";
 import SignUpEnd from './SignUpEnd';
 
-const SignUp1 = ({ location, history, match }) => {
+const SignUp = ({ location, history, match }) => {
 
   if (history.action === "POP") {
     ToastPreventAccess("❌ 잘못된 접근 입니다.");
@@ -27,13 +27,13 @@ const SignUp1 = ({ location, history, match }) => {
           <Switch>
             <Route
               exact
-              path='/SignUp1'
+              path='/SignUp'
               component={Agreement}
               googleSignupData={location.resData === undefined ? null : location.resData.res}
             />
-            <Route path='/SignUp1/Required' component={Required} />
-            <Route path='/SignUp1/NonRequired' component={NonRequired} />
-            <Route path='/SignUp1/SignUpEnd' component={SignUpEnd}/>
+            <Route path='/SignUp/Required' component={Required} />
+            <Route path='/SignUp/NonRequired' component={NonRequired} />
+            <Route path='/SignUp/SignUpEnd' component={SignUpEnd}/>
           </Switch>
         </div>
       <footer className='SignUpFooter'>
@@ -45,4 +45,4 @@ const SignUp1 = ({ location, history, match }) => {
   );
 };
 
-export default SignUp1;
+export default SignUp;

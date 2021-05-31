@@ -14,7 +14,7 @@ import Thumbnailer from './pages/Main/Thumbnailer/Thumbnailer';
 import Winwin from './pages/Main/Winwin/Winwin';
 import Help from './pages/Main/Help/Help';
 import Ydetail from './pages/Main/Youtuber/Ydetail';
-import SignUp1 from './components/Login-SignUp/SignUp/SignUp1';
+import SignUp from './components/Login-SignUp/SignUp/SignUp';
 import { withRouter } from 'react-router';
 import Navi from './components/Navi/Navi';
 import YoutuberProfile from './pages/Profile/YoutuberProfile';
@@ -33,7 +33,6 @@ import { getLoaded, getLoading } from './redux/loading/loadingReducer';
 import Loader from './components/Loading/Loader';
 import instance from './AxiosConfig';
 import { addAuthority, userLogout } from './redux/redux-login/loginReducer';
-import Chat from './pages/Main/components/Chat/Chat';
 import EDetail from './pages/Main/Editer/EDetail';
 import ResetPassword from './components/Login-SignUp/Login/ResetPassword';
 import {
@@ -59,7 +58,7 @@ import { getAllNotifications } from './redux/loading/notiReducer';
 import RouteIf from './routerif/RouteIf';
 import ChatFrame from './pages/Main/components/NewChat/ChatFrame';
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
-const exceptArray = ['/SignUp1', '/SignUp1/Required', '/SignUp1/NonRequired'];
+const exceptArray = ['/SignUp', '/SignUp/Required', '/SignUp/NonRequired'];
 
 function App() {
   const location = useLocation();
@@ -407,7 +406,7 @@ function App() {
             path='/BoardDetail/:board_type/:board_id/:current_page'
             component={Wdetail}
           />
-          <Route path='/SignUp1' component={SignUp1} />
+          <Route path='/SignUp' component={SignUp} />
           <Route path='/FindPassword' component={FindPassword} />
           <Route path='/ResetPassword' component={ResetPassword} />
           <Route path='/BeforeModify' component={BeforeModify} />
@@ -426,7 +425,6 @@ function App() {
             roles={[role[5], role[6]]}
           />
           <Route path='/Help' component={Help} />
-          <Route path='/Chat' component={Chat} />
           <Route path='/SignOut' component={SignOut} />
           <Redirect to='/' />
         </Switch>

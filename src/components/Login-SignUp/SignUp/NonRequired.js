@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import UserApiService from '../../../apiService/UserApiService';
-import './SignUp1.scss';
+import './SignUp.scss';
 import AddressApi from './AddressApi';
 import {
   ToastCenter,

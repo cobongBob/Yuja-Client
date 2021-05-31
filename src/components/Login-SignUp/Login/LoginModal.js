@@ -167,7 +167,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
         } else {
           closeModal();
           history.push({
-            pathname: '/SignUp1',
+            pathname: '/SignUp',
             resData: {
               res,
             },
@@ -339,7 +339,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
           <footer>
             <div className='loginLine'>
               회원이 아니신가요?{' '}
-              <Link to='/SignUp1' onClick={closeModal}>
+              <Link to='/SignUp' onClick={closeModal}>
                 이메일로 회원가입
               </Link>
             </div>
