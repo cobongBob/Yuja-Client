@@ -109,8 +109,6 @@ const Required = ({ location, history }) => {
   const changeStartTimer = () => {
     auth.verifyEmailSend(requiredData.username).then((res) => {
       setSecurityCode(res.data);
-      console.log('res.data를 sc에 넣은 후 sc의 값', securityCode);
-      console.log('auth', authCode);
       setTimeout(() => {
         setSecurityCode('내일점심은부대찌개!');
       }, securityCodeDelay);
@@ -470,7 +468,8 @@ const Required = ({ location, history }) => {
                         checkCodes={checkCodes}
                         btnTextHandler={btnTextHandler}
                         disabledHandler={disabledHandler}
-                        autoComplete='off'></AuthBtnBox>
+                        autoComplete='off'
+                      ></AuthBtnBox>
                     </div>
                     <div className='warningBox'>{securityCodeValidateDesc}</div>
                   </div>

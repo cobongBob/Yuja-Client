@@ -23,8 +23,6 @@ const EDetail = ({ match }) => {
   const { userData, authorities } = useSelector((state) => state.loginReducer);
   const { detailData } = useSelector((state) => state.EboardReducer);
 
-  console.log('=======================', detailData);
-
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const [representVideo, setRepresentVideo] = useState('');
@@ -95,7 +93,8 @@ const EDetail = ({ match }) => {
                 <div>
                   <Link
                     to={`/EboardModify/Editor/${detailData.id}/1`}
-                    className='detail-update-btn'>
+                    className='detail-update-btn'
+                  >
                     이력서 수정하기
                   </Link>
                   <button className='detail-update-btn' onClick={deleteBoard}>

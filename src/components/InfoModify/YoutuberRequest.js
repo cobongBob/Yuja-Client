@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import "./YoutuberRequest.scss";
-import { getLoggedInUserData } from "../../apiService/AuthenticationService";
-import UserApiService from "../../apiService/UserApiService";
-import { ToastCenter, ToastTopRight } from "../../modules/ToastModule";
-import { Link } from "react-router-dom";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import './YoutuberRequest.scss';
+import { getLoggedInUserData } from '../../apiService/AuthenticationService';
+import UserApiService from '../../apiService/UserApiService';
+import { ToastCenter, ToastTopRight } from '../../modules/ToastModule';
+import { Link } from 'react-router-dom';
 
 const YoutuberRequest = ({ history }) => {
   // /* 잘못된 접근 막기 */
@@ -16,12 +16,15 @@ const YoutuberRequest = ({ history }) => {
   //  }
 
   const loggedInUserData = getLoggedInUserData();
-  const userId = loggedInUserData && loggedInUserData.id ? loggedInUserData.id : null;
+  const userId =
+    loggedInUserData && loggedInUserData.id ? loggedInUserData.id : null;
 
   const [isCompanyRegNumFill, setIsCompanyRegNumFill] = useState();
-  const [isPermalinkFill, setIsPermalinkFill] = useState("https://www.youtube.com/channel/고유코드 형식이여야 합니다.");
+  const [isPermalinkFill, setIsPermalinkFill] = useState(
+    'https://www.youtube.com/channel/고유코드 형식이여야 합니다.'
+  );
   const [isYoutuberPicFill, setIsYoutuberPicFill] = useState(
-    "아래 예시처럼 시간이 보이는 본인의 유튜브 스튜디오/콘텐츠 화면 스크린샷을 업로드 해주세요."
+    '아래 예시처럼 시간이 보이는 본인의 유튜브 스튜디오/콘텐츠 화면 스크린샷을 업로드 해주세요.'
   );
   const [submitDisableHandler, setSubmitDisableHandler] = useState(true);
 
@@ -30,35 +33,41 @@ const YoutuberRequest = ({ history }) => {
 
   const [requestUserData, setRequestUserData] = useState({
     userId: userId,
-    bsn: "",
-    youtubeUrl: "",
+    bsn: '',
+    youtubeUrl: '',
     youtubeConfirmId: youtubeConfirmId.current,
   });
 
   /* 파일 업로드 관련 */
-  let youtuberPic_preview = "";
-  youtuberPic_preview = <img className='youtuberPic_preview' src={previewURL} alt='' />;
+  let youtuberPic_preview = '';
+  youtuberPic_preview = (
+    <img className='youtuberPic_preview' src={previewURL} alt='' />
+  );
 
   const handleFileOnChange = (e) => {
     let file = e.target.files[0];
     const config = {
       headers: {
-        "content-type": "multipart/form-data",
+        'content-type': 'multipart/form-data',
       },
     };
 
     if (e.target.files !== null) {
       const fd = new FormData();
-      fd.append("file", file);
+      fd.append('file', file);
       UserApiService.addYoutuberConfirmPic(fd, config)
         .then((response) => {
-          const fileUrl = new URL("http://localhost:8888/files/temp/" + response.data.fileName);
+          const fileUrl = new URL(
+            'http://localhost:8888/files/temp/' + response.data.fileName
+          );
           setpreviewUrl(fileUrl);
-          setIsYoutuberPicFill("");
+          setIsYoutuberPicFill('');
           youtubeConfirmId.current = response.data.youtubeConfirmId;
         })
         .catch((error) => {
-          ToastCenter(error.response.data ? error.response.data.message : "Server Error!");
+          ToastCenter(
+            error.response.data ? error.response.data.message : 'Server Error!'
+          );
         });
     }
   };
@@ -67,7 +76,6 @@ const YoutuberRequest = ({ history }) => {
 
   const onChange = useCallback(
     (e) => {
-      console.log("onChange");
       setRequestUserData({
         ...requestUserData,
         [e.target.name]: e.target.value,
@@ -82,7 +90,7 @@ const YoutuberRequest = ({ history }) => {
     const checkId = [1, 3, 7, 1, 3, 7, 1, 3, 5, 1];
     let sum = 0;
 
-    if (bsn !== "") {
+    if (bsn !== '') {
       for (let i = 0; i < 9; i++) {
         sum += checkId[i] * Number(bsn[i]);
       }
@@ -92,9 +100,9 @@ const YoutuberRequest = ({ history }) => {
       let reminder = (10 - (sum % 10)) % 10;
 
       if (reminder === Number(bsn[9])) {
-        setIsCompanyRegNumFill("");
+        setIsCompanyRegNumFill('');
       } else {
-        setIsCompanyRegNumFill("사업자등록번호를 확인해주세요.");
+        setIsCompanyRegNumFill('사업자등록번호를 확인해주세요.');
       }
     }
   };
@@ -105,13 +113,15 @@ const YoutuberRequest = ({ history }) => {
     (e) => {
       let checkContent = e.target.value;
       if (
-        checkContent !== "" &&
-        checkContent.startsWith("https://www.youtube.com/c" || "https://www.youtube.com/channel") &&
-        !checkContent.endsWith("/featured")
+        checkContent !== '' &&
+        checkContent.startsWith(
+          'https://www.youtube.com/c' || 'https://www.youtube.com/channel'
+        ) &&
+        !checkContent.endsWith('/featured')
       ) {
-        setIsPermalinkFill("");
+        setIsPermalinkFill('');
       } else {
-        setIsPermalinkFill("유튜브 고유주소를 확인해주세요.");
+        setIsPermalinkFill('유튜브 고유주소를 확인해주세요.');
       }
     },
     [setIsPermalinkFill]
@@ -120,7 +130,7 @@ const YoutuberRequest = ({ history }) => {
 
   /* 유효성 검사 */
   const submitDisabledCheck = useCallback(() => {
-    if (isPermalinkFill === "" && isYoutuberPicFill === "") {
+    if (isPermalinkFill === '' && isYoutuberPicFill === '') {
       setSubmitDisableHandler(false);
     }
   }, [isPermalinkFill, isYoutuberPicFill, setSubmitDisableHandler]);
@@ -140,18 +150,21 @@ const YoutuberRequest = ({ history }) => {
       ...requestUserData,
       youtubeConfirmId: youtubeConfirmId.current,
     };
-    console.log("insertUserData", data);
     UserApiService.addYoutuberRequest(data)
       .then((r) => {
         if (r) {
-          ToastTopRight("🎉 신청이 완료 되었습니다! 3일 내 확인이 완료 됩니다.");
-          history.push("/");
+          ToastTopRight(
+            '🎉 신청이 완료 되었습니다! 3일 내 확인이 완료 됩니다.'
+          );
+          history.push('/');
         } else {
-          ToastTopRight("❗ 오류가 발생했습니다.");
+          ToastTopRight('❗ 오류가 발생했습니다.');
         }
       })
       .catch((error) => {
-        ToastCenter(error.response.data ? error.response.data.message : "Server Error!");
+        ToastCenter(
+          error.response.data ? error.response.data.message : 'Server Error!'
+        );
       });
   };
 
@@ -181,7 +194,10 @@ const YoutuberRequest = ({ history }) => {
           </div>
           <div className='youtuberInputBox'>
             <div className='companyRegNumBox'>
-              <label className='companyRegNumLabel' htmlFor='companyRegNumInput'>
+              <label
+                className='companyRegNumLabel'
+                htmlFor='companyRegNumInput'
+              >
                 사업자등록번호 <span> (선택)</span>
                 <input
                   className='companyRegNumInput'
@@ -198,7 +214,10 @@ const YoutuberRequest = ({ history }) => {
             </div>
             <div className='warningBox'>{isCompanyRegNumFill}</div>
             <div className='youtuberUrlBox'>
-              <label className='youtuberUrlBoxLabel' htmlFor='youtuberUrlBoxInput'>
+              <label
+                className='youtuberUrlBoxLabel'
+                htmlFor='youtuberUrlBoxInput'
+              >
                 유튜브 고유 주소 <span>(필수)</span>
                 <input
                   className='youtuberUrlBoxInput'
@@ -220,7 +239,9 @@ const YoutuberRequest = ({ history }) => {
               유튜브 계정 스크린샷
               <span> (필수)</span>
               <div className='youtuberPicDesc'>{isYoutuberPicFill}</div>
-              <div className='youtuberPic_PreviewBox'>{youtuberPic_preview}</div>
+              <div className='youtuberPic_PreviewBox'>
+                {youtuberPic_preview}
+              </div>
               <div className='youtuberPicInputWrapper'>
                 <input
                   className='youtuberPicInput'
@@ -234,7 +255,12 @@ const YoutuberRequest = ({ history }) => {
           </div>
         </div>
         <div className='signUpSubmitBtnBox'>
-          <button type='submit' className='btn btn-warning' onClick={totalAction} disabled={submitDisableHandler}>
+          <button
+            type='submit'
+            className='btn btn-warning'
+            onClick={totalAction}
+            disabled={submitDisableHandler}
+          >
             인증 신청하기
           </button>
         </div>
