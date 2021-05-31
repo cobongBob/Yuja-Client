@@ -1,23 +1,29 @@
 import React, { useCallback, useEffect, useState } from "react";
 import "./BeforeModify.scss";
 import { Link } from "react-router-dom";
-import { executeJwtAuthenticationService, getLoggedInUserData } from "../../apiService/AuthenticationService";
+import {
+  executeJwtAuthenticationService,
+  getLoggedInUserData,
+  isUserLoggedIn
+} from '../../apiService/AuthenticationService';
 import * as auth from "../../apiService/AuthenticationService";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../../redux/redux-login/loginReducer";
 import { getUserData } from "../../apiService/UserApiService";
 import GoogleLogin from "react-google-login";
 import googleLoginIcon from "../Login-SignUp/Login/googleLoginIcon2.svg";
+import { ToastPreventAccess } from '../../modules/ToastModule';
 
 const BeforeModify = ({ history }) => {
+
   /* 잘못된 접근 막기 */
-  // if (history.action === "POP") {
-  //   ToastPreventAccess("❌ 잘못된 접근 입니다.");
-  //   history.replace("/");
-  // } else if(isUserLoggedIn === false) {
-  //   ToastPreventAccess("❌ 먼저 로그인 하셔야 합니다.");
-  //   history.replace("/");
-  // }
+  if (history.action === "POP") {
+     ToastPreventAccess("❌ 잘못된 접근 입니다.");
+     history.replace("/");
+   } else if(isUserLoggedIn === false) {
+     ToastPreventAccess("❌ 먼저 로그인 하셔야 합니다.");
+     history.replace("/");
+   }
 
   const loggedInUserData = getLoggedInUserData();
   const [loginData, setLoginData] = useState({
