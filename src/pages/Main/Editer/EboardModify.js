@@ -25,7 +25,10 @@ const EboardModify = ({ match }) => {
   const checkedlist = useRef([]);
   const fileList = useRef([]);
   const history = useHistory();
-  const [totalCareer, setTotalCareer] = useState();
+  const regex = /[^0-9]/g;
+  const [combine, setCombine] = useState({
+    combine:'',
+  });
 
   const [input, setInput] = useState({
     previewImage: '',
@@ -130,7 +133,7 @@ const EboardModify = ({ match }) => {
         }
         const modifyingData = {
           ...input,
-          career: input.career + totalCareer,
+          career: '경력 '+combine.combine+'년',
           tools: checkedlist.current,
           content: qModiData.replaceAll(
             `src="http://localhost:8888/files/temp/`,
@@ -148,7 +151,7 @@ const EboardModify = ({ match }) => {
         });
       }
     },
-    [eHistory, input, match.params.board_id, qModiData, totalCareer, refsArray]
+    [eHistory, input, match.params.board_id, qModiData, refsArray, combine]
   );
 
   const onChange = useCallback(
@@ -201,14 +204,23 @@ const EboardModify = ({ match }) => {
     }
   }, []);
 
-  const [combine, setCombine] = useState();
-  const regex = /[^0-9]/g;
-  let result = input.career.replace(regex, '');
+  const counter = useCallback(() => {
+    setCombine({
+      ...combine,
+      combine:input.career.replace(regex, '')
+    })
+  }, [input, combine, regex])
 
   const careerYear = useCallback((e) => {
-    setTotalCareer(' ' + e.target.value + '년');
-    setCombine(e.target.value);
-  }, []);
+    setCombine({
+      ...combine,
+      combine: e.target.value
+    });
+  }, [combine]);
+
+  useEffect(()=> {
+    counter()
+  }, [input])
 
   return (
     <div className='editorRegisterFrag'>
@@ -287,7 +299,7 @@ const EboardModify = ({ match }) => {
                     name='careerYear'
                     type='text'
                     maxLength='1'
-                    value={combine}
+                    value={combine.combine}
                     onChange={careerYear}
                   />
                   년
