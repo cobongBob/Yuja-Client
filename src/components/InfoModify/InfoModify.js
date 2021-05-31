@@ -14,7 +14,6 @@ import UserApiService, {
 import axios from 'axios';
 import AddressApi from '../Login-SignUp/SignUp/AddressApi';
 import { useSelector } from 'react-redux';
-import MyPage from './MyPage';
 
 const InfoModify = ({ history }) => {
   const { authorities, userLoginStatus } = useSelector(

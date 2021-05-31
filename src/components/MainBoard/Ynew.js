@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 const Ynew = () => {
   const { YmainList } = useSelector((state) => state.mainReducer);
   const history = useHistory();
-
   return (
     <div>
       {YmainList &&
@@ -19,7 +18,8 @@ const Ynew = () => {
                   {list.previewImage ? (
                     <div
                       onClick={() => history.push(`/Ydetail/${list.id}/1`)}
-                      className='user-profile-pic_'>
+                      className='user-profile-pic_'
+                    >
                       <img
                         className='MainProfileImage'
                         src={`${list.previewImage}`}
@@ -29,7 +29,8 @@ const Ynew = () => {
                   ) : (
                     <div
                       onClick={() => history.push(`/Ydetail/${list.id}/1`)}
-                      className='user-profile-pic'>
+                      className='user-profile-pic'
+                    >
                       <FaUserAstronaut size={60} className='youtuber-profile' />
                     </div>
                   )}
@@ -45,7 +46,8 @@ const Ynew = () => {
                         <strong>
                           <Link
                             className='ListTitle'
-                            to={`/Ydetail/${list.id}/1`}>
+                            to={`/Ydetail/${list.id}/1`}
+                          >
                             {list.title}
                           </Link>
                         </strong>

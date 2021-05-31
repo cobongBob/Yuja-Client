@@ -30,10 +30,6 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
     history.push('/BeforeModify');
   }, [history]);
 
-  const myPage = useCallback(() => {
-    history.push('/MyPage');
-  }, [history]);
-
   /* 모달 설정 */
   const LoginModalCustomStyles = {
     content: {
@@ -86,7 +82,6 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
     (state) => state.loginReducer
   );
   const dispatch = useDispatch();
-
   useEffect(() => {
     userCheck().then((res) => {
       dispatch(res);
@@ -101,6 +96,9 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
     };
   }, [dispatch]);
   /* 리덕스 관련 끝 */
+  const myPage = useCallback(() => {
+    history.push('/MyPage');
+  }, [history]);
 
   //알림
   const loginNotify = useCallback(() => {
@@ -225,25 +223,21 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
               userData &&
               userData.id !== 0 &&
               allNotifications[0].resipeint.id === userData.id ? (
-                <div id='dropdown-basic'>
+                <span id='dropdown-basic'>
                   <IoMdNotifications className='noti_icon' size='30' />
-                </div>
+                </span>
               ) : (
-                <div>
+                <span>
                   <IoMdNotificationsOutline className='noti_icon' size='30' />
-                </div>
+                </span>
               )}
             </button>
             <div>
               {hideMenu === true && (
                 <ul className='notice_ul' ref={dropMenu}>
                   <li>
-                    <button
-                      onClick={myPage}
-                      className='modifyBtn'
-                      userData={userData}
-                    >
-                      마이페이지
+                    <button onClick={myPage} className='modifyBtn'>
+                      찜목록
                     </button>
                   </li>
                   <li>
