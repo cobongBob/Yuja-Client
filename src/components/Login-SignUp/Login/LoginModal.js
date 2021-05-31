@@ -14,7 +14,7 @@ import {
 import googleLoginIcon from './googleLoginIcon2.svg';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastTopRight } from '../../../modules/ToastModule';
+import { ToastAlert, ToastTopRight } from '../../../modules/ToastModule';
 import { getLoaded, getLoading } from '../../../redux/loading/loadingReducer';
 import { getAllNotifications } from '../../../redux/loading/notiReducer';
 import NotificationDropdown from '../../Navi/NotificationDropdown';
@@ -105,6 +105,9 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
   const logoutNotify = useCallback(() => {
     ToastTopRight(`로그아웃 되셨습니다.`);
   }, []);
+  const loginErrorNotify = useCallback(() => {
+    ToastAlert('잘못된 로그인 입니다.')
+  }, []);
 
   /* 로그인 관련 */
   const logout = useCallback(() => {
@@ -131,11 +134,13 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
     [loginData]
   );
   const logInHandler = useCallback(async () => {
-    userLogin(loginData, setLoginValidateDesc).then((res) => {
+    userLogin(loginData).then((res) => {
       dispatch(res);
       if (res.userLoginStatus === false) {
         setIsOpen(true);
+        setLoginValidateDesc('이메일이나 비밀번호가 일치하지 않습니다.')
       } else {
+        setLoginValidateDesc('')
         loginNotify();
         dispatch(getLoading(res.payload.id));
         if (res.payload && res.payload.id > 0) {
@@ -156,7 +161,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
             loginNotify();
             respon.userLoginStatus === false
               ? setIsOpen(true)
-              : setIsOpen(false);
+              : setIsOpen(false)
           });
           closeModal();
         } else {

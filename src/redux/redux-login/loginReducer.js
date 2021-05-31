@@ -8,7 +8,7 @@ const USER_STATUS = "userStatus";
 const ADD_AUTHORITY = "ADD_AUTHORITY";
 
 /* 액션 함수 */
-export const userLogin = async (loginData, setLoginValidateDesc) => {
+export const userLogin = async (loginData) => {
   let userData = null;
   let result = false;
   await auth
@@ -18,7 +18,6 @@ export const userLogin = async (loginData, setLoginValidateDesc) => {
       result = true;
     })
     .catch((e) => {
-      setLoginValidateDesc(e.response.data.message);
       result = false;
     });
   return {
