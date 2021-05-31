@@ -241,6 +241,7 @@ const NonRequired = ({ location, history }) => {
       <div className='overlay'>
         <div className='required2'>* 선택입력 정보입니다.</div>
         <table className='signUpTable'>
+          <tbody className='signUpTableTbody'>
           <tr>
             <td>
               <div className='labelWrapper'>
@@ -303,6 +304,7 @@ const NonRequired = ({ location, history }) => {
               </label>
             </td>
           </tr>
+          </tbody>
         </table>
         {isYoutuberChecked === true ? (
           <div className='youtuberDiv'>

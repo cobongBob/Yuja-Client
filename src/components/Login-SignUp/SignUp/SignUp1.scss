@@ -56,6 +56,11 @@ input::placeholder {
   width: 100%;
   position: relative;
 }
+.signUpTable > tbody {
+  width: 100%;
+  position: relative;
+}
+
 .labelWrapper {
   text-align: left;
   width: 100%;
@@ -71,7 +76,7 @@ input::placeholder {
   margin-left: 0%;
   display: block;
 }
-.signUpTable > tr > td > input {
+.signUpTable > tbody > tr > td > input {
   margin-top: 5px;
   margin-bottom: 12px;
   border-radius: 2px;
@@ -87,10 +92,10 @@ input::placeholder {
     opacity: 0.85;
   }
 }
-.signUpTable > tr > td > input:focus {
+.signUpTable > tbody > tr > td > input:focus {
   box-shadow: 1px 1px 3px 2px #ffb963;
 }
-.signUpTable > tr > td {
+.signUpTable > tbody > tr > td {
   vertical-align: middle;
 }
 /* 이메일 인증 요소 */
@@ -98,6 +103,7 @@ input::placeholder {
   text-align: left;
 }
 .signUpTable
+  > tbody
   > tr
   > td
   > .authCodeCheckBox

@@ -1,19 +1,19 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import './YoutuberRequest.scss';
-import { getLoggedInUserData } from '../../apiService/AuthenticationService';
+import { getLoggedInUserData, isUserLoggedIn } from '../../apiService/AuthenticationService';
 import UserApiService from '../../apiService/UserApiService';
-import { ToastCenter, ToastTopRight } from '../../modules/ToastModule';
+import { ToastCenter, ToastPreventAccess, ToastTopRight } from '../../modules/ToastModule';
 import { Link } from 'react-router-dom';
 
 const YoutuberRequest = ({ history }) => {
-  // /* 잘못된 접근 막기 */
-  //  if (history.action === "POP") {
-  //    ToastPreventAccess("❌ 잘못된 접근 입니다.");
-  //    history.replace("/");
-  //  } else if(isUserLoggedIn === false) {
-  //    ToastPreventAccess("❌ 먼저 로그인 하셔야 합니다.");
-  //   history.replace("/");
-  //  }
+  /* 잘못된 접근 막기 */
+   if (history.action === "POP") {
+     ToastPreventAccess("❌ 잘못된 접근 입니다.");
+     history.replace("/");
+   } else if(isUserLoggedIn === false) {
+     ToastPreventAccess("❌ 먼저 로그인 하셔야 합니다.");
+    history.replace("/");
+   }
 
   const loggedInUserData = getLoggedInUserData();
   const userId =
@@ -145,7 +145,7 @@ const YoutuberRequest = ({ history }) => {
     insertUserData(e);
   };
 
-  const insertUserData = (e) => {
+  const insertUserData = () => {
     const data = {
       ...requestUserData,
       youtubeConfirmId: youtubeConfirmId.current,
@@ -174,13 +174,6 @@ const YoutuberRequest = ({ history }) => {
         <Link className='header-title' to='/'>
           유자 유튜버 인증 신청
         </Link>
-        {/*<div className="signUpBar">*/}
-        {/*  <div className="bar1"></div>*/}
-        {/*  <div className="bar2"></div>*/}
-        {/*  <div className="bar3"></div>*/}
-        {/*  <div className="bar4"></div>*/}
-        {/*  <div className="mvBar"></div>*/}
-        {/*</div>*/}
       </div>
       <div className='overlay'>
         <div className='youtuberDiv'>
@@ -190,7 +183,7 @@ const YoutuberRequest = ({ history }) => {
             <span>유튜버 인증</span>을 위해 추가 정보를 입력해주세요!
             <br />
             <br />
-            신청 후 확인을 위해 <span>2~3일</span>의 시간이 소요 됩니다.
+            신청 후 <span>3일</span>내 확인이 완료 됩니다.
           </div>
           <div className='youtuberInputBox'>
             <div className='companyRegNumBox'>

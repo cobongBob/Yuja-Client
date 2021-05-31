@@ -287,7 +287,7 @@ const Required = ({ location, history }) => {
     }
   }, [isValidateInput]);
 
-  // //유효성 검사 on/off
+  //유효성 검사 on/off
   useEffect(() => {
     totalCheck();
   }, [
@@ -310,6 +310,7 @@ const Required = ({ location, history }) => {
       <div className='overlay'>
         <div className='required'>* 필수입력 정보입니다.</div>
         <table className='signUpTable'>
+          <tbody className='signUpTableBody'>
           {/*구글로그인으로 왔을 때 */}
           {location.state && location.state.googleSignupData ? (
             <>
@@ -570,6 +571,7 @@ const Required = ({ location, history }) => {
               <div className='warningBox'>{nicknameValidateResData}</div>
             </td>
           </tr>
+          </tbody>
         </table>
         <div className='signUpNextBtnBox'>
           {nextBtnDisabledHandler === false ? (

@@ -11,13 +11,13 @@ import {
   getLoggedInUserData,
   resetPassword,
 } from '../../apiService/AuthenticationService';
-import { ToastCenter, ToastTopRight } from '../../modules/ToastModule';
+import { ToastCenter, ToastPreventAccess, ToastTopRight } from '../../modules/ToastModule';
 
 const PasswordModify = ({ history, location }) => {
-  // if (history.action === "POP") {
-  //   ToastPreventAccess("❌ 잘못된 접근 입니다.");
-  //   history.replace("/");
-  // }
+  if (history.action === "POP") {
+    ToastPreventAccess("❌ 잘못된 접근 입니다.");
+    history.replace("/");
+  }
 
   /* 데이터 준비 */
 
