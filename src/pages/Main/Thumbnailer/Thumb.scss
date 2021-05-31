@@ -49,6 +49,18 @@
   float: left;
 }
 
+.Thumb-content-profile-pic_ {
+  float: left;
+  border-radius: 50%;
+  width: 8.5vw;
+  height: 8vh;
+  text-align: center;
+}
+
+.ThProfileIcon {
+  color: #ff7c7c;
+}
+
 .Thumb-content-profile-pic > img {
   width: 10rem;
   border: 2px solid #ff7c7c;
