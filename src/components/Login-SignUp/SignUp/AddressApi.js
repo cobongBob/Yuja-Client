@@ -1,22 +1,36 @@
-import React, { useState, Fragment, useRef, useCallback, useEffect } from "react";
-import DaumPostcode from "react-daum-postcode";
-import Modal from "react-modal";
-import "./AddressApi.scss";
+import React, {
+  useState,
+  Fragment,
+  useRef,
+  useCallback,
+  useEffect,
+} from 'react';
+import DaumPostcode from 'react-daum-postcode';
+import Modal from 'react-modal';
+import './AddressApi.scss';
 
-const AddressApi = (props) => {
+const AddressApi = ({
+  changeAddress,
+  address,
+  detailAddress,
+  userData,
+  setNonRequiredData,
+  nonRequiredData,
+  setUserData,
+}) => {
   /* 모달 설정 */
   const AddressModalCustomStyles = {
     content: {
-      top: "50%",
-      left: "50%",
-      right: "75%",
-      bottom: "50%",
-      marginBottom: "-50%",
-      marginRight: "-60%",
-      transform: "translate(-50%, -50%)",
-      overflow: "hidden",
-      WebkitOverflowScrolling: "touch",
-      preventScroll: "true",
+      top: '50%',
+      left: '50%',
+      right: '75%',
+      bottom: '50%',
+      marginBottom: '-50%',
+      marginRight: '-60%',
+      transform: 'translate(-50%, -50%)',
+      overflow: 'hidden',
+      WebkitOverflowScrolling: 'touch',
+      preventScroll: 'true',
     },
     overlay: { zIndex: 9999 },
   };
@@ -40,66 +54,63 @@ const AddressApi = (props) => {
 
   const handlePostCode = (data) => {
     let fullAddress = data.address;
-    let extraAddress = "";
+    let extraAddress = '';
 
-    if (data.addressType === "R") {
-      if (data.bname !== "") {
+    if (data.addressType === 'R') {
+      if (data.bname !== '') {
         extraAddress += data.bname;
       }
-      if (data.buildingName !== "") {
-        extraAddress += extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+      if (data.buildingName !== '') {
+        extraAddress +=
+          extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
       }
-      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+      fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
-    setAddressContents(data.zonecode + ", " + fullAddress);
-    props.changeAddress(data.zonecode + ", " + fullAddress);
+    setAddressContents(data.zonecode + ', ' + fullAddress);
+    changeAddress(data.zonecode + ', ' + fullAddress);
     closeModal();
   };
 
   const postCodeStyle = {
-    display: "inline-block",
-    position: "relative",
-    width: "100%",
-    height: "100%",
-    padding: "3px",
+    display: 'inline-block',
+    position: 'relative',
+    width: '100%',
+    height: '100%',
+    padding: '3px',
   };
   /* 주소입력 끝 */
 
   /* 수정창에서 받아온 주소, 상세주소 */
-  const modifyAddress = props.address;
-  const detailAddress = props.detailAddress;
 
   const changeValue = useCallback(
     (e) => {
-      console.log("changeValue");
-      props.setNonRequiredData({
-        ...props.nonRequiredData,
+      setNonRequiredData({
+        ...nonRequiredData,
         [e.target.name]: e.target.value,
       });
     },
-    [props.nonRequiredData, props.setNonRequiredData]
+    [nonRequiredData, setNonRequiredData]
   );
 
   const onChange = useCallback(
     (e) => {
-      console.log("onChange");
-      props.setUserData({
-        ...props.userData,
+      setUserData({
+        ...userData,
         [e.target.name]: e.target.value,
       });
     },
-    [props.userData, props.setUserData]
+    [userData, setUserData]
   );
 
   const onClick = useCallback((e) => {
-    e.target.value = "";
+    e.target.value = '';
   }, []);
 
   useEffect(() => {
-    if (props.address !== undefined && props.detailAddress !== undefined) {
-      setAddressContents(modifyAddress);
+    if (address !== undefined && detailAddress !== undefined) {
+      setAddressContents(address);
     }
-  }, [setAddressContents, modifyAddress, props.address, props.detailAddress]);
+  }, [setAddressContents, address, detailAddress]);
 
   return (
     <Fragment>
@@ -129,7 +140,9 @@ const AddressApi = (props) => {
           ref={signUpAddressRef}
           value={detailAddress}
           onClick={onClick}
-          onChange={props.userData !== "" && props.userData !== undefined ? onChange : changeValue}
+          onChange={
+            userData !== '' && userData !== undefined ? onChange : changeValue
+          }
           maxLength='30'
         />
         <Modal

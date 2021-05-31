@@ -1,14 +1,20 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useSelector } from "react-redux";
-import { useHistory } from "react-router";
-import { getOneEBoard } from "../../../apiService/EditerApiService";
-import { ToastCenter } from "../../../modules/ToastModule";
-import "./EditorRegister.scss";
-import * as EditerApiService from "../../../apiService/EditerApiService";
-import QuillModify from "../../../components/Quill/QuillModify";
-import { previewToYoutubeLink } from "../../../modules/QuillYoutubeConvert";
-import { checkBoxConvert } from "../../../modules/CheckBoxConvert";
-import { isNotFilled } from "../../../modules/InputFocus";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
+import { getOneEBoard } from '../../../apiService/EditerApiService';
+import { ToastCenter } from '../../../modules/ToastModule';
+import './EditorRegister.scss';
+import * as EditerApiService from '../../../apiService/EditerApiService';
+import QuillModify from '../../../components/Quill/QuillModify';
+import { previewToYoutubeLink } from '../../../modules/QuillYoutubeConvert';
+import { checkBoxConvert } from '../../../modules/CheckBoxConvert';
+import { isNotFilled } from '../../../modules/InputFocus';
 
 const EboardModify = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -22,12 +28,12 @@ const EboardModify = ({ match }) => {
   const [totalCareer, setTotalCareer] = useState();
 
   const [input, setInput] = useState({
-    previewImage: "",
-    title: "",
-    career: "",
-    payType: "",
-    payAmount: "",
-    receptionMethod: "",
+    previewImage: '',
+    title: '',
+    career: '',
+    payType: '',
+    payAmount: '',
+    receptionMethod: '',
     tools: checkedlist.current,
   });
 
@@ -48,12 +54,12 @@ const EboardModify = ({ match }) => {
     [history, board_type]
   );
 
-  const originalUrl = useRef("");
+  const originalUrl = useRef('');
 
   useEffect(() => {
     getOneEBoard(match.params.board_id, board_type.current).then((res) => {
       if (!userData || userData.id !== res.data.user.id) {
-        ToastCenter("권한이 없습니다.");
+        ToastCenter('권한이 없습니다.');
         return history.goBack();
       }
       fileList.current = res.data.boardAttachFileNames;
@@ -81,33 +87,47 @@ const EboardModify = ({ match }) => {
   const workerRef = useRef();
 
   const refsArray = useMemo(
-    () => [titleRef, null, null, payTypeRef, payAmountRef, null, receptionMethodRef, workerRef],
+    () => [
+      titleRef,
+      null,
+      null,
+      payTypeRef,
+      payAmountRef,
+      null,
+      receptionMethodRef,
+      workerRef,
+    ],
     []
   );
 
   const testCheking = useCallback(
     (e) => {
       if (!isNotFilled(input, refsArray)) {
-        console.log(input);
-        return ToastCenter("빈칸을 모두 적어주세요.");
+        return ToastCenter('빈칸을 모두 적어주세요.');
       }
       if (checkedlist.current.length === 0 || !input.career) {
         workerRef.current.focus();
-        return ToastCenter("빈칸을 모두 적어주세요.");
+        return ToastCenter('빈칸을 모두 적어주세요.');
       } else {
-        let reg = new RegExp(`http://localhost:8888/files/${board_type.current}/[0-9]+.[a-z]+`, "gi");
+        let reg = new RegExp(
+          `http://localhost:8888/files/${board_type.current}/[0-9]+.[a-z]+`,
+          'gi'
+        );
         let imgSrcArr = String(qModiData).match(reg); // 불러왔던 글에 존재했던 이미지 태그들의 src
         // 서버에서 날아온 이미지 이름과 비교한다. 없으면 삭제된것이므로 삭제 리스트에 담아준다.
         if (imgSrcArr) {
           fileList.current.forEach((src) => {
-            if (!imgSrcArr.includes(`http://localhost:8888/files/${board_type.current}/${src}`)) {
+            if (
+              !imgSrcArr.includes(
+                `http://localhost:8888/files/${board_type.current}/${src}`
+              )
+            ) {
               deletedFileList.current.push(src);
             }
           });
         } else {
           deletedFileList.current = fileList.current;
         }
-        console.log("totalCareer", totalCareer);
         const modifyingData = {
           ...input,
           career: input.career + totalCareer,
@@ -119,7 +139,11 @@ const EboardModify = ({ match }) => {
           boardAttachIds: addingFileList.current,
           boardAttachToBeDeleted: deletedFileList.current,
         };
-        EditerApiService.modifyBoard(match.params.board_id, modifyingData, board_type.current).then((res) => {
+        EditerApiService.modifyBoard(
+          match.params.board_id,
+          modifyingData,
+          board_type.current
+        ).then((res) => {
           eHistory(res.data.id);
         });
       }
@@ -161,26 +185,28 @@ const EboardModify = ({ match }) => {
     [checkedlist, checkBoxInput]
   );
 
-  const [editorLinkDesc, setEditorLinkDesc] = useState("");
+  const [editorLinkDesc, setEditorLinkDesc] = useState('');
 
   const editorLinkCheck = useCallback((e) => {
     let checkContent = e.target.value;
-    if (checkContent !== "" && checkContent.startsWith("https://www.youtube.com/watch?v=")) {
-      setEditorLinkDesc("");
+    if (
+      checkContent !== '' &&
+      checkContent.startsWith('https://www.youtube.com/watch?v=')
+    ) {
+      setEditorLinkDesc('');
     } else {
-      setEditorLinkDesc("유튜브 링크는 'https://www.youtube.com/watch?v=고유주소' 의 형식이여야 합니다.");
+      setEditorLinkDesc(
+        "유튜브 링크는 'https://www.youtube.com/watch?v=고유주소' 의 형식이여야 합니다."
+      );
     }
   }, []);
 
-  console.log("input.career", input.career);
-
   const [combine, setCombine] = useState();
   const regex = /[^0-9]/g;
-  let result = input.career.replace(regex, "");
-  console.log("result", result);
+  let result = input.career.replace(regex, '');
 
   const careerYear = useCallback((e) => {
-    setTotalCareer(" " + e.target.value + "년");
+    setTotalCareer(' ' + e.target.value + '년');
     setCombine(e.target.value);
   }, []);
 
@@ -201,7 +227,7 @@ const EboardModify = ({ match }) => {
                 id='first-link'
                 onChange={onChange}
                 maxLength='45'
-                value={input.title || ""}
+                value={input.title || ''}
                 ref={titleRef}
               />
             </li>
@@ -210,7 +236,7 @@ const EboardModify = ({ match }) => {
               <input
                 type='text'
                 placeholder='대표영상의 링크를 적어주세요.'
-                value={input.previewImage || ""}
+                value={input.previewImage || ''}
                 name='previewImage'
                 onChange={onChange}
                 onKeyUp={editorLinkCheck}
@@ -242,7 +268,7 @@ const EboardModify = ({ match }) => {
                 onChange={radioCheck}
                 value='신입'
                 type='radio'
-                checked={input.career === "신입"}
+                checked={input.career === '신입'}
               />
               <label htmlFor='newbie'>신입</label>
               <input
@@ -251,10 +277,10 @@ const EboardModify = ({ match }) => {
                 name='career'
                 value='경력'
                 type='radio'
-                checked={input.career.includes("경력")}
+                checked={input.career.includes('경력')}
               />
               <label htmlFor='career'>경력</label>
-              {input.career.includes("경력") ? (
+              {input.career.includes('경력') ? (
                 <div className='careerTimeBox'>
                   <input
                     id='careerYear'
@@ -267,11 +293,16 @@ const EboardModify = ({ match }) => {
                   년
                 </div>
               ) : (
-                ""
+                ''
               )}
             </li>
             <li className='li-item4'>
-              <select name='payType' ref={payTypeRef} value={input.payType} onChange={onChange}>
+              <select
+                name='payType'
+                ref={payTypeRef}
+                value={input.payType}
+                onChange={onChange}
+              >
                 <option value=''>선택</option>
                 <option value='연봉'>연봉</option>
                 <option value='월급'>월급</option>
@@ -284,12 +315,15 @@ const EboardModify = ({ match }) => {
                 placeholder='희망급여'
                 name='payAmount'
                 onChange={onChange}
-                value={input.payAmount || ""}
+                value={input.payAmount || ''}
                 maxLength={12}
                 onInput={({ target }) => {
-                  target.value = target.value.replace(/[^0-9]/g, "");
-                  target.value = target.value.replace(/,/g, "");
-                  target.value = target.value.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // 정규식을 이용해서 3자리 마다 , 추가
+                  target.value = target.value.replace(/[^0-9]/g, '');
+                  target.value = target.value.replace(/,/g, '');
+                  target.value = target.value.replace(
+                    /\B(?=(\d{3})+(?!\d))/g,
+                    ','
+                  ); // 정규식을 이용해서 3자리 마다 , 추가
                 }}
                 ref={payAmountRef}
               />

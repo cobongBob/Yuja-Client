@@ -1,82 +1,44 @@
-import React from 'react';
-import './video.scss';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import PrevArrow from './PrevArrow';
-import NextArrow from './NextArrow';
-import { useSelector } from 'react-redux';
-import { FaPaintBrush } from 'react-icons/fa';
-import { useHistory } from 'react-router';
+import React, { useEffect, useRef } from "react";
+import "./video.scss";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { useSelector } from "react-redux";
+import { FaPaintBrush } from "react-icons/fa";
+import { useHistory } from "react-router";
 
-const Svideo = () => {
+const Svideo = ({ settings }) => {
   const { ThvideoData } = useSelector((state) => state.mainReducer);
   const history = useHistory();
 
-  const settings = {
-    dots: false,
-    arrows: true,
-    prevArrow: <PrevArrow></PrevArrow>,
-    nextArrow: <NextArrow></NextArrow>,
-    infinite: false,
-    autoplay: false,
-    speed: 3000,
-    autoplaySpeed: 5000,
-    pauseOnHover: true,
-    draggable: false,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    responsive: [
-      {
-        breakpoint: 1720,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-        },
-      },
-      {
-        breakpoint: 1200,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-        },
-      },
-      {
-        breakpoint: 900,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
+  const slideDefault = useRef();
+  const gotoDefault = (num) => {
+    slideDefault.current.slickGoTo(num, false);
   };
-  // className='SvideoWrapper'
+  useEffect(() => {
+    setTimeout(() => {
+      gotoDefault(0);
+    }, 500);
+  }, []);
+
   return (
     <React.Fragment>
       <div className='best-thumbnailer'>
         <span>
           <FaPaintBrush></FaPaintBrush>
-        </span>{' '}
-        인기 썸네일러{' '}
+        </span>{" "}
+        인기 썸네일러{" "}
       </div>
-      <Slider {...settings}>
+      <Slider ref={slideDefault} {...settings}>
         {ThvideoData &&
           ThvideoData.map((video, index) => (
             <div key={index} className='wrapper'>
               <div className='thumbnails_'>
-                <div
-                  onClick={() =>
-                    history.push(`/ThumbDetail/Thumb/${video.id}/1`)
-                  }
-                  className='thumbnails-item_'>
+                <div onClick={() => history.push(`/ThumbDetail/Thumb/${video.id}/1`)} className='thumbnails-item_'>
                   <div className='item_ item_red'>
                     <div className='top_'>{video.user.nickname}</div>
                     <div className='bottom_'>{video.title}</div>
-                    <img
-                      className='videoImg_'
-                      src={video.previewImage}
-                      alt=''
-                    />
+                    <img className='videoImg_' src={video.previewImage} alt='' />
                   </div>
                 </div>
               </div>

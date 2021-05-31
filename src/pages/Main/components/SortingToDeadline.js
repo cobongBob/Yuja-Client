@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSortExData } from '../../../redux/board/youtube/yboardReducer';
 import './Components.scss';

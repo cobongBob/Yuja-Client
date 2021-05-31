@@ -1,23 +1,31 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import "./PasswordModify.scss";
-import { Link } from "react-router-dom";
-import { getLoggedInUserData, resetPassword } from "../../apiService/AuthenticationService";
-import { ToastCenter, ToastTopRight } from "../../modules/ToastModule";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import './PasswordModify.scss';
+import { Link } from 'react-router-dom';
+import {
+  getLoggedInUserData,
+  resetPassword,
+} from '../../apiService/AuthenticationService';
+import { ToastCenter, ToastPreventAccess, ToastTopRight } from '../../modules/ToastModule';
 
 const PasswordModify = ({ history, location }) => {
-  // if (history.action === "POP") {
-  //   ToastPreventAccess("❌ 잘못된 접근 입니다.");
-  //   history.replace("/");
-  // }
+  if (history.action === "POP") {
+    ToastPreventAccess("❌ 잘못된 접근 입니다.");
+    history.replace("/");
+  }
 
   /* 데이터 준비 */
 
   const loggedInUserData = getLoggedInUserData();
-  console.log(loggedInUserData);
 
   const [resetPasswordData, setResetPasswordData] = useState({
     username: loggedInUserData.username,
-    password: "",
+    password: '',
   });
 
   const dataInput = useMemo(
@@ -31,8 +39,8 @@ const PasswordModify = ({ history, location }) => {
 
   /* state들 준비 */
   const [resetPassCheckNum, setResetPassCheckNum] = useState();
-  const [resetPasswordDesc, setResetPasswordDesc] = useState("");
-  const [resetPasswordCheckDesc, setResetPasswordCheckDesc] = useState("");
+  const [resetPasswordDesc, setResetPasswordDesc] = useState('');
+  const [resetPasswordCheckDesc, setResetPasswordCheckDesc] = useState('');
   const [resetPasswordBtnHandler, setResetPasswordBtnHandler] = useState(true);
   /* state들 준비 끝 */
 
@@ -52,23 +60,25 @@ const PasswordModify = ({ history, location }) => {
 
   const passwordTotalCheck = useCallback(
     (e) => {
-      if (resetPasswordData.password !== "" && resetPassCheckNum !== "") {
+      if (resetPasswordData.password !== '' && resetPassCheckNum !== '') {
         if (passCheck.test(dataInput.pass) === false) {
-          setResetPasswordDesc("비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.");
+          setResetPasswordDesc(
+            '비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.'
+          );
           setResetPasswordBtnHandler(true);
         } else if (dataInput.pass !== resetPassCheckNum) {
-          if (e.target.className === "resetPasswordInput") {
-            setResetPasswordDesc("비밀번호를 확인해주세요.");
+          if (e.target.className === 'resetPasswordInput') {
+            setResetPasswordDesc('비밀번호를 확인해주세요.');
             setResetPasswordBtnHandler(true);
           } else {
-            setResetPasswordCheckDesc("비밀번호를 확인해주세요.");
+            setResetPasswordCheckDesc('비밀번호를 확인해주세요.');
             setResetPasswordBtnHandler(true);
           }
         } else if (passCheck.test(dataInput.pass) === true) {
-          setResetPasswordDesc("");
+          setResetPasswordDesc('');
         }
         if (dataInput.pass === resetPassCheckNum) {
-          setResetPasswordCheckDesc("");
+          setResetPasswordCheckDesc('');
           setResetPasswordBtnHandler(false);
         }
       } else {
@@ -92,8 +102,8 @@ const PasswordModify = ({ history, location }) => {
     resetPassword(data)
       .then((res) => {
         if (res) {
-          ToastTopRight("🎉 비밀번호 수정이 완료 되었습니다.");
-          history.push("/");
+          ToastTopRight('🎉 비밀번호 수정이 완료 되었습니다.');
+          history.push('/');
         } else {
         }
       })
@@ -104,7 +114,12 @@ const PasswordModify = ({ history, location }) => {
 
   /* 데이터 db로 넘기기 끝 */
 
-  useEffect(() => {}, [resetPasswordData, setResetPasswordData, dataInput, passwordTotalCheck]);
+  useEffect(() => {}, [
+    resetPasswordData,
+    setResetPasswordData,
+    dataInput,
+    passwordTotalCheck,
+  ]);
 
   return (
     <div className='resetPasswordFrag'>
@@ -134,7 +149,9 @@ const PasswordModify = ({ history, location }) => {
           />
           <div className='warningBox'>{resetPasswordDesc}</div>
           <div className='labelWrapper'>
-            <label htmlFor='resetPasswordInputCheck'>새로운 비밀번호 확인</label>
+            <label htmlFor='resetPasswordInputCheck'>
+              새로운 비밀번호 확인
+            </label>
           </div>
           <input
             className='resetPasswordInputCheck'

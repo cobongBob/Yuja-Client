@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import Logo from './components/Logo/Logo';
 import './App.css';
-import { Route, useHistory } from 'react-router';
+import { Redirect, Route, useHistory } from 'react-router';
 import Youtuber from './pages/Main/Youtuber/Youtuber';
 import Editer from './pages/Main/Editer/Editer';
 import Thumbnailer from './pages/Main/Thumbnailer/Thumbnailer';
@@ -23,7 +23,6 @@ import Switch from 'react-bootstrap/Switch';
 import YmodifyTest from './pages/Main/Youtuber/YmodifyTest';
 import { useLocation } from 'react-router-dom';
 import MainWrapper from './MainWrapper';
-import PageNotFound from './pages/Error/PageNotFound';
 import Footer from './components/Footer';
 import FindPassword from './components/Login-SignUp/Login/FindPassword';
 import Wdetail from './pages/Main/Winwin/Wdetail';
@@ -63,20 +62,8 @@ import ChatFrame from './pages/Main/components/NewChat/ChatFrame';
 const exceptArray = ['/SignUp1', '/SignUp1/Required', '/SignUp1/NonRequired'];
 
 function App() {
-  /* history 관련 */
   const location = useLocation();
   const history = useHistory();
-  // const usePrevious = (value) => {
-  //   const ref = React.useRef();
-  //   React.useEffect(() => {
-  //     ref.current = value;
-  //   });
-  //   return ref.current;
-  // };
-  // const prevLocation = usePrevious(location.pathname);
-  /* history 관련 끝 */
-
-  /* 로딩 */
   const dispatch = useDispatch();
   const { loading, notificationData } = useSelector(
     (state) => state.loadingReducer
@@ -136,6 +123,20 @@ function App() {
             error.response.data.message.startsWith('해당글 없음')
           ) {
             history.push('/');
+          } else if (
+            error.response.data.message &&
+            error.response.data.message.startsWith('이용이 정지된 계정입니다.')
+          ) {
+            userLogout().then((res) => {
+              dispatch(res);
+            });
+          } else if (
+            error.response.data.message &&
+            error.response.data.message.startsWith('로그인 해주세요')
+          ) {
+            userLogout().then((res) => {
+              dispatch(res);
+            });
           }
           ToastCenter(error.response.data.message);
         }
@@ -147,8 +148,8 @@ function App() {
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData, dispatch]);
-
   /* 로딩 끝 */
+
   //알림
   useEffect(() => {
     if (
@@ -169,8 +170,7 @@ function App() {
                   listStyle: 'none',
                   paddingLeft: '0',
                   marginBottom: '0',
-                }}
-              >
+                }}>
                 <li>{`${notification.comment.board.title}`}</li>
                 <li>글에 댓글이 달렸습니다.</li>
               </ul>,
@@ -342,10 +342,9 @@ function App() {
             path='/YboardModify/:board_id/:current_page'
             exact
             authorities={authorities}
-            roles={[role[2], role[6]]}
+            roles={[role[2], role[5], role[6]]}
             component={YmodifyTest}
           />
-
           <Route path='/Eboard/:board_type/:current_page' component={Editer} />
           {/* GENERAL or ADMIN */}
           <RouteIf
@@ -353,20 +352,18 @@ function App() {
             exact
             component={EditorRegister}
             authorities={authorities}
-            roles={[role[1], role[6]]}
+            roles={[role[1], role[5], role[6]]}
           />
           <RouteIf
             path='/EboardModify/:board_type/:board_id/:current_page'
             component={EboardModify}
             authorities={authorities}
-            roles={[role[3], role[6]]}
+            roles={[role[3], role[5], role[6]]}
           />
-
           <Route
             path='/EDetail/:board_type/:board_id/:current_page'
             component={EDetail}
           />
-
           <Route
             path='/Thboard/:board_type/:current_page'
             component={Thumbnailer}
@@ -376,14 +373,14 @@ function App() {
             path='/ThumbRegister/:board_type'
             exact
             authorities={authorities}
-            roles={[role[1], role[6]]}
+            roles={[role[1], role[5], role[6]]}
             component={ThumbRegister}
           />
           <RouteIf
             path='/ThumbModify/:board_type/:board_id/:current_page'
             component={ThumbModify}
             authorities={authorities}
-            roles={[role[4], role[6]]}
+            roles={[role[4], role[5], role[6]]}
           />
           <Route
             path='/ThumbDetail/:board_type/:board_id/:current_page'
@@ -398,15 +395,14 @@ function App() {
             path='/BoardRegister/:board_type'
             component={Wregister}
             authorities={authorities}
-            roles={[role[1], role[6]]}
+            roles={[role[1], role[5], role[6]]}
           />
           <RouteIf
             path='/BoardModify/:board_type/:board_id/:current_page'
             component={WModify}
             authorities={authorities}
-            roles={[role[1], role[6]]}
+            roles={[role[1], role[5], role[6]]}
           />
-
           <Route
             path='/BoardDetail/:board_type/:board_id/:current_page'
             component={Wdetail}
@@ -417,13 +413,22 @@ function App() {
           <Route path='/BeforeModify' component={BeforeModify} />
           <Route path='/InfoModify' component={InfoModify} />
           <Route path='/PasswordModify' component={PasswordModify} />
-          <Route path='/YoutuberRequest' component={YoutuberRequest} />
-          <Route path='/Admin/:board_type' component={Admin_main} />
+          <RouteIf
+            path='/YoutuberRequest'
+            component={YoutuberRequest}
+            authorities={authorities}
+            roles={[role[1], role[3], role[4], role[5], role[6]]}
+          />
+          <RouteIf
+            path='/Admin/:board_type'
+            component={Admin_main}
+            authorities={authorities}
+            roles={[role[5], role[6]]}
+          />
           <Route path='/Help' component={Help} />
           <Route path='/Chat' component={Chat} />
           <Route path='/SignOut' component={SignOut} />
-          {/*<Route path='PageNotFound' component={PageNotFound} />*/}
-          {/*<Redirect to='/' />*/}
+          <Redirect to='/' />
         </Switch>
       </div>
       <Footer />
