@@ -109,8 +109,6 @@ const Required = ({ location, history }) => {
   const changeStartTimer = () => {
     auth.verifyEmailSend(requiredData.username).then((res) => {
       setSecurityCode(res.data);
-      console.log('res.data를 sc에 넣은 후 sc의 값', securityCode);
-      console.log('auth', authCode);
       setTimeout(() => {
         setSecurityCode('내일점심은부대찌개!');
       }, securityCodeDelay);
@@ -289,7 +287,7 @@ const Required = ({ location, history }) => {
     }
   }, [isValidateInput]);
 
-  // //유효성 검사 on/off
+  //유효성 검사 on/off
   useEffect(() => {
     totalCheck();
   }, [
@@ -312,6 +310,7 @@ const Required = ({ location, history }) => {
       <div className='overlay'>
         <div className='required'>* 필수입력 정보입니다.</div>
         <table className='signUpTable'>
+          <tbody className='signUpTableBody'>
           {/*구글로그인으로 왔을 때 */}
           {location.state && location.state.googleSignupData ? (
             <>
@@ -470,7 +469,8 @@ const Required = ({ location, history }) => {
                         checkCodes={checkCodes}
                         btnTextHandler={btnTextHandler}
                         disabledHandler={disabledHandler}
-                        autoComplete='off'></AuthBtnBox>
+                        autoComplete='off'
+                      ></AuthBtnBox>
                     </div>
                     <div className='warningBox'>{securityCodeValidateDesc}</div>
                   </div>
@@ -571,6 +571,7 @@ const Required = ({ location, history }) => {
               <div className='warningBox'>{nicknameValidateResData}</div>
             </td>
           </tr>
+          </tbody>
         </table>
         <div className='signUpNextBtnBox'>
           {nextBtnDisabledHandler === false ? (
