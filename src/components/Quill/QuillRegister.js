@@ -148,6 +148,7 @@ const QuillRegister = ({
       placeholder: '내용입력',
       value: qData,
     });
+
     const videoHandler = () => {
       let url = prompt('유튜브 URL를 입력해주세요. ');
       if (url != null) {

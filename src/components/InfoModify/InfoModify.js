@@ -14,9 +14,9 @@ import UserApiService, {
 import axios from 'axios';
 import AddressApi from '../Login-SignUp/SignUp/AddressApi';
 import { useSelector } from 'react-redux';
+import MyPage from './MyPage';
 
 const InfoModify = ({ history }) => {
-
   const { authorities, userLoginStatus } = useSelector(
     (state) => state.loginReducer
   );
@@ -33,7 +33,7 @@ const InfoModify = ({ history }) => {
   const loggedInUserData = getLoggedInUserData();
   const userId =
     loggedInUserData && loggedInUserData.id ? loggedInUserData.id : null;
-  const userNickname = loggedInUserData.nickname
+  const userNickname = loggedInUserData.nickname;
   const [previewURL, setpreviewUrl] = useState();
   const [previewURL2, setpreviewUrl2] = useState();
   const profilePicId = useRef(0);
@@ -75,9 +75,9 @@ const InfoModify = ({ history }) => {
     useState(false);
 
   const totalCheck = useCallback(() => {
-    if(userData.youtubeUrl !== '' && userData.youtubeConfirmImg === '') {
+    if (userData.youtubeUrl !== '' && userData.youtubeConfirmImg === '') {
       setModifyBtnDisabledHandler(true);
-    } else if(
+    } else if (
       nicknameDesc === '' &&
       birthDesc === '' &&
       isCompanyRegNumFill === '' &&
@@ -130,7 +130,7 @@ const InfoModify = ({ history }) => {
     isCompanyRegNumFill,
     isPermalinkFill,
     isYoutuberPicFill,
-    totalCheck
+    totalCheck,
   ]);
 
   const changeAddress = (value) => {
@@ -164,8 +164,8 @@ const InfoModify = ({ history }) => {
 
   const checkNicknameValidate = useCallback(
     (e) => {
-      if(userNickname === e.target.value) {
-        setNicknameDesc('')
+      if (userNickname === e.target.value) {
+        setNicknameDesc('');
       } else {
         axios
           .post('http://localhost:8888/api/auth/checknickname', userData)
@@ -360,7 +360,7 @@ const InfoModify = ({ history }) => {
                     placeholder='아이디(이메일)'
                     autoComplete='off'
                     disabled={true}
-                    value={userData.username || ""}
+                    value={userData.username || ''}
                     autoFocus
                   />
                 </td>
@@ -377,7 +377,7 @@ const InfoModify = ({ history }) => {
                     placeholder='이름(실명)'
                     autoComplete='off'
                     disabled={true}
-                    value={userData.realName || ""}
+                    value={userData.realName || ''}
                   />
                 </td>
               </tr>
@@ -393,7 +393,7 @@ const InfoModify = ({ history }) => {
                     maxLength='20'
                     placeholder='닉네임'
                     autoComplete='off'
-                    value={userData.nickname || ""}
+                    value={userData.nickname || ''}
                     onChange={onChange}
                     onClick={onClick}
                     onKeyUp={checkNicknameValidate}
@@ -414,7 +414,7 @@ const InfoModify = ({ history }) => {
                     maxLength='6'
                     placeholder='생년월일(-을 제외한 6자리)'
                     autoComplete='off'
-                    value={userData.bday || ""}
+                    value={userData.bday || ''}
                     onChange={onChange}
                     onClick={onClick}
                     onKeyUp={checkBirthValidate}
@@ -471,7 +471,7 @@ const InfoModify = ({ history }) => {
                     autoComplete='off'
                     maxLength='11'
                     onChange={onChange}
-                    value={userData.phone || ""}
+                    value={userData.phone || ''}
                     onClick={onClick}
                   />
                 </td>
@@ -501,7 +501,7 @@ const InfoModify = ({ history }) => {
                         autoComplete='off'
                         onChange={onChange}
                         onKeyUp={bsnCheck}
-                        value={userData.bsn || ""}
+                        value={userData.bsn || ''}
                         onClick={onClick}
                       />
                     </label>
@@ -522,7 +522,7 @@ const InfoModify = ({ history }) => {
                         autoComplete='off'
                         onChange={onChange}
                         onKeyUp={permalinkCheck}
-                        value={userData.youtubeUrl || ""}
+                        value={userData.youtubeUrl || ''}
                       />
                     </label>
                   </div>
