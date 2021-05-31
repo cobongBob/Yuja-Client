@@ -278,8 +278,8 @@ const EboardModify = ({ match }) => {
                 onChange={onChange}
                 onKeyUp={editorLinkCheck}
               />
-              <div className='warningBox'>{editorLinkDesc}</div>
             </li>
+            <div className='warningBox'>{editorLinkDesc}</div>
             <li className='li-item3'>
               <div className='li_Title_ReceptionMethod'>연락처</div>
               <input

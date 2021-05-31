@@ -224,8 +224,12 @@ const NonRequired = ({ location, history }) => {
     },
     [setIsPermalinkFill]
   );
-
   /* 버튼 활성화 끝 */
+
+  const contactCheck = useCallback((e)=> {
+    console.log('???')
+    e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+  }, [])
 
   useEffect(() => {
     submitDisabledCheck();
@@ -285,6 +289,7 @@ const NonRequired = ({ location, history }) => {
                 autoComplete='off'
                 maxLength='11'
                 onChange={changeValue}
+                onInput={contactCheck}
               />
             </td>
           </tr>
