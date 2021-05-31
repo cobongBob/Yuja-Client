@@ -12,6 +12,7 @@ import Report from "../components/Report";
 const ThumbDetail = ({ match }) => {
   const { current: board_type } = useRef(match.params.board_type);
   const { current: pageNum } = useRef(match.params.current_page);
+  const [representImg, setRepresentImg] = useState("");
   const dispatch = useDispatch();
   const history = useHistory();
   const { userData, authorities } = useSelector((state) => state.loginReducer);
@@ -27,6 +28,15 @@ const ThumbDetail = ({ match }) => {
       });
     }
   }, [dispatch, match.params.board_id, userData]);
+
+  useEffect(() => {
+    if (detailData && detailData.thumbnail && detailData.thumbnail.length > 8) {
+      //<img class="custom-class-to-image" src="http://localhost:8888/files/Winwin/20210529154604000086.png">
+      setRepresentImg(
+        `<p style="text-align:center;"><img class="custom-class-to-image" src="http://localhost:8888/files/thumbnail/original/${detailData.thumbnail}"></p>`
+      );
+    }
+  }, [detailData]);
 
   const deleteBoard = () => {
     if (window.confirm(`정말 삭제 하시겠습니까?`)) {
@@ -137,7 +147,7 @@ const ThumbDetail = ({ match }) => {
               <div className='thumb-pr-content'>
                 <ReactQuill
                   className='QuillContent'
-                  value={detailData.content || ""}
+                  value={representImg + detailData.content || ""}
                   readOnly={true}
                   theme={"bubble"}
                 />

@@ -210,7 +210,7 @@ const EboardModify = ({ match }) => {
               <input
                 type='text'
                 placeholder='대표영상의 링크를 적어주세요.'
-                value={input.previewImage}
+                value={input.previewImage || ""}
                 name='previewImage'
                 onChange={onChange}
                 onKeyUp={editorLinkCheck}

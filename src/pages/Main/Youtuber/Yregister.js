@@ -157,7 +157,7 @@ const Yregister = () => {
             name='title'
             onChange={onChange}
             placeholder='제목'
-            maxLength='45'
+            maxLength='100'
             ref={titleRef}
             type='text'
           />
