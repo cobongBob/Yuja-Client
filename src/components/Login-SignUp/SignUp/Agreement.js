@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import "./SignUp1.scss";
+import "./SignUp.scss";
 import { Link } from "react-router-dom";
 
 const Agreement = ({ location }) => {
@@ -644,7 +644,7 @@ const Agreement = ({ location }) => {
           {agreementNextBtnHandler === true ? (
             <Link
               to={{
-                pathname: "/SignUp1/Required",
+                pathname: "/SignUp/Required",
                 state: {
                   next: next === undefined ? null : next,
                   googleSignupData: location.resData === undefined ? null : location.resData.res,

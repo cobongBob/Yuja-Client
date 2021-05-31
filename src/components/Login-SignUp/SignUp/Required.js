@@ -577,7 +577,7 @@ const Required = ({ location, history }) => {
           {nextBtnDisabledHandler === false ? (
             <Link
               to={{
-                pathname: '/SignUp1/NonRequired',
+                pathname: '/SignUp/NonRequired',
                 state: {
                   requiredData: requiredData,
                 },

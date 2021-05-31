@@ -477,7 +477,7 @@ const YmodifyTest = (props) => {
             placeholder='담당자 연락처'
             onChange={onChange}
             type='text'
-            maxLength='255'
+            maxLength='50'
             value={input.receptionMethod || ''}
             ref={receptionMethodRef}
           />

@@ -310,6 +310,12 @@ const InfoModify = ({ history }) => {
   );
   /* 파일 업로드 끝 */
 
+  const contactCheck = useCallback((e)=> {
+    console.log('???')
+    e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+  }, [])
+
+
   const modifyBtn = useCallback(() => {
     const data = {
       ...userData,
@@ -472,6 +478,7 @@ const InfoModify = ({ history }) => {
                     onChange={onChange}
                     value={userData.phone || ''}
                     onClick={onClick}
+                    onInput={contactCheck}
                   />
                 </td>
               </tr>
