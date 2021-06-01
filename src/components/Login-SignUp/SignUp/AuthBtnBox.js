@@ -1,5 +1,5 @@
 import React from "react";
-import "./SignUp1.scss";
+import "./SignUp.scss";
 
 const AuthBtnBox = (props) => {
   if (props.timerSet === false) {

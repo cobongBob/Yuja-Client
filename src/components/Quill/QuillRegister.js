@@ -148,6 +148,40 @@ const QuillRegister = ({
       placeholder: '내용입력',
       value: qData,
     });
+
+    const videoHandler = () => {
+      let url = prompt('유튜브 URL를 입력해주세요. ');
+      if (url != null) {
+        url = getVideoUrl(url);
+        let range = quill.getSelection();
+        quill.insertEmbed(range, 'video', url);
+      }
+    };
+
+    const getVideoUrl = (url) => {
+      let match =
+        url.match(
+          /^(?:(https?):\/\/)?(?:(?:www|m)\.)?youtube\.com\/watch.*v=([a-zA-Z0-9_-]+)/
+        ) ||
+        url.match(
+          /^(?:(https?):\/\/)?(?:(?:www|m)\.)?youtu\.be\/([a-zA-Z0-9_-]+)/
+        ) ||
+        url.match(/^.*(youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#\&\?]*).*/);
+      if (match && match[2].length === 11) {
+        return 'https' + '://www.youtube.com/embed/' + match[2] + '?showinfo=0';
+      }
+      if (
+        (match = url.match(/^(?:(https?):\/\/)?(?:www\.)?vimeo\.com\/(\d+)/))
+      ) {
+        // eslint-disable-line no-cond-assign
+        return (
+          (match[1] || 'https') + '://player.vimeo.com/video/' + match[2] + '/'
+        );
+      }
+      return ToastCenter('유튜브 URL만 가능합니다.');
+    };
+
+    quill.getModule('toolbar').addHandler('video', videoHandler);
     quill.on('text-change', (delta, oldDelta, source) => {
       const inserted = delta.ops.filter((i) => i.insert);
       if (inserted.length) {
@@ -175,13 +209,14 @@ const QuillRegister = ({
       <div className='button-line'>
         <button
           onClick={() => {
-            if (!qData || qData === "<p><br></p>" || qData === "<p></p>") {
+            if (!qData || qData === '<p><br></p>' || qData === '<p></p>') {
               ToastCenter(`내용을 입력해주세요`);
               return quill.focus();
             }
             register();
           }}
-          className='register-ok'>
+          className='register-ok'
+        >
           등록하기
         </button>
         <button onClick={() => history.goBack()} className='register-back'>

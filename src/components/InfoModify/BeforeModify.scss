@@ -3,7 +3,7 @@
   margin-left: 10vw;
   margin-top: 1%;
   margin-bottom: 1%;
-  font-family: "scdream4";
+  font-family: 'scdream4';
 }
 .beforeModifyTitleBox {
   text-align: center;
@@ -15,15 +15,13 @@
   color: #ffb963;
   &:hover {
     text-decoration: none;
-    color:#ffb963;
+    color: #ffb963;
   }
 }
 .beforeModifyContentBox {
   text-align: center;
 }
-.modifyBox {
 
-}
 .beforeModifyPasswordLabel {
   font-size: 14px;
   display: block;
@@ -48,8 +46,8 @@
   margin-top: 5%;
 }
 .beforeModifyDescBoxDescBox {
-  margin-bottom:7%;
-  &>span {
+  margin-bottom: 7%;
+  & > span {
     color: #ffb963;
   }
 }
@@ -57,17 +55,14 @@ input::placeholder {
   color: #999999;
 }
 .beforeModifyOtherBoxDesc {
-  margin-top:10%;
+  margin-top: 10%;
 }
 .beforeModifyOtherBox {
-  margin-top:5%;
+  margin-top: 5%;
 }
 .beforeModifyOtherBox > .btn {
-  margin:2%;
+  margin: 2%;
 }
-
-
-
 
 /* 오버레이 (보더) */
 .overlay {

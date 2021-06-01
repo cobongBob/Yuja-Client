@@ -20,7 +20,7 @@ const EditorRegister = ({ match }) => {
     [history]
   );
 
-  const [totalCareer, setTotalCareer] = useState();
+  const [totalCareer, setTotalCareer] = useState('');
 
   const [input, setInput] = useState({
     previewImage: '',
@@ -101,6 +101,7 @@ const EditorRegister = ({ match }) => {
 
   const radioCheck = useCallback((e) => {
     const { name, value } = e.target;
+    setTotalCareer('');
     setInput((prevInput) => ({
       ...prevInput,
       [name]: value,
@@ -208,7 +209,7 @@ const EditorRegister = ({ match }) => {
                     id='careerYear'
                     name='careerYear'
                     type='text'
-                    maxLength='1'
+                    maxLength='2'
                     onChange={careerYear}
                   />
                   년

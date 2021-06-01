@@ -11,14 +11,16 @@ const Evideo = ({ settings }) => {
   const history = useHistory();
   const { EvideoData } = useSelector((state) => state.mainReducer);
 
-  const slideDefault = useRef();
+  const slideDefault = useRef(null);
   const gotoDefault = (num) => {
     slideDefault.current.slickGoTo(num, false);
   };
   useEffect(() => {
-    setTimeout(() => {
-      gotoDefault(0);
-    }, 500);
+    slideDefault.current &&
+      slideDefault.current.slickGoTo &&
+      setTimeout(() => {
+        gotoDefault(0);
+      }, 500);
   }, []);
 
   return (

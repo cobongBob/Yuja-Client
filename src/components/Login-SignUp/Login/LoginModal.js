@@ -14,7 +14,7 @@ import {
 import googleLoginIcon from './googleLoginIcon2.svg';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastTopRight } from '../../../modules/ToastModule';
+import { ToastAlert, ToastTopRight } from '../../../modules/ToastModule';
 import { getLoaded, getLoading } from '../../../redux/loading/loadingReducer';
 import { getAllNotifications } from '../../../redux/loading/notiReducer';
 import NotificationDropdown from '../../Navi/NotificationDropdown';
@@ -82,7 +82,6 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
     (state) => state.loginReducer
   );
   const dispatch = useDispatch();
-
   useEffect(() => {
     userCheck().then((res) => {
       dispatch(res);
@@ -97,6 +96,9 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
     };
   }, [dispatch]);
   /* 리덕스 관련 끝 */
+  const myPage = useCallback(() => {
+    history.push('/MyPage');
+  }, [history]);
 
   //알림
   const loginNotify = useCallback(() => {
@@ -104,6 +106,9 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
   }, []);
   const logoutNotify = useCallback(() => {
     ToastTopRight(`로그아웃 되셨습니다.`);
+  }, []);
+  const loginErrorNotify = useCallback(() => {
+    ToastAlert('잘못된 로그인 입니다.');
   }, []);
 
   /* 로그인 관련 */
@@ -131,11 +136,13 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
     [loginData]
   );
   const logInHandler = useCallback(async () => {
-    userLogin(loginData, setLoginValidateDesc).then((res) => {
+    userLogin(loginData).then((res) => {
       dispatch(res);
       if (res.userLoginStatus === false) {
         setIsOpen(true);
+        setLoginValidateDesc('이메일이나 비밀번호가 일치하지 않습니다.');
       } else {
+        setLoginValidateDesc('');
         loginNotify();
         dispatch(getLoading(res.payload.id));
         if (res.payload && res.payload.id > 0) {
@@ -162,7 +169,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
         } else {
           closeModal();
           history.push({
-            pathname: '/SignUp1',
+            pathname: '/SignUp',
             resData: {
               res,
             },
@@ -216,18 +223,23 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
               userData &&
               userData.id !== 0 &&
               allNotifications[0].resipeint.id === userData.id ? (
-                <div id='dropdown-basic'>
+                <span id='dropdown-basic'>
                   <IoMdNotifications className='noti_icon' size='30' />
-                </div>
+                </span>
               ) : (
-                <div>
+                <span>
                   <IoMdNotificationsOutline className='noti_icon' size='30' />
-                </div>
+                </span>
               )}
             </button>
             <div>
               {hideMenu === true && (
                 <ul className='notice_ul' ref={dropMenu}>
+                  <li>
+                    <button onClick={myPage} className='modifyBtn'>
+                      찜목록
+                    </button>
+                  </li>
                   <li>
                     <button onClick={beforeModify} className='modifyBtn'>
                       정보수정
@@ -334,7 +346,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
           <footer>
             <div className='loginLine'>
               회원이 아니신가요?{' '}
-              <Link to='/SignUp1' onClick={closeModal}>
+              <Link to='/SignUp' onClick={closeModal}>
                 이메일로 회원가입
               </Link>
             </div>

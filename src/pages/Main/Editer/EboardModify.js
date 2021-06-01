@@ -25,7 +25,11 @@ const EboardModify = ({ match }) => {
   const checkedlist = useRef([]);
   const fileList = useRef([]);
   const history = useHistory();
-  const [totalCareer, setTotalCareer] = useState();
+  const regex = /[^0-9]/g;
+  const regex2 = /[0-9]/g;
+  const [combine, setCombine] = useState({
+    combine:1,
+  });
 
   const [input, setInput] = useState({
     previewImage: '',
@@ -128,27 +132,51 @@ const EboardModify = ({ match }) => {
         } else {
           deletedFileList.current = fileList.current;
         }
-        const modifyingData = {
-          ...input,
-          career: input.career + totalCareer,
-          tools: checkedlist.current,
-          content: qModiData.replaceAll(
-            `src="http://localhost:8888/files/temp/`,
-            `src="http://localhost:8888/files/${board_type.current}/`
-          ),
-          boardAttachIds: addingFileList.current,
-          boardAttachToBeDeleted: deletedFileList.current,
-        };
-        EditerApiService.modifyBoard(
-          match.params.board_id,
-          modifyingData,
-          board_type.current
-        ).then((res) => {
-          eHistory(res.data.id);
-        });
+
+        if(input.career !== "신입" && input.career.includes([0-9]) === false) {
+            const modifyingData = {
+              ...input,
+              career: '경력 '+combine.combine+'년',
+              tools: checkedlist.current,
+              content: qModiData.replaceAll(
+                `src="http://localhost:8888/files/temp/`,
+                `src="http://localhost:8888/files/${board_type.current}/`
+              ),
+              boardAttachIds: addingFileList.current,
+              boardAttachToBeDeleted: deletedFileList.current,
+            };
+
+            EditerApiService.modifyBoard(
+              match.params.board_id,
+              modifyingData,
+              board_type.current
+            ).then((res) => {
+              eHistory(res.data.id);
+            });
+        } else {
+          const modifyingData = {
+            ...input,
+            career: input.career.replaceAll(regex2, combine.combine),
+            tools: checkedlist.current,
+            content: qModiData.replaceAll(
+              `src="http://localhost:8888/files/temp/`,
+              `src="http://localhost:8888/files/${board_type.current}/`
+            ),
+            boardAttachIds: addingFileList.current,
+            boardAttachToBeDeleted: deletedFileList.current,
+          };
+
+          EditerApiService.modifyBoard(
+            match.params.board_id,
+            modifyingData,
+            board_type.current
+          ).then((res) => {
+            eHistory(res.data.id);
+          });
+        }
       }
     },
-    [eHistory, input, match.params.board_id, qModiData, totalCareer, refsArray]
+    [eHistory, input, match.params.board_id, qModiData, refsArray, combine]
   );
 
   const onChange = useCallback(
@@ -201,14 +229,23 @@ const EboardModify = ({ match }) => {
     }
   }, []);
 
-  const [combine, setCombine] = useState();
-  const regex = /[^0-9]/g;
-  let result = input.career.replace(regex, '');
+  const counter = useCallback(() => {
+    setCombine({
+      ...combine,
+      combine:input.career.replace(regex, '')
+    })
+  }, [input, combine, regex])
 
   const careerYear = useCallback((e) => {
-    setTotalCareer(' ' + e.target.value + '년');
-    setCombine(e.target.value);
-  }, []);
+    setCombine({
+      ...combine,
+      combine: e.target.value
+    });
+  }, [combine]);
+
+  useEffect(()=> {
+      counter()
+  }, [input])
 
   return (
     <div className='editorRegisterFrag'>
@@ -241,8 +278,8 @@ const EboardModify = ({ match }) => {
                 onChange={onChange}
                 onKeyUp={editorLinkCheck}
               />
-              <div className='warningBox'>{editorLinkDesc}</div>
             </li>
+            <div className='warningBox'>{editorLinkDesc}</div>
             <li className='li-item3'>
               <div className='li_Title_ReceptionMethod'>연락처</div>
               <input
@@ -286,8 +323,8 @@ const EboardModify = ({ match }) => {
                     id='careerYear'
                     name='careerYear'
                     type='text'
-                    maxLength='1'
-                    value={combine}
+                    maxLength='2'
+                    value={combine.combine}
                     onChange={careerYear}
                   />
                   년
