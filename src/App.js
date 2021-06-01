@@ -57,6 +57,7 @@ import YoutuberRequest from './components/InfoModify/YoutuberRequest';
 import { getAllNotifications } from './redux/loading/notiReducer';
 import RouteIf from './routerif/RouteIf';
 import ChatFrame from './pages/Main/components/NewChat/ChatFrame';
+import MyPage from './components/InfoModify/MyPage';
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ['/SignUp', '/SignUp/Required', '/SignUp/NonRequired'];
 
@@ -169,7 +170,8 @@ function App() {
                   listStyle: 'none',
                   paddingLeft: '0',
                   marginBottom: '0',
-                }}>
+                }}
+              >
                 <li>{`${notification.comment.board.title}`}</li>
                 <li>글에 댓글이 달렸습니다.</li>
               </ul>,
@@ -424,6 +426,7 @@ function App() {
             authorities={authorities}
             roles={[role[5], role[6]]}
           />
+          <Route path='/MyPage' component={MyPage} />
           <Route path='/Help' component={Help} />
           <Route path='/SignOut' component={SignOut} />
           <Redirect to='/' />

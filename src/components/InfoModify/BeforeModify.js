@@ -1,41 +1,41 @@
-import React, { useCallback, useEffect, useState } from "react";
-import "./BeforeModify.scss";
-import { Link } from "react-router-dom";
+import React, { useCallback, useEffect, useState } from 'react';
+import './BeforeModify.scss';
+import { Link } from 'react-router-dom';
 import {
   executeJwtAuthenticationService,
   getLoggedInUserData,
-  isUserLoggedIn
+  isUserLoggedIn,
 } from '../../apiService/AuthenticationService';
-import * as auth from "../../apiService/AuthenticationService";
-import { useDispatch, useSelector } from "react-redux";
-import { userLogin } from "../../redux/redux-login/loginReducer";
-import { getUserData } from "../../apiService/UserApiService";
-import GoogleLogin from "react-google-login";
-import googleLoginIcon from "../Login-SignUp/Login/googleLoginIcon2.svg";
+import * as auth from '../../apiService/AuthenticationService';
+import { useDispatch, useSelector } from 'react-redux';
+import { userLogin } from '../../redux/redux-login/loginReducer';
+import { getUserData } from '../../apiService/UserApiService';
+import GoogleLogin from 'react-google-login';
+import googleLoginIcon from '../Login-SignUp/Login/googleLoginIcon2.svg';
 import { ToastPreventAccess } from '../../modules/ToastModule';
 
 const BeforeModify = ({ history }) => {
-
   /* 잘못된 접근 막기 */
-  if (history.action === "POP") {
-     ToastPreventAccess("❌ 잘못된 접근 입니다.");
-     history.replace("/");
-   } else if(isUserLoggedIn === false) {
-     ToastPreventAccess("❌ 먼저 로그인 하셔야 합니다.");
-     history.replace("/");
-   }
+  if (history.action === 'POP') {
+    ToastPreventAccess('❌ 잘못된 접근 입니다.');
+    history.replace('/');
+  } else if (isUserLoggedIn === false) {
+    ToastPreventAccess('❌ 먼저 로그인 하셔야 합니다.');
+    history.replace('/');
+  }
 
   const loggedInUserData = getLoggedInUserData();
   const [loginData, setLoginData] = useState({
-    username: "",
-    password: "",
+    username: '',
+    password: '',
   });
 
   const { authorities } = useSelector((state) => state.loginReducer);
   const [passwordDesc, setPasswordDesc] = useState();
   const [getProviderId, setGetProviderId] = useState();
   const dispatch = useDispatch();
-  const userId = loggedInUserData && loggedInUserData.id ? loggedInUserData.id : null;
+  const userId =
+    loggedInUserData && loggedInUserData.id ? loggedInUserData.id : null;
 
   const inputHandler = useCallback(
     (e) => {
@@ -53,10 +53,10 @@ const BeforeModify = ({ history }) => {
     await executeJwtAuthenticationService(loginData)
       .then(async (res) => {
         userData = await auth.registerSuccessfulLoginForJwt(res.data);
-        history.push("/InfoModify");
+        history.push('/InfoModify');
       })
       .catch(() => {
-        setPasswordDesc("비밀번호를 확인해주세요.");
+        setPasswordDesc('비밀번호를 확인해주세요.');
       });
     return {
       payload: userData,
@@ -70,11 +70,11 @@ const BeforeModify = ({ history }) => {
         .then((res) => {
           userLogin(res).then((respon) => {
             dispatch(respon);
-            history.push("/InfoModify");
+            history.push('/InfoModify');
           });
         })
         .catch(() => {
-          setPasswordDesc("비밀번호를 확인해주세요.");
+          setPasswordDesc('비밀번호를 확인해주세요.');
         });
     },
     [dispatch, setPasswordDesc, history]
@@ -82,16 +82,16 @@ const BeforeModify = ({ history }) => {
 
   // 구글 아이콘 스타일
   const customStyle = {
-    background: "royalblue",
-    height: "40px",
-    width: "70%",
-    fontSize: "14px",
-    color: "white",
-    lineHeight: "1px",
-    marginTop: "10px",
-    marginBottom: "12PX",
-    borderRadius: "3px",
-    borderStyle: "none",
+    background: 'royalblue',
+    height: '40px',
+    width: '70%',
+    fontSize: '14px',
+    color: 'white',
+    lineHeight: '1px',
+    marginTop: '10px',
+    marginBottom: '12PX',
+    borderRadius: '3px',
+    borderStyle: 'none',
   };
 
   useEffect(() => {
@@ -109,7 +109,9 @@ const BeforeModify = ({ history }) => {
       </div>
       <div className='beforeModifyContentBox'>
         <div className='overlay'>
-          {getProviderId === null || getProviderId === undefined || getProviderId === "" ? (
+          {getProviderId === null ||
+          getProviderId === undefined ||
+          getProviderId === '' ? (
             <div className='modifyBox'>
               <div className='beforeModifyDescBoxDescBox'>
                 <span>{loggedInUserData.nickname}</span>
@@ -117,7 +119,11 @@ const BeforeModify = ({ history }) => {
                 보호하기 위해 비밀번호를 한번 더 확인해주세요.
               </div>
               <div className='labelWrapper'>
-                <label className='beforeModifyPasswordLabel' htmlFor='password' autoFocus='on'>
+                <label
+                  className='beforeModifyPasswordLabel'
+                  htmlFor='password'
+                  autoFocus='on'
+                >
                   비밀번호 입력
                 </label>
               </div>
@@ -133,21 +139,40 @@ const BeforeModify = ({ history }) => {
               />
               <div className='warningBox'>{passwordDesc}</div>
               <div className='beforeModifyBtnBox'>
-                <input type='submit' className='btn btn-warning' value='비밀번호 확인' onClick={loginHandler}></input>
+                <input
+                  type='submit'
+                  className='btn btn-warning'
+                  value='비밀번호 확인'
+                  onClick={loginHandler}
+                ></input>
               </div>
-              <div className='beforeModifyOtherBoxDesc'>다른 서비스가 필요하신가요?</div>
+              <div className='beforeModifyOtherBoxDesc'>
+                다른 서비스가 필요하신가요?
+              </div>
               <div className='beforeModifyOtherBox'>
-                {authorities && !authorities.includes("YOUTUBER") ? (
-                  <Link to='/YoutuberRequest' className='btn btn-warning' name='YoutuberRequestBtn'>
+                {authorities && !authorities.includes('YOUTUBER') ? (
+                  <Link
+                    to='/YoutuberRequest'
+                    className='btn btn-warning'
+                    name='YoutuberRequestBtn'
+                  >
                     유튜버 인증
                   </Link>
                 ) : (
-                  ""
+                  ''
                 )}
-                <Link to='/PasswordModify' className='btn btn-warning' name='passwordModifyBtn'>
+                <Link
+                  to='/PasswordModify'
+                  className='btn btn-warning'
+                  name='passwordModifyBtn'
+                >
                   비밀번호 변경
                 </Link>
-                <Link to='/SignOut' className='btn btn-warning' name='signOutBtn'>
+                <Link
+                  to='/SignOut'
+                  className='btn btn-warning'
+                  name='signOutBtn'
+                >
                   회원탈퇴
                 </Link>
               </div>
@@ -169,25 +194,39 @@ const BeforeModify = ({ history }) => {
                   buttonText='구글 로그인'
                   onSuccess={resGoogle}
                   onFailure={resGoogle}
-                  cookiePolicy={"single_host_origin"}
+                  cookiePolicy={'single_host_origin'}
                   render={(renderProps) => (
                     <button onClick={renderProps.onClick} style={customStyle}>
-                      <img src={googleLoginIcon} alt='안보임' className='googleIcon' />
+                      <img
+                        src={googleLoginIcon}
+                        alt='안보임'
+                        className='googleIcon'
+                      />
                       구글 로그인
                     </button>
                   )}
                 />
               </div>
-              <div className='beforeModifyOtherBoxDesc'>다른 서비스가 필요하신가요?</div>
+              <div className='beforeModifyOtherBoxDesc'>
+                다른 서비스가 필요하신가요?
+              </div>
               <div className='beforeModifyOtherBox'>
-                {authorities && !authorities.includes("YOUTUBER") ? (
-                  <Link to='/YoutuberRequest' className='btn btn-warning' name='YoutuberRequestBtn'>
+                {authorities && !authorities.includes('YOUTUBER') ? (
+                  <Link
+                    to='/YoutuberRequest'
+                    className='btn btn-warning'
+                    name='YoutuberRequestBtn'
+                  >
                     유튜버 인증
                   </Link>
                 ) : (
-                  ""
+                  ''
                 )}
-                <Link to='/SignOut' className='btn btn-warning' name='signOutBtn'>
+                <Link
+                  to='/SignOut'
+                  className='btn btn-warning'
+                  name='signOutBtn'
+                >
                   회원탈퇴
                 </Link>
               </div>
