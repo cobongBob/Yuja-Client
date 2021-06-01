@@ -82,7 +82,7 @@ const ThumbDetail = ({ match }) => {
       <div>
         <ul className='Thumb-wrapper'>
           <div className='Thumb-header-wrapper'>
-            <li className='Thumb-header'>이력서</li>
+            <li className='Thumb-header'>포트폴리오</li>
           </div>
           <div className='detail-btn'>
             <div className='detail-btn-box'>
@@ -93,17 +93,17 @@ const ThumbDetail = ({ match }) => {
                   <Link
                     to={`/ThumbModify/Thumb/${detailData.id}/1`}
                     className='detail-update-btn'>
-                    이력서 수정하기
+                    포트폴리오 수정하기
                   </Link>
                   <button className='detail-update-btn' onClick={deleteBoard}>
-                    이력서 삭제하기
+                    포트폴리오 삭제하기
                   </button>
                 </div>
               ) : userData &&
                 detailData.user &&
                 authorities.includes('ADMIN') ? (
                 <button className='detail-update-btn' onClick={deleteBoard}>
-                  이력서 삭제하기
+                  포트폴리오 삭제하기
                 </button>
               ) : (
                 <Report
@@ -163,7 +163,7 @@ const ThumbDetail = ({ match }) => {
               희망급여 <span>{detailData.payAmount} 원</span>
             </li>
             <li className='Thumb-content-tools'>
-              사용기술 <span>{detailData.tools + '\t'}</span>
+              사용기술 <span>{ detailData.tools && detailData.tools.join(', ') }</span>
             </li>
             <li className='Thumb-content-pr'>
               <div className='thumb-pr-div'> 경력 및 소개 </div>

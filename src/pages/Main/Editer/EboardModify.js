@@ -243,6 +243,10 @@ const EboardModify = ({ match }) => {
     });
   }, [combine]);
 
+  const contactCheck = useCallback((e)=> {
+    e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+  }, [])
+
   useEffect(()=> {
       counter()
   }, [input])
@@ -326,6 +330,7 @@ const EboardModify = ({ match }) => {
                     maxLength='2'
                     value={combine.combine}
                     onChange={careerYear}
+                    onInput={contactCheck}
                   />
                   년
                 </div>

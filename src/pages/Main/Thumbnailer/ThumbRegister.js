@@ -24,7 +24,7 @@ const ThumbRegister = ({ match }) => {
   );
 
   const checkedlist = useRef([]);
-
+  const [totalCareer, setTotalCareer] = useState('');
   const [inputData, setInputData] = useState({
     title: "",
     payType: "",
@@ -76,6 +76,7 @@ const ThumbRegister = ({ match }) => {
     }
     const sendingData = {
       ...inputData,
+      career: inputData.career + totalCareer,
       userId: userData.id, //글쓰고있는 사람의 아이디로 변경요망
       content: qData.replaceAll(
         `src="http://localhost:8888/files/temp/`,
@@ -145,6 +146,15 @@ const ThumbRegister = ({ match }) => {
     [inputData]
   );
 
+  const careerYear = useCallback((e) => {
+    setTotalCareer(' ' + e.target.value + '년');
+  }, []);
+
+
+  const contactCheck = useCallback((e)=> {
+    e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+  }, [])
+
   return (
     <div>
       <div className='register-container'>
@@ -176,11 +186,41 @@ const ThumbRegister = ({ match }) => {
               />
             </li>
             <li className='li-item3'>
-              <div>경력사항</div>
-              <input ref={workerRef} id='newbie' name='career' onChange={radioCheck} value='신입' type='radio' />
+              <div className='careerTitle'>
+                경력사항
+              </div>
+              <input
+                ref={workerRef}
+                id='newbie'
+                name='career'
+                onChange={radioCheck}
+                value='신입'
+                type='radio'
+              />
               <label htmlFor='newbie'>신입</label>
-              <input id='career' onChange={radioCheck} name='career' value='경력' type='radio' />
+              <input
+                id='career'
+                onChange={radioCheck}
+                name='career'
+                value='경력'
+                type='radio'
+              />
               <label htmlFor='career'>경력</label>
+              {inputData.career === '경력' ? (
+                <div className='careerTimeBox'>
+                  <input
+                    id='thumbCareerYear'
+                    name='thumbCareerYear'
+                    type='text'
+                    maxLength='2'
+                    onChange={careerYear}
+                    onInput={contactCheck}
+                  />
+                  년
+                </div>
+              ) : (
+                ''
+              )}
             </li>
             <li className='li-item4'>
               <select name='payType' ref={payTypeRef} onChange={onChange}>

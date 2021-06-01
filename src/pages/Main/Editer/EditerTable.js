@@ -37,11 +37,11 @@ export default function EditorTable({
       <div className='card-options'>
         {wrote.length === 0 ? (
           <button onClick={writeBoard} className='detail-update-btn'>
-            이력서 등록하기
+            포트폴리오 등록하기
           </button>
         ) : (
           <button onClick={gotomyResume} className='detail-update-btn'>
-            내 이력서 보기
+            내 포트폴리오 보기
           </button>
         )}
       </div>
