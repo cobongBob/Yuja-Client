@@ -83,7 +83,7 @@ const EDetail = ({ match }) => {
       <div>
         <ul className='editordetail-wrapper'>
           <div className='editordetail-header-wrapper'>
-            <li className='editordetail-header'>이력서</li>
+            <li className='editordetail-header'>포트폴리오</li>
           </div>
           <div className='detail-btn'>
             <div className='detail-btn-box'>
@@ -94,10 +94,10 @@ const EDetail = ({ match }) => {
                   <Link
                     to={`/EboardModify/Editor/${detailData.id}/1`}
                     className='detail-update-btn'>
-                    이력서 수정하기
+                    포트폴리오 수정하기
                   </Link>
                   <button className='detail-update-btn' onClick={deleteBoard}>
-                    이력서 삭제하기
+                    포트폴리오 삭제하기
                   </button>
                 </div>
               ) : userData &&
@@ -167,7 +167,7 @@ const EDetail = ({ match }) => {
               희망급여 <span>{detailData.payAmount} 원</span>
             </li>
             <li className='editordetail-content-tools'>
-              사용기술 <span>{detailData.tools + '\t'}</span>
+              사용기술 <span>{ detailData.tools && detailData.tools.join(', ') }</span>
             </li>
             <li className='editordetail-content-pr'>
               <div className='pr-div'> 경력 및 소개 </div>

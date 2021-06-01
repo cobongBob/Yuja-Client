@@ -138,6 +138,10 @@ const EditorRegister = ({ match }) => {
     setTotalCareer(' ' + e.target.value + '년');
   }, []);
 
+  const contactCheck = useCallback((e)=> {
+    e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+  }, [])
+
   return (
     <div className='editorRegisterFrag'>
       <div className='register-container'>
@@ -211,6 +215,7 @@ const EditorRegister = ({ match }) => {
                     type='text'
                     maxLength='2'
                     onChange={careerYear}
+                    onInput={contactCheck}
                   />
                   년
                 </div>

@@ -227,7 +227,6 @@ const NonRequired = ({ location, history }) => {
   /* 버튼 활성화 끝 */
 
   const contactCheck = useCallback((e)=> {
-    console.log('???')
     e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
   }, [])
 

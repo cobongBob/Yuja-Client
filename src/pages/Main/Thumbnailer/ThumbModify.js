@@ -21,6 +21,11 @@ const ThumbModify = ({ match }) => {
   const history = useHistory();
   const ThumbId = useRef(0);
   const [fileUrl, setFileUrl] = useState(defaultImg);
+  const regex = /[^0-9]/g;
+  const regex2 = /[0-9]/g;
+  const [combine, setCombine] = useState({
+    combine:1,
+  });
 
   let ThHistory = useCallback(
     (board_id) => history.push(`/ThumbDetail/${board_type.current}/${board_id}/1`),
@@ -165,21 +170,62 @@ const ThumbModify = ({ match }) => {
       deletedFileList.current = fileList.current;
     }
 
-    const modifyingData = {
-      ...input,
-      tools: checkedlist.current,
-      content: qModiData.replaceAll(
-        `src="http://localhost:8888/files/temp/`,
-        `src="http://localhost:8888/files/${board_type.current}/`
-      ),
-      boardAttachIds: addingFileList.current,
-      boardAttachToBeDeleted: deletedFileList.current,
-      thumbnailId: ThumbId.current,
-    };
-    EditerApiService.modifyBoard(match.params.board_id, modifyingData, board_type.current).then((res) => {
-      ThHistory(res.data.id);
+    if(input.career !== "신입" && input.career.includes([0-9]) === false) {
+      const modifyingData = {
+        ...input,
+        career: '경력 '+combine.combine+'년',
+        tools: checkedlist.current,
+        content: qModiData.replaceAll(
+          `src="http://localhost:8888/files/temp/`,
+          `src="http://localhost:8888/files/${board_type.current}/`
+        ),
+        boardAttachIds: addingFileList.current,
+        boardAttachToBeDeleted: deletedFileList.current,
+        thumbnailId: ThumbId.current,
+      };
+      EditerApiService.modifyBoard(match.params.board_id, modifyingData, board_type.current).then((res) => {
+        ThHistory(res.data.id);
+      });
+    } else {
+      const modifyingData = {
+        ...input,
+        career: input.career.replaceAll(regex2, combine.combine),
+        tools: checkedlist.current,
+        content: qModiData.replaceAll(
+          `src="http://localhost:8888/files/temp/`,
+          `src="http://localhost:8888/files/${board_type.current}/`
+        ),
+        boardAttachIds: addingFileList.current,
+        boardAttachToBeDeleted: deletedFileList.current,
+        thumbnailId: ThumbId.current,
+      };
+      EditerApiService.modifyBoard(match.params.board_id, modifyingData, board_type.current).then((res) => {
+        ThHistory(res.data.id);
+      });
+    }
+  }, [ThHistory, match.params.board_id, input, qModiData, refsArray, combine]);
+
+  const counter = useCallback(() => {
+    setCombine({
+      ...combine,
+      combine:input.career.replace(regex, '')
+    })
+  }, [input, combine, regex])
+
+  const careerYear = useCallback((e) => {
+    setCombine({
+      ...combine,
+      combine: e.target.value
     });
-  }, [ThHistory, match.params.board_id, input, qModiData, refsArray]);
+  }, [combine]);
+
+  const contactCheck = useCallback((e)=> {
+    e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+  }, [])
+
+  useEffect(()=> {
+    counter()
+  }, [input])
 
   return (
     <div>
@@ -229,9 +275,25 @@ const ThumbModify = ({ match }) => {
                 name='career'
                 value='경력'
                 type='radio'
-                checked={input.career === "경력"}
+                checked={input.career.includes('경력')}
               />
               <label htmlFor='career'>경력</label>
+              {input.career.includes('경력') ? (
+                <div className='careerTimeBox'>
+                  <input
+                    id='thumbCareerYear'
+                    name='thumbCareerYear'
+                    type='text'
+                    maxLength='2'
+                    value={combine.combine}
+                    onChange={careerYear}
+                    onInput={contactCheck}
+                  />
+                  년
+                </div>
+              ) : (
+                ''
+              )}
             </li>
             <li className='li-item4'>
               <select name='payType' ref={payTypeRef} value={input.payType} onChange={onChange}>
