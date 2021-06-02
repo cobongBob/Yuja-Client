@@ -58,33 +58,39 @@ export default function ThumbnailerTable({
                 <Card.Img
                   className='thumbnail-for-Main'
                   onClick={() => history.push(`/ThumbDetail/${board_type}/${data.id}/${currentPage}`)}
-                  src={data.thumbnail && `http://localhost:8888/files/thumbnail/${data.thumbnail}`}
+                  src={data.thumbnail && `https://api.withyuja.com/files/thumbnail/${data.thumbnail}`}
                 ></Card.Img>
               </div>
               <Card.Header>
-                <Card.Title>
+                <Card.Title className='editerTitle'>
+
                   <div>
-                    {data.payType} {data.payAmount}원
+                    <span>닉네임</span> {data.user.nickname}
                   </div>
-                  <div> 사용기술 {data.tools[0]} </div>
-                  <div className='card-deadline'>
-                    <span>수정일 </span>
-                    {format(new Date(data.boardUpdatedDate), "yyyy-MM-dd")}
+                  <div>
+                    <span>희망급여</span> {data.payType} {data.payAmount}원
                   </div>
-                  <div className='card-like'>
-                    {data && data.liked ? (
-                      <button onClick={() => likeHandler(data.id)} className='starButton'>
-                        <AiFillStar size={30} />
-                        <span>{data.likes}</span>
-                      </button>
-                    ) : (
-                      <button onClick={() => dislikeHandler(data.id)} className='starButton'>
-                        <AiOutlineStar size={30} />
-                        <span>{data.likes}</span>
-                      </button>
-                    )}
+                  <div>
+                    <span>경력</span> {data.career.startsWith("경력") ? data.career.substr(2).trim() : data.career}
                   </div>
+                  <div>
+                    <span>사용기술</span> {data.tools && data.tools.join(", ")}
+                  </div>
+
                 </Card.Title>
+                <div className='card-like'>
+                  {data && data.liked ? (
+                    <button onClick={() => likeHandler(data.id)} className='starButton'>
+                      <AiFillStar size={30} />
+                      <span>{data.likes}</span>
+                    </button>
+                  ) : (
+                    <button onClick={() => dislikeHandler(data.id)} className='starButton'>
+                      <AiOutlineStar size={30} />
+                      <span>{data.likes}</span>
+                    </button>
+                  )}
+                </div>
               </Card.Header>
               <Card.Body>
                 <Card.Text>
