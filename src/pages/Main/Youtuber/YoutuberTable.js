@@ -27,7 +27,7 @@ const YoutuberTable = ({
     }
   }, [userData, history]);
   return (
-    <div className="card-container">
+    <div className="youtuber-card-container">
       <div className="card-options">
         {wrote.length < 3 ? (
           <button onClick={writeBoard} className="registerBtn">
