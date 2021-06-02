@@ -1,37 +1,27 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import './InfoModify.scss';
-import { Link } from 'react-router-dom';
-import { getLoggedInUserData } from '../../apiService/AuthenticationService';
-import {
-  ToastCenter,
-  ToastPreventAccess,
-  ToastTopRight,
-} from '../../modules/ToastModule';
-import UserApiService, {
-  getUserData,
-  modifyUserData,
-} from '../../apiService/UserApiService';
-import axios from 'axios';
-import AddressApi from '../Login-SignUp/SignUp/AddressApi';
-import { useSelector } from 'react-redux';
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import "./InfoModify.scss";
+import { Link } from "react-router-dom";
+import { getLoggedInUserData } from "../../apiService/AuthenticationService";
+import { ToastCenter, ToastPreventAccess, ToastTopRight } from "../../modules/ToastModule";
+import UserApiService, { getUserData, modifyUserData } from "../../apiService/UserApiService";
+import axios from "axios";
+import AddressApi from "../Login-SignUp/SignUp/AddressApi";
+import { useSelector } from "react-redux";
 
 const InfoModify = ({ history }) => {
-  const { authorities, userLoginStatus } = useSelector(
-    (state) => state.loginReducer
-  );
+  const { authorities, userLoginStatus } = useSelector((state) => state.loginReducer);
 
   /* 잘못된 접근 막기 */
-  if (history.action === 'POP') {
-    ToastPreventAccess('❌ 잘못된 접근 입니다.');
-    history.replace('/');
+  if (history.action === "POP") {
+    ToastPreventAccess("❌ 잘못된 접근 입니다.");
+    history.replace("/");
   } else if (userLoginStatus === false) {
-    ToastPreventAccess('❌ 먼저 로그인 하셔야 합니다.');
-    history.replace('/');
+    ToastPreventAccess("❌ 먼저 로그인 하셔야 합니다.");
+    history.replace("/");
   }
 
   const loggedInUserData = getLoggedInUserData();
-  const userId =
-    loggedInUserData && loggedInUserData.id ? loggedInUserData.id : null;
+  const userId = loggedInUserData && loggedInUserData.id ? loggedInUserData.id : null;
   const userNickname = loggedInUserData.nickname;
   const [previewURL, setpreviewUrl] = useState();
   const [previewURL2, setpreviewUrl2] = useState();
@@ -39,64 +29,50 @@ const InfoModify = ({ history }) => {
   const youtubeConfirmId = useRef(0);
 
   const [userData, setUserData] = useState({
-    id: '',
-    providedId: '',
-    provider: '',
-    username: '',
-    realName: '',
-    nickname: '',
-    bday: '',
-    address: '',
-    detailAddress: '',
-    phone: '',
-    bsn: '',
-    youtubeUrl: '',
+    id: "",
+    providedId: "",
+    provider: "",
+    username: "",
+    realName: "",
+    nickname: "",
+    bday: "",
+    address: "",
+    detailAddress: "",
+    phone: "",
+    bsn: "",
+    youtubeUrl: "",
     profilePicId: profilePicId.current,
     youtubeConfirmId: youtubeConfirmId.current,
-    profilePic: '',
+    profilePic: "",
   });
-  const [nicknameDesc, setNicknameDesc] = useState('');
-  const [birthDesc, setBirthDesc] = useState('');
-  const [isCompanyRegNumFill, setIsCompanyRegNumFill] = useState('');
-  const [isPermalinkFill, setIsPermalinkFill] = useState('');
-  const [isYoutuberPicFill, setIsYoutuberPicFill] = useState('');
+  const [nicknameDesc, setNicknameDesc] = useState("");
+  const [birthDesc, setBirthDesc] = useState("");
+  const [isCompanyRegNumFill, setIsCompanyRegNumFill] = useState("");
+  const [isPermalinkFill, setIsPermalinkFill] = useState("");
+  const [isYoutuberPicFill, setIsYoutuberPicFill] = useState("");
 
-  const modifyProfilePicUrl = new URL(
-    'http://localhost:8888/files/profiles/' + userData.profilePic
-  );
-  const modifyConfirmPicUrl = new URL(
-    'http://localhost:8888/files/youtubeConfirm/' + userData.youtubeConfirmImg
-  );
-  const { current: birthCheck } = useRef(
-    /^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/
-  );
-  const [modifyBtnDisabledHandler, setModifyBtnDisabledHandler] =
-    useState(false);
+  const modifyProfilePicUrl = new URL("https://api.withyuja.com/files/profiles/" + userData.profilePic);
+  const modifyConfirmPicUrl = new URL("https://api.withyuja.com/files/youtubeConfirm/" + userData.youtubeConfirmImg);
+  const { current: birthCheck } = useRef(/^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/);
+  const [modifyBtnDisabledHandler, setModifyBtnDisabledHandler] = useState(false);
 
   const totalCheck = useCallback(() => {
-    if (userData.youtubeUrl !== '' && userData.youtubeConfirmImg === '') {
+    if (userData.youtubeUrl !== "" && userData.youtubeConfirmImg === "") {
       setModifyBtnDisabledHandler(true);
     } else if (
-      nicknameDesc === '' &&
-      birthDesc === '' &&
-      isCompanyRegNumFill === '' &&
-      isPermalinkFill === '' &&
-      isYoutuberPicFill === '' &&
-      userData.nickname !== '' &&
-      userData.bday !== ''
+      nicknameDesc === "" &&
+      birthDesc === "" &&
+      isCompanyRegNumFill === "" &&
+      isPermalinkFill === "" &&
+      isYoutuberPicFill === "" &&
+      userData.nickname !== "" &&
+      userData.bday !== ""
     ) {
       setModifyBtnDisabledHandler(false);
     } else {
       setModifyBtnDisabledHandler(true);
     }
-  }, [
-    nicknameDesc,
-    birthDesc,
-    userData,
-    isCompanyRegNumFill,
-    isPermalinkFill,
-    isYoutuberPicFill,
-  ]);
+  }, [nicknameDesc, birthDesc, userData, isCompanyRegNumFill, isPermalinkFill, isYoutuberPicFill]);
 
   useEffect(() => {
     getUserData(userId).then((res) => {
@@ -122,15 +98,7 @@ const InfoModify = ({ history }) => {
 
   useEffect(() => {
     totalCheck();
-  }, [
-    userData,
-    nicknameDesc,
-    birthDesc,
-    isCompanyRegNumFill,
-    isPermalinkFill,
-    isYoutuberPicFill,
-    totalCheck,
-  ]);
+  }, [userData, nicknameDesc, birthDesc, isCompanyRegNumFill, isPermalinkFill, isYoutuberPicFill, totalCheck]);
 
   const changeAddress = (value) => {
     setUserData({
@@ -152,10 +120,10 @@ const InfoModify = ({ history }) => {
 
   const onClick = useCallback(
     (e) => {
-      e.target.value = '';
+      e.target.value = "";
       setUserData({
         ...userData,
-        [e.target.name]: '',
+        [e.target.name]: "",
       });
     },
     [userData]
@@ -164,26 +132,24 @@ const InfoModify = ({ history }) => {
   const checkNicknameValidate = useCallback(
     (e) => {
       if (userNickname === e.target.value) {
-        setNicknameDesc('');
+        setNicknameDesc("");
       } else {
-        axios
-          .post('http://localhost:8888/api/auth/checknickname', userData)
-          .then((res) => {
-            if (res.data !== '') {
-              setNicknameDesc(res.data);
-            } else if (res.data === '') {
-              setNicknameDesc('');
-            }
-          });
+        axios.post("https://api.withyuja.com/api/auth/checknickname", userData).then((res) => {
+          if (res.data !== "") {
+            setNicknameDesc(res.data);
+          } else if (res.data === "") {
+            setNicknameDesc("");
+          }
+        });
       }
     },
     [userData]
   );
 
   const checkBirthValidate = useCallback(() => {
-    birthCheck.test(userData.bday) === false && userData.bday !== ''
-      ? setBirthDesc('-을 제외한 생년월일 6자리만 입력해주세요.')
-      : setBirthDesc('');
+    birthCheck.test(userData.bday) === false && userData.bday !== ""
+      ? setBirthDesc("-을 제외한 생년월일 6자리만 입력해주세요.")
+      : setBirthDesc("");
   }, [birthCheck, userData]);
 
   /* 사업자 등록번호 확인식 */
@@ -192,7 +158,7 @@ const InfoModify = ({ history }) => {
     const checkId = [1, 3, 7, 1, 3, 7, 1, 3, 5, 1];
     let sum = 0;
 
-    if (bsn !== '') {
+    if (bsn !== "") {
       for (let i = 0; i < 9; i++) {
         sum += checkId[i] * Number(bsn[i]);
       }
@@ -202,9 +168,9 @@ const InfoModify = ({ history }) => {
       let reminder = (10 - (sum % 10)) % 10;
 
       if (reminder === Number(bsn[9])) {
-        setIsCompanyRegNumFill('');
+        setIsCompanyRegNumFill("");
       } else {
-        setIsCompanyRegNumFill('사업자등록번호를 확인해주세요.');
+        setIsCompanyRegNumFill("사업자등록번호를 확인해주세요.");
       }
     }
   };
@@ -215,15 +181,13 @@ const InfoModify = ({ history }) => {
     (e) => {
       let checkContent = e.target.value;
       if (
-        checkContent !== '' &&
-        checkContent.startsWith(
-          'https://www.youtube.com/c' || 'https://www.youtube.com/channel'
-        ) &&
-        !checkContent.endsWith('/featured')
+        checkContent !== "" &&
+        checkContent.startsWith("https://www.youtube.com/c" || "https://www.youtube.com/channel") &&
+        !checkContent.endsWith("/featured")
       ) {
-        setIsPermalinkFill('');
+        setIsPermalinkFill("");
       } else {
-        setIsPermalinkFill('유튜브 고유주소를 확인해주세요.');
+        setIsPermalinkFill("유튜브 고유주소를 확인해주세요.");
       }
     },
     [setIsPermalinkFill]
@@ -235,25 +199,21 @@ const InfoModify = ({ history }) => {
     let file = e.target.files[0];
     const config = {
       headers: {
-        'content-type': 'multipart/form-data',
+        "content-type": "multipart/form-data",
       },
     };
 
     if (e.target.files !== null) {
       const fd = new FormData();
-      fd.append('file', file);
+      fd.append("file", file);
       UserApiService.addProfileImg(fd, config)
         .then((response) => {
-          const fileUrl = new URL(
-            'http://localhost:8888/files/temp/' + response.data.fileName
-          );
+          const fileUrl = new URL("https://api.withyuja.com/files/temp/" + response.data.fileName);
           setpreviewUrl(fileUrl);
           profilePicId.current = response.data.profilePicId;
         })
         .catch((error) => {
-          ToastCenter(
-            error.response.data ? error.response.data.message : 'Server Error!'
-          );
+          ToastCenter(error.response.data ? error.response.data.message : "Server Error!");
         });
     }
   };
@@ -262,26 +222,22 @@ const InfoModify = ({ history }) => {
     let file2 = e.target.files[0];
     const config2 = {
       headers: {
-        'content-type': 'multipart/form-data',
+        "content-type": "multipart/form-data",
       },
     };
 
     if (e.target.files !== null) {
       const fd2 = new FormData();
-      fd2.append('file', file2);
+      fd2.append("file", file2);
       UserApiService.addYoutuberConfirmPic(fd2, config2)
         .then((response) => {
-          const fileUrl2 = new URL(
-            'http://localhost:8888/files/temp/' + response.data.fileName
-          );
+          const fileUrl2 = new URL("https://api.withyuja.com/files/temp/" + response.data.fileName);
           setpreviewUrl2(fileUrl2);
-          setIsYoutuberPicFill('');
+          setIsYoutuberPicFill("");
           youtubeConfirmId.current = response.data.youtubeConfirmId;
         })
         .catch((error) => {
-          ToastCenter(
-            error.response.data ? error.response.data.message : 'Server Error!'
-          );
+          ToastCenter(error.response.data ? error.response.data.message : "Server Error!");
         });
     }
 
@@ -289,7 +245,7 @@ const InfoModify = ({ history }) => {
   };
 
   let profile_preview,
-    youtuberPic_preview = '';
+    youtuberPic_preview = "";
 
   profile_preview = (
     <img
@@ -302,19 +258,15 @@ const InfoModify = ({ history }) => {
   youtuberPic_preview = (
     <img
       className='youtuberPic_preview'
-      src={
-        modifyConfirmPicUrl && previewURL2 ? previewURL2 : modifyConfirmPicUrl
-      }
+      src={modifyConfirmPicUrl && previewURL2 ? previewURL2 : modifyConfirmPicUrl}
       alt=''
     />
   );
   /* 파일 업로드 끝 */
 
-  const contactCheck = useCallback((e)=> {
-    console.log('???')
-    e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
-  }, [])
-
+  const contactCheck = useCallback((e) => {
+    e.target.value = e.target.value.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
+  }, []);
 
   const modifyBtn = useCallback(() => {
     const data = {
@@ -325,16 +277,18 @@ const InfoModify = ({ history }) => {
     modifyUserData(userId, data)
       .then((r) => {
         if (r) {
-          ToastTopRight('🎉 정보가 수정 되었습니다.');
-          history.push('/');
+          ToastTopRight("🎉 정보가 수정 되었습니다.");
+          history.push("/");
         } else {
-          ToastTopRight('❌ 오류가 발생했습니다.');
+          ToastTopRight("❌ 오류가 발생했습니다.");
         }
       })
       .catch((error) => {
-        ToastCenter(error.response ? error.response.message : 'Server Error!');
+        ToastCenter(error.response ? error.response.message : "Server Error!");
       });
   }, [userId, history, userData]);
+
+  console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", userData);
 
   return (
     userData && (
@@ -365,7 +319,7 @@ const InfoModify = ({ history }) => {
                     placeholder='아이디(이메일)'
                     autoComplete='off'
                     disabled={true}
-                    value={userData.username || ''}
+                    value={userData.username || ""}
                     autoFocus
                   />
                 </td>
@@ -382,7 +336,7 @@ const InfoModify = ({ history }) => {
                     placeholder='이름(실명)'
                     autoComplete='off'
                     disabled={true}
-                    value={userData.realName || ''}
+                    value={userData.realName || ""}
                   />
                 </td>
               </tr>
@@ -398,7 +352,7 @@ const InfoModify = ({ history }) => {
                     maxLength='20'
                     placeholder='닉네임'
                     autoComplete='off'
-                    value={userData.nickname || ''}
+                    value={userData.nickname || ""}
                     onChange={onChange}
                     onClick={onClick}
                     onKeyUp={checkNicknameValidate}
@@ -419,7 +373,7 @@ const InfoModify = ({ history }) => {
                     maxLength='6'
                     placeholder='생년월일(-을 제외한 6자리)'
                     autoComplete='off'
-                    value={userData.bday || ''}
+                    value={userData.bday || ""}
                     onChange={onChange}
                     onClick={onClick}
                     onKeyUp={checkBirthValidate}
@@ -435,9 +389,7 @@ const InfoModify = ({ history }) => {
                   <div className='labelWrapper'>
                     <label htmlFor='signUpProfilePic'>프로필 사진</label>
                   </div>
-                  <div className='modifyProfilePicPreview'>
-                    {profile_preview}
-                  </div>
+                  <div className='modifyProfilePicPreview'>{profile_preview}</div>
                   <div className='inputWrapper'>
                     <input
                       className='signUpProfilePic'
@@ -476,14 +428,14 @@ const InfoModify = ({ history }) => {
                     autoComplete='off'
                     maxLength='11'
                     onChange={onChange}
-                    value={userData.phone || ''}
+                    value={userData.phone || ""}
                     onClick={onClick}
                     onInput={contactCheck}
                   />
                 </td>
               </tr>
             </table>
-            {authorities && authorities.includes('YOUTUBER') ? (
+            {authorities && authorities.includes("YOUTUBER") ? (
               <div className='youtuberDiv'>
                 <div className='youtuberDiv_Title'>
                   유튜버 분들은 원활한 서비스 이용을 위해
@@ -492,10 +444,7 @@ const InfoModify = ({ history }) => {
                 </div>
                 <div className='youtuberInputBox'>
                   <div className='companyRegNumBox'>
-                    <label
-                      className='companyRegNumLabel'
-                      htmlFor='companyRegNumInput'
-                    >
+                    <label className='companyRegNumLabel' htmlFor='companyRegNumInput'>
                       사업자등록번호 <span> (선택)</span>
                       <input
                         className='companyRegNumInput'
@@ -507,17 +456,14 @@ const InfoModify = ({ history }) => {
                         autoComplete='off'
                         onChange={onChange}
                         onKeyUp={bsnCheck}
-                        value={userData.bsn || ''}
+                        value={userData.bsn || ""}
                         onClick={onClick}
                       />
                     </label>
                   </div>
                   <div className='warningBox'>{isCompanyRegNumFill}</div>
                   <div className='youtuberUrlBox'>
-                    <label
-                      className='youtuberUrlBoxLabel'
-                      htmlFor='youtuberUrlBoxInput'
-                    >
+                    <label className='youtuberUrlBoxLabel' htmlFor='youtuberUrlBoxInput'>
                       유튜브 고유 주소 <span>(필수)</span>
                       <input
                         className='youtuberUrlBoxInput'
@@ -528,7 +474,7 @@ const InfoModify = ({ history }) => {
                         autoComplete='off'
                         onChange={onChange}
                         onKeyUp={permalinkCheck}
-                        value={userData.youtubeUrl || ''}
+                        value={userData.youtubeUrl || ""}
                       />
                     </label>
                   </div>
@@ -536,16 +482,11 @@ const InfoModify = ({ history }) => {
                 </div>
 
                 <div className='youtuberPicBox'>
-                  <label
-                    className='youtuberPicLabel'
-                    htmlFor='youtuberPicInput'
-                  >
+                  <label className='youtuberPicLabel' htmlFor='youtuberPicInput'>
                     유튜브 계정 스크린샷
                     <span> (필수)</span>
                     <div className='youtuberPicDesc'>{isYoutuberPicFill}</div>
-                    <div className='youtuberPic_PreviewBox'>
-                      {youtuberPic_preview}
-                    </div>
+                    <div className='youtuberPic_PreviewBox'>{youtuberPic_preview}</div>
                     <div className='youtuberPicInputWrapper'>
                       <input
                         className='youtuberPicInput'
@@ -559,15 +500,10 @@ const InfoModify = ({ history }) => {
                 </div>
               </div>
             ) : (
-              ''
+              ""
             )}
             <div className='infoModifySubmitBtnBox'>
-              <button
-                type='submit'
-                className='btn btn-warning'
-                disabled={modifyBtnDisabledHandler}
-                onClick={modifyBtn}
-              >
+              <button type='submit' className='btn btn-warning' disabled={modifyBtnDisabledHandler} onClick={modifyBtn}>
                 수정완료
               </button>
             </div>

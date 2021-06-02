@@ -1,11 +1,11 @@
 import axios from "axios";
 import instance from "../AxiosConfig.js";
 
-const USER_API_BASE_URL = "http://localhost:8888/api";
+const USER_API_BASE_URL = "https://api.withyuja.com/api";
 
 export const getfetchMainData = async () => {
   return await instance({
-    url: "main/board",
+    url: "/main/board",
     method: "get",
   });
 };

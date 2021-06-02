@@ -140,11 +140,21 @@
   display: block;
 }
 
-.thumb-register-default-input > ul > .li-item3 > div {
+.careerTitle {
   margin-right: 1rem;
   font-size: 20px;
   display: inline-block;
   border-bottom: 4px solid #ff7c7c;
+}
+
+#thumbCareerYear {
+  text-align: center;
+  font-size: 17px;
+  width: 3rem;
+  border: none;
+  border-bottom: 4px solid #ff7c7c;
+  margin-bottom: 1rem;
+  margin-left: 15px;
 }
 
 .li-item3 > input[type="radio"] {

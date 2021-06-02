@@ -21,6 +21,11 @@ const ThumbModify = ({ match }) => {
   const history = useHistory();
   const ThumbId = useRef(0);
   const [fileUrl, setFileUrl] = useState(defaultImg);
+  const regex = /[^0-9]/g;
+  const regex2 = /[0-9]/g;
+  const [combine, setCombine] = useState({
+    combine: 1,
+  });
 
   let ThHistory = useCallback(
     (board_id) => history.push(`/ThumbDetail/${board_type.current}/${board_id}/1`),
@@ -102,7 +107,7 @@ const ThumbModify = ({ match }) => {
       const formData = new FormData();
       formData.append("file", file);
       EditerApiService.addThumb(formData, config).then((response) => {
-        setFileUrl(`http://localhost:8888/files/temp/${response.data.fileName}`);
+        setFileUrl(`https://api.withyuja.com/files/temp/${response.data.fileName}`);
         ThumbId.current = response.data.thumbnailId;
       });
     }
@@ -126,7 +131,7 @@ const ThumbModify = ({ match }) => {
         tools: res.data.tools,
       });
       if (res.data.thumbnail && res.data.thumbnail.length > 8) {
-        setFileUrl(`http://localhost:8888/files/thumbnail/${res.data.thumbnail.substr(8)}`);
+        setFileUrl(`https://api.withyuja.com/files/thumbnail/${res.data.thumbnail.substr(8)}`);
       }
       setcheckBoxInput(checkBoxConvert(res.data.tools));
       checkedlist.current = res.data.tools;
@@ -152,12 +157,12 @@ const ThumbModify = ({ match }) => {
       workerRef.current.focus();
       return ToastCenter("빈칸을 모두 적어주세요.");
     }
-    let reg = new RegExp(`http://localhost:8888/files/${board_type.current}/[0-9]+.[a-z]+`, "gi");
+    let reg = new RegExp(`https://api.withyuja.com/files/${board_type.current}/[0-9]+.[a-z]+`, "gi");
     let imgSrcArr = String(qModiData).match(reg); // 불러왔던 글에 존재했던 이미지 태그들의 src
     // 서버에서 날아온 이미지 이름과 비교한다. 없으면 삭제된것이므로 삭제 리스트에 담아준다.
     if (imgSrcArr) {
       fileList.current.forEach((src) => {
-        if (!imgSrcArr.includes(`http://localhost:8888/files/${board_type.current}/${src}`)) {
+        if (!imgSrcArr.includes(`https://api.withyuja.com/files/${board_type.current}/${src}`)) {
           deletedFileList.current.push(src);
         }
       });
@@ -165,21 +170,65 @@ const ThumbModify = ({ match }) => {
       deletedFileList.current = fileList.current;
     }
 
-    const modifyingData = {
-      ...input,
-      tools: checkedlist.current,
-      content: qModiData.replaceAll(
-        `src="http://localhost:8888/files/temp/`,
-        `src="http://localhost:8888/files/${board_type.current}/`
-      ),
-      boardAttachIds: addingFileList.current,
-      boardAttachToBeDeleted: deletedFileList.current,
-      thumbnailId: ThumbId.current,
-    };
-    EditerApiService.modifyBoard(match.params.board_id, modifyingData, board_type.current).then((res) => {
-      ThHistory(res.data.id);
+    if (input.career !== "신입" && input.career.includes([0 - 9]) === false) {
+      const modifyingData = {
+        ...input,
+        career: "경력 " + combine.combine + "년",
+        tools: checkedlist.current,
+        content: qModiData.replaceAll(
+          `src="https://api.withyuja.com/files/temp/`,
+          `src="https://api.withyuja.com/files/${board_type.current}/`
+        ),
+        boardAttachIds: addingFileList.current,
+        boardAttachToBeDeleted: deletedFileList.current,
+        thumbnailId: ThumbId.current,
+      };
+      EditerApiService.modifyBoard(match.params.board_id, modifyingData, board_type.current).then((res) => {
+        ThHistory(res.data.id);
+      });
+    } else {
+      const modifyingData = {
+        ...input,
+        career: input.career.replaceAll(regex2, combine.combine),
+        tools: checkedlist.current,
+        content: qModiData.replaceAll(
+          `src="https://api.withyuja.com/files/temp/`,
+          `src="https://api.withyuja.com/files/${board_type.current}/`
+        ),
+        boardAttachIds: addingFileList.current,
+        boardAttachToBeDeleted: deletedFileList.current,
+        thumbnailId: ThumbId.current,
+      };
+      EditerApiService.modifyBoard(match.params.board_id, modifyingData, board_type.current).then((res) => {
+        ThHistory(res.data.id);
+      });
+    }
+  }, [ThHistory, match.params.board_id, input, qModiData, refsArray, combine]);
+
+  const counter = useCallback(() => {
+    setCombine({
+      ...combine,
+      combine: input.career.replace(regex, ""),
     });
-  }, [ThHistory, match.params.board_id, input, qModiData, refsArray]);
+  }, [input, combine, regex]);
+
+  const careerYear = useCallback(
+    (e) => {
+      setCombine({
+        ...combine,
+        combine: e.target.value,
+      });
+    },
+    [combine]
+  );
+
+  const contactCheck = useCallback((e) => {
+    e.target.value = e.target.value.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
+  }, []);
+
+  useEffect(() => {
+    counter();
+  }, [input]);
 
   return (
     <div>
@@ -229,9 +278,25 @@ const ThumbModify = ({ match }) => {
                 name='career'
                 value='경력'
                 type='radio'
-                checked={input.career === "경력"}
+                checked={input.career.includes("경력")}
               />
               <label htmlFor='career'>경력</label>
+              {input.career.includes("경력") ? (
+                <div className='careerTimeBox'>
+                  <input
+                    id='thumbCareerYear'
+                    name='thumbCareerYear'
+                    type='text'
+                    maxLength='2'
+                    value={combine.combine}
+                    onChange={careerYear}
+                    onInput={contactCheck}
+                  />
+                  년
+                </div>
+              ) : (
+                ""
+              )}
             </li>
             <li className='li-item4'>
               <select name='payType' ref={payTypeRef} value={input.payType} onChange={onChange}>

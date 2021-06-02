@@ -24,7 +24,7 @@ const ThumbRegister = ({ match }) => {
   );
 
   const checkedlist = useRef([]);
-
+  const [totalCareer, setTotalCareer] = useState("");
   const [inputData, setInputData] = useState({
     title: "",
     payType: "",
@@ -63,11 +63,11 @@ const ThumbRegister = ({ match }) => {
       workerRef.current.focus();
       return ToastCenter("빈칸을 모두 적어주세요.");
     }
-    let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
+    let reg = /https:\/\/api.withyuja.com\/files\/temp\/[0-9]+.[a-z]+/g;
     let imgSrcArr = String(qData).match(reg);
     if (imgSrcArr) {
       addingFileList.current.forEach((src) => {
-        if (imgSrcArr.includes(`http://localhost:8888/files/temp/${src}`)) {
+        if (imgSrcArr.includes(`https://api.withyuja.com/files/temp/${src}`)) {
           currFileList.current.push(src);
         }
       });
@@ -76,10 +76,11 @@ const ThumbRegister = ({ match }) => {
     }
     const sendingData = {
       ...inputData,
+      career: inputData.career + totalCareer,
       userId: userData.id, //글쓰고있는 사람의 아이디로 변경요망
       content: qData.replaceAll(
-        `src="http://localhost:8888/files/temp/`,
-        `src="http://localhost:8888/files/${board_type.current}/`
+        `src="https://api.withyuja.com/files/temp/`,
+        `src="https://api.withyuja.com/files/${board_type.current}/`
       ), //업로드된 이미지들은 temp가 아닌 Editor에 저장된다.
       thumbnailId: ThumbId.current, //?? 넘어온 번호..
       boardAttachNames: currFileList.current,
@@ -129,7 +130,7 @@ const ThumbRegister = ({ match }) => {
       const formData = new FormData();
       formData.append("file", file);
       EditerApiService.addThumb(formData, config).then((response) => {
-        setFileUrl(`http://localhost:8888/files/temp/${response.data.fileName}`);
+        setFileUrl(`https://api.withyuja.com/files/temp/${response.data.fileName}`);
         ThumbId.current = response.data.thumbnailId;
       });
     }
@@ -144,6 +145,14 @@ const ThumbRegister = ({ match }) => {
     },
     [inputData]
   );
+
+  const careerYear = useCallback((e) => {
+    setTotalCareer(" " + e.target.value + "년");
+  }, []);
+
+  const contactCheck = useCallback((e) => {
+    e.target.value = e.target.value.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
+  }, []);
 
   return (
     <div>
@@ -176,11 +185,26 @@ const ThumbRegister = ({ match }) => {
               />
             </li>
             <li className='li-item3'>
-              <div>경력사항</div>
+              <div className='careerTitle'>경력사항</div>
               <input ref={workerRef} id='newbie' name='career' onChange={radioCheck} value='신입' type='radio' />
               <label htmlFor='newbie'>신입</label>
               <input id='career' onChange={radioCheck} name='career' value='경력' type='radio' />
               <label htmlFor='career'>경력</label>
+              {inputData.career === "경력" ? (
+                <div className='careerTimeBox'>
+                  <input
+                    id='thumbCareerYear'
+                    name='thumbCareerYear'
+                    type='text'
+                    maxLength='2'
+                    onChange={careerYear}
+                    onInput={contactCheck}
+                  />
+                  년
+                </div>
+              ) : (
+                ""
+              )}
             </li>
             <li className='li-item4'>
               <select name='payType' ref={payTypeRef} onChange={onChange}>

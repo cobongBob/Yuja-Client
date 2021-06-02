@@ -1,23 +1,19 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  addLike,
-  deleteLike,
-  getDetailData,
-} from '../../../redux/board/editer/eboardReducer';
-import * as EditerApiService from '../../../apiService/EditerApiService';
-import { useHistory } from 'react-router';
-import ReactQuill from 'react-quill';
-import { ToastCenter, ToastTopRight } from '../../../modules/ToastModule';
-import { AiFillStar, AiOutlineFileSearch, AiOutlineStar } from 'react-icons/ai';
-import { FaUserAstronaut } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import Report from '../components/Report';
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addLike, deleteLike, getDetailData } from "../../../redux/board/editer/eboardReducer";
+import * as EditerApiService from "../../../apiService/EditerApiService";
+import { useHistory } from "react-router";
+import ReactQuill from "react-quill";
+import { ToastCenter, ToastTopRight } from "../../../modules/ToastModule";
+import { AiFillStar, AiOutlineFileSearch, AiOutlineStar } from "react-icons/ai";
+import { FaUserAstronaut } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import Report from "../components/Report";
 
 const ThumbDetail = ({ match }) => {
   const { current: board_type } = useRef(match.params.board_type);
   const { current: pageNum } = useRef(match.params.current_page);
-  const [representImg, setRepresentImg] = useState('');
+  const [representImg, setRepresentImg] = useState("");
   const dispatch = useDispatch();
   const history = useHistory();
   const { userData, authorities } = useSelector((state) => state.loginReducer);
@@ -36,9 +32,8 @@ const ThumbDetail = ({ match }) => {
 
   useEffect(() => {
     if (detailData && detailData.thumbnail && detailData.thumbnail.length > 8) {
-      //<img class="custom-class-to-image" src="http://localhost:8888/files/Winwin/20210529154604000086.png">
       setRepresentImg(
-        `<p style="text-align:center;"><img class="custom-class-to-image" src="http://localhost:8888/files/thumbnail/original/${detailData.thumbnail}"></p>`
+        `<p style="text-align:center;"><img class="custom-class-to-image" src="https://api.withyuja.com/files/thumbnail/original/${detailData.thumbnail}"></p>`
       );
     }
   }, [detailData]);
@@ -55,10 +50,10 @@ const ThumbDetail = ({ match }) => {
   const likeHandler = useCallback(() => {
     if (userData && userData.id > 0) {
       if (
-        (authorities && authorities.includes('YOUTUBER')) ||
-        authorities.includes('EDITOR') ||
-        authorities.includes('THUMBNAILER') ||
-        authorities.includes('ADMIN')
+        (authorities && authorities.includes("YOUTUBER")) ||
+        authorities.includes("EDITOR") ||
+        authorities.includes("THUMBNAILER") ||
+        authorities.includes("ADMIN")
       ) {
         if (detailData && detailData.liked) {
           deleteLike(match.params.board_id, userData.id).then((res) => {
@@ -70,10 +65,10 @@ const ThumbDetail = ({ match }) => {
           });
         }
       } else {
-        ToastCenter('권한이 없습니다.');
+        ToastCenter("권한이 없습니다.");
       }
     } else {
-      ToastCenter('로그인 해주세요');
+      ToastCenter("로그인 해주세요");
     }
   }, [userData, dispatch, match.params.board_id, detailData, authorities]);
 
@@ -82,37 +77,29 @@ const ThumbDetail = ({ match }) => {
       <div>
         <ul className='Thumb-wrapper'>
           <div className='Thumb-header-wrapper'>
-            <li className='Thumb-header'>이력서</li>
+            <li className='Thumb-header'>포트폴리오</li>
           </div>
           <div className='detail-btn'>
             <div className='detail-btn-box'>
-              {userData &&
-              detailData.user &&
-              userData.id === detailData.user.id ? (
+              {userData && detailData.user && userData.id === detailData.user.id ? (
                 <div>
-                  <Link
-                    to={`/ThumbModify/Thumb/${detailData.id}/1`}
-                    className='detail-update-btn'>
-                    이력서 수정하기
+                  <Link to={`/ThumbModify/Thumb/${detailData.id}/1`} className='detail-update-btn'>
+                    포트폴리오 수정하기
                   </Link>
                   <button className='detail-update-btn' onClick={deleteBoard}>
-                    이력서 삭제하기
+                    포트폴리오 삭제하기
                   </button>
                 </div>
-              ) : userData &&
-                detailData.user &&
-                authorities.includes('ADMIN') ? (
+              ) : userData && detailData.user && authorities.includes("ADMIN") ? (
                 <button className='detail-update-btn' onClick={deleteBoard}>
-                  이력서 삭제하기
+                  포트폴리오 삭제하기
                 </button>
               ) : (
                 <Report
                   board_id={match.params.board_id}
                   modalIsOpen={modalIsOpen}
                   setModalIsOpen={setModalIsOpen}
-                  board_code={
-                    detailData.boardType && detailData.boardType.boardCode
-                  }
+                  board_code={detailData.boardType && detailData.boardType.boardCode}
                 />
               )}
               <Link className='detail-update-btn' to={`/Thboard/Thumb/1`}>
@@ -151,28 +138,24 @@ const ThumbDetail = ({ match }) => {
             )}
             <li className='Thumb-content-hit'></li>
             <li className='Thumb-content-title'>{detailData.title}</li>
-            <li className='Thumb-content-user'>
-              작성자 : {detailData.user.nickname}
-            </li>
+            <li className='Thumb-content-user'>작성자 : {detailData.user.nickname}</li>
             <li className='Thumb-content-user-data'>{detailData.career}</li>
-            <li className='Thumb-content-user-data'>
-              연락방법 {detailData.receptionMethod}
-            </li>
+            <li className='Thumb-content-user-data'>연락방법 {detailData.receptionMethod}</li>
             <li className='Thumb-content-pay'>
               급여방식 <span> {detailData.payType}</span>
               희망급여 <span>{detailData.payAmount} 원</span>
             </li>
             <li className='Thumb-content-tools'>
-              사용기술 <span>{detailData.tools + '\t'}</span>
+              사용기술 <span>{detailData.tools && detailData.tools.join(", ")}</span>
             </li>
             <li className='Thumb-content-pr'>
               <div className='thumb-pr-div'> 경력 및 소개 </div>
               <div className='thumb-pr-content'>
                 <ReactQuill
                   className='QuillContent'
-                  value={representImg + detailData.content || ''}
+                  value={representImg + detailData.content || ""}
                   readOnly={true}
-                  theme={'bubble'}
+                  theme={"bubble"}
                 />
               </div>
             </li>
