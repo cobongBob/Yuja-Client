@@ -27,9 +27,9 @@
 .editor-register-default-input > .leftUl {
   display: inline-block;
   list-style: none;
-  width:40%;
+  width: 40%;
   & > li {
-    margin-bottom:5%;
+    margin-bottom: 5%;
   }
 }
 .li_Title_Title {
@@ -48,9 +48,9 @@
   font-size: 20px;
   width: 25%;
   text-align: left;
-  margin-top:10%;
+  margin-top: 10%;
 }
-.editor-register-default-input .warningBox  {
+.editor-register-default-input .warningBox {
   text-align: left;
   margin-top: -5%;
   font-size: 0.8em;
@@ -65,7 +65,7 @@
 .editor-register-default-input > .rightUl {
   display: inline-block;
   list-style: none;
-  width:50%;
+  width: 50%;
   text-align: left;
   margin-left: 5%;
   vertical-align: top;
@@ -178,7 +178,7 @@
 }
 .li-item5 {
   margin-top: 2%;
-  width: 77%;
+  width: 60%;
 }
 .li-item5 > label {
   margin-right: 1rem;
@@ -194,7 +194,6 @@
 .editor-quill {
   margin-left: 7rem;
   margin-right: 7rem;
-
 }
 
 .li-item3 {
@@ -222,7 +221,7 @@
   border: none;
   border-bottom: 4px solid #3d5ba5;
   margin-bottom: 1rem;
-  margin-left:15px;
+  margin-left: 15px;
   &:focus {
     outline: 0;
     border: none;

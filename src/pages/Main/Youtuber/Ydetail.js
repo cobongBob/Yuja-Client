@@ -71,34 +71,34 @@ const Ydetail = ({ match }) => {
   return (
     detailData && (
       <div>
-        <div className='DetailWrapper'>
-          <div className='DetailHeaderWrapper'>
-            <div className='youtube-top-wrapper'>
-              <div className='youtube-top'>채널소개 및 기본공고</div>
+        <div className="DetailWrapper">
+          <div className="DetailHeaderWrapper">
+            <div className="youtube-top-wrapper">
+              <div className="youtube-top">채널소개 및 공고</div>
             </div>
-            <div className='youtube_top_DefaultInfo'>
+            <div className="youtube_top_DefaultInfo">
               {/* 유튜버  */}
-              <div className='channel-box'>
+              <div className="channel-box">
                 {!detailData ? <span>loading..</span> : <ChannelBox />}
               </div>
             </div>
-            <div className='detail-box'>
+            <div className="detail-box">
               <div>
-                <div className='DetailTop'>상세내용</div>
-                <div className='detail-btn'>
-                  <div className='detail-btn-box'>
+                <div className="DetailTop">상세내용</div>
+                <div className="detail-btn">
+                  <div className="detail-btn-box">
                     {userData &&
                     detailData.user &&
                     userData.id === detailData.user.id ? (
                       <div>
                         <Link
                           to={`/YboardModify/${detailData.id}/${current_page.current}`}
-                          className='detail-update-btn'
+                          className="detail-update-btn"
                         >
                           공고 수정하기
                         </Link>
                         <button
-                          className='detail-update-btn'
+                          className="detail-update-btn"
                           onClick={deleteBoard}
                         >
                           공고 삭제하기
@@ -108,7 +108,7 @@ const Ydetail = ({ match }) => {
                       detailData.user &&
                       authorities.includes('ADMIN') ? (
                       <button
-                        className='detail-update-btn'
+                        className="detail-update-btn"
                         onClick={deleteBoard}
                       >
                         공고 삭제하기
@@ -124,37 +124,37 @@ const Ydetail = ({ match }) => {
                       />
                     )}
                     <Link
-                      className='detail-update-btn'
+                      className="detail-update-btn"
                       to={`/Youtuber/${current_page.current}`}
                     >
                       목록보기
                     </Link>
                   </div>
                 </div>
-                <div className='detail-title'>
+                <div className="detail-title">
                   {detailData.title}
-                  <div className='detail-show'>
-                    <div className='likeWrapper'>
+                  <div className="detail-show">
+                    <div className="likeWrapper">
                       {detailData && detailData.liked ? (
-                        <button className='starButton' onClick={likeHandler}>
+                        <button className="starButton" onClick={likeHandler}>
                           <AiFillStar size={30} />
                           <span>{detailData.likes}</span>
                         </button>
                       ) : (
-                        <button className='starButton' onClick={likeHandler}>
+                        <button className="starButton" onClick={likeHandler}>
                           <AiOutlineStar size={30} />
                           <span>{detailData.likes}</span>
                         </button>
                       )}
                     </div>
-                    <div className='hitWrapper'>
-                      <AiOutlineFileSearch className='hit' size={30} />{' '}
-                      <span className='hitCount'>{detailData.hit}</span>
+                    <div className="hitWrapper">
+                      <AiOutlineFileSearch className="hit" size={30} />{' '}
+                      <span className="hitCount">{detailData.hit}</span>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className='detail-date'>
+              <div className="detail-date">
                 {detailData && detailData.boardUpdatedDate
                   ? detailData.boardUpdatedDate.substr(0, 10)
                   : ''}{' '}
@@ -165,10 +165,10 @@ const Ydetail = ({ match }) => {
                   detailData.expiredDate.substr(0, 10)
                 )}
               </div>
-              <div className='detail-content'>
-                <div className='DetailQuill'>
+              <div className="detail-content">
+                <div className="DetailQuill">
                   <ReactQuill
-                    className='QuillContent'
+                    className="QuillContent"
                     value={detailData.content || ''}
                     readOnly={true}
                     theme={'bubble'}
