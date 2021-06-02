@@ -27,10 +27,10 @@ const YoutuberTable = ({
     }
   }, [userData, history]);
   return (
-    <div className="card-container">
-      <div className="card-options">
+    <div className='card-container'>
+      <div className='card-options'>
         {wrote.length < 3 ? (
-          <button onClick={writeBoard} className="registerBtn">
+          <button onClick={writeBoard} className='registerBtn'>
             공고 등록하기
           </button>
         ) : (
@@ -41,13 +41,13 @@ const YoutuberTable = ({
               );
               writeBoard();
             }}
-            className="registerBtn"
+            className='registerBtn'
           >
             공고 등록하기
           </button>
         )}
       </div>
-      <div className="card-options">
+      <div className='card-options'>
         <BackToList />
         <SortingToDeadline boardData={boardData} />
         <SortingToLiked boardData={boardData} board_type={board_type} />
@@ -56,9 +56,9 @@ const YoutuberTable = ({
         {boardData?.map((data) => (
           <li key={data.id}>
             <Card>
-              <div className="CardImageWrapper">
+              <div className='CardImageWrapper'>
                 <Card.Img
-                  className="Card_Image"
+                  className='Card_Image'
                   onClick={() =>
                     history.push(`/Ydetail/${data.id}/${currentPage}`)
                   }
@@ -72,7 +72,7 @@ const YoutuberTable = ({
                   </div>
                   <div> 사용기술 {data.tools[0]} </div>
                   <div> 모집분야 {data.worker} </div>
-                  <div className="card-deadline">
+                  <div className='card-deadline'>
                     {data.ywhen !== '마감일' ? (
                       <span>{data.ywhen}</span>
                     ) : (
@@ -82,11 +82,11 @@ const YoutuberTable = ({
                       </span>
                     )}
                   </div>
-                  <div className="card-like">
+                  <div className='card-like'>
                     {data && data.liked ? (
                       <button
                         onClick={() => likeHandler(data.id)}
-                        className="starButton"
+                        className='starButton'
                       >
                         <AiFillStar size={30} />
                         <span>{data.likes}</span>
@@ -94,7 +94,7 @@ const YoutuberTable = ({
                     ) : (
                       <button
                         onClick={() => dislikeHandler(data.id)}
-                        className="starButton"
+                        className='starButton'
                       >
                         <AiOutlineStar size={30} />
                         <span>{data.likes}</span>
@@ -106,12 +106,12 @@ const YoutuberTable = ({
               <Card.Body>
                 <Card.Text>
                   <div>
-                    <Link to={`/YoutuberProfile/`} className="card-link">
+                    <Link to={`/YoutuberProfile/`} className='card-link'>
                       {data.user.nickname}
                     </Link>
                   </div>
                   <div>
-                    <Link to={`/Ydetail/${data.id}`} className="card-link">
+                    <Link to={`/Ydetail/${data.id}`} className='card-link'>
                       {data.title}
                     </Link>
                   </div>
