@@ -30,7 +30,7 @@ const YoutuberTable = ({
     <div className="youtuber-card-container">
       <div className="card-options">
         {wrote.length < 3 ? (
-          <button onClick={writeBoard} className="registerBtn">
+          <button onClick={writeBoard} className='registerBtn'>
             공고 등록하기
           </button>
         ) : (
@@ -41,13 +41,13 @@ const YoutuberTable = ({
               );
               writeBoard();
             }}
-            className="registerBtn"
+            className='registerBtn'
           >
             공고 등록하기
           </button>
         )}
       </div>
-      <div className="card-options">
+      <div className='card-options'>
         <BackToList />
         <SortingToDeadline boardData={boardData} />
         <SortingToLiked boardData={boardData} board_type={board_type} />
