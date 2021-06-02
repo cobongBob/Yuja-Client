@@ -12,7 +12,7 @@ const SmallChat = ({ frameOnload }) => {
           {userData.id ? (
             <iframe
               className='chattingFrame'
-              src='http://api.withyuja.com/rooms'
+              src='https://api.withyuja.com/rooms'
               title='YujaChat'
               onLoad={(e) => frameOnload(e)}
             ></iframe>

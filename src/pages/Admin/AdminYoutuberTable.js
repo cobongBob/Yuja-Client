@@ -53,7 +53,7 @@ const AdminYoutuberTable = ({ currentData, promoteUser, rejectUser }) => {
                   <td>{youtuber.user.nickname}</td>
                   <td className='img_wrapper'>
                     <img
-                      src={`http://localhost:8888/files/youtubeConfirm/${youtuber.youtubeConfirmImg}`}
+                      src={`https://api.withyuja.com/files/youtubeConfirm/${youtuber.youtubeConfirmImg}`}
                       alt='컨펌이미지'
                       className='Admin_confirm_small'
                     ></img>
@@ -70,7 +70,7 @@ const AdminYoutuberTable = ({ currentData, promoteUser, rejectUser }) => {
             <div>
               <h3>사업자 번호 : {currentData[seleted].bsn}</h3>
               <img
-                src={`http://localhost:8888/files/youtubeConfirm/${currentData[seleted].youtubeConfirmImg}`}
+                src={`https://api.withyuja.com/files/youtubeConfirm/${currentData[seleted].youtubeConfirmImg}`}
                 alt='컨펌이미지'
                 className='Admin_confirm_big'
               ></img>

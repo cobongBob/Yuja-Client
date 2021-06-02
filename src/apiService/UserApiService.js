@@ -1,8 +1,8 @@
 import axios from "axios";
 import instance from "../AxiosConfig";
 
-const USER_API_BASE_URL = "http://api.withyuja.com/api/auth";
-const USER_API_BASE_USER_URL = "http://api.withyuja.com/api/user/";
+const USER_API_BASE_URL = "https://api.withyuja.com/api/auth";
+const USER_API_BASE_USER_URL = "https://api.withyuja.com/api/user/";
 
 class UserApiService {
   async addUser(data) {

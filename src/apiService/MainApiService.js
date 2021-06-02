@@ -1,7 +1,7 @@
 import axios from "axios";
 import instance from "../AxiosConfig.js";
 
-const USER_API_BASE_URL = "http://api.withyuja.com/api";
+const USER_API_BASE_URL = "https://api.withyuja.com/api";
 
 export const getfetchMainData = async () => {
   return await instance({
