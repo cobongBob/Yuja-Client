@@ -14,6 +14,7 @@ import { useHistory } from 'react-router';
 import { ToastCenter } from '../../../modules/ToastModule';
 import Report from '../components/Report';
 import RootComment from '../components/Comment/RootComment';
+import getFormatDate from '../../../modules/getFormatDate';
 const Wdetail = ({ match }) => {
   const { current: board_type } = useRef(match.params.board_type);
   const { current: pageNum } = useRef(match.params.current_page);
@@ -101,6 +102,8 @@ const Wdetail = ({ match }) => {
     }
   }, [history, board_type, pageNum]);
 
+  console.log(wDetails.createDate)
+
   return (
     wDetails && (
       <div className="comment-wrapper">
@@ -134,7 +137,7 @@ const Wdetail = ({ match }) => {
           <div>
             <div className="detail-show">
               <div className="show-user-name">
-                작성자 {wDetails.user.nickname}
+                <span>작성자</span> {wDetails.user.nickname}
               </div>
               <div className="likeWrapper">
                 {wDetails && wDetails.liked ? (
@@ -149,11 +152,13 @@ const Wdetail = ({ match }) => {
                   </button>
                 )}
               </div>
-
               <div className="hitWrapper">
                 <AiOutlineFileSearch className="hit" size={29} />{' '}
                 <span className="hitCount">{wDetails.hit}</span>
               </div>
+            </div>
+            <div className="dateBox">
+              <span>작성일</span> {wDetails.createDate && wDetails.createDate.substr(0, 10)}
             </div>
           </div>
           <div className="DetailQuill">
