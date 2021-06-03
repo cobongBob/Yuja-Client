@@ -63,6 +63,7 @@ const AdminUsers = ({ allUsers, userSetBan, userRemove, userRecovery }) => {
     clickPage(currentPage);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allUsers]);
+
   return (
     currentData && (
       <div className='admin_board'>

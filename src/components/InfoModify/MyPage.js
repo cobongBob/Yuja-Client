@@ -20,7 +20,7 @@ const MyPage = () => {
       setDefaultData(res);
     });
   }, [dispatch, userId]);
-  console.log(3333, defaultData);
+
   return (
     <div className='tableWrapper'>
       <span className='beforeModifyTitle'>즐겨찾기 목록</span>

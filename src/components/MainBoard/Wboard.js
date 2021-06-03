@@ -40,7 +40,7 @@ const Wboard = () => {
                           <td>{list.user.nickname}</td>
                           <td
                             onClick={() =>
-                              history.push(`/BoardDetail/WinWin/${list.id}/1`)
+                              history.push(`/BoardDetail/Winwin/${list.id}/1`)
                             }
                             style={{ cursor: 'pointer' }}
                           >

@@ -209,11 +209,11 @@ const QuillModify = ({
   }, [qModiData]);
   return (
     <>
-      <div className='QuillWrapper'>
-        <div id='ReactQuill'></div>
+      <div className="QuillWrapper">
+        <div id="ReactQuill"></div>
       </div>
       <div>
-        <div className='button-line'>
+        <div className="button-line">
           <button
             onClick={() => {
               if (
@@ -226,11 +226,11 @@ const QuillModify = ({
               }
               modify();
             }}
-            className='register-ok'
+            className="register-ok"
           >
             확인
           </button>
-          <button onClick={() => history.goBack()} className='register-back'>
+          <button onClick={() => history.goBack()} className="register-back">
             뒤로가기
           </button>
         </div>

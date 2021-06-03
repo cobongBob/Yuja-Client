@@ -74,7 +74,7 @@ const InfoModify = ({ history }) => {
     useState(false);
 
   const totalCheck = useCallback(() => {
-    if (userData.youtubeUrl !== '' && userData.youtubeConfirmImg === '') {
+    if ((userData.youtubeUrl !== '' && null) && (userData.youtubeConfirmImg === '')) {
       setModifyBtnDisabledHandler(true);
     } else if (
       nicknameDesc === '' &&
@@ -334,8 +334,6 @@ const InfoModify = ({ history }) => {
         ToastCenter(error.response ? error.response.message : 'Server Error!');
       });
   }, [userId, history, userData]);
-
-  console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~', userData)
 
   return (
     userData && (
