@@ -114,14 +114,14 @@ const YoutuberTable = ({
               <Card.Body>
                 <Card.Text>
                   <div>
-                    <Link to={`/YoutuberProfile/`} className="card-link">
+                    <div className="card-link">
                       {data.user.nickname}
-                    </Link>
+                    </div>
                   </div>
                   <div>
-                    <Link to={`/Ydetail/${data.id}`} className="card-link">
-                      {data.title}
-                    </Link>
+                    <div className="card-link">
+                      "{data.title}"
+                    </div>
                   </div>
                 </Card.Text>
                 <Card.Footer>

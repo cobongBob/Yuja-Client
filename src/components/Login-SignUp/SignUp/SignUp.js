@@ -18,7 +18,6 @@ const SignUp = ({ location, history, match }) => {
   return (
     <div className='SignUpFrag'>
       <header className='SignUpHeader'>
-        {/*<img className="SignUpIcon" src="/img/parts_pic/YujaLogo.png" />{" "}*/}
         <Link className='header-title' to='/'>
           유자 회원가입
         </Link>

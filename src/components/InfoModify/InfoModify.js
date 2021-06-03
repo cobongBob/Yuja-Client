@@ -335,8 +335,6 @@ const InfoModify = ({ history }) => {
       });
   }, [userId, history, userData]);
 
-  console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~', userData)
-
   return (
     userData && (
       <div className='infoModifyFrag'>

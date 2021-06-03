@@ -89,13 +89,13 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
         auth.authLogout();
       }
     });
-
     document.addEventListener('click', dropMenuOutside, true);
     return () => {
       document.removeEventListener('click', dropMenuOutside, true);
     };
   }, [dispatch]);
   /* 리덕스 관련 끝 */
+
   const myPage = useCallback(() => {
     history.push('/MyPage');
   }, [history]);
