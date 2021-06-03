@@ -186,7 +186,6 @@
   position: relative;
   display: inline-block;
   list-style: none;
-  margin-bottom: 5%;
 }
 
 .youtuber-card-container > ul > li > .card {
@@ -303,4 +302,10 @@
 .editerTitle > div > span {
   font-weight: bold;
   font-size: 18px;
+}
+
+.hoverTitle {
+  text-align: center;
+  font-size:30px !important;
+  padding-top:40px;
 }

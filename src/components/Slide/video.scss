@@ -228,3 +228,9 @@ p {
   top: 35% !important;
 }
 /* 화살표 css 덮어쓰기 끝 */
+/* 반응형 */
+@media all and (max-width:500px) {
+  .item > img {
+    width:50%;
+  }
+}

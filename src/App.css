@@ -46,3 +46,9 @@
   font-size: 4rem;
   cursor: pointer;
 }
+@media all and (max-width:500px) {
+  .chat_button {
+    top: 90%;
+    left: 83%;
+  }
+}
