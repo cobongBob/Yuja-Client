@@ -1,12 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import './SignUp1.scss';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useCallback, useEffect, useState } from "react";
+import "./SignUp.scss";
+import { Link } from "react-router-dom";
 
-const Agreement = ({ history }) => {
-
+const Agreement = ({ location }) => {
   // 체크박스 상태 확인용, 아래 배열 요소 펼칠시 텍스트 쏟아지니 주의!
   const [checkBoxes, setCheckBoxes] = useState([
-    {id: 'agreementService', boxContents:"제1조(목적) 이 약관은 Yuja 회사(전자상거래 사업자)가 운영하는 유자 사이버 몰(이하 “몰”이라 한다)에서 제공하는 인터넷 관련 서비스(이하 “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리․의무 및 책임사항을 규정함을 목적으로 합니다.\n" +
+    {
+      id: "agreementService",
+      boxContents:
+        "제1조(목적) 이 약관은 Yuja 회사(전자상거래 사업자)가 운영하는 유자 사이버 몰(이하 “몰”이라 한다)에서 제공하는 인터넷 관련 서비스(이하 “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리․의무 및 책임사항을 규정함을 목적으로 합니다.\n" +
         "\n" +
         "  ※「PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다.」\n" +
         "\n" +
@@ -28,7 +30,7 @@ const Agreement = ({ history }) => {
         "\n" +
         "  ③ “몰”은 「전자상거래 등에서의 소비자보호에 관한 법률」, 「약관의 규제에 관한 법률」, 「전자문서 및 전자거래기본법」, 「전자금융거래법」, 「전자서명법」, 「정보통신망 이용촉진 및 정보보호 등에 관한 법률」, 「방문판매 등에 관한 법률」, 「소비자기본법」 등 관련 법을 위배하지 않는 범위에서 이 약관을 개정할 수 있습니다.\n" +
         "\n" +
-        "  ④ “몰”이 약관을 개정할 경우에는 적용일자 및 개정사유를 명시하여 현행약관과 함께 몰의 초기화면에 그 적용일자 7일 이전부터 적용일자 전일까지 공지합니다. 다만, 이용자에게 불리하게 약관내용을 변경하는 경우에는 최소한 30일 이상의 사전 유예기간을 두고 공지합니다.  이 경우 \"몰“은 개정 전 내용과 개정 후 내용을 명확하게 비교하여 이용자가 알기 쉽도록 표시합니다. \n" +
+        '  ④ “몰”이 약관을 개정할 경우에는 적용일자 및 개정사유를 명시하여 현행약관과 함께 몰의 초기화면에 그 적용일자 7일 이전부터 적용일자 전일까지 공지합니다. 다만, 이용자에게 불리하게 약관내용을 변경하는 경우에는 최소한 30일 이상의 사전 유예기간을 두고 공지합니다.  이 경우 "몰“은 개정 전 내용과 개정 후 내용을 명확하게 비교하여 이용자가 알기 쉽도록 표시합니다. \n' +
         "\n" +
         "  ⑤ “몰”이 약관을 개정할 경우에는 그 개정약관은 그 적용일자 이후에 체결되는 계약에만 적용되고 그 이전에 이미 체결된 계약에 대해서는 개정 전의 약관조항이 그대로 적용됩니다. 다만 이미 계약을 체결한 이용자가 개정약관 조항의 적용을 받기를 원하는 뜻을 제3항에 의한 개정약관의 공지기간 내에 “몰”에 송신하여 “몰”의 동의를 받은 경우에는 개정약관 조항이 적용됩니다.\n" +
         "\n" +
@@ -245,8 +247,13 @@ const Agreement = ({ history }) => {
         "  ① “몰”과 이용자 간에 발생한 전자상거래 분쟁에 관한 소송은 제소 당시의 이용자의 주소에 의하고, 주소가 없는 경우에는 거소를 관할하는 지방법원의 전속관할로 합니다. 다만, 제소 당시 이용자의 주소 또는 거소가 분명하지 않거나 외국 거주자의 경우에는 민사소송법상의 관할법원에 제기합니다.\n" +
         "\n" +
         "  ② “몰”과 이용자 간에 제기된 전자상거래 소송에는 한국법을 적용합니다.",
-      label: "유자 서비스 이용약관 동의 (필수)", isChecked: false},
-    {id: 'agreementPrivate', boxContents:"('www.yuja.co.kr'이하 '유자')은(는) 「개인정보 보호법」 제30조에 따라 정부주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다.\n" +
+      label: "유자 서비스 이용약관 동의 (필수)",
+      isChecked: false,
+    },
+    {
+      id: "agreementPrivate",
+      boxContents:
+        "('www.yuja.co.kr'이하 '유자')은(는) 「개인정보 보호법」 제30조에 따라 정부주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다.\n" +
         "\n" +
         "○ 이 개인정보처리방침은 2021년 1월 1부터 적용됩니다.\n" +
         "\n" +
@@ -509,8 +516,13 @@ const Agreement = ({ history }) => {
         "② 이전의 개인정보 처리방침은 아래에서 확인하실 수 있습니다.\n" +
         "\n" +
         "예시 ) - 20XX. X. X ~ 20XX. X. X 적용 (클릭)",
-      label: "개인정보 수집 및 이용 동의 (필수)", isChecked: false},
-    {id: 'agreementMarketing', boxContents:"Yuja는 「개인정보보호법」 및 「정보통신망 이용촉진 및 정보보호 등에 관한 법률」 등 관계법령에 따라 광고성정보 전송을 위한 사전 수신동의를 받고 있습니다.\n" +
+      label: "개인정보 수집 및 이용 동의 (필수)",
+      isChecked: false,
+    },
+    {
+      id: "agreementMarketing",
+      boxContents:
+        "Yuja는 「개인정보보호법」 및 「정보통신망 이용촉진 및 정보보호 등에 관한 법률」 등 관계법령에 따라 광고성정보 전송을 위한 사전 수신동의를 받고 있습니다.\n" +
         "\n" +
         "전송방법\n" +
         "\n" +
@@ -528,142 +540,141 @@ const Agreement = ({ history }) => {
         "\n" +
         "수신동의변경\n" +
         "\n" +
-        "Yuja Web 서비스를 통해 마케팅 정보 수신동의를 변경(동의/철회)할 수 있습니다.", label: "마케팅 정보 수신에 대한 동의 (선택)", isChecked: false}
-  ])
+        "Yuja Web 서비스를 통해 마케팅 정보 수신동의를 변경(동의/철회)할 수 있습니다.",
+      label: "마케팅 정보 수신에 대한 동의 (선택)",
+      isChecked: false,
+    },
+  ]);
   const [mainCheckbox, setMainCheckbox] = useState({
-    id: 'all', isChecked: false
-  })
-  const allCheckBoxesChange = ({ target : { checked } }) => {
+    id: "all",
+    isChecked: false,
+  });
+  const allCheckBoxesChange = ({ target: { checked } }) => {
     const newMainCheckbox = {
       ...mainCheckbox,
-      isChecked: checked
-    }
-    setMainCheckbox(newMainCheckbox)
+      isChecked: checked,
+    };
+    setMainCheckbox(newMainCheckbox);
 
     // 다른 체크박스 상태 확인
-    let allCheckBoxes = [...checkBoxes]
-    allCheckBoxes.forEach(item => {
+    let allCheckBoxes = [...checkBoxes];
+    allCheckBoxes.forEach((item) => {
       item.isChecked = newMainCheckbox.isChecked;
-    })
-    setCheckBoxes(allCheckBoxes)
-  }
-  const checkBoxChange = ({ target : { name, checked } }) => {
-
-    let newCheckBoxes = [...checkBoxes]
-    newCheckBoxes.forEach(item => {
+    });
+    setCheckBoxes(allCheckBoxes);
+  };
+  const checkBoxChange = ({ target: { name, checked } }) => {
+    let newCheckBoxes = [...checkBoxes];
+    newCheckBoxes.forEach((item) => {
       if (item.id === name) {
-        item.isChecked = checked
+        item.isChecked = checked;
       }
-    })
-    setCheckBoxes(newCheckBoxes)
+    });
+    setCheckBoxes(newCheckBoxes);
 
     // 메인체크박스 상태확인
-    const isEveryBoxChecked = newCheckBoxes.every((value) => value.isChecked)
-    setMainCheckbox({...mainCheckbox, isChecked: isEveryBoxChecked})
-    console.log(mainCheckbox)
-    console.log(checkBoxes)
-    console.log(isEveryBoxChecked)
-  }
+    const isEveryBoxChecked = newCheckBoxes.every((value) => value.isChecked);
+    setMainCheckbox({ ...mainCheckbox, isChecked: isEveryBoxChecked });
+  };
   // 체크박스 끝
 
   /* 선택 데이터 넘겨주기 */
-  const next = checkBoxes[2].isChecked
+  const next = checkBoxes[2].isChecked;
+  /* 구글 로그인 데이터 넘겨주기 */
 
   /* 유효성 검사 */
-  let requiredOneIsChecked = checkBoxes[0].isChecked
-  let requiredTwoIsChecked = checkBoxes[1].isChecked
-  const isAllRequiredChecked = (e) => {
-    if(true !== requiredOneIsChecked || true !== requiredTwoIsChecked) {
-      alert("필수 항목에 모두 동의 해주세요.")
-      e.preventDefault();
-    } else if(next === true) {
-      let date = new Date();
-      let year = date.getFullYear();
-      let month = 1+date.getMonth();
-      let day = date.getDate();
-      alert(year+"년 "+month+"월 "+day+"일 "+"마케팅 정보 수신에 동의 하셨습니다.")
+  const [agreementNextBtnHandler, setAgreementNextBtnHandler] = useState();
+  let requiredOneIsChecked = checkBoxes[0].isChecked;
+  let requiredTwoIsChecked = checkBoxes[1].isChecked;
+
+  const isAllRequiredChecked = useCallback(() => {
+    if (true === requiredOneIsChecked && true === requiredTwoIsChecked) {
+      setAgreementNextBtnHandler(true);
+    } else {
+      setAgreementNextBtnHandler(false);
     }
-  }
+  }, [requiredOneIsChecked, requiredTwoIsChecked]);
+
+  useEffect(() => {
+    isAllRequiredChecked();
+  }, [isAllRequiredChecked]);
 
   return (
-    <div className="contentBox3">
-      <div className="overlay">
-    <div className="agreement">
-      <div className="required3">
-        * 약관동의
+    <div className='contentBox3'>
+      <div className="signUpBar">
+        <div className="dot1"></div>
+        <div className="dot2"></div>
+        <div className="dot3"></div>
       </div>
-      <div className="agreementBox">
-        <label className="agreementTitle">
-          이용약관, 개인정보 수집 및 이용,
-          광고성 정보 수신(선택)에 모두 동의합니다.{' '}
-          <input
-            type="checkbox"
-            id={mainCheckbox.id}
-            name={mainCheckbox.id}
-            checked={mainCheckbox.isChecked}
-            onChange={allCheckBoxesChange}
-          />
-        </label>
-          {checkBoxes.map(item => (
-            <CheckBox
-              key={item.id}
-              id={item.id}
-              name={item.id}
-              htmlFor={item.id}
-              label={item.label}
-              checked={item.isChecked}
-              boxContents={item.boxContents}
-              onChange={checkBoxChange}
-            />
-          ))}
+      <div className='dotBox'>
+        <div className='dot1' />
+        <div className='dot2' />
+        <div className='dot3' />
+        <div className='dot4' />
+      </div>
+      <div className='overlay'>
+        <div className='agreement'>
+          <div className='required3'>* 약관동의</div>
+          <div className='agreementBox'>
+            <label className='agreementTitle'>
+              이용약관, 개인정보 수집 및 이용, 광고성 정보 수신(선택)에 모두 동의합니다.{" "}
+              <input
+                type='checkbox'
+                id={mainCheckbox.id}
+                name={mainCheckbox.id}
+                checked={mainCheckbox.isChecked}
+                onChange={allCheckBoxesChange}
+              />
+            </label>
+            {checkBoxes.map((item) => (
+              <CheckBox
+                key={item.id}
+                id={item.id}
+                name={item.id}
+                htmlFor={item.id}
+                label={item.label}
+                checked={item.isChecked}
+                boxContents={item.boxContents}
+                onChange={checkBoxChange}
+              />
+            ))}
+          </div>
         </div>
-    </div>
-        <div className="signUpNextBtnBox">
-        <Link
-          onClick={isAllRequiredChecked}
-          to={{
-            pathname: '/SignUp1/Required',
-            state: {
-                next:next
-            },
-        }}
-          className="btn btn-warning"
-        >
-          다음</Link>
+        <div className='signUpNextBtnBox'>
+          {agreementNextBtnHandler === true ? (
+            <Link
+              to={{
+                pathname: "/SignUp/Required",
+                state: {
+                  next: next === undefined ? null : next,
+                  googleSignupData: location.resData === undefined ? null : location.resData.res,
+                },
+              }}
+              className='btn btn-warning'
+            >
+              다음
+            </Link>
+          ) : (
+            <button className='btn btn-warning' disabled={true}>
+              다음
+            </button>
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-const CheckBox = ({
-                    type = "checkbox",
-                    name,
-                    htmlFor,
-                    label,
-                    onChange,
-                    checked,
-                    boxContents,
-                    id,
-                  }) => {
+const CheckBox = ({ type = "checkbox", name, htmlFor, label, onChange, checked, boxContents, id }) => {
   return (
     <>
       <div className={id}>
-      <label htmlFor={htmlFor}>{label}</label>
-      {' '}
-      <input
-        type={type}
-        id={id}
-        name={name}
-        checked={checked}
-        onChange={onChange}
-      />
+        <label htmlFor={htmlFor}>{label}</label>{" "}
+        <input type={type} id={id} name={name} checked={checked} onChange={onChange} />
       </div>
-      <div className={id+"Contents"}>
-        {boxContents}
-      </div>
+      <div className={id + "Contents"}>{boxContents}</div>
     </>
-  )
+  );
 };
 
 export default Agreement;

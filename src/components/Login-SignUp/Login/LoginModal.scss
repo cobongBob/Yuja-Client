@@ -1,16 +1,19 @@
-
 .header {
   text-align: center;
 }
 
 .header-title {
-  font-size:3rem;
+  font-size: 3rem;
   font-family: hopang;
-  color:#ffb963;
+  color: #ffb963;
+}
+.header-title:hover {
+  text-decoration: none;
+  color: #ffb963;
 }
 .signinIcon {
-  width:15%;
-  margin:2em 0 1em 2em;
+  width: 15%;
+  margin: 2em 0 1em 2em;
 }
 section {
   font-family: scdream4;
@@ -20,7 +23,7 @@ section {
   font-size: 1.5em;
   outline: none;
   cursor: pointer;
-  margin-right: 0.2em;
+  margin-right: -15px;
 }
 
 .loginId {
@@ -32,11 +35,13 @@ section {
   padding: 9px 12px;
   outline: none;
   box-sizing: border-box;
-  font-size:0.85em;
+  font-size: 0.85em;
 }
+
 input::placeholder {
   color: #999999;
 }
+
 .loginPw {
   margin-top: 15px;
   border-radius: 2px;
@@ -46,7 +51,7 @@ input::placeholder {
   padding: 9px 12px;
   outline: none;
   box-sizing: border-box;
-  font-size:0.85em;
+  font-size: 0.85em;
 }
 .loginMid {
   display: flex;
@@ -58,6 +63,15 @@ input::placeholder {
     line-height: 3;
   }
 }
+.findPasswordBox {
+  margin: auto 0px auto auto;
+}
+.findPassword {
+  font-size: 14px;
+  color: #8d8d8d;
+  line-height: 3;
+  left: 50%;
+}
 .loginBtn {
   height: 40px;
   width: 100%;
@@ -67,17 +81,18 @@ input::placeholder {
   background-color: black;
   color: white;
   line-height: 1px;
-  margin-top: 20px;
+  margin-top: 5px;
   border-radius: 3px;
   border-style: none;
 }
+/* 구글 로그인 관련 */
 .googleLoginBtn {
   height: 40px;
   width: 100%;
   font-size: 14px;
   padding: 13px 30px;
   cursor: pointer;
-  background-color: orangered;
+  background-color: blue;
   color: white;
   line-height: 1px;
   margin-top: 10px;
@@ -85,11 +100,16 @@ input::placeholder {
   border-radius: 3px;
   border-style: none;
 }
+.googleIcon {
+  height: 40px;
+  margin-left: -20px;
+  margin-right: 10px;
+}
+/* 구글 로그인 끝 */
 section > footer {
   padding: 12px 16px;
   text-align: center;
 }
-
 .loginLine {
   color: #bcbcbc;
   font-size: 14px;
@@ -101,21 +121,106 @@ section > footer {
     cursor: pointer;
   }
 }
+/* 수정 버튼 */
 
+.modifyBtn {
+  display: inline-block;
+  color: #ff9411;
+  border: none;
+}
+/* nav 로그인 전/후 변하는 컴포넌트들 */
+
+.welcomeBox {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border: none;
+  background-color: transparent;
+  display: inline-block;
+  margin-right: 14rem;
+  word-break: nowrap;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  font-size: medium;
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.navChangeBox {
+  display: inline-block;
+}
+
+.navChangeBox > div > ul > li > button {
+  padding: 0.25rem;
+}
+
+.notice_ul {
+  width: 15rem;
+  padding: 0.5rem;
+  text-align: right;
+  font-size: 15px;
+  margin-left: -8rem;
+  list-style: none;
+  background-color: white;
+  border: 1px solid #ff9411;
+  border-radius: 20px;
+}
+
+.noti_icon {
+  margin-top: -0.25rem;
+  color: #ff9411;
+  margin-left: 0.25rem;
+}
+
+.welcomeBox > div {
+  display: inline-block;
+}
+
+.notiOnNav > ul > li {
+  padding-left: 0;
+}
+
+.modifyBtn {
+  border: none;
+  background-color: transparent;
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+/* 모달창 제어 */
 .ReactModal__Body--open,
 .ReactModal__Html--open {
   overflow: hidden;
 }
-
+.ReactModal__Body--after-open {
+  overflow-y: hidden;
+}
 .ReactModal__Overlay {
   opacity: 0;
   transition: opacity 500ms;
 }
-
-.ReactModal__Overlay--after-open{
+.ReactModal__Overlay--after-open {
   opacity: 1;
+  overflow-y: hidden;
+}
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+.ReactModal__Content {
+  overflow-x: hidden;
 }
 
-.ReactModal__Overlay--before-close{
-  opacity: 0;
+/* 모달 반응형 */
+@media screen and (max-width: 4000px) and (max-height: 4000px) {
+  .ReactModal__Content {
+    min-width: 360px;
+    height: 1em;
+  }
+  .ReactModal__Content--after-open {
+    min-width: 360px;
+    min-height: 560px;
+  }
 }

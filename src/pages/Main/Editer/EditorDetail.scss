@@ -1,0 +1,154 @@
+.editordetail-wrapper {
+  margin-top: 3%;
+  margin-left: 10%;
+  margin-right: 10%;
+  padding-left: 0 !important;
+  list-style: none;
+}
+.editordetail-header-wrapper {
+  text-align: center;
+}
+.editordetail-header {
+  display: inline-block;
+  font-family: 'scdream5';
+  font-size: 30px;
+  border-bottom: 3px solid #3d5ba5;
+  margin-top: 3%;
+  margin-bottom: 3%;
+}
+
+.editordetail-content-wrapper {
+  font-family: scdream4;
+  font-size: 20px;
+  margin-left: 10rem;
+  margin-right: 10rem;
+}
+.editordetail-content-profile-pic {
+  float: left;
+  border-radius: 50%;
+}
+
+.editordetail-content-profile-pic_ {
+  float: left;
+  border-radius: 50%;
+  width: 8.5vw;
+  height: 8vh;
+  text-align: center;
+}
+
+.EProfileIcon {
+  color: #3d5ba5;
+}
+
+.editordetail-content-profile-pic > img {
+  width: 10rem;
+  height: 10rem;
+  border: 2px solid #3d5ba5;
+  border-radius: 50%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.editordetail-content-title {
+  font-family: scdream5;
+  background-color: lightgrey;
+  margin-left: 12rem;
+  border-radius: 10px;
+  height: 3rem;
+  line-height: 3rem;
+  vertical-align: middle;
+  margin-bottom: 0.5rem;
+  padding-left: 1rem;
+}
+.editordetail-content-user {
+  display: inline-block;
+  margin-left: 2rem;
+  border-bottom: 4px solid #3d5ba5;
+  padding: 0.25rem;
+  font-weight: bolder;
+  margin-bottom: 0.5rem;
+}
+
+.editordetail-content-user-data {
+  display: inline-block;
+  margin-left: 1rem;
+  border-bottom: 4px solid #3d5ba5;
+  padding: 0.25rem;
+  font-weight: bolder;
+  margin-bottom: 0.5rem;
+}
+
+.editordetail-content-like {
+  display: block;
+  text-align: right;
+  margin-right: 10rem;
+  font-family: scdream4;
+  font-size: 20px;
+  margin-bottom: 1rem;
+}
+
+.editordetail-content-like > div {
+  display: inline;
+  margin-left: 0.25rem;
+  color: #008744;
+}
+
+.editordetail-content-hit {
+  display: inline;
+  font-family: scdream4;
+  font-size: 20px;
+}
+
+.editordetail-content-pay {
+  margin-left: 12rem;
+  line-height: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.editordetail-content-pay > span {
+  background-color: lightgrey;
+  border-radius: 10px;
+  padding: 0.25rem;
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.editordetail-content-tools {
+  margin-left: 12rem;
+  line-height: 2.5rem;
+}
+
+.editordetail-content-tools > span {
+  margin-right: 1rem;
+  font-weight: bold;
+  background-color: lightgrey;
+  border-radius: 10px;
+  padding: 0.25rem;
+}
+
+.editordetail-content-pr {
+  width: 100%;
+  margin-bottom: 3rem;
+}
+
+.pr-div {
+  font-size: 24px;
+  font-family: scdream5;
+  display: inline-block;
+  border-bottom: 4px solid #3d5ba5;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  margin-left: 1rem;
+}
+
+.pr-content {
+  margin-left: 1rem;
+  background-color: lightgrey;
+  border-radius: 20px;
+  padding: 0.5rem;
+}
+
+.pr-content > .QuillContent {
+  width: 100%;
+  height: 100%;
+}

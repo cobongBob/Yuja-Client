@@ -15,16 +15,8 @@
   src: url('./fonts/SCDream5.otf');
 }
 
-.allBoard {
-  background-color: white;
-  margin-right: 10vw;
-  margin-left: 10vw;
-  margin-top: 1%;
-  margin-bottom: 1%;
-}
-
 ::-webkit-scrollbar {
-  width: 0.5em;
+  width: 0.25em;
   overflow-y: scroll;
 }
 
@@ -42,4 +34,15 @@
 }
 .custom-control {
   min-height: 0 !important;
+}
+
+/* 채팅 아이콘*/
+.chat_button {
+  position: fixed;
+  z-index: 100;
+  top: 88%;
+  left: 94%;
+  color: #c4302b;
+  font-size: 4rem;
+  cursor: pointer;
 }

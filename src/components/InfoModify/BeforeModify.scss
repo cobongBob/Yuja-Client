@@ -1,0 +1,105 @@
+.BeforeModifyFrag {
+  margin-right: 10vw;
+  margin-left: 10vw;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  font-family: 'scdream4';
+}
+.beforeModifyTitleBox {
+  text-align: center;
+  margin-bottom: 2%;
+}
+.beforeModifyTitle {
+  font-size: 3rem;
+  font-family: hopang;
+  color: #ffb963;
+  &:hover {
+    text-decoration: none;
+    color: #ffb963;
+  }
+}
+.beforeModifyContentBox {
+  text-align: center;
+}
+
+.beforeModifyPasswordLabel {
+  font-size: 14px;
+  display: block;
+  margin-bottom: 0;
+}
+.beforeModifyPassword {
+  margin-top: 5px;
+  margin-bottom: 12px;
+  border-radius: 2px;
+  width: 100%;
+  height: 40px;
+  border: 1px solid #e5e5e5;
+  padding: 9px 12px;
+  outline: none;
+  box-sizing: border-box;
+  font-size: 0.85em;
+  &:focus {
+    box-shadow: 1px 1px 3px 2px #ffb963;
+  }
+}
+.beforeModifyBtnBox {
+  margin-top: 5%;
+}
+.beforeModifyDescBoxDescBox {
+  margin-bottom: 7%;
+  & > span {
+    color: #ffb963;
+  }
+}
+input::placeholder {
+  color: #999999;
+}
+.beforeModifyOtherBoxDesc {
+  margin-top: 10%;
+}
+.beforeModifyOtherBox {
+  margin-top: 5%;
+}
+.beforeModifyOtherBox > .btn {
+  margin: 2%;
+}
+
+/* 오버레이 (보더) */
+.overlay {
+  border: 2px solid gray;
+  padding: 2em;
+  margin: auto;
+  width: 30%;
+  box-shadow: 5px 5px darkgray;
+}
+
+/* 페이지 반응형 */
+@media screen and (max-width: 1480px) {
+  .overlay {
+    width: 350px;
+  }
+  .PasswordFrag {
+    margin-right: 1vw;
+    margin-left: 1vw;
+    margin-top: 1%;
+    margin-bottom: 1%;
+  }
+}
+
+/* footer */
+.beforeModifyFooter {
+  text-align: center;
+  margin-top: 2%;
+}
+.linkToMain {
+  color: darkgray;
+}
+.linkToMain:hover {
+  text-decoration: none;
+  color: darkgray;
+}
+.linkToMain > span {
+  color: #ffb963;
+  text-decoration: underline;
+  cursor: pointer;
+}

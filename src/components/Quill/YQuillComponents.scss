@@ -1,0 +1,69 @@
+.ql-editor .ql-video {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ql-container {
+  font-size: 20px;
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#wQuill .ql-container {
+  font-size: 20px;
+  width: 85%;
+  margin-right: auto;
+  margin-left: 0;
+}
+
+.ql-video {
+  width: 42vw;
+  height: 45vh;
+}
+
+.QuillWrapper {
+  height: 30rem;
+}
+
+.button-line {
+  margin-top: 7rem;
+  text-align: center;
+}
+
+.register-ok {
+  background-color: transparent;
+  font-family: scdream5;
+  vertical-align: middle;
+  border: 2px solid green;
+  border-radius: 20px;
+  text-decoration: none;
+  color: green;
+  font-size: 20;
+  padding: 0.5rem;
+  margin-right: 0.25rem;
+  &:hover {
+    background-color: green;
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.register-back {
+  background-color: transparent;
+  font-family: scdream5;
+  vertical-align: middle;
+  border: 2px solid #ff0000;
+  border-radius: 20px;
+  text-decoration: none;
+  color: #ff0000;
+  font-size: 20;
+  padding: 0.5rem;
+  margin-right: 0.25rem;
+  &:hover {
+    background-color: #ff0000;
+    color: white;
+    text-decoration: none;
+  }
+}

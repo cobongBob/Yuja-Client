@@ -3,11 +3,18 @@
   padding: 0;
 }
 .new-board {
-  padding: 0.5em;
+  margin-top: 1%;
+  padding: 0.2em;
   display: inline-block;
-  border-bottom: 2px solid #c4302b;
-  font-family: scdream5;
-  font-size: 23px;
+  border-bottom: 4px solid #c4302b;
+  font-family: 'scdream5';
+  font-size: 2rem;
   color: white;
   text-shadow: -2px 0 #c4302b, 0 2px #c4302b, 2px 0 #c4302b, 0 -2px #c4302b;
+  margin-bottom: 1%;
+}
+
+.new-board > span {
+  color: #c4302b;
+  font-size: 2.5rem;
 }

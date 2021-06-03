@@ -1,74 +1,65 @@
 import React from 'react';
-import './Ynew.scss';
+import './new.scss';
 import { FaUserAstronaut } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import MOCK_DATA from '../../pages/MOCK_DATA.json';
+import { Link, useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Ynew = () => {
-  console.log('MOCK_DATA: ', typeof MOCK_DATA);
-  console.log(MOCK_DATA);
-
+  const { YmainList } = useSelector((state) => state.mainReducer);
+  const history = useHistory();
   return (
-    <>
-      <div className='new-youtuber'>
-        <div className='user-profile-pic'>
-          <FaUserAstronaut size={60} className='youtuber-profile' />
-        </div>
-        <div className='wanted-content'>
-          <span className='wanted-name'>
-            <Link to='/YoutuberProfile'>{MOCK_DATA[0].user_id}</Link>
-          </span>
-          <span className='wanted-type-editer'>편집자</span> <br />
-          <span className='wanted-content-detail'>
-            <Link to='/Ydetail/:board_id'>{MOCK_DATA[0].title}</Link>
-          </span>
-        </div>
-      </div>
-      <div className='new-youtuber'>
-        <div className='user-profile-pic'>
-          <FaUserAstronaut size={60} className='youtuber-profile' />
-        </div>
-        <div className='wanted-content'>
-          <span className='wanted-name'>
-            <Link to='/YoutuberProfile'>{MOCK_DATA[1].user_id}</Link>
-          </span>
-          <span className='wanted-type-editer'>편집자</span> <br />
-          <span className='wanted-content-detail'>
-            <Link to='/Ydetail/:board_id'>{MOCK_DATA[1].title}</Link>
-          </span>
-        </div>
-      </div>
-      <div className='new-youtuber'>
-        <div className='user-profile-pic'>
-          <FaUserAstronaut size={60} className='youtuber-profile' />
-        </div>
-        <div className='wanted-content'>
-          <span className='wanted-name'>
-            <Link to='/YoutuberProfile'>닉네임길면안됨...</Link>
-          </span>
-          <span className='wanted-type-editer'>편집자</span>
-          <span className='wanted-type-thumbnail'>썸네일러</span> <br />
-          <span className='wanted-content-detail'>
-            <Link to='/Ydetail/:board_id'>{MOCK_DATA[2].title}</Link>
-          </span>
-        </div>
-      </div>
-      <div className='new-youtuber'>
-        <div className='user-profile-pic'>
-          <FaUserAstronaut size={60} className='youtuber-profile' />
-        </div>
-        <div className='wanted-content'>
-          <span className='wanted-name'>
-            <Link to='/YoutuberProfile'>4개적당?</Link>
-          </span>
-          <span className='wanted-type-editer'>편집자</span>
-          <span className='wanted-type-thumbnail'>썸네일러</span> <br />
-          <span className='wanted-content-detail'>
-            <Link to='/Ydetail/:board_id'>{MOCK_DATA[2].title}</Link>
-          </span>
-        </div>
-      </div>
-    </>
+    <div>
+      {YmainList &&
+        YmainList.map((list, index) => (
+          <ul key={index} className='NewList'>
+            <div className='new-youtuber'>
+              <li>
+                <div className='ProfileWrapper'>
+                  {list.previewImage ? (
+                    <div
+                      onClick={() => history.push(`/Ydetail/${list.id}/1`)}
+                      className='user-profile-pic_'
+                    >
+                      <img
+                        className='MainProfileImage'
+                        src={`${list.previewImage}`}
+                        alt=''
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      onClick={() => history.push(`/Ydetail/${list.id}/1`)}
+                      className='user-profile-pic'
+                    >
+                      <FaUserAstronaut size={60} className='youtuber-profile' />
+                    </div>
+                  )}
+                  <div className='wanted-content'>
+                    <div className='NameWorkerWrapper'>
+                      <span className='wanted-name'>{list.user.nickname}</span>
+                      <span className='wanted-type-editer'>
+                        {list.worker}
+                      </span>{' '}
+                    </div>
+                    <div className='TitleWrapper'>
+                      <p className='wanted-content-detail'>
+                        <strong>
+                          <Link
+                            className='ListTitle'
+                            to={`/Ydetail/${list.id}/1`}
+                          >
+                            {list.title}
+                          </Link>
+                        </strong>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </div>
+          </ul>
+        ))}
+    </div>
   );
 };
 

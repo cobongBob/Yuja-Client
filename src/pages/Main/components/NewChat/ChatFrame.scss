@@ -1,0 +1,106 @@
+.chatFrameFrag {
+  margin-right: 1vw;
+  margin-left: 1vw;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  font-family: 'scdream4';
+  position: fixed;
+  z-index: 99;
+  left: 76%;
+  bottom: 11%;
+  -moz-animation: fadein 0.5s; /* Firefox */
+  -webkit-animation: fadein 0.5s; /* Safari and Chrome */
+  -o-animation: fadein 0.5s; /* Opera */
+}
+.chatFrameOverlay {
+    margin: auto;
+    width: 100%;
+}
+
+/* 채팅 반응형 */
+@media screen and (max-width: 1480px) {
+  .chatFrameFrag {
+    margin-right: 1vw;
+    margin-left: 1vw;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-family: 'scdream4';
+    position: fixed;
+    z-index: 99;
+    left: 71.5%;
+    bottom: 11%;
+    width: 360px;
+  }
+  .chatFrameOverlay {
+    margin: auto;
+    width: 100%;
+  }
+}
+
+/* 채팅 애니메이션 */
+@keyframes fadein {
+  from {
+    bottom:-60%; overflow:hidden;
+  }
+  to {
+    bottom: 11%;
+  }
+}
+@-moz-keyframes fadein { /* Firefox */
+  from {
+    bottom:-60%; overflow:hidden;
+  }
+  to {
+    bottom: 11%;
+  }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+  from {
+    bottom:-60%; overflow:hidden;
+  }
+  to {
+    bottom: 11%;
+  }
+}
+@-o-keyframes fadein { /* Opera */
+  from {
+    bottom:-60%; overflow:hidden;
+  }
+  to {
+    bottom: 11%;
+  }
+}
+
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-moz-keyframes fadeout { /* Firefox */
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes fadeout { /* Safari and Chrome */
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-o-keyframes fadeout { /* Opera */
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

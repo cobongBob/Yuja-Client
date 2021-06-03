@@ -1,0 +1,98 @@
+.admin_main {
+  font-family: scdream4;
+  margin-top: 2rem;
+  margin-left: 10rem;
+  margin-bottom: 5rem;
+}
+.admin_board > h1 {
+  display: inline-block;
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+  background-color: #ff9411;
+  padding: 0.5rem;
+  border-radius: 20px;
+}
+.sideBox {
+  display: inline-block;
+  margin: auto;
+  top: 19vh;
+  position: relative;
+  left: 3%;
+}
+.admin-table-wrapper > table {
+  width: 100%;
+  margin: 0 2rem 2rem 0;
+  font-family: scdream4;
+  line-height: 2rem;
+  white-space: nowrap;
+}
+.admin-table-wrapper > table > thead {
+  font-family: scdream5;
+  text-align: center;
+}
+.admin-table-wrapper > table > tbody {
+  text-align: center;
+}
+.admin-table-wrapper > table > tbody > tr {
+  border-bottom: 2px solid #ff9411;
+}
+.admin-table-wrapper > table > thead > tr > th {
+  border-bottom: 2px solid #ff9411;
+}
+.admin_item {
+  //width: 66%;
+  //display: inline-block;
+  //min-height: 75vh;
+  //margin-top: 4rem;
+  display: inline-block;
+  width: 65vw;
+  position: relative;
+  margin-left: 9%;
+  margin-top: -15%;
+}
+
+.Admin_confirm_big {
+  width: 100%;
+  height: 100%;
+}
+.Admin_confirm_small {
+  width: 100%;
+  line-height: 100%;
+}
+.admin_report_detail {
+  cursor: pointer;
+}
+.admin_report_modal {
+  font-size: 20px;
+  font-family: scdream4;
+  vertical-align: middle;
+  padding: 2rem;
+}
+
+.admin_report_modal_user {
+  text-align: center;
+  margin: 2rem;
+  background-color: bisque;
+}
+.admin_report_modal_content {
+  background-color: bisque;
+  margin: 2rem;
+  min-height: 24vh;
+}
+.admin_report_modal_date {
+  text-align: center;
+  background-color: bisque;
+  margin: 2rem;
+}
+
+.admin_modal_btn {
+  text-align: center;
+}
+.admin_modal_btn > .btn {
+  margin: 2%;
+}
+
+.notice_option {
+  cursor: pointer;
+}

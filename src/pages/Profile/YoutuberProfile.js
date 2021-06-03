@@ -3,7 +3,7 @@ import React from 'react';
 const YoutuberProfile = () => {
   return (
     <div>
-      <h1> 유튜버의 공고 목록을 볼 수 있습니다. </h1>
+      <h1> 내가 찜한 글 보기 페이지로 바꾸실..? </h1>
     </div>
   );
 };

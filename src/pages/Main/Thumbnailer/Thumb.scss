@@ -1,0 +1,180 @@
+.preview_Thubnail {
+  margin: 2rem auto;
+  width: 15rem;
+  height: 15rem;
+  background-size: cover;
+}
+
+.thumbnail-for-Main-Wrapper {
+  width: 100%;
+  height: 18vh;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 2;
+}
+
+.thumbnail-for-Main {
+  max-width: 100%;
+  height: 100%;
+}
+
+.Thumb-wrapper {
+  margin-top: 3%;
+  margin-left: 10%;
+  margin-right: 10%;
+  padding-left: 0 !important;
+  list-style: none;
+}
+.Thumb-header-wrapper {
+  text-align: center;
+}
+.Thumb-header {
+  display: inline-block;
+  font-family: 'scdream5';
+  font-size: 30px;
+  border-bottom: 3px solid #ff7c7c;
+  margin-top: 3%;
+  margin-bottom: 3%;
+}
+
+.Thumb-content-wrapper {
+  font-family: scdream4;
+  font-size: 20px;
+  margin-left: 10rem;
+  margin-right: 10rem;
+}
+.Thumb-content-profile-pic {
+  width: 10rem;
+  height: 10rem;
+  float: left;
+}
+
+.Thumb-content-profile-pic_ {
+  float: left;
+  border-radius: 50%;
+  width: 8.5vw;
+  height: 8vh;
+  text-align: center;
+}
+
+.ThProfileIcon {
+  color: #ff7c7c;
+}
+
+.Thumb-content-profile-pic > img {
+  width: 10rem;
+  border: 2px solid #ff7c7c;
+  border-radius: 50%;
+  height: 10rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.Thumb-content-title {
+  font-family: scdream5;
+  background-color: lightgrey;
+  margin-left: 12rem;
+  border-radius: 10px;
+  height: 3rem;
+  line-height: 3rem;
+  vertical-align: middle;
+  margin-bottom: 0.5rem;
+  padding-left: 1rem;
+}
+.Thumb-content-user {
+  display: inline-block;
+  margin-left: 2rem;
+  border-bottom: 4px solid #ff7c7c;
+  padding: 0.25rem;
+  font-weight: bold;
+}
+
+.Thumb-content-user-data {
+  display: inline-block;
+  margin-left: 1rem;
+  border-bottom: 4px solid #ff7c7c;
+  padding: 0.25rem;
+  font-weight: bolder;
+  margin-bottom: 0.5rem;
+}
+
+.Thumb-content-like {
+  display: block;
+  text-align: right;
+  margin-right: 10rem;
+  font-family: scdream4;
+  font-size: 20px;
+  margin-bottom: 1rem;
+}
+
+.Thumb-content-like > div {
+  display: inline;
+  margin-left: 0.25rem;
+  color: #008744;
+}
+
+.Thumb-content-hit {
+  display: inline;
+  font-family: scdream4;
+  font-size: 20px;
+}
+
+.Thumb-content-pay {
+  margin-left: 12rem;
+  line-height: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.Thumb-content-pay > span {
+  background-color: lightgrey;
+  border-radius: 10px;
+  padding: 0.25rem;
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.Thumb-content-tools {
+  margin-left: 12rem;
+  line-height: 2.5rem;
+}
+
+.Thumb-content-tools > span {
+  margin-right: 1rem;
+  font-weight: bold;
+  background-color: lightgrey;
+  border-radius: 10px;
+  padding: 0.25rem;
+}
+
+.Thumb-content-pr {
+  width: 100%;
+  margin-bottom: 3rem;
+}
+
+.thumb-pr-div {
+  font-size: 24px;
+  font-family: scdream5;
+  display: inline-block;
+  border-bottom: 4px solid #ff7c7c;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  margin-left: 1rem;
+}
+
+.thumb-PicInput {
+  text-align: center;
+  display: inline-block;
+  margin-left: 9rem;
+  margin-bottom: 1rem;
+}
+
+.thumb-pr-content {
+  margin-left: 1rem;
+  background-color: lightgrey;
+  border-radius: 20px;
+  padding: 0.5rem;
+}
+
+.thumb-pr-content > .QuillContent {
+  width: 100%;
+}
