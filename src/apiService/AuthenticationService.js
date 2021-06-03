@@ -1,5 +1,5 @@
 import axios from "axios";
-const USER_API_BASE_URL = "http://yuja-backend:8888/api/auth";
+const USER_API_BASE_URL = "https://api.withyuja.com/api/auth";
 
 export const verifyEmailSend = async (username) => {
   return await axios.post(USER_API_BASE_URL + "/verify", { username: username });
