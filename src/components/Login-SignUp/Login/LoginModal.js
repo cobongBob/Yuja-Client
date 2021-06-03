@@ -281,7 +281,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
             </span>
             <img
               className='signinIcon'
-              src='/img/parts_pic/yuzu05.png'
+              src='/img/parts_pic/YujaLogo.png'
               alt='logo'
             />{' '}
             <div className='header-title'>유자 로그인</div>

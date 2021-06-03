@@ -177,9 +177,9 @@ const Required = ({ location, history }) => {
   }, [totalCheck, location.state]);
 
   const { current: passCheck } = useRef(
-    /^(?=.*?[a-z])(?=.*?[#?!@$%^&*-])(?=.*?[0-9]).{8,}$/
-  ); /* 비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다. */
-  const { current: nameCheck } = useRef(/^[a-zA-Z가-힣]{2,10}$/);
+    /^(?=.*?[a-zA-Z])(?=.*?[#?!@$%^&*-])(?=.*?[0-9]).{8,}$/
+  ); /* 비밀번호는 영문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다. */
+  const { current: nameCheck } = useRef(/^[a-zA-Z가-힣]{2,20}$/);
   const { current: birthCheck } = useRef(
     /^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/
   );
@@ -217,7 +217,7 @@ const Required = ({ location, history }) => {
     passCheck.test(isValidateInput.pass) === false &&
     isValidateInput.pass !== ''
       ? setPasswordValidateDesc(
-          '비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.'
+          '비밀번호는 영문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.'
         )
       : setPasswordValidateDesc('');
   }, [isValidateInput, passCheck]);
@@ -233,7 +233,7 @@ const Required = ({ location, history }) => {
       if (isValidateInput.password !== '' && passCheckNum !== '') {
         if (passCheck.test(isValidateInput.pass) === false) {
           setPasswordValidateDesc(
-            '비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.'
+            '비밀번호는 영문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.'
           );
         } else if (isValidateInput.pass !== passCheckNum) {
           if (e.target.className === 'signUpPw') {
@@ -406,7 +406,7 @@ const Required = ({ location, history }) => {
                       location.state.googleSignupData.realName
                     }
                     autoComplete='off'
-                    maxLength='15'
+                    maxLength='20'
                   />
                   <div className='warningBox'>{nameValidateDesc}</div>
                 </td>
