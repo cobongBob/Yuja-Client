@@ -14,7 +14,7 @@ const Evideo = ({ settings }) => {
   const slideDefault = useRef(null);
   const gotoDefault = useCallback((num) => {
     slideDefault.current && slideDefault.current.slickGoTo(num, false);
-  },[]);
+  }, []);
   useEffect(() => {
     slideDefault.current &&
       slideDefault.current.slickGoTo &&
