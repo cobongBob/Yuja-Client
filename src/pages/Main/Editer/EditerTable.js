@@ -33,12 +33,6 @@ export default function EditorTable({
     }
   }, [userData, history, wrote]);
 
-  console.log('=============================',eBoardData[0])
-
-  const afterCareer = eBoardData.career && eBoardData[0].career.splice(0, 2)
-
-  console.log('afterCareer', afterCareer)
-
   return (
     <div className='card-container'>
       <div className='card-options'>

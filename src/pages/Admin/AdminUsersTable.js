@@ -30,6 +30,7 @@ const AdminUsersTable = ({ currentData, userSetBan, userRemove, userRecovery }) 
   const closeModal = useCallback(() => {
     setModalIsOpen(false);
   }, []);
+
   return (
     <div>
       <div className='community-table-wrapper'>

@@ -74,7 +74,7 @@ const InfoModify = ({ history }) => {
     useState(false);
 
   const totalCheck = useCallback(() => {
-    if (userData.youtubeUrl !== '' && userData.youtubeConfirmImg === '') {
+    if ((userData.youtubeUrl !== '' && null) && (userData.youtubeConfirmImg === '')) {
       setModifyBtnDisabledHandler(true);
     } else if (
       nicknameDesc === '' &&

@@ -47,7 +47,6 @@ export const userCheck = async () => {
     userLoginStatus: isUserLoggedIn,
   };
 };
-
 export const addAuthority = async (newAuthority) => {
   return {
     type: ADD_AUTHORITY,
