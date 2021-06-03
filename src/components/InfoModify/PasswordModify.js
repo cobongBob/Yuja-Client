@@ -45,8 +45,8 @@ const PasswordModify = ({ history, location }) => {
   /* state들 준비 끝 */
 
   const { current: passCheck } = useRef(
-    /^(?=.*?[a-z])(?=.*?[#?!@$%^&*-])(?=.*?[0-9]).{8,}$/
-  ); /* 비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다. */
+    /^(?=.*?[a-zA-Z])(?=.*?[#?!@$%^&*-])(?=.*?[0-9]).{8,}$/
+  ); /* 비밀번호는 영문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다. */
 
   const changeValue = useCallback(
     (e) => {
@@ -63,7 +63,7 @@ const PasswordModify = ({ history, location }) => {
       if (resetPasswordData.password !== '' && resetPassCheckNum !== '') {
         if (passCheck.test(dataInput.pass) === false) {
           setResetPasswordDesc(
-            '비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.'
+            '비밀번호는 영문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.'
           );
           setResetPasswordBtnHandler(true);
         } else if (dataInput.pass !== resetPassCheckNum) {
