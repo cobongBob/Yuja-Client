@@ -11,7 +11,7 @@
 }
 
 .alertNoti {
-  bottom: 6em !important;
+  bottom: 15em !important;
   z-index: 90 !important;
   background-color: bisque !important;
   border-radius: 8px !important;
