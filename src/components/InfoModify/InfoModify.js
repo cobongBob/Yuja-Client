@@ -310,10 +310,11 @@ const InfoModify = ({ history }) => {
   );
   /* 파일 업로드 끝 */
 
-  const contactCheck = useCallback((e)=> {
-    e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
-  }, [])
-
+  const contactCheck = useCallback((e) => {
+    e.target.value = e.target.value
+      .replace(/[^0-9.]/g, '')
+      .replace(/(\..*)\./g, '$1');
+  }, []);
 
   const modifyBtn = useCallback(() => {
     const data = {

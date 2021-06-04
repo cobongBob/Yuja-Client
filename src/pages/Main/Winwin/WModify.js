@@ -60,12 +60,12 @@ const WModify = ({ match }) => {
     if (!qModiData || !input.title) {
       return ToastCenter("제목과 내용을 입력해주세요");
     }
-    let reg = new RegExp(`http://localhost:8888/files/${board_type.current}/[0-9]+.[a-z]+`, "gi");
+    let reg = new RegExp(`https://api.withyuja.com/files/${board_type.current}/[0-9]+.[a-z]+`, "gi");
     let imgSrcArr = String(qModiData).match(reg); // 불러왔던 글에 존재했던 이미지 태그들의 src
     // 서버에서 날아온 이미지 이름과 비교한다. 없으면 삭제된것이므로 삭제 리스트에 담아준다.
     if (imgSrcArr) {
       fileList.current.forEach((src) => {
-        if (!imgSrcArr.includes(`http://localhost:8888/files/${board_type.current}/${src}`)) {
+        if (!imgSrcArr.includes(`https://api.withyuja.com/files/${board_type.current}/${src}`)) {
           deletedFileList.current.push(src);
         }
       });
@@ -77,8 +77,8 @@ const WModify = ({ match }) => {
       ...input,
       ...checked,
       content: qModiData.replaceAll(
-        `src="http://localhost:8888/files/temp/`,
-        `src="http://localhost:8888/files/${board_type.current}/`
+        `src="https://api.withyuja.com/files/temp/`,
+        `src="https://api.withyuja.com/files/${board_type.current}/`
       ),
       boardAttachIds: addingFileList.current,
       boardAttachToBeDeleted: deletedFileList.current,
