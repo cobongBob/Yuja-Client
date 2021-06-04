@@ -202,3 +202,15 @@ a {
   background-color: #f7be7a4a;
   font-weight: bold;
 }
+
+@media screen and (max-width: 1480px) {
+  .overlay {
+    width: 350px;
+  }
+  .SignUpFrag {
+    margin-right: 1vw;
+    margin-left: 1vw;
+    margin-top: 1%;
+    margin-bottom: 1%;
+  }
+}
