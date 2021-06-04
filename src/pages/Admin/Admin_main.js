@@ -18,9 +18,11 @@ import {
   fetchAllNoticeBoards,
   noticePrivateSwitch,
   removeUserData,
+  fetchAllQnABoards,
 } from "../../apiService/AdminApiService";
 import AdminBoard from "./AdminBoard";
 import { deleteUser } from "../../apiService/UserApiService";
+import AdminQnA from "./AdminQnA";
 
 const Admin_main = () => {
   const { authorities } = useSelector((state) => state.loginReducer);
@@ -29,6 +31,7 @@ const Admin_main = () => {
   const [youtuberConfirm, setYoutuberConfirm] = useState([]);
   const [allReports, setAllReports] = useState([]);
   const [allBoards, setAllBoards] = useState([]);
+  const [allQnAs, setAllQnAs] = useState([]);
   useEffect(() => {
     if (authorities && !authorities.includes("ADMIN")) {
       ToastCenter("잘못 된 접근입니다");
@@ -48,6 +51,9 @@ const Admin_main = () => {
     });
     fetchAllNoticeBoards().then((res) => {
       setAllBoards(res.data);
+    });
+    fetchAllQnABoards().then((res) => {
+      setAllQnAs(res.data);
     });
   }, []);
 
@@ -228,6 +234,7 @@ const Admin_main = () => {
                 {pathname.includes("/AdminBoard") ? (
                   <AdminBoard allBoards={allBoards} noticeSwitch={noticeSwitch} />
                 ) : null}
+                {pathname.includes("/AdminQnA") ? <AdminQnA allQnAs={allQnAs} /> : null}
               </div>
             </div>
           </div>

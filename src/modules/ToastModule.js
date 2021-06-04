@@ -4,7 +4,7 @@ toast.configure();
 
 export const ToastCenter = (msg) => {
   toast(msg, {
-    toastId: "authorize",
+    toastId: "toastCen",
     position: toast.POSITION.BOTTOM_CENTER,
     autoClose: 3000,
     hideProgressBar: true,
