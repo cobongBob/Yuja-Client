@@ -11,7 +11,7 @@ const MyPageTable = ({ boardData }) => {
       <span className='beforeModifyTitle'>즐겨찾기 목록 </span>
       <div className='myPage-flexBox'>
         <MyPageYoutuberTable boardData={boardData} board_code={1} />
-        <MyPageLikeWrite boardData={boardData} board_code={4} />
+        <MyPageLikeWrite boardData={boardData} />
       </div>
       <div className='myPage-flexBox'>
         <MyPagePortfolioTable boardData={boardData} board_code={2} />
