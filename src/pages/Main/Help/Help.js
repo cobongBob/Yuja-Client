@@ -3,6 +3,7 @@ import { Accordion, Button, Card } from "react-bootstrap";
 import { FaHeadset } from "react-icons/fa";
 import "./Help.scss";
 import { fetchAllQnABoards } from "../../../apiService/AdminApiService";
+import ReactQuill from "react-quill";
 
 // navi에서 고객센터를 누르면 보이는 전체 컴포넌트
 const Help = () => {
@@ -33,7 +34,15 @@ const Help = () => {
                     </div>
                   </Card.Header>
                   <Accordion.Collapse className='Answer' eventKey={idx + 1}>
-                    <Card.Body>{qan.content}</Card.Body>
+                    <Card.Body>
+                      <ReactQuill
+                        id='wQuill'
+                        className='QuillContent'
+                        value={qan.content || ""}
+                        readOnly={true}
+                        theme={"bubble"}
+                      />
+                    </Card.Body>
                   </Accordion.Collapse>
                 </Card>
               ))}
