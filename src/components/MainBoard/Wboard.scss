@@ -87,3 +87,9 @@
   color: white;
   text-shadow: -2px 0 #ff9411, 0 2px #ff9411, 2px 0 #ff9411, 0 -2px #ff9411;
 }
+
+@media all and (max-width:500px) {
+  .ListTable > thead > tr > td {
+    width:25%;
+  }
+}

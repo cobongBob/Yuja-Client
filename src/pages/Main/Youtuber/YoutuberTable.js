@@ -112,26 +112,17 @@ const YoutuberTable = ({
                 </div>
               </Card.Header>
               <Card.Body>
+
                 <Card.Text>
-                  <div>
-                    <div className="card-link">
-                      {data.user.nickname}
-                    </div>
-                  </div>
-                  <div>
+
+                  <div className='hoverTitle'>
                     <div className="card-link">
                       "{data.title}"
                     </div>
                   </div>
+
                 </Card.Text>
-                <Card.Footer>
-                  <div>
-                    <strong>
-                      <span>수정일 </span>
-                      {format(new Date(data.boardUpdatedDate), 'yyyy-MM-dd')}
-                    </strong>
-                  </div>
-                </Card.Footer>
+
               </Card.Body>
             </Card>
           </li>
