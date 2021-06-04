@@ -8,6 +8,9 @@
   margin-right: auto;
   margin-bottom: 1%;
   z-index: 2;
+  width: 100%;
+  height: 18vh;
+  padding-bottom: 1%;
 }
 
 .CardImageWrapper > img {
@@ -140,7 +143,7 @@
   display: block;
   text-align: right;
   height: 2.5rem;
-  margin-right: 5rem;
+  margin-right: 10rem;
   margin-bottom: 1%;
 }
 
@@ -183,7 +186,6 @@
   position: relative;
   display: inline-block;
   list-style: none;
-  margin-bottom: 5%;
 }
 
 .youtuber-card-container > ul > li > .card {
@@ -192,6 +194,7 @@
   border: 1px solid black;
   border-radius: 20px;
   text-align: left;
+  height: 110%;
   &:hover {
     background-color: #333333;
     transition: box-shadow 250ms;
@@ -287,17 +290,24 @@
 }
 
 .card-title > div {
-  font-size:16px;
-  white-space : normal;
-  overflow : hidden;
-  text-overflow : ellipsis;
-  width:100%;
-  display:-webkit-box;
-  -webkit-line-clamp:2;
+  font-size: 16px;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 
 .editerTitle > div > span {
   font-weight: bold;
-  font-size:18px;
+  font-size: 18px;
+}
+
+.hoverTitle {
+  font-family: 'scdream5';
+  text-align: center;
+  font-size:20px !important;
+  padding-top:20px;
 }

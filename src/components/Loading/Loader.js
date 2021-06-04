@@ -4,14 +4,15 @@ import '../Loading/Loader.scss';
 
 const Loader = ({ type, color }) => {
   return (
-    <div className='contentWrap'>
+    <div className="contentWrap">
       <div
         style={{
           position: 'fixed',
           top: '60%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-        }}>
+        }}
+      >
         <ReactLoading
           type={'cylon'}
           color={color}
