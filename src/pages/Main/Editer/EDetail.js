@@ -79,57 +79,12 @@ const EDetail = ({ match }) => {
       <div>
         <ul className='editordetail-wrapper'>
           <div className='editordetail-header-wrapper'>
-            <li className='editordetail-header'>포트폴리오</li>
+            <li className='editordetail-header'>
+              {detailData.user.nickname}
+            </li>
           </div>
-          <div className='detail-btn'>
-            <div className='detail-btn-box'>
-              {userData && detailData.user && userData.id === detailData.user.id ? (
-                <div>
-                  <Link to={`/EboardModify/Editor/${detailData.id}/1`} className='detail-update-btn'>
-                    포트폴리오 수정하기
-                  </Link>
-                  <button className='detail-update-btn' onClick={deleteBoard}>
-                    포트폴리오 삭제하기
-                  </button>
-                </div>
-              ) : userData && detailData.user && authorities.includes("ADMIN") ? (
-                <button className='detail-update-btn' onClick={deleteBoard}>
-                  이력서 삭제하기
-                </button>
-              ) : (
-                <Report
-                  board_id={match.params.board_id}
-                  modalIsOpen={modalIsOpen}
-                  setModalIsOpen={setModalIsOpen}
-                  board_code={detailData.boardType && detailData.boardType.boardCode}
-                />
-              )}
-              <Link className='detail-update-btn' to={`/Eboard/Editor/1`}>
-                목록보기
-              </Link>
-              {/* 모달 열리는 부분 */}
-            </div>
-          </div>
-          <li className='editordetail-content-like'>
-            <div className='editordetail-content-hit'>
-              <AiOutlineFileSearch className='hit' size={30} />
-              {detailData.hit}
-            </div>
-            <div>
-              {detailData && detailData.liked ? (
-                <button className='starButton' onClick={likeHandler}>
-                  <AiFillStar size={30} />
-                  <span>{detailData.likes}</span>
-                </button>
-              ) : (
-                <button className='starButton' onClick={likeHandler}>
-                  <AiOutlineStar size={30} />
-                  <span>{detailData.likes}</span>
-                </button>
-              )}
-            </div>
-          </li>
           <div className='editordetail-content-wrapper'>
+            <div className='editorDetailTitleBoxWrapper'>
             {detailData.profilePicture ? (
               <li className='editordetail-content-profile-pic'>
                 <img src={detailData.profilePicture} alt='프로필 사진'></img>
@@ -139,20 +94,87 @@ const EDetail = ({ match }) => {
                 <FaUserAstronaut className='EProfileIcon' size={100} />
               </li>
             )}
-            <li className='editordetail-content-hit'></li>
-            <li className='editordetail-content-title'>{detailData.title}</li>
-            <li className='editordetail-content-user'>{detailData.user.nickname}</li>
-            <li className='editordetail-content-user-data'>{detailData.career}</li>
-            <li className='editordetail-content-user-data'>연락처 {detailData.receptionMethod}</li>
-            <li className='editordetail-content-pay'>
-              급여방식 <span> {detailData.payType}</span>
-              희망급여 <span>{detailData.payAmount} 원</span>
+
+            <div className='editorDetailTitleBox'>
+            <li className='editordetail-content-title'>
+              <strong className='editorDetailTitle'>제목</strong> {detailData.title}
             </li>
-            <li className='editordetail-content-tools'>
-              사용기술 <span>{detailData.tools && detailData.tools.join(", ")}</span>
+            <br/>
+            <li className='editordetail-content-user-data'>
+              <strong className='editorDetailTitle'>경력</strong>
+              {detailData.career && detailData.career.substring(3,5)}
             </li>
+            <br/>
+            <li className='editordetail-content-user-data'>
+              <strong className='editorDetailTitle'>연락처</strong>
+              {detailData.receptionMethod}
+            </li>
+            <br/>
+            <li className='editordetail-content-user-data'>
+              <strong className='editorDetailTitle'>급여방식</strong>
+              {detailData.payType}
+            </li>
+            <li className='editordetail-content-user-data'>
+              <strong className='editorDetailTitle'>희망급여</strong>
+              {detailData.payAmount}원
+            </li>
+            <br/>
+            <li className='editordetail-content-user-data'>
+              <strong className='editorDetailTitle'>사용기술</strong>
+              {detailData.tools && detailData.tools.join(", ")}
+            </li>
+            </div>
+            </div>
             <li className='editordetail-content-pr'>
-              <div className='pr-div'> 경력 및 소개 </div>
+              <div className='detail-btn'>
+                <div className='detail-btn-box'>
+                  {userData && detailData.user && userData.id === detailData.user.id ? (
+                    <div>
+                      <Link to={`/EboardModify/Editor/${detailData.id}/1`} className='detail-update-btn'>
+                        포트폴리오 수정하기
+                      </Link>
+                      <button className='detail-update-btn' onClick={deleteBoard}>
+                        포트폴리오 삭제하기
+                      </button>
+                    </div>
+                  ) : userData && detailData.user && authorities.includes("ADMIN") ? (
+                    <button className='detail-update-btn' onClick={deleteBoard}>
+                      이력서 삭제하기
+                    </button>
+                  ) : (
+                    <Report
+                      board_id={match.params.board_id}
+                      modalIsOpen={modalIsOpen}
+                      setModalIsOpen={setModalIsOpen}
+                      board_code={detailData.boardType && detailData.boardType.boardCode}
+                    />
+                  )}
+                  <Link className='detail-update-btn' to={`/Eboard/Editor/1`}>
+                    목록보기
+                  </Link>
+                  {/* 모달 열리는 부분 */}
+                </div>
+              </div>
+              <li className='editordetail-content-like'>
+                <div className='pr-div'> 경력 및 소개 </div>
+                <div className='editordetail-content-hit'>
+                  <AiOutlineFileSearch className='hit' size={30} />
+                  {detailData.hit}
+                </div>
+                <div className='editorDetailLike'>
+                  {detailData && detailData.liked ? (
+                    <button className='starButton' onClick={likeHandler}>
+                      <AiFillStar size={30} />
+                      <span>{detailData.likes}</span>
+                    </button>
+                  ) : (
+                    <button className='starButton' onClick={likeHandler}>
+                      <AiOutlineStar size={30} />
+                      <span>{detailData.likes}</span>
+                    </button>
+                  )}
+                </div>
+              </li>
               <div className='pr-content'>
                 <ReactQuill
                   className='QuillContent'

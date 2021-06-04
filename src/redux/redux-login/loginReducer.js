@@ -113,7 +113,7 @@ export default function loginReducer(state = initialState, action) {
     case DELETE_AUTHORITY:
       return {
         ...state,
-        authorities: state.authorities.splice(state.authorities.indexOf(action.payload), 1),
+        authorities: state.authorities.filter((auth) => auth !== action.payload),
       };
     default:
       return state;
