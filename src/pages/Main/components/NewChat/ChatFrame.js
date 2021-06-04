@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 const ChatFrame = (props) => {
   window.addEventListener("message", (event) => {
-    if (event.origin.startsWith("http://api.withyuja.com")) {
+    if (event.origin.startsWith("http://localhost:8888/")) {
       if (event.data && event.data.exit === "exit") {
         props.setModalIsOpen(false);
       }

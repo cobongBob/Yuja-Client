@@ -169,7 +169,7 @@ const ThumbRegister = ({ match }) => {
                 name='title'
                 id='first-link'
                 onChange={inputHandler}
-                maxLength='45'
+                maxLength='50'
                 ref={titleRef}
               />
             </li>

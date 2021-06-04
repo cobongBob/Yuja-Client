@@ -104,17 +104,11 @@ export default function EditorTable({
                 </div>
               </Card.Header>
               <Card.Body>
-                <Card.Text>
-                  <div>{data.user.nickname}</div>
-                  <div>
-                    <Link
-                      to={`/EDetail/${board_type}/${data.id}/${currentPage}`}
-                      className='card-link'
-                    >
+                  <Card.Text className='hoverTitle'>
+                    <span className="card-link">
                       {data.title}
-                    </Link>
-                  </div>
-                </Card.Text>
+                    </span>
+                  </Card.Text>
                 <Card.Footer></Card.Footer>
               </Card.Body>
             </Card>
