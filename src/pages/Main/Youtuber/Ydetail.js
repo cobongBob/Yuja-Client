@@ -84,7 +84,11 @@ const Ydetail = ({ match }) => {
             </div>
             <div className="detail-box">
               <div>
-                <div className="DetailTop">상세내용</div>
+                <div className="titleBoxWrapper">
+                  <div className="titleBox">
+                    {detailData.title}
+                  </div>
+                </div>
                 <div className="detail-btn">
                   <div className="detail-btn-box">
                     {userData &&
@@ -132,8 +136,19 @@ const Ydetail = ({ match }) => {
                   </div>
                 </div>
                 <div className="detail-title">
-                  {detailData.title}
+                  <div className="DetailTop">상세내용</div>
                   <div className="detail-show">
+                    <div className="detail-date">
+                      {detailData && detailData.boardUpdatedDate
+                        ? detailData.boardUpdatedDate.substr(0, 10)
+                        : ''}{' '}
+                      ~{' '}
+                      {detailData.ywhen !== '마감일' ? (
+                        <span>{detailData.ywhen}</span>
+                      ) : (
+                        detailData.expiredDate.substr(0, 10)
+                      )}
+                    </div>
                     <div className="likeWrapper">
                       {detailData && detailData.liked ? (
                         <button className="starButton" onClick={likeHandler}>
@@ -153,17 +168,6 @@ const Ydetail = ({ match }) => {
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="detail-date">
-                {detailData && detailData.boardUpdatedDate
-                  ? detailData.boardUpdatedDate.substr(0, 10)
-                  : ''}{' '}
-                ~{' '}
-                {detailData.ywhen !== '마감일' ? (
-                  <span>{detailData.ywhen}</span>
-                ) : (
-                  detailData.expiredDate.substr(0, 10)
-                )}
               </div>
               <div className="detail-content">
                 <div className="DetailQuill">
