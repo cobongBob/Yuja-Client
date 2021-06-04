@@ -19,7 +19,7 @@ const Evideo = () => {
       arrows: true,
       prevArrow: <PrevArrow />,
       nextArrow: <NextArrow />,
-      infinite: EvideoData.length > 4 ? true : false, // true 면 무한루트 but, 게시물이 4개 이하일경우 아래쪽으로 복사가됨 / false 면 무한루트가 안됨 but, 게시물이 4개 이하여도  아래쪽으로 복사가 안됨
+      infinite: EvideoData && EvideoData.length > 4 ? true : false, // true 면 무한루트 but, 게시물이 4개 이하일경우 아래쪽으로 복사가됨 / false 면 무한루트가 안됨 but, 게시물이 4개 이하여도  아래쪽으로 복사가 안됨
       autoplay: true,
       speed: 2000,
       autoplaySpeed: 5000,
