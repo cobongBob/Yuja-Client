@@ -44,7 +44,7 @@ const ThumbDetail = ({ match }) => {
   }, [detailData]);
 
   const deleteBoard = () => {
-    if (window.confirm(`정말 삭제 하시겠습니까?`)) {
+    if (window.confirm(`썸네일러 등록이 해제되고 좋아요한 공고 목록이 삭제 될 수 있습니다. 정말 삭제 하시겠습니까?`)) {
       EditerApiService.deleteBoard(match.params.board_id).then((res) => {
         ToastTopRight(res.data);
         history.push(`/Thboard/${board_type}/${pageNum}`);

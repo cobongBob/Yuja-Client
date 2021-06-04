@@ -18,6 +18,8 @@ const BoardTypeConvert = (board_type) => {
       return 8;
     case "Notice":
       return 9;
+    case "QnA":
+      return 10;
     default:
       return 0;
   }
@@ -42,6 +44,8 @@ export const BoardTypeConvertReverse = (board_code) => {
       return "Report";
     case 9:
       return "Notice";
+    case 10:
+      return "QnA";
     default:
       return 0;
   }
