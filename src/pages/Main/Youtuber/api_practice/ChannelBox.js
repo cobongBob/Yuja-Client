@@ -12,7 +12,7 @@ const ChannelBox = () => {
   const [desc, setDesc] = useState('');
   const [thumb, setThumb] = useState('');
 
-  const API_KEY = 'AIzaSyBQJDvLHeFYugdviJ0s6Acu1Qmv5k7hUnc';
+  const API_KEY = process.env.REACT_APP_YOUTUBE_DATA_V3;
 
   useEffect(() => {
     if (detailData && detailData.id !== 0) {
