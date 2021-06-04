@@ -1,0 +1,123 @@
+.myPage-flexBox {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+.myPage-youtuberbox {
+  font-family: scdream5;
+}
+
+.myPage-freebox {
+  font-family: scdream5;
+}
+
+.myPage-portfoliobox {
+  font-family: scdream5;
+}
+
+.myPage-title {
+  font-family: hopang;
+  color: #ffb963;
+}
+
+.myPage-youtuberbox > table > thead {
+  background-color: lightgrey;
+  th:nth-child(1) {
+    width: 7rem;
+    border-right: 1px solid darkgrey;
+  }
+  th:nth-child(2) {
+    width: 7rem;
+    border-right: 1px solid darkgrey;
+  }
+  th:nth-child(3) {
+    width: 5rem;
+    border-right: 1px solid darkgrey;
+  }
+  th:nth-child(4) {
+    width: 7rem;
+    border-right: 1px solid darkgrey;
+  }
+  th:nth-child(5) {
+    border-right: 1px solid darkgrey;
+    width: 5rem;
+  }
+  th:nth-child(6) {
+    border-right: 1px solid darkgrey;
+    width: 5rem;
+  }
+  tr:nth-child(7) {
+    width: 4rem;
+  }
+}
+
+// 표 크기 및 디자인
+.myPage-youtuberbox > table > tbody > tr {
+  text-align: center;
+
+  td:nth-child(1) {
+    width: 7rem;
+  }
+  td:nth-child(2) {
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 7rem;
+  }
+  td:nth-child(3) {
+    width: 4rem;
+  }
+  td:nth-child(4) {
+    width: 7rem;
+  }
+  td:nth-child(5) {
+    width: 4rem;
+  }
+  td:nth-child(6) {
+    width: 5rem;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  td:nth-child(7) {
+    width: 7rem;
+  }
+}
+
+.myPage-freebox > table > thead {
+  background-color: lightgrey;
+  th:nth-child(1) {
+    width: 7rem;
+    border-right: 1px solid darkgrey;
+  }
+  th:nth-child(2) {
+    width: 20rem;
+    border-right: 1px solid darkgrey;
+  }
+}
+
+.myPage-portfoliobox > table > thead {
+  background-color: lightgrey;
+  th:nth-child(1) {
+    width: 7rem;
+    border-right: 1px solid darkgrey;
+  }
+  th:nth-child(2) {
+    width: 10rem;
+    border-right: 1px solid darkgrey;
+  }
+  th:nth-child(3) {
+    width: 5rem;
+    border-right: 1px solid darkgrey;
+  }
+  th:nth-child(4) {
+    width: 5rem;
+    border-right: 1px solid darkgrey;
+  }
+  th:nth-child(5) {
+    width: 10rem;
+    border-right: 1px solid darkgrey;
+  }
+}

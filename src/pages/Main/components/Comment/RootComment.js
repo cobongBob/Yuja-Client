@@ -1,8 +1,13 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteComment, fetchComments, insertComment, updateComment } from "../../../../apiService/CommentApiService";
-import { ToastCenter } from "../../../../modules/ToastModule";
-import ParentsComments from "./ParentsComments";
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  deleteComment,
+  fetchComments,
+  insertComment,
+  updateComment,
+} from '../../../../apiService/CommentApiService';
+import { ToastCenter } from '../../../../modules/ToastModule';
+import ParentsComments from './ParentsComments';
 
 const RootComment = ({ board_id, writer }) => {
   const dispatch = useDispatch();
@@ -26,12 +31,12 @@ const RootComment = ({ board_id, writer }) => {
 
   //root댓글 input
   const [inputReply, setInputReply] = useState({
-    content: "",
+    content: '',
   });
   //댓글 삭제
   const deleteReply = useCallback(
     (commentId) => {
-      if (window.confirm("댓글을 삭제하시겠습니까?")) {
+      if (window.confirm('댓글을 삭제하시겠습니까?')) {
         deleteComment(commentId).then(() => {
           fetchComments(board_id).then((res) => {
             setComments(res.data);
@@ -44,8 +49,8 @@ const RootComment = ({ board_id, writer }) => {
 
   //root댓글입력 저장
   const insertReply = useCallback(() => {
-    if (inputReply.content === "") {
-      ToastCenter("내용을 입력해 주세요");
+    if (inputReply.content === '') {
+      ToastCenter('내용을 입력해 주세요');
       return;
     }
     const insertData = {
@@ -57,7 +62,7 @@ const RootComment = ({ board_id, writer }) => {
     insertComment(insertData).then(() => {
       fetchComments(board_id).then((res) => {
         setComments(res.data);
-        setInputReply({ content: "" });
+        setInputReply({ content: '' });
       });
     });
   }, [board_id, userData, inputReply]);
@@ -88,8 +93,8 @@ const RootComment = ({ board_id, writer }) => {
   // 대댓글 입력 저장
   const reReplyInsert = useCallback(
     (reReplyData) => {
-      if (reReplyData.content === "") {
-        ToastCenter("내용을 입력해 주세요");
+      if (reReplyData.content === '') {
+        ToastCenter('내용을 입력해 주세요');
         return;
       }
       const insertData = {
@@ -114,8 +119,8 @@ const RootComment = ({ board_id, writer }) => {
   //댓글 수정 저장
   const modifyComment = useCallback(
     (modifyData) => {
-      if (modifyData.content === "") {
-        ToastCenter("내용을 입력해 주세요");
+      if (modifyData.content === '') {
+        ToastCenter('내용을 입력해 주세요');
         return;
       }
       const modiContent = {

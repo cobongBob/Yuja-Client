@@ -62,10 +62,11 @@ const InfoModify = ({ history }) => {
   const [isYoutuberPicFill, setIsYoutuberPicFill] = useState('');
 
   const modifyProfilePicUrl = new URL(
-    'http://localhost:8888/files/profiles/' + userData.profilePic
+    'https://api.withyuja.com/files/profiles/' + userData.profilePic
   );
   const modifyConfirmPicUrl = new URL(
-    'http://localhost:8888/files/youtubeConfirm/' + userData.youtubeConfirmImg
+    'https://api.withyuja.com/files/youtubeConfirm/' +
+      userData.youtubeConfirmImg
   );
   const { current: birthCheck } = useRef(
     /^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/
@@ -74,7 +75,11 @@ const InfoModify = ({ history }) => {
     useState(false);
 
   const totalCheck = useCallback(() => {
-    if ((userData.youtubeUrl !== '' && null) && (userData.youtubeConfirmImg === '')) {
+    if (
+      userData.youtubeUrl !== '' &&
+      null &&
+      userData.youtubeConfirmImg === ''
+    ) {
       setModifyBtnDisabledHandler(true);
     } else if (
       nicknameDesc === '' &&
@@ -167,7 +172,7 @@ const InfoModify = ({ history }) => {
         setNicknameDesc('');
       } else {
         axios
-          .post('http://localhost:8888/api/auth/checknickname', userData)
+          .post('https://api.withyuja.com/api/auth/checknickname', userData)
           .then((res) => {
             if (res.data !== '') {
               setNicknameDesc(res.data);
@@ -245,7 +250,7 @@ const InfoModify = ({ history }) => {
       UserApiService.addProfileImg(fd, config)
         .then((response) => {
           const fileUrl = new URL(
-            'http://localhost:8888/files/temp/' + response.data.fileName
+            'https://api.withyuja.com/files/temp/' + response.data.fileName
           );
           setpreviewUrl(fileUrl);
           profilePicId.current = response.data.profilePicId;
@@ -272,7 +277,7 @@ const InfoModify = ({ history }) => {
       UserApiService.addYoutuberConfirmPic(fd2, config2)
         .then((response) => {
           const fileUrl2 = new URL(
-            'http://localhost:8888/files/temp/' + response.data.fileName
+            'https://api.withyuja.com/files/temp/' + response.data.fileName
           );
           setpreviewUrl2(fileUrl2);
           setIsYoutuberPicFill('');
@@ -293,27 +298,28 @@ const InfoModify = ({ history }) => {
 
   profile_preview = (
     <img
-      className='profile_preview'
+      className="profile_preview"
       src={modifyProfilePicUrl && previewURL ? previewURL : modifyProfilePicUrl}
-      alt=''
+      alt=""
     />
   );
 
   youtuberPic_preview = (
     <img
-      className='youtuberPic_preview'
+      className="youtuberPic_preview"
       src={
         modifyConfirmPicUrl && previewURL2 ? previewURL2 : modifyConfirmPicUrl
       }
-      alt=''
+      alt=""
     />
   );
   /* 파일 업로드 끝 */
 
-  const contactCheck = useCallback((e)=> {
-    e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
-  }, [])
-
+  const contactCheck = useCallback((e) => {
+    e.target.value = e.target.value
+      .replace(/[^0-9.]/g, '')
+      .replace(/(\..*)\./g, '$1');
+  }, []);
 
   const modifyBtn = useCallback(() => {
     const data = {
@@ -337,32 +343,32 @@ const InfoModify = ({ history }) => {
 
   return (
     userData && (
-      <div className='infoModifyFrag'>
-        <div className='infoModifyTitleBox'>
-          <Link className='infoModifyTitle' to='/'>
+      <div className="infoModifyFrag">
+        <div className="infoModifyTitleBox">
+          <Link className="infoModifyTitle" to="/">
             유자 회원정보 수정
           </Link>
         </div>
-        <div className='infoModifyContentBox'>
-          <div className='overlay'>
-            <div className='infoModifyDescBoxDescBox'>
+        <div className="infoModifyContentBox">
+          <div className="overlay">
+            <div className="infoModifyDescBoxDescBox">
               <span>{loggedInUserData.nickname}</span>님 정보수정
             </div>
 
-            <div className='required'>* 필수입력 정보입니다.</div>
+            <div className="required">* 필수입력 정보입니다.</div>
 
-            <table className='infoModifyTable'>
+            <table className="infoModifyTable">
               <tr>
                 <td>
-                  <div className='labelWrapper'>
-                    <label htmlFor='infoModifyId'>이메일</label>
+                  <div className="labelWrapper">
+                    <label htmlFor="infoModifyId">이메일</label>
                   </div>
                   <input
-                    className='infoModifyId'
-                    name='username'
-                    type='email'
-                    placeholder='아이디(이메일)'
-                    autoComplete='off'
+                    className="infoModifyId"
+                    name="username"
+                    type="email"
+                    placeholder="아이디(이메일)"
+                    autoComplete="off"
                     disabled={true}
                     value={userData.username || ''}
                     autoFocus
@@ -371,15 +377,15 @@ const InfoModify = ({ history }) => {
               </tr>
               <tr>
                 <td>
-                  <div className='labelWrapper'>
-                    <label htmlFor='infoModifyName'>이름(실명)</label>
+                  <div className="labelWrapper">
+                    <label htmlFor="infoModifyName">이름(실명)</label>
                   </div>
                   <input
-                    className='infoModifyName'
-                    name='realName'
-                    type='text'
-                    placeholder='이름(실명)'
-                    autoComplete='off'
+                    className="infoModifyName"
+                    name="realName"
+                    type="text"
+                    placeholder="이름(실명)"
+                    autoComplete="off"
                     disabled={true}
                     value={userData.realName || ''}
                   />
@@ -387,63 +393,63 @@ const InfoModify = ({ history }) => {
               </tr>
               <tr>
                 <td>
-                  <div className='labelWrapper'>
-                    <label htmlFor='infoModifyNickname'>닉네임</label>
+                  <div className="labelWrapper">
+                    <label htmlFor="infoModifyNickname">닉네임</label>
                   </div>
                   <input
-                    className='infoModifyNickname'
-                    name='nickname'
-                    type='text'
-                    maxLength='20'
-                    placeholder='닉네임'
-                    autoComplete='off'
+                    className="infoModifyNickname"
+                    name="nickname"
+                    type="text"
+                    maxLength="20"
+                    placeholder="닉네임"
+                    autoComplete="off"
                     value={userData.nickname || ''}
                     onChange={onChange}
                     onClick={onClick}
                     onKeyUp={checkNicknameValidate}
                   />
-                  <div className='warningBox'>{nicknameDesc}</div>
+                  <div className="warningBox">{nicknameDesc}</div>
                 </td>
               </tr>
 
               <tr>
                 <td>
-                  <div className='labelWrapper'>
-                    <label htmlFor='infoModifyBirthdate'>생년월일</label>
+                  <div className="labelWrapper">
+                    <label htmlFor="infoModifyBirthdate">생년월일</label>
                   </div>
                   <input
-                    className='infoModifyBirthdate'
-                    name='bday'
-                    type='text'
-                    maxLength='6'
-                    placeholder='생년월일(-을 제외한 6자리)'
-                    autoComplete='off'
+                    className="infoModifyBirthdate"
+                    name="bday"
+                    type="text"
+                    maxLength="6"
+                    placeholder="생년월일(-을 제외한 6자리)"
+                    autoComplete="off"
                     value={userData.bday || ''}
                     onChange={onChange}
                     onClick={onClick}
                     onKeyUp={checkBirthValidate}
                   />
-                  <div className='warningBox'>{birthDesc}</div>
+                  <div className="warningBox">{birthDesc}</div>
                 </td>
               </tr>
 
-              <div className='required2'>* 선택입력 정보입니다.</div>
+              <div className="required2">* 선택입력 정보입니다.</div>
 
               <tr>
                 <td>
-                  <div className='labelWrapper'>
-                    <label htmlFor='signUpProfilePic'>프로필 사진</label>
+                  <div className="labelWrapper">
+                    <label htmlFor="signUpProfilePic">프로필 사진</label>
                   </div>
-                  <div className='modifyProfilePicPreview'>
+                  <div className="modifyProfilePicPreview">
                     {profile_preview}
                   </div>
-                  <div className='inputWrapper'>
+                  <div className="inputWrapper">
                     <input
-                      className='signUpProfilePic'
-                      type='file'
-                      name='profile_img'
-                      accept='image/jpeg, image/jpg, image/png'
-                      placeholder='프로필 사진'
+                      className="signUpProfilePic"
+                      type="file"
+                      name="profile_img"
+                      accept="image/jpeg, image/jpg, image/png"
+                      placeholder="프로필 사진"
                       onChange={handleFileOnChange}
                     />
                   </div>
@@ -451,7 +457,7 @@ const InfoModify = ({ history }) => {
               </tr>
               <tr>
                 <td>
-                  <div className='signUpAddressBox'>
+                  <div className="signUpAddressBox">
                     <AddressApi
                       address={userData.address}
                       detailAddress={userData.detailAddress}
@@ -464,16 +470,16 @@ const InfoModify = ({ history }) => {
               </tr>
               <tr>
                 <td>
-                  <div className='labelWrapper'>
-                    <label htmlFor='signUpTel'>연락처</label>
+                  <div className="labelWrapper">
+                    <label htmlFor="signUpTel">연락처</label>
                   </div>
                   <input
-                    className='signUpTel'
-                    name='phone'
-                    type='tel'
-                    placeholder='-를 제외한 11자리'
-                    autoComplete='off'
-                    maxLength='11'
+                    className="signUpTel"
+                    name="phone"
+                    type="tel"
+                    placeholder="-를 제외한 11자리"
+                    autoComplete="off"
+                    maxLength="11"
                     onChange={onChange}
                     value={userData.phone || ''}
                     onClick={onClick}
@@ -483,27 +489,27 @@ const InfoModify = ({ history }) => {
               </tr>
             </table>
             {authorities && authorities.includes('YOUTUBER') ? (
-              <div className='youtuberDiv'>
-                <div className='youtuberDiv_Title'>
+              <div className="youtuberDiv">
+                <div className="youtuberDiv_Title">
                   유튜버 분들은 원활한 서비스 이용을 위해
                   <br />
                   추가 정보를 입력해주세요!
                 </div>
-                <div className='youtuberInputBox'>
-                  <div className='companyRegNumBox'>
+                <div className="youtuberInputBox">
+                  <div className="companyRegNumBox">
                     <label
-                      className='companyRegNumLabel'
-                      htmlFor='companyRegNumInput'
+                      className="companyRegNumLabel"
+                      htmlFor="companyRegNumInput"
                     >
                       사업자등록번호 <span> (선택)</span>
                       <input
-                        className='companyRegNumInput'
-                        name='bsn'
-                        id='companyRegNumInput'
-                        type='tel'
+                        className="companyRegNumInput"
+                        name="bsn"
+                        id="companyRegNumInput"
+                        type="tel"
                         maxLength={10}
-                        placeholder='-을 제외한 10자리 숫자'
-                        autoComplete='off'
+                        placeholder="-을 제외한 10자리 숫자"
+                        autoComplete="off"
                         onChange={onChange}
                         onKeyUp={bsnCheck}
                         value={userData.bsn || ''}
@@ -511,46 +517,46 @@ const InfoModify = ({ history }) => {
                       />
                     </label>
                   </div>
-                  <div className='warningBox'>{isCompanyRegNumFill}</div>
-                  <div className='youtuberUrlBox'>
+                  <div className="warningBox">{isCompanyRegNumFill}</div>
+                  <div className="youtuberUrlBox">
                     <label
-                      className='youtuberUrlBoxLabel'
-                      htmlFor='youtuberUrlBoxInput'
+                      className="youtuberUrlBoxLabel"
+                      htmlFor="youtuberUrlBoxInput"
                     >
                       유튜브 고유 주소 <span>(필수)</span>
                       <input
-                        className='youtuberUrlBoxInput'
-                        name='youtubeUrl'
-                        id='youtuberUrlBoxInput'
-                        type='text'
-                        placeholder='유튜브 고유 주소를 입력해주세요'
-                        autoComplete='off'
+                        className="youtuberUrlBoxInput"
+                        name="youtubeUrl"
+                        id="youtuberUrlBoxInput"
+                        type="text"
+                        placeholder="유튜브 고유 주소를 입력해주세요"
+                        autoComplete="off"
                         onChange={onChange}
                         onKeyUp={permalinkCheck}
                         value={userData.youtubeUrl || ''}
                       />
                     </label>
                   </div>
-                  <div className='warningBox'>{isPermalinkFill}</div>
+                  <div className="warningBox">{isPermalinkFill}</div>
                 </div>
 
-                <div className='youtuberPicBox'>
+                <div className="youtuberPicBox">
                   <label
-                    className='youtuberPicLabel'
-                    htmlFor='youtuberPicInput'
+                    className="youtuberPicLabel"
+                    htmlFor="youtuberPicInput"
                   >
                     유튜브 계정 스크린샷
                     <span> (필수)</span>
-                    <div className='youtuberPicDesc'>{isYoutuberPicFill}</div>
-                    <div className='youtuberPic_PreviewBox'>
+                    <div className="youtuberPicDesc">{isYoutuberPicFill}</div>
+                    <div className="youtuberPic_PreviewBox">
                       {youtuberPic_preview}
                     </div>
-                    <div className='youtuberPicInputWrapper'>
+                    <div className="youtuberPicInputWrapper">
                       <input
-                        className='youtuberPicInput'
-                        id='youtuberPicInput'
-                        type='file'
-                        accept='image/jpeg, image/jpg, image/png'
+                        className="youtuberPicInput"
+                        id="youtuberPicInput"
+                        type="file"
+                        accept="image/jpeg, image/jpg, image/png"
                         onChange={handleFileOnChange2}
                       />
                     </div>
@@ -560,10 +566,10 @@ const InfoModify = ({ history }) => {
             ) : (
               ''
             )}
-            <div className='infoModifySubmitBtnBox'>
+            <div className="infoModifySubmitBtnBox">
               <button
-                type='submit'
-                className='btn btn-warning'
+                type="submit"
+                className="btn btn-warning"
                 disabled={modifyBtnDisabledHandler}
                 onClick={modifyBtn}
               >
@@ -571,7 +577,7 @@ const InfoModify = ({ history }) => {
               </button>
             </div>
           </div>
-          <footer className='infoModifyFooter'></footer>
+          <footer className="infoModifyFooter"></footer>
         </div>
       </div>
     )
