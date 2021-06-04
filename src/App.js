@@ -29,7 +29,7 @@ import instance from "./AxiosConfig";
 import { addAuthority, delAuthority, userLogout } from "./redux/redux-login/loginReducer";
 import EDetail from "./pages/Main/Editer/EDetail";
 import ResetPassword from "./components/Login-SignUp/Login/ResetPassword";
-import { ToastAlert, ToastCenter, ToastAlertNoDupl, ToastTopRight } from "./modules/ToastModule";
+import { ToastAlert, ToastCenter, ToastAlertNoDupl } from "./modules/ToastModule";
 import WModify from "./pages/Main/Winwin/WModify";
 import ThumbRegister from "./pages/Main/Thumbnailer/ThumbRegister";
 import ThumbDetail from "./pages/Main/Thumbnailer/ThumbDetail";
@@ -174,12 +174,12 @@ function App() {
         } else if (notification.type === "rejectNoti" && notification.resipeint.id === userData.id) {
           ToastAlertNoDupl(`유튜버로 등록이 거절되었습니다. 신청 절차를 다시 확인해주세요.`);
         } else if (notification.type === "editDelNoti" && notification.resipeint.id === userData.id) {
-          ToastTopRight(`편집자 등록이 해제 되었습니다.`);
+          ToastAlert(`편집자 등록이 해제 되었습니다.`);
           delAuthority(`EDITOR`).then((res) => {
             dispatch(res);
           });
         } else if (notification.type === "thumbDelNoti" && notification.resipeint.id === userData.id) {
-          ToastTopRight(`썸네일러 등록이 해제 되었습니다.`);
+          ToastAlert(`썸네일러 등록이 해제 되었습니다.`);
           delAuthority(`THUMBNAILER`).then((res) => {
             dispatch(res);
           });
