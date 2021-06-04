@@ -143,7 +143,7 @@
   display: block;
   text-align: right;
   height: 2.5rem;
-  margin-right: 5rem;
+  margin-right: 10rem;
   margin-bottom: 1%;
 }
 
@@ -194,6 +194,7 @@
   border: 1px solid black;
   border-radius: 20px;
   text-align: left;
+  height: 110%;
   &:hover {
     background-color: #333333;
     transition: box-shadow 250ms;
@@ -305,7 +306,8 @@
 }
 
 .hoverTitle {
+  font-family: 'scdream5';
   text-align: center;
-  font-size:30px !important;
-  padding-top:40px;
+  font-size:20px !important;
+  padding-top:20px;
 }

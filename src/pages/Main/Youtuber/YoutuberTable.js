@@ -89,7 +89,6 @@ const YoutuberTable = ({
                       </span>
                     )}
                   </div>
-
                 </Card.Title>
                 <div className="card-like">
                   {data && data.liked ? (
@@ -112,17 +111,11 @@ const YoutuberTable = ({
                 </div>
               </Card.Header>
               <Card.Body>
-
-                <Card.Text>
-
-                  <div className='hoverTitle'>
-                    <div className="card-link">
-                      "{data.title}"
-                    </div>
-                  </div>
-
+                <Card.Text className='hoverTitle'>
+                    <span className="card-link">
+                      {data.title}
+                    </span>
                 </Card.Text>
-
               </Card.Body>
             </Card>
           </li>

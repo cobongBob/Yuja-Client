@@ -189,7 +189,7 @@ const YmodifyTest = (props) => {
             name='title'
             onChange={onChange}
             placeholder='제목'
-            maxLength='100'
+            maxLength='45'
             type='text'
             value={input.title || ""}
             ref={titleRef}
