@@ -9,8 +9,20 @@
   font-family: scdream5;
 }
 
+.myPage-freebox {
+  font-family: scdream5;
+}
+
+.myPage-portfoliobox {
+  font-family: scdream5;
+}
+
+.myPage-title {
+  font-family: hopang;
+  color: #ffb963;
+}
+
 .myPage-youtuberbox > table > thead {
-  text-align: center;
   background-color: lightgrey;
   th:nth-child(1) {
     width: 7rem;
@@ -40,6 +52,8 @@
     width: 4rem;
   }
 }
+
+// 표 크기 및 디자인
 .myPage-youtuberbox > table > tbody > tr {
   text-align: center;
 
@@ -72,15 +86,38 @@
   }
 }
 
-.myPage-freebox {
-  font-family: scdream5;
+.myPage-freebox > table > thead {
+  background-color: lightgrey;
+  th:nth-child(1) {
+    width: 7rem;
+    border-right: 1px solid darkgrey;
+  }
+  th:nth-child(2) {
+    width: 20rem;
+    border-right: 1px solid darkgrey;
+  }
 }
 
-.myPage-portfoliobox {
-  font-family: scdream5;
-}
-
-.myPage-title {
-  font-family: hopang;
-  color: #ffb963;
+.myPage-portfoliobox > table > thead {
+  background-color: lightgrey;
+  th:nth-child(1) {
+    width: 7rem;
+    border-right: 1px solid darkgrey;
+  }
+  th:nth-child(2) {
+    width: 10rem;
+    border-right: 1px solid darkgrey;
+  }
+  th:nth-child(3) {
+    width: 5rem;
+    border-right: 1px solid darkgrey;
+  }
+  th:nth-child(4) {
+    width: 5rem;
+    border-right: 1px solid darkgrey;
+  }
+  th:nth-child(5) {
+    width: 10rem;
+    border-right: 1px solid darkgrey;
+  }
 }
