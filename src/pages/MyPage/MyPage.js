@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getLoggedInUserData } from '../../apiService/AuthenticationService';
 import { getUserProfileData } from '../../apiService/UserApiService';
@@ -21,7 +21,6 @@ const MyPage = () => {
       setDefaultData(res);
     });
   }, [dispatch, userId]);
-  console.log(1111, defaultData);
   return <MyPageTable boardData={defaultData} />;
 };
 
