@@ -26,26 +26,26 @@
   background-color: lightgrey;
   th:nth-child(1) {
     width: 7rem;
-    border-right: 1px solid darkgrey;
+    border-right: 1px solid white;
   }
   th:nth-child(2) {
     width: 7rem;
-    border-right: 1px solid darkgrey;
+    border-right: 1px solid white;
   }
   th:nth-child(3) {
     width: 5rem;
-    border-right: 1px solid darkgrey;
+    border-right: 1px solid white;
   }
   th:nth-child(4) {
     width: 7rem;
-    border-right: 1px solid darkgrey;
+    border-right: 1px solid white;
   }
   th:nth-child(5) {
-    border-right: 1px solid darkgrey;
+    border-right: 1px solid white;
     width: 5rem;
   }
   th:nth-child(6) {
-    border-right: 1px solid darkgrey;
+    border-right: 1px solid white;
     width: 5rem;
   }
   tr:nth-child(7) {
@@ -55,16 +55,15 @@
 
 // 표 크기 및 디자인
 .myPage-youtuberbox > table > tbody > tr {
-  text-align: center;
-
+  cursor: pointer;
   td:nth-child(1) {
     width: 7rem;
   }
   td:nth-child(2) {
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     width: 7rem;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   td:nth-child(3) {
     width: 4rem;
@@ -76,7 +75,7 @@
     width: 4rem;
   }
   td:nth-child(6) {
-    width: 5rem;
+    width: 15rem;
     overflow-x: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -84,17 +83,34 @@
   td:nth-child(7) {
     width: 7rem;
   }
+  &:hover {
+    background-color: ghostwhite;
+  }
 }
 
 .myPage-freebox > table > thead {
   background-color: lightgrey;
   th:nth-child(1) {
     width: 7rem;
-    border-right: 1px solid darkgrey;
+    border-right: 1px solid white;
   }
   th:nth-child(2) {
-    width: 20rem;
-    border-right: 1px solid darkgrey;
+    width: 25rem;
+    border-right: 1px solid white;
+  }
+}
+
+.myPage-freebox > table > tbody > tr {
+  td:nth-child(1) {
+    width: 7rem;
+    border-right: 1px solid white;
+  }
+  td:nth-child(2) {
+    width: 25rem;
+    border-right: 1px solid white;
+  }
+  &:hover {
+    background-color: ghostwhite;
   }
 }
 
@@ -102,22 +118,22 @@
   background-color: lightgrey;
   th:nth-child(1) {
     width: 7rem;
-    border-right: 1px solid darkgrey;
+    border-right: 1px solid white;
   }
   th:nth-child(2) {
     width: 10rem;
-    border-right: 1px solid darkgrey;
+    border-right: 1px solid white;
   }
   th:nth-child(3) {
     width: 5rem;
-    border-right: 1px solid darkgrey;
+    border-right: 1px solid white;
   }
   th:nth-child(4) {
     width: 5rem;
-    border-right: 1px solid darkgrey;
+    border-right: 1px solid white;
   }
   th:nth-child(5) {
     width: 10rem;
-    border-right: 1px solid darkgrey;
+    border-right: 1px solid white;
   }
 }

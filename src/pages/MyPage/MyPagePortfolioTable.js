@@ -26,7 +26,7 @@ const MyPageProfolioTable = ({ boardData, board_code }) => {
                     <td>{data.title}</td>
                     <td>{data.career}</td>
                     <td>{data.receptionMethod}</td>
-                    <td>{data.tools}</td>
+                    <td>{data.tools && data.tools.join(', ')}</td>
                   </tr>
                 );
               }
