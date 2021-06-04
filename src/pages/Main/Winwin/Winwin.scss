@@ -40,7 +40,6 @@
 }
 
 .li-winwin {
-  display: inline-block;
   font-size: 20px;
   font-weight: bold;
   color: #ff9411;
@@ -54,6 +53,9 @@
     width: 10rem;
     border-radius: 20px;
   }
+}
+a {
+  text-decoration: none !important;
 }
 
 .li-link-disabled {
