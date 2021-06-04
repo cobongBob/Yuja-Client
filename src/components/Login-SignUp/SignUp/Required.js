@@ -1,48 +1,27 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import { Link } from 'react-router-dom';
-import AuthCodeTimer from './AuthCodeTimer';
-import AuthBtnBox from './AuthBtnBox';
-import * as auth from '../../../apiService/AuthenticationService';
-import axios from 'axios';
-import { ToastPreventAccess } from '../../../modules/ToastModule';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import AuthCodeTimer from "./AuthCodeTimer";
+import AuthBtnBox from "./AuthBtnBox";
+import * as auth from "../../../apiService/AuthenticationService";
+import axios from "axios";
+import { ToastPreventAccess } from "../../../modules/ToastModule";
 
 const Required = ({ location, history }) => {
-  if (location.state === undefined || history.action === 'POP') {
-    ToastPreventAccess('❌ 잘못된 접근 입니다.');
-    history.replace('/');
+  if (location.state === undefined || history.action === "POP") {
+    ToastPreventAccess("❌ 잘못된 접근 입니다.");
+    history.replace("/");
   }
 
   /* 값 넘겨주기 */
   const [requiredData, setrequiredData] = useState({
     isMarketingChecked: location.state ? location.state.next : null,
-    username:
-      location.state && location.state.googleSignupData
-        ? location.state.googleSignupData.username
-        : '',
-    password:
-      location.state && location.state.googleSignupData
-        ? location.state.googleSignupData.password
-        : '',
-    realName:
-      location.state && location.state.googleSignupData
-        ? location.state.googleSignupData.realName
-        : '',
-    provider:
-      location.state && location.state.googleSignupData
-        ? location.state.googleSignupData.provider
-        : '',
-    providedId:
-      location.state && location.state.googleSignupData
-        ? location.state.googleSignupData.providerId
-        : '',
-    bday: '',
-    nickname: '',
+    username: location.state && location.state.googleSignupData ? location.state.googleSignupData.username : "",
+    password: location.state && location.state.googleSignupData ? location.state.googleSignupData.password : "",
+    realName: location.state && location.state.googleSignupData ? location.state.googleSignupData.realName : "",
+    provider: location.state && location.state.googleSignupData ? location.state.googleSignupData.provider : "",
+    providedId: location.state && location.state.googleSignupData ? location.state.googleSignupData.providerId : "",
+    bday: "",
+    nickname: "",
   });
 
   const isValidateInput = useMemo(
@@ -67,30 +46,30 @@ const Required = ({ location, history }) => {
 
   /* 인증코드 통신 및 확인 */
   const [authCode, setAuthCode] = useState();
-  const [securityCode, setSecurityCode] = useState('오늘점심은부대찌개!!');
+  const [securityCode, setSecurityCode] = useState("오늘점심은부대찌개!!");
   const [disabledHandler, setDisabledHandler] = useState(false);
   const [emailDisableHandler, setEmailDisableHandler] = useState(false);
-  const [btnTextHandler, setBtnTextHandler] = useState('인증번호 발송');
+  const [btnTextHandler, setBtnTextHandler] = useState("인증번호 발송");
 
   const getAuthCode = (e) => {
     setAuthCode(e.target.value);
   };
 
   const checkCodes = () => {
-    if (isValidateInput.id === '' || EmailValidateResData !== '') {
-      setSecurityCodeValidateDesc('이메일을 확인 해주세요.');
+    if (isValidateInput.id === "" || EmailValidateResData !== "") {
+      setSecurityCodeValidateDesc("이메일을 확인 해주세요.");
     } else if (securityCode === authCode) {
       clearTimeout(setSecurityCode);
       changeTimeSet();
       setDisabledHandler(true);
-      setBtnTextHandler('인증완료');
+      setBtnTextHandler("인증완료");
       totalCheck();
-      setSecurityCodeValidateDesc('');
+      setSecurityCodeValidateDesc("");
       setEmailDisableHandler(true);
       return true;
     } else {
       totalCheck();
-      setSecurityCodeValidateDesc('인증번호를 확인 해주세요.');
+      setSecurityCodeValidateDesc("인증번호를 확인 해주세요.");
       return false;
     }
   };
@@ -110,30 +89,29 @@ const Required = ({ location, history }) => {
     auth.verifyEmailSend(requiredData.username).then((res) => {
       setSecurityCode(res.data);
       setTimeout(() => {
-        setSecurityCode('내일점심은부대찌개!');
+        setSecurityCode("내일점심은부대찌개!");
       }, securityCodeDelay);
     });
     return setStartTimer(!startTimer);
   };
   const changeTimeSet = () => {
-    if (isValidateInput.id === '' || EmailValidateResData !== '') {
-      setSecurityCodeValidateDesc('이메일을 확인 해주세요.');
-      return '';
+    if (isValidateInput.id === "" || EmailValidateResData !== "") {
+      setSecurityCodeValidateDesc("이메일을 확인 해주세요.");
+      return "";
     }
     setTimerSet(!timerSet);
     changeStartTimer();
-    setSecurityCodeValidateDesc('');
+    setSecurityCodeValidateDesc("");
   };
   /* 인증 코드 발송 끝 */
 
   /* new 유효성 검사 */
-  const [EmailValidateResData, setEmailValidateResData] = useState('');
-  const [nicknameValidateResData, setNicknameValidateResData] = useState('');
-  const [passwordValidateDesc, setPasswordValidateDesc] = useState('');
-  const [checkPasswordValidateDesc, setCheckPasswordValidateDesc] =
-    useState('');
-  const [nameValidateDesc, setNameValidateDesc] = useState('');
-  const [birthValidateDesc, setBirthValidateDesc] = useState('');
+  const [EmailValidateResData, setEmailValidateResData] = useState("");
+  const [nicknameValidateResData, setNicknameValidateResData] = useState("");
+  const [passwordValidateDesc, setPasswordValidateDesc] = useState("");
+  const [checkPasswordValidateDesc, setCheckPasswordValidateDesc] = useState("");
+  const [nameValidateDesc, setNameValidateDesc] = useState("");
+  const [birthValidateDesc, setBirthValidateDesc] = useState("");
   const [securityCodeValidateDesc, setSecurityCodeValidateDesc] = useState();
   const [passCheckNum, setpassCheckNum] = useState();
 
@@ -141,18 +119,18 @@ const Required = ({ location, history }) => {
 
   const totalCheck = useCallback(() => {
     if (
-      EmailValidateResData === '' &&
-      nicknameValidateResData === '' &&
-      passwordValidateDesc === '' &&
-      checkPasswordValidateDesc === '' &&
-      nameValidateDesc === '' &&
-      birthValidateDesc === '' &&
-      isValidateInput.nick !== '' &&
-      isValidateInput.birth !== '' &&
-      isValidateInput.id !== '' &&
-      isValidateInput.name !== '' &&
-      isValidateInput.pass !== '' &&
-      btnTextHandler === '인증완료'
+      EmailValidateResData === "" &&
+      nicknameValidateResData === "" &&
+      passwordValidateDesc === "" &&
+      checkPasswordValidateDesc === "" &&
+      nameValidateDesc === "" &&
+      birthValidateDesc === "" &&
+      isValidateInput.nick !== "" &&
+      isValidateInput.birth !== "" &&
+      isValidateInput.id !== "" &&
+      isValidateInput.name !== "" &&
+      isValidateInput.pass !== "" &&
+      btnTextHandler === "인증완료"
     ) {
       setNextBtnDisabledHandler(false);
     } else {
@@ -172,7 +150,7 @@ const Required = ({ location, history }) => {
   const backSpaceCheck = useCallback(() => {
     totalCheck();
     if (location.state && location.state.googleSignupData) {
-      setBtnTextHandler('인증완료');
+      setBtnTextHandler("인증완료");
     }
   }, [totalCheck, location.state]);
 
@@ -577,7 +555,7 @@ const Required = ({ location, history }) => {
           {nextBtnDisabledHandler === false ? (
             <Link
               to={{
-                pathname: '/SignUp/NonRequired',
+                pathname: "/SignUp/NonRequired",
                 state: {
                   requiredData: requiredData,
                 },
