@@ -81,54 +81,6 @@ const EDetail = ({ match }) => {
           <div className='editordetail-header-wrapper'>
             <li className='editordetail-header'>포트폴리오</li>
           </div>
-          <div className='detail-btn'>
-            <div className='detail-btn-box'>
-              {userData && detailData.user && userData.id === detailData.user.id ? (
-                <div>
-                  <Link to={`/EboardModify/Editor/${detailData.id}/1`} className='detail-update-btn'>
-                    포트폴리오 수정하기
-                  </Link>
-                  <button className='detail-update-btn' onClick={deleteBoard}>
-                    포트폴리오 삭제하기
-                  </button>
-                </div>
-              ) : userData && detailData.user && authorities.includes("ADMIN") ? (
-                <button className='detail-update-btn' onClick={deleteBoard}>
-                  이력서 삭제하기
-                </button>
-              ) : (
-                <Report
-                  board_id={match.params.board_id}
-                  modalIsOpen={modalIsOpen}
-                  setModalIsOpen={setModalIsOpen}
-                  board_code={detailData.boardType && detailData.boardType.boardCode}
-                />
-              )}
-              <Link className='detail-update-btn' to={`/Eboard/Editor/1`}>
-                목록보기
-              </Link>
-              {/* 모달 열리는 부분 */}
-            </div>
-          </div>
-          <li className='editordetail-content-like'>
-            <div className='editordetail-content-hit'>
-              <AiOutlineFileSearch className='hit' size={30} />
-              {detailData.hit}
-            </div>
-            <div>
-              {detailData && detailData.liked ? (
-                <button className='starButton' onClick={likeHandler}>
-                  <AiFillStar size={30} />
-                  <span>{detailData.likes}</span>
-                </button>
-              ) : (
-                <button className='starButton' onClick={likeHandler}>
-                  <AiOutlineStar size={30} />
-                  <span>{detailData.likes}</span>
-                </button>
-              )}
-            </div>
-          </li>
           <div className='editordetail-content-wrapper'>
             {detailData.profilePicture ? (
               <li className='editordetail-content-profile-pic'>
@@ -153,6 +105,54 @@ const EDetail = ({ match }) => {
             </li>
             <li className='editordetail-content-pr'>
               <div className='pr-div'> 경력 및 소개 </div>
+              <div className='detail-btn'>
+                <div className='detail-btn-box'>
+                  {userData && detailData.user && userData.id === detailData.user.id ? (
+                    <div>
+                      <Link to={`/EboardModify/Editor/${detailData.id}/1`} className='detail-update-btn'>
+                        포트폴리오 수정하기
+                      </Link>
+                      <button className='detail-update-btn' onClick={deleteBoard}>
+                        포트폴리오 삭제하기
+                      </button>
+                    </div>
+                  ) : userData && detailData.user && authorities.includes("ADMIN") ? (
+                    <button className='detail-update-btn' onClick={deleteBoard}>
+                      이력서 삭제하기
+                    </button>
+                  ) : (
+                    <Report
+                      board_id={match.params.board_id}
+                      modalIsOpen={modalIsOpen}
+                      setModalIsOpen={setModalIsOpen}
+                      board_code={detailData.boardType && detailData.boardType.boardCode}
+                    />
+                  )}
+                  <Link className='detail-update-btn' to={`/Eboard/Editor/1`}>
+                    목록보기
+                  </Link>
+                  {/* 모달 열리는 부분 */}
+                </div>
+              </div>
+              <li className='editordetail-content-like'>
+                <div className='editordetail-content-hit'>
+                  <AiOutlineFileSearch className='hit' size={30} />
+                  {detailData.hit}
+                </div>
+                <div>
+                  {detailData && detailData.liked ? (
+                    <button className='starButton' onClick={likeHandler}>
+                      <AiFillStar size={30} />
+                      <span>{detailData.likes}</span>
+                    </button>
+                  ) : (
+                    <button className='starButton' onClick={likeHandler}>
+                      <AiOutlineStar size={30} />
+                      <span>{detailData.likes}</span>
+                    </button>
+                  )}
+                </div>
+              </li>
               <div className='pr-content'>
                 <ReactQuill
                   className='QuillContent'

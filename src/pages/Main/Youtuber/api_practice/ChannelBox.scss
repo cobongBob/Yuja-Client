@@ -71,6 +71,7 @@
   display: inline-block;
   margin-left: auto;
   margin-right: auto;
+  text-align: left;
 }
 
 .DefaultInfo {
@@ -80,4 +81,10 @@
 .DefaultInfo > ul {
   line-height: 2.5;
   list-style: none;
+}
+
+.ChannelBoxDetailTitle {
+  border-right: 3px solid #c4302b;
+  padding-right: 15px;
+  margin-right: 15px;
 }
