@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MyPageLikeWrite = ({ boardData, board_code }) => {
+const MyPageLikeWrite = (boardData) => {
   return (
     <div>
       <div className='myPage-freebox'>
@@ -13,7 +13,12 @@ const MyPageLikeWrite = ({ boardData, board_code }) => {
           <tbody>
             {boardData.data &&
               boardData.data?.map((data, idx) => {
-                if (data.boardType.boardCode === board_code) {
+                if (
+                  data.boardType.boardCode === 4 ||
+                  data.boardType.boardCode === 5 ||
+                  data.boardType.boardCode === 6 ||
+                  data.boardType.boardCode === 7
+                ) {
                   return (
                     <tr key={idx}>
                       <td>{data.user.nickname}</td>
