@@ -82,13 +82,8 @@ const ChannelBox = () => {
           ) : null}
         </div>
         <div className="SVWrapper">
-          <span className="SubscribeCount">
-            구독자:{' '}
-            {subscribers.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}명
-          </span>
-          <span className="VideoCount">
-            영상수: {videos.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
-          </span>
+          <span className="SubscribeCount">구독자: {subscribers}명</span>
+          <span className="VideoCount">영상수: {videos}</span>
         </div>
         <div className="DCWraapper">
           <div className="DescWrapper">
@@ -101,42 +96,39 @@ const ChannelBox = () => {
           <ul>
             <li>
               <span>
-                <strong className="ChannelBoxDetailTitle">모집분야</strong>{' '}
-                {detailData.worker}
+                <strong>"{detailData.worker}" </strong>
               </span>
+              <label htmlFor="">구합니다.</label>
             </li>
             <li>
-              <span>
-                <strong className="ChannelBoxDetailTitle">모집자격</strong>{' '}
-                {detailData.career}
-              </span>
+              <span>모집자격 {detailData.career}</span>
             </li>
             <li>
-              <span>
-                <strong className="ChannelBoxDetailTitle">모집인원</strong>{' '}
-                {detailData.recruitingNum}명
-              </span>
+              <span> 모집인원 {detailData.recruitingNum}명</span>
             </li>
             <li>
-              <span>
-                <strong className="ChannelBoxDetailTitle">
-                  {detailData.payType}
-                </strong>{' '}
-                {detailData.payAmount}원
-              </span>
+              <span>{detailData.payType} </span>
+              <span>{detailData.payAmount}원</span>
             </li>
             <li>
-              <span>
-                <strong className="ChannelBoxDetailTitle">사용기술</strong>{' '}
-                {detailData && detailData.tools && detailData.tools.join(', ')}
-              </span>
+              {detailData &&
+                detailData.tools &&
+                detailData.tools.map((tool, idx) => (
+                  <label key={idx} htmlFor="">
+                    {idx < detailData.tools.length - 1 ? (
+                      <span> {tool} /&nbsp;</span>
+                    ) : (
+                      <span>{tool}</span>
+                    )}
+                  </label>
+                ))}
             </li>
             <li>
-              <strong className="ChannelBoxDetailTitle">담당자</strong>{' '}
+              <span>담당자 : </span>
               <span>{detailData.manager}</span>
             </li>
             <li>
-              <strong className="ChannelBoxDetailTitle">담당자 연락처</strong>{' '}
+              <span>담당자연락처 : </span>
               <span>{detailData.receptionMethod}</span>
             </li>
           </ul>
