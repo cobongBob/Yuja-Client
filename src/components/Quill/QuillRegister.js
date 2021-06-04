@@ -41,7 +41,7 @@ const QuillRegister = ({ register, addingFileList, qData, setQData, board_type }
       await YImgApiService.addImgs(formData, config, board_type).then((response) => {
         if (response.status === 200) {
           const range = quill.getSelection(true) !== null ? quill.getSelection(true) : 0;
-          quill.insertEmbed(range.index, "image", `https://api.withyuja.com/files/temp/${response.data[0].fileName}`);
+          quill.insertEmbed(range.index, "image", `http://localhost:8888/files/temp/${response.data[0].fileName}`);
           quill.setSelection(range.index + 1);
           addingFileList.current.push(response.data[0].fileName);
         }
