@@ -3,7 +3,6 @@ import { useHistory } from 'react-router';
 import Pagination from '../Main/components/Pagination';
 
 const MyPageYoutuberTable = ({ boardData, board_code }) => {
-  console.log(1111, boardData);
   const history = useHistory();
   const path = history.location.pathname;
   const lastPageNum = path.substr(path.lastIndexOf('/') + 1);
@@ -34,14 +33,17 @@ const MyPageYoutuberTable = ({ boardData, board_code }) => {
               boardData.data?.map((data, idx) => {
                 if (data.boardType.boardCode === board_code) {
                   return (
-                    <tr key={idx}>
+                    <tr
+                      key={idx}
+                      onClick={() => history.push(`/Ydetail/${data.id}/1`)}
+                    >
                       <td>{data.channelName}</td>
                       <td>{data.title}</td>
                       <td>{data.career}</td>
                       <td>{data.receptionMethod}</td>
                       <td>{data.worker}</td>
-                      <td>{data.tools}</td>
-                      {data.ywhen === '' ? (
+                      <td>{data.tools && data.tools.join(', ')}</td>
+                      {data.ywhen === '마감일' ? (
                         <td>{data.expiredDate.substr(0, 10)}</td>
                       ) : (
                         <td> {data.ywhen}</td>

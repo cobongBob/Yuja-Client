@@ -21,6 +21,7 @@ const MyPage = () => {
       setDefaultData(res);
     });
   }, [dispatch, userId]);
+  console.log(1111, defaultData);
   return <MyPageTable boardData={defaultData} />;
 };
 

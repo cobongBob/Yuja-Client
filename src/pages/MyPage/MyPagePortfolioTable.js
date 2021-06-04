@@ -1,6 +1,8 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 
 const MyPageProfolioTable = ({ boardData, board_code }) => {
+  const history = useHistory();
   return (
     <div className='myPage-portfoliobox'>
       {board_code === 2 ? (
@@ -21,12 +23,21 @@ const MyPageProfolioTable = ({ boardData, board_code }) => {
             boardData.data?.map((data, idx) => {
               if (data.boardType.boardCode === board_code) {
                 return (
-                  <tr key={idx}>
+                  <tr
+                    key={idx}
+                    onClick={() =>
+                      history.push(
+                        `/${board_code === 2 ? 'EDetail' : 'ThumbDetail'}/${
+                          board_code === 2 ? 'Editor' : 'Thumb'
+                        }/${data.id}/1`
+                      )
+                    }
+                  >
                     <td>{data.user.nickname}</td>
                     <td>{data.title}</td>
                     <td>{data.career}</td>
                     <td>{data.receptionMethod}</td>
-                    <td>{data.tools}</td>
+                    <td>{data.tools && data.tools.join(', ')}</td>
                   </tr>
                 );
               }
