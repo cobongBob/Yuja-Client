@@ -10,7 +10,13 @@ export const getLoading = (user_id) => {
   return (dispatch) => {
     dispatch(getNotificationsRequest());
     fetchNotifications(user_id)
-      .then((res) => dispatch(getNotificationsSuccess(res.data)))
+      .then((res) => {
+        if(res) {
+          dispatch(getNotificationsSuccess(res.data));
+        } else {
+          dispatch(getLoaded());
+        }
+      })
       .catch((err) => dispatch(getNotificationsFailure(err.response)));
   };
 };

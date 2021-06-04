@@ -14,9 +14,13 @@ export const fetchNotifications = async (user_id) => {
   if (!user_id) {
     user_id = 0;
   }
-  return await axios.get(`${USER_API_BASE_URL}/notiUnread/${user_id}`, {
-    withCredentials: true,
-  });
+  if (user_id > 0) {
+    return await axios.get(`${USER_API_BASE_URL}/notiUnread/${user_id}`, {
+      withCredentials: true,
+    });
+  } else {
+    return null;
+  }
 };
 
 export const deleteNotifications = async (noti_id) => {

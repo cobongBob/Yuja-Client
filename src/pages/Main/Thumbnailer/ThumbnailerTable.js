@@ -1,13 +1,13 @@
-import React, { useCallback } from "react";
-import { Card } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
-import { format } from "date-fns";
-import "../Youtuber/Ylist.scss";
-import BackToList from "../components/BackToList";
-import SortingToLiked from "../components/SortingToLiked";
-import "./Thumb.scss";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import { ToastCenter } from "../../../modules/ToastModule";
+import React, { useCallback } from 'react';
+import { Card } from 'react-bootstrap';
+import { Link, useHistory } from 'react-router-dom';
+import { format } from 'date-fns';
+import '../Youtuber/Ylist.scss';
+import BackToList from '../components/BackToList';
+import SortingToLiked from '../components/SortingToLiked';
+import './Thumb.scss';
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
+import { ToastCenter } from '../../../modules/ToastModule';
 
 export default function ThumbnailerTable({
   userData,
@@ -33,6 +33,7 @@ export default function ThumbnailerTable({
       ToastCenter(`로그인 해주세요`);
     }
   }, [userData, history, wrote]);
+
   return (
     <div className='card-container'>
       <div className='card-options'>
@@ -57,13 +58,19 @@ export default function ThumbnailerTable({
               <div className='thumbnail-for-Main-Wrapper'>
                 <Card.Img
                   className='thumbnail-for-Main'
-                  onClick={() => history.push(`/ThumbDetail/${board_type}/${data.id}/${currentPage}`)}
-                  src={data.thumbnail && `https://api.withyuja.com/files/thumbnail/${data.thumbnail}`}
+                  onClick={() =>
+                    history.push(
+                      `/ThumbDetail/${board_type}/${data.id}/${currentPage}`
+                    )
+                  }
+                  src={
+                    data.thumbnail &&
+                    `https://api.withyuja.com/files/thumbnail/${data.thumbnail}`
+                  }
                 ></Card.Img>
               </div>
               <Card.Header>
                 <Card.Title className='editerTitle'>
-
                   <div>
                     <span>닉네임</span> {data.user.nickname}
                   </div>
@@ -71,21 +78,29 @@ export default function ThumbnailerTable({
                     <span>희망급여</span> {data.payType} {data.payAmount}원
                   </div>
                   <div>
-                    <span>경력</span> {data.career.startsWith("경력") ? data.career.substr(2).trim() : data.career}
+                    <span>경력</span>{' '}
+                    {data.career.startsWith('경력')
+                      ? data.career.substr(2).trim()
+                      : data.career}
                   </div>
                   <div>
-                    <span>사용기술</span> {data.tools && data.tools.join(", ")}
+                    <span>사용기술</span> {data.tools && data.tools.join(', ')}
                   </div>
-
                 </Card.Title>
                 <div className='card-like'>
                   {data && data.liked ? (
-                    <button onClick={() => likeHandler(data.id)} className='starButton'>
+                    <button
+                      onClick={() => likeHandler(data.id)}
+                      className='starButton'
+                    >
                       <AiFillStar size={30} />
                       <span>{data.likes}</span>
                     </button>
                   ) : (
-                    <button onClick={() => dislikeHandler(data.id)} className='starButton'>
+                    <button
+                      onClick={() => dislikeHandler(data.id)}
+                      className='starButton'
+                    >
                       <AiOutlineStar size={30} />
                       <span>{data.likes}</span>
                     </button>
@@ -96,7 +111,10 @@ export default function ThumbnailerTable({
                 <Card.Text>
                   <div>{data.user.nickname}</div>
                   <div>
-                    <Link to={`/ThumbDetail/${board_type}/${data.id}/${currentPage}`} className='card-link'>
+                    <Link
+                      to={`/ThumbDetail/${board_type}/${data.id}/${currentPage}`}
+                      className='card-link'
+                    >
                       {data.title}
                     </Link>
                   </div>

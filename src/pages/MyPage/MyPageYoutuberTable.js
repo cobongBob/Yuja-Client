@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MyPageTableBody = ({ boardData, board_code }) => {
+const MyPageYoutuberTable = ({ boardData, board_code }) => {
   return (
     <tbody className='myPage-box'>
       {boardData.data &&
@@ -33,4 +33,4 @@ const MyPageTableBody = ({ boardData, board_code }) => {
   );
 };
 
-export default MyPageTableBody;
+export default MyPageYoutuberTable;
