@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const AdminBoardTable = ({ currentData, lastIdx, deleteQnA }) => {
+const AdminQnATable = ({ currentData, lastIdx, deleteQnA }) => {
   return (
     <div>
       <div className='community-table-wrapper'>
@@ -39,4 +39,4 @@ const AdminBoardTable = ({ currentData, lastIdx, deleteQnA }) => {
   );
 };
 
-export default AdminBoardTable;
+export default AdminQnATable;
