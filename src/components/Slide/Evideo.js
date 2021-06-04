@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import './video.scss';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -12,9 +12,9 @@ const Evideo = ({ settings }) => {
   const { EvideoData } = useSelector((state) => state.mainReducer);
 
   const slideDefault = useRef(null);
-  const gotoDefault = (num) => {
-    slideDefault.current.slickGoTo(num, false);
-  };
+  const gotoDefault = useCallback((num) => {
+    slideDefault.current && slideDefault.current.slickGoTo(num, false);
+  }, []);
   useEffect(() => {
     slideDefault.current &&
       slideDefault.current.slickGoTo &&

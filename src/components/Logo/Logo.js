@@ -17,7 +17,7 @@ const Logo = ({ children, history }) => {
           </div>
         </div>
         <div className='Logo_Under'>
-          <img src={process.env.PUBLIC_URL + "/img/parts_pic/yuzu05.png"} width='150' alt='logo' onClick={goHome} />
+          <img src={process.env.PUBLIC_URL + "/img/parts_pic/YujaLogo.png"} width='150' alt='logo' onClick={goHome} />
         </div>
       </div>
     </div>

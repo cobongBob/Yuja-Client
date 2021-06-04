@@ -27,3 +27,10 @@
 .chattingFrame {
 
 }
+
+@media all and (max-width:500px) {
+  .small_chat_frame > iframe {
+    width: 300px;
+    min-height: 60vh;
+  }
+}

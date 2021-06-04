@@ -65,7 +65,7 @@ export default function ThumbnailerTable({
                   }
                   src={
                     data.thumbnail &&
-                    `https://api.withyuja.com/files/thumbnail/${data.thumbnail}`
+                    `http://localhost:8888/files/thumbnail/${data.thumbnail}`
                   }
                 ></Card.Img>
               </div>

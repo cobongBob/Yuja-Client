@@ -33,7 +33,7 @@ const ThumbDetail = ({ match }) => {
   useEffect(() => {
     if (detailData && detailData.thumbnail && detailData.thumbnail.length > 8) {
       setRepresentImg(
-        `<p style="text-align:center;"><img class="custom-class-to-image" src="https://api.withyuja.com/files/thumbnail/original/${detailData.thumbnail}"></p>`
+        `<p style="text-align:center;"><img class="custom-class-to-image" src="http://localhost:8888/files/thumbnail/original/${detailData.thumbnail}"></p>`
       );
     }
   }, [detailData]);
