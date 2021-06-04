@@ -30,7 +30,7 @@ const YoutuberTable = ({
     <div className="youtuber-card-container">
       <div className="card-options">
         {wrote.length < 3 ? (
-          <button onClick={writeBoard} className="registerBtn">
+          <button onClick={writeBoard} className='registerBtn'>
             공고 등록하기
           </button>
         ) : (
@@ -41,13 +41,13 @@ const YoutuberTable = ({
               );
               writeBoard();
             }}
-            className="registerBtn"
+            className='registerBtn'
           >
             공고 등록하기
           </button>
         )}
       </div>
-      <div className="card-options">
+      <div className='card-options'>
         <BackToList />
         <SortingToDeadline boardData={boardData} />
         <SortingToLiked boardData={boardData} board_type={board_type} />
@@ -89,7 +89,6 @@ const YoutuberTable = ({
                       </span>
                     )}
                   </div>
-
                 </Card.Title>
                 <div className="card-like">
                   {data && data.liked ? (
@@ -112,17 +111,11 @@ const YoutuberTable = ({
                 </div>
               </Card.Header>
               <Card.Body>
-
-                <Card.Text>
-
-                  <div className='hoverTitle'>
-                    <div className="card-link">
-                      "{data.title}"
-                    </div>
-                  </div>
-
+                <Card.Text className='hoverTitle'>
+                    <span className="card-link">
+                      {data.title}
+                    </span>
                 </Card.Text>
-
               </Card.Body>
             </Card>
           </li>

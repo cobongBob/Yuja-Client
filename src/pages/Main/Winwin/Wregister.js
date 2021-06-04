@@ -51,11 +51,11 @@ const Wregister = ({ match }) => {
     if (!userData) {
       return ToastCenter('로그인 해주세요');
     }
-    let reg = /http:\/\/localhost:8888\/files\/temp\/[0-9]+.[a-z]+/g;
+    let reg = /https:\/\/api.withyuja.com\/files\/temp\/[0-9]+.[a-z]+/g;
     let imgSrcArr = String(qData).match(reg);
     if (imgSrcArr) {
       addingFileList.current.forEach((src) => {
-        if (imgSrcArr.includes(`http://localhost:8888/files/temp/${src}`)) {
+        if (imgSrcArr.includes(`https://api.withyuja.com/files/temp/${src}`)) {
           currFileList.current.push(src);
         }
       });
@@ -67,8 +67,8 @@ const Wregister = ({ match }) => {
       ...checked,
       userId: userData.id,
       content: qData.replaceAll(
-        `src="http://localhost:8888/files/temp/`,
-        `src="http://localhost:8888/files/${board_type.current}/`
+        `src="https://api.withyuja.com/files/temp/`,
+        `src="https://api.withyuja.com/files/${board_type.current}/`
       ), //업로드된 이미지들은 temp가 아닌 WinBoard에 저장된다.
       boardAttachNames: currFileList.current,
     };

@@ -1,19 +1,13 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import './Yregister.scss';
-import * as YapiService from '../../../apiService/YapiService';
-import { useHistory } from 'react-router';
-import { useSelector } from 'react-redux';
-import QuillModify from '../../../components/Quill/QuillModify';
-import { ToastCenter } from '../../../modules/ToastModule';
-import { checkBoxConvert } from '../../../modules/CheckBoxConvert';
-import getFormatDate from '../../../modules/getFormatDate';
-import { isNotFilled } from '../../../modules/InputFocus';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import "./Yregister.scss";
+import * as YapiService from "../../../apiService/YapiService";
+import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
+import QuillModify from "../../../components/Quill/QuillModify";
+import { ToastCenter } from "../../../modules/ToastModule";
+import { checkBoxConvert } from "../../../modules/CheckBoxConvert";
+import getFormatDate from "../../../modules/getFormatDate";
+import { isNotFilled } from "../../../modules/InputFocus";
 
 const YmodifyTest = (props) => {
   const { userData } = useSelector((state) => state.loginReducer);
@@ -28,17 +22,17 @@ const YmodifyTest = (props) => {
   const [showDate, setShowDate] = useState(false);
 
   const [input, setInput] = useState({
-    title: '',
-    channelName: '',
-    worker: '',
-    recruitingNum: '',
-    payType: '',
-    payAmount: '',
-    career: '',
-    ywhen: '',
-    expiredDate: '',
-    manager: '',
-    receptionMethod: '',
+    title: "",
+    channelName: "",
+    worker: "",
+    recruitingNum: "",
+    payType: "",
+    payAmount: "",
+    career: "",
+    ywhen: "",
+    expiredDate: "",
+    manager: "",
+    receptionMethod: "",
     tools: checkedlist.current,
   });
 
@@ -54,15 +48,12 @@ const YmodifyTest = (props) => {
     maya: false,
   });
 
-  let Yhistory = useCallback(
-    (board_id) => history.push(`/Ydetail/${board_id}/${current_page.current}`),
-    [history]
-  );
+  let Yhistory = useCallback((board_id) => history.push(`/Ydetail/${board_id}/${current_page.current}`), [history]);
 
   useEffect(() => {
     YapiService.fetchBoard(props.match.params.board_id).then((res) => {
       if (!userData || userData.id !== res.data.user.id) {
-        ToastCenter('권한이 없습니다.');
+        ToastCenter("권한이 없습니다.");
         return history.goBack();
       }
       fileList.current = res.data.boardAttachFileNames;
@@ -70,7 +61,7 @@ const YmodifyTest = (props) => {
       setInput(res.data);
       setcheckBoxInput(checkBoxConvert(res.data.tools));
       checkedlist.current = res.data.tools;
-      if (res.data.ywhen === '마감일') {
+      if (res.data.ywhen === "마감일") {
         setShowDate(true);
       }
     });
@@ -101,29 +92,25 @@ const YmodifyTest = (props) => {
 
   const testCheking = useCallback(() => {
     if (!isNotFilled(input, refsArray)) {
-      return ToastCenter('빈칸을 모두 적어주세요.');
+      return ToastCenter("빈칸을 모두 적어주세요.");
     }
     if (
-      (input.ywhen === '마감일' && !input.expiredDate) ||
+      (input.ywhen === "마감일" && !input.expiredDate) ||
       !input.ywhen ||
       checkedlist.current.length === 0 ||
       !input.career ||
       !input.worker
     ) {
       workerRef.current.focus();
-      return ToastCenter('빈칸을 모두 적어주세요.');
+      return ToastCenter("빈칸을 모두 적어주세요.");
     }
-    let currentBoardType = 'YoutuberBoard/';
-    let reg = /http:\/\/localhost:8888\/files\/Youtuber\/[0-9]+.[a-z]+/g;
+    let currentBoardType = "YoutuberBoard/";
+    let reg = /https:\/\/api.withyuja.com\/files\/Youtuber\/[0-9]+.[a-z]+/g;
     let imgSrcArr = String(qModiData).match(reg); // 불러왔던 글에 존재했던 이미지 태그들의 src
     // 서버에서 날아온 이미지 이름과 비교한다. 없으면 삭제된것이므로 삭제 리스트에 담아준다.
     if (imgSrcArr) {
       fileList.current.forEach((src) => {
-        if (
-          !imgSrcArr.includes(
-            `http://localhost:8888/files/${currentBoardType}${src}`
-          )
-        ) {
+        if (!imgSrcArr.includes(`https://api.withyuja.com/files/${currentBoardType}${src}`)) {
           deletedFileList.current.push(src);
         }
       });
@@ -135,18 +122,16 @@ const YmodifyTest = (props) => {
       ...input,
       tools: checkedlist.current,
       content: qModiData.replaceAll(
-        `src="http://localhost:8888/files/temp/`,
-        `src="http://localhost:8888/files/Youtuber/`
+        `src="https://api.withyuja.com/files/temp/`,
+        `src="https://api.withyuja.com/files/Youtuber/`
       ),
-      thumbnail: '썸네일 수정 테스트',
+      thumbnail: "썸네일 수정 테스트",
       boardAttachIds: addingFileList.current,
       boardAttachToBeDeleted: deletedFileList.current,
     };
-    YapiService.modifyBoard(props.match.params.board_id, modifyingData).then(
-      (res) => {
-        Yhistory(res.data.id);
-      }
-    );
+    YapiService.modifyBoard(props.match.params.board_id, modifyingData).then((res) => {
+      Yhistory(res.data.id);
+    });
   }, [Yhistory, input, props.match.params.board_id, qModiData, refsArray]);
 
   const checkboxCheck = useCallback(
@@ -171,13 +156,13 @@ const YmodifyTest = (props) => {
       ...prevInput,
       [name]: value,
     }));
-    if (e.target.value === '마감일') {
+    if (e.target.value === "마감일") {
       setShowDate(true);
     } else {
       setShowDate(false);
       setInput((prevInput) => ({
         ...prevInput,
-        expiredDate: '',
+        expiredDate: "",
       }));
     }
   }, []);
@@ -204,9 +189,9 @@ const YmodifyTest = (props) => {
             name='title'
             onChange={onChange}
             placeholder='제목'
-            maxLength='100'
+            maxLength='45'
             type='text'
-            value={input.title || ''}
+            value={input.title || ""}
             ref={titleRef}
           />
         </li>
@@ -218,7 +203,7 @@ const YmodifyTest = (props) => {
             name='channelName'
             type='text'
             maxLength='50'
-            value={input.channelName || ''}
+            value={input.channelName || ""}
             ref={channelNameRef}
           />
         </li>
@@ -230,7 +215,7 @@ const YmodifyTest = (props) => {
             name='worker'
             value='영상편집'
             onChange={radioCheck}
-            checked={input.worker === '영상편집'}
+            checked={input.worker === "영상편집"}
             ref={workerRef}
           />
           <label htmlFor='editor'>편집자</label>
@@ -240,7 +225,7 @@ const YmodifyTest = (props) => {
             name='worker'
             value='썸네일러'
             onChange={radioCheck}
-            checked={input.worker === '썸네일러'}
+            checked={input.worker === "썸네일러"}
           />
           <label htmlFor='thumbnailer'>썸네일러</label>
           <input
@@ -249,7 +234,7 @@ const YmodifyTest = (props) => {
             onChange={radioCheck}
             name='worker'
             value='편집자+썸네일러'
-            checked={input.worker === '편집자+썸네일러'}
+            checked={input.worker === "편집자+썸네일러"}
           />
           <label htmlFor='both'>편집자+썸네일러</label>
         </li>
@@ -261,7 +246,7 @@ const YmodifyTest = (props) => {
             onChange={radioCheck}
             value='신입'
             type='radio'
-            checked={input.career === '신입'}
+            checked={input.career === "신입"}
           />
           <label htmlFor='newbie'>신입</label>
           <input
@@ -270,7 +255,7 @@ const YmodifyTest = (props) => {
             name='career'
             value='경력'
             type='radio'
-            checked={input.career === '경력'}
+            checked={input.career === "경력"}
           />
           <label htmlFor='career'>경력</label>
           <input
@@ -279,7 +264,7 @@ const YmodifyTest = (props) => {
             value='경력무관'
             type='radio'
             onChange={radioCheck}
-            checked={input.career === '경력무관'}
+            checked={input.career === "경력무관"}
           />
           <label htmlFor='notcareer'>경력무관</label>
         </li>
@@ -290,11 +275,11 @@ const YmodifyTest = (props) => {
             onChange={onChange}
             name='recruitingNum'
             type='text'
-            value={input.recruitingNum || ''}
+            value={input.recruitingNum || ""}
             maxLength='3'
             onInput={({ target }) => {
-              target.value = target.value.replace(/[^0-9]/g, '');
-              target.value = target.value.replace(/,/g, '');
+              target.value = target.value.replace(/[^0-9]/g, "");
+              target.value = target.value.replace(/,/g, "");
             }}
             ref={recruitingNumRef}
           />
@@ -302,11 +287,7 @@ const YmodifyTest = (props) => {
         </li>
         <li className='wanted-pay'>
           <div>급여</div>
-          <select
-            name='payType'
-            ref={payTypeRef}
-            value={input.payType}
-            onChange={onChange}>
+          <select name='payType' ref={payTypeRef} value={input.payType} onChange={onChange}>
             <option value=''>선택</option>
             <option value='연봉'>연봉</option>
             <option value='월급'>월급</option>
@@ -321,11 +302,11 @@ const YmodifyTest = (props) => {
             type='text'
             maxLength='11'
             onInput={({ target }) => {
-              target.value = target.value.replace(/[^0-9]/g, '');
-              target.value = target.value.replace(/,/g, '');
-              target.value = target.value.replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 정규식을 이용해서 3자리 마다 , 추가
+              target.value = target.value.replace(/[^0-9]/g, "");
+              target.value = target.value.replace(/,/g, "");
+              target.value = target.value.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // 정규식을 이용해서 3자리 마다 , 추가
             }}
-            value={input.payAmount || ''}
+            value={input.payAmount || ""}
             ref={payAmountRef}
           />
           원
@@ -422,7 +403,7 @@ const YmodifyTest = (props) => {
             name='ywhen'
             value='상시모집'
             type='radio'
-            checked={input.ywhen === '상시모집'}
+            checked={input.ywhen === "상시모집"}
           />
           <label htmlFor='always'>상시모집</label>
           <input
@@ -431,7 +412,7 @@ const YmodifyTest = (props) => {
             value='채용시 마감'
             type='radio'
             onChange={radioCheck}
-            checked={input.ywhen === '채용시 마감'}
+            checked={input.ywhen === "채용시 마감"}
           />
           <label htmlFor='deadline'>채용시 마감</label>
           <input
@@ -440,7 +421,7 @@ const YmodifyTest = (props) => {
             name='ywhen'
             value='마감일'
             type='radio'
-            checked={input.ywhen === '마감일'}
+            checked={input.ywhen === "마감일"}
           />
           <label htmlFor='date'>마감일</label>
           {showDate && (
@@ -450,11 +431,7 @@ const YmodifyTest = (props) => {
               name='expiredDate'
               type='date'
               min={getFormatDate(new Date())}
-              value={
-                input && input.expiredDate
-                  ? input.expiredDate.substr(0, 10)
-                  : null
-              }
+              value={input && input.expiredDate ? input.expiredDate.substr(0, 10) : null}
             />
           )}
         </li>
@@ -466,7 +443,7 @@ const YmodifyTest = (props) => {
             type='text'
             placeholder='담당자'
             maxLength='30'
-            value={input.manager || ''}
+            value={input.manager || ""}
             ref={managerRef}
           />
         </li>
@@ -478,7 +455,7 @@ const YmodifyTest = (props) => {
             onChange={onChange}
             type='text'
             maxLength='50'
-            value={input.receptionMethod || ''}
+            value={input.receptionMethod || ""}
             ref={receptionMethodRef}
           />
         </li>

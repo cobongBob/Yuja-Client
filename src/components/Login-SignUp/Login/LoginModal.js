@@ -325,7 +325,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
               ></input>
               <GoogleLogin
                 className='googleLoginBtn'
-                clientId='373267940764-jujlpjtg3qtd21bg6496vaj7k9ooj56e.apps.googleusercontent.com'
+                clientId={process.env.REACT_APP_GOOGLE_OAUTH_KEY}
                 buttonText='구글 로그인'
                 onSuccess={resGoogle}
                 onFailure={resGoogle}
