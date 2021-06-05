@@ -14,7 +14,13 @@ const Wregister = ({ match }) => {
   const history = useHistory();
 
   let whistory = useCallback(
-    (board_id) => history.push(`/BoardDetail/${board_type.current}/${board_id}/1`),
+    (board_id) => {
+      if (board_type.current === "QnA") {
+        history.push(`/Admin/AdminQnA`);
+      } else {
+        history.push(`/BoardDetail/${board_type.current}/${board_id}/1`);
+      }
+    },
     [history, board_type]
   );
 

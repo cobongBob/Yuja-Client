@@ -14,7 +14,13 @@ const WModify = ({ match }) => {
   const fileList = useRef([]);
   const history = useHistory();
   let wHistory = useCallback(
-    (board_id) => history.push(`/BoardDetail/${board_type.current}/${board_id}/1`),
+    (board_id) => {
+      if (board_type.current === "QnA") {
+        history.push(`/Admin/AdminQnA`);
+      } else {
+        history.push(`/BoardDetail/${board_type.current}/${board_id}/1`);
+      }
+    },
     [history, board_type]
   );
   const [input, setInput] = useState({

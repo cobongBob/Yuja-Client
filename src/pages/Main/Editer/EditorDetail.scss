@@ -24,12 +24,11 @@
   margin-right: 10rem;
 }
 .editordetail-content-profile-pic {
-  float: left;
+  display:inline-block;
   border-radius: 50%;
 }
 
 .editordetail-content-profile-pic_ {
-  float: left;
   border-radius: 50%;
   width: 8.5vw;
   height: 8vh;
@@ -41,6 +40,7 @@
 }
 
 .editordetail-content-profile-pic > img {
+  display:inline-block;
   width: 10rem;
   height: 10rem;
   border: 2px solid #3d5ba5;
@@ -48,17 +48,17 @@
   text-align: center;
   vertical-align: middle;
 }
-
+.editorDetailTitle {
+  border-right: 3px solid #3d5ba5;
+  padding-right: 15px;
+  margin-right: 15px;
+}
 .editordetail-content-title {
   font-family: scdream5;
-  background-color: lightgrey;
-  margin-left: 12rem;
-  border-radius: 10px;
-  height: 3rem;
-  line-height: 3rem;
-  vertical-align: middle;
+  display: inline-block;
+  margin-left: 1rem;
+  padding: 0.25rem;
   margin-bottom: 0.5rem;
-  padding-left: 1rem;
 }
 .editordetail-content-user {
   display: inline-block;
@@ -72,16 +72,15 @@
 .editordetail-content-user-data {
   display: inline-block;
   margin-left: 1rem;
-  border-bottom: 4px solid #3d5ba5;
   padding: 0.25rem;
-  font-weight: bolder;
   margin-bottom: 0.5rem;
+  font-family: scdream5;
 }
 
 .editordetail-content-like {
   display: block;
   text-align: right;
-  margin-right: 10rem;
+  margin-right: 1rem;
   font-family: scdream4;
   font-size: 20px;
   margin-bottom: 1rem;
@@ -131,16 +130,6 @@
   margin-bottom: 3rem;
 }
 
-.pr-div {
-  font-size: 24px;
-  font-family: scdream5;
-  display: inline-block;
-  border-bottom: 4px solid #3d5ba5;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  margin-left: 1rem;
-}
-
 .pr-content {
   margin-left: 1rem;
   background-color: lightgrey;
@@ -151,4 +140,27 @@
 .pr-content > .QuillContent {
   width: 100%;
   height: 100%;
+}
+
+.editorDetailLike {
+
+}
+
+.editordetail-content-like .pr-div {
+  font-size: 24px;
+  font-family: scdream5;
+  float:left;
+  border-bottom: 4px solid #3d5ba5;
+  color:black;
+  margin-left: 20px;
+}
+.editorDetailTitleBoxWrapper {
+  display:flex;
+  padding: 2% 5% 5% 20%;
+  align-items: center;
+}
+.editorDetailTitleBox {
+  width: 45vw;
+  display: inline-block;
+  margin-left: 5%;
 }

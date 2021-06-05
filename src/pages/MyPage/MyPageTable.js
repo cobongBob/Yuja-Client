@@ -1,9 +1,8 @@
-import React, { useCallback, useRef, useState } from 'react';
-import { useHistory } from 'react-router';
-import './myPage.scss';
-import MyPageLikeWrite from './MyPageLikeWrite';
-import MyPagePortfolioTable from './MyPagePortfolioTable';
-import MyPageYoutuberTable from './MyPageYoutuberTable';
+import React from "react";
+import "./myPage.scss";
+import MyPageLikeWrite from "./MyPageLikeWrite";
+import MyPagePortfolioTable from "./MyPagePortfolioTable";
+import MyPageYoutuberTable from "./MyPageYoutuberTable";
 
 const MyPageTable = ({ boardData }) => {
   return (

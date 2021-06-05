@@ -88,7 +88,7 @@ const ThumbRegister = ({ match }) => {
     EditerApiService.addBoards(sendingData, board_type.current).then((res) => {
       ThHistory(res.data.id);
     });
-  }, [userData, qData, ThHistory, inputData, refsArray]);
+  }, [userData, qData, ThHistory, inputData, refsArray, totalCareer]);
 
   const checkboxCheck = useCallback(
     (e) => {

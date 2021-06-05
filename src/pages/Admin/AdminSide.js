@@ -25,6 +25,7 @@ const AdminSide = () => {
             <Link to={`/Admin/AdminYoutuber`}>
               <li className={pathname.includes("/AdminYoutuber") ? "li-link-disabled" : "li-winwin"}>유튜버 인증</li>
             </Link>
+
             <Link to={`/Admin/AdminQnA`}>
               <li className={pathname.includes("/AdminQnA") ? "li-link-disabled" : "li-winwin"}>고객센터 관리</li>
             </Link>

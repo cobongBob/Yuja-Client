@@ -34,7 +34,7 @@ const Help = () => {
                     </div>
                   </Card.Header>
                   <Accordion.Collapse className='Answer' eventKey={idx + 1}>
-                    <Card.Body>
+                    <Card.Body className='AnswerBody'>
                       <ReactQuill
                         id='wQuill'
                         className='QuillContent'

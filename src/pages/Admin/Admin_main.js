@@ -19,6 +19,7 @@ import {
   noticePrivateSwitch,
   removeUserData,
   fetchAllQnABoards,
+  removeQnA,
 } from "../../apiService/AdminApiService";
 import AdminBoard from "./AdminBoard";
 import { deleteUser } from "../../apiService/UserApiService";
@@ -205,6 +206,22 @@ const Admin_main = () => {
     },
     [allUsers]
   );
+
+  const deleteQnA = useCallback(
+    (qna_id) => {
+      if (window.confirm("정말 삭제 하시겠습니까?")) {
+        removeQnA(qna_id).then((res) => {
+          ToastCenter(res.data);
+          setAllQnAs(
+            allQnAs.filter((qna) => {
+              return qna.id !== qna_id;
+            })
+          );
+        });
+      }
+    },
+    [allQnAs]
+  );
   return (
     allUsers &&
     allReports &&
@@ -234,7 +251,7 @@ const Admin_main = () => {
                 {pathname.includes("/AdminBoard") ? (
                   <AdminBoard allBoards={allBoards} noticeSwitch={noticeSwitch} />
                 ) : null}
-                {pathname.includes("/AdminQnA") ? <AdminQnA allQnAs={allQnAs} /> : null}
+                {pathname.includes("/AdminQnA") ? <AdminQnA allQnAs={allQnAs} deleteQnA={deleteQnA} /> : null}
               </div>
             </div>
           </div>
