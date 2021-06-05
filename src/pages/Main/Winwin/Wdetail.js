@@ -102,13 +102,11 @@ const Wdetail = ({ match }) => {
     }
   }, [history, board_type, pageNum]);
 
-  console.log(wDetails.createDate)
-
   return (
     wDetails && (
-      <div className="comment-wrapper">
-        <div className="comment-content">
-          <div className="comment-options">
+      <div className='comment-wrapper'>
+        <div className='comment-content'>
+          <div className='comment-options'>
             <button onClick={goList}>목록</button>
             {userData && userData.id > 0 && !authorities.includes('ADMIN') ? (
               <>
@@ -123,8 +121,8 @@ const Wdetail = ({ match }) => {
               </>
             ) : null}
           </div>
-          <div className="comment-detail-title">{wDetails.title}</div>
-          <div className="comment-options-user">
+          <div className='comment-detail-title'>{wDetails.title}</div>
+          <div className='comment-options-user'>
             {userData && userData.id === wDetails.user.id ? (
               <>
                 <button onClick={modifyBoard}>수정</button>
@@ -135,36 +133,37 @@ const Wdetail = ({ match }) => {
             ) : null}
           </div>
           <div>
-            <div className="detail-show">
-              <div className="show-user-name">
+            <div className='detail-show'>
+              <div className='show-user-name'>
                 <span>작성자</span> {wDetails.user.nickname}
               </div>
-              <div className="likeWrapper">
+              <div className='likeWrapper'>
                 {wDetails && wDetails.liked ? (
-                  <button className="likeButton" onClick={likeHandler}>
+                  <button className='likeButton' onClick={likeHandler}>
                     <FcLike size={32} />
                     <span>{wDetails.likes}</span>
                   </button>
                 ) : (
-                  <button className="likeButton" onClick={likeHandler}>
+                  <button className='likeButton' onClick={likeHandler}>
                     <AiOutlineHeart size={32} />
                     <span>{wDetails.likes}</span>
                   </button>
                 )}
               </div>
-              <div className="hitWrapper">
-                <AiOutlineFileSearch className="hit" size={29} />{' '}
-                <span className="hitCount">{wDetails.hit}</span>
+              <div className='hitWrapper'>
+                <AiOutlineFileSearch className='hit' size={29} />{' '}
+                <span className='hitCount'>{wDetails.hit}</span>
               </div>
             </div>
-            <div className="dateBox">
-              <span>작성일</span> {wDetails.createDate && wDetails.createDate.substr(0, 10)}
+            <div className='dateBox'>
+              <span>작성일</span>{' '}
+              {wDetails.createDate && wDetails.createDate.substr(0, 10)}
             </div>
           </div>
-          <div className="DetailQuill">
+          <div className='DetailQuill'>
             <ReactQuill
-              id="wQuill"
-              className="QuillContent"
+              id='wQuill'
+              className='QuillContent'
               value={wDetails.content || ''}
               readOnly={true}
               theme={'bubble'}

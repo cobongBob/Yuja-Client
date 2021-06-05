@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getLoggedInUserData } from '../../apiService/AuthenticationService';
 import { getUserProfileData } from '../../apiService/UserApiService';
 import { userCheck } from '../../redux/redux-login/loginReducer';
@@ -7,6 +7,7 @@ import MyPageTable from './MyPageTable';
 
 const MyPage = () => {
   const dispatch = useDispatch();
+  const { userData, authorities } = useSelector((state) => state.loginReducer);
   const [defaultData, setDefaultData] = useState([]);
   const loggedInUserData = getLoggedInUserData();
   const userId =
@@ -21,7 +22,7 @@ const MyPage = () => {
       setDefaultData(res);
     });
   }, [dispatch, userId]);
-  return <MyPageTable boardData={defaultData} />;
+  return <MyPageTable boardData={defaultData} userData={userData} />;
 };
 
 export default MyPage;

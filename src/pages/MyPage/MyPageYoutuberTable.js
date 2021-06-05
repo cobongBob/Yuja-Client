@@ -1,31 +1,25 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import Pagination from '../Main/components/Pagination';
+import { addLike } from '../../apiService/likeService';
+import MyPagePagination from './MyPagePagination';
 
-const MyPageYoutuberTable = ({ boardData, board_code }) => {
+const MyPageYoutuberTable = ({ boardData, userData, board_code }) => {
   const history = useHistory();
-  const path = history.location.pathname;
-  const lastPageNum = path.substr(path.lastIndexOf('/') + 1);
-  const pageNum = useRef(lastPageNum ? lastPageNum : 1);
-  const [currentPage, setCurrentPage] = useState(pageNum.current);
-  const [boardPerPage] = useState(5);
-  const indexOfLastData = currentPage * boardPerPage;
-  const indexOfFirstData = indexOfLastData - boardPerPage;
-  const clickPage = useCallback((pages) => {
-    setCurrentPage(pages);
-  }, []);
+  console.log(1111, boardData);
   return (
     <div className='myPage-youtuberbox'>
       <h3 className='myPage-title'> 유튜버 공고 </h3>
       <table>
         <thead>
-          <th className='th-first'>채널명</th>
-          <th className='th-title'>제목</th>
-          <th className='th-career'>지원자격</th>
-          <th className='th-receptionMethod'>담당자연락처</th>
-          <th className='th-worker'>모집분야</th>
-          <th className='th-tools'>사용기술</th>
-          <th className='th-expiredDate'>마감일</th>
+          <th style={{ width: '4rem' }}>채널명</th>
+          <th style={{ width: '7rem' }}>제목</th>
+          <th style={{ width: '4rem' }}>지원자격</th>
+          <th style={{ width: '7rem' }}>담당자연락처</th>
+          <th style={{ width: '4rem' }}>모집분야</th>
+          <th style={{ width: '7rem' }}>사용기술</th>
+          <th style={{ width: '7rem' }}>마감일</th>
+          <th style={{ width: '4rem' }}>즐겨찾기</th>
         </thead>
         <tbody>
           {boardData.data &&
@@ -36,17 +30,29 @@ const MyPageYoutuberTable = ({ boardData, board_code }) => {
                     key={idx}
                     onClick={() => history.push(`/Ydetail/${data.id}/1`)}
                   >
-                    <td>{data.channelName}</td>
-                    <td>{data.title}</td>
-                    <td>{data.career}</td>
-                    <td>{data.receptionMethod}</td>
-                    <td>{data.worker}</td>
-                    <td>{data.tools && data.tools.join(', ')}</td>
+                    <td style={{ width: '4rem' }}>{data.channelName}</td>
+                    <td style={{ width: '4rem' }}>{data.title}</td>
+                    <td style={{ width: '4rem' }}>{data.career}</td>
+                    <td style={{ width: '4rem' }}>{data.receptionMethod}</td>
+                    <td style={{ width: '4rem' }}>{data.worker}</td>
+                    <td style={{ width: '3rem' }}>
+                      {data.tools && data.tools.join(', ')}
+                    </td>
                     {data.ywhen === '마감일' ? (
-                      <td>{data.expiredDate.substr(0, 10)}</td>
+                      <td style={{ width: '4rem' }}>
+                        {data.expiredDate.substr(0, 10)}
+                      </td>
                     ) : (
-                      <td> {data.ywhen}</td>
+                      <td style={{ width: '4rem' }}>{data.ywhen}</td>
                     )}
+                    <td onClick={(e) => e.stopPropagation()}>
+                      <button
+                        onClick={data.liked === false}
+                        className='myPage-cancel'
+                      >
+                        취소
+                      </button>
+                    </td>
                   </tr>
                 );
               }
@@ -54,11 +60,7 @@ const MyPageYoutuberTable = ({ boardData, board_code }) => {
             })}
         </tbody>
       </table>
-      <Pagination
-        boardPerPage={boardPerPage}
-        currentPage={currentPage}
-        clickPage={clickPage}
-      />
+      {/* <MyPagePagination boardPerPage={boardPerPage} currentPage={currentPage} /> */}
     </div>
   );
 };
