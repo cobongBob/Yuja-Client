@@ -38,8 +38,6 @@
 
 .myPage-youtuberbox > table > thead {
   border-bottom: 2px solid #ff9411;
-  font-family: scdream5;
-  text-align: center;
 }
 
 .myPage-youtuberbox > table > tbody > tr > td {
@@ -71,15 +69,6 @@
 
 .myPage-freebox > table > thead {
   border-bottom: 2px solid #ff9411;
-  th:nth-child(1) {
-    width: 5rem;
-  }
-  th:nth-child(2) {
-    width: 7rem;
-  }
-  th:nth-child(3) {
-    width: 25rem;
-  }
 }
 
 .myPage-freebox > table > tbody > tr {
@@ -110,26 +99,10 @@
 
 .myPage-portfoliobox > table > thead {
   border-bottom: 2px solid #ff9411;
-  th:nth-child(1) {
-    width: 7rem;
-  }
-  th:nth-child(2) {
-    width: 10rem;
-  }
-  th:nth-child(3) {
-    width: 5rem;
-  }
-  th:nth-child(4) {
-    width: 5rem;
-  }
-  th:nth-child(5) {
-    width: 10rem;
-  }
 }
 
 .myPage-portfoliobox > table > tbody > tr {
   cursor: pointer;
-
   &:hover {
     text-decoration: none;
     color: black;

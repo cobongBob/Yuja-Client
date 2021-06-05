@@ -1,18 +1,29 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
+import { wDeleteLike } from '../../redux/board/winwin/winBoardReducer';
 
-const MyPageLikeWrite = ({ boardData }) => {
+const MyPageLikeWrite = ({ boardData, userData }) => {
   const history = useHistory();
-
+  const dispatch = useDispatch();
+  const likeHandler = useCallback(
+    (board_id) => {
+      wDeleteLike(board_id, userData.id).then((res) => {
+        dispatch(res);
+      });
+    },
+    [userData, dispatch, MyPageLikeWrite]
+  );
   return (
     <div>
       <div className='myPage-freebox'>
         <h3 className='myPage-title'> 자유게시판 </h3>
         <table>
           <thead>
-            <th>분류</th>
-            <th>작성자</th>
-            <th>제목</th>
+            <th style={{ width: '4rem' }}>분류</th>
+            <th style={{ width: '4rem' }}>작성자</th>
+            <th style={{ width: '7rem' }}>제목</th>
+            <th style={{ width: '2rem' }}></th>
           </thead>
           <tbody>
             {boardData.data &&
@@ -45,6 +56,14 @@ const MyPageLikeWrite = ({ boardData }) => {
                       </td>
                       <td>{data.user.nickname}</td>
                       <td>{data.title}</td>
+                      <td onClick={(e) => e.stopPropagation()}>
+                        <button
+                          onClick={() => likeHandler(data.id)}
+                          className='myPage-cancel'
+                        >
+                          삭제
+                        </button>
+                      </td>
                     </tr>
                   );
                 }

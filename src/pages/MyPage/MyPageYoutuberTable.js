@@ -1,12 +1,20 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import { addLike } from '../../apiService/likeService';
+import { deleteLike } from '../../redux/board/youtube/yboardReducer';
 import MyPagePagination from './MyPagePagination';
 
-const MyPageYoutuberTable = ({ boardData, userData, board_code }) => {
+const MyPageYoutuberTable = ({ boardData, board_code, userData }) => {
   const history = useHistory();
-  console.log(1111, boardData);
+  const dispatch = useDispatch();
+  const likeHandler = useCallback(
+    (board_id) => {
+      deleteLike(board_id, userData.id).then((res) => {
+        dispatch(res);
+      });
+    },
+    [userData, dispatch, MyPageYoutuberTable]
+  );
   return (
     <div className='myPage-youtuberbox'>
       <h3 className='myPage-title'> 유튜버 공고 </h3>
@@ -19,7 +27,7 @@ const MyPageYoutuberTable = ({ boardData, userData, board_code }) => {
           <th style={{ width: '4rem' }}>모집분야</th>
           <th style={{ width: '7rem' }}>사용기술</th>
           <th style={{ width: '7rem' }}>마감일</th>
-          <th style={{ width: '4rem' }}>즐겨찾기</th>
+          <th style={{ width: '2rem' }}></th>
         </thead>
         <tbody>
           {boardData.data &&
@@ -32,7 +40,7 @@ const MyPageYoutuberTable = ({ boardData, userData, board_code }) => {
                   >
                     <td style={{ width: '4rem' }}>{data.channelName}</td>
                     <td style={{ width: '4rem' }}>{data.title}</td>
-                    <td style={{ width: '4rem' }}>{data.career}</td>
+                    <td style={{ width: '3rem' }}>{data.career}</td>
                     <td style={{ width: '4rem' }}>{data.receptionMethod}</td>
                     <td style={{ width: '4rem' }}>{data.worker}</td>
                     <td style={{ width: '3rem' }}>
@@ -47,10 +55,10 @@ const MyPageYoutuberTable = ({ boardData, userData, board_code }) => {
                     )}
                     <td onClick={(e) => e.stopPropagation()}>
                       <button
-                        onClick={data.liked === false}
+                        onClick={() => likeHandler(data.id)}
                         className='myPage-cancel'
                       >
-                        취소
+                        삭제
                       </button>
                     </td>
                   </tr>
