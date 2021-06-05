@@ -50,6 +50,7 @@ p {
 }
 
 .thumbnails_ {
+  display: inline-block;
   width: 18vw;
 }
 
@@ -218,19 +219,24 @@ p {
 /* END OF CONTENT */
 
 /* 화살표 css 덮어쓰기 */
+
+.wrapper {
+  text-align: center !important;
+}
+
 .slick-next {
   right: -2% !important;
   top: 35% !important;
 }
 
 .slick-prev {
-  left: -3.5% !important;
+  left: -3.7% !important;
   top: 35% !important;
 }
 /* 화살표 css 덮어쓰기 끝 */
 /* 반응형 */
-@media all and (max-width:500px) {
+@media all and (max-width: 500px) {
   .item > img {
-    width:50%;
+    width: 50%;
   }
 }
