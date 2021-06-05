@@ -19,8 +19,7 @@ const EboardModify = ({ match }) => {
   const checkedlist = useRef([]);
   const fileList = useRef([]);
   const history = useHistory();
-  const regex = /[^0-9]/g;
-  const regex2 = /[0-9]/g;
+
   const [combine, setCombine] = useState({
     combine: 1,
   });
@@ -128,6 +127,7 @@ const EboardModify = ({ match }) => {
             eHistory(res.data.id);
           });
         } else {
+          const regex2 = /[0-9]/g;
           const modifyingData = {
             ...input,
             career: input.career.replaceAll(regex2, combine.combine),
@@ -195,11 +195,12 @@ const EboardModify = ({ match }) => {
   }, []);
 
   const counter = useCallback(() => {
+    const regex = /[^0-9]/g;
     setCombine({
       ...combine,
       combine: input.career.replace(regex, ""),
     });
-  }, [input, combine, regex]);
+  }, [input, combine]);
 
   const careerYear = useCallback(
     (e) => {
@@ -217,7 +218,7 @@ const EboardModify = ({ match }) => {
 
   useEffect(() => {
     counter();
-  }, [input]);
+  }, [input, counter]);
 
   return (
     <div className='editorRegisterFrag'>

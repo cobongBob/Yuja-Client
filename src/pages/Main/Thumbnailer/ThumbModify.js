@@ -21,8 +21,7 @@ const ThumbModify = ({ match }) => {
   const history = useHistory();
   const ThumbId = useRef(0);
   const [fileUrl, setFileUrl] = useState(defaultImg);
-  const regex = /[^0-9]/g;
-  const regex2 = /[0-9]/g;
+
   const [combine, setCombine] = useState({
     combine: 1,
   });
@@ -187,6 +186,7 @@ const ThumbModify = ({ match }) => {
         ThHistory(res.data.id);
       });
     } else {
+      const regex2 = /[0-9]/g;
       const modifyingData = {
         ...input,
         career: input.career.replaceAll(regex2, combine.combine),
@@ -206,11 +206,12 @@ const ThumbModify = ({ match }) => {
   }, [ThHistory, match.params.board_id, input, qModiData, refsArray, combine]);
 
   const counter = useCallback(() => {
+    const regex = /[^0-9]/g;
     setCombine({
       ...combine,
       combine: input.career.replace(regex, ""),
     });
-  }, [input, combine, regex]);
+  }, [input, combine]);
 
   const careerYear = useCallback(
     (e) => {
@@ -228,7 +229,7 @@ const ThumbModify = ({ match }) => {
 
   useEffect(() => {
     counter();
-  }, [input]);
+  }, [input, counter]);
 
   return (
     <div>
