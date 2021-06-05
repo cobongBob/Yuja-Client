@@ -33,6 +33,9 @@ const Admin_main = () => {
   const [allReports, setAllReports] = useState([]);
   const [allBoards, setAllBoards] = useState([]);
   const [allQnAs, setAllQnAs] = useState([]);
+  const [isSortedByNo, setIsSortedByNo] = useState(false);
+  const [isSortedByDeleted, setIsSortedByDeleted] = useState(false);
+  const [isSortedByBanned, setIsSortedByBanned] = useState(false);
   useEffect(() => {
     if (authorities && !authorities.includes("ADMIN")) {
       ToastCenter("잘못 된 접근입니다");
@@ -60,6 +63,7 @@ const Admin_main = () => {
 
   const pathname = useLocation().pathname;
 
+  //유저관련
   const userSetBan = useCallback(
     (user_id, username, isBanned) => {
       if (!isBanned) {
@@ -95,6 +99,99 @@ const Admin_main = () => {
     [allUsers]
   );
 
+  const userRecovery = useCallback(
+    (user_id) => {
+      deleteUser(user_id).then((res) => {
+        ToastCenter(res.data);
+        setAllUsers(
+          allUsers.map((user) => {
+            if (user.id === user_id) {
+              user.deleted = false;
+            }
+            return user;
+          })
+        );
+      });
+    },
+    [allUsers]
+  );
+
+  const userRemove = useCallback(
+    (user_id) => {
+      if (window.confirm("삭제되면 복구하실수 없습니다. 정말 삭제 하시겠습니까?")) {
+        removeUserData(user_id).then((res) => {
+          ToastCenter(res.data);
+          setAllUsers(
+            allUsers.filter((user) => {
+              return user.id !== user_id;
+            })
+          );
+        });
+      }
+    },
+    [allUsers]
+  );
+
+  const userSort = useCallback(
+    (which) => {
+      switch (which) {
+        case "번호":
+          setIsSortedByNo(!isSortedByNo);
+          setIsSortedByDeleted(false);
+          setIsSortedByBanned(false);
+          return isSortedByNo
+            ? setAllUsers([...allUsers].sort((a, b) => a.id - b.id))
+            : setAllUsers([...allUsers].sort((a, b) => b.id - a.id));
+        case "탈퇴":
+          setIsSortedByNo(false);
+          setIsSortedByDeleted(!isSortedByDeleted);
+          setIsSortedByBanned(false);
+          return isSortedByDeleted
+            ? setAllUsers(
+                // eslint-disable-next-line array-callback-return
+                [...allUsers].sort((a, b) => {
+                  if (a.deleted < b.deleted) return -1;
+                  if (a.deleted > b.deleted) return 1;
+                  if (a.deleted === b.deleted) return 0;
+                })
+              )
+            : setAllUsers(
+                // eslint-disable-next-line array-callback-return
+                [...allUsers].sort((a, b) => {
+                  if (a.deleted < b.deleted) return 1;
+                  if (a.deleted > b.deleted) return -1;
+                  if (a.deleted === b.deleted) return 0;
+                })
+              );
+        case "밴":
+          setIsSortedByNo(false);
+          setIsSortedByDeleted(false);
+          setIsSortedByBanned(!isSortedByBanned);
+          return isSortedByBanned
+            ? setAllUsers(
+                // eslint-disable-next-line array-callback-return
+                [...allUsers].sort((a, b) => {
+                  if (a.banned < b.banned) return -1;
+                  if (a.banned > b.banned) return 1;
+                  if (a.banned === b.banned) return 0;
+                })
+              )
+            : setAllUsers(
+                // eslint-disable-next-line array-callback-return
+                [...allUsers].sort((a, b) => {
+                  if (a.banned < b.banned) return 1;
+                  if (a.banned > b.banned) return -1;
+                  if (a.banned === b.banned) return 0;
+                })
+              );
+        default:
+          return;
+      }
+    },
+    [allUsers, isSortedByBanned, isSortedByDeleted, isSortedByNo]
+  );
+
+  //유튜버인증 관련
   const promoteUser = useCallback(
     (youtubeConfirmId, bsn, youtubeUrl, user_id) => {
       const data = {
@@ -125,6 +222,8 @@ const Admin_main = () => {
     },
     [youtuberConfirm]
   );
+
+  //신고관련
   const deleteReported = useCallback(
     (title, id) => {
       const idx = title.indexOf("##");
@@ -158,6 +257,7 @@ const Admin_main = () => {
     [allReports]
   );
 
+  //공지관련
   const noticeSwitch = useCallback(
     (board_id) => {
       noticePrivateSwitch(board_id).then((result) => {
@@ -172,39 +272,6 @@ const Admin_main = () => {
       });
     },
     [allBoards]
-  );
-
-  const userRecovery = useCallback(
-    (user_id) => {
-      deleteUser(user_id).then((res) => {
-        ToastCenter(res.data);
-        setAllUsers(
-          allUsers.map((user) => {
-            if (user.id === user_id) {
-              user.deleted = false;
-            }
-            return user;
-          })
-        );
-      });
-    },
-    [allUsers]
-  );
-
-  const userRemove = useCallback(
-    (user_id) => {
-      if (window.confirm("삭제되면 복구하실수 없습니다. 정말 삭제 하시겠습니까?")) {
-        removeUserData(user_id).then((res) => {
-          ToastCenter(res.data);
-          setAllUsers(
-            allUsers.filter((user) => {
-              return user.id !== user_id;
-            })
-          );
-        });
-      }
-    },
-    [allUsers]
   );
 
   const deleteQnA = useCallback(
@@ -240,6 +307,10 @@ const Admin_main = () => {
                     userSetBan={userSetBan}
                     userRemove={userRemove}
                     userRecovery={userRecovery}
+                    userSort={userSort}
+                    isSortedByNo={isSortedByNo}
+                    isSortedByDeleted={isSortedByDeleted}
+                    isSortedByBanned={isSortedByBanned}
                   />
                 ) : null}
                 {pathname.includes("/AdminYoutuber") ? (

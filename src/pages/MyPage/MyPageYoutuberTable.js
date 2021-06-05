@@ -15,52 +15,50 @@ const MyPageYoutuberTable = ({ boardData, board_code }) => {
     setCurrentPage(pages);
   }, []);
   return (
-    <div>
-      <div className='myPage-youtuberbox'>
-        <h3 className='myPage-title'> 유튜버 공고 </h3>
-        <table>
-          <thead>
-            <th>채널명</th>
-            <th>제목</th>
-            <th>지원자격</th>
-            <th>담당자연락처</th>
-            <th>모집분야</th>
-            <th>사용기술</th>
-            <th>마감일</th>
-          </thead>
-          <tbody>
-            {boardData.data &&
-              boardData.data?.map((data, idx) => {
-                if (data.boardType.boardCode === board_code) {
-                  return (
-                    <tr
-                      key={idx}
-                      onClick={() => history.push(`/Ydetail/${data.id}/1`)}
-                    >
-                      <td>{data.channelName}</td>
-                      <td>{data.title}</td>
-                      <td>{data.career}</td>
-                      <td>{data.receptionMethod}</td>
-                      <td>{data.worker}</td>
-                      <td>{data.tools && data.tools.join(', ')}</td>
-                      {data.ywhen === '마감일' ? (
-                        <td>{data.expiredDate.substr(0, 10)}</td>
-                      ) : (
-                        <td> {data.ywhen}</td>
-                      )}
-                    </tr>
-                  );
-                }
-                return null;
-              })}
-          </tbody>
-        </table>
-        <Pagination
-          boardPerPage={boardPerPage}
-          currentPage={currentPage}
-          clickPage={clickPage}
-        />
-      </div>
+    <div className='myPage-youtuberbox'>
+      <h3 className='myPage-title'> 유튜버 공고 </h3>
+      <table>
+        <thead>
+          <th className='th-first'>채널명</th>
+          <th className='th-title'>제목</th>
+          <th className='th-career'>지원자격</th>
+          <th className='th-receptionMethod'>담당자연락처</th>
+          <th className='th-worker'>모집분야</th>
+          <th className='th-tools'>사용기술</th>
+          <th className='th-expiredDate'>마감일</th>
+        </thead>
+        <tbody>
+          {boardData.data &&
+            boardData.data?.map((data, idx) => {
+              if (data.boardType.boardCode === board_code) {
+                return (
+                  <tr
+                    key={idx}
+                    onClick={() => history.push(`/Ydetail/${data.id}/1`)}
+                  >
+                    <td>{data.channelName}</td>
+                    <td>{data.title}</td>
+                    <td>{data.career}</td>
+                    <td>{data.receptionMethod}</td>
+                    <td>{data.worker}</td>
+                    <td>{data.tools && data.tools.join(', ')}</td>
+                    {data.ywhen === '마감일' ? (
+                      <td>{data.expiredDate.substr(0, 10)}</td>
+                    ) : (
+                      <td> {data.ywhen}</td>
+                    )}
+                  </tr>
+                );
+              }
+              return null;
+            })}
+        </tbody>
+      </table>
+      <Pagination
+        boardPerPage={boardPerPage}
+        currentPage={currentPage}
+        clickPage={clickPage}
+      />
     </div>
   );
 };
