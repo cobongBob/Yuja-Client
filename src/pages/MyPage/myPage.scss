@@ -1,10 +1,7 @@
-.myPage-flexBox {
-  display: flex;
-  min-width: 0;
-  flex-wrap: nowrap;
-  justify-content: space-around;
+.myPage-tableBox {
   margin-top: 5rem;
   margin-bottom: 5rem;
+  width: 100%;
 }
 .myPage-youtuberbox {
   font-family: scdream5;
@@ -23,54 +20,63 @@
   color: #ffb963;
 }
 
+// 유튜버 공고 즐겨찾기 테이블
+.myPage-youtuberbox > table {
+  white-space: nowrap;
+  margin-bottom: 10rem;
+  margin-right: 5rem;
+}
+
 .myPage-youtuberbox > table > thead {
   background-color: lightgrey;
-  th:nth-child(1) {
+  &.th-channelname {
+    width: 5rem;
     border-right: 1px solid white;
   }
-  th:nth-child(2) {
+  &.th-title {
+    width: 10rem;
     border-right: 1px solid white;
   }
-  th:nth-child(3) {
+  &.th-career {
+    width: 7rem;
     border-right: 1px solid white;
   }
-  th:nth-child(4) {
+  &.th-receptionMethod {
+    width: 10rem;
     border-right: 1px solid white;
   }
-  th:nth-child(5) {
+  &.th-worker {
+    width: 7rem;
     border-right: 1px solid white;
   }
-  th:nth-child(6) {
+  &.th-tools {
+    width: 10rem;
+    border-right: 1px solid white;
+  }
+  &.th-expiredDate {
+    width: 7rem;
     border-right: 1px solid white;
   }
 }
 
-// 표 크기 및 디자인
 .myPage-youtuberbox > table > tbody > tr {
   cursor: pointer;
   td:nth-child(1) {
     width: 5rem;
-    overflow-x: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
   }
   td:nth-child(2) {
     width: 7rem;
-    overflow-x: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
   }
 
   td:nth-child(4) {
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    width: 6rem;
   }
 
   td:nth-child(6) {
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    width: 10rem;
+  }
+  td:nth-child(7) {
+    width: 10rem;
   }
 
   &:hover {
@@ -78,13 +84,29 @@
   }
 }
 
+.myPage-youtuberbox > table > tbody > tr > td {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// 자유게시판 즐겨찾기 테이블
+
+.myPage-freebox > table {
+  white-space: nowrap;
+}
+
 .myPage-freebox > table > thead {
   background-color: lightgrey;
   th:nth-child(1) {
-    width: 7rem;
+    width: 5rem;
     border-right: 1px solid white;
   }
   th:nth-child(2) {
+    width: 7rem;
+    border-right: 1px solid white;
+  }
+  th:nth-child(3) {
     width: 25rem;
     border-right: 1px solid white;
   }
@@ -92,17 +114,33 @@
 
 .myPage-freebox > table > tbody > tr {
   cursor: pointer;
-  td:nth-child(1) {
+  th:nth-child(1) {
+    width: 5rem;
+    border-right: 1px solid white;
+  }
+  th:nth-child(2) {
     width: 7rem;
     border-right: 1px solid white;
   }
-  td:nth-child(2) {
+  th:nth-child(3) {
     width: 25rem;
     border-right: 1px solid white;
   }
   &:hover {
     background-color: ghostwhite;
   }
+}
+
+.myPage-freebox > table > tbody > tr > td {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// 포르폴리오 즐겨찾기 테이블
+
+.myPage-portfoliobox > table {
+  white-space: nowrap;
 }
 
 .myPage-portfoliobox > table > thead {
@@ -166,4 +204,10 @@
   &:hover {
     background-color: ghostwhite;
   }
+}
+
+.myPage-portfoliobox > table > tbody > tr > td {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
