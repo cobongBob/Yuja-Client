@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router";
 import { ToastCenter, ToastTopRight } from "../../modules/ToastModule";
@@ -33,9 +33,9 @@ const Admin_main = () => {
   const [allReports, setAllReports] = useState([]);
   const [allBoards, setAllBoards] = useState([]);
   const [allQnAs, setAllQnAs] = useState([]);
-  const isSortedByNo = useRef(false);
-  const isSortedByDeleted = useRef(false);
-  const isSortedByBanned = useRef(false);
+  const [isSortedByNo, setIsSortedByNo] = useState(false);
+  const [isSortedByDeleted, setIsSortedByDeleted] = useState(false);
+  const [isSortedByBanned, setIsSortedByBanned] = useState(false);
   useEffect(() => {
     if (authorities && !authorities.includes("ADMIN")) {
       ToastCenter("잘못 된 접근입니다");
@@ -136,17 +136,17 @@ const Admin_main = () => {
     (which) => {
       switch (which) {
         case "번호":
-          isSortedByNo.current = !isSortedByNo.current;
-          isSortedByDeleted.current = false;
-          isSortedByBanned.current = false;
-          return isSortedByNo.current
+          setIsSortedByNo(!isSortedByNo);
+          setIsSortedByDeleted(false);
+          setIsSortedByBanned(false);
+          return isSortedByNo
             ? setAllUsers(allUsers.sort((a, b) => b.id - a.id))
             : setAllUsers(allUsers.sort((a, b) => a.id - b.id));
         case "탈퇴":
-          isSortedByNo.current = false;
-          isSortedByDeleted.current = !isSortedByDeleted.current;
-          isSortedByBanned.current = false;
-          return isSortedByDeleted.current
+          setIsSortedByNo(false);
+          setIsSortedByDeleted(!isSortedByDeleted);
+          setIsSortedByBanned(false);
+          return isSortedByDeleted
             ? setAllUsers(
                 // eslint-disable-next-line array-callback-return
                 allUsers.sort((a, b) => {
@@ -164,10 +164,10 @@ const Admin_main = () => {
                 })
               );
         case "밴":
-          isSortedByNo.current = false;
-          isSortedByDeleted.current = false;
-          isSortedByBanned.current = !isSortedByBanned.current;
-          return isSortedByBanned.current
+          setIsSortedByNo(false);
+          setIsSortedByDeleted(false);
+          setIsSortedByBanned(!isSortedByBanned);
+          return isSortedByBanned
             ? setAllUsers(
                 // eslint-disable-next-line array-callback-return
                 allUsers.sort((a, b) => {
@@ -188,7 +188,7 @@ const Admin_main = () => {
           return;
       }
     },
-    [allUsers]
+    [allUsers, isSortedByBanned, isSortedByDeleted, isSortedByNo]
   );
 
   //유튜버인증 관련
@@ -308,9 +308,9 @@ const Admin_main = () => {
                     userRemove={userRemove}
                     userRecovery={userRecovery}
                     userSort={userSort}
-                    isSortedByNo={isSortedByNo.current}
-                    isSortedByDeleted={isSortedByDeleted.current}
-                    isSortedByBanned={isSortedByBanned.current}
+                    isSortedByNo={isSortedByNo}
+                    isSortedByDeleted={isSortedByDeleted}
+                    isSortedByBanned={isSortedByBanned}
                   />
                 ) : null}
                 {pathname.includes("/AdminYoutuber") ? (

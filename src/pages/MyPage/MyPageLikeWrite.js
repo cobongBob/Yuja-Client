@@ -10,6 +10,7 @@ const MyPageLikeWrite = ({ boardData }) => {
         <h3 className='myPage-title'> 자유게시판 </h3>
         <table>
           <thead>
+            <th>분류</th>
             <th>작성자</th>
             <th>제목</th>
           </thead>
@@ -36,6 +37,12 @@ const MyPageLikeWrite = ({ boardData }) => {
                         )
                       }
                     >
+                      <td>
+                        {(data.boardType.boardCode === 4 && '성장') ||
+                          (data.boardType.boardCode === 5 && '합방') ||
+                          (data.boardType.boardCode === 6 && '자유') ||
+                          (data.boardType.boardCode === 7 && '건의')}
+                      </td>
                       <td>{data.user.nickname}</td>
                       <td>{data.title}</td>
                     </tr>
