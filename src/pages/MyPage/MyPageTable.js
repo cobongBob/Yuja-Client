@@ -10,13 +10,6 @@ import MyPageYoutuberTable from './MyPageYoutuberTable';
 const MyPageTable = ({ boardData, userData }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const path = history.location.pathname;
-  const lastPageNum = path.substr(path.lastIndexOf('/') + 1);
-  const pageNum = useRef(lastPageNum ? lastPageNum : 1);
-  const [currentPage, setCurrentPage] = useState(pageNum.current);
-  const [boardPerPage] = useState(5);
-  const indexOfLastData = currentPage * boardPerPage;
-  const indexOfFirstData = indexOfLastData - boardPerPage;
 
   return (
     <div className='tableWrapper'>

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { deleteLike } from '../../redux/board/youtube/yboardReducer';
@@ -7,14 +7,16 @@ import MyPagePagination from './MyPagePagination';
 const MyPageYoutuberTable = ({ boardData, board_code, userData }) => {
   const history = useHistory();
   const dispatch = useDispatch();
+
   const likeHandler = useCallback(
     (board_id) => {
       deleteLike(board_id, userData.id).then((res) => {
         dispatch(res);
       });
     },
-    [userData, dispatch, MyPageYoutuberTable]
+    [userData, dispatch]
   );
+
   return (
     <div className='myPage-youtuberbox'>
       <h3 className='myPage-title'> 유튜버 공고 </h3>
@@ -33,6 +35,7 @@ const MyPageYoutuberTable = ({ boardData, board_code, userData }) => {
           {boardData.data &&
             boardData.data?.map((data, idx) => {
               if (data.boardType.boardCode === board_code) {
+                console.log(data);
                 return (
                   <tr
                     key={idx}
@@ -68,7 +71,6 @@ const MyPageYoutuberTable = ({ boardData, board_code, userData }) => {
             })}
         </tbody>
       </table>
-      {/* <MyPagePagination boardPerPage={boardPerPage} currentPage={currentPage} /> */}
     </div>
   );
 };
