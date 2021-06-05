@@ -11,12 +11,11 @@
 }
 
 .alertNoti {
-  bottom: 6em !important;
+  bottom: 25em;
   z-index: 90 !important;
   background-color: bisque !important;
   border-radius: 8px !important;
   width: 100% !important;
-  margin-bottom: 6rem;
 }
 
 .Toastify__toast-container--bottom-right {

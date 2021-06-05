@@ -27,7 +27,7 @@ const AdminQnATable = ({ currentData, lastIdx, deleteQnA }) => {
                   </td>
                   <td>{qna.user.nickname}</td>
                   <td>{qna.createDate.substr(0, 10)}</td>
-                  <td className='notice_option' style={{ color: "gray" }} onClick={() => deleteQnA(qna.id)}>
+                  <td className='notice_option' style={{ color: "red" }} onClick={() => deleteQnA(qna.id)}>
                     삭제
                   </td>
                 </tr>
