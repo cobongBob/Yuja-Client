@@ -94,7 +94,6 @@ const Editer = ({ match, history }) => {
     },
     [userData, dispatch, authorities]
   );
-
   //해당 유저의 글 갯수
   const [wrote, setWrote] = useState([]);
   useEffect(() => {

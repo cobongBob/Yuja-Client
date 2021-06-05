@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
+import { deleteLike } from '../../redux/board/editer/eboardReducer';
 
-const MyPageProfolioTable = ({ boardData, board_code }) => {
+const MyPageProfolioTable = ({ boardData, board_code, userData }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
+  const likeHandler = useCallback(
+    (board_id) => {
+      deleteLike(board_id, userData.id).then((res) => {
+        dispatch(res);
+      });
+    },
+    [userData, dispatch]
+  );
   return (
     <div className='myPage-portfoliobox'>
       {board_code === 2 ? (
@@ -12,11 +23,12 @@ const MyPageProfolioTable = ({ boardData, board_code }) => {
       )}
       <table>
         <thead>
-          <th>이름</th>
-          <th>제목</th>
-          <th>경력</th>
-          <th>연락처</th>
-          <th>사용기술</th>
+          <th style={{ width: '4rem' }}>이름</th>
+          <th style={{ width: '4rem' }}>제목</th>
+          <th style={{ width: '4rem' }}>경력</th>
+          <th style={{ width: '4rem' }}>연락처</th>
+          <th style={{ width: '4rem' }}>사용기술</th>
+          <th style={{ width: '2rem' }}></th>
         </thead>
         <tbody>
           {boardData.data &&
@@ -38,6 +50,14 @@ const MyPageProfolioTable = ({ boardData, board_code }) => {
                     <td>{data.career}</td>
                     <td>{data.receptionMethod}</td>
                     <td>{data.tools && data.tools.join(', ')}</td>
+                    <td onClick={(e) => e.stopPropagation()}>
+                      <button
+                        onClick={() => likeHandler(data.id)}
+                        className='myPage-cancel'
+                      >
+                        삭제
+                      </button>
+                    </td>
                   </tr>
                 );
               }
