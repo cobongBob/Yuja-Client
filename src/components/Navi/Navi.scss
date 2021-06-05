@@ -219,4 +219,41 @@
       }
     }
   }
+  @media (min-width: 481px) and (max-width: 767px) {
+    .nav {
+      width: 480px;
+      background-color: #ffb963 !important;
+    }
+    .bg-light {
+      background-color: none !important;
+    }
+    .nav-pills {
+      width: 480px;
+    }
+    .nav-login {
+      display: inline-block !important;
+      float: none !important;
+    }
+    .button-login {
+      margin: 0 !important;
+      padding: 0 !important;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+    .navbar-toggler {
+      margin-bottom: 3%;
+    }
+    .mr-auto > Link {
+      display: inline-block !important;
+    }
+    .navbar {
+      background-color: #ffb963 !important;
+      opacity: 0.8;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+    .nav-link {
+      display: inline-block !important;
+    }
+  }
 }

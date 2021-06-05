@@ -1,6 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { useHistory } from 'react-router';
 import './myPage.scss';
 import MyPageLikeWrite from './MyPageLikeWrite';
 import MyPagePortfolioTable from './MyPagePortfolioTable';
