@@ -1,6 +1,9 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 
-const MyPageLikeWrite = (boardData) => {
+const MyPageLikeWrite = ({ boardData }) => {
+  const history = useHistory();
+
   return (
     <div>
       <div className='myPage-freebox'>
@@ -20,7 +23,19 @@ const MyPageLikeWrite = (boardData) => {
                   data.boardType.boardCode === 7
                 ) {
                   return (
-                    <tr key={idx}>
+                    <tr
+                      key={idx}
+                      onClick={() =>
+                        history.push(
+                          `/BoardDetail/${
+                            (data.boardType.boardCode === 4 && 'Winwin') ||
+                            (data.boardType.boardCode === 5 && 'Collabo') ||
+                            (data.boardType.boardCode === 6 && 'Free') ||
+                            (data.boardType.boardCode === 7 && 'CustomService')
+                          }/${data.id}/1`
+                        )
+                      }
+                    >
                       <td>{data.user.nickname}</td>
                       <td>{data.title}</td>
                     </tr>
