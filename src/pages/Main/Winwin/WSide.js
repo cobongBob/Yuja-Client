@@ -22,7 +22,6 @@ const WSide = () => {
                 채널성장
               </li>
             </Link>
-            <br />
             <Link to={`/Community/Collabo/1`}>
               <li
                 className={
@@ -34,7 +33,6 @@ const WSide = () => {
                 합방제안
               </li>
             </Link>
-            <br />
             <Link to={`/Community/Free/1`}>
               <li
                 className={
@@ -44,7 +42,6 @@ const WSide = () => {
                 자유게시판
               </li>
             </Link>
-            <br />
             <Link to={`/Community/CustomService/1`}>
               <li
                 className={

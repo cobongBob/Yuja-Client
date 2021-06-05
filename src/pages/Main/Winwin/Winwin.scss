@@ -40,7 +40,6 @@
 }
 
 .li-winwin {
-  display: inline-block;
   font-size: 20px;
   font-weight: bold;
   color: #ff9411;
@@ -54,6 +53,9 @@
     width: 10rem;
     border-radius: 20px;
   }
+}
+a {
+  text-decoration: none !important;
 }
 
 .li-link-disabled {
@@ -199,4 +201,16 @@
 .community_notice {
   background-color: #f7be7a4a;
   font-weight: bold;
+}
+
+@media screen and (max-width: 1480px) {
+  .overlay {
+    width: 350px;
+  }
+  .SignUpFrag {
+    margin-right: 1vw;
+    margin-left: 1vw;
+    margin-top: 1%;
+    margin-bottom: 1%;
+  }
 }
