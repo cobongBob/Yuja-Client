@@ -3,17 +3,15 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { deleteLike } from '../../redux/board/editer/eboardReducer';
 
-const MyPageProfolioTable = ({ boardData, board_code, userData }) => {
+const MyPageProfolioTable = ({
+  boardData,
+  board_code,
+  userData,
+  portFolioLikeHandler,
+}) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const likeHandler = useCallback(
-    (board_id) => {
-      deleteLike(board_id, userData.id).then((res) => {
-        dispatch(res);
-      });
-    },
-    [userData, dispatch]
-  );
+
   return (
     <div className='myPage-portfoliobox'>
       {board_code === 2 ? (
@@ -31,38 +29,37 @@ const MyPageProfolioTable = ({ boardData, board_code, userData }) => {
           <th style={{ width: '2rem' }}></th>
         </thead>
         <tbody>
-          {boardData.data &&
-            boardData.data?.map((data, idx) => {
-              if (data.boardType.boardCode === board_code) {
-                return (
-                  <tr
-                    key={idx}
-                    onClick={() =>
-                      history.push(
-                        `/${board_code === 2 ? 'EDetail' : 'ThumbDetail'}/${
-                          board_code === 2 ? 'Editor' : 'Thumb'
-                        }/${data.id}/1`
-                      )
-                    }
-                  >
-                    <td>{data.user.nickname}</td>
-                    <td>{data.title}</td>
-                    <td>{data.career}</td>
-                    <td>{data.receptionMethod}</td>
-                    <td>{data.tools && data.tools.join(', ')}</td>
-                    <td onClick={(e) => e.stopPropagation()}>
-                      <button
-                        onClick={() => likeHandler(data.id)}
-                        className='myPage-cancel'
-                      >
-                        삭제
-                      </button>
-                    </td>
-                  </tr>
-                );
-              }
-              return null;
-            })}
+          {boardData?.map((data, idx) => {
+            if (data.boardType.boardCode === board_code) {
+              return (
+                <tr
+                  key={idx}
+                  onClick={() =>
+                    history.push(
+                      `/${board_code === 2 ? 'EDetail' : 'ThumbDetail'}/${
+                        board_code === 2 ? 'Editor' : 'Thumb'
+                      }/${data.id}/1`
+                    )
+                  }
+                >
+                  <td>{data.user.nickname}</td>
+                  <td>{data.title}</td>
+                  <td>{data.career}</td>
+                  <td>{data.receptionMethod}</td>
+                  <td>{data.tools && data.tools.join(', ')}</td>
+                  <td onClick={(e) => e.stopPropagation()}>
+                    <button
+                      onClick={() => portFolioLikeHandler(data.id, board_code)}
+                      className='myPage-cancel'
+                    >
+                      삭제
+                    </button>
+                  </td>
+                </tr>
+              );
+            }
+            return null;
+          })}
         </tbody>
       </table>
     </div>

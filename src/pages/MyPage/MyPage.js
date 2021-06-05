@@ -14,11 +14,66 @@ const MyPage = () => {
 
   useEffect(() => {
     getUserProfileData(userId).then((res) => {
-      setDefaultData(res);
+      setDefaultData(res.data);
     });
   }, [dispatch, userId]);
 
-  return <MyPageTable boardData={defaultData} userData={userData} />;
+  const [youtubeLikeList, setYoutubeList] = useState([]);
+  const [editorLikeList, setEditorLikeList] = useState([]);
+  const [thumbLikeList, setThumbLikeList] = useState([]);
+  const [freeLikeList, setFreeLikeList] = useState([]);
+
+  useEffect(() => {
+    if (defaultData.length > 0) {
+      setYoutubeList(
+        defaultData.filter((data) => {
+          if (data.boardType.boardCode === 1) {
+            return data;
+          }
+        })
+      );
+      setEditorLikeList(
+        defaultData.filter((data) => {
+          if (data.boardType.boardCode === 2) {
+            return data;
+          }
+        })
+      );
+      setThumbLikeList(
+        defaultData.filter((data) => {
+          if (data.boardType.boardCode === 3) {
+            return data;
+          }
+        })
+      );
+      setFreeLikeList(
+        defaultData.filter((data) => {
+          if (
+            data.boardType.boardCode === 4 ||
+            data.boardType.boardCode === 5 ||
+            data.boardType.boardCode === 6 ||
+            data.boardType.boardCode === 7
+          ) {
+            return data;
+          }
+        })
+      );
+    }
+  }, [defaultData]);
+
+  return (
+    <MyPageTable
+      youtubeLikeList={youtubeLikeList}
+      setYoutubeList={setYoutubeList}
+      editorLikeList={editorLikeList}
+      setEditorLikeList={setEditorLikeList}
+      thumbLikeList={thumbLikeList}
+      setThumbLikeList={setThumbLikeList}
+      freeLikeList={freeLikeList}
+      setFreeLikeList={setFreeLikeList}
+      userData={userData}
+    />
+  );
 };
 
 export default MyPage;

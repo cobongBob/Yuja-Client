@@ -3,17 +3,10 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { wDeleteLike } from '../../redux/board/winwin/winBoardReducer';
 
-const MyPageLikeWrite = ({ boardData, userData }) => {
+const MyPageLikeWrite = ({ boardData, userData, freeLikeHandler }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const likeHandler = useCallback(
-    (board_id) => {
-      wDeleteLike(board_id, userData.id).then((res) => {
-        dispatch(res);
-      });
-    },
-    [userData, dispatch, MyPageLikeWrite]
-  );
+
   return (
     <div>
       <div className='myPage-freebox'>
@@ -26,49 +19,48 @@ const MyPageLikeWrite = ({ boardData, userData }) => {
             <th style={{ width: '2rem' }}></th>
           </thead>
           <tbody>
-            {boardData.data &&
-              boardData.data?.map((data, idx) => {
-                if (
-                  data.boardType.boardCode === 4 ||
-                  data.boardType.boardCode === 5 ||
-                  data.boardType.boardCode === 6 ||
-                  data.boardType.boardCode === 7
-                ) {
-                  return (
-                    <tr
-                      key={idx}
-                      onClick={() =>
-                        history.push(
-                          `/BoardDetail/${
-                            (data.boardType.boardCode === 4 && 'Winwin') ||
-                            (data.boardType.boardCode === 5 && 'Collabo') ||
-                            (data.boardType.boardCode === 6 && 'Free') ||
-                            (data.boardType.boardCode === 7 && 'CustomService')
-                          }/${data.id}/1`
-                        )
-                      }
-                    >
-                      <td>
-                        {(data.boardType.boardCode === 4 && '성장') ||
-                          (data.boardType.boardCode === 5 && '합방') ||
-                          (data.boardType.boardCode === 6 && '자유') ||
-                          (data.boardType.boardCode === 7 && '건의')}
-                      </td>
-                      <td>{data.user.nickname}</td>
-                      <td>{data.title}</td>
-                      <td onClick={(e) => e.stopPropagation()}>
-                        <button
-                          onClick={() => likeHandler(data.id)}
-                          className='myPage-cancel'
-                        >
-                          삭제
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                }
-                return null;
-              })}
+            {boardData?.map((data, idx) => {
+              if (
+                data.boardType.boardCode === 4 ||
+                data.boardType.boardCode === 5 ||
+                data.boardType.boardCode === 6 ||
+                data.boardType.boardCode === 7
+              ) {
+                return (
+                  <tr
+                    key={idx}
+                    onClick={() =>
+                      history.push(
+                        `/BoardDetail/${
+                          (data.boardType.boardCode === 4 && 'Winwin') ||
+                          (data.boardType.boardCode === 5 && 'Collabo') ||
+                          (data.boardType.boardCode === 6 && 'Free') ||
+                          (data.boardType.boardCode === 7 && 'CustomService')
+                        }/${data.id}/1`
+                      )
+                    }
+                  >
+                    <td>
+                      {(data.boardType.boardCode === 4 && '성장') ||
+                        (data.boardType.boardCode === 5 && '합방') ||
+                        (data.boardType.boardCode === 6 && '자유') ||
+                        (data.boardType.boardCode === 7 && '건의')}
+                    </td>
+                    <td>{data.user.nickname}</td>
+                    <td>{data.title}</td>
+                    <td onClick={(e) => e.stopPropagation()}>
+                      <button
+                        onClick={() => freeLikeHandler(data.id)}
+                        className='myPage-cancel'
+                      >
+                        삭제
+                      </button>
+                    </td>
+                  </tr>
+                );
+              }
+              return null;
+            })}
           </tbody>
         </table>
       </div>
