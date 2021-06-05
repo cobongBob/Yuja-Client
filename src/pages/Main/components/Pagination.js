@@ -29,6 +29,9 @@ export default function Pagination(props) {
   return (
     <div className='card-paging'>
       <ul>
+        <button onClick={prevBtn}>
+          <RiArrowLeftCircleLine className='icon-arrow' />
+        </button>
         {pages.map((number) => {
           return (
             <li
@@ -39,6 +42,9 @@ export default function Pagination(props) {
             </li>
           );
         })}
+        <button onClick={nextBtn}>
+          <RiArrowRightCircleLine className='icon-arrow' />
+        </button>
       </ul>
     </div>
   );
