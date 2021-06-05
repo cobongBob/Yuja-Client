@@ -8,9 +8,8 @@ const WSide = () => {
     <>
       <div className='sideMenu'>
         <div className='sideMenu-title'>커뮤니티</div>
-        <br />
         <div>
-          <ul>
+          <ul className='sideUl'>
             <Link to={`/Community/Winwin/1`}>
               <li
                 className={
