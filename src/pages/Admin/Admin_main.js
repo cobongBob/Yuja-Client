@@ -33,7 +33,7 @@ const Admin_main = () => {
   const [allReports, setAllReports] = useState([]);
   const [allBoards, setAllBoards] = useState([]);
   const [allQnAs, setAllQnAs] = useState([]);
-  const [isSortedByNo, setIsSortedByNo] = useState(false);
+  const [isSortedByNo, setIsSortedByNo] = useState(true);
   const [isSortedByDeleted, setIsSortedByDeleted] = useState(false);
   const [isSortedByBanned, setIsSortedByBanned] = useState(false);
   useEffect(() => {
@@ -140,8 +140,8 @@ const Admin_main = () => {
           setIsSortedByDeleted(false);
           setIsSortedByBanned(false);
           return isSortedByNo
-            ? setAllUsers(allUsers.sort((a, b) => b.id - a.id))
-            : setAllUsers(allUsers.sort((a, b) => a.id - b.id));
+            ? setAllUsers([...allUsers].sort((a, b) => a.id - b.id))
+            : setAllUsers([...allUsers].sort((a, b) => b.id - a.id));
         case "탈퇴":
           setIsSortedByNo(false);
           setIsSortedByDeleted(!isSortedByDeleted);
@@ -149,17 +149,17 @@ const Admin_main = () => {
           return isSortedByDeleted
             ? setAllUsers(
                 // eslint-disable-next-line array-callback-return
-                allUsers.sort((a, b) => {
-                  if (a.deleted < b.deleted) return 1;
-                  if (a.deleted > b.deleted) return -1;
+                [...allUsers].sort((a, b) => {
+                  if (a.deleted < b.deleted) return -1;
+                  if (a.deleted > b.deleted) return 1;
                   if (a.deleted === b.deleted) return 0;
                 })
               )
             : setAllUsers(
                 // eslint-disable-next-line array-callback-return
-                allUsers.sort((a, b) => {
-                  if (a.deleted < b.deleted) return -1;
-                  if (a.deleted > b.deleted) return 1;
+                [...allUsers].sort((a, b) => {
+                  if (a.deleted < b.deleted) return 1;
+                  if (a.deleted > b.deleted) return -1;
                   if (a.deleted === b.deleted) return 0;
                 })
               );
@@ -170,17 +170,17 @@ const Admin_main = () => {
           return isSortedByBanned
             ? setAllUsers(
                 // eslint-disable-next-line array-callback-return
-                allUsers.sort((a, b) => {
-                  if (a.banned < b.banned) return 1;
-                  if (a.banned > b.banned) return -1;
+                [...allUsers].sort((a, b) => {
+                  if (a.banned < b.banned) return -1;
+                  if (a.banned > b.banned) return 1;
                   if (a.banned === b.banned) return 0;
                 })
               )
             : setAllUsers(
                 // eslint-disable-next-line array-callback-return
-                allUsers.sort((a, b) => {
-                  if (a.banned < b.banned) return -1;
-                  if (a.banned > b.banned) return 1;
+                [...allUsers].sort((a, b) => {
+                  if (a.banned < b.banned) return 1;
+                  if (a.banned > b.banned) return -1;
                   if (a.banned === b.banned) return 0;
                 })
               );
