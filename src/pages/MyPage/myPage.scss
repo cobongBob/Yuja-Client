@@ -1,8 +1,4 @@
-.myPage-flexBox {
-  display: flex;
-  min-width: 0;
-  flex-wrap: nowrap;
-  justify-content: space-evenly;
+.myPage-tableBox {
   margin-top: 5rem;
   margin-bottom: 5rem;
 }
@@ -23,134 +19,100 @@
   color: #ffb963;
 }
 
+.myPage-cancel {
+  font-size: 15px;
+  line-height: 1.5rem;
+  border: none;
+  background-color: bisque;
+  margin: 0.1rem;
+  z-index: 50;
+}
+// 유튜버 공고 즐겨찾기 테이블
+.myPage-youtuberbox > table {
+  width: 100%;
+  table-layout: fixed;
+  font-family: scdream4;
+  line-height: 2rem;
+  white-space: nowrap;
+}
+
 .myPage-youtuberbox > table > thead {
-  background-color: lightgrey;
-  th:nth-child(1) {
-    border-right: 1px solid white;
-  }
-  th:nth-child(2) {
-    border-right: 1px solid white;
-  }
-  th:nth-child(3) {
-    border-right: 1px solid white;
-  }
-  th:nth-child(4) {
-    border-right: 1px solid white;
-  }
-  th:nth-child(5) {
-    border-right: 1px solid white;
-  }
-  th:nth-child(6) {
-    border-right: 1px solid white;
+  border-bottom: 2px solid #ff9411;
+}
+
+.myPage-youtuberbox > table > tbody > tr > td {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.myPage-youtuberbox > table > tbody > tr {
+  cursor: pointer;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  &:hover {
+    text-decoration: none;
+    color: black;
+    transition: background-color 0.3s;
+    background-color: lightgrey;
   }
 }
 
-// 표 크기 및 디자인
-.myPage-youtuberbox > table > tbody > tr {
-  cursor: pointer;
-  td:nth-child(1) {
-    width: 5rem;
-    overflow-x: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-  td:nth-child(2) {
-    overflow-x: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
+// 자유게시판 즐겨찾기 테이블
 
-  td:nth-child(4) {
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  td:nth-child(6) {
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  &:hover {
-    background-color: ghostwhite;
-  }
+.myPage-freebox > table {
+  width: 100%;
+  table-layout: fixed;
+  font-family: scdream4;
+  line-height: 2rem;
+  white-space: nowrap;
 }
 
 .myPage-freebox > table > thead {
-  background-color: lightgrey;
-  th:nth-child(1) {
-    width: 7rem;
-    border-right: 1px solid white;
-  }
-  th:nth-child(2) {
-    width: 25rem;
-    border-right: 1px solid white;
-  }
+  border-bottom: 2px solid #ff9411;
 }
 
 .myPage-freebox > table > tbody > tr {
   cursor: pointer;
-  td:nth-child(1) {
-    width: 7rem;
-    border-right: 1px solid white;
-  }
-  td:nth-child(2) {
-    width: 25rem;
-    border-right: 1px solid white;
-  }
   &:hover {
-    background-color: ghostwhite;
+    text-decoration: none;
+    color: black;
+    transition: background-color 0.3s;
+    background-color: lightgrey;
   }
 }
 
+.myPage-freebox > table > tbody > tr > td {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// 포르폴리오 즐겨찾기 테이블
+
+.myPage-portfoliobox > table {
+  width: 100%;
+  table-layout: fixed;
+  font-family: scdream4;
+  line-height: 2rem;
+  white-space: nowrap;
+}
+
 .myPage-portfoliobox > table > thead {
-  background-color: lightgrey;
-  th:nth-child(1) {
-    width: 7rem;
-    border-right: 1px solid white;
-  }
-  th:nth-child(2) {
-    width: 10rem;
-    border-right: 1px solid white;
-  }
-  th:nth-child(3) {
-    width: 5rem;
-    border-right: 1px solid white;
-  }
-  th:nth-child(4) {
-    width: 5rem;
-    border-right: 1px solid white;
-  }
-  th:nth-child(5) {
-    width: 10rem;
-    border-right: 1px solid white;
-  }
+  border-bottom: 2px solid #ff9411;
 }
 
 .myPage-portfoliobox > table > tbody > tr {
   cursor: pointer;
-  td:nth-child(1) {
-    width: 7rem;
-    border-right: 1px solid white;
-  }
-  td:nth-child(2) {
-    width: 10rem;
-    border-right: 1px solid white;
-  }
-  td:nth-child(3) {
-    width: 5rem;
-    border-right: 1px solid white;
-  }
-  td:nth-child(4) {
-    width: 5rem;
-    border-right: 1px solid white;
-  }
-  td:nth-child(5) {
-    width: 10rem;
-    border-right: 1px solid white;
-  }
   &:hover {
-    background-color: ghostwhite;
+    text-decoration: none;
+    color: black;
+    transition: background-color 0.3s;
+    background-color: lightgrey;
   }
+}
+
+.myPage-portfoliobox > table > tbody > tr > td {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

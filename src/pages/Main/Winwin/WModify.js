@@ -9,12 +9,18 @@ const WModify = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
   const addingFileList = useRef([]);
   const deletedFileList = useRef([]);
-  const [qModiData, setQModiData] = useState();
+  const [qModiData, setQModiData] = useState("");
   const board_type = useRef(match.params.board_type);
   const fileList = useRef([]);
   const history = useHistory();
   let wHistory = useCallback(
-    (board_id) => history.push(`/BoardDetail/${board_type.current}/${board_id}/1`),
+    (board_id) => {
+      if (board_type.current === "QnA") {
+        history.push(`/Admin/AdminQnA`);
+      } else {
+        history.push(`/BoardDetail/${board_type.current}/${board_id}/1`);
+      }
+    },
     [history, board_type]
   );
   const [input, setInput] = useState({
@@ -57,7 +63,7 @@ const WModify = ({ match }) => {
     });
   }, [userData]); // eslint-disable-line react-hooks/exhaustive-deps
   const testCheking = useCallback(() => {
-    if (!qModiData || !input.title) {
+    if (!qModiData.trim() || !input.title.trim()) {
       return ToastCenter("제목과 내용을 입력해주세요");
     }
     let reg = new RegExp(`https://api.withyuja.com/files/${board_type.current}/[0-9]+.[a-z]+`, "gi");

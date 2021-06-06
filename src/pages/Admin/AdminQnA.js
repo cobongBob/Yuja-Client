@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import Pagination from "../Main/components/Pagination";
-import AdminBoardTable from "./AdminBoardTable";
+import AdminQnATable from "./AdminQnATable";
 
-const AdminQnA = ({ allQnAs }) => {
+const AdminQnA = ({ allQnAs, deleteQnA }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [boardPerPage] = useState(10);
   const indexOfLastData = currentPage * boardPerPage;
@@ -16,14 +16,15 @@ const AdminQnA = ({ allQnAs }) => {
     <div className='admin_board'>
       <h1>고객센터 게시판</h1>
       <div className='community-options'>
-        <Link to={`/BoardRegister/QnA`} className='registerBtn'>
+        <Link to={`/BoardRegister/QnA`} className='admin-registerbtn'>
           글쓰기
         </Link>
       </div>
-      <AdminBoardTable
+      <AdminQnATable
         currentData={currentData}
         lastIdx={allQnAs.length - 10 * (currentPage - 1)}
         currentPage={currentPage}
+        deleteQnA={deleteQnA}
       />
       <Pagination
         boardPerPage={boardPerPage}

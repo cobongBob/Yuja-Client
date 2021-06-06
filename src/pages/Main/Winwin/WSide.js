@@ -8,9 +8,8 @@ const WSide = () => {
     <>
       <div className='sideMenu'>
         <div className='sideMenu-title'>커뮤니티</div>
-        <br />
         <div>
-          <ul>
+          <ul className='sideUl'>
             <Link to={`/Community/Winwin/1`}>
               <li
                 className={
@@ -22,7 +21,6 @@ const WSide = () => {
                 채널성장
               </li>
             </Link>
-            <br />
             <Link to={`/Community/Collabo/1`}>
               <li
                 className={
@@ -34,7 +32,6 @@ const WSide = () => {
                 합방제안
               </li>
             </Link>
-            <br />
             <Link to={`/Community/Free/1`}>
               <li
                 className={
@@ -44,7 +41,6 @@ const WSide = () => {
                 자유게시판
               </li>
             </Link>
-            <br />
             <Link to={`/Community/CustomService/1`}>
               <li
                 className={

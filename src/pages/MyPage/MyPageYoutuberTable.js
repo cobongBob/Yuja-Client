@@ -1,67 +1,53 @@
-import React, { useCallback, useRef, useState } from 'react';
-import { useHistory } from 'react-router';
-import Pagination from '../Main/components/Pagination';
+import React from "react";
+import { useHistory } from "react-router";
 
-const MyPageYoutuberTable = ({ boardData, board_code }) => {
+const MyPageYoutuberTable = ({ boardData, youtubeLikeHandler }) => {
   const history = useHistory();
-  const path = history.location.pathname;
-  const lastPageNum = path.substr(path.lastIndexOf('/') + 1);
-  const pageNum = useRef(lastPageNum ? lastPageNum : 1);
-  const [currentPage, setCurrentPage] = useState(pageNum.current);
-  const [boardPerPage] = useState(5);
-  const indexOfLastData = currentPage * boardPerPage;
-  const indexOfFirstData = indexOfLastData - boardPerPage;
-  const clickPage = useCallback((pages) => {
-    setCurrentPage(pages);
-  }, []);
+
   return (
-    <div>
+    boardData && (
       <div className='myPage-youtuberbox'>
         <h3 className='myPage-title'> 유튜버 공고 </h3>
         <table>
           <thead>
-            <th>채널명</th>
-            <th>제목</th>
-            <th>지원자격</th>
-            <th>담당자연락처</th>
-            <th>모집분야</th>
-            <th>사용기술</th>
-            <th>마감일</th>
+            <tr>
+              <td style={{ width: "4rem" }}>채널명</td>
+              <td style={{ width: "7rem" }}>제목</td>
+              <td style={{ width: "4rem" }}>지원자격</td>
+              <td style={{ width: "7rem" }}>담당자연락처</td>
+              <td style={{ width: "4rem" }}>모집분야</td>
+              <td style={{ width: "7rem" }}>사용기술</td>
+              <td style={{ width: "7rem" }}>마감일</td>
+              <td style={{ width: "2rem" }}></td>
+            </tr>
           </thead>
           <tbody>
-            {boardData.data &&
-              boardData.data?.map((data, idx) => {
-                if (data.boardType.boardCode === board_code) {
-                  return (
-                    <tr
-                      key={idx}
-                      onClick={() => history.push(`/Ydetail/${data.id}/1`)}
-                    >
-                      <td>{data.channelName}</td>
-                      <td>{data.title}</td>
-                      <td>{data.career}</td>
-                      <td>{data.receptionMethod}</td>
-                      <td>{data.worker}</td>
-                      <td>{data.tools && data.tools.join(', ')}</td>
-                      {data.ywhen === '마감일' ? (
-                        <td>{data.expiredDate.substr(0, 10)}</td>
-                      ) : (
-                        <td> {data.ywhen}</td>
-                      )}
-                    </tr>
-                  );
-                }
-                return null;
-              })}
+            {boardData?.map((data, idx) => {
+              return (
+                <tr key={idx} onClick={() => history.push(`/Ydetail/${data.id}/1`)}>
+                  <td style={{ width: "4rem" }}>{data.channelName}</td>
+                  <td style={{ width: "4rem" }}>{data.title}</td>
+                  <td style={{ width: "3rem" }}>{data.career}</td>
+                  <td style={{ width: "4rem" }}>{data.receptionMethod}</td>
+                  <td style={{ width: "4rem" }}>{data.worker}</td>
+                  <td style={{ width: "3rem" }}>{data.tools && data.tools.join(", ")}</td>
+                  {data.ywhen === "마감일" ? (
+                    <td style={{ width: "4rem" }}>{data.expiredDate.substr(0, 10)}</td>
+                  ) : (
+                    <td style={{ width: "4rem" }}>{data.ywhen}</td>
+                  )}
+                  <td onClick={(e) => e.stopPropagation()}>
+                    <button onClick={() => youtubeLikeHandler(data.id)} className='myPage-cancel'>
+                      삭제
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
-        <Pagination
-          boardPerPage={boardPerPage}
-          currentPage={currentPage}
-          clickPage={clickPage}
-        />
       </div>
-    </div>
+    )
   );
 };
 

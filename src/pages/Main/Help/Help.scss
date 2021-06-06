@@ -3,7 +3,7 @@
   margin-right: 5%;
   margin-top: 3%;
   margin-bottom: 3%;
-  font-family: 'scdream4';
+  font-family: "scdream4";
 }
 
 .IconTitleWrapper {
@@ -14,7 +14,7 @@
 .HelpPageWrapper > .IconTitleWrapper > h1 {
   display: inline-block;
   font-size: 2.5rem;
-  font-family: 'scdream4';
+  font-family: "scdream4";
   border-bottom: 3px solid chocolate;
 }
 
@@ -46,5 +46,7 @@
   text-align: left;
   margin-left: auto;
   margin-right: auto;
-  width: 90%;
+}
+.help_quill {
+  max-width: 100%;
 }

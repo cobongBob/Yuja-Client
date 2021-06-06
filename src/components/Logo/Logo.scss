@@ -30,13 +30,28 @@
   cursor: pointer;
 }
 
-@media all and (max-width:500px) {
+@media all and (max-width: 500px) {
   .Logo_desc {
     width: 360px;
-    margin-top:25%;
-    margin-left:-30%;
+    margin-top: 25%;
+    margin-left: -30%;
   }
   .Logo_Under {
-   display:none;
+    display: none;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .Logo_Body {
+    text-align: center;
+    padding-top: 22%;
+  }
+  .Logo_Top {
+    position: static;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .Logo_desc {
+    margin: 0;
   }
 }

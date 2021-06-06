@@ -40,7 +40,6 @@
 }
 
 .li-winwin {
-  display: inline-block;
   font-size: 20px;
   font-weight: bold;
   color: #ff9411;
@@ -48,12 +47,15 @@
   margin-bottom: 1rem;
   &:hover {
     text-decoration: none;
-    background-color: #ff9411;
+    background-color: #ff5c11;
     transition: background-color 0.3s;
     color: white;
     width: 10rem;
     border-radius: 20px;
   }
+}
+a {
+  text-decoration: none !important;
 }
 
 .li-link-disabled {
@@ -171,6 +173,7 @@
   text-overflow: ellipsis;
   text-align: center;
 }
+
 .community-table-wrapper > table > tbody > tr {
   &:hover {
     text-decoration: none;
@@ -199,4 +202,125 @@
 .community_notice {
   background-color: #f7be7a4a;
   font-weight: bold;
+}
+
+@media screen and (max-width: 1480px) {
+  .overlay {
+    width: 350px;
+  }
+  .SignUpFrag {
+    margin-right: 1vw;
+    margin-left: 1vw;
+    margin-top: 1%;
+    margin-bottom: 1%;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .winwin-Table-Wrapper{
+    margin-top: 137px;
+    margin-left: -50%;
+    width: 413px;
+    font-size: small;
+  }
+  .boardName{
+    margin: 0 !important;
+  }
+  .winTable-Table-Wrapper{
+    width: 480px;
+    text-align: center;
+
+    max-width: 480px;
+  }
+  .search-form > form > input[type='text']{
+    font-size: x-small;
+    width: 13rem;
+  }
+  .search-form{
+    margin-right: 0px;
+    width: 18rem;
+  }
+  .li-winwin{
+    display: inline-block;
+    font-size: 15px;
+    width: 5rem;
+    margin-right: 32px;
+    font-weight: 100;
+    &:hover {
+      text-decoration: none;
+      background-color: #ff5c11;
+      transition: background-color 0.3s;
+      color: white;
+      width: 5rem;
+      border-radius: 20px;
+    }
+  }
+  .li-link-disabled{
+    display: inline-block;
+    font-size: 15px;
+    width: 5rem;
+    margin-right: 32px;
+    font-weight: 100;
+    &:hover {
+      text-decoration: none;
+      background-color: #ff5c11;
+      transition: background-color 0.3s;
+      color: white;
+      width: 5rem;
+      border-radius: 20px;
+    }
+  }
+  .sideMenu-title{
+    margin-left: auto !important;
+    margin-right: auto !important;
+    font-size: 20px;
+  }
+  .card-paging li.focus{
+    font-size: medium;
+  }
+  .card-paging li{
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .community-options {
+    margin-top:1rem;
+  }
+  .sideMenu {
+    text-align: center;
+    width: 100%;
+  }
+  .custom-switch{
+    margin-top: -28%;
+  }
+
+  .winTable-Table-Wrapper > h2{
+    font-size: medium;
+    margin-left: 12px;
+    text-align: center;
+    width: 97%;
+  }
+  .wno {
+    width: 3rem;
+  }
+  .wtitle {
+    width: 5px;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .wwriter {
+    width: 7rem;
+  }
+  .wcreatedDate {
+    width: 7rem;
+  }
+  .whited {
+    width: 0;
+  }
+  .wlike {
+    width: 0;
+  }
+
+ 
 }

@@ -14,12 +14,13 @@ import {
 import googleLoginIcon from './googleLoginIcon2.svg';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastAlert, ToastTopRight } from '../../../modules/ToastModule';
+import { ToastTopRight } from '../../../modules/ToastModule';
 import { getLoaded, getLoading } from '../../../redux/loading/loadingReducer';
 import { getAllNotifications } from '../../../redux/loading/notiReducer';
 import NotificationDropdown from '../../Navi/NotificationDropdown';
 import { IoMdNotifications, IoMdNotificationsOutline } from 'react-icons/io';
 import '../../Navi/Notification.scss';
+import { Nav } from 'react-bootstrap';
 
 toast.configure();
 Modal.setAppElement('#root');
@@ -106,9 +107,6 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
   }, []);
   const logoutNotify = useCallback(() => {
     ToastTopRight(`로그아웃 되셨습니다.`);
-  }, []);
-  const loginErrorNotify = useCallback(() => {
-    ToastAlert('잘못된 로그인 입니다.');
   }, []);
 
   /* 로그인 관련 */
@@ -211,8 +209,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
           <button
             className='button-login'
             id='button-login'
-            onClick={openModal}
-          >
+            onClick={openModal}>
             로그인/회원가입
           </button>
         ) : (
@@ -235,27 +232,32 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
             <div>
               {hideMenu === true && (
                 <ul className='notice_ul' ref={dropMenu}>
-                  <li>
-                    <button onClick={myPage} className='modifyBtn'>
-                      찜목록
-                    </button>
-                  </li>
-                  <li>
-                    <button onClick={beforeModify} className='modifyBtn'>
-                      정보수정
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className='modifyBtn'
-                      onClick={() => {
-                        setHideMenu(false);
-                        logout();
-                      }}
-                    >
-                      로그아웃
-                    </button>
-                  </li>
+                  <Nav.Link href='#'>
+                    <li>
+                      <button onClick={myPage} className='modifyBtn'>
+                        찜목록
+                      </button>
+                    </li>
+                  </Nav.Link>
+                  <Nav.Link href='#'>
+                    <li>
+                      <button onClick={beforeModify} className='modifyBtn'>
+                        정보수정
+                      </button>
+                    </li>
+                  </Nav.Link>
+                  <Nav.Link href='#'>
+                    <li>
+                      <button
+                        className='modifyBtn'
+                        onClick={() => {
+                          setHideMenu(false);
+                          logout();
+                        }}>
+                        로그아웃
+                      </button>
+                    </li>
+                  </Nav.Link>
                   <NotificationDropdown
                     allNotifications={allNotifications}
                     setHideMenu={setHideMenu}
@@ -272,8 +274,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
         closeTimeoutMS={200}
         onRequestClose={closeModal}
         style={LoginModalCustomStyles}
-        contentLabel='Example Modal'
-      >
+        contentLabel='Example Modal'>
         <section>
           <header className='header'>
             <span className='close' onClick={closeModal}>
@@ -311,8 +312,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
                   <Link
                     className='findPassword'
                     to='/FindPassword'
-                    onClick={closeModal}
-                  >
+                    onClick={closeModal}>
                     비밀번호 찾기
                   </Link>
                 </div>
@@ -321,8 +321,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
                 type='submit'
                 className='loginBtn'
                 value='로그인'
-                onClick={logInHandler}
-              ></input>
+                onClick={logInHandler}></input>
               <GoogleLogin
                 className='googleLoginBtn'
                 clientId={process.env.REACT_APP_GOOGLE_OAUTH_KEY}

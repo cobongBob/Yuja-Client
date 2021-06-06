@@ -56,6 +56,10 @@ const ThumbRegister = ({ match }) => {
   );
 
   const testCheking = useCallback(() => {
+    if (!inputData.title.trim()) {
+      titleRef.current.focus();
+      return ToastCenter("빈칸을 모두 적어주세요.");
+    }
     if (!isNotFilled(inputData, refsArray)) {
       return ToastCenter("빈칸을 모두 적어주세요.");
     }
@@ -88,7 +92,7 @@ const ThumbRegister = ({ match }) => {
     EditerApiService.addBoards(sendingData, board_type.current).then((res) => {
       ThHistory(res.data.id);
     });
-  }, [userData, qData, ThHistory, inputData, refsArray]);
+  }, [userData, qData, ThHistory, inputData, refsArray, totalCareer]);
 
   const checkboxCheck = useCallback(
     (e) => {

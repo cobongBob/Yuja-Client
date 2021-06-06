@@ -67,3 +67,9 @@ export const removeUserData = async (user_id) => {
     method: "delete",
   });
 };
+export const removeQnA = async (qna_ia) => {
+  return await instance({
+    url: 10 + "/board/" + qna_ia,
+    method: "delete",
+  });
+};

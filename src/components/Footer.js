@@ -10,7 +10,7 @@ const Footer = () => {
             <h6>About</h6>
             <p className='text-justify'>유튜버와 편집자, 썸네일러의 자유로운 소통창구</p>
             <h6>Contact</h6>
-            <p className='text-justify'>YujaService@gmail.com</p>
+            <p className='text-justify'>WithYuja@gmail.com</p>
           </div>
 
           <div className='col-xs-6 col-md-3'>
