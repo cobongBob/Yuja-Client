@@ -170,7 +170,7 @@ section > footer {
 
 .noti_icon {
   margin-top: -0.25rem;
-  color: #ff9411;
+  color: red;
   margin-left: 0.25rem;
 }
 
@@ -214,7 +214,7 @@ section > footer {
 }
 
 /* 모달 반응형 */
-@media all and (max-width:500px) {
+@media all and (max-width: 500px) {
   .ReactModal__Content {
     min-width: 360px;
     height: 1em;
@@ -224,11 +224,33 @@ section > footer {
     min-height: 560px;
   }
   .nav .nav-login {
-    float:right;
+    float: right;
     display: inline-block;
     color: black;
   }
   .welcomeBox {
     margin-right: 1rem;
+  }
+  @media (min-width: 481px) and (max-width: 767px) {
+    .button-login {
+      background-color: none;
+      border: none;
+      color: black;
+    }
+    .welcomeBox {
+      color: black;
+      font-weight: bold;
+    }
+    .welcomeBox:hover {
+      opacity: 1;
+    }
+    .noti_icon {
+      color: red;
+    }
+    .notice_ul {
+      text-align: left;
+      width: 100%;
+      margin: 0;
+    }
   }
 }

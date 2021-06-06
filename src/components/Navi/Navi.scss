@@ -220,12 +220,17 @@
     }
   }
   @media (min-width: 481px) and (max-width: 767px) {
+    .custom-control {
+      margin-top: 1%;
+    }
     .nav {
       width: 480px;
+      height: 80px;
       background-color: #ffb963 !important;
+      border-bottom: none;
     }
     .bg-light {
-      background-color: none !important;
+      background-color: #ffb963 !important;
     }
     .nav-pills {
       width: 480px;
@@ -248,7 +253,8 @@
     }
     .navbar {
       background-color: #ffb963 !important;
-      opacity: 0.8;
+      opacity: 0.7;
+      color: black;
       font-weight: bold;
       font-size: 1.1rem;
     }
