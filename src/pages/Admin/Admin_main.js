@@ -33,7 +33,7 @@ const Admin_main = () => {
   const [allReports, setAllReports] = useState([]);
   const [allBoards, setAllBoards] = useState([]);
   const [allQnAs, setAllQnAs] = useState([]);
-  const [isSortedByNo, setIsSortedByNo] = useState(true);
+  const [isSortedByNo, setIsSortedByNo] = useState(false);
   const [isSortedByDeleted, setIsSortedByDeleted] = useState(false);
   const [isSortedByBanned, setIsSortedByBanned] = useState(false);
   useEffect(() => {

@@ -90,8 +90,6 @@ const Wdetail = ({ match }) => {
     }
   }, [history, board_type, pageNum]);
 
-  console.log(wDetails.createDate);
-
   return (
     wDetails && (
       <div className='comment-wrapper'>

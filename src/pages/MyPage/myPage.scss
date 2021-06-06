@@ -1,7 +1,6 @@
 .myPage-tableBox {
   margin-top: 5rem;
   margin-bottom: 5rem;
-  width: 100%;
 }
 .myPage-youtuberbox {
   font-family: scdream5;
@@ -20,114 +19,65 @@
   color: #ffb963;
 }
 
+.myPage-cancel {
+  font-size: 15px;
+  line-height: 1.5rem;
+  border: none;
+  background-color: bisque;
+  margin: 0.1rem;
+  z-index: 50;
+}
 // 유튜버 공고 즐겨찾기 테이블
 .myPage-youtuberbox > table {
+  width: 100%;
+  table-layout: fixed;
+  font-family: scdream4;
+  line-height: 2rem;
   white-space: nowrap;
-  margin-bottom: 10rem;
-  margin-right: 5rem;
 }
 
 .myPage-youtuberbox > table > thead {
-  background-color: lightgrey;
-  &.th-channelname {
-    width: 5rem;
-    border-right: 1px solid white;
-  }
-  &.th-title {
-    width: 10rem;
-    border-right: 1px solid white;
-  }
-  &.th-career {
-    width: 7rem;
-    border-right: 1px solid white;
-  }
-  &.th-receptionMethod {
-    width: 10rem;
-    border-right: 1px solid white;
-  }
-  &.th-worker {
-    width: 7rem;
-    border-right: 1px solid white;
-  }
-  &.th-tools {
-    width: 10rem;
-    border-right: 1px solid white;
-  }
-  &.th-expiredDate {
-    width: 7rem;
-    border-right: 1px solid white;
-  }
+  border-bottom: 2px solid #ff9411;
+}
+
+.myPage-youtuberbox > table > tbody > tr > td {
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .myPage-youtuberbox > table > tbody > tr {
   cursor: pointer;
-  td:nth-child(1) {
-    width: 5rem;
-  }
-  td:nth-child(2) {
-    width: 7rem;
-  }
-
-  td:nth-child(4) {
-    width: 6rem;
-  }
-
-  td:nth-child(6) {
-    width: 10rem;
-  }
-  td:nth-child(7) {
-    width: 10rem;
-  }
-
-  &:hover {
-    background-color: ghostwhite;
-  }
-}
-
-.myPage-youtuberbox > table > tbody > tr > td {
-  overflow-x: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow: hidden;
+  &:hover {
+    text-decoration: none;
+    color: black;
+    transition: background-color 0.3s;
+    background-color: lightgrey;
+  }
 }
 
 // 자유게시판 즐겨찾기 테이블
 
 .myPage-freebox > table {
+  width: 100%;
+  table-layout: fixed;
+  font-family: scdream4;
+  line-height: 2rem;
   white-space: nowrap;
 }
 
 .myPage-freebox > table > thead {
-  background-color: lightgrey;
-  th:nth-child(1) {
-    width: 5rem;
-    border-right: 1px solid white;
-  }
-  th:nth-child(2) {
-    width: 7rem;
-    border-right: 1px solid white;
-  }
-  th:nth-child(3) {
-    width: 25rem;
-    border-right: 1px solid white;
-  }
+  border-bottom: 2px solid #ff9411;
 }
 
 .myPage-freebox > table > tbody > tr {
   cursor: pointer;
-  th:nth-child(1) {
-    width: 5rem;
-    border-right: 1px solid white;
-  }
-  th:nth-child(2) {
-    width: 7rem;
-    border-right: 1px solid white;
-  }
-  th:nth-child(3) {
-    width: 25rem;
-    border-right: 1px solid white;
-  }
   &:hover {
-    background-color: ghostwhite;
+    text-decoration: none;
+    color: black;
+    transition: background-color 0.3s;
+    background-color: lightgrey;
   }
 }
 
@@ -140,69 +90,24 @@
 // 포르폴리오 즐겨찾기 테이블
 
 .myPage-portfoliobox > table {
+  width: 100%;
+  table-layout: fixed;
+  font-family: scdream4;
+  line-height: 2rem;
   white-space: nowrap;
 }
 
 .myPage-portfoliobox > table > thead {
-  background-color: lightgrey;
-  th:nth-child(1) {
-    width: 7rem;
-    border-right: 1px solid white;
-  }
-  th:nth-child(2) {
-    width: 10rem;
-    border-right: 1px solid white;
-  }
-  th:nth-child(3) {
-    width: 5rem;
-    border-right: 1px solid white;
-  }
-  th:nth-child(4) {
-    width: 5rem;
-    border-right: 1px solid white;
-  }
-  th:nth-child(5) {
-    width: 10rem;
-    border-right: 1px solid white;
-  }
+  border-bottom: 2px solid #ff9411;
 }
 
 .myPage-portfoliobox > table > tbody > tr {
   cursor: pointer;
-  td:nth-child(1) {
-    width: 7rem;
-    border-right: 1px solid white;
-    overflow-x: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-  td:nth-child(2) {
-    width: 10rem;
-    overflow-x: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    border-right: 1px solid white;
-  }
-  td:nth-child(3) {
-    width: 5rem;
-    border-right: 1px solid white;
-  }
-  td:nth-child(4) {
-    width: 5rem;
-    border-right: 1px solid white;
-    overflow-x: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-  td:nth-child(5) {
-    width: 10rem;
-    border-right: 1px solid white;
-    overflow-x: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
   &:hover {
-    background-color: ghostwhite;
+    text-decoration: none;
+    color: black;
+    transition: background-color 0.3s;
+    background-color: lightgrey;
   }
 }
 
