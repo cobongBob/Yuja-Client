@@ -29,6 +29,10 @@ const AdminSide = () => {
             <Link to={`/Admin/AdminQnA`}>
               <li className={pathname.includes("/AdminQnA") ? "li-link-disabled" : "li-winwin"}>고객센터 관리</li>
             </Link>
+
+            <Link to={`/Admin/AdminStats`}>
+              <li className={pathname.includes("/AdminStats") ? "li-link-disabled" : "li-winwin"}>유자 통계</li>
+            </Link>
           </ul>
         </div>
       </div>

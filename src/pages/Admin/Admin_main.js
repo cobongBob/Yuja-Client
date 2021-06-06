@@ -20,10 +20,12 @@ import {
   removeUserData,
   fetchAllQnABoards,
   removeQnA,
+  fetchYujaStatistics,
 } from "../../apiService/AdminApiService";
 import AdminBoard from "./AdminBoard";
 import { deleteUser } from "../../apiService/UserApiService";
 import AdminQnA from "./AdminQnA";
+import AdminStats from "./AdminStats";
 
 const Admin_main = () => {
   const { authorities } = useSelector((state) => state.loginReducer);
@@ -33,6 +35,7 @@ const Admin_main = () => {
   const [allReports, setAllReports] = useState([]);
   const [allBoards, setAllBoards] = useState([]);
   const [allQnAs, setAllQnAs] = useState([]);
+  const [allStats, setAllStats] = useState([]);// 일단 가져오나 확인을 해야할까? 
   const [isSortedByNo, setIsSortedByNo] = useState(false);
   const [isSortedByDeleted, setIsSortedByDeleted] = useState(false);
   const [isSortedByBanned, setIsSortedByBanned] = useState(false);
@@ -58,6 +61,9 @@ const Admin_main = () => {
     });
     fetchAllQnABoards().then((res) => {
       setAllQnAs(res.data);
+    });
+    fetchYujaStatistics().then((res) => {
+      setAllStats(res.data);
     });
   }, []);
 
@@ -292,7 +298,8 @@ const Admin_main = () => {
   return (
     allUsers &&
     allReports &&
-    youtuberConfirm && (
+    youtuberConfirm && 
+    allStats &&(
       <>
         <div className='sideBox'>
           <AdminSide />
@@ -323,6 +330,7 @@ const Admin_main = () => {
                   <AdminBoard allBoards={allBoards} noticeSwitch={noticeSwitch} />
                 ) : null}
                 {pathname.includes("/AdminQnA") ? <AdminQnA allQnAs={allQnAs} deleteQnA={deleteQnA} /> : null}
+                {pathname.includes("/AdminStats") ? <AdminStats allStats={allStats}/> : null}
               </div>
             </div>
           </div>

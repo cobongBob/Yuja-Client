@@ -1,6 +1,12 @@
 import instance from "../AxiosConfig.js";
 import BoardTypeConvert from "../modules/BoardTypeConvert.js";
 
+export const fetchYujaStatistics = async () => {
+  return await instance({
+    url: "/yujastats",
+    method: "get",
+  });
+};
 export const fetchUsers = async () => {
   return await instance({
     url: "/user",
