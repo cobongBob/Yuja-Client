@@ -90,6 +90,10 @@ const EboardModify = ({ match }) => {
 
   const testCheking = useCallback(
     (e) => {
+      if (!input.title.trim()) {
+        titleRef.current.focus();
+        return ToastCenter("빈칸을 모두 적어주세요.");
+      }
       if (!isNotFilled(input, refsArray)) {
         return ToastCenter("빈칸을 모두 적어주세요.");
       }
@@ -194,13 +198,13 @@ const EboardModify = ({ match }) => {
     }
   }, []);
 
-  const counter = useCallback(() => {
-    const regex = /[^0-9]/g;
-    setCombine({
-      ...combine,
-      combine: input.career.replace(regex, ""),
-    });
-  }, [input, combine]);
+  // const counter = useCallback(() => {
+  //   const regex = /[^0-9]/g;
+  //   setCombine({
+  //     ...combine,
+  //     combine: input.career.replace(regex, ""),
+  //   });
+  // }, [input, combine]);
 
   const careerYear = useCallback(
     (e) => {
@@ -216,9 +220,9 @@ const EboardModify = ({ match }) => {
     e.target.value = e.target.value.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
   }, []);
 
-  useEffect(() => {
-    counter();
-  }, [input, counter]);
+  // useEffect(() => {
+  //   counter();
+  // }, [input, counter]);
 
   return (
     <div className='editorRegisterFrag'>

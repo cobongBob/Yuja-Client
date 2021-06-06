@@ -10,14 +10,16 @@ const MyPageYoutuberTable = ({ boardData, youtubeLikeHandler }) => {
         <h3 className='myPage-title'> 유튜버 공고 </h3>
         <table>
           <thead>
-            <th style={{ width: "4rem" }}>채널명</th>
-            <th style={{ width: "7rem" }}>제목</th>
-            <th style={{ width: "4rem" }}>지원자격</th>
-            <th style={{ width: "7rem" }}>담당자연락처</th>
-            <th style={{ width: "4rem" }}>모집분야</th>
-            <th style={{ width: "7rem" }}>사용기술</th>
-            <th style={{ width: "7rem" }}>마감일</th>
-            <th style={{ width: "2rem" }}></th>
+            <tr>
+              <td style={{ width: "4rem" }}>채널명</td>
+              <td style={{ width: "7rem" }}>제목</td>
+              <td style={{ width: "4rem" }}>지원자격</td>
+              <td style={{ width: "7rem" }}>담당자연락처</td>
+              <td style={{ width: "4rem" }}>모집분야</td>
+              <td style={{ width: "7rem" }}>사용기술</td>
+              <td style={{ width: "7rem" }}>마감일</td>
+              <td style={{ width: "2rem" }}></td>
+            </tr>
           </thead>
           <tbody>
             {boardData?.map((data, idx) => {

@@ -24,7 +24,7 @@ const Help = () => {
           <div className='AccordionWrapper'>
             <Accordion>
               {allQnAs.map((qan, idx) => (
-                <Card>
+                <Card key={idx}>
                   <Card.Header>
                     <div className='QuestionWrapper'>
                       <div className='QuestionIcon'>Q.</div>
@@ -35,13 +35,7 @@ const Help = () => {
                   </Card.Header>
                   <Accordion.Collapse className='Answer' eventKey={idx + 1}>
                     <Card.Body className='AnswerBody'>
-                      <ReactQuill
-                        id='wQuill'
-                        className='QuillContent'
-                        value={qan.content || ""}
-                        readOnly={true}
-                        theme={"bubble"}
-                      />
+                      <ReactQuill className='help_quill' value={qan.content || ""} readOnly={true} theme={"bubble"} />
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>

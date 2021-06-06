@@ -184,7 +184,9 @@ const QuillModify = ({ modify, addingFileList, qModiData, setQModiData, board_ty
         <div className='button-line'>
           <button
             onClick={() => {
-              if (!qModiData || qModiData === "<p><br></p>" || qModiData === "<p></p>") {
+              console.log(qModiData);
+              console.log(qModiData.length);
+              if (qModiData.length <= 8 || qModiData === "<p><br></p>" || qModiData === "<p></p>") {
                 ToastCenter(`내용을 입력해주세요`);
                 return quill.focus();
               }

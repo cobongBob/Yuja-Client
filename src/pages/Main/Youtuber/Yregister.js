@@ -61,6 +61,10 @@ const Yregister = () => {
   );
 
   const testCheking = useCallback(() => {
+    if (!input.title.trim()) {
+      titleRef.current.focus();
+      return ToastCenter("빈칸을 모두 적어주세요.");
+    }
     if (!isNotFilled(input, refsArray)) {
       return ToastCenter("빈칸을 모두 적어주세요.");
     }

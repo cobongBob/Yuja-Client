@@ -1,7 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const AdminQnATable = ({ currentData, lastIdx, deleteQnA }) => {
+  const history = useHistory();
   return (
     <div>
       <div className='community-table-wrapper'>
@@ -20,10 +21,14 @@ const AdminQnATable = ({ currentData, lastIdx, deleteQnA }) => {
               currentData.map((qna, idx) => (
                 <tr key={idx}>
                   <td>{lastIdx - idx}</td>
-                  <td>
-                    <Link className='table_link' to={`/Help`}>
-                      {qna.title}
-                    </Link>
+
+                  <td
+                    className='notice_option'
+                    onClick={() => {
+                      history.push(`/Help`);
+                    }}
+                  >
+                    {qna.title}
                   </td>
                   <td>{qna.user.nickname}</td>
                   <td>{qna.createDate.substr(0, 10)}</td>

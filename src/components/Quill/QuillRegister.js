@@ -177,7 +177,7 @@ const QuillRegister = ({ register, addingFileList, qData, setQData, board_type }
       <div className='button-line'>
         <button
           onClick={() => {
-            if (!qData || qData === "<p><br></p>" || qData === "<p></p>") {
+            if (qData.length <= 8 || qData === "<p><br></p>" || qData === "<p></p>") {
               ToastCenter(`내용을 입력해주세요`);
               return quill.focus();
             }

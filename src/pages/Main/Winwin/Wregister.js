@@ -9,7 +9,7 @@ const Wregister = ({ match }) => {
   const { userData } = useSelector((state) => state.loginReducer);
   const currFileList = useRef([]);
   const addingFileList = useRef([]);
-  const [qData, setQData] = useState();
+  const [qData, setQData] = useState("");
   const board_type = useRef(match.params.board_type);
   const history = useHistory();
 
@@ -50,7 +50,7 @@ const Wregister = ({ match }) => {
   );
 
   const testCheking = useCallback(() => {
-    if (!qData || !inputData.title) {
+    if (!qData.trim() || !inputData.title.trim()) {
       return ToastCenter("제목과 내용을 입력해주세요");
     }
     if (!userData) {

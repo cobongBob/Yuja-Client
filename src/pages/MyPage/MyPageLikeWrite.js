@@ -10,10 +10,12 @@ const MyPageLikeWrite = ({ boardData, freeLikeHandler }) => {
         <h3 className='myPage-title'> 자유게시판 </h3>
         <table>
           <thead>
-            <th style={{ width: "4rem" }}>분류</th>
-            <th style={{ width: "4rem" }}>작성자</th>
-            <th style={{ width: "7rem" }}>제목</th>
-            <th style={{ width: "2rem" }}></th>
+            <tr>
+              <td style={{ width: "4rem" }}>분류</td>
+              <td style={{ width: "4rem" }}>작성자</td>
+              <td style={{ width: "7rem" }}>제목</td>
+              <td style={{ width: "2rem" }}></td>
+            </tr>
           </thead>
           <tbody>
             {boardData?.map((data, idx) => {
