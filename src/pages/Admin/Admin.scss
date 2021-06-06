@@ -101,5 +101,16 @@ a {
   text-decoration: none !important;
 }
 
-
-
+.admin-registerbtn {
+  border: 1px solid #008744;
+  color: #008744;
+  border-radius: 20px;
+  background-color: white;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  &:hover {
+    text-decoration: none;
+    background-color: #008744;
+    color: white;
+  }
+}

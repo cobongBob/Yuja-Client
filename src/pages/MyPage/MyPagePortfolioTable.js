@@ -13,12 +13,14 @@ const MyPageProfolioTable = ({ boardData, board_code, portFolioLikeHandler }) =>
       )}
       <table>
         <thead>
-          <th style={{ width: "4rem" }}>이름</th>
-          <th style={{ width: "4rem" }}>제목</th>
-          <th style={{ width: "4rem" }}>경력</th>
-          <th style={{ width: "4rem" }}>연락처</th>
-          <th style={{ width: "4rem" }}>사용기술</th>
-          <th style={{ width: "2rem" }}></th>
+          <tr>
+            <td style={{ width: "4rem" }}>이름</td>
+            <td style={{ width: "4rem" }}>제목</td>
+            <td style={{ width: "4rem" }}>경력</td>
+            <td style={{ width: "4rem" }}>연락처</td>
+            <td style={{ width: "4rem" }}>사용기술</td>
+            <td style={{ width: "2rem" }}></td>
+          </tr>
         </thead>
         <tbody>
           {boardData?.map((data, idx) => {
