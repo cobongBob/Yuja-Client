@@ -10,29 +10,30 @@ const Navi = ({ allNotifications, setModalIsOpen }) => {
   const pathname = useLocation().pathname;
   const { authorities } = useSelector((state) => state.loginReducer);
   return (
-    <div className='nav'>
-      <Navbar collapseOnSelect bg='light' expand='lg'>
+    <div className="nav">
+      <Navbar className="NavWrapper" collapseOnSelect bg="light" expand="lg">
         <Navbar.Brand>
           <LoginModal
             allNotifications={allNotifications}
             setModalIsOpen={setModalIsOpen}
           />
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls='responsive-navbar-nav' />
-        <Navbar.Collapse id='responsive-navbar-nav'>
-          <Nav className='mr-auto'>
-            <Nav.Link href='#'>
-              <Link to='/'>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link href="#">
+              <Link to="/">
                 <li
                   className={
                     pathname === '/' ? 'nav-link-disabled' : 'nav-link'
-                  }>
+                  }
+                >
                   메인
                 </li>
               </Link>
             </Nav.Link>
-            <Nav.Link href='#'>
-              <Link to='/Youtuber/1'>
+            <Nav.Link href="#">
+              <Link to="/Youtuber/1">
                 <li
                   className={
                     pathname.includes('/Youtuber') ||
@@ -41,37 +42,40 @@ const Navi = ({ allNotifications, setModalIsOpen }) => {
                     pathname.includes('/YboardModify')
                       ? 'nav-link-disabled'
                       : 'nav-link'
-                  }>
+                  }
+                >
                   유튜버
                 </li>
               </Link>
             </Nav.Link>
-            <Nav.Link href='#'>
-              <Link to='/Eboard/Editor/1'>
+            <Nav.Link href="#">
+              <Link to="/Eboard/Editor/1">
                 <li
                   className={
                     pathname.includes('/Editor')
                       ? 'nav-link-disabled'
                       : 'nav-link'
-                  }>
+                  }
+                >
                   편집자
                 </li>
               </Link>
             </Nav.Link>
-            <Nav.Link href='#'>
-              <Link to='/Thboard/Thumb/1'>
+            <Nav.Link href="#">
+              <Link to="/Thboard/Thumb/1">
                 <li
                   className={
                     pathname.includes('/Thumb')
                       ? 'nav-link-disabled'
                       : 'nav-link'
-                  }>
+                  }
+                >
                   썸네일러
                 </li>
               </Link>
             </Nav.Link>
-            <Nav.Link href='#'>
-              <Link to='/Community/Winwin/1'>
+            <Nav.Link href="#">
+              <Link to="/Community/Winwin/1">
                 <li
                   className={
                     pathname.includes('/Community') ||
@@ -79,31 +83,34 @@ const Navi = ({ allNotifications, setModalIsOpen }) => {
                     pathname.includes('/BoardModify')
                       ? 'nav-link-disabled'
                       : 'nav-link'
-                  }>
+                  }
+                >
                   커뮤니티
                 </li>
               </Link>
             </Nav.Link>
-            <Nav.Link href='#'>
-              <Link to='/Help'>
+            <Nav.Link href="#">
+              <Link to="/Help">
                 <li
                   className={
                     pathname === '/Help' ? 'nav-link-disabled' : 'nav-link'
-                  }>
+                  }
+                >
                   고객센터
                 </li>
               </Link>
             </Nav.Link>
-            <Nav.Link href='#'>
+            <Nav.Link href="#">
               {authorities && authorities.includes('ADMIN') && (
                 <>
-                  <Link to='/Admin/AdminUsers'>
+                  <Link to="/Admin/AdminUsers">
                     <li
                       className={
                         pathname.includes('/Admin')
                           ? 'nav-link-disabled'
                           : 'nav-link'
-                      }>
+                      }
+                    >
                       관리페이지
                     </li>
                   </Link>
