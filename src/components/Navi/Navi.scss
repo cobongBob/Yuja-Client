@@ -223,12 +223,12 @@
       }
     }
   }
-  @media (min-width: 479px) and (max-width: 767px) {
+  @media (min-width: 320px) and (max-width: 480px) {
     .custom-control {
       margin-top: 1%;
     }
     .nav {
-      width: 100%;
+      width: 100vw;
       height: 77px;
       background-color: #ffb963 !important;
       border-bottom: none;

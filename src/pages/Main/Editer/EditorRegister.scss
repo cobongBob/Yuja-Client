@@ -241,7 +241,7 @@
   margin-right: 7rem;
 }
 
-@media (min-width: 479px) and (max-width: 767px) {
+@media (min-width: 320px) and (max-width: 480px) {
   .editorRegisterFrag {
     margin: 0 !important;
   }
@@ -263,6 +263,7 @@
   }
   .register-container {
     width:100vw;
+    margin:0;
   }
   .editor-register-default-input {
     width: 100vw;
