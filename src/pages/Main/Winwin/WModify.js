@@ -106,7 +106,7 @@ const WModify = ({ match }) => {
     <div className='comment-wrapper'>
       <div className='comment-content'>
         <div className='comment-register-category'>
-          {board_type.current === "Winwin" && "윈윈"}
+          {board_type.current === "Winwin" && "성장"}
           {board_type.current === "Collabo" && "합방"}
           {board_type.current === "Free" && "자유"}
           {board_type.current === "CustomService" && "건의"}
@@ -115,30 +115,47 @@ const WModify = ({ match }) => {
         <div className='comment-options'>
           <button onClick={goList}>목록</button>
         </div>
-        <div className='comment-register-title'>
-          <input
-            name='title'
-            value={input.title || null}
-            onChange={inputHandler}
-            placeholder='제목'
-            maxLength='45'
-            type='text'
-          />
-        </div>
-        {board_type.current === "CustomService" ? (
-          <div className='secret-option'>
-            <label htmlFor='secret'>비밀글</label>
+        <ul className='winwin_ul'>
+          <li className='comment-register-title'>
             <input
-              id='secret'
-              name='isPrivate'
-              onChange={checkboxHandler}
-              type='checkbox'
-              checked={checked.isPrivate}
+              name='title'
+              value={input.title || null}
+              onChange={inputHandler}
+              placeholder='제목'
+              maxLength='45'
+              type='text'
             />
-          </div>
-        ) : null}
-        <br />
-        <h2>글수정</h2>
+            <div>
+              {board_type.current === "CustomService" ? (
+                <div className='secret-option'>
+                  <label htmlFor='secret'>비밀글</label>
+                  <input
+                    id='secret'
+                    name='isPrivate'
+                    onChange={checkboxHandler}
+                    type='checkbox'
+                    checked={checked.isPrivate}
+                  />
+                </div>
+              ) : null}
+              {board_type.current === "Notice" ? (
+                <div className='secret-option'>
+                  <label htmlFor='secret'>공지공개</label>
+                  <input
+                    id='secret'
+                    name='isPrivate'
+                    onChange={checkboxHandler}
+                    type='checkbox'
+                    checked={!checked.isPrivate}
+                  />
+                </div>
+              ) : null}
+            </div>
+          </li>
+          <li>
+            <h3>글수정</h3>
+          </li>
+        </ul>
         <QuillModify
           modify={testCheking}
           addingFileList={addingFileList}

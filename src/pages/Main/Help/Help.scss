@@ -36,10 +36,13 @@
   display: inline-block;
   font-size: 2rem;
   margin-right: 1%;
+  color: #000;
 }
 
 .QuestionWrapper > .btn-link {
   font-size: 1.2rem;
+  text-align: left;
+  font-family: "scdream4";
 }
 
 .Answer {
@@ -49,4 +52,17 @@
 }
 .help_quill {
   max-width: 100%;
+}
+.card-body {
+  margin-bottom: -20px;
+  margin-left: -20px;
+  margin-right: -20px;
+}
+@media screen and (max-width: 750px) {
+  .HelpPageWrapper > .AccordionBigWrapper > .AccordionWrapper {
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
 }
