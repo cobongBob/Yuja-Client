@@ -217,30 +217,33 @@ a {
 }
 
 @media screen and (max-width: 640px) {
-  .winwin-Table-Wrapper{
-    margin-top: 137px;
+  .winwin-wrapper {
+    margin-top: -85px;
+    margin-bottom: -35px;
+  }
+  .winwin-Table-Wrapper {
+    margin-top: 60px;
     margin-left: -50%;
     width: 413px;
     font-size: small;
   }
-  .boardName{
+  .boardName {
     margin: 0 !important;
   }
-  .winTable-Table-Wrapper{
+  .winTable-Table-Wrapper {
     width: 480px;
     text-align: center;
-
     max-width: 480px;
   }
-  .search-form > form > input[type='text']{
+  .search-form > form > input[type="text"] {
     font-size: x-small;
     width: 13rem;
   }
-  .search-form{
+  .search-form {
     margin-right: 0px;
     width: 18rem;
   }
-  .li-winwin{
+  .li-winwin {
     display: inline-block;
     font-size: 15px;
     width: 5rem;
@@ -255,7 +258,7 @@ a {
       border-radius: 20px;
     }
   }
-  .li-link-disabled{
+  .li-link-disabled {
     display: inline-block;
     font-size: 15px;
     width: 5rem;
@@ -270,57 +273,65 @@ a {
       border-radius: 20px;
     }
   }
-  .sideMenu-title{
+  .sideMenu-title {
     margin-left: auto !important;
     margin-right: auto !important;
     font-size: 20px;
   }
-  .card-paging li.focus{
+  .card-paging li.focus {
     font-size: medium;
   }
-  .card-paging li{
+  .card-paging li {
     width: 1.5rem;
     height: 1.5rem;
   }
   .community-options {
-    margin-top:1rem;
+    margin-top: 1rem;
   }
   .sideMenu {
     text-align: center;
     width: 100%;
   }
-  .custom-switch{
+  .custom-switch {
     margin-top: -28%;
   }
 
-  .winTable-Table-Wrapper > h2{
+  .winTable-Table-Wrapper > h2 {
     font-size: medium;
     margin-left: 12px;
     text-align: center;
     width: 97%;
   }
   .wno {
-    width: 3rem;
+    width: 4%;
   }
   .wtitle {
-    width: 5px;
+    width: 20%;
     word-wrap: break-word;
     word-break: break-word;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   .wwriter {
-    width: 7rem;
+    width: 10%;
   }
   .wcreatedDate {
-    width: 7rem;
+    width: 10%;
   }
   .whited {
-    width: 0;
+    width: 5%;
   }
   .wlike {
-    width: 0;
+    width: 5%;
   }
-
- 
+  .cummunity-table-itself {
+    table-layout: fixed;
+    max-width: 480px;
+  }
+  .winwin-Table-Wrapper .card-paging {
+    margin-left: 65px;
+  }
+  .sideUl {
+    margin-left: 15px;
+  }
 }

@@ -95,7 +95,7 @@
   border-radius: 20px;
 }
 
-.search-form > form > input[type='text'] {
+.search-form > form > input[type="text"] {
   -webkit-appearance: none;
   -moz-appearance: none;
   vertical-align: middle;
@@ -114,5 +114,11 @@
   color: lightgrey;
   &:hover {
     color: gray;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .card-paging {
+    margin-right: 25px;
   }
 }
