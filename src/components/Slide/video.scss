@@ -241,13 +241,17 @@ p {
   }
 }
 
-@media (min-width: 481px) and (max-width: 767px) {
+@media (min-width: 479px) and (max-width: 767px) {
+  .slick-slider {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
   .best-editor {
     font-size: 2rem;
   }
   .slick-next {
     top: 40% !important;
-    right: 1% !important;
+    right: 1.8% !important;
   }
   .slick-prev {
     top: 40% !important;
