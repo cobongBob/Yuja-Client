@@ -61,7 +61,7 @@
   margin-bottom: 1.5%;
 }
 
-@media (min-width: 481px) and (max-width: 767px) {
+@media (min-width: 479px) and (max-width: 767px) {
   .tableWrapper {
     margin-top: 5%;
     margin-bottom: 0;
@@ -107,9 +107,12 @@
   }
   #YregisterBtn_ {
     margin-bottom: 5% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
   #YregisterBtn_ > .registerBtn {
     width: 85%;
+    margin: 0 !important;
     font-size: 1.3rem;
   }
 }
