@@ -204,7 +204,7 @@ a {
   font-weight: bold;
 }
 
-@media screen and (max-width: 1480px) {
+@media screen and (max-width: 480px) {
   .overlay {
     width: 350px;
   }
@@ -216,7 +216,7 @@ a {
   }
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 480px) {
   .winwin-wrapper {
     margin-top: -85px;
     margin-bottom: -35px;
@@ -224,45 +224,47 @@ a {
   .winwin-Table-Wrapper {
     margin-top: 60px;
     margin-left: -50%;
-    width: 479px;
+    width: 100%;
     font-size: small;
+  }
+  .winwinFrag {
+    margin-left: 50%;
+    width: 100%;
   }
   .boardName {
     margin: 0 !important;
   }
   .winTable-Table-Wrapper {
-    width: 479;
+    width: 100%;
+    margin-top: 5%;
     text-align: center;
-    max-width: 479px;
   }
 
   .li-winwin {
     display: inline-block;
-    font-size: 15px;
-    width: 5rem;
-    margin-right: 32px;
+    font-size: 12px;
+    width: 20%;
+    margin-right: 4%;
     font-weight: 100;
     &:hover {
       text-decoration: none;
       background-color: #ff5c11;
       transition: background-color 0.3s;
       color: white;
-      width: 5rem;
       border-radius: 20px;
     }
   }
   .li-link-disabled {
     display: inline-block;
-    font-size: 15px;
-    width: 5rem;
-    margin-right: 32px;
+    font-size: 12px;
+    width: 20%;
+    margin-right: 4%;
     font-weight: 100;
     &:hover {
       text-decoration: none;
       background-color: #ff5c11;
       transition: background-color 0.3s;
       color: white;
-      width: 5rem;
       border-radius: 20px;
     }
   }
@@ -308,14 +310,14 @@ a {
     width: 10%;
   }
   .whited {
-    width: 5%;
+    width: 6%;
   }
   .wlike {
-    width: 5%;
+    width: 6%;
   }
   .cummunity-table-itself {
     table-layout: fixed;
-    max-width: 479;
+    width: 100%;
   }
   .winwin-Table-Wrapper .card-paging {
     margin-right: 45px;
@@ -324,8 +326,17 @@ a {
   .winwinFrag .search-form {
     margin-left: auto;
     margin-right: auto;
-    width: 18rem;
     text-align: center;
+    width: 80%;
+  }
+
+  .winwinFrag .search-form > form > input[type="text"] {
+    width: 100%;
+    margin-left: 0;
+  }
+  .winwin-wrapper .sideBox {
+    width: 100%;
+    margin-left: -2%;
   }
   .sideUl {
     margin-left: 15px;
