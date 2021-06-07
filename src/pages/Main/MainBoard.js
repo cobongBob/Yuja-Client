@@ -9,13 +9,13 @@ import { FaRegIdCard } from 'react-icons/fa';
 const MainBoard = () => {
   return (
     <>
-      <div className='new-board'>
+      <div className="new-board">
         <span>
           <FaRegIdCard></FaRegIdCard>
         </span>
         신규공고 / 신입소개
       </div>
-      <Row className='Main_Board_Wrapper'>
+      <Row className="Main_Board_Wrapper">
         <Col sm>
           <Yboard></Yboard>
         </Col>
