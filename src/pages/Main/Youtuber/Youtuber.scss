@@ -60,3 +60,23 @@
   font-size: 6rem;
   margin-bottom: 1.5%;
 }
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .tableWrapper {
+    margin: 0;
+  }
+  .YListTitleWrapper {
+    text-align: center;
+  }
+  .YoutubeIcons {
+    margin-left: -3%;
+    font-size: 5rem;
+  }
+  .tableWrapper > .YListTitleWrapper > h1 {
+    font-size: 2.5rem;
+  }
+  .search-form {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}

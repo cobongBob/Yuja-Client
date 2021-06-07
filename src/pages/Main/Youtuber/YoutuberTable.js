@@ -1,19 +1,27 @@
-import React, { useCallback } from "react";
-import { Card } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
-import { format } from "date-fns";
-import "../Youtuber/Ylist.scss";
-import SortingToDeadline from "../components/SortingToDeadline";
-import SortingToLiked from "../components/SortingToLiked";
-import BackToList from "../components/BackToList";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import { ToastAlertNoDupl, ToastCenter } from "../../../modules/ToastModule";
+import React, { useCallback } from 'react';
+import { Card } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
+import { format } from 'date-fns';
+import '../Youtuber/Ylist.scss';
+import SortingToDeadline from '../components/SortingToDeadline';
+import SortingToLiked from '../components/SortingToLiked';
+import BackToList from '../components/BackToList';
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
+import { ToastAlertNoDupl, ToastCenter } from '../../../modules/ToastModule';
 
-const YoutuberTable = ({ boardData, likeHandler, dislikeHandler, currentPage, board_type, wrote, userData }) => {
+const YoutuberTable = ({
+  boardData,
+  likeHandler,
+  dislikeHandler,
+  currentPage,
+  board_type,
+  wrote,
+  userData,
+}) => {
   const history = useHistory();
   const writeBoard = useCallback(() => {
     if (userData && userData.id > 0) {
-      history.push("/YoutuberRegister");
+      history.push('/YoutuberRegister');
     } else {
       ToastCenter(`로그인 해주세요`);
     }
@@ -28,11 +36,12 @@ const YoutuberTable = ({ boardData, likeHandler, dislikeHandler, currentPage, bo
         ) : (
           <button
             onClick={() => {
-              ToastAlertNoDupl(`공고가 3개 이상있어 새로 글 작성시 가장 오래된 공고 1개가 삭제됩니다.`);
+              ToastAlertNoDupl(
+                `공고가 3개 이상있어 새로 글 작성시 가장 오래된 공고 1개가 삭제됩니다.`
+              );
               writeBoard();
             }}
-            className='registerBtn'
-          >
+            className='registerBtn'>
             공고 등록하기
           </button>
         )}
@@ -49,9 +58,10 @@ const YoutuberTable = ({ boardData, likeHandler, dislikeHandler, currentPage, bo
               <div className='CardImageWrapper'>
                 <Card.Img
                   className='Card_Image'
-                  onClick={() => history.push(`/Ydetail/${data.id}/${currentPage}`)}
-                  src={`${data.previewImage}`}
-                ></Card.Img>
+                  onClick={() =>
+                    history.push(`/Ydetail/${data.id}/${currentPage}`)
+                  }
+                  src={`${data.previewImage}`}></Card.Img>
               </div>
               <Card.Header>
                 <Card.Title className='editerTitle'>
@@ -68,21 +78,28 @@ const YoutuberTable = ({ boardData, likeHandler, dislikeHandler, currentPage, bo
                     <span>모집분야</span> {data.worker}
                   </div>
                   <div className='card-deadline'>
-                    {data.ywhen !== "마감일" ? (
+                    {data.ywhen !== '마감일' ? (
                       <span>{data.ywhen}</span>
                     ) : (
-                      <span>마감일 {format(new Date(data.expiredDate), "yyyy-MM-dd")}</span>
+                      <span>
+                        마감일{' '}
+                        {format(new Date(data.expiredDate), 'yyyy-MM-dd')}
+                      </span>
                     )}
                   </div>
                 </Card.Title>
                 <div className='card-like'>
                   {data && data.liked ? (
-                    <button onClick={() => likeHandler(data.id)} className='starButton'>
+                    <button
+                      onClick={() => likeHandler(data.id)}
+                      className='starButton'>
                       <AiFillStar size={30} />
                       <span>{data.likes}</span>
                     </button>
                   ) : (
-                    <button onClick={() => dislikeHandler(data.id)} className='starButton'>
+                    <button
+                      onClick={() => dislikeHandler(data.id)}
+                      className='starButton'>
                       <AiOutlineStar size={30} />
                       <span>{data.likes}</span>
                     </button>
