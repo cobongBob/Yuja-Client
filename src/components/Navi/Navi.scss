@@ -223,7 +223,8 @@
       }
     }
   }
-  @media (min-width: 479px) and (max-width: 767px) {
+
+  @media (min-width: 320px) and (max-width: 480px) {
     .custom-control {
       margin-top: 1%;
     }
@@ -235,9 +236,6 @@
     }
     .bg-light {
       background-color: #ffb963 !important;
-    }
-    .nav-pills {
-      width: 479px;
     }
     .nav-login {
       display: inline-block !important;
@@ -261,6 +259,9 @@
       color: black;
       font-weight: bold;
       font-size: 1.1rem;
+    }
+    .navbar-brand {
+      margin-left: 0 !important;
     }
     .nav-link {
       display: inline-block !important;
