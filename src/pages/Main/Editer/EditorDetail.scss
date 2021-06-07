@@ -164,7 +164,25 @@
   display: inline-block;
   margin-left: 5%;
 }
-
+.in-detail-update-btn {
+  -webkit-appearance: none;
+  appearance: none;
+  display: inline-block;
+  border: 1px solid #d62d20;
+  padding: 0.5rem;
+  border-radius: 20px;
+  background-color: white;
+  color: #d62d20;
+  margin-right: 10px;
+}
+.in-detail-update-btn2 {
+  border: 1px solid #008744;
+  color: #008744;
+  border-radius: 20px;
+  background-color: white;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+}
 @media (min-width: 320px) and (max-width: 480px) {
   .editordetail-wrapper {
     padding:0;
@@ -196,7 +214,7 @@
   }
   .detail-btn-box {
     width:100vw;
-    font-size: 0.6rem;
+    font-size: 0.6rem !important;
     text-align: center;
   }
   .ql-container {
@@ -207,5 +225,11 @@
   }
   .pr-content {
     margin:5px
+  }
+  .in-detail-update-btn {
+    font-size: 1rem;
+  }
+  .in-detail-update-btn2 {
+    font-size: 1rem;
   }
 }

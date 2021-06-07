@@ -177,7 +177,7 @@ const ThumbRegister = ({ match }) => {
                 onChange={handleImg}
               />
             </li>
-            <div className='li_Title_Title'>제목</div>
+            <div className='editor_li_Title_Title'>제목</div>
             <li className='li-item1'>
               <input
                 type='text'
@@ -190,7 +190,7 @@ const ThumbRegister = ({ match }) => {
               />
             </li>
             <li className='li-item1'>
-              <div className='li_Title_ReceptionMethod'>연락처</div>
+              <div className='editor_li_Title_ReceptionMethod'>연락처</div>
               <input
                 id='YreceptionMethod'
                 onChange={onChange}

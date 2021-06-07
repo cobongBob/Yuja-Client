@@ -194,3 +194,19 @@
 .thumb-pr-content > .QuillContent {
   width: 100%;
 }
+
+@media (min-width: 320px) and (max-width: 770px) {
+  .tableWrapper > .ThListTitleWrapper > h1 {
+    font-size: 2.3rem;
+  }
+  .thumbRegisterFrag {
+    margin:0;
+  }
+  .thumb-register-default-input {
+    width:100vw;
+  }
+  .thumb-register-default-input > .leftUl {
+    width:100%;
+    padding:0;
+  }
+}
