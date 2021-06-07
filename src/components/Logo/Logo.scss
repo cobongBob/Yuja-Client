@@ -41,20 +41,24 @@
   }
 }
 
-@media (min-width: 479px) and (max-width: 767px) {
+@media (min-width: 320px) and (max-width: 480px) {
   .Logo_Body {
+    width: 100% !important;
     text-align: center;
-    padding-top: 16.5%;
+    padding-top: 80px;
   }
   .Logo_Head {
+    width: 100% !important;
     height: 220px;
   }
   .Logo_Top {
+    width: 100% !important;
     position: static;
     margin-left: 0;
     margin-right: 0;
   }
   .Logo_desc {
+    width: 100% !important;
     font-size: 4rem;
     line-height: 1.1;
     margin: 0;
