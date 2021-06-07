@@ -21,7 +21,7 @@ const EboardModify = ({ match }) => {
   const history = useHistory();
 
   const [combine, setCombine] = useState({
-    combine: 1,
+    combine: 0,
   });
 
   const [input, setInput] = useState({
@@ -74,6 +74,7 @@ const EboardModify = ({ match }) => {
       });
       setcheckBoxInput(checkBoxConvert(res.data.tools));
       checkedlist.current = res.data.tools;
+      setCombine({combine:res.data.career.substr(3,res.data.career.length-4)})
     });
   }, [userData, history, match.params.board_id]);
 
@@ -126,7 +127,6 @@ const EboardModify = ({ match }) => {
             boardAttachIds: addingFileList.current,
             boardAttachToBeDeleted: deletedFileList.current,
           };
-
           EditerApiService.modifyBoard(match.params.board_id, modifyingData, board_type.current).then((res) => {
             eHistory(res.data.id);
           });
@@ -143,7 +143,6 @@ const EboardModify = ({ match }) => {
             boardAttachIds: addingFileList.current,
             boardAttachToBeDeleted: deletedFileList.current,
           };
-
           EditerApiService.modifyBoard(match.params.board_id, modifyingData, board_type.current).then((res) => {
             eHistory(res.data.id);
           });
@@ -198,14 +197,6 @@ const EboardModify = ({ match }) => {
     }
   }, []);
 
-  // const counter = useCallback(() => {
-  //   const regex = /[^0-9]/g;
-  //   setCombine({
-  //     ...combine,
-  //     combine: input.career.replace(regex, ""),
-  //   });
-  // }, [input, combine]);
-
   const careerYear = useCallback(
     (e) => {
       setCombine({
@@ -215,14 +206,6 @@ const EboardModify = ({ match }) => {
     },
     [combine]
   );
-
-  const contactCheck = useCallback((e) => {
-    e.target.value = e.target.value.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
-  }, []);
-
-  // useEffect(() => {
-  //   counter();
-  // }, [input, counter]);
 
   return (
     <div className='editorRegisterFrag'>
@@ -303,7 +286,10 @@ const EboardModify = ({ match }) => {
                     maxLength='2'
                     value={combine.combine}
                     onChange={careerYear}
-                    onInput={contactCheck}
+                    onInput={({ target }) => {
+                      target.value = target.value.replace(/[^0-9]/g, "");
+                      target.value = target.value.replace(/,/g, "");
+                    }}
                   />
                   년
                 </div>
