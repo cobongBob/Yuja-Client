@@ -14,33 +14,32 @@ const Help = () => {
     });
   }, []);
   return (
-    allQnAs && (
-      <div className='HelpPageWrapper'>
-        <div className='IconTitleWrapper'>
-          <FaHeadset className='HelpIcon'></FaHeadset>
-          <h1>고객센터</h1>
-        </div>
-        <div className='AccordionBigWrapper'>
-          <div className='AccordionWrapper'>
-            <Accordion>
-              {allQnAs.map((qan, idx) => (
-                <Card key={idx}>
+    <div className='HelpPageWrapper'>
+      <div className='IconTitleWrapper'>
+        <FaHeadset className='HelpIcon'></FaHeadset>
+        <h1>고객센터</h1>
+      </div>
+      <div className='AccordionBigWrapper'>
+        <div className='AccordionWrapper'>
+          <Accordion>
+            {allQnAs?.map((qan, idx) => (
+              <Card key={idx}>
+                <Accordion.Toggle className='Question' as={Button} variant='link' eventKey={idx + 1}>
                   <Card.Header>
                     <div className='QuestionWrapper'>
                       <div className='QuestionIcon'>Q.</div>
-                      <Accordion.Toggle className='Question' as={Button} variant='link' eventKey={idx + 1}>
-                        {qan.title}
-                      </Accordion.Toggle>
+                      {qan.title}
                     </div>
                   </Card.Header>
-                  <Accordion.Collapse className='Answer' eventKey={idx + 1}>
-                    <Card.Body className='AnswerBody'>
-                      <ReactQuill className='help_quill' value={qan.content || ""} readOnly={true} theme={"bubble"} />
-                    </Card.Body>
-                  </Accordion.Collapse>
-                </Card>
-              ))}
-              {/* <Card>
+                </Accordion.Toggle>
+                <Accordion.Collapse className='Answer' eventKey={idx + 1}>
+                  <Card.Body className='AnswerBody'>
+                    <ReactQuill className='help_quill' value={qan.content || ""} readOnly={true} theme={"bubble"} />
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+            ))}
+            {/* <Card>
                 <Card.Header>
                   <div className='QuestionWrapper'>
                     <div className='QuestionIcon'>Q.</div>
@@ -130,11 +129,10 @@ const Help = () => {
                   </Card.Body>
                 </Accordion.Collapse>
               </Card> */}
-            </Accordion>
-          </div>
+          </Accordion>
         </div>
       </div>
-    )
+    </div>
   );
 };
 

@@ -230,9 +230,7 @@
 @media screen and (max-width: 750px) {
   .comment-content {
     max-width: 480px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 450px;
+    width: 480px;
     margin-top: -125px;
   }
   .comment-wrapper {
@@ -243,9 +241,12 @@
   }
   .comment-register-title > input[type="text"] {
     font-size: 25px;
-    width: 450px;
+    width: 460px;
   }
   .comment-register-category {
     font-size: 25px;
+  }
+  .winwin_ul {
+    margin-left: 10px;
   }
 }
