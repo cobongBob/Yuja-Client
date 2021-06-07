@@ -28,7 +28,7 @@ const YoutuberTable = ({
   }, [userData, history]);
   return (
     <div className='youtuber-card-container'>
-      <div className='card-options'>
+      <div id='YregisterBtn_' className='card-options'>
         {wrote.length < 3 ? (
           <button onClick={writeBoard} className='registerBtn'>
             공고 등록하기
