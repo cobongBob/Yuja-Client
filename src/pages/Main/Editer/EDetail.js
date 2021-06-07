@@ -102,7 +102,11 @@ const EDetail = ({ match }) => {
             <br/>
             <li className='editordetail-content-user-data'>
               <strong className='editorDetailTitle'>경력</strong>
-              {detailData.career && detailData.career.substring(3,5)}
+              {detailData.career &&
+              detailData.career.startsWith('경력') ?
+                detailData.career.substr(3,detailData.career.length-3)
+              :
+              detailData.career}
             </li>
             <br/>
             <li className='editordetail-content-user-data'>
@@ -123,8 +127,9 @@ const EDetail = ({ match }) => {
               <strong className='editorDetailTitle'>사용기술</strong>
               {detailData.tools && detailData.tools.join(", ")}
             </li>
+              </div>
             </div>
-            </div>
+
             <li className='editordetail-content-pr'>
               <div className='detail-btn'>
                 <div className='detail-btn-box'>
@@ -139,7 +144,7 @@ const EDetail = ({ match }) => {
                     </div>
                   ) : userData && detailData.user && authorities.includes("ADMIN") ? (
                     <button className='detail-update-btn' onClick={deleteBoard}>
-                      이력서 삭제하기
+                      포트폴리오 삭제하기
                     </button>
                   ) : (
                     <Report

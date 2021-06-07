@@ -96,7 +96,7 @@ const Wregister = ({ match }) => {
     <div className='comment-wrapper'>
       <div className='comment-content'>
         <div className='comment-register-category'>
-          {board_type.current === "Winwin" && "윈윈"}
+          {board_type.current === "Winwin" && "성장"}
           {board_type.current === "Collabo" && "합방"}
           {board_type.current === "Free" && "자유"}
           {board_type.current === "CustomService" && "건의"}
@@ -105,7 +105,7 @@ const Wregister = ({ match }) => {
         <div className='comment-options'>
           <button onClick={goList}>목록</button>
         </div>
-        <ul>
+        <ul className='winwin_ul'>
           <li className='comment-register-title'>
             <input name='title' onChange={inputHandler} placeholder='제목' maxLength='45' type='text' autoFocus />
             <div>

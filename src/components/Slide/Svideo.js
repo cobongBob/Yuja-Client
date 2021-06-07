@@ -19,7 +19,7 @@ const Svideo = () => {
       prevArrow: <PrevArrow />,
       nextArrow: <NextArrow />,
       infinite: ThvideoData && ThvideoData.length > 4 ? true : false, // true 면 무한루트 but, 게시물이 4개 이하일경우 아래쪽으로 복사가됨 / false 면 무한루트가 안됨 but, 게시물이 4개 이하여도  아래쪽으로 복사가 안됨
-      autoplay: false,
+      autoplay: true,
       speed: 2000,
       autoplaySpeed: 5000,
       pauseOnHover: true,
@@ -71,8 +71,7 @@ const Svideo = () => {
     <React.Fragment>
       <div
         onClick={() => history.push('/Thboard/Thumb/1')}
-        className="best-thumbnailer"
-      >
+        className='best-thumbnailer'>
         <span>
           <FaPaintBrush />
         </span>{' '}
@@ -81,21 +80,20 @@ const Svideo = () => {
       <Slider ref={slideDefault} {...settings}>
         {ThvideoData &&
           ThvideoData.map((video, index) => (
-            <div key={index} className="wrapper">
-              <div className="thumbnails_">
+            <div key={index} className='wrapper'>
+              <div className='thumbnails_'>
                 <div
                   onClick={() =>
                     history.push(`/ThumbDetail/Thumb/${video.id}/1`)
                   }
-                  className="thumbnails-item_"
-                >
-                  <div className="item_ item_red">
-                    <div className="top_">{video.user.nickname}</div>
-                    <div className="bottom_">{video.title}</div>
+                  className='thumbnails-item_'>
+                  <div className='item_ item_red'>
+                    <div className='top_'>{video.user.nickname}</div>
+                    <div className='bottom_'>{video.title}</div>
                     <img
-                      className="videoImg_"
+                      className='videoImg_'
                       src={video.previewImage}
-                      alt=""
+                      alt=''
                     />
                   </div>
                 </div>

@@ -6,7 +6,7 @@
   margin-top: 1%;
   padding: 0.2em;
   display: inline-block;
-  font-family: 'scdream5';
+  font-family: "scdream5";
   font-size: 2rem;
   color: white;
   border-bottom: 3px solid #ff9411;
@@ -28,7 +28,7 @@
 }
 
 .win-grow {
-  font-family: 'scdream5';
+  font-family: "scdream5";
   text-align: right;
   font-size: 1.7rem;
   margin-top: 3%;
@@ -43,15 +43,7 @@
   line-height: 1.5;
   margin-bottom: 1%;
   width: 100%;
-  font-family: 'scdream5';
-}
-
-.MainWriter {
-  width: 10vw;
-}
-
-.MainDate {
-  width: 5vw;
+  font-family: "scdream5";
 }
 
 .ListTable > thead > tr > td {
@@ -78,7 +70,7 @@
 }
 
 .win-collabo {
-  font-family: 'scdream5';
+  font-family: "scdream5";
   text-align: left;
   font-size: 1.7rem;
   margin-top: 3%;
@@ -87,9 +79,33 @@
   color: white;
   text-shadow: -2px 0 #ff9411, 0 2px #ff9411, 2px 0 #ff9411, 0 -2px #ff9411;
 }
+.MainWriter {
+  width: 7%;
+}
+.MainTitle {
+  width: 33%;
+}
+.MainHit {
+  width: 7%;
+}
+.MainDate {
+  width: 7%;
+}
 
-@media all and (max-width:500px) {
-  .ListTable > thead > tr > td {
-    width:25%;
+@media all and (max-width: 500px) {
+  .MainWriter {
+    width: 15%;
+  }
+  .MainTitle {
+    width: 30%;
+  }
+  .MainHit {
+    width: 9%;
+  }
+  .MainDate {
+    width: 9%;
+  }
+  .win-grow {
+    text-align: left;
   }
 }

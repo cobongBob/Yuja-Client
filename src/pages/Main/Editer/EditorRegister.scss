@@ -210,6 +210,13 @@
   margin-right: 1rem;
 }
 
+.editorCareerTitle {
+  margin-right: 1rem;
+  font-size: 20px;
+  display: inline-block;
+  border-bottom: 4px solid #3d5ba5;
+}
+
 .careerTimeBox {
   display: inline-block;
 }
@@ -226,5 +233,31 @@
     outline: 0;
     border: none;
     border-bottom: 4px solid #3d5ba5;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .editorRegisterFrag {
+    margin: 0 !important;
+  }
+  .editor-register-default-input {
+    padding: 0 !important;
+  }
+  .leftUl {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .li_Title_Title {
+    width: auto;
+  }
+  .li_Title_Link {
+    width: 100%;
+  }
+  .editor-register-default-input > .rightUl {
+    width: 100%;
+    margin-left: 1%;
+    margin-right: 1%;
+    padding: 0 !important;
   }
 }

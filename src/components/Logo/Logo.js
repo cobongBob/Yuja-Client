@@ -1,10 +1,10 @@
-import React, { useCallback } from "react";
-import { withRouter } from "react-router-dom";
-import "./Logo.scss";
+import React, { useCallback } from 'react';
+import { withRouter } from 'react-router-dom';
+import './Logo.scss';
 
 const Logo = ({ children, history }) => {
   const goHome = useCallback(() => {
-    history.push("/");
+    history.push('/');
   }, [history]);
 
   return (
@@ -17,7 +17,12 @@ const Logo = ({ children, history }) => {
           </div>
         </div>
         <div className='Logo_Under'>
-          <img src={process.env.PUBLIC_URL + "/img/parts_pic/YujaLogo.png"} width='150' alt='logo' onClick={goHome} />
+          <img
+            src={process.env.PUBLIC_URL + '/img/parts_pic/YujaLogo.png'}
+            width='150'
+            alt='logo'
+            onClick={goHome}
+          />
         </div>
       </div>
     </div>

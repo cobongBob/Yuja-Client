@@ -70,8 +70,7 @@ const Evideo = () => {
     <React.Fragment>
       <div
         onClick={() => history.push('/Eboard/Editor/1')}
-        className="best-editor"
-      >
+        className='best-editor'>
         <span>
           <RiScissorsCutFill />
         </span>{' '}
@@ -80,16 +79,15 @@ const Evideo = () => {
       <Slider ref={slideDefault} {...settings}>
         {EvideoData &&
           EvideoData.map((video, index) => (
-            <div key={index} className="wrapper">
-              <div className="thumbnails">
+            <div key={index} className='wrapper'>
+              <div className='thumbnails'>
                 <div
                   onClick={() => history.push(`EDetail/Editor/${video.id}/1`)}
-                  className="thumbnails-item"
-                >
-                  <div className="item item_red">
-                    <div className="top">{video.user.nickname}</div>
-                    <div className="bottom">{video.title}</div>
-                    <img className="videoImg" src={video.previewImage} alt="" />
+                  className='thumbnails-item'>
+                  <div className='item item_red'>
+                    <div className='top'>{video.user.nickname}</div>
+                    <div className='bottom'>{video.title}</div>
+                    <img className='videoImg' src={video.previewImage} alt='' />
                   </div>
                 </div>
               </div>

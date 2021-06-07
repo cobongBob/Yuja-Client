@@ -5,6 +5,22 @@
   background-size: cover;
 }
 
+.Thumb-header-wrapper {
+  text-align: center;
+}
+.thumbDetail-header {
+  display: inline-block;
+  font-family: 'scdream5';
+  font-size: 30px;
+  border-bottom: 3px solid #ff7c7c;
+  margin-top: 3%;
+  margin-bottom: 3%;
+}
+.thumbDetailTitle {
+  border-right: 3px solid #ff7c7c;
+  padding-right: 15px;
+  margin-right: 15px;
+}
 .thumbnail-for-Main-Wrapper {
   width: 100%;
   height: 18vh;

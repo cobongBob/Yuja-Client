@@ -159,25 +159,13 @@ const ThumbRegister = ({ match }) => {
   }, []);
 
   return (
-    <div>
+    <div className='thumbRegisterFrag'>
       <div className='register-container'>
         <div className='thumb-register-header'>
           <h1>포트폴리오 등록</h1>
         </div>
         <div className='thumb-register-default-input'>
-          <ul>
-            <li className='li-item1'>
-              <input
-                type='text'
-                placeholder='제목'
-                name='title'
-                id='first-link'
-                onChange={inputHandler}
-                maxLength='50'
-                ref={titleRef}
-              />
-            </li>
-
+          <ul className='leftUl'>
             <li className='li-item2'>
               <img className='preview_Thubnail' src={fileUrl} alt='' /> <br />
               <input
@@ -185,9 +173,36 @@ const ThumbRegister = ({ match }) => {
                 id='thumb-PicInput'
                 type='file'
                 accept='image/jpeg, image/jpg, image/png'
+                placeholder='이 이미지는 포트폴리오 썸네일로 사용 됩니다.'
                 onChange={handleImg}
               />
             </li>
+            <div className='li_Title_Title'>제목</div>
+            <li className='li-item1'>
+              <input
+                type='text'
+                placeholder='제목'
+                name='title'
+                id='first-link'
+                onChange={inputHandler}
+                maxLength='45'
+                ref={titleRef}
+              />
+            </li>
+            <li className='li-item1'>
+              <div className='li_Title_ReceptionMethod'>연락처</div>
+              <input
+                id='YreceptionMethod'
+                onChange={onChange}
+                placeholder='연락처'
+                maxLength='50'
+                name='receptionMethod'
+                type='text'
+                ref={receptionMethodRef}
+              />
+            </li>
+          </ul>
+          <ul className='rightUl'>
             <li className='li-item3'>
               <div className='careerTitle'>경력사항</div>
               <input ref={workerRef} id='newbie' name='career' onChange={radioCheck} value='신입' type='radio' />
@@ -232,19 +247,10 @@ const ThumbRegister = ({ match }) => {
                 ref={payAmountRef}
               />
             </li>
-            <li className='li-item1'>
-              <input
-                id='YreceptionMethod'
-                onChange={onChange}
-                placeholder='연락처'
-                maxLength='50'
-                name='receptionMethod'
-                type='text'
-                ref={receptionMethodRef}
-              />
-            </li>
+            <div className='thumbSpanBox'>
+              <span className='thumbSpan'>사용기술</span>
+            </div>
             <li className='li-item5'>
-              <span>사용기술</span>
               <input id='Epremiere' name='tools' value='프리미어 프로' type='checkbox' onChange={checkboxCheck} />
               <label htmlFor='Epremiere'>프리미어 프로 </label>
               <input id='Eaftereffect' name='tools' value='애프터이펙트' type='checkbox' onChange={checkboxCheck} />
@@ -266,8 +272,8 @@ const ThumbRegister = ({ match }) => {
             </li>
           </ul>
         </div>
-        <div className='thumb-infomation'>자기소개</div>
         <div className='thumb-quill'>
+          <div className='thumb-infomation'>상세 내용</div>
           <QuillRegister
             register={testCheking}
             addingFileList={addingFileList}
