@@ -9,7 +9,7 @@
   width: 65vw;
   position: relative;
   margin-left: 9%;
-  margin-top: -12%;
+  margin-top: -250px;
 }
 
 .winTable-Table-Wrapper {
@@ -140,6 +140,7 @@ a {
   font-family: scdream4;
   line-height: 2rem;
   white-space: nowrap;
+  table-layout: fixed;
 }
 .community-table-wrapper > table > thead {
   font-family: scdream5;
@@ -150,22 +151,22 @@ a {
   border-bottom: 2px solid #ff9411;
 }
 .wno {
-  width: 3rem;
+  width: 4%;
 }
 .wtitle {
-  width: 20rem;
+  width: 50%;
 }
 .wwriter {
-  width: 7rem;
+  width: 10%;
 }
 .wcreatedDate {
-  width: 7rem;
+  width: 8%;
 }
 .whited {
-  width: 5rem;
+  width: 4%;
 }
 .wlike {
-  width: 5rem;
+  width: 4%;
 }
 
 .community-table-wrapper > table > tbody > tr > td {
@@ -204,7 +205,7 @@ a {
   font-weight: bold;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 770px) {
   .overlay {
     width: 350px;
   }
@@ -216,28 +217,29 @@ a {
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 770px) {
   .winwin-wrapper {
     margin-top: -85px;
     margin-bottom: -35px;
   }
   .winwin-Table-Wrapper {
     margin-top: 60px;
-    margin-left: -50%;
     width: 100%;
     font-size: small;
+    margin-left: 0;
   }
   .winwinFrag {
-    margin-left: 50%;
     width: 100%;
+    margin-left: 0;
+    margin-top: 25px;
   }
   .boardName {
     margin: 0 !important;
   }
   .winTable-Table-Wrapper {
     width: 100%;
-    margin-top: 5%;
     text-align: center;
+    margin-top: 50px;
   }
 
   .li-winwin {
@@ -247,6 +249,7 @@ a {
     margin-right: 4%;
     font-weight: 100;
     &:hover {
+      width: 22%;
       text-decoration: none;
       background-color: #ff5c11;
       transition: background-color 0.3s;
@@ -261,6 +264,7 @@ a {
     margin-right: 4%;
     font-weight: 100;
     &:hover {
+      width: 22%;
       text-decoration: none;
       background-color: #ff5c11;
       transition: background-color 0.3s;
@@ -310,10 +314,10 @@ a {
     width: 10%;
   }
   .whited {
-    width: 6%;
+    width: 8%;
   }
   .wlike {
-    width: 6%;
+    width: 8%;
   }
   .cummunity-table-itself {
     table-layout: fixed;
@@ -333,12 +337,16 @@ a {
   .winwinFrag .search-form > form > input[type="text"] {
     width: 100%;
     margin-left: 0;
+    font-size: 11px !important;
   }
   .winwin-wrapper .sideBox {
-    width: 100%;
+    width: 99%;
     margin-left: -2%;
   }
   .sideUl {
     margin-left: 15px;
+  }
+  .community-options .sortingBtn {
+    width: 17%;
   }
 }

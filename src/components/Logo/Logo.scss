@@ -5,13 +5,13 @@
 }
 
 .Logo_Body {
-  padding-top: 5%;
+  padding-top: 75px;
   position: relative;
 }
 
 .Logo_Top {
   position: absolute;
-  font-family: 'hopang';
+  font-family: "hopang";
   display: inline-block;
   font-size: 75px;
   color: white;
@@ -25,12 +25,12 @@
 
 .Logo_Under {
   display: inline-block;
-  margin-top: 3%;
+  margin-top: 75px;
   margin-left: 80%;
   cursor: pointer;
 }
 
-@media all and (max-width: 500px) {
+@media all and (max-width: 770px) {
   .Logo_desc {
     width: 360px;
     margin-top: 25%;
@@ -41,7 +41,7 @@
   }
 }
 
-@media (min-width: 320px) and (max-width: 480px) {
+@media (min-width: 320px) and (max-width: 770px) {
   .Logo_Body {
     width: 100% !important;
     text-align: center;
