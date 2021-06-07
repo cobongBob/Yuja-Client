@@ -229,9 +229,10 @@
 
 @media screen and (max-width: 750px) {
   .comment-content {
-    max-width: 479;
-    width: 479px;
+    width: 469px;
     margin-top: -125px;
+    margin-left: auto;
+    margin-right: auto;
   }
   .comment-wrapper {
     margin-top: 10rem;
