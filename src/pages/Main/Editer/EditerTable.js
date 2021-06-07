@@ -34,13 +34,13 @@ export default function EditorTable({
 
   return (
     <div className='card-container'>
-      <div className='card-options'>
+      <div className='card-options' id='YregisterBtn_'>
         {wrote.length === 0 ? (
           <button onClick={writeBoard} className='detail-update-btn'>
             포트폴리오 등록하기
           </button>
         ) : (
-          <button onClick={gotomyResume} className='detail-update-btn'>
+          <button onClick={gotomyResume} className='editor-detail-update-btn'>
             내 포트폴리오 보기
           </button>
         )}
