@@ -29,6 +29,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
 
   const beforeModify = useCallback(() => {
     history.push('/BeforeModify');
+    setHideMenu(false);
   }, [history]);
 
   /* 모달 설정 */
@@ -99,6 +100,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
 
   const myPage = useCallback(() => {
     history.push('/MyPage');
+    setHideMenu(false);
   }, [history]);
 
   //알림
