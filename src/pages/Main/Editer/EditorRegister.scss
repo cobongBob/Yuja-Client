@@ -241,7 +241,7 @@
   margin-right: 7rem;
 }
 
-@media (min-width: 479px) and (max-width: 767px) {
+@media (min-width: 320px) and (max-width: 770px) {
   .editorRegisterFrag {
     margin: 0 !important;
   }
@@ -249,20 +249,21 @@
     padding: 0 !important;
   }
   .editor_li_Title_Title {
-    width: 10vw;
+    width: 20%;
     margin-left:9%;
     padding:0;
   }
   .editor_li_Title_Link {
-    width: 31vw;
+    width: 40%;
     margin-left:9%;
   }
   .editor_li_Title_ReceptionMethod {
-    width: 17vw;
+    width: 30%;
     margin-left:9%;
   }
   .register-container {
     width:100vw;
+    margin:0;
   }
   .editor-register-default-input {
     width: 100vw;
@@ -281,7 +282,7 @@
     width: 80vw;
   }
   .editor-register-default-input > .rightUl {
-    width: 100vw;
+    width: 90vw;
     text-align: left
   }
   .li-item3 {

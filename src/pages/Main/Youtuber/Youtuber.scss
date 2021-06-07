@@ -61,7 +61,7 @@
   margin-bottom: 1.5%;
 }
 
-@media (min-width: 320px) and (max-width: 480px) {
+@media (min-width: 320px) and (max-width: 770px) {
   .tableWrapper {
     margin-top: 5%;
     margin-bottom: 0;
@@ -69,15 +69,16 @@
     margin-right: 0;
   }
   .YListTitleWrapper {
+    width: 100%;
     text-align: center;
   }
   .YoutubeIcons {
     margin-left: -3%;
     margin-bottom: 3.5%;
-    font-size: 5rem;
+    font-size: 3.5rem;
   }
   .tableWrapper > .YListTitleWrapper > h1 {
-    font-size: 2.5rem;
+    font-size: 1.8rem;
   }
   .search-box {
     margin-top: 1% !important;

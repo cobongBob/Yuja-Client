@@ -64,7 +64,7 @@
   border-bottom: 4px solid #ff9411;
   display: inline-block;
   font-size: 30px;
-  width: 35rem;
+  width: 60%;
   font-weight: bold;
   text-align: left;
   margin-bottom: 1rem;
@@ -227,7 +227,7 @@
   border-radius: 5px;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 770px) {
   .comment-content {
     width: 95%;
     margin-top: -125px;

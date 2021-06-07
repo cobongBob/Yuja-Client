@@ -241,7 +241,7 @@ p {
   }
 }
 
-@media (min-width: 320px) and (max-width: 480px) {
+@media (min-width: 320px) and (max-width: 770px) {
   .slick-slider {
     margin-left: auto !important;
     margin-right: auto !important;
@@ -262,7 +262,7 @@ p {
     height: 100%;
   }
   .wrapper {
-    height: 250px !important;
+    height: 240px !important;
   }
   .thumbnails {
     margin-top: 2%;
@@ -286,7 +286,6 @@ p {
   }
   .item {
     height: 100%;
-    display: inline-block;
   }
   .item_ {
     height: 100%;
@@ -294,11 +293,13 @@ p {
   }
   .item > img {
     width: 100%;
+    height: 100%;
     margin-left: auto;
     margin-right: auto;
   }
   .item_ > img {
     width: 100%;
+    height: 100% !important;
     margin-left: auto;
     margin-right: auto;
   }

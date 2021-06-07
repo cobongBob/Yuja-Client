@@ -59,7 +59,6 @@
 }
 .detail-btn-box > div {
   display: inline-block;
-  margin-right: 0.5rem;
 }
 
 .detail-update-btn {
@@ -273,4 +272,9 @@
 .titleBoxWrapper {
   display: block;
   text-align: center;
+}
+@media (min-width: 320px) and (max-width: 770px) {
+  .sortingBtn {
+
+  }
 }
