@@ -282,18 +282,20 @@
     width: 80vw;
   }
   .editor-register-default-input > .rightUl {
-    width: 90vw;
-    text-align: left
+    width: 80%;
+    padding:0;
+    text-align: left;
+    margin-left:1%;
   }
   .li-item3 {
 
   }
   .li-item4 {
-
+    margin-bottom: 2rem;
   }
   .li-item5 {
     margin-top: 2%;
-    width: 72vw;
+    width: 100%;
     padding:0;
   }
   .editor-editor-quill {
