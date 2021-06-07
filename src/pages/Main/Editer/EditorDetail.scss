@@ -164,3 +164,45 @@
   display: inline-block;
   margin-left: 5%;
 }
+
+@media (min-width: 479px) and (max-width: 767px) {
+  .editordetail-wrapper {
+    padding:0;
+    margin:0;
+    width:100vw;
+  }
+  .editordetail-content-wrapper {
+    margin:0;
+    width:100vw;
+  }
+  .editorDetailTitleBoxWrapper {
+    width:90vw;
+    display: inline-block;
+    padding:10%;
+  }
+  .editordetail-content-profile-pic {
+    width:35vw;
+    margin-left: 33%;
+    margin-bottom: 15%;
+  }
+  .editordetail-content-profile-pic_ {
+    width:35vw;
+    margin-left: 33%;
+    margin-bottom: 20%;
+  }
+  .editorDetailTitleBox {
+    width: 80vw;
+    margin:0;
+  }
+  .detail-btn-box {
+    width:100vw;
+    font-size:1rem;
+    text-align: center;
+  }
+  .ql-container {
+    width:93vw;
+  }
+  .ql-video {
+    width:90vw;
+  }
+}
