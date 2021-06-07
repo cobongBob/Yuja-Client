@@ -1,40 +1,9 @@
-import React, { useMemo } from "react";
-import { Bar, Doughnut } from "react-chartjs-2";
+import React, { useRef, useEffect, useMemo } from "react";
+import { Doughnut } from "react-chartjs-2";
+import {Chart} from "chart.js";
+import "./AdminStats.scss";
 
 const AdminStats = ({ allStats }) => {
-  const signedUpData = useMemo(
-    () => ({
-      labels: [1, 2, 3, 4, 5, 6, 7],
-      datasets: [
-        {
-          label: "최근 일주일 안에 가입한 회원 수",
-          data: allStats && allStats.signedUp,
-          lineTension: 0,
-          backgroundColor: "#ffd400",
-          borderWidth: 1,
-          borderColor: "#ffd400",
-        },
-      ],
-    }),
-    [allStats]
-  );
-
-  const visitorsData = useMemo(
-    () => ({
-      labels: [1, 2, 3, 4, 5, 6, 7],
-      datasets: [
-        {
-          label: "최근 일주일 동안의 방문자수",
-          data: allStats && allStats.visitors,
-          lineTension: 0,
-          backgroundColor: "#ffd400",
-          borderWidth: 1,
-          borderColor: "#ffd400",
-        },
-      ],
-    }),
-    [allStats]
-  );
   const boardData = useMemo(
     () => ({
       labels: [
@@ -45,9 +14,6 @@ const AdminStats = ({ allStats }) => {
         "합방 게시판",
         "건의 게시판",
         "자유 게시판",
-        "신고 게시판",
-        "공지",
-        "고객지원",
       ],
       datasets: [
         {
@@ -60,9 +26,6 @@ const AdminStats = ({ allStats }) => {
             "#A52A2A",
             "#0000FF",
             "#000000",
-            "#8B008B",
-            "#00BFFF",
-            "#CD5C5C",
           ],
           hoverBackgroundColor: [
             "#FF6384",
@@ -72,81 +35,129 @@ const AdminStats = ({ allStats }) => {
             "#A52A2A",
             "#0000FF",
             "#000000",
-            "#8B008B",
-            "#00BFFF",
-            "#CD5C5C",
           ],
         },
       ],
     }),
     [allStats]
   );
-  // const optForBoard = {
-  //   responsive: false,
-  // };
-  const options = useMemo(
-    () => ({
-      responsive: true,
-      maintainAspectRatio: false,
 
-      scales: {
-        xAxes: [
-          {
-            display: true,
-            scaleLabel: {
-              display: true,
-              labelString: "날짜",
-              fontFamily: "Montserrat",
-              fontColor: "black",
-            },
-            ticks: {
-              maxTicksLimit: 20,
-            },
-          },
-        ],
-        yAxes: [
-          {
-            display: true,
-            scaleLabel: {
-              display: true,
-              labelString: "유저수",
-              fontFamily: "Montserrat",
-              fontColor: "black",
-            },
-            ticks: {
-              beginAtZero: true,
-              stepSize: 20,
-              min: 0,
-              max: 100,
-            },
-          },
-        ],
+  const totalBoards = allStats.totalBoards.reduce((a,b) => a+b,0);
+  const totalVisitors = allStats.visitors.reduce((a,b) => a+b,0);
+  const totalRegistered = allStats.signedUp.reduce((a,b) => a+b, 0);
+
+  console.log(allStats);
+
+  const signedUpCanvas = useRef(null);
+  useEffect(() => {
+    const signedUpDOM = signedUpCanvas.current.getContext("2d");
+
+    new Chart(signedUpDOM, {
+      type: "bar",
+      data:{
+        labels: allStats.last7Days,
+        datasets: [{
+            label: "해당 날짜 가입자 수",
+            data: allStats && allStats.signedUp,
+            backgroundColor: "#ffd400",
+            borderWidth: 1,
+            borderColor: "#ffd400",
+          }],
       },
-    }),
-    []
-  );
-  const legend = useMemo(
-    () => ({
-      display: true,
-      labels: {
-        fontColor: "black",
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: {
+            min: 0,
+            max: Math.max.apply(null, allStats.signedUp)+Math.ceil(Math.max.apply(null, allStats.signedUp)*0.1)
+          }
+        }
+    }
+    });
+  }, [allStats]);
+
+  const visitorCanvas = useRef(null);
+  useEffect(() => {
+    const visitorDOM = visitorCanvas.current.getContext("2d");
+
+    new Chart(visitorDOM, {
+      type: "bar",
+      data:{
+        labels: allStats.last7Days,
+        datasets: [{
+            label: "해당 날짜 방문자 수",
+            data: allStats && allStats.visitors,
+            backgroundColor: "#ffd400",
+            borderWidth: 1,
+            borderColor: "#ffd400",
+          }],
       },
-      position: "top",
-    }),
-    []
-  );
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            yAxes: {
+                suggestedMin: 0,
+                suggestedMax: Math.max.apply(null, allStats.visitors)+Math.ceil(Math.max.apply(null, allStats.visitors)*0.1),
+              }
+            },
+    }
+    });
+  }, [allStats]);
+
+  const userIncCanvas = useRef(null);
+  useEffect(() => {
+    const userIncDom = userIncCanvas.current.getContext("2d");
+
+    new Chart(userIncDom, {
+      type: "line",
+      data: {
+        labels: allStats.allDates,
+        datasets: [{
+          label: "해당 날짜 유자 이용자",
+          data: allStats && allStats.userInc,
+          backgroundColor: "#ffd400",
+          borderWidth: 1,
+          borderColor: "#ffd400",
+        }] 
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                suggestedMin: 0,
+                suggestedMax: Math.max.apply(null, allStats.userInc)+Math.ceil(Math.max.apply(null, allStats.userInc)*0.1)
+            }
+        }
+    }
+    });
+  }, [allStats]);
   return (
     <div className='admin_board'>
       <h1>유자 통계</h1>
-      <div>
-        <Bar data={visitorsData} legend={legend} options={options} />
+      <div id="firstTwoChartsWrap">
+        <h2 id="last7">최근 7일 통계</h2>
+        <div className="chart1">
+          <h2>방문자 수 : {totalVisitors}</h2>
+          <canvas ref={visitorCanvas}></canvas>
+        </div>
+        <div className="chart2">
+          <h2>회원 가입한 유저 수 : {totalRegistered}</h2>
+          <canvas ref={signedUpCanvas}></canvas>
+        </div>
       </div>
-      <div>
-        <Bar data={signedUpData} legend={legend} options={options} />
-      </div>
-      <div>
-        <h2>모든 게시글 현황</h2>
-        <Doughnut data={boardData} />
+      <div id="secondTwoChartsWrap">
+        <h2 id="cumul">누적 통계</h2>
+        <div className="chart3">
+          <h2>게시글 : {totalBoards} 개</h2>
+          <Doughnut data={boardData} />
+        </div>
+        <div className="chart4">
+          <h2>출시 이후 유저 증감</h2>
+          <canvas ref={userIncCanvas}></canvas>
+        </div>
       </div>
     </div>
   );
