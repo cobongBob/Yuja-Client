@@ -176,7 +176,7 @@ const EditorRegister = ({ match }) => {
           </ul>
           <ul className='rightUl'>
             <li className='li-item3'>
-              <div>경력사항</div>
+              <div className='editorCareerTitle'>경력사항</div>
               <input ref={workerRef} id='newbie' name='career' onChange={radioCheck} value='신입' type='radio' />
               <label htmlFor='newbie'>신입</label>
               <input id='career' onChange={radioCheck} name='career' value='경력' type='radio' />

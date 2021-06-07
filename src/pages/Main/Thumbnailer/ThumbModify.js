@@ -23,7 +23,7 @@ const ThumbModify = ({ match }) => {
   const [fileUrl, setFileUrl] = useState(defaultImg);
 
   const [combine, setCombine] = useState({
-    combine: 1,
+    combine: 0,
   });
 
   let ThHistory = useCallback(
@@ -134,6 +134,7 @@ const ThumbModify = ({ match }) => {
       }
       setcheckBoxInput(checkBoxConvert(res.data.tools));
       checkedlist.current = res.data.tools;
+      setCombine({combine:res.data.career.substr(3,res.data.career.length-4)})
     });
   }, [userData, history, match.params.board_id]);
 
@@ -209,14 +210,6 @@ const ThumbModify = ({ match }) => {
     }
   }, [ThHistory, match.params.board_id, input, qModiData, refsArray, combine]);
 
-  // const counter = useCallback(() => {
-  //   const regex = /[^0-9]/g;
-  //   setCombine({
-  //     ...combine,
-  //     combine: input.career.replace(regex, ""),
-  //   });
-  // }, [input, combine]);
-
   const careerYear = useCallback(
     (e) => {
       setCombine({
@@ -227,22 +220,26 @@ const ThumbModify = ({ match }) => {
     [combine]
   );
 
-  const contactCheck = useCallback((e) => {
-    e.target.value = e.target.value.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
-  }, []);
-
-  // useEffect(() => {
-  //   counter();
-  // }, [input, counter]);
-
   return (
-    <div>
+    <div className='thumbRegisterFrag'>
       <div className='register-container'>
         <div className='thumb-register-header'>
           <h1>포트폴리오 수정</h1>
         </div>
         <div className='thumb-register-default-input'>
-          <ul>
+          <ul className='leftUl'>
+            <li className='li-item2'>
+              <img className='preview_Thubnail' src={fileUrl} alt='' /> <br />
+              <input
+                className='thumb-PicInput'
+                id='thumb-PicInput'
+                type='file'
+                accept='image/jpeg, image/jpg, image/png'
+                placeholder='이 이미지는 포트폴리오 썸네일로 사용 됩니다.'
+                onChange={handleImg}
+              />
+            </li>
+            <div className='li_Title_Title'>제목</div>
             <li className='li-item1'>
               <input
                 type='text'
@@ -255,18 +252,23 @@ const ThumbModify = ({ match }) => {
                 ref={titleRef}
               />
             </li>
-            <li className='li-item2'>
-              <img className='preview_Thubnail' src={fileUrl} alt='' /> <br />
+            <li className='li-item1'>
+              <div className='li_Title_ReceptionMethod'>연락처</div>
               <input
-                className='thumb-PicInput'
-                id='thumb-PicInput'
-                type='file'
-                accept='image/jpeg, image/jpg, image/png'
-                onChange={handleImg}
+                id='YreceptionMethod'
+                onChange={onChange}
+                placeholder='연락처'
+                maxLength='50'
+                name='receptionMethod'
+                type='text'
+                value={input.receptionMethod || ""}
+                ref={receptionMethodRef}
               />
             </li>
+          </ul>
+          <ul className='rightUl'>
             <li className='li-item3'>
-              <div>경력사항</div>
+              <div className='careerTitle'>경력사항</div>
               <input
                 id='newbie'
                 name='career'
@@ -295,7 +297,10 @@ const ThumbModify = ({ match }) => {
                     maxLength='2'
                     value={combine.combine}
                     onChange={careerYear}
-                    onInput={contactCheck}
+                    onInput={({ target }) => {
+                      target.value = target.value.replace(/[^0-9]/g, "");
+                      target.value = target.value.replace(/,/g, "");
+                    }}
                   />
                   년
                 </div>
@@ -326,20 +331,10 @@ const ThumbModify = ({ match }) => {
                 ref={payAmountRef}
               />
             </li>
-            <li className='li-item1'>
-              <input
-                id='YreceptionMethod'
-                onChange={onChange}
-                placeholder='연락처'
-                maxLength='50'
-                name='receptionMethod'
-                type='text'
-                value={input.receptionMethod || ""}
-                ref={receptionMethodRef}
-              />
-            </li>
+            <div className='thumbSpanBox'>
+              <span className='thumbSpan'>사용기술</span>
+            </div>
             <li className='li-item5'>
-              <span>사용기술</span>
               <input
                 id='Epremiere'
                 name='premiere'
@@ -424,8 +419,8 @@ const ThumbModify = ({ match }) => {
             </li>
           </ul>
         </div>
-        <div className='thumb-infomation'>자기소개</div>
         <div className='thumb-quill'>
+          <div className='thumb-infomation'>상세 내용</div>
           <QuillModify
             modify={testCheking}
             addingFileList={addingFileList}

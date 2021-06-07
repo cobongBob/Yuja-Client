@@ -82,79 +82,105 @@ const ThumbDetail = ({ match }) => {
       <div>
         <ul className='Thumb-wrapper'>
           <div className='Thumb-header-wrapper'>
-            <li className='Thumb-header'>포트폴리오</li>
-          </div>
-          <div className='detail-btn'>
-            <div className='detail-btn-box'>
-              {userData && detailData.user && userData.id === detailData.user.id ? (
-                <div>
-                  <Link to={`/ThumbModify/Thumb/${detailData.id}/1`} className='detail-update-btn'>
-                    포트폴리오 수정하기
-                  </Link>
-                  <button className='detail-update-btn' onClick={deleteBoard}>
-                    포트폴리오 삭제하기
-                  </button>
-                </div>
-              ) : userData && detailData.user && authorities.includes("ADMIN") ? (
-                <button className='detail-update-btn' onClick={deleteBoard}>
-                  포트폴리오 삭제하기
-                </button>
-              ) : (
-                <Report
-                  board_id={match.params.board_id}
-                  modalIsOpen={modalIsOpen}
-                  setModalIsOpen={setModalIsOpen}
-                  board_code={detailData.boardType && detailData.boardType.boardCode}
-                />
-              )}
-              <Link className='detail-update-btn' to={`/Thboard/Thumb/1`}>
-                목록보기
-              </Link>
-            </div>
-          </div>
-          <li className='Thumb-content-like'>
-            <div className='Thumb-content-hit'>
-              <AiOutlineFileSearch className='hit' size={30} />
-              {detailData.hit}
-            </div>
-            <div>
-              {detailData && detailData.liked ? (
-                <button className='starButton' onClick={likeHandler}>
-                  <AiFillStar size={30} />
-                  <span>{detailData.likes}</span>
-                </button>
-              ) : (
-                <button className='starButton' onClick={likeHandler}>
-                  <AiOutlineStar size={30} />
-                  <span>{detailData.likes}</span>
-                </button>
-              )}
-            </div>
-          </li>
-          <div className='Thumb-content-wrapper'>
-            {detailData.profilePicture ? (
-              <li className='Thumb-content-profile-pic'>
-                <img src={detailData.profilePicture} alt='프로필 사진'></img>
-              </li>
-            ) : (
-              <li className='Thumb-content-profile-pic_'>
-                <FaUserAstronaut className='ThProfileIcon' size={80} />
-              </li>
-            )}
-            <li className='Thumb-content-hit'></li>
-            <li className='Thumb-content-title'>{detailData.title}</li>
-            <li className='Thumb-content-user'>작성자 : {detailData.user.nickname}</li>
-            <li className='Thumb-content-user-data'>{detailData.career}</li>
-            <li className='Thumb-content-user-data'>연락방법 {detailData.receptionMethod}</li>
-            <li className='Thumb-content-pay'>
-              급여방식 <span> {detailData.payType}</span>
-              희망급여 <span>{detailData.payAmount} 원</span>
+            <li className='thumbDetail-header'>
+              {detailData.user.nickname}
             </li>
-            <li className='Thumb-content-tools'>
-              사용기술 <span>{detailData.tools && detailData.tools.join(", ")}</span>
-            </li>
+          </div>
+          <div className='editordetail-content-wrapper'>
+            <div className='editorDetailTitleBoxWrapper'>
+              {detailData.profilePicture ? (
+                <li className='Thumb-content-profile-pic'>
+                  <img src={detailData.profilePicture} alt='프로필 사진'></img>
+                </li>
+              ) : (
+                <li className='editordetail-content-profile-pic_'>
+                  <FaUserAstronaut className='ThProfileIcon' size={100} />
+                </li>
+              )}
+
+              <div className='editorDetailTitleBox'>
+                <li className='editordetail-content-title'>
+                  <strong className='thumbDetailTitle'>제목</strong> {detailData.title}
+                </li>
+                <br/>
+                <li className='editordetail-content-user-data'>
+                  <strong className='thumbDetailTitle'>경력</strong>
+                  {detailData.career &&
+                  detailData.career.startsWith('경력') ?
+                    detailData.career.substr(3,detailData.career.length-3)
+                    :
+                    detailData.career}
+                </li>
+                <br/>
+                <li className='editordetail-content-user-data'>
+                  <strong className='thumbDetailTitle'>연락처</strong>
+                  {detailData.receptionMethod}
+                </li>
+                <br/>
+                <li className='editordetail-content-user-data'>
+                  <strong className='thumbDetailTitle'>급여방식</strong>
+                  {detailData.payType}
+                </li>
+                <li className='editordetail-content-user-data'>
+                  <strong className='thumbDetailTitle'>희망급여</strong>
+                  {detailData.payAmount}원
+                </li>
+                <br/>
+                <li className='editordetail-content-user-data'>
+                  <strong className='thumbDetailTitle'>사용기술</strong>
+                  {detailData.tools && detailData.tools.join(", ")}
+                </li>
+              </div>
+            </div>
+
             <li className='Thumb-content-pr'>
-              <div className='thumb-pr-div'> 경력 및 소개 </div>
+              <div className='detail-btn'>
+                <div className='detail-btn-box'>
+                  {userData && detailData.user && userData.id === detailData.user.id ? (
+                    <div>
+                      <Link to={`/ThumbModify/Thumb/${detailData.id}/1`} className='detail-update-btn'>
+                        포트폴리오 수정하기
+                      </Link>
+                      <button className='detail-update-btn' onClick={deleteBoard}>
+                        포트폴리오 삭제하기
+                      </button>
+                    </div>
+                  ) : userData && detailData.user && authorities.includes("ADMIN") ? (
+                    <button className='detail-update-btn' onClick={deleteBoard}>
+                      포트폴리오 삭제하기
+                    </button>
+                  ) : (
+                    <Report
+                      board_id={match.params.board_id}
+                      modalIsOpen={modalIsOpen}
+                      setModalIsOpen={setModalIsOpen}
+                      board_code={detailData.boardType && detailData.boardType.boardCode}
+                    />
+                  )}
+                  <Link className='detail-update-btn' to={`/Thboard/Thumb/1`}>
+                    목록보기
+                  </Link>
+                </div>
+              </div>
+              <li className='Thumb-content-like'>
+                <div className='Thumb-content-hit'>
+                  <AiOutlineFileSearch className='hit' size={30} />
+                  {detailData.hit}
+                </div>
+                <div>
+                  {detailData && detailData.liked ? (
+                    <button className='starButton' onClick={likeHandler}>
+                      <AiFillStar size={30} />
+                      <span>{detailData.likes}</span>
+                    </button>
+                  ) : (
+                    <button className='starButton' onClick={likeHandler}>
+                      <AiOutlineStar size={30} />
+                      <span>{detailData.likes}</span>
+                    </button>
+                  )}
+                </div>
+              </li>
               <div className='thumb-pr-content'>
                 <ReactQuill
                   className='QuillContent'
