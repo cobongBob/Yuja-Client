@@ -137,7 +137,7 @@ const EditorRegister = ({ match }) => {
         </div>
         <div className='editor-register-default-input'>
           <ul className='leftUl'>
-            <div className='li_Title_Title'>제목</div>
+            <div className='editor_li_Title_Title'>제목</div>
             <li className='li-item1'>
               <input
                 type='text'
@@ -150,7 +150,7 @@ const EditorRegister = ({ match }) => {
               />
             </li>
             <li className='li-item2'>
-              <div className='li_Title_Link'>대표 영상 링크</div>
+              <div className='editor_li_Title_Link'>대표 영상 링크</div>
               <input
                 type='text'
                 id='thumb-PicInput'
@@ -162,7 +162,7 @@ const EditorRegister = ({ match }) => {
             </li>
             <div className='warningBox'>{editorLinkDesc}</div>
             <li className='li-item3'>
-              <div className='li_Title_ReceptionMethod'>연락처</div>
+              <div className='editor_li_Title_ReceptionMethod'>연락처</div>
               <input
                 id='YreceptionMethod'
                 onChange={onChange}
@@ -246,7 +246,7 @@ const EditorRegister = ({ match }) => {
           </ul>
         </div>
       </div>
-      <div className='editor-quill'>
+      <div className='editor-editor-quill'>
         <div className='editor-infomation'>상세 내용</div>
         <QuillRegister
           register={testCheking}
