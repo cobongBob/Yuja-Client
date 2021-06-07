@@ -122,12 +122,12 @@ const SignOut = ({ history }) => {
                 <br />
                 회원 탈퇴시 게시물 등을 포함한
                 <br />
-                유자 내 모든 이용 정보는 1년간 보관 됩니다.
+                모든 이용 정보는 약관에 따라 1년간 보관 됩니다.
                 <br />
-                모든 데이터 즉시 삭제 문의는 관리자에게 문의하세요.
+                정보 즉시 삭제는 관리자에게 문의하세요.
                 <br />
                 <br />
-                완전 삭제 이후에는 복구가 불가능합니다.
+                완전 삭제 이후에는 <span>복구</span>가 불가능합니다.
               </div>
               <div className='labelWrapper'>
                 <label className='beforeModifyPasswordLabel' htmlFor='password' autoFocus='on'>
@@ -153,13 +153,16 @@ const SignOut = ({ history }) => {
             <div className='signOutBox'>
               <div className='signOutDescBox'>
                 <span>{loggedInUserData.nickname}</span>
-                님, <br />
+                님,
+                <br />
                 회원 탈퇴시 게시물 등을 포함한
                 <br />
-                유자 내 모든 이용 정보는 1년간 보관 됩니다.
+                모든 이용 정보는 약관에 따라 1년간 보관 됩니다.
+                <br />
+                정보 즉시 삭제는 관리자에게 문의하세요.
                 <br />
                 <br />
-                삭제 이후에는 <span>복구</span>가 불가능합니다.
+                완전 삭제 이후에는 <span>복구</span>가 불가능합니다.
                 <br />
                 <br />
                 탈퇴 하시려면 다시 한번 로그인 해주세요.
@@ -167,7 +170,7 @@ const SignOut = ({ history }) => {
               <div className='SignOutGoogleBtnBox'>
                 <GoogleLogin
                   className='googleLoginBtn'
-                  clientId='373267940764-jujlpjtg3qtd21bg6496vaj7k9ooj56e.apps.googleusercontent.com'
+                  clientId={process.env.REACT_APP_GOOGLE_OAUTH_KEY}
                   buttonText='구글 로그인'
                   onSuccess={resGoogle}
                   onFailure={resGoogle}
