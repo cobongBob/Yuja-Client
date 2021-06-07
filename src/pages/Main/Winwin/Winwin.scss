@@ -1,5 +1,5 @@
 .winwinFrag {
-  margin-top: 2rem;
+  margin-top: 80px;
   margin-left: 10rem;
   margin-bottom: 5rem;
 }
@@ -102,23 +102,14 @@ a {
 }
 
 .sideBox {
-  display: inline-block;
   margin: auto;
   top: 19vh;
   position: relative;
   left: 3%;
 }
 .sideMenu {
-  //float: left;
-  //margin-left: 8rem;
-  //margin-top: 9rem;
-  //border-radius: 2px;
-  //min-height: 50vh;
-  //min-width: 10vw;
-  //border: none;
   border-radius: 2px;
   border: none;
-  display: inline-block;
 }
 
 .sideMenu-title {
@@ -223,7 +214,7 @@ a {
     margin-bottom: -35px;
   }
   .winwin-Table-Wrapper {
-    margin-top: 60px;
+    margin-top: 25px;
     width: 100%;
     font-size: small;
     margin-left: 0;
@@ -231,7 +222,6 @@ a {
   .winwinFrag {
     width: 100%;
     margin-left: 0;
-    margin-top: 25px;
   }
   .boardName {
     margin: 0 !important;
@@ -239,7 +229,7 @@ a {
   .winTable-Table-Wrapper {
     width: 100%;
     text-align: center;
-    margin-top: 50px;
+    margin-top: 25px;
   }
 
   .li-winwin {
@@ -285,7 +275,7 @@ a {
     height: 1.5rem;
   }
   .community-options {
-    margin-top: 1rem;
+    margin-top: 5%;
   }
   .sideMenu {
     text-align: center;
@@ -344,7 +334,7 @@ a {
     margin-left: -2%;
   }
   .sideUl {
-    margin-left: 15px;
+    margin-left: 4%;
   }
   .community-options .sortingBtn {
     width: 17%;
