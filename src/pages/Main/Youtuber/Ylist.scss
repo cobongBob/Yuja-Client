@@ -311,3 +311,13 @@
   font-size: 20px !important;
   padding-top: 20px;
 }
+@media (min-width: 320px) and (max-width: 480px) {
+  .youtuber-card-container > ul > li {
+    width: 85vw;
+    margin: 1rem;
+  }
+  .card-container > ul > li {
+    width: 85vw;
+    margin: 1rem;
+  }
+}
