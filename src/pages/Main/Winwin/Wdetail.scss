@@ -22,7 +22,7 @@
 
 .comment-options > button {
   width: 5rem;
-  margin-left:10px;
+  margin-left: 10px;
 }
 
 .comment-options-user {
@@ -57,7 +57,7 @@
   border-radius: 20px;
 }
 
-.comment-register-title > input[type='text'] {
+.comment-register-title > input[type="text"] {
   margin-top: 1rem;
   margin-right: 1rem;
   border: none;
@@ -111,14 +111,13 @@
 }
 
 .dateBox {
-  float:right;
+  float: right;
   margin-left: 10px;
   font-size: 20px;
   & > span {
     font-weight: bold;
   }
 }
-
 
 .comment-content > .DetailQuill {
   margin-bottom: 5rem !important;
@@ -226,4 +225,27 @@
   border: 1px solid black;
   margin-right: 0.5rem;
   border-radius: 5px;
+}
+
+@media screen and (max-width: 750px) {
+  .comment-content {
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 450px;
+    margin-top: -125px;
+  }
+  .comment-wrapper {
+    margin-top: 10rem;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 3.5rem;
+  }
+  .comment-register-title > input[type="text"] {
+    font-size: 25px;
+    width: 450px;
+  }
+  .comment-register-category {
+    font-size: 25px;
+  }
 }

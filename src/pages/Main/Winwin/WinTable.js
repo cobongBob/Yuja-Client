@@ -52,7 +52,7 @@ const WinTable = ({ currentData, board_type, lastIdx, currentPage, allNotices, u
         <SortingComment />
       </div>
       <div className='community-table-wrapper'>
-        <table>
+        <table className='cummunity-table-itself'>
           <thead>
             <tr>
               <th className='wno'>번호</th>

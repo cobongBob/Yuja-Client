@@ -1,16 +1,14 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { Bar, Doughnut } from "react-chartjs-2";
 
 const AdminStats = ({ allStats }) => {
-  const stats = useState(allStats);
-  console.log(stats[0]);
   const signedUpData = useMemo(
     () => ({
       labels: [1, 2, 3, 4, 5, 6, 7],
       datasets: [
         {
           label: "최근 일주일 안에 가입한 회원 수",
-          data: stats && stats[0].signedUp,
+          data: allStats && allStats.signedUp,
           lineTension: 0,
           backgroundColor: "#ffd400",
           borderWidth: 1,
@@ -18,7 +16,7 @@ const AdminStats = ({ allStats }) => {
         },
       ],
     }),
-    [stats]
+    [allStats]
   );
 
   const visitorsData = useMemo(
@@ -27,7 +25,7 @@ const AdminStats = ({ allStats }) => {
       datasets: [
         {
           label: "최근 일주일 동안의 방문자수",
-          data: stats && stats[0].visitors,
+          data: allStats && allStats.visitors,
           lineTension: 0,
           backgroundColor: "#ffd400",
           borderWidth: 1,
@@ -35,7 +33,7 @@ const AdminStats = ({ allStats }) => {
         },
       ],
     }),
-    [stats]
+    [allStats]
   );
   const boardData = useMemo(
     () => ({
@@ -53,7 +51,7 @@ const AdminStats = ({ allStats }) => {
       ],
       datasets: [
         {
-          data: stats && stats[0].totalBoards,
+          data: allStats && allStats.totalBoards,
           backgroundColor: [
             "#FF6384",
             "#36A2EB",
@@ -81,7 +79,7 @@ const AdminStats = ({ allStats }) => {
         },
       ],
     }),
-    [stats]
+    [allStats]
   );
   // const optForBoard = {
   //   responsive: false,

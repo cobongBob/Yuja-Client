@@ -49,43 +49,43 @@ const Winwin = ({ match, history }) => {
   }, []);
 
   return winBoard.loading && !winBoard ? (
-    <>
+    <div className='winwin-wrapper'>
       <div className='loading'>
         <WSide />
       </div>
-    </>
+    </div>
   ) : winBoard.err ? (
     <h2>{winBoard.err}</h2>
   ) : (
-    <>
+    <div className='winwin-wrapper'>
       <div className='sideBox'>
         <WSide />
       </div>
-    <div className='winwinFrag'>
-      <div className='winwin-Table-Wrapper'>
-        <WinTable
-          currentData={currentData}
-          board_type={board_type.current}
-          lastIdx={winBoard.wFilterData.length - 10 * (currentPage - 1)}
-          currentPage={currentPage}
-          allNotices={allNotices}
-          userData={userData}
-        />
-        <Search
-          boardData={searchTerm.length < 1 ? winBoard.wFilterData : null}
-          term={searchTerm}
-          setTerm={setSearchTerm}
-          searchKeyword={searchHandler}
-        />
-        <Pagination
-          boardPerPage={boardPerPage}
-          totalBoards={winBoard.wFilterData.length}
-          currentPage={currentPage}
-          clickPage={clickPage}
-        />
+      <div className='winwinFrag'>
+        <div className='winwin-Table-Wrapper'>
+          <WinTable
+            currentData={currentData}
+            board_type={board_type.current}
+            lastIdx={winBoard.wFilterData.length - 10 * (currentPage - 1)}
+            currentPage={currentPage}
+            allNotices={allNotices}
+            userData={userData}
+          />
+          <Search
+            boardData={searchTerm.length < 1 ? winBoard.wFilterData : null}
+            term={searchTerm}
+            setTerm={setSearchTerm}
+            searchKeyword={searchHandler}
+          />
+          <Pagination
+            boardPerPage={boardPerPage}
+            totalBoards={winBoard.wFilterData.length}
+            currentPage={currentPage}
+            clickPage={clickPage}
+          />
+        </div>
       </div>
     </div>
-    </>
   );
 };
 
