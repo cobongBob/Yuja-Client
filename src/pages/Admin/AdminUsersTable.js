@@ -84,7 +84,7 @@ const AdminUsersTable = ({ currentData, userSetBan, userRemove, userRecovery }) 
                 <table className='editordetail-wrapper admin_user_details'>
                   <tbody>
                     <tr className='editordetail-header-wrapper'>
-                      <td className='editordetail-header'>
+                      <td className='admindetail-header'>
                         회원정보
                         {currentData[seleted].deleted ? (
                           <span style={{ color: "gray", fontSize: "1rem" }}> 탈퇴됨</span>
