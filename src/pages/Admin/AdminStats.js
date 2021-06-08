@@ -32,7 +32,7 @@ const AdminStats = ({ allStats }) => {
 
   const signedUpCanvas = useRef(null);
   useEffect(() => {
-    if (allStats) {
+    if (allStats.length > 0) {
       const signedUpDOM = signedUpCanvas.current.getContext("2d");
 
       new Chart(signedUpDOM, {
@@ -65,7 +65,7 @@ const AdminStats = ({ allStats }) => {
 
   const visitorCanvas = useRef(null);
   useEffect(() => {
-    if (allStats) {
+    if (allStats.length > 0) {
       const visitorDOM = visitorCanvas.current.getContext("2d");
       new Chart(visitorDOM, {
         type: "bar",
@@ -98,7 +98,7 @@ const AdminStats = ({ allStats }) => {
 
   const userIncCanvas = useRef(null);
   useEffect(() => {
-    if (allStats) {
+    if (allStats.length > 0) {
       const userIncDom = userIncCanvas.current.getContext("2d");
       new Chart(userIncDom, {
         type: "line",
