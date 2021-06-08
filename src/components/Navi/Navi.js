@@ -11,7 +11,7 @@ const Navi = ({ allNotifications, setModalIsOpen }) => {
   const { authorities } = useSelector((state) => state.loginReducer);
   return (
     <div className='nav'>
-      <Navbar className='NavWrapper' collapseOnSelect bg='light' expand='lg'>
+      <Navbar className='NavWrapper' collapseOnSelect expand='lg'>
         <Navbar.Brand>
           <LoginModal allNotifications={allNotifications} setModalIsOpen={setModalIsOpen} />
         </Navbar.Brand>

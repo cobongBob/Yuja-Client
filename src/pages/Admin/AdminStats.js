@@ -26,9 +26,9 @@ const AdminStats = ({ allStats }) => {
     [allStats]
   );
 
-  const totalBoards = allStats.totalBoards.reduce((a, b) => a + b, 0);
-  const totalVisitors = allStats.visitors.reduce((a, b) => a + b, 0);
-  const totalRegistered = allStats.signedUp.reduce((a, b) => a + b, 0);
+  const { current: totalBoards } = useRef(allStats.totalBoards && allStats.totalBoards.reduce((a, b) => a + b, 0));
+  const { current: totalVisitors } = useRef(allStats.visitors && allStats.visitors.reduce((a, b) => a + b, 0));
+  const { current: totalRegistered } = useRef(allStats.signedUp && allStats.signedUp.reduce((a, b) => a + b, 0));
 
   const signedUpCanvas = useRef(null);
   useEffect(() => {
@@ -125,31 +125,33 @@ const AdminStats = ({ allStats }) => {
     });
   }, [allStats]);
   return (
-    <div className='admin_board'>
-      <h1 className="boardName">유자 통계</h1>
-      <div id='firstTwoChartsWrap'>
-        <h2 id='last7'>최근 7일 통계</h2>
-        <div className='chart1'>
-          <h2>방문자 수 : {totalVisitors}</h2>
-          <canvas ref={visitorCanvas}></canvas>
+    allStats && (
+      <div className='admin_board'>
+        <h1 className='boardName'>유자 통계</h1>
+        <div id='firstTwoChartsWrap'>
+          <h2 id='last7'>최근 7일 통계</h2>
+          <div className='chart1'>
+            <h2>방문자 수 : {totalVisitors}</h2>
+            <canvas ref={visitorCanvas}></canvas>
+          </div>
+          <div className='chart2'>
+            <h2>회원 가입한 유저 수 : {totalRegistered}</h2>
+            <canvas ref={signedUpCanvas}></canvas>
+          </div>
         </div>
-        <div className='chart2'>
-          <h2>회원 가입한 유저 수 : {totalRegistered}</h2>
-          <canvas ref={signedUpCanvas}></canvas>
+        <div id='secondTwoChartsWrap'>
+          <h2 id='cumul'>누적 통계</h2>
+          <div className='chart3'>
+            <h2>게시글 : {totalBoards} 개</h2>
+            <Doughnut data={boardData} />
+          </div>
+          <div className='chart4'>
+            <h2>출시 이후 유저 증감</h2>
+            <canvas ref={userIncCanvas}></canvas>
+          </div>
         </div>
       </div>
-      <div id='secondTwoChartsWrap'>
-        <h2 id='cumul'>누적 통계</h2>
-        <div className='chart3'>
-          <h2>게시글 : {totalBoards} 개</h2>
-          <Doughnut data={boardData} />
-        </div>
-        <div className='chart4'>
-          <h2>출시 이후 유저 증감</h2>
-          <canvas ref={userIncCanvas}></canvas>
-        </div>
-      </div>
-    </div>
+    )
   );
 };
 

@@ -79,54 +79,50 @@ const EDetail = ({ match }) => {
       <div>
         <ul className='editordetail-wrapper'>
           <div className='editordetail-header-wrapper'>
-            <li className='editordetail-header'>
-              {detailData.user.nickname}
-            </li>
+            <li className='editordetail-header'>{detailData.user.nickname}</li>
           </div>
           <div className='editordetail-content-wrapper'>
             <div className='editorDetailTitleBoxWrapper'>
-            {detailData.profilePicture ? (
-              <li className='editordetail-content-profile-pic'>
-                <img src={detailData.profilePicture} alt='프로필 사진'></img>
-              </li>
-            ) : (
-              <li className='editordetail-content-profile-pic_'>
-                <FaUserAstronaut className='EProfileIcon' size={100} />
-              </li>
-            )}
+              {detailData.profilePicture ? (
+                <li className='editordetail-content-profile-pic'>
+                  <img src={detailData.profilePicture} alt='프로필 사진'></img>
+                </li>
+              ) : (
+                <li className='editordetail-content-profile-pic_'>
+                  <FaUserAstronaut className='EProfileIcon' size={100} />
+                </li>
+              )}
 
-            <div className='editorDetailTitleBox'>
-            <li className='editordetail-content-title'>
-              <strong className='editorDetailTitle'>제목</strong> {detailData.title}
-            </li>
-            <br/>
-            <li className='editordetail-content-user-data'>
-              <strong className='editorDetailTitle'>경력</strong>
-              {detailData.career &&
-              detailData.career.startsWith('경력') ?
-                detailData.career.substr(3,detailData.career.length-3)
-              :
-              detailData.career}
-            </li>
-            <br/>
-            <li className='editordetail-content-user-data'>
-              <strong className='editorDetailTitle'>연락처</strong>
-              {detailData.receptionMethod}
-            </li>
-            <br/>
-            <li className='editordetail-content-user-data'>
-              <strong className='editorDetailTitle'>급여방식</strong>
-              {detailData.payType}
-            </li>
-            <li className='editordetail-content-user-data'>
-              <strong className='editorDetailTitle'>희망급여</strong>
-              {detailData.payAmount}원
-            </li>
-            <br/>
-            <li className='editordetail-content-user-data'>
-              <strong className='editorDetailTitle'>사용기술</strong>
-              {detailData.tools && detailData.tools.join(", ")}
-            </li>
+              <div className='editorDetailTitleBox'>
+                <li className='editordetail-content-title'>
+                  <strong className='editorDetailTitle'>제목</strong> {detailData.title}
+                </li>
+                <br />
+                <li className='editordetail-content-user-data'>
+                  <strong className='editorDetailTitle'>경력</strong>
+                  {detailData.career && detailData.career.startsWith("경력")
+                    ? detailData.career.substr(3, detailData.career.length - 3)
+                    : detailData.career}
+                </li>
+                <br />
+                <li className='editordetail-content-user-data'>
+                  <strong className='editorDetailTitle'>연락처</strong>
+                  {detailData.receptionMethod}
+                </li>
+                <br />
+                <li className='editordetail-content-user-data'>
+                  <strong className='editorDetailTitle'>급여방식</strong>
+                  {detailData.payType}
+                </li>
+                <li className='editordetail-content-user-data'>
+                  <strong className='editorDetailTitle'>희망급여</strong>
+                  {detailData.payAmount}원
+                </li>
+                <br />
+                <li className='editordetail-content-user-data'>
+                  <strong className='editorDetailTitle'>사용기술</strong>
+                  {detailData.tools && detailData.tools.join(", ")}
+                </li>
               </div>
             </div>
 
@@ -136,15 +132,15 @@ const EDetail = ({ match }) => {
                   {userData && detailData.user && userData.id === detailData.user.id ? (
                     <div>
                       <Link to={`/EboardModify/Editor/${detailData.id}/1`} className='in-detail-update-btn2'>
-                        포트폴리오 수정하기
+                        수정하기
                       </Link>
                       <button className='in-detail-update-btn' onClick={deleteBoard}>
-                        포트폴리오 삭제하기
+                        삭제하기
                       </button>
                     </div>
                   ) : userData && detailData.user && authorities.includes("ADMIN") ? (
                     <button className='in-detail-update-btn' onClick={deleteBoard}>
-                      포트폴리오 삭제하기
+                      삭제하기
                     </button>
                   ) : (
                     <Report
