@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import Wboard from './components/MainBoard/Wboard';
+import Wboard from './pages/Main/Wboard';
 import MainBoard from './pages/Main/MainBoard';
-import VideoBox from './pages/VideoBox/VideoBox';
+import VideoBox from './components/VideoBox/VideoBox';
 import './MainWrapper.scss';
 import { getMainData } from './redux/main/mainReducer';
 import { useDispatch } from 'react-redux';

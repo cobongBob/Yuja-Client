@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-import Pagination from '../Main/components/Pagination';
+import Pagination from '../../components/Pagination';
 
 const MyPageYoutuberTable = ({
   boardData,
