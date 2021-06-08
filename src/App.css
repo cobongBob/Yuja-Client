@@ -1,18 +1,18 @@
 @font-face {
-  font-family: "hopang";
-  src: url("./fonts/SDSamliphopangcheTTFOutline.ttf");
+  font-family: 'hopang';
+  src: url('./fonts/SDSamliphopangcheTTFOutline.ttf');
 }
 @font-face {
-  font-family: "scdream3";
-  src: url("./fonts/SCDream3.otf");
+  font-family: 'scdream3';
+  src: url('./fonts/SCDream3.otf');
 }
 @font-face {
-  font-family: "scdream4";
-  src: url("./fonts/SCDream4.otf");
+  font-family: 'scdream4';
+  src: url('./fonts/SCDream4.otf');
 }
 @font-face {
-  font-family: "scdream5";
-  src: url("./fonts/SCDream5.otf");
+  font-family: 'scdream5';
+  src: url('./fonts/SCDream5.otf');
 }
 
 ::-webkit-scrollbar {
@@ -43,12 +43,61 @@
   top: 88%;
   left: 94%;
   color: #c4302b;
-  font-size: 4rem;
+  font-size: 3rem;
   cursor: pointer;
+  border: 3px solid #c4302b;
+  padding: 0.25rem;
+  border-radius: 50%;
 }
+
+.chat_button_noti {
+  position: fixed;
+  z-index: 100;
+  top: 88%;
+  left: 94%;
+  color: #c4302b;
+  font-size: 3rem;
+  cursor: pointer;
+  border: 3px solid #c4302b;
+  padding: 0.25rem;
+  border-radius: 50%;
+  animation: shake 2s ease infinite;
+}
+
 @media all and (max-width: 770px) {
   .chat_button {
     top: 90%;
     left: 83%;
+  }
+  .chat_button_noti {
+    top: 90%;
+    left: 83%;
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(0, 0);
+  }
+  1.78571% {
+    transform: translate(5px, 0);
+  }
+  3.57143% {
+    transform: translate(0, 0);
+  }
+  5.35714% {
+    transform: translate(5px, 0);
+  }
+  7.14286% {
+    transform: translate(0, 0);
+  }
+  8.92857% {
+    transform: translate(5px, 0);
+  }
+  10.71429% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(0, 0);
   }
 }

@@ -1,7 +1,19 @@
-import React from "react";
-import { useHistory } from "react-router";
+import React from 'react';
+import { useHistory } from 'react-router';
+import Pagination from '../Main/components/Pagination';
 
-const MyPageProfolioTable = ({ boardData, board_code, portFolioLikeHandler }) => {
+const MyPageProfolioTable = ({
+  boardData,
+  board_code,
+  portFolioLikeHandler,
+  boardPerPage,
+  totalBoards,
+  currentPage,
+  clickPage,
+  thTotalBoards,
+  thCurrentPage,
+  thClickPage,
+}) => {
   const history = useHistory();
 
   return (
@@ -14,12 +26,12 @@ const MyPageProfolioTable = ({ boardData, board_code, portFolioLikeHandler }) =>
       <table>
         <thead>
           <tr>
-            <td style={{ width: "4rem" }}>이름</td>
-            <td style={{ width: "4rem" }}>제목</td>
-            <td style={{ width: "4rem" }}>경력</td>
-            <td style={{ width: "4rem" }}>연락처</td>
-            <td style={{ width: "4rem" }}>사용기술</td>
-            <td style={{ width: "2rem" }}></td>
+            <td style={{ width: '4rem' }}>이름</td>
+            <td style={{ width: '4rem' }}>제목</td>
+            <td style={{ width: '4rem' }}>경력</td>
+            <td style={{ width: '4rem' }}>연락처</td>
+            <td style={{ width: '4rem' }}>사용기술</td>
+            <td style={{ width: '2rem' }}></td>
           </tr>
         </thead>
         <tbody>
@@ -30,9 +42,9 @@ const MyPageProfolioTable = ({ boardData, board_code, portFolioLikeHandler }) =>
                   key={idx}
                   onClick={() =>
                     history.push(
-                      `/${board_code === 2 ? "EDetail" : "ThumbDetail"}/${board_code === 2 ? "Editor" : "Thumb"}/${
-                        data.id
-                      }/1`
+                      `/${board_code === 2 ? 'EDetail' : 'ThumbDetail'}/${
+                        board_code === 2 ? 'Editor' : 'Thumb'
+                      }/${data.id}/1`
                     )
                   }
                 >
@@ -40,9 +52,12 @@ const MyPageProfolioTable = ({ boardData, board_code, portFolioLikeHandler }) =>
                   <td>{data.title}</td>
                   <td>{data.career}</td>
                   <td>{data.receptionMethod}</td>
-                  <td>{data.tools && data.tools.join(", ")}</td>
+                  <td>{data.tools && data.tools.join(', ')}</td>
                   <td onClick={(e) => e.stopPropagation()}>
-                    <button onClick={() => portFolioLikeHandler(data.id, board_code)} className='myPage-cancel'>
+                    <button
+                      onClick={() => portFolioLikeHandler(data.id, board_code)}
+                      className='myPage-cancel'
+                    >
                       삭제
                     </button>
                   </td>
@@ -53,6 +68,21 @@ const MyPageProfolioTable = ({ boardData, board_code, portFolioLikeHandler }) =>
           })}
         </tbody>
       </table>
+      {board_code === 2 ? (
+        <Pagination
+          boardPerPage={boardPerPage}
+          totalBoards={totalBoards}
+          currentPage={currentPage}
+          clickPage={clickPage}
+        />
+      ) : (
+        <Pagination
+          boardPerPage={boardPerPage}
+          totalBoards={thTotalBoards}
+          currentPage={thCurrentPage}
+          clickPage={thClickPage}
+        />
+      )}
     </div>
   );
 };
