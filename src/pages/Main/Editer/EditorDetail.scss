@@ -190,22 +190,22 @@
     width: 100vw;
   }
   .editorDetailTitleBoxWrapper {
-    width: 90vw;
+    width: 100%;
     display: inline-block;
-    padding: 10%;
+    padding: 5%;
   }
   .editordetail-content-profile-pic {
-    width: 35vw;
-    margin-left: 33%;
-    margin-bottom: 15%;
+    width: 100%;
+    margin-bottom: 10%;
+    text-align: center;
   }
   .editordetail-content-profile-pic_ {
-    width: 35vw;
-    margin-left: 33%;
-    margin-bottom: 20%;
+    width: 100%;
+    margin-bottom: 10%;
+    text-align: center;
   }
   .editorDetailTitleBox {
-    width: 80vw;
+    width: 100%;
     margin: 0;
   }
   .detail-btn-box {
@@ -223,9 +223,9 @@
     margin: 5px;
   }
   .in-detail-update-btn {
-    font-size: 1rem;
+    font-size: 0.5rem;
   }
   .in-detail-update-btn2 {
-    font-size: 1rem;
+    font-size: 0.5rem;
   }
 }

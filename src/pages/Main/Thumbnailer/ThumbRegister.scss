@@ -170,7 +170,7 @@
 }
 
 .thumb-register-default-input > ul > .li-item3 {
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
   display: block;
 }
 
@@ -213,7 +213,7 @@
   border-bottom: 4px solid #ff7c7c;
   margin-bottom: 1rem;
 }
-@media (min-width: 479px) and (max-width: 770px) {
+@media (min-width: 320px) and (max-width: 770px) {
   .thumbRegisterFrag {
     margin: 0 !important;
   }
@@ -261,11 +261,8 @@
   .thumb-quill {
     margin: 5%;
   }
-}
-
-@media (min-width: 320px) and (max-width: 770px) {
   .tableWrapper > .ThListTitleWrapper > h1 {
-    font-size: 2.3rem;
+    font-size: 2.1rem;
   }
   .thumbRegisterFrag {
     margin: 0;
@@ -314,8 +311,32 @@
     width: 100vw;
   }
   .Thumb-content-profile-pic {
-    width: 35vw;
-    margin-left: 33%;
-    margin-bottom: 15%;
+    width: 100%;
+    margin-bottom: 10%;
+    text-align: center;
+  }
+  .editordetail-content-profile-pic_ {
+    width: 100%;
+    margin-bottom: 20%;
+    text-align: center;
+  }
+  .li-item3 > label {
+    margin-right:5px !important;
+  }
+  .careerTitle {
+    font-size: 15px;
+  }
+  .careerTimeBox {
+    font-size: 15px;
+    margin-left:0px;
+  }
+  .careerTimeBox > input {
+    margin-left:0;
+  }
+  .editor-editor-quill {
+    margin: 5%;
+  }
+  .thumb-pr-content {
+    margin:5px;
   }
 }
