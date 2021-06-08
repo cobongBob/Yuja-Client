@@ -18,10 +18,10 @@ const MyPageLikeWrite = ({
       <table>
         <thead>
           <tr>
-            <td style={{ width: '2rem' }}>분류</td>
-            <td style={{ width: '3rem' }}>작성자</td>
-            <td style={{ width: '5rem' }}>제목</td>
-            <td style={{ width: '2rem' }}></td>
+            <td>분류</td>
+            <td>작성자</td>
+            <td>제목</td>
+            <td></td>
           </tr>
         </thead>
         <tbody>
@@ -61,12 +61,14 @@ const MyPageLikeWrite = ({
           })}
         </tbody>
       </table>
-      <Pagination
-        boardPerPage={boardPerPage}
-        totalBoards={totalBoards}
-        currentPage={currentPage}
-        clickPage={clickPage}
-      />
+      <div className='myPage-free-paging'>
+        <Pagination
+          boardPerPage={boardPerPage}
+          totalBoards={totalBoards}
+          currentPage={currentPage}
+          clickPage={clickPage}
+        />
+      </div>
     </div>
   );
 };

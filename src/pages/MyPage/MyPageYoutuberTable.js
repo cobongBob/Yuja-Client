@@ -19,14 +19,14 @@ const MyPageYoutuberTable = ({
         <table>
           <thead>
             <tr>
-              <td style={{ width: '4rem' }}>채널명</td>
-              <td style={{ width: '7rem' }}>제목</td>
-              <td style={{ width: '4rem' }}>지원자격</td>
-              <td style={{ width: '7rem' }}>담당자연락처</td>
-              <td style={{ width: '4rem' }}>모집분야</td>
-              <td style={{ width: '7rem' }}>사용기술</td>
-              <td style={{ width: '7rem' }}>마감일</td>
-              <td style={{ width: '3rem' }}></td>
+              <td>채널명</td>
+              <td>제목</td>
+              <td>경력</td>
+              <td>담당자연락처</td>
+              <td>모집분야</td>
+              <td>사용기술</td>
+              <td>마감일</td>
+              <td></td>
             </tr>
           </thead>
           <tbody>
@@ -36,20 +36,16 @@ const MyPageYoutuberTable = ({
                   key={idx}
                   onClick={() => history.push(`/Ydetail/${data.id}/1`)}
                 >
-                  <td style={{ width: '4rem' }}>{data.channelName}</td>
-                  <td style={{ width: '4rem' }}>{data.title}</td>
-                  <td style={{ width: '3rem' }}>{data.career}</td>
-                  <td style={{ width: '4rem' }}>{data.receptionMethod}</td>
-                  <td style={{ width: '4rem' }}>{data.worker}</td>
-                  <td style={{ width: '3rem' }}>
-                    {data.tools && data.tools.join(', ')}
-                  </td>
+                  <td>{data.channelName}</td>
+                  <td>{data.title}</td>
+                  <td>{data.career}</td>
+                  <td>{data.receptionMethod}</td>
+                  <td>{data.worker}</td>
+                  <td>{data.tools && data.tools.join(', ')}</td>
                   {data.ywhen === '마감일' ? (
-                    <td style={{ width: '4rem' }}>
-                      {data.expiredDate.substr(0, 10)}
-                    </td>
+                    <td>{data.expiredDate.substr(0, 10)}</td>
                   ) : (
-                    <td style={{ width: '4rem' }}>{data.ywhen}</td>
+                    <td>{data.ywhen}</td>
                   )}
                   <td onClick={(e) => e.stopPropagation()}>
                     <button
@@ -64,12 +60,14 @@ const MyPageYoutuberTable = ({
             })}
           </tbody>
         </table>
-        <Pagination
-          boardPerPage={boardPerPage}
-          totalBoards={totalBoards}
-          currentPage={currentPage}
-          clickPage={clickPage}
-        />
+        <div className='myPage-youtuber-paging'>
+          <Pagination
+            boardPerPage={boardPerPage}
+            totalBoards={totalBoards}
+            currentPage={currentPage}
+            clickPage={clickPage}
+          />
+        </div>
       </div>
     )
   );
