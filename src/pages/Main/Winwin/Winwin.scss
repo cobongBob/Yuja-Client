@@ -30,7 +30,7 @@
   font-family: scdream4;
   display: block;
   text-align: right;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .sideMenu > div > ul {
@@ -145,19 +145,19 @@ a {
   width: 4%;
 }
 .wtitle {
-  width: 50%;
+  width: 52%;
 }
 .wwriter {
   width: 10%;
 }
 .wcreatedDate {
-  width: 8%;
+  width: 10%;
 }
 .whited {
-  width: 4%;
+  width: 7%;
 }
 .wlike {
-  width: 4%;
+  width: 7%;
 }
 
 .community-table-wrapper > table > tbody > tr > td {
@@ -196,6 +196,10 @@ a {
   font-weight: bold;
 }
 
+.winwin-wrapper {
+  margin-left: 4%;
+}
+
 @media screen and (max-width: 770px) {
   .overlay {
     width: 350px;
@@ -206,12 +210,10 @@ a {
     margin-top: 1%;
     margin-bottom: 1%;
   }
-}
-
-@media screen and (max-width: 770px) {
   .winwin-wrapper {
     margin-top: -85px;
     margin-bottom: -35px;
+    margin-left: 0;
   }
   .winwin-Table-Wrapper {
     margin-top: 25px;

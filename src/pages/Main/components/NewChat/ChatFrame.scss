@@ -20,20 +20,21 @@
 /* 채팅 반응형 */
 @media screen and (max-width: 1480px) {
   .chatFrameFrag {
-    margin-right: 1vw;
-    margin-left: 1vw;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    font-family: "scdream4";
-    position: fixed;
-    z-index: 99;
     left: 71.5%;
     bottom: 11%;
-    width: 360px;
+    margin: 0 auto;
   }
-  .chatFrameOverlay {
-    margin: auto;
-    width: 100%;
+}
+@media all and (max-width: 770px) {
+  .chatFrameFrag {
+    left: 40%;
+  }
+}
+@media all and (max-width: 480px) {
+  .chatFrameFrag {
+    margin: 0 auto;
+    left: 0;
+    right: 0;
   }
 }
 
@@ -111,11 +112,5 @@
   }
   to {
     opacity: 0;
-  }
-}
-@media all and (max-width: 770px) {
-  .chatFrameFrag {
-    left: 27%;
-    bottom: 11%;
   }
 }
