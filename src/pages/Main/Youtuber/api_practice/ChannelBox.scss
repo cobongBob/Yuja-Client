@@ -105,4 +105,20 @@
   }
   .DefaultInfo > ul > li > span {
   }
+  .DefaultInfoWrapper {
+    display: block;
+  }
+  .DefaultInfo > ul > li {
+    font-size: 1.1rem !important;
+  }
+  .DCWraapper {
+    width: 100%;
+  }
+  .DescWrapper {
+    width: 100%;
+  }
+  .DescWrapper > p {
+    padding-left: 4%;
+    padding-right: 4%;
+  }
 }
