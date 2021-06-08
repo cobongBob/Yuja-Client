@@ -126,7 +126,7 @@ const AdminStats = ({ allStats }) => {
   }, [allStats]);
   return (
     <div className='admin_board'>
-      <h1>유자 통계</h1>
+      <h1 className="boardName">유자 통계</h1>
       <div id='firstTwoChartsWrap'>
         <h2 id='last7'>최근 7일 통계</h2>
         <div className='chart1'>

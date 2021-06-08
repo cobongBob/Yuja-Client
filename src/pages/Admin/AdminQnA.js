@@ -14,7 +14,7 @@ const AdminQnA = ({ allQnAs, deleteQnA }) => {
   }, []);
   return (
     <div className='admin_board'>
-      <h1>고객센터 게시판</h1>
+      <h1 className="boardName">고객센터 게시판</h1>
       <div className='community-options'>
         <Link to={`/BoardRegister/QnA`} className='admin-registerbtn'>
           글쓰기

@@ -48,6 +48,7 @@
   list-style: none;
   display: inline;
   text-align: center;
+  padding: 0;
 }
 
 .card-paging li {
@@ -95,7 +96,7 @@
   border-radius: 20px;
 }
 
-.search-form > form > input[type="text"] {
+.search-form > form > input[type='text'] {
   -webkit-appearance: none;
   -moz-appearance: none;
   vertical-align: middle;

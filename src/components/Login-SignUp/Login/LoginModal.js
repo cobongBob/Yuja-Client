@@ -211,7 +211,8 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
           <button
             className='button-login'
             id='button-login'
-            onClick={openModal}>
+            onClick={openModal}
+          >
             로그인/회원가입
           </button>
         ) : (
@@ -237,7 +238,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
                   <Nav.Link href='#'>
                     <li>
                       <button onClick={myPage} className='modifyBtn'>
-                        찜목록
+                        즐겨찾기
                       </button>
                     </li>
                   </Nav.Link>
@@ -255,7 +256,8 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
                         onClick={() => {
                           setHideMenu(false);
                           logout();
-                        }}>
+                        }}
+                      >
                         로그아웃
                       </button>
                     </li>
@@ -276,7 +278,8 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
         closeTimeoutMS={200}
         onRequestClose={closeModal}
         style={LoginModalCustomStyles}
-        contentLabel='Example Modal'>
+        contentLabel='Example Modal'
+      >
         <section>
           <header className='header'>
             <span className='close' onClick={closeModal}>
@@ -314,7 +317,8 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
                   <Link
                     className='findPassword'
                     to='/FindPassword'
-                    onClick={closeModal}>
+                    onClick={closeModal}
+                  >
                     비밀번호 찾기
                   </Link>
                 </div>
@@ -323,7 +327,8 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
                 type='submit'
                 className='loginBtn'
                 value='로그인'
-                onClick={logInHandler}></input>
+                onClick={logInHandler}
+              ></input>
               <GoogleLogin
                 className='googleLoginBtn'
                 clientId={process.env.REACT_APP_GOOGLE_OAUTH_KEY}

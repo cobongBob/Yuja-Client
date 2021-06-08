@@ -13,7 +13,7 @@
   padding: 0.5rem;
   border-radius: 20px;
 }
-.sideBox {
+.admin-wrapper .sideBox {
   display: inline-block;
   margin: auto;
   top: 19vh;
@@ -112,5 +112,118 @@ a {
     text-decoration: none;
     background-color: #008744;
     color: white;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .overlay {
+    width: 350px;
+  }
+  .SignUpFrag {
+    margin-right: 1vw;
+    margin-left: 1vw;
+    margin-top: 1%;
+    margin-bottom: 1%;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .admin-wrapper {
+    margin-top: -85px;
+    margin-bottom: -35px;
+  }
+  .admin_item {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    margin-left: 0%;
+    margin-top: -15%;
+  }
+  .admin_main {
+    width: 100%;
+    margin-left: 0;
+    text-align: center;
+  }
+  .admin_board .boardName {
+    margin-left: 0 !important;
+    font-size: medium;
+    text-align: center;
+    width: 97%;
+  }
+  .admin-wrapper .sideBox{
+    margin-bottom: 28%;
+    width: 90%;
+  }
+  
+  .admin_li{
+    display: inline-block;
+    width: 30%;
+  }
+  .admin-wrapper .li-winwin {
+    display: inline-block;
+    font-size: 12px;
+    width: 100%;
+    margin-right: 4%;
+    font-weight: 100;
+    &:hover {
+      width: 100%;
+      text-decoration: none;
+      background-color: #ff5c11;
+      transition: background-color 0.3s;
+      color: white;
+      border-radius: 20px;
+    }
+  }
+  .admin-wrapper .li-link-disabled {
+    display: inline-block;
+    font-size: 12px;
+    width: 100%;
+    margin-right: 4%;
+    font-weight: 100;
+    &:hover {
+      width: 100%;
+      text-decoration: none;
+      background-color: #ff5c11;
+      transition: background-color 0.3s;
+      color: white;
+      border-radius: 20px;
+    }
+  }
+  .admin-wrapper .sideMenu {
+    text-align: center;
+    width: 100%;
+  }
+  .admin_board .user_no {
+    width: 4%;
+    font-size: 12px;
+  }
+  .admin_board .user_id {
+    width: 20%;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+  }
+  .admin_board .user_nickname {
+    width: 10%;
+    font-size: 12px;
+  }
+  .admin_board .user_regDate {
+    width: 10%;
+    font-size: 12px;
+  }
+  .admin_board .user_authority {
+    width: 5%;
+    font-size: 12px;
+  }
+  .admin_board .user_option {
+    width: 8%;
+    font-size: 12px;
+  }
+
+  .admin_board .sortingBtn {
+    width: 25%;
+    font-size: 12px;
   }
 }
