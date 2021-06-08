@@ -54,7 +54,7 @@ export const BoardTypeConvertUrl = (reportedBoardCode, reportedBoardId) => {
   let boardUrl = "";
   const reportedBoardType = BoardTypeConvertReverse(reportedBoardCode);
   if (reportedBoardCode === 1) {
-    boardUrl = `/Ydetail/${reportedBoardId}`;
+    boardUrl = `/Ydetail/${reportedBoardId}/1`;
   } else if (reportedBoardCode === 2) {
     boardUrl = `/EDetail/Editor/${reportedBoardId}/1`;
   } else if (reportedBoardCode === 3) {
