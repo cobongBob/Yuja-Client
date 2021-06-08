@@ -1,33 +1,33 @@
 .myPage-tableWrapper {
-  margin-top: 2rem;
-  margin-left: 5rem;
-  margin-right: 5rem;
-  margin-bottom: 5rem;
+  margin-top: 4%;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-bottom: 4%;
   text-align: center;
 }
 .myPage-tableBox {
-  margin-top: 3rem;
-  margin-left: 5rem;
-  margin-right: 5rem;
-  margin-bottom: 6rem;
+  margin-top: 2%;
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-bottom: 4%;
   display: flex;
 }
 .myPage-youtuberbox {
   font-family: scdream5;
-  margin-left: 2rem;
-  margin-right: 1rem;
+  margin-left: 1%;
+  margin-right: 1%;
 }
 
 .myPage-freebox {
   font-family: scdream5;
-  margin-left: 1rem;
-  margin-right: 2rem;
+  margin-left: 1%;
+  margin-right: 1%;
 }
 
 .myPage-portfoliobox {
   font-family: scdream5;
-  margin-right: 2rem;
-  margin-left: 2rem;
+  margin-left: 1%;
+  margin-right: 1%;
 }
 
 .myPage-main-title {
@@ -50,8 +50,18 @@
   z-index: 50;
 }
 // 유튜버 공고 즐겨찾기 테이블
+
+.myPage-youtuberbox .myPage-title {
+  margin-left: 30%;
+}
+
+.myPage-youtuber-paging {
+  margin-left: 30%;
+  margin-right: -25px;
+}
+
 .myPage-youtuberbox > table {
-  width: 100%;
+  width: 130%;
   table-layout: fixed;
   font-family: scdream4;
   line-height: 2rem;
@@ -60,6 +70,60 @@
 
 .myPage-youtuberbox > table > thead {
   border-bottom: 2px solid #ff9411;
+}
+
+.myPage-youtuberbox > table > thead > tr {
+  td:nth-of-type(1) {
+    width: 12%;
+  }
+  td:nth-of-type(2) {
+    width: 25%;
+  }
+  td:nth-of-type(3) {
+    width: 5%;
+  }
+  td:nth-of-type(4) {
+    width: 12%;
+  }
+  td:nth-of-type(5) {
+    width: 10%;
+  }
+  td:nth-of-type(6) {
+    width: 15%;
+  }
+  td:nth-of-type(7) {
+    width: 10%;
+  }
+  td:nth-of-type(8) {
+    width: 5%;
+  }
+}
+
+.myPage-youtuberbox > table > thead > tr {
+  td:nth-of-type(1) {
+    width: 12%;
+  }
+  td:nth-of-type(2) {
+    width: 25%;
+  }
+  td:nth-of-type(3) {
+    width: 5%;
+  }
+  td:nth-of-type(4) {
+    width: 12%;
+  }
+  td:nth-of-type(5) {
+    width: 10%;
+  }
+  td:nth-of-type(6) {
+    width: 15%;
+  }
+  td:nth-of-type(7) {
+    width: 10%;
+  }
+  td:nth-of-type(8) {
+    width: 5%;
+  }
 }
 
 .myPage-youtuberbox > table > tbody > tr > td {
@@ -80,17 +144,41 @@
 }
 
 // 자유게시판 즐겨찾기 테이블
+.myPage-freebox .myPage-title {
+  margin-left: 30%;
+}
+
+.myPage-free-paging {
+  margin-left: 30%;
+  margin-right: -25px;
+}
 
 .myPage-freebox > table {
-  width: 100%;
+  width: 70%;
   table-layout: fixed;
   font-family: scdream4;
   line-height: 2rem;
   white-space: nowrap;
+  margin-left: 30%;
 }
 
 .myPage-freebox > table > thead {
   border-bottom: 2px solid #ff9411;
+}
+
+.myPage-freebox > table > thead > tr {
+  td:nth-of-type(1) {
+    width: 5%;
+  }
+  td:nth-of-type(2) {
+    width: 10%;
+  }
+  td:nth-of-type(3) {
+    width: 20%;
+  }
+  td:nth-of-type(4) {
+    width: 5%;
+  }
 }
 
 .myPage-freebox > table > tbody > tr {
@@ -111,6 +199,10 @@
 
 // 포르폴리오 즐겨찾기 테이블
 
+.myPage-portfolio-paging {
+  margin-right: -25px;
+}
+
 .myPage-portfoliobox > table {
   width: 100%;
   table-layout: fixed;
@@ -121,6 +213,27 @@
 
 .myPage-portfoliobox > table > thead {
   border-bottom: 2px solid #ff9411;
+}
+
+.myPage-portfoliobox > table > thead > tr {
+  td:nth-of-type(1) {
+    width: 10%;
+  }
+  td:nth-of-type(2) {
+    width: 25%;
+  }
+  td:nth-of-type(3) {
+    width: 5%;
+  }
+  td:nth-of-type(4) {
+    width: 10%;
+  }
+  td:nth-of-type(5) {
+    width: 15%;
+  }
+  td:nth-of-type(6) {
+    width: 5%;
+  }
 }
 
 .myPage-portfoliobox > table > tbody > tr {
@@ -139,26 +252,116 @@
   white-space: nowrap;
 }
 
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 1600px) {
   .myPage-tableWrapper {
-    margin: 2%;
+    margin-top: 4%;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 4%;
+    text-align: center;
   }
+
   .myPage-tableBox {
     display: inline-block;
     margin: 0;
     text-align: center;
     width: 100%;
   }
+
   .myPage-main-title {
     font-size: 40px;
   }
-  .myPage-youtuberbox {
-    display: block;
+
+  // 즐겨찾기 유튜버 테이블
+  .myPage-youtuberbox .myPage-title {
+    margin-top: 1%;
+    margin-left: 0;
+  }
+
+  .myPage-youtuber-paging {
+    margin-left: 0;
+  }
+
+  .myPage-youtuberbox > table {
     margin-top: 3% !important;
     margin: 0;
+    width: 100%;
+  }
+
+  .myPage-freebox {
+    display: block;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-top: 1%;
+  }
+
+  // 즐겨찾기 자유게시판
+  .myPage-freebox .myPage-title {
+    margin-left: 0;
+  }
+
+  .myPage-free-paging {
+    margin-left: 0;
+  }
+
+  .myPage-freebox > table {
+    width: 100%;
+    table-layout: fixed;
+    font-family: scdream4;
+    line-height: 2rem;
+    white-space: nowrap;
+    margin-left: 0;
+  }
+
+  .myPage-portfoliobox {
+    display: block;
+    margin-top: 1%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .myPage-tableWrapper {
+    margin-top: 4%;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 4%;
+    text-align: center;
+  }
+
+  .myPage-tableBox {
+    display: inline-block;
+    margin: 0;
+    text-align: center;
+    width: 100%;
+  }
+
+  .myPage-main-title {
+    font-size: 40px;
+  }
+
+  // 즐겨찾기 유튜버 테이블
+  .myPage-youtuberbox .myPage-title {
+    margin-top: 1%;
+    margin-left: 0;
+  }
+
+  .myPage-youtuber-paging {
+    margin-left: 0;
+  }
+
+  .myPage-youtuberbox > table {
+    margin-top: 3% !important;
+    margin: 0;
+    width: 100%;
   }
 
   .myPage-youtuberbox > table > thead > tr {
+    td:nth-of-type(1) {
+      width: 10%;
+    }
+    td:nth-of-type(2) {
+      width: 30%;
+    }
     td:nth-of-type(3) {
       display: none;
     }
@@ -170,10 +373,22 @@
     }
     td:nth-of-type(6) {
       display: none;
+    }
+    td:nth-of-type(7) {
+      width: 20%;
+    }
+    td:nth-of-type(8) {
+      width: 10%;
     }
   }
 
   .myPage-youtuberbox > table > tbody > tr {
+    td:nth-of-type(1) {
+      width: 10%;
+    }
+    td:nth-of-type(2) {
+      width: 30%;
+    }
     td:nth-of-type(3) {
       display: none;
     }
@@ -185,34 +400,84 @@
     }
     td:nth-of-type(6) {
       display: none;
+    }
+    td:nth-of-type(7) {
+      width: 20%;
+    }
+    td:nth-of-type(8) {
+      width: 10%;
     }
   }
 
   .myPage-freebox {
     display: block;
-    margin: 5%;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-top: 1%;
+  }
+
+  // 즐겨찾기 자유게시판
+  .myPage-freebox .myPage-title {
+    margin-left: 0;
+  }
+
+  .myPage-free-paging {
+    margin-left: 0;
+  }
+
+  .myPage-freebox > table {
+    width: 100%;
+    table-layout: fixed;
+    font-family: scdream4;
+    line-height: 2rem;
+    white-space: nowrap;
+    margin-left: 0;
   }
 
   .myPage-portfoliobox {
     display: block;
-    margin: 5%;
+    margin-top: 1%;
   }
 
   .myPage-portfoliobox > table > thead > tr {
+    td:nth-of-type(1) {
+      width: 10%;
+    }
+    td:nth-of-type(2) {
+      width: 10%;
+    }
     td:nth-of-type(3) {
       display: none;
     }
     td:nth-of-type(4) {
       display: none;
+    }
+    td:nth-of-type(5) {
+      width: 10%;
+    }
+    td:nth-of-type(6) {
+      width: 5%;
     }
   }
 
   .myPage-portfoliobox > table > tbody > tr {
+    td:nth-of-type(1) {
+      width: 10%;
+    }
+    td:nth-of-type(2) {
+      width: 10%;
+    }
     td:nth-of-type(3) {
       display: none;
     }
     td:nth-of-type(4) {
       display: none;
+    }
+    td:nth-of-type(5) {
+      width: 10%;
+    }
+    td:nth-of-type(6) {
+      width: 10%;
     }
   }
 }

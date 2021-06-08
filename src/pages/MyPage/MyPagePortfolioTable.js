@@ -26,12 +26,12 @@ const MyPageProfolioTable = ({
       <table>
         <thead>
           <tr>
-            <td style={{ width: '4rem' }}>이름</td>
-            <td style={{ width: '4rem' }}>제목</td>
-            <td style={{ width: '4rem' }}>경력</td>
-            <td style={{ width: '4rem' }}>연락처</td>
-            <td style={{ width: '4rem' }}>사용기술</td>
-            <td style={{ width: '2rem' }}></td>
+            <td>이름</td>
+            <td>제목</td>
+            <td>경력</td>
+            <td>연락처</td>
+            <td>사용기술</td>
+            <td></td>
           </tr>
         </thead>
         <tbody>
@@ -68,21 +68,23 @@ const MyPageProfolioTable = ({
           })}
         </tbody>
       </table>
-      {board_code === 2 ? (
-        <Pagination
-          boardPerPage={boardPerPage}
-          totalBoards={totalBoards}
-          currentPage={currentPage}
-          clickPage={clickPage}
-        />
-      ) : (
-        <Pagination
-          boardPerPage={boardPerPage}
-          totalBoards={thTotalBoards}
-          currentPage={thCurrentPage}
-          clickPage={thClickPage}
-        />
-      )}
+      <div className='myPage-portfolio-paging'>
+        {board_code === 2 ? (
+          <Pagination
+            boardPerPage={boardPerPage}
+            totalBoards={totalBoards}
+            currentPage={currentPage}
+            clickPage={clickPage}
+          />
+        ) : (
+          <Pagination
+            boardPerPage={boardPerPage}
+            totalBoards={thTotalBoards}
+            currentPage={thCurrentPage}
+            clickPage={thClickPage}
+          />
+        )}
+      </div>
     </div>
   );
 };
