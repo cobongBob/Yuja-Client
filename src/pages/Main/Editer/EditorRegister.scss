@@ -238,6 +238,13 @@
   margin-right: 7rem;
 }
 
+.editorCareerTitle {
+  margin-right: 1rem;
+  font-size: 20px;
+  display: inline-block;
+  border-bottom: 4px solid #3d5ba5;
+}
+
 @media (min-width: 320px) and (max-width: 770px) {
   .editorRegisterFrag {
     margin: 0 !important;
@@ -284,6 +291,12 @@
     text-align: left;
     margin-left: 1%;
   }
+  .li-item3 {
+    font-size:15px;
+  }
+  .li-item3 > label {
+    margin-right:5px !important;
+  }
   .li-item4 {
     margin-bottom: 2rem;
   }
@@ -294,5 +307,17 @@
   }
   .editor-editor-quill {
     margin: 5%;
+  }
+  .editorCareerTitle {
+    font-size: 15px;
+    display: inline-block;
+    border-bottom: 4px solid #3d5ba5;
+  }
+  .careerTimeBox {
+    font-size: 15px;
+    margin-left:0px;
+  }
+  .careerTimeBox > input {
+    margin-left:0;
   }
 }

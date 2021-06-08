@@ -257,7 +257,7 @@ const EboardModify = ({ match }) => {
 
           <ul className='rightUl'>
             <li className='li-item3'>
-              <div>경력사항</div>
+              <div className='editorCareerTitle'>경력사항</div>
               <input
                 ref={workerRef}
                 id='newbie'
