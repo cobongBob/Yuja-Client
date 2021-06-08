@@ -88,7 +88,7 @@ const Ydetail = ({ match }) => {
                   <div className='titleBox'>{detailData.title}</div>
                 </div>
                 <div className='detail-btn'>
-                  <div className='detail-btn-box'>
+                  <div className='detail-btn-box' id='reportBtnBox'>
                     {userData &&
                     detailData.user &&
                     userData.id === detailData.user.id ? (

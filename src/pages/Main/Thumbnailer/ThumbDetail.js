@@ -162,7 +162,7 @@ const ThumbDetail = ({ match }) => {
                   </Link>
                 </div>
               </div>
-              <li className='Thumb-content-like'>
+              <div className='Thumb-content-like'>
                 <div className='thumb-pr-div'> 경력 및 소개 </div>
                 <div className='Thumb-content-hit'>
                   <AiOutlineFileSearch className='hit' size={30} />
@@ -181,7 +181,7 @@ const ThumbDetail = ({ match }) => {
                     </button>
                   )}
                 </div>
-              </li>
+              </div>
               <div className='thumb-pr-content'>
                 <ReactQuill
                   className='QuillContent'

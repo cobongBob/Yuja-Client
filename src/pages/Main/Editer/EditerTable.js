@@ -93,7 +93,6 @@ export default function EditorTable({
                 <Card.Text className='hoverTitle'>
                   <span className='card-link'>{data.title}</span>
                 </Card.Text>
-                <Card.Footer></Card.Footer>
               </Card.Body>
             </Card>
           </li>

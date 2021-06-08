@@ -160,7 +160,7 @@ const EDetail = ({ match }) => {
                   {/* 모달 열리는 부분 */}
                 </div>
               </div>
-              <li className='editordetail-content-like'>
+              <div className='editordetail-content-like'>
                 <div className='pr-div'> 경력 및 소개 </div>
                 <div className='editordetail-content-hit'>
                   <AiOutlineFileSearch className='hit' size={30} />
@@ -179,7 +179,7 @@ const EDetail = ({ match }) => {
                     </button>
                   )}
                 </div>
-              </li>
+              </div>
               <div className='pr-content'>
                 <ReactQuill
                   className='QuillContent'
