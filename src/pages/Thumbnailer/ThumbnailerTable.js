@@ -41,7 +41,7 @@ export default function ThumbnailerTable({
             포트폴리오 등록하기
           </button>
         ) : (
-          <button onClick={gotomyResume} className='detail-update-btn'>
+          <button onClick={gotomyResume} className='editor-detail-update-btn'>
             내 포트폴리오 보기
           </button>
         )}
