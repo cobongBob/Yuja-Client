@@ -165,7 +165,7 @@
   appearance: none;
   display: inline-block;
   border: 1px solid #d62d20;
-  padding: 0.5rem;
+  padding: 0.4rem;
   border-radius: 20px;
   background-color: white;
   color: #d62d20;
@@ -177,7 +177,7 @@
   border-radius: 20px;
   background-color: white;
   padding: 0.5rem;
-  margin-right: 0.5rem;
+  margin-right: 10px;
 }
 @media (min-width: 320px) and (max-width: 770px) {
   .editordetail-wrapper {
@@ -210,7 +210,7 @@
   }
   .detail-btn-box {
     width: 100vw;
-    font-size: 0.6rem !important;
+    font-size: 1rem !important;
     text-align: center;
   }
   .ql-container {
@@ -223,9 +223,21 @@
     margin: 5px;
   }
   .in-detail-update-btn {
-    font-size: 0.5rem;
+    font-size: 1rem;
   }
   .in-detail-update-btn2 {
-    font-size: 0.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media all and (min-width: 400px) and (max-width: 770px) {
+  .detail-btn-box {
+    font-size: 1.2rem !important;
+  }
+  .in-detail-update-btn {
+    font-size: 1.2rem !important;
+  }
+  .in-detail-update-btn2 {
+    font-size: 1.2rem;
   }
 }

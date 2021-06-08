@@ -289,6 +289,21 @@
     margin-bottom: 10%;
   }
   #reportBtnBox > button {
-    font-size:0.9rem;
+    font-size:.9rem;
+  }
+}
+
+@media all and (min-width: 400px) and (max-width: 770px) {
+  .detail-btn-box {
+    font-size: 1.2rem !important;
+  }
+  .in-detail-update-btn {
+    font-size: 1.2rem !important;
+  }
+  .in-detail-update-btn2 {
+    font-size: 1.2rem;
+  }
+  #reportBtnBox > button {
+    font-size:1.2rem;
   }
 }
