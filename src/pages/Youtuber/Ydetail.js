@@ -5,7 +5,7 @@ import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { AiOutlineFileSearch } from 'react-icons/ai';
 import { Link, useHistory } from 'react-router-dom';
 import ReactQuill from 'react-quill';
-import ChannelBox from './api_practice/ChannelBox';
+import ChannelBox from './ChannelBox/ChannelBox';
 import {
   getDetailData,
   addLike,
