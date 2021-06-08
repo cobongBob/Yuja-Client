@@ -320,7 +320,12 @@ function App() {
       {userData && userData.id !== 0 && (
         <>
           <RiChat1Fill
-            className='chat_button'
+            className={
+              allNotifications &&
+              allNotifications.find((noti) => noti.type === 'chatNoti')
+                ? 'chat_button_noti'
+                : 'chat_button'
+            }
             onClick={
               modalIsOpen === false
                 ? () => setModalIsOpen(true)

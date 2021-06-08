@@ -1,9 +1,7 @@
 import React, { useCallback, useState } from 'react';
-import { Col, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { deleteLike } from '../../redux/board/youtube/yboardReducer';
 import * as eboardReducer from '../../redux/board/editer/eboardReducer';
-import Pagination from '../Main/components/Pagination';
 import './myPage.scss';
 import MyPageLikeWrite from './MyPageLikeWrite';
 import MyPagePortfolioTable from './MyPagePortfolioTable';
