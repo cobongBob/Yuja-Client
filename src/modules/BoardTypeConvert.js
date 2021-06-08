@@ -18,6 +18,8 @@ const BoardTypeConvert = (board_type) => {
       return 8;
     case "Notice":
       return 9;
+    case "QnA":
+      return 10;
     default:
       return 0;
   }
@@ -42,6 +44,8 @@ export const BoardTypeConvertReverse = (board_code) => {
       return "Report";
     case 9:
       return "Notice";
+    case 10:
+      return "QnA";
     default:
       return 0;
   }
@@ -50,7 +54,7 @@ export const BoardTypeConvertUrl = (reportedBoardCode, reportedBoardId) => {
   let boardUrl = "";
   const reportedBoardType = BoardTypeConvertReverse(reportedBoardCode);
   if (reportedBoardCode === 1) {
-    boardUrl = `/Ydetail/${reportedBoardId}`;
+    boardUrl = `/Ydetail/${reportedBoardId}/1`;
   } else if (reportedBoardCode === 2) {
     boardUrl = `/EDetail/Editor/${reportedBoardId}/1`;
   } else if (reportedBoardCode === 3) {

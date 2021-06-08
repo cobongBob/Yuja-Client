@@ -155,9 +155,9 @@ const Required = ({ location, history }) => {
   }, [totalCheck, location.state]);
 
   const { current: passCheck } = useRef(
-    /^(?=.*?[a-z])(?=.*?[#?!@$%^&*-])(?=.*?[0-9]).{8,}$/
-  ); /* 비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다. */
-  const { current: nameCheck } = useRef(/^[a-zA-Z가-힣]{2,10}$/);
+    /^(?=.*?[a-zA-Z])(?=.*?[#?!@$%^&*-])(?=.*?[0-9]).{8,}$/
+  ); /* 비밀번호는 영문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다. */
+  const { current: nameCheck } = useRef(/^[a-zA-Z가-힣]{2,20}$/);
   const { current: birthCheck } = useRef(/^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/);
 
   const getPassCheckNum = (e) => {
@@ -166,7 +166,7 @@ const Required = ({ location, history }) => {
   };
 
   const checkEmailValidate = useCallback(() => {
-    axios.post("http://api.withyuja.com/api/auth/checkemail", requiredData).then((res) => {
+    axios.post("https://api.withyuja.com/api/auth/checkemail", requiredData).then((res) => {
       if (res.data !== "") {
         setEmailValidateResData(res.data);
       } else if (res.data === "") {
@@ -176,7 +176,7 @@ const Required = ({ location, history }) => {
   }, [requiredData]);
 
   const checkNicknameValidate = useCallback(() => {
-    axios.post("http://api.withyuja.com/api/auth/checknickname", requiredData).then((res) => {
+    axios.post("https://api.withyuja.com/api/auth/checknickname", requiredData).then((res) => {
       if (res.data !== "") {
         setNicknameValidateResData(res.data);
       } else if (res.data === "") {
@@ -187,7 +187,7 @@ const Required = ({ location, history }) => {
 
   const checkPasswordValidate = useCallback(() => {
     passCheck.test(isValidateInput.pass) === false && isValidateInput.pass !== ""
-      ? setPasswordValidateDesc("비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.")
+      ? setPasswordValidateDesc("비밀번호는 영문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.")
       : setPasswordValidateDesc("");
   }, [isValidateInput, passCheck]);
 
@@ -201,7 +201,7 @@ const Required = ({ location, history }) => {
     (e) => {
       if (isValidateInput.password !== "" && passCheckNum !== "") {
         if (passCheck.test(isValidateInput.pass) === false) {
-          setPasswordValidateDesc("비밀번호는 소문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.");
+          setPasswordValidateDesc("비밀번호는 영문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.");
         } else if (isValidateInput.pass !== passCheckNum) {
           if (e.target.className === "signUpPw") {
             setPasswordValidateDesc("비밀번호를 확인해주세요.");
@@ -353,7 +353,7 @@ const Required = ({ location, history }) => {
                         location.state && location.state.googleSignupData && location.state.googleSignupData.realName
                       }
                       autoComplete='off'
-                      maxLength='15'
+                      maxLength='20'
                     />
                     <div className='warningBox'>{nameValidateDesc}</div>
                   </td>
@@ -420,7 +420,6 @@ const Required = ({ location, history }) => {
                       <div className='warningBox'>{securityCodeValidateDesc}</div>
                     </div>
                   </td>
-                  <div />
                 </tr>
                 <tr>
                   <td>

@@ -11,16 +11,29 @@
 }
 
 .alertNoti {
-  bottom: 6em !important;
+  bottom: 25em;
   z-index: 90 !important;
   background-color: bisque !important;
   border-radius: 8px !important;
   width: 100% !important;
-  z-index: 90 !important;
 }
 
 .Toastify__toast-container--bottom-right {
   height: 100px !important;
   margin-bottom: 2rem !important;
   z-index: 90 !important;
+}
+
+@media only screen and (max-width: 770px) {
+  .notify {
+    bottom: 1rem !important;
+  }
+
+  .alertNoti {
+    bottom: 1rem !important;
+  }
+
+  .Toastify__toast-container--bottom-right {
+    bottom: 1rem !important;
+  }
 }

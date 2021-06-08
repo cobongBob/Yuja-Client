@@ -1,6 +1,12 @@
 import instance from "../AxiosConfig.js";
 import BoardTypeConvert from "../modules/BoardTypeConvert.js";
 
+export const fetchYujaStatistics = async () => {
+  return await instance({
+    url: "/yujastats",
+    method: "get",
+  });
+};
 export const fetchUsers = async () => {
   return await instance({
     url: "/user",
@@ -17,6 +23,12 @@ export const fetchAllUnauthYoutuber = async () => {
 export const fetchAllNoticeBoards = async () => {
   return await instance({
     url: 9 + "/board",
+    method: "get",
+  });
+};
+export const fetchAllQnABoards = async () => {
+  return await instance({
+    url: 10 + "/board",
     method: "get",
   });
 };
@@ -58,6 +70,12 @@ export const noticePrivateSwitch = async (board_id) => {
 export const removeUserData = async (user_id) => {
   return await instance({
     url: `/user/remove/${user_id}`,
+    method: "delete",
+  });
+};
+export const removeQnA = async (qna_ia) => {
+  return await instance({
+    url: 10 + "/board/" + qna_ia,
     method: "delete",
   });
 };

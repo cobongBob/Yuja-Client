@@ -22,8 +22,4 @@
 - yarn add quill-image-drop-and-paste
 - yarn add @looop/quill-image-resize-module-react
 - yarn add react-daum-postcode (다음 주소 api)
-
-## 이미지 및 썸네일러 사이즈
-
-유저 프로필 사진 - 160x160
-게시판 썸네일러 사진 - 360x202
+- yarn add react-chartjs-2 chart-js

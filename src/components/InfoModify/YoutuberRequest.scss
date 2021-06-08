@@ -20,18 +20,18 @@
   font-size: 1em;
 }
 .youtuberDiv_Title span {
-  color:red;
+  color: red;
 }
 .youtuberUrlBoxLabel {
   font-size: 0.9em;
   text-align: left;
   margin-top: 1rem;
-  width:100%;
+  width: 100%;
   span {
-    color:red;
+    color: red;
   }
 }
-.youtuberUrlBoxInput{
+.youtuberUrlBoxInput {
   margin-top: 5px;
   margin-bottom: 12px;
   border-radius: 2px;
@@ -47,13 +47,13 @@
   }
 }
 .companyRegNumBox {
-  width:100%;
+  width: 100%;
 }
 .companyRegNumLabel {
   font-size: 0.9em;
   text-align: left;
   margin-top: 2rem;
-  width:100%;
+  width: 100%;
 }
 .companyRegNumInput {
   margin-top: 5px;
@@ -74,9 +74,9 @@
   font-size: 0.9em;
   text-align: left;
   margin-top: 2rem;
-  width:100%;
+  width: 100%;
   span {
-    color:red;
+    color: red;
   }
 }
 .youtuberPicInputWrapper {
@@ -87,20 +87,20 @@
   margin-left: 20%;
 }
 .youtuberPicInput {
-  width:100%;
+  width: 100%;
 }
 /* 키업박스 */
 .warningBox {
   text-align: left;
   margin-top: -1%;
   margin-bottom: 1%;
-  font-size:0.77em;
-  color:red;
+  font-size: 0.77em;
+  color: red;
 }
 
 /* Number input 화살표 삭제용 */
-YoutuberRequest > input[type='number']::-webkit-outer-spin-button,
-input[type='number']::-webkit-inner-spin-button {
+YoutuberRequest > input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -112,19 +112,6 @@ input[type='number']::-webkit-inner-spin-button {
   margin: auto;
   width: 30%;
   box-shadow: 5px 5px darkgray;
-}
-
-/* 페이지 반응형 */
-@media screen and (max-width: 1480px) {
-  .overlay {
-    width: 350px;
-  }
-  .YoutuberRequestFrag {
-    margin-right: 1vw;
-    margin-left: 1vw;
-    margin-top: 1%;
-    margin-bottom: 1%;
-  }
 }
 
 /* footer */
@@ -143,4 +130,17 @@ input[type='number']::-webkit-inner-spin-button {
   color: #ffb963;
   text-decoration: underline;
   cursor: pointer;
+}
+
+/* 페이지 반응형 */
+@media (min-width: 320px) and (max-width: 770px) {
+  .YoutuberRequestFrag {
+    margin-right: 1vw;
+    margin-left: 1vw;
+    margin-top: 1%;
+    margin-bottom: 5%;
+  }
+  .header-title {
+    font-size: 2rem;
+  }
 }

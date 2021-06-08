@@ -1,0 +1,9 @@
+.VideoBox_Wrapper {
+  margin-top: 1em;
+}
+
+@media (min-width: 320px) and (max-width: 770px) {
+  .slick-slider {
+    height: 250px;
+  }
+}

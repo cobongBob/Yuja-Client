@@ -1,0 +1,124 @@
+.ChannelBigWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.ChannelBoxWrapper {
+  font-family: 'scdream5';
+  display: inline-block;
+  margin-top: 2%;
+  margin-left: 6%;
+  padding-bottom: 3%;
+}
+
+.ChannelBoxTitleWrapper {
+  text-align: center;
+}
+
+.ChannelBoxTitleWrapper > a {
+  font-size: 2.5rem;
+}
+
+.SVWrapper {
+  text-align: center;
+  margin-bottom: 1%;
+}
+
+.SubscribeCount {
+  font-size: 1rem;
+  color: black;
+  margin-left: 2%;
+}
+
+.ChannelThumbnail {
+  padding-top: 6%;
+  text-align: center;
+}
+
+.ChannelThumbnail > img {
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.VideoCount {
+  margin-left: 1%;
+}
+
+.DCWraapper {
+  text-align: center;
+  width: 25vw;
+  margin-top: 2%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.DescWrapper {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  line-height: 1.5;
+  width: 20vw;
+}
+
+.DescWrapper > p {
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.DefaultInfoWrapper {
+  background-color: #feffe6;
+  font-family: 'scdream5';
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+.DefaultInfo {
+  font-size: 1.5rem;
+}
+
+.DefaultInfo > ul {
+  line-height: 2.5;
+  list-style: none;
+}
+
+.ChannelBoxDetailTitle {
+  border-right: 3px solid #c4302b;
+  padding-right: 15px;
+  margin-right: 15px;
+}
+
+@media (min-width: 320px) and (max-width: 770px) {
+  .ChannelBoxWrapper {
+    margin-left: 0;
+  }
+  .ChannelBigWrapper {
+    display: inline-block;
+  }
+  .DefaultInfo > ul {
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+  .DefaultInfo > ul > li {
+    font-size: 1.2rem;
+  }
+  .DefaultInfo > ul > li > span {
+  }
+  .DefaultInfoWrapper {
+    display: block;
+  }
+  .DefaultInfo > ul > li {
+    font-size: 1.1rem !important;
+  }
+  .DCWraapper {
+    width: 100%;
+  }
+  .DescWrapper {
+    width: 100%;
+  }
+  .DescWrapper > p {
+    padding-left: 4%;
+    padding-right: 4%;
+  }
+}

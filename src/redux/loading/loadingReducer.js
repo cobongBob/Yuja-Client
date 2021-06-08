@@ -11,11 +11,7 @@ export const getLoading = (user_id) => {
     dispatch(getNotificationsRequest());
     fetchNotifications(user_id)
       .then((res) => {
-        if (res) {
-          dispatch(getNotificationsSuccess(res.data));
-        } else {
-          dispatch(getLoaded());
-        }
+        res && dispatch(getNotificationsSuccess(res.data));
       })
       .catch((err) => dispatch(getNotificationsFailure(err.response)));
   };

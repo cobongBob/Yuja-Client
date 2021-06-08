@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import Wboard from "./components/MainBoard/Wboard";
-import MainBoard from "./pages/Main/MainBoard";
-import VideoBox from "./pages/VideoBox/VideoBox";
-import "./MainWrapper.css";
-import { getMainData } from "./redux/main/mainReducer";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from 'react';
+import Wboard from './pages/Main/Wboard';
+import MainBoard from './pages/Main/MainBoard';
+import VideoBox from './components/VideoBox/VideoBox';
+import './MainWrapper.scss';
+import { getMainData } from './redux/main/mainReducer';
+import { useDispatch } from 'react-redux';
 
 const MainWrapper = () => {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ const MainWrapper = () => {
   }, [dispatch]);
   return (
     <>
-      <div className='allBoard'>
+      <div className="allBoard">
         <VideoBox />
         <MainBoard />
         <Wboard />

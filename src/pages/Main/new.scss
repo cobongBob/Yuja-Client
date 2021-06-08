@@ -1,0 +1,168 @@
+.new-youtuber {
+  width: 95%;
+  background-color: white;
+  border-radius: 10px;
+  display: inline-block;
+  list-style: none;
+}
+
+.ProfileWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.user-profile-pic {
+  margin-left: 3%;
+  margin-right: 2%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  min-width: 5vw;
+  cursor: pointer;
+}
+
+.user-profile-pic_ {
+  margin-left: 3%;
+  margin-right: 2%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  height: 10vh;
+  cursor: pointer;
+}
+
+.MainProfileImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20%;
+}
+
+.youtuber-profile {
+  border: 10px solid #c4302b;
+  border-radius: 50%;
+  background-color: #c4302b;
+  color: white;
+  display: inline-block;
+}
+
+.editor-profile {
+  border: 10px solid #3d5ba5;
+  border-radius: 50%;
+  background-color: #3d5ba5;
+  color: white;
+}
+
+.thumbnail-profile {
+  border: 10px solid #ff7c7c;
+  border-radius: 50%;
+  background-color: #ff7c7c;
+  color: white;
+}
+
+.wanted-content {
+  font-family: 'scdream5';
+  display: inline-block;
+  padding: 1%;
+}
+
+.wanted-content-detail {
+  margin-top: 1%;
+  max-width: 18vw;
+  font-size: 1.3rem;
+  margin-bottom: 0;
+  padding-right: 2%;
+}
+
+.ListTitle {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 라인수 */
+  -webkit-box-orient: vertical;
+  // display: inline-block;
+  // white-space: nowrap;
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow: hidden;
+  max-width: 18vw;
+  text-overflow: ellipsis;
+  text-align: left;
+  margin-left: 1%;
+}
+
+.TitleWrapper {
+  max-width: 19vw;
+  padding-right: 1%;
+}
+
+.NewList {
+  padding: 0;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  text-align: center;
+}
+
+.NameWorkerWrapper {
+  padding-top: 1%;
+  padding-left: 1%;
+  width: 17vw;
+  text-align: left;
+  border-bottom: 3px solid #dddddd;
+}
+
+.wanted-name {
+  display: inline-block;
+  max-width: 11vw;
+  margin-top: 1%;
+  font-size: 1.3rem;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  word-break: keep-all;
+  white-space: nowrap;
+}
+
+.wanted-type-editer {
+  font-family: 'scdream4';
+  background-color: #3d5ba5;
+  color: white;
+  border-radius: 7px;
+  padding: 2px;
+  margin-top: 1%;
+  margin-right: 1%;
+  float: right;
+}
+
+.wanted-type-thumbnail {
+  font-family: 'scdream4';
+  background-color: #ff7c7c;
+  color: white;
+  border-radius: 7px;
+  padding: 2px;
+}
+
+@media all and (max-width: 500px) {
+  .user-profile-pic_ {
+    width: 30%;
+  }
+  .user-profile-pic {
+    width: 30%;
+  }
+  .wanted-content {
+    width: 100%;
+  }
+  .wanted-content-detail {
+    max-width: 300px;
+  }
+  .wanted-name {
+    max-width: 27vw;
+  }
+  .ListTitle {
+    max-width: 300px;
+  }
+  .ListTitle > a {
+    max-width: 27vw;
+  }
+  .NameWorkerWrapper {
+    width: 100%;
+  }
+  .TitleWrapper {
+    max-width: 300px;
+  }
+}

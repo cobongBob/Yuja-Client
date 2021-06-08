@@ -1,0 +1,32 @@
+.small_chat_body {
+  text-align: center;
+  font-family: "scdream5";
+}
+
+.small_chat_frame {
+  position: relative;
+  width: 100%;
+}
+
+.small_chat_frame_wrapper {
+  min-height: 40vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.small_chat_frame > iframe {
+  font-family: "scdream5";
+  width: 20vw;
+  min-height: 70vh;
+  background-color: white;
+  border: 2px solid #c4302b;
+  border-radius: 20px;
+  opacity: 0.9;
+}
+
+@media all and (max-width: 770px) {
+  .small_chat_frame > iframe {
+    width: 300px;
+    min-height: 85vh;
+  }
+}

@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
-import Pagination from "../Main/components/Pagination";
+import Pagination from "../../components/Pagination";
 import AdminBoardTable from "./AdminBoardTable";
 
 const AdminBoard = ({ allBoards, noticeSwitch }) => {
@@ -14,9 +14,9 @@ const AdminBoard = ({ allBoards, noticeSwitch }) => {
   }, []);
   return (
     <div className='admin_board'>
-      <h1>공지게시판</h1>
+      <h1 className="boardName">공지게시판</h1>
       <div className='community-options'>
-        <Link to={`/BoardRegister/Notice`} className='registerBtn'>
+        <Link to={`/BoardRegister/Notice`} className='admin-registerbtn'>
           글쓰기
         </Link>
       </div>

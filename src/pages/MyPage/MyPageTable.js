@@ -1,58 +1,167 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteLike } from '../../redux/board/youtube/yboardReducer';
+import * as eboardReducer from '../../redux/board/editer/eboardReducer';
 import './myPage.scss';
-import MyPageTableBody from './MyPageTableBody';
+import MyPageLikeWrite from './MyPageLikeWrite';
+import MyPagePortfolioTable from './MyPagePortfolioTable';
+import MyPageYoutuberTable from './MyPageYoutuberTable';
+import { wDeleteLike } from '../../redux/board/winwin/winBoardReducer';
 
-const MyPageTable = ({ boardData }) => {
-  console.log(1111, boardData);
+const MyPageTable = ({
+  youtubeLikeList,
+  setYoutubeList,
+  editorLikeList,
+  setEditorLikeList,
+  thumbLikeList,
+  setThumbLikeList,
+  freeLikeList,
+  setFreeLikeList,
+  userData,
+}) => {
+  const dispatch = useDispatch();
+  const [boardPerPage] = useState(10);
+
+  const [youtuberCurrentPage, setYoutuberCurrentPage] = useState(1);
+  const yIndexOfLastData = youtuberCurrentPage * boardPerPage;
+  const yIndexOfFirstData = yIndexOfLastData - boardPerPage;
+  const yCurrentData = youtubeLikeList.slice(
+    yIndexOfFirstData,
+    yIndexOfLastData
+  );
+  const yClickPage = useCallback((pages) => {
+    setYoutuberCurrentPage(pages);
+  }, []);
+
+  const [editorCurrentPage, setEditorCurrentPage] = useState(1);
+  const eIndexOfLastData = editorCurrentPage * boardPerPage;
+  const eIndexOfFirstData = eIndexOfLastData - boardPerPage;
+  const eCurrentData = editorLikeList.slice(
+    eIndexOfFirstData,
+    eIndexOfLastData
+  );
+  const eClickPage = useCallback((pages) => {
+    setEditorCurrentPage(pages);
+  }, []);
+
+  const [thumbCurrentPage, setThumbCurrentPage] = useState(1);
+  const thIndexOfLastData = thumbCurrentPage * boardPerPage;
+  const thIndexOfFirstData = thIndexOfLastData - boardPerPage;
+  const thCurrentData = thumbLikeList.slice(
+    thIndexOfFirstData,
+    thIndexOfLastData
+  );
+  const thClickPage = useCallback((pages) => {
+    setThumbCurrentPage(pages);
+  }, []);
+
+  const [freeCurrentPage, setFreeCurrentPage] = useState(1);
+  const fIndexOfLastData = freeCurrentPage * boardPerPage;
+  const fIndexOfFirstData = fIndexOfLastData - boardPerPage;
+  const fCurrentData = freeLikeList.slice(fIndexOfFirstData, fIndexOfLastData);
+  const fClickPage = useCallback((pages) => {
+    setFreeCurrentPage(pages);
+  }, []);
+
+  const youtubeLikeHandler = useCallback(
+    (board_id) => {
+      deleteLike(board_id, userData.id).then((res) => {
+        dispatch(res);
+        setYoutubeList(
+          youtubeLikeList.filter((data) => {
+            return data.id !== board_id;
+          })
+        );
+      });
+    },
+    [userData, dispatch, youtubeLikeList, setYoutubeList]
+  );
+
+  const portFolioLikeHandler = useCallback(
+    (board_id, boardCode) => {
+      eboardReducer.deleteLike(board_id, userData.id).then((res) => {
+        dispatch(res);
+        if (boardCode === 2) {
+          setEditorLikeList(
+            editorLikeList.filter((data) => {
+              return data.id !== board_id;
+            })
+          );
+        } else {
+          setThumbLikeList(
+            thumbLikeList.filter((data) => {
+              return data.id !== board_id;
+            })
+          );
+        }
+      });
+    },
+    [
+      userData,
+      dispatch,
+      editorLikeList,
+      thumbLikeList,
+      setEditorLikeList,
+      setThumbLikeList,
+    ]
+  );
+
+  const freeLikeHandler = useCallback(
+    (board_id) => {
+      wDeleteLike(board_id, userData.id).then((res) => {
+        dispatch(res);
+        setFreeLikeList(
+          freeLikeList.filter((data) => {
+            return data.id !== board_id;
+          })
+        );
+      });
+    },
+    [userData, dispatch, freeLikeList, setFreeLikeList]
+  );
+
   return (
-    <div className='tableWrapper'>
-      <span className='beforeModifyTitle'>즐겨찾기 목록 </span>
-      <h3 style={{ fontFamily: 'hopang', color: '#ffb963' }}> 유튜버 공고 </h3>
-      <table className='myPage-box '>
-        <thead>
-          <th>채널명</th>
-          <th>제목</th>
-          <th>지원자격</th>
-          <th>담당자연락처</th>
-          <th>모집분야</th>
-          <th>사용기술</th>
-          <th>마감일</th>
-        </thead>
-        <MyPageTableBody boardData={boardData} board_code={1} />
-      </table>
-      <h3> 편집자 포트폴리오 </h3>
-      <table className='myPage-box'>
-        <thead>
-          <th>이름</th>
-          <th>제목</th>
-          <th>경력</th>
-          <th>연락처</th>
-          <th>사용기술</th>
-        </thead>
-        <MyPageTableBody boardData={boardData} board_code={2} />
-      </table>
-      <h3> 썸네일러 포트폴리오 </h3>
-      <table className='myPage-box'>
-        <thead>
-          <th>이름</th>
-          <th>제목</th>
-          <th>경력</th>
-          <th>연락처</th>
-          <th>사용기술</th>
-        </thead>
-        <MyPageTableBody boardData={boardData} board_code={3} />
-      </table>
-      <h3> 자유게시판 </h3>
-      <table className='myPage-box'>
-        <thead>
-          <th>이름</th>
-          <th>제목</th>
-          <th>경력</th>
-          <th>연락처</th>
-          <th>사용기술</th>
-        </thead>
-        <MyPageTableBody boardData={boardData} board_code={4} />
-      </table>
+    <div className='myPage-tableWrapper'>
+      <span className='myPage-main-title'>즐겨찾기 목록</span>
+      <div className='myPage-tableBox'>
+        <MyPageYoutuberTable
+          boardData={yCurrentData}
+          youtubeLikeHandler={youtubeLikeHandler}
+          boardPerPage={boardPerPage}
+          totalBoards={youtubeLikeList.length}
+          currentPage={youtuberCurrentPage}
+          clickPage={yClickPage}
+        />
+
+        <MyPageLikeWrite
+          boardData={fCurrentData}
+          freeLikeHandler={freeLikeHandler}
+          boardPerPage={boardPerPage}
+          totalBoards={freeLikeList.length}
+          currentPage={freeCurrentPage}
+          clickPage={fClickPage}
+        />
+      </div>
+      <div className='myPage-tableBox'>
+        <MyPagePortfolioTable
+          boardData={eCurrentData}
+          board_code={2}
+          portFolioLikeHandler={portFolioLikeHandler}
+          boardPerPage={boardPerPage}
+          totalBoards={editorLikeList.length}
+          currentPage={editorCurrentPage}
+          clickPage={eClickPage}
+        />
+        <MyPagePortfolioTable
+          boardData={thCurrentData}
+          board_code={3}
+          portFolioLikeHandler={portFolioLikeHandler}
+          boardPerPage={boardPerPage}
+          thTotalBoards={thumbLikeList.length}
+          thCurrentPage={thumbCurrentPage}
+          thClickPage={thClickPage}
+        />
+      </div>
     </div>
   );
 };

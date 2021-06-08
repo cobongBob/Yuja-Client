@@ -1,0 +1,126 @@
+.tableWrapper {
+  margin-top: 2rem;
+  margin-left: 5rem;
+  margin-right: 5rem;
+  margin-bottom: 5rem;
+  text-align: center;
+}
+
+.tableWrapper > .YListTitleWrapper > h1 {
+  font-family: 'scdream5';
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3%;
+  margin-bottom: 2%;
+  border-bottom: 3px solid #c4302b;
+  display: inline-block;
+  font-size: 3rem;
+  font-weight: 500;
+}
+
+.tableWrapper > .EListTitleWrapper > h1 {
+  font-family: scdream5;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3%;
+  margin-bottom: 2%;
+  border-bottom: 3px solid #3d5ba5;
+  display: inline-block;
+  font-size: 3rem;
+  font-weight: 500;
+}
+
+.tableWrapper > .ThListTitleWrapper > h1 {
+  font-family: scdream5;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3%;
+  margin-bottom: 2%;
+  border-bottom: 3px solid #ff7c7c;
+  display: inline-block;
+  font-size: 3rem;
+  font-weight: 500;
+}
+
+.YoutubeIcons {
+  color: #c4302b;
+  font-size: 6rem;
+  margin-bottom: 1.5%;
+}
+.EditorIcons {
+  color: #3d5ba5;
+  font-size: 6rem;
+  margin-bottom: 1.5%;
+}
+.ThumbIcons {
+  color: #ff7c7c;
+  font-size: 6rem;
+  margin-bottom: 1.5%;
+}
+
+@media (min-width: 320px) and (max-width: 770px) {
+  .tableWrapper {
+    margin-top: 5%;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .YListTitleWrapper {
+    width: 100%;
+    text-align: center;
+  }
+  .YoutubeIcons {
+    margin-left: -3%;
+    margin-bottom: 3.5%;
+    font-size: 3.5rem;
+  }
+  .tableWrapper > .YListTitleWrapper > h1 {
+    font-size: 1.8rem;
+  }
+  .search-box {
+    margin-top: 1% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100%;
+  }
+  .search-form {
+    width: 90% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .search-form > form > input {
+    font-size: 1rem !important;
+    margin-left: 0 !important;
+    width: 90% !important;
+  }
+  .search-icon {
+    font-size: 1.5rem !important;
+  }
+  .card-options {
+    text-align: center !important;
+    margin: 0 !important;
+  }
+  .card-options > ul > li {
+    margin: 0 !important;
+  }
+  .card {
+    width: 100% !important;
+  }
+  #YregisterBtn_ {
+    margin-bottom: 5% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  #YregisterBtn_ > .registerBtn {
+    width: 85%;
+    margin: 0 !important;
+    font-size: 1.3rem;
+  }
+  .detail-update-btn {
+    margin-top: 5%;
+    font-size: 0.9rem;
+  }
+}

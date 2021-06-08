@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import Pagination from "../Main/components/Pagination";
+import Pagination from "../../components/Pagination";
 import AdminReportsTable from "./AdminReportsTable";
 
 const AdminReports = ({ allReports, deleteReported, reject }) => {
@@ -15,7 +15,7 @@ const AdminReports = ({ allReports, deleteReported, reject }) => {
 
   return (
     <div className='admin_board'>
-      <h1>신고게시판</h1>
+      <h1 className="boardName">신고게시판</h1>
       <AdminReportsTable
         currentData={currentData}
         lastIdx={allReports.length - 10 * (currentPage - 1)}

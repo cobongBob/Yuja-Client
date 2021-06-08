@@ -6,6 +6,7 @@ const USER_LOGOUT = "userLogout";
 const USER_CHECK = "userCheck";
 const USER_STATUS = "userStatus";
 const ADD_AUTHORITY = "ADD_AUTHORITY";
+const DELETE_AUTHORITY = "DELETE_AUTHORITY";
 
 /* 액션 함수 */
 export const userLogin = async (loginData) => {
@@ -47,11 +48,16 @@ export const userCheck = async () => {
     userLoginStatus: isUserLoggedIn,
   };
 };
-
 export const addAuthority = async (newAuthority) => {
   return {
     type: ADD_AUTHORITY,
     payload: newAuthority,
+  };
+};
+export const delAuthority = async (auth) => {
+  return {
+    type: DELETE_AUTHORITY,
+    payload: auth,
   };
 };
 
@@ -103,6 +109,11 @@ export default function loginReducer(state = initialState, action) {
       return {
         ...state,
         authorities: state.authorities.concat(action.payload),
+      };
+    case DELETE_AUTHORITY:
+      return {
+        ...state,
+        authorities: state.authorities.filter((auth) => auth !== action.payload),
       };
     default:
       return state;

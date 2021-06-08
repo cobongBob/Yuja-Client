@@ -1,0 +1,303 @@
+.register-container {
+  margin-top: 3rem !important;
+  margin-left: 5rem;
+  margin-right: 5rem;
+  margin-bottom: 3rem !important;
+  font-family: scdream5;
+}
+.register-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.register-default-input {
+  margin-left: 7rem;
+  margin-right: 15rem;
+  padding-left: 0;
+  list-style: none;
+}
+
+.register-header > h1 {
+  text-align: left;
+  font-family: 'scdream5';
+  display: inline;
+  border-bottom: 4px solid #c4302b;
+}
+
+.register-title > input[type='text'] {
+  font-size: 30px;
+  width: 30rem;
+  height: 3rem;
+  border: none;
+  border-bottom: 4px solid #c4302b;
+  margin-bottom: 1rem;
+  float: left;
+  &:focus {
+    outline: 0;
+    border: none;
+    border-bottom: 4px solid #c4302b;
+  }
+}
+
+.register-channelname > input[type='text'] {
+  margin-left: 2rem;
+  font-size: 20px;
+  width: 15rem;
+  height: 3rem;
+  border: none;
+  border-bottom: 4px solid #c4302b;
+  margin-bottom: 1rem;
+  &:focus {
+    outline: 0;
+    border: none;
+    border-bottom: 4px solid #c4302b;
+  }
+}
+
+.wanted-part {
+  margin-bottom: 1rem;
+  float: left;
+}
+
+.wanted-part > div {
+  margin-right: 1rem;
+  font-size: 20px;
+  display: inline-block;
+  border-bottom: 4px solid #c4302b;
+}
+
+.wanted-part > input[type='radio'] {
+  cursor: pointer;
+}
+
+.wanted-part > label {
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.wanted-career {
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.wanted-career > div {
+  margin-right: 1rem;
+  font-size: 20px;
+  display: inline-block;
+  border-bottom: 4px solid #c4302b;
+}
+
+.wanted-career > input[type='radio'] {
+  cursor: pointer;
+}
+
+.wanted-career > label {
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.wanted-number {
+  float: left;
+  margin-bottom: 1rem;
+}
+
+.wanted-number > input[type='text'] {
+  font-size: 20px;
+  width: 5rem;
+  border: none;
+  border-bottom: 4px solid #c4302b;
+  &:focus {
+    outline: 0;
+    border: none;
+    border-bottom: 4px solid #c4302b;
+  }
+}
+
+.wanted-number > div {
+  display: inline-block;
+  font-size: 20px;
+  margin-right: 2rem;
+}
+
+.wanted-pay {
+  display: block;
+  margin-bottom: 1rem;
+}
+.wanted-pay > div {
+  margin-right: 1rem;
+  display: inline-block;
+  font-size: 20px;
+  border-bottom: 4px solid #c4302b;
+}
+
+.wanted-pay > select {
+  border: none;
+  font-size: 15px;
+  padding: 0.25rem;
+  margin: 0.25rem;
+  margin-right: 0.5rem !important;
+  transition: background-color 0.25s;
+  background-color: lightblue;
+  border-radius: 10px;
+  &:hover {
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.25s;
+    background-color: lightblue;
+    border-radius: 10px;
+  }
+}
+
+.wanted-pay > select > option {
+  border: none;
+}
+
+.wanted-pay > input[type='text'] {
+  text-align: right;
+  width: 10rem;
+  font-size: 15px;
+  border: none;
+  border-bottom: 4px solid #c4302b;
+  &:focus {
+    outline: 0;
+    border: none;
+    border-bottom: 4px solid #c4302b;
+  }
+}
+
+.watned-tools {
+  margin-bottom: 1rem;
+}
+
+.watned-tools > span {
+  font-size: 20px;
+  margin-right: 1rem;
+  border-bottom: 4px solid #c4302b;
+}
+
+.wanted-tools > label {
+  margin-right: 1rem !important;
+}
+
+.wanted-deadline {
+  margin-bottom: 1rem;
+}
+
+.wanted-deadline > div {
+  display: inline-block;
+  margin-right: 1rem;
+  font-size: 20px;
+  border-bottom: 4px solid #c4302b;
+}
+.wanted-deadline > input[type='date'] {
+  margin-right: 1rem;
+}
+.wanted-deadline > input[type='radio'] {
+  cursor: pointer;
+}
+
+.wanted-deadline > label {
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.wanted-manager {
+  float: left;
+  margin-bottom: 1rem;
+  margin-right: 2rem;
+}
+
+.wanted-manager > input[type='text'] {
+  width: 10rem;
+  font-size: 20px;
+  border: none;
+  border-bottom: 4px solid #c4302b;
+  margin-bottom: 1rem;
+  &:focus {
+    outline: 0;
+    border: none;
+    border-bottom: 4px solid #c4302b;
+  }
+}
+
+.wanted-way > input[type='text'] {
+  width: 20rem;
+  font-size: 20px;
+  border: none;
+  border-bottom: 4px solid #c4302b;
+  margin-bottom: 1rem;
+  &:focus {
+    outline: 0;
+    border: none;
+    border-bottom: 4px solid #c4302b;
+  }
+}
+
+.register-add-input {
+  margin-left: 7rem;
+  margin-right: 7rem;
+}
+
+.register-add-input > h2 {
+  font-family: 'scdream5';
+  display: inline-block;
+  border-bottom: 4px solid #c4302b;
+  margin-bottom: 1rem;
+}
+
+.QuillWrapper {
+  width: 100%;
+}
+
+#ReactQuill {
+  width: 100%;
+  min-height: 30vh;
+}
+
+@media (min-width: 320px) and (max-width: 770px) {
+  .register-container {
+    margin: 0;
+  }
+  .register-default-input {
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    padding: 0.5%;
+  }
+  .register-channelname {
+    margin-bottom: 1.5%;
+  }
+  #YregisterWriter {
+    display: block;
+    width: 100%;
+  }
+  #YregisterChannel {
+    margin: 0;
+    display: inline-block;
+  }
+  .wanted-part {
+    display: block;
+    float: none;
+    margin-bottom: 1%;
+  }
+  .wanted-pay {
+    margin-bottom: 0.5%;
+  }
+  .wanted-career {
+    margin-bottom: 1%;
+  }
+  .watned-tools {
+    margin-bottom: 0.5%;
+    display: inline-block;
+  }
+  .watned-tools > span {
+    margin-right: 3%;
+    margin-bottom: 3.5%;
+  }
+
+  .watned-tools > label {
+    margin-right: 4.5%;
+  }
+  .register-add-input {
+    margin: 0;
+  }
+}

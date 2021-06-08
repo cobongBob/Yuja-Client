@@ -2,11 +2,15 @@ import axios from "axios";
 const USER_API_BASE_URL = "https://api.withyuja.com/api/auth";
 
 export const verifyEmailSend = async (username) => {
-  return await axios.post(USER_API_BASE_URL + "/verify", { username: username });
+  return await axios.post(USER_API_BASE_URL + "/verify", {
+    username: username,
+  });
 };
 
 export const executeJwtAuthenticationService = async (data) => {
-  return await axios.post(USER_API_BASE_URL + "/signin", data, { withCredentials: true });
+  return await axios.post(USER_API_BASE_URL + "/signin", data, {
+    withCredentials: true,
+  });
 };
 
 export const registerSuccessfulLoginForJwt = (userData) => {
@@ -59,11 +63,16 @@ export const googleLoginService = async (response) => {
 
 /* 비밀번호 초기화 관련 */
 export const resetPasswordEmailSend = async (username) => {
-  return await axios.post(USER_API_BASE_URL + "/findPassword", { username: username });
+  return await axios.post(USER_API_BASE_URL + "/findPassword", {
+    username: username,
+  });
 };
 
 export const resetPassword = async ({ username, password }) => {
-  return await axios.post(USER_API_BASE_URL + "/resetPassword", { username: username, password: password });
+  return await axios.post(USER_API_BASE_URL + "/resetPassword", {
+    username: username,
+    password: password,
+  });
 };
 
 export const resetPasswordConfirmationService = async (username) => {

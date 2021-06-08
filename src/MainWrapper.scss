@@ -1,0 +1,13 @@
+.allBoard {
+  background-color: white;
+  margin-right: 10vw;
+  margin-left: 10vw;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+@media (min-width: 320px) and (max-width: 770px) {
+  .allBoard {
+    margin-right: 5vw;
+    margin-left: 5vw;
+  }
+}

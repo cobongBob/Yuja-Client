@@ -25,7 +25,7 @@
 
 }
 .signOutDescBox {
-  margin-bottom:2%;
+  margin-bottom:10%;
   &>span {
     color: #ffb963;
   }
@@ -75,4 +75,12 @@ input::placeholder {
   color: #ffb963;
   text-decoration: underline;
   cursor: pointer;
+}
+
+@media (min-width: 320px) and (max-width: 770px) {
+  .signOutFrag {
+    margin-right: 0;
+    margin-left: 0;
+    margin-bottom: 5%;
+  }
 }
