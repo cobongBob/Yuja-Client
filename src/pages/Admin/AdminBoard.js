@@ -14,7 +14,7 @@ const AdminBoard = ({ allBoards, noticeSwitch }) => {
   }, []);
   return (
     <div className='admin_board'>
-      <h1>공지게시판</h1>
+      <h1 className="boardName">공지게시판</h1>
       <div className='community-options'>
         <Link to={`/BoardRegister/Notice`} className='admin-registerbtn'>
           글쓰기

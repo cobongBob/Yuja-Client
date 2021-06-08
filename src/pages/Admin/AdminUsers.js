@@ -76,7 +76,7 @@ const AdminUsers = ({
   return (
     currentData && (
       <div className='admin_board'>
-        <h1>유저관리</h1>
+        <h1 className="boardName">유저관리</h1>
         <button
           onClick={() => {
             userSort("번호");

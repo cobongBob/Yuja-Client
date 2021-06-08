@@ -35,3 +35,59 @@
     display: inline-block;
     margin-left: 65px;
 }
+
+@media screen and (max-width: 770px) {
+    #firstTwoChartsWrap {
+        text-align: center;
+        margin-bottom: 7vw;
+        margin-top: 15px;
+    }
+    #last7 {
+        margin-bottom: 5%;
+    }
+    .chart1 {
+        width: 75%;
+        height: 300px;
+        margin-bottom: 20%;
+        margin-left: 0;
+        margin-right: 15%;
+    }
+    .chart1 h2 {
+        margin-left: 15%;
+        font-size: 25px;
+    }
+    .chart2 {
+        width: 75%;
+        height: 300px;
+        margin-bottom: 20%;
+        margin-left: 0;
+        margin-right: 15%;
+    }
+    .chart2 h2 {
+        margin-left: 15%;
+        font-size: 25px;
+    }
+    #cumul {
+        margin-bottom: 5%;
+    }
+    .chart3 {
+        width: 75%;
+        margin-bottom: 65%;
+        margin-left: 0;
+        margin-right: 2%;
+    }
+    .chart3 h2 {
+        font-size: 25px;
+    }
+    .chart4 {
+        width:75%;
+        height: 300px;
+        margin-bottom: 2%;
+        margin-left: 0;
+        margin-right: 17%;
+    }
+    .chart4 h2 {
+        margin-left: 15%;
+        font-size: 25px;
+    }
+}

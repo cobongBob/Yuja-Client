@@ -14,7 +14,7 @@ const AdminYoutuber = ({ youtuberConfirm, promoteUser, rejectUser }) => {
 
   return (
     <div className='admin_board'>
-      <h1>유튜버 신청</h1>
+      <h1 className="boardName">유튜버 신청</h1>
       <AdminYoutuberTable currentData={currentData} promoteUser={promoteUser} rejectUser={rejectUser} />
       <Pagination
         boardPerPage={boardPerPage}

@@ -54,3 +54,41 @@
   font-family: scdream4;
   font-size: large;
 }
+
+@media screen and (max-width: 770px) {
+  .admin_notice_th{
+    display: inline-block;
+  }
+  .admin_board .user_no {
+    width:10%;
+    font-size: 12px;
+  }
+
+  .admin_board .board_content{
+    width:20%;
+    font-size: 12px;
+  }
+
+  .admin_board .report_title{
+    width:8%;
+    font-size: 12px;
+  }
+  .admin_board .user_regDate{
+    width:3%;
+    font-size: 12px;
+  }
+  .admin_board .user_option{
+    width:3%;
+    font-size: 12px;
+  }
+
+  //신고 계시판
+  .admin_board .report_user{
+    font-size: 12px;
+    width:10%;
+  }
+  .admin_board .report_content{
+    font-size: 12px;
+    width:12%;
+  }
+}
