@@ -106,7 +106,6 @@ a {
   margin: auto;
   top: 19vh;
   position: relative;
-  left: 3%;
 }
 .sideMenu {
   border-radius: 2px;
@@ -198,7 +197,7 @@ a {
 }
 
 .winwin-wrapper {
-  margin-left: 4%;
+  margin-left: 6%;
 }
 
 @media screen and (max-width: 770px) {
@@ -217,7 +216,7 @@ a {
     margin-left: 0;
   }
   .winwin-Table-Wrapper {
-    margin-top: 65px;
+    margin-top: 25px;
     width: 100%;
     font-size: small;
     margin-left: 0;
@@ -237,7 +236,7 @@ a {
 
   .li-winwin {
     display: inline-block;
-    font-size: 16px;
+    font-size: 12px;
     width: 20%;
     margin-right: 4%;
     font-weight: 100;
@@ -252,7 +251,7 @@ a {
   }
   .li-link-disabled {
     display: inline-block;
-    font-size: 16px;
+    font-size: 12px;
     width: 20%;
     margin-right: 4%;
     font-weight: 100;
@@ -317,7 +316,7 @@ a {
     width: 100%;
   }
   .winwin-Table-Wrapper .card-paging {
-    margin-right: 45px;
+    margin-left: 9%;
   }
 
   .winwinFrag .search-form {
