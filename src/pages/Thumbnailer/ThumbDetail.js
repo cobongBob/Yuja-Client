@@ -36,7 +36,7 @@ const ThumbDetail = ({ match }) => {
         `<p style="text-align:center;">
           <img 
             class="custom-class-to-image" 
-            src="http://localhost:8888/files/thumbnail/original/${detailData.thumbnail}"
+            src="https://api.withyuja.com/files/thumbnail/original/${detailData.thumbnail}"
             >
          </p>`
       );
@@ -82,9 +82,7 @@ const ThumbDetail = ({ match }) => {
       <div>
         <ul className='Thumb-wrapper'>
           <div className='Thumb-header-wrapper'>
-            <li className='thumbDetail-header'>
-              {detailData.user.nickname}
-            </li>
+            <li className='thumbDetail-header'>{detailData.user.nickname}</li>
           </div>
           <div className='editordetail-content-wrapper'>
             <div className='editorDetailTitleBoxWrapper'>
@@ -102,21 +100,19 @@ const ThumbDetail = ({ match }) => {
                 <li className='editordetail-content-title'>
                   <strong className='thumbDetailTitle'>제목</strong> {detailData.title}
                 </li>
-                <br/>
+                <br />
                 <li className='editordetail-content-user-data'>
                   <strong className='thumbDetailTitle'>경력</strong>
-                  {detailData.career &&
-                  detailData.career.startsWith('경력') ?
-                    detailData.career.substr(3,detailData.career.length-3)
-                    :
-                    detailData.career}
+                  {detailData.career && detailData.career.startsWith("경력")
+                    ? detailData.career.substr(3, detailData.career.length - 3)
+                    : detailData.career}
                 </li>
-                <br/>
+                <br />
                 <li className='editordetail-content-user-data'>
                   <strong className='thumbDetailTitle'>연락처</strong>
                   {detailData.receptionMethod}
                 </li>
-                <br/>
+                <br />
                 <li className='editordetail-content-user-data'>
                   <strong className='thumbDetailTitle'>급여방식</strong>
                   {detailData.payType}
@@ -125,7 +121,7 @@ const ThumbDetail = ({ match }) => {
                   <strong className='thumbDetailTitle'>희망급여</strong>
                   {detailData.payAmount}원
                 </li>
-                <br/>
+                <br />
                 <li className='editordetail-content-user-data'>
                   <strong className='thumbDetailTitle'>사용기술</strong>
                   {detailData.tools && detailData.tools.join(", ")}

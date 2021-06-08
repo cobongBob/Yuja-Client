@@ -51,8 +51,8 @@ const InfoModify = ({ history }) => {
   const [isPermalinkFill, setIsPermalinkFill] = useState("");
   const [isYoutuberPicFill, setIsYoutuberPicFill] = useState("");
 
-  const modifyProfilePicUrl = new URL("http://localhost:8888/files/profiles/" + userData.profilePic);
-  const modifyConfirmPicUrl = new URL("http://localhost:8888/files/youtubeConfirm/" + userData.youtubeConfirmImg);
+  const modifyProfilePicUrl = new URL("https://api.withyuja.com/files/profiles/" + userData.profilePic);
+  const modifyConfirmPicUrl = new URL("https://api.withyuja.com/files/youtubeConfirm/" + userData.youtubeConfirmImg);
   const { current: birthCheck } = useRef(/^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/);
   const [modifyBtnDisabledHandler, setModifyBtnDisabledHandler] = useState(false);
 
@@ -134,7 +134,7 @@ const InfoModify = ({ history }) => {
       if (userNickname === e.target.value) {
         setNicknameDesc("");
       } else {
-        axios.post("http://localhost:8888/api/auth/checknickname", userData).then((res) => {
+        axios.post("https://api.withyuja.com/api/auth/checknickname", userData).then((res) => {
           if (res.data !== "") {
             setNicknameDesc(res.data);
           } else if (res.data === "") {
@@ -208,7 +208,7 @@ const InfoModify = ({ history }) => {
       fd.append("file", file);
       UserApiService.addProfileImg(fd, config)
         .then((response) => {
-          const fileUrl = new URL("http://localhost:8888/files/temp/" + response.data.fileName);
+          const fileUrl = new URL("https://api.withyuja.com/files/temp/" + response.data.fileName);
           setpreviewUrl(fileUrl);
           profilePicId.current = response.data.profilePicId;
         })
@@ -231,7 +231,7 @@ const InfoModify = ({ history }) => {
       fd2.append("file", file2);
       UserApiService.addYoutuberConfirmPic(fd2, config2)
         .then((response) => {
-          const fileUrl2 = new URL("http://localhost:8888/files/temp/" + response.data.fileName);
+          const fileUrl2 = new URL("https://api.withyuja.com/files/temp/" + response.data.fileName);
           setpreviewUrl2(fileUrl2);
           setIsYoutuberPicFill("");
           youtubeConfirmId.current = response.data.youtubeConfirmId;

@@ -166,7 +166,7 @@ const Required = ({ location, history }) => {
   };
 
   const checkEmailValidate = useCallback(() => {
-    axios.post("http://localhost:8888/api/auth/checkemail", requiredData).then((res) => {
+    axios.post("https://api.withyuja.com/api/auth/checkemail", requiredData).then((res) => {
       if (res.data !== "") {
         setEmailValidateResData(res.data);
       } else if (res.data === "") {
@@ -176,7 +176,7 @@ const Required = ({ location, history }) => {
   }, [requiredData]);
 
   const checkNicknameValidate = useCallback(() => {
-    axios.post("http://localhost:8888/api/auth/checknickname", requiredData).then((res) => {
+    axios.post("https://api.withyuja.com/api/auth/checknickname", requiredData).then((res) => {
       if (res.data !== "") {
         setNicknameValidateResData(res.data);
       } else if (res.data === "") {

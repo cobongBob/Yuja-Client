@@ -58,7 +58,7 @@ export default function ThumbnailerTable({
                 <Card.Img
                   className='thumbnail-for-Main'
                   onClick={() => history.push(`/ThumbDetail/${board_type}/${data.id}/${currentPage}`)}
-                  src={data.thumbnail && `http://localhost:8888/files/thumbnail/${data.thumbnail}`}
+                  src={data.thumbnail && `https://api.withyuja.com/files/thumbnail/${data.thumbnail}`}
                 ></Card.Img>
               </div>
               <Card.Header>
