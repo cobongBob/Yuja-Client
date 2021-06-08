@@ -232,6 +232,7 @@ section > footer {
   }
   @media (min-width: 320px) and (max-width: 770px) {
     .button-login {
+      background-color: none;
       border: none;
       color: black;
     }
@@ -249,8 +250,11 @@ section > footer {
       color: red;
     }
     .notice_ul {
-      width: 90%;
-      left: 40%;
+      text-align: center;
+      position: absolute;
+      left: 2%;
+      width: 96%;
+      margin: 0;
     }
   }
 }
