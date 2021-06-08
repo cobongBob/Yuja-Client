@@ -35,7 +35,7 @@ const Admin_main = () => {
   const [allReports, setAllReports] = useState([]);
   const [allBoards, setAllBoards] = useState([]);
   const [allQnAs, setAllQnAs] = useState([]);
-  const [allStats, setAllStats] = useState([]);// 일단 가져오나 확인을 해야할까? 
+  const [allStats, setAllStats] = useState([]); // 일단 가져오나 확인을 해야할까?
   const [isSortedByNo, setIsSortedByNo] = useState(false);
   const [isSortedByDeleted, setIsSortedByDeleted] = useState(false);
   const [isSortedByBanned, setIsSortedByBanned] = useState(false);
@@ -298,44 +298,44 @@ const Admin_main = () => {
   return (
     allUsers &&
     allReports &&
-    youtuberConfirm && 
-    allStats &&(
-        <div className="admin-wrapper">
-          <div className='sideBox'>
-            <AdminSide />
-          </div>
-          <div className='admin_main'>
-            <div className='admin_items'>
-              <div className='admin_item'>
-                <div>
-                  {pathname.includes("/AdminUsers") ? (
-                    <AdminUsers
-                      allUsers={allUsers}
-                      userSetBan={userSetBan}
-                      userRemove={userRemove}
-                      userRecovery={userRecovery}
-                      userSort={userSort}
-                      isSortedByNo={isSortedByNo}
-                      isSortedByDeleted={isSortedByDeleted}
-                      isSortedByBanned={isSortedByBanned}
-                    />
-                  ) : null}
-                  {pathname.includes("/AdminYoutuber") ? (
-                    <AdminYoutuber youtuberConfirm={youtuberConfirm} promoteUser={promoteUser} rejectUser={rejectUser} />
-                  ) : null}
-                  {pathname.includes("/AdminReports") ? (
-                    <AdminReports allReports={allReports} deleteReported={deleteReported} reject={reject} />
-                  ) : null}
-                  {pathname.includes("/AdminBoard") ? (
-                    <AdminBoard allBoards={allBoards} noticeSwitch={noticeSwitch} />
-                  ) : null}
-                  {pathname.includes("/AdminQnA") ? <AdminQnA allQnAs={allQnAs} deleteQnA={deleteQnA} /> : null}
-                  {pathname.includes("/AdminStats") ? <AdminStats allStats={allStats}/> : null}
-                </div>
+    youtuberConfirm &&
+    allStats && (
+      <div className='admin-wrapper'>
+        <div className='sideBox'>
+          <AdminSide />
+        </div>
+        <div className='admin_main'>
+          <div className='admin_items'>
+            <div className='admin_item'>
+              <div>
+                {pathname.includes("/AdminStats") ? <AdminStats allStats={allStats} /> : null}
+                {pathname.includes("/AdminUsers") ? (
+                  <AdminUsers
+                    allUsers={allUsers}
+                    userSetBan={userSetBan}
+                    userRemove={userRemove}
+                    userRecovery={userRecovery}
+                    userSort={userSort}
+                    isSortedByNo={isSortedByNo}
+                    isSortedByDeleted={isSortedByDeleted}
+                    isSortedByBanned={isSortedByBanned}
+                  />
+                ) : null}
+                {pathname.includes("/AdminYoutuber") ? (
+                  <AdminYoutuber youtuberConfirm={youtuberConfirm} promoteUser={promoteUser} rejectUser={rejectUser} />
+                ) : null}
+                {pathname.includes("/AdminReports") ? (
+                  <AdminReports allReports={allReports} deleteReported={deleteReported} reject={reject} />
+                ) : null}
+                {pathname.includes("/AdminBoard") ? (
+                  <AdminBoard allBoards={allBoards} noticeSwitch={noticeSwitch} />
+                ) : null}
+                {pathname.includes("/AdminQnA") ? <AdminQnA allQnAs={allQnAs} deleteQnA={deleteQnA} /> : null}
               </div>
             </div>
           </div>
         </div>
+      </div>
     )
   );
 };
