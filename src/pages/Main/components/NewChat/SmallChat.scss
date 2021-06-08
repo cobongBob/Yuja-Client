@@ -24,11 +24,7 @@
   opacity: 0.9;
 }
 
-.chattingFrame {
-
-}
-
-@media all and (max-width:500px) {
+@media all and (max-width: 770px) {
   .small_chat_frame > iframe {
     width: 300px;
     min-height: 60vh;

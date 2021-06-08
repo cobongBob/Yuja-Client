@@ -3,7 +3,7 @@
   margin-left: 1vw;
   margin-top: 1%;
   margin-bottom: 1%;
-  font-family: 'scdream4';
+  font-family: "scdream4";
   position: fixed;
   z-index: 99;
   left: 76%;
@@ -13,8 +13,8 @@
   -o-animation: fadein 0.5s; /* Opera */
 }
 .chatFrameOverlay {
-    margin: auto;
-    width: 100%;
+  margin: auto;
+  width: 100%;
 }
 
 /* 채팅 반응형 */
@@ -24,7 +24,7 @@
     margin-left: 1vw;
     margin-top: 1%;
     margin-bottom: 1%;
-    font-family: 'scdream4';
+    font-family: "scdream4";
     position: fixed;
     z-index: 99;
     left: 71.5%;
@@ -40,37 +40,43 @@
 /* 채팅 애니메이션 */
 @keyframes fadein {
   from {
-    bottom:-60%; overflow:hidden;
+    bottom: -60%;
+    overflow: hidden;
   }
   to {
     bottom: 11%;
   }
 }
-@-moz-keyframes fadein { /* Firefox */
+@-moz-keyframes fadein {
+  /* Firefox */
   from {
-    bottom:-60%; overflow:hidden;
+    bottom: -60%;
+    overflow: hidden;
   }
   to {
     bottom: 11%;
   }
 }
-@-webkit-keyframes fadein { /* Safari and Chrome */
+@-webkit-keyframes fadein {
+  /* Safari and Chrome */
   from {
-    bottom:-60%; overflow:hidden;
+    bottom: -60%;
+    overflow: hidden;
   }
   to {
     bottom: 11%;
   }
 }
-@-o-keyframes fadein { /* Opera */
+@-o-keyframes fadein {
+  /* Opera */
   from {
-    bottom:-60%; overflow:hidden;
+    bottom: -60%;
+    overflow: hidden;
   }
   to {
     bottom: 11%;
   }
 }
-
 
 @keyframes fadeout {
   from {
@@ -80,7 +86,8 @@
     opacity: 0;
   }
 }
-@-moz-keyframes fadeout { /* Firefox */
+@-moz-keyframes fadeout {
+  /* Firefox */
   from {
     opacity: 1;
   }
@@ -88,7 +95,8 @@
     opacity: 0;
   }
 }
-@-webkit-keyframes fadeout { /* Safari and Chrome */
+@-webkit-keyframes fadeout {
+  /* Safari and Chrome */
   from {
     opacity: 1;
   }
@@ -96,7 +104,8 @@
     opacity: 0;
   }
 }
-@-o-keyframes fadeout { /* Opera */
+@-o-keyframes fadeout {
+  /* Opera */
   from {
     opacity: 1;
   }
@@ -104,7 +113,7 @@
     opacity: 0;
   }
 }
-@media all and (max-width:500px) {
+@media all and (max-width: 770px) {
   .chatFrameFrag {
     left: 27%;
     bottom: 11%;

@@ -213,7 +213,7 @@ section > footer {
 }
 
 /* 모달 반응형 */
-@media all and (max-width: 500px) {
+@media all and (max-width: 770px) {
   .ReactModal__Content {
     min-width: 360px;
     height: 1em;

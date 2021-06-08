@@ -10,7 +10,7 @@
 }
 .editordetail-header {
   display: inline-block;
-  font-family: 'scdream5';
+  font-family: "scdream5";
   font-size: 30px;
   border-bottom: 3px solid #3d5ba5;
   margin-top: 3%;
@@ -24,7 +24,7 @@
   margin-right: 10rem;
 }
 .editordetail-content-profile-pic {
-  display:inline-block;
+  display: inline-block;
   border-radius: 50%;
 }
 
@@ -40,7 +40,7 @@
 }
 
 .editordetail-content-profile-pic > img {
-  display:inline-block;
+  display: inline-block;
   width: 10rem;
   height: 10rem;
   border: 2px solid #3d5ba5;
@@ -142,20 +142,16 @@
   height: 100%;
 }
 
-.editorDetailLike {
-
-}
-
 .editordetail-content-like .pr-div {
   font-size: 24px;
   font-family: scdream5;
-  float:left;
+  float: left;
   border-bottom: 4px solid #3d5ba5;
-  color:black;
+  color: black;
   margin-left: 20px;
 }
 .editorDetailTitleBoxWrapper {
-  display:flex;
+  display: flex;
   padding: 2% 5% 5% 20%;
   align-items: center;
 }
@@ -183,48 +179,48 @@
   padding: 0.5rem;
   margin-right: 0.5rem;
 }
-@media (min-width: 320px) and (max-width: 480px) {
+@media (min-width: 320px) and (max-width: 770px) {
   .editordetail-wrapper {
-    padding:0;
-    margin:0;
-    width:100vw;
+    padding: 0;
+    margin: 0;
+    width: 100vw;
   }
   .editordetail-content-wrapper {
-    margin:0;
-    width:100vw;
+    margin: 0;
+    width: 100vw;
   }
   .editorDetailTitleBoxWrapper {
-    width:90vw;
+    width: 90vw;
     display: inline-block;
-    padding:10%;
+    padding: 10%;
   }
   .editordetail-content-profile-pic {
-    width:35vw;
+    width: 35vw;
     margin-left: 33%;
     margin-bottom: 15%;
   }
   .editordetail-content-profile-pic_ {
-    width:35vw;
+    width: 35vw;
     margin-left: 33%;
     margin-bottom: 20%;
   }
   .editorDetailTitleBox {
     width: 80vw;
-    margin:0;
+    margin: 0;
   }
   .detail-btn-box {
-    width:100vw;
+    width: 100vw;
     font-size: 0.6rem !important;
     text-align: center;
   }
   .ql-container {
-    width:93vw;
+    width: 93vw;
   }
   .ql-video {
-    width:90vw;
+    width: 90vw;
   }
   .pr-content {
-    margin:5px
+    margin: 5px;
   }
   .in-detail-update-btn {
     font-size: 1rem;
