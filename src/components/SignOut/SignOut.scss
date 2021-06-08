@@ -76,3 +76,11 @@ input::placeholder {
   text-decoration: underline;
   cursor: pointer;
 }
+
+@media (min-width: 320px) and (max-width: 770px) {
+  .signOutFrag {
+    margin-right: 0;
+    margin-left: 0;
+    margin-bottom: 5%;
+  }
+}

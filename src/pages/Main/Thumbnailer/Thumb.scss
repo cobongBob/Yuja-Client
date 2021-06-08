@@ -112,7 +112,6 @@
 .Thumb-content-like {
   display: block;
   text-align: right;
-  margin-right: 10rem;
   font-family: scdream4;
   font-size: 20px;
   margin-bottom: 1rem;
@@ -162,14 +161,14 @@
   margin-bottom: 3rem;
 }
 
-.thumb-pr-div {
+.Thumb-content-like > .thumb-pr-div {
   font-size: 24px;
   font-family: scdream5;
   display: inline-block;
   border-bottom: 4px solid #ff7c7c;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  margin-left: 1rem;
+  color:black;
+  float:left;
+  margin-left:1rem;
 }
 
 .thumb-PicInput {

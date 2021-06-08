@@ -163,6 +163,7 @@ const ThumbDetail = ({ match }) => {
                 </div>
               </div>
               <li className='Thumb-content-like'>
+                <div className='thumb-pr-div'> 경력 및 소개 </div>
                 <div className='Thumb-content-hit'>
                   <AiOutlineFileSearch className='hit' size={30} />
                   {detailData.hit}

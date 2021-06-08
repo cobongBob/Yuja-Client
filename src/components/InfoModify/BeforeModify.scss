@@ -73,19 +73,6 @@ input::placeholder {
   box-shadow: 5px 5px darkgray;
 }
 
-/* 페이지 반응형 */
-@media screen and (max-width: 1480px) {
-  .overlay {
-    width: 350px;
-  }
-  .PasswordFrag {
-    margin-right: 1vw;
-    margin-left: 1vw;
-    margin-top: 1%;
-    margin-bottom: 1%;
-  }
-}
-
 /* footer */
 .beforeModifyFooter {
   text-align: center;
@@ -102,4 +89,24 @@ input::placeholder {
   color: #ffb963;
   text-decoration: underline;
   cursor: pointer;
+}
+
+@media (min-width: 320px) and (max-width: 770px) {
+  .overlay {
+    width: 350px;
+  }
+  .PasswordFrag {
+    margin-right: 1vw;
+    margin-left: 1vw;
+    margin-top: 1%;
+    margin-bottom: 1%;
+  }
+  .BeforeModifyFrag {
+    margin-right:0;
+    margin-left: 0;
+    margin-bottom: 5%;
+  }
+  .beforeModifyTitle {
+    font-size: 2.5rem;
+  }
 }
