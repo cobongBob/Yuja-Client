@@ -1,17 +1,33 @@
-.myPage-tableBox {
-  margin-top: 5rem;
+.myPage-tableWrapper {
+  margin-top: 2rem;
+  margin-left: 5rem;
+  margin-right: 5rem;
   margin-bottom: 5rem;
+  text-align: center;
+}
+.myPage-tableBox {
+  margin-top: 3rem;
+  margin-left: 5rem;
+  margin-right: 5rem;
+  margin-bottom: 6rem;
+  display: flex;
 }
 .myPage-youtuberbox {
   font-family: scdream5;
+  margin-left: 2rem;
+  margin-right: 1rem;
 }
 
 .myPage-freebox {
   font-family: scdream5;
+  margin-left: 1rem;
+  margin-right: 2rem;
 }
 
 .myPage-portfoliobox {
   font-family: scdream5;
+  margin-right: 2rem;
+  margin-left: 2rem;
 }
 
 .myPage-title {
@@ -115,4 +131,76 @@
   overflow-x: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+@media only screen and (max-width: 870px) {
+  .myPage-tableBox {
+    display: inline-block;
+    margin: 0;
+    text-align: center;
+    width: 100%;
+  }
+
+  .myPage-youtuberbox {
+    display: block;
+    margin: 2rem;
+  }
+
+  .myPage-youtuberbox > table > thead > tr {
+    td:nth-of-type(3) {
+      display: none;
+    }
+    td:nth-of-type(5) {
+      display: none;
+    }
+    td:nth-of-type(6) {
+      display: none;
+    }
+  }
+
+  .myPage-youtuberbox > table > tbody > tr {
+    td:nth-of-type(3) {
+      display: none;
+    }
+    td:nth-of-type(5) {
+      display: none;
+    }
+    td:nth-of-type(6) {
+      display: none;
+    }
+  }
+
+  .myPage-freebox {
+    display: block;
+    margin: 2rem;
+  }
+
+  .myPage-portfoliobox {
+    display: block;
+    margin: 2rem;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 1450px) {
+  .myPage-tableBox {
+    display: inline-block;
+    margin: 0;
+    text-align: center;
+    width: 100%;
+  }
+
+  .myPage-youtuberbox {
+    display: block;
+    margin: 2rem;
+  }
+
+  .myPage-freebox {
+    display: block;
+    margin: 2rem;
+  }
+
+  .myPage-portfoliobox {
+    display: block;
+    margin: 2rem;
+  }
 }

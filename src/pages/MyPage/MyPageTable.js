@@ -1,14 +1,14 @@
-import React, { useCallback, useState } from "react";
-import { Col, Row } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { deleteLike } from "../../redux/board/youtube/yboardReducer";
-import * as eboardReducer from "../../redux/board/editer/eboardReducer";
-import Pagination from "../Main/components/Pagination";
-import "./myPage.scss";
-import MyPageLikeWrite from "./MyPageLikeWrite";
-import MyPagePortfolioTable from "./MyPagePortfolioTable";
-import MyPageYoutuberTable from "./MyPageYoutuberTable";
-import { wDeleteLike } from "../../redux/board/winwin/winBoardReducer";
+import React, { useCallback, useState } from 'react';
+import { Col, Row } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { deleteLike } from '../../redux/board/youtube/yboardReducer';
+import * as eboardReducer from '../../redux/board/editer/eboardReducer';
+import Pagination from '../Main/components/Pagination';
+import './myPage.scss';
+import MyPageLikeWrite from './MyPageLikeWrite';
+import MyPagePortfolioTable from './MyPagePortfolioTable';
+import MyPageYoutuberTable from './MyPageYoutuberTable';
+import { wDeleteLike } from '../../redux/board/winwin/winBoardReducer';
 
 const MyPageTable = ({
   youtubeLikeList,
@@ -27,7 +27,10 @@ const MyPageTable = ({
   const [youtuberCurrentPage, setYoutuberCurrentPage] = useState(1);
   const yIndexOfLastData = youtuberCurrentPage * boardPerPage;
   const yIndexOfFirstData = yIndexOfLastData - boardPerPage;
-  const yCurrentData = youtubeLikeList.slice(yIndexOfFirstData, yIndexOfLastData);
+  const yCurrentData = youtubeLikeList.slice(
+    yIndexOfFirstData,
+    yIndexOfLastData
+  );
   const yClickPage = useCallback((pages) => {
     setYoutuberCurrentPage(pages);
   }, []);
@@ -35,7 +38,10 @@ const MyPageTable = ({
   const [editorCurrentPage, setEditorCurrentPage] = useState(1);
   const eIndexOfLastData = editorCurrentPage * boardPerPage;
   const eIndexOfFirstData = eIndexOfLastData - boardPerPage;
-  const eCurrentData = editorLikeList.slice(eIndexOfFirstData, eIndexOfLastData);
+  const eCurrentData = editorLikeList.slice(
+    eIndexOfFirstData,
+    eIndexOfLastData
+  );
   const eClickPage = useCallback((pages) => {
     setEditorCurrentPage(pages);
   }, []);
@@ -43,7 +49,10 @@ const MyPageTable = ({
   const [thumbCurrentPage, setThumbCurrentPage] = useState(1);
   const thIndexOfLastData = thumbCurrentPage * boardPerPage;
   const thIndexOfFirstData = thIndexOfLastData - boardPerPage;
-  const thCurrentData = thumbLikeList.slice(thIndexOfFirstData, thIndexOfLastData);
+  const thCurrentData = thumbLikeList.slice(
+    thIndexOfFirstData,
+    thIndexOfLastData
+  );
   const thClickPage = useCallback((pages) => {
     setThumbCurrentPage(pages);
   }, []);
@@ -89,7 +98,14 @@ const MyPageTable = ({
         }
       });
     },
-    [userData, dispatch, editorLikeList, thumbLikeList, setEditorLikeList, setThumbLikeList]
+    [
+      userData,
+      dispatch,
+      editorLikeList,
+      thumbLikeList,
+      setEditorLikeList,
+      setThumbLikeList,
+    ]
   );
 
   const freeLikeHandler = useCallback(
@@ -107,65 +123,46 @@ const MyPageTable = ({
   );
 
   return (
-    <div className='tableWrapper'>
+    <div className='myPage-tableWrapper'>
       <span className='beforeModifyTitle'>즐겨찾기 목록</span>
       <div className='myPage-tableBox'>
-        <Row
-          style={{
-            marginLeft: "8rem",
-            marginRight: "8rem",
-            marginBottom: "6rem",
-          }}
-        >
-          <Col xs={8} md={8}>
-            <MyPageYoutuberTable boardData={yCurrentData} youtubeLikeHandler={youtubeLikeHandler} />
-            <Pagination
-              boardPerPage={boardPerPage}
-              totalBoards={youtubeLikeList.length}
-              currentPage={youtuberCurrentPage}
-              clickPage={yClickPage}
-            />
-          </Col>
-          <Col xs={4} md={4}>
-            <MyPageLikeWrite boardData={fCurrentData} freeLikeHandler={freeLikeHandler} />
-            <Pagination
-              boardPerPage={boardPerPage}
-              totalBoards={freeLikeList.length}
-              currentPage={freeCurrentPage}
-              clickPage={fClickPage}
-            />
-          </Col>
-        </Row>
-        <Row
-          style={{
-            marginLeft: "10rem",
-            marginRight: "10rem",
-            marginBottom: "6rem",
-          }}
-        >
-          <Col xs={6}>
-            <MyPagePortfolioTable boardData={eCurrentData} board_code={2} portFolioLikeHandler={portFolioLikeHandler} />
-            <Pagination
-              boardPerPage={boardPerPage}
-              totalBoards={editorLikeList.length}
-              currentPage={editorCurrentPage}
-              clickPage={eClickPage}
-            />
-          </Col>
-          <Col xs={6}>
-            <MyPagePortfolioTable
-              boardData={thCurrentData}
-              board_code={3}
-              portFolioLikeHandler={portFolioLikeHandler}
-            />
-            <Pagination
-              boardPerPage={boardPerPage}
-              totalBoards={thumbLikeList.length}
-              currentPage={thumbCurrentPage}
-              clickPage={thClickPage}
-            />
-          </Col>
-        </Row>
+        <MyPageYoutuberTable
+          boardData={yCurrentData}
+          youtubeLikeHandler={youtubeLikeHandler}
+          boardPerPage={boardPerPage}
+          totalBoards={youtubeLikeList.length}
+          currentPage={youtuberCurrentPage}
+          clickPage={yClickPage}
+        />
+
+        <MyPageLikeWrite
+          boardData={fCurrentData}
+          freeLikeHandler={freeLikeHandler}
+          boardPerPage={boardPerPage}
+          totalBoards={freeLikeList.length}
+          currentPage={freeCurrentPage}
+          clickPage={fClickPage}
+        />
+      </div>
+      <div className='myPage-tableBox'>
+        <MyPagePortfolioTable
+          boardData={eCurrentData}
+          board_code={2}
+          portFolioLikeHandler={portFolioLikeHandler}
+          boardPerPage={boardPerPage}
+          totalBoards={editorLikeList.length}
+          currentPage={editorCurrentPage}
+          clickPage={eClickPage}
+        />
+        <MyPagePortfolioTable
+          boardData={thCurrentData}
+          board_code={3}
+          portFolioLikeHandler={portFolioLikeHandler}
+          boardPerPage={boardPerPage}
+          thTotalBoards={thumbLikeList.length}
+          thCurrentPage={thumbCurrentPage}
+          thClickPage={thClickPage}
+        />
       </div>
     </div>
   );
