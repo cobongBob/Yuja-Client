@@ -37,7 +37,7 @@ export default function ThumbnailerTable({
     <div className='card-container'>
       <div className='card-options' id='YregisterBtn_'>
         {wrote.length === 0 ? (
-          <button onClick={writeBoard} className='registerBtn'>
+          <button onClick={writeBoard} className='editor-detail-update-btn'>
             포트폴리오 등록하기
           </button>
         ) : (
