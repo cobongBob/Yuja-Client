@@ -88,3 +88,21 @@
   padding-right: 15px;
   margin-right: 15px;
 }
+
+@media (min-width: 320px) and (max-width: 770px) {
+  .ChannelBoxWrapper {
+    margin-left: 0;
+  }
+  .ChannelBigWrapper {
+    display: inline-block;
+  }
+  .DefaultInfo > ul {
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+  .DefaultInfo > ul > li {
+    font-size: 1.2rem;
+  }
+  .DefaultInfo > ul > li > span {
+  }
+}
