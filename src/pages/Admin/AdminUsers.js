@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
-import Pagination from "../Main/components/Pagination";
-import Search from "../Main/components/Search";
+import Pagination from "../../components/Pagination";
+import Search from "../../components/Search";
 import "./AdminUser.scss";
 import AdminUsersTable from "./AdminUsersTable";
 

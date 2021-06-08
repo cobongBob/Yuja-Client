@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
-import Pagination from "../Main/components/Pagination";
+import Pagination from "../../components/Pagination";
 import AdminBoardTable from "./AdminBoardTable";
 
 const AdminBoard = ({ allBoards, noticeSwitch }) => {

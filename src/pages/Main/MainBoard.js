@@ -1,8 +1,8 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
-import Eboard from '../../components/MainBoard/Eboard';
-import Thboard from '../../components/MainBoard/Thboard';
-import Yboard from '../../components/MainBoard/Yboard';
+import Eboard from './Eboard';
+import Thboard from './Thboard';
+import Yboard from './Yboard';
 import './MainBoard.scss';
 import { FaRegIdCard } from 'react-icons/fa';
 

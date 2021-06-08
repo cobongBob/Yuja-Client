@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import Pagination from "../Main/components/Pagination";
+import Pagination from "../../components/Pagination";
 import AdminYoutuberTable from "./AdminYoutuberTable";
 
 const AdminYoutuber = ({ youtuberConfirm, promoteUser, rejectUser }) => {
