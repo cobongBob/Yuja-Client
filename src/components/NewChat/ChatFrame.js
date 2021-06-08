@@ -25,6 +25,18 @@ const ChatFrame = (props) => {
       <React.Fragment>
         <div className='chatFrameFrag'>
           <div className='chatFrameOverlay'>
+            {window.screen.width > 770 ? (
+              ""
+            ) : (
+              <span
+                className='closeChatBtn'
+                onClick={() => {
+                  props.setModalIsOpen(false);
+                }}
+              >
+                &times;
+              </span>
+            )}
             <SmallChat frameOnload={frameOnload} />
           </div>
         </div>
