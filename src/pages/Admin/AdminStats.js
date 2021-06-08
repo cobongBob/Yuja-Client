@@ -32,97 +32,101 @@ const AdminStats = ({ allStats }) => {
 
   const signedUpCanvas = useRef(null);
   useEffect(() => {
-    const signedUpDOM = signedUpCanvas.current.getContext("2d");
+    if (allStats) {
+      const signedUpDOM = signedUpCanvas.current.getContext("2d");
 
-    new Chart(signedUpDOM, {
-      type: "bar",
-      data: {
-        labels: allStats.last7Days,
-        datasets: [
-          {
-            label: "해당 날짜 가입자 수",
-            data: allStats && allStats.signedUp,
-            backgroundColor: "#ffd400",
-            borderWidth: 1,
-            borderColor: "#ffd400",
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          yAxes: {
-            min: 0,
-            max: Math.max.apply(null, allStats.signedUp) + Math.ceil(Math.max.apply(null, allStats.signedUp) * 0.1),
+      new Chart(signedUpDOM, {
+        type: "bar",
+        data: {
+          labels: allStats.last7Days,
+          datasets: [
+            {
+              label: "해당 날짜 가입자 수",
+              data: allStats && allStats.signedUp,
+              backgroundColor: "#ffd400",
+              borderWidth: 1,
+              borderColor: "#ffd400",
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            yAxes: {
+              min: 0,
+              max: Math.max.apply(null, allStats.signedUp) + Math.ceil(Math.max.apply(null, allStats.signedUp) * 0.1),
+            },
           },
         },
-      },
-    });
+      });
+    }
   }, [allStats]);
 
   const visitorCanvas = useRef(null);
   useEffect(() => {
-    const visitorDOM = visitorCanvas.current.getContext("2d");
-
-    new Chart(visitorDOM, {
-      type: "bar",
-      data: {
-        labels: allStats.last7Days,
-        datasets: [
-          {
-            label: "해당 날짜 방문자 수",
-            data: allStats && allStats.visitors,
-            backgroundColor: "#ffd400",
-            borderWidth: 1,
-            borderColor: "#ffd400",
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          yAxes: {
-            suggestedMin: 0,
-            suggestedMax:
-              Math.max.apply(null, allStats.visitors) + Math.ceil(Math.max.apply(null, allStats.visitors) * 0.1),
+    if (allStats) {
+      const visitorDOM = visitorCanvas.current.getContext("2d");
+      new Chart(visitorDOM, {
+        type: "bar",
+        data: {
+          labels: allStats.last7Days,
+          datasets: [
+            {
+              label: "해당 날짜 방문자 수",
+              data: allStats && allStats.visitors,
+              backgroundColor: "#ffd400",
+              borderWidth: 1,
+              borderColor: "#ffd400",
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            yAxes: {
+              suggestedMin: 0,
+              suggestedMax:
+                Math.max.apply(null, allStats.visitors) + Math.ceil(Math.max.apply(null, allStats.visitors) * 0.1),
+            },
           },
         },
-      },
-    });
+      });
+    }
   }, [allStats]);
 
   const userIncCanvas = useRef(null);
   useEffect(() => {
-    const userIncDom = userIncCanvas.current.getContext("2d");
-
-    new Chart(userIncDom, {
-      type: "line",
-      data: {
-        labels: allStats.allDates,
-        datasets: [
-          {
-            label: "해당 날짜 유자 이용자",
-            data: allStats && allStats.userInc,
-            backgroundColor: "#ffd400",
-            borderWidth: 1,
-            borderColor: "#ffd400",
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          y: {
-            suggestedMin: 0,
-            suggestedMax:
-              Math.max.apply(null, allStats.userInc) + Math.ceil(Math.max.apply(null, allStats.userInc) * 0.1),
+    if (allStats) {
+      const userIncDom = userIncCanvas.current.getContext("2d");
+      new Chart(userIncDom, {
+        type: "line",
+        data: {
+          labels: allStats.allDates,
+          datasets: [
+            {
+              label: "해당 날짜 유자 이용자",
+              data: allStats && allStats.userInc,
+              backgroundColor: "#ffd400",
+              borderWidth: 1,
+              borderColor: "#ffd400",
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              suggestedMin: 0,
+              suggestedMax:
+                Math.max.apply(null, allStats.userInc) + Math.ceil(Math.max.apply(null, allStats.userInc) * 0.1),
+            },
           },
         },
-      },
-    });
+      });
+    }
   }, [allStats]);
   return (
     allStats && (
