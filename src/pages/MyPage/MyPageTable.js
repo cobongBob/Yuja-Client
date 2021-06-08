@@ -122,7 +122,7 @@ const MyPageTable = ({
 
   return (
     <div className='myPage-tableWrapper'>
-      <span className='beforeModifyTitle'>즐겨찾기 목록</span>
+      <span className='myPage-main-title'>즐겨찾기 목록</span>
       <div className='myPage-tableBox'>
         <MyPageYoutuberTable
           boardData={yCurrentData}
