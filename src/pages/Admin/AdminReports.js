@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import Pagination from "../Main/components/Pagination";
+import Pagination from "../../components/Pagination";
 import AdminReportsTable from "./AdminReportsTable";
 
 const AdminReports = ({ allReports, deleteReported, reject }) => {

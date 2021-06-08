@@ -8,26 +8,25 @@ import React, {
 import Logo from './components/Logo/Logo';
 import './App.css';
 import { Redirect, Route, useHistory } from 'react-router';
-import Youtuber from './pages/Main/Youtuber/Youtuber';
-import Editer from './pages/Main/Editer/Editer';
-import Thumbnailer from './pages/Main/Thumbnailer/Thumbnailer';
-import Winwin from './pages/Main/Winwin/Winwin';
-import Help from './pages/Main/Help/Help';
-import Ydetail from './pages/Main/Youtuber/Ydetail';
+import Youtuber from './pages/Youtuber/Youtuber';
+import Editor from './pages/Editor/Editor';
+import Thumbnailer from './pages/Thumbnailer/Thumbnailer';
+import Winwin from './pages/Community/Winwin';
+import Help from './pages/Help/Help';
+import Ydetail from './pages/Youtuber/Ydetail';
 import SignUp from './components/Login-SignUp/SignUp/SignUp';
 import { withRouter } from 'react-router';
 import Navi from './components/Navi/Navi';
-import YoutuberProfile from './pages/Profile/YoutuberProfile';
-import Yregister from './pages/Main/Youtuber/Yregister';
+import Yregister from './pages/Youtuber/Yregister';
 import Switch from 'react-bootstrap/Switch';
-import YmodifyTest from './pages/Main/Youtuber/YmodifyTest';
+import YmodifyTest from './pages/Youtuber/YmodifyTest';
 import { useLocation } from 'react-router-dom';
 import MainWrapper from './MainWrapper';
 import Footer from './components/Footer';
 import FindPassword from './components/Login-SignUp/Login/FindPassword';
-import Wdetail from './pages/Main/Winwin/Wdetail';
-import Wregister from './pages/Main/Winwin/Wregister';
-import EditorRegister from './pages/Main/Editer/EditorRegister';
+import Wdetail from './pages/Community/Wdetail';
+import Wregister from './pages/Community/Wregister';
+import EditorRegister from './pages/Editor/EditorRegister';
 import { useDispatch, useSelector } from 'react-redux';
 import { getLoaded, getLoading } from './redux/loading/loadingReducer';
 import Loader from './components/Loading/Loader';
@@ -37,22 +36,22 @@ import {
   delAuthority,
   userLogout,
 } from './redux/redux-login/loginReducer';
-import EDetail from './pages/Main/Editer/EDetail';
+import EDetail from './pages/Editor/EDetail';
 import ResetPassword from './components/Login-SignUp/Login/ResetPassword';
 import {
   ToastAlert,
   ToastCenter,
   ToastAlertNoDupl,
 } from './modules/ToastModule';
-import WModify from './pages/Main/Winwin/WModify';
-import ThumbRegister from './pages/Main/Thumbnailer/ThumbRegister';
-import ThumbDetail from './pages/Main/Thumbnailer/ThumbDetail';
+import WModify from './pages/Community/WModify';
+import ThumbRegister from './pages/Thumbnailer/ThumbRegister';
+import ThumbDetail from './pages/Thumbnailer/ThumbDetail';
 import BeforeModify from './components/InfoModify/BeforeModify';
 import Admin_main from './pages/Admin/Admin_main';
 import PasswordModify from './components/InfoModify/PasswordModify';
 import InfoModify from './components/InfoModify/InfoModify';
-import EboardModify from './pages/Main/Editer/EboardModify';
-import ThumbModify from './pages/Main/Thumbnailer/ThumbModify';
+import EboardModify from './pages/Editor/EboardModify';
+import ThumbModify from './pages/Thumbnailer/ThumbModify';
 import SignOut from './components/SignOut/SignOut';
 import { deleteNotifications } from './apiService/MainApiService';
 import { RiChat1Fill } from 'react-icons/ri';
@@ -60,7 +59,7 @@ import { toastWithPush } from './modules/ToastWithPush';
 import YoutuberRequest from './components/InfoModify/YoutuberRequest';
 import { getAllNotifications } from './redux/loading/notiReducer';
 import RouteIf from './routerif/RouteIf';
-import ChatFrame from './pages/Main/components/NewChat/ChatFrame';
+import ChatFrame from './components/NewChat/ChatFrame';
 import MyPage from './pages/MyPage/MyPage';
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ['/SignUp', '/SignUp/Required', '/SignUp/NonRequired'];
@@ -354,7 +353,6 @@ function App() {
         {loading && <Loader type='spin' color='#ff9411' />}
         <Switch>
           <Route exact path='/' component={MainWrapper} />
-          <Route path='/YoutuberProfile' component={YoutuberProfile} />
           <Route path='/Youtuber/:current_page' component={Youtuber} />
           <Route path='/Ydetail/:board_id/:current_page' component={Ydetail} />
           {/* YOUTUBER or ADMIN */}
@@ -372,7 +370,7 @@ function App() {
             roles={[role[2], role[5], role[6]]}
             component={YmodifyTest}
           />
-          <Route path='/Eboard/:board_type/:current_page' component={Editer} />
+          <Route path='/Eboard/:board_type/:current_page' component={Editor} />
           {/* GENERAL or ADMIN */}
           <RouteIf
             path='/EditorRegister/:board_type'

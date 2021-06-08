@@ -1,0 +1,348 @@
+.winwinFrag {
+  margin-top: 80px;
+  margin-left: 10rem;
+  margin-bottom: 5rem;
+}
+
+.winwin-Table-Wrapper {
+  display: inline-block;
+  width: 65vw;
+  position: relative;
+  margin-left: 9%;
+  margin-top: -250px;
+}
+
+.winTable-Table-Wrapper {
+  width: 100%;
+}
+
+.winTable-Table-Wrapper > h2 {
+  display: inline-block;
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+  background-color: #ff9411;
+  padding: 0.5rem;
+  border-radius: 20px;
+}
+
+.community-options {
+  font-family: scdream4;
+  display: block;
+  text-align: right;
+  margin-bottom: 0.5rem;
+}
+
+.sideMenu > div > ul {
+  padding-left: 0;
+  text-align: center;
+  list-style: none;
+  width: 12rem;
+}
+
+.li-winwin {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ff9411;
+  font-family: scdream4;
+  margin-bottom: 1rem;
+  &:hover {
+    text-decoration: none;
+    background-color: #ff5c11;
+    transition: background-color 0.3s;
+    color: white;
+    width: 10rem;
+    border-radius: 20px;
+  }
+}
+a {
+  text-decoration: none !important;
+}
+
+.li-link-disabled {
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: scdream4;
+  background-color: #ff9411;
+  color: white;
+  width: 10rem;
+  border-radius: 20px;
+  cursor: default;
+  margin-bottom: 1rem;
+}
+
+.li-collabo {
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ff9411;
+  font-family: scdream4;
+  &:hover {
+    text-decoration: none;
+    background-color: #ff9411;
+    transition: background-color 0.3s;
+    color: white;
+    width: 10rem;
+    border-radius: 20px;
+  }
+}
+
+.winTable-Table-Wrapper > .community-options > .registerBtn {
+  border: 1px solid #008744;
+  color: #008744;
+  border-radius: 20px;
+  background-color: white;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  &:hover {
+    text-decoration: none;
+    background-color: #008744;
+    color: white;
+  }
+}
+
+.sideBox {
+  margin: auto;
+  top: 19vh;
+  position: relative;
+}
+.sideMenu {
+  border-radius: 2px;
+  border: none;
+}
+
+.sideMenu-title {
+  text-align: center;
+  display: inline-block;
+  font-weight: bold;
+  font-family: scdream5;
+  font-size: 30px;
+  background-color: #ff9411;
+  color: white;
+  width: 12rem;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+}
+
+.community-table-wrapper > table {
+  width: 100%;
+  margin: 0 2rem 2rem 0;
+  font-family: scdream4;
+  line-height: 2rem;
+  white-space: nowrap;
+  table-layout: fixed;
+}
+.community-table-wrapper > table > thead {
+  font-family: scdream5;
+  text-align: center;
+}
+
+.community-table-wrapper > table > thead > tr > th {
+  border-bottom: 2px solid #ff9411;
+}
+.wno {
+  width: 4%;
+}
+.wtitle {
+  width: 52%;
+}
+.wwriter {
+  width: 10%;
+}
+.wcreatedDate {
+  width: 10%;
+}
+.whited {
+  width: 7%;
+}
+.wlike {
+  width: 7%;
+}
+
+.community-table-wrapper > table > tbody > tr > td {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.community-table-wrapper > table > tbody > tr {
+  &:hover {
+    text-decoration: none;
+    color: black;
+    transition: background-color 0.3s;
+    background-color: lightgrey;
+  }
+}
+
+.commentNum {
+  font-size: 15px;
+  color: #555555;
+}
+.new_icon {
+  color: #ff9411;
+}
+.table_link {
+  text-decoration: none;
+  color: black;
+  &:hover {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+.community_notice {
+  background-color: #f7be7a4a;
+  font-weight: bold;
+}
+
+.winwin-wrapper {
+  margin-left: 6%;
+}
+
+@media screen and (max-width: 770px) {
+  .overlay {
+    width: 350px;
+  }
+  .SignUpFrag {
+    margin-right: 1vw;
+    margin-left: 1vw;
+    margin-top: 1%;
+    margin-bottom: 1%;
+  }
+  .winwin-wrapper {
+    margin-top: -85px;
+    margin-bottom: -35px;
+    margin-left: 0;
+  }
+  .winwin-Table-Wrapper {
+    margin-top: 25px;
+    width: 100%;
+    font-size: small;
+    margin-left: 0;
+  }
+  .winwinFrag {
+    width: 100%;
+    margin-left: 0;
+  }
+  .boardName {
+    margin: 0 !important;
+  }
+  .winTable-Table-Wrapper {
+    width: 100%;
+    text-align: center;
+    margin-top: 25px;
+  }
+
+  .li-winwin {
+    display: inline-block;
+    font-size: 12px;
+    width: 20%;
+    margin-right: 4%;
+    font-weight: 100;
+    &:hover {
+      width: 22%;
+      text-decoration: none;
+      background-color: #ff5c11;
+      transition: background-color 0.3s;
+      color: white;
+      border-radius: 20px;
+    }
+  }
+  .li-link-disabled {
+    display: inline-block;
+    font-size: 12px;
+    width: 20%;
+    margin-right: 4%;
+    font-weight: 100;
+    &:hover {
+      width: 22%;
+      text-decoration: none;
+      background-color: #ff5c11;
+      transition: background-color 0.3s;
+      color: white;
+      border-radius: 20px;
+    }
+  }
+  .sideMenu-title {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    font-size: 20px;
+  }
+  .card-paging li.focus {
+    font-size: medium;
+  }
+  .card-paging li {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .community-options {
+    margin-top: 5%;
+  }
+  .sideMenu {
+    text-align: center;
+    width: 100%;
+  }
+  .winTable-Table-Wrapper > h2 {
+    font-size: medium;
+    margin-left: 12px;
+    text-align: center;
+    width: 97%;
+  }
+  .wno {
+    width: 4%;
+  }
+  .wtitle {
+    width: 20%;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .wwriter {
+    width: 10%;
+  }
+  .wcreatedDate {
+    width: 10%;
+  }
+  .whited {
+    width: 8%;
+  }
+  .wlike {
+    width: 8%;
+  }
+  .cummunity-table-itself {
+    table-layout: fixed;
+    width: 100%;
+  }
+  .winwin-Table-Wrapper .card-paging {
+    margin-left: 9%;
+  }
+
+  .winwinFrag .search-form {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 80%;
+  }
+
+  .winwinFrag .search-form > form > input[type="text"] {
+    width: 100%;
+    margin-left: 0;
+    font-size: 11px !important;
+  }
+  .winwin-wrapper .sideBox {
+    width: 99%;
+    margin-left: -2%;
+  }
+  .sideUl {
+    margin-left: 2.5%;
+  }
+
+  .sideMenu > div > ul {
+    width: 100%;
+  }
+  .community-options .sortingBtn {
+    width: 17%;
+  }
+}
