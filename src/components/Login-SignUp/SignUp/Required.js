@@ -199,7 +199,7 @@ const Required = ({ location, history }) => {
 
   const passwordTotalCheck = useCallback(
     (e) => {
-      if (isValidateInput.password !== "" && passCheckNum !== "") {
+      if ((isValidateInput.pass !== undefined || "") && passCheckNum !== "") {
         if (passCheck.test(isValidateInput.pass) === false) {
           setPasswordValidateDesc("비밀번호는 영문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.");
         } else if (isValidateInput.pass !== passCheckNum) {
@@ -215,7 +215,8 @@ const Required = ({ location, history }) => {
         if (isValidateInput.pass === passCheckNum) {
           setCheckPasswordValidateDesc("");
         }
-      } else {
+      } else if (passCheckNum === "") {
+        setCheckPasswordValidateDesc("비밀번호가 일치하지 않습니다.");
       }
     },
     [isValidateInput, passCheck, passCheckNum]
@@ -528,7 +529,6 @@ const Required = ({ location, history }) => {
                 },
               }}
               className='btn btn-warning'
-              //onClick={checkRequiredUserData}
             >
               다음
             </Link>

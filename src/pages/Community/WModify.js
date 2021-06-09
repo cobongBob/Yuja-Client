@@ -146,7 +146,7 @@ const WModify = ({ match }) => {
                     name='isPrivate'
                     onChange={checkboxHandler}
                     type='checkbox'
-                    checked={!checked.isPrivate}
+                    checked={checked.isPrivate}
                   />
                 </div>
               ) : null}

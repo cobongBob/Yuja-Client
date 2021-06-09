@@ -134,7 +134,7 @@ const ThumbModify = ({ match }) => {
       }
       setcheckBoxInput(checkBoxConvert(res.data.tools));
       checkedlist.current = res.data.tools;
-      setCombine({combine:res.data.career.substr(3,res.data.career.length-4)})
+      setCombine({ combine: res.data.career.substr(3, res.data.career.length - 4) });
     });
   }, [userData, history, match.params.board_id]);
 
@@ -143,6 +143,7 @@ const ThumbModify = ({ match }) => {
   const payAmountRef = useRef();
   const receptionMethodRef = useRef();
   const workerRef = useRef();
+  const careerYearRef = useRef();
 
   const refsArray = useMemo(
     () => [titleRef, null, null, payTypeRef, payAmountRef, null, receptionMethodRef, workerRef],
@@ -161,6 +162,11 @@ const ThumbModify = ({ match }) => {
       workerRef.current.focus();
       return ToastCenter("빈칸을 모두 적어주세요.");
     }
+    if (input.career.startsWith("경력") && combine.combine < 1) {
+      careerYearRef.current.focus();
+      return ToastCenter("빈칸을 모두 적어주세요.");
+    }
+
     let reg = new RegExp(`https://api.withyuja.com/files/${board_type.current}/[0-9]+.[a-z]+`, "gi");
     let imgSrcArr = String(qModiData).match(reg); // 불러왔던 글에 존재했던 이미지 태그들의 src
     // 서버에서 날아온 이미지 이름과 비교한다. 없으면 삭제된것이므로 삭제 리스트에 담아준다.
@@ -301,6 +307,7 @@ const ThumbModify = ({ match }) => {
                       target.value = target.value.replace(/[^0-9]/g, "");
                       target.value = target.value.replace(/,/g, "");
                     }}
+                    ref={careerYearRef}
                   />
                   년
                 </div>
