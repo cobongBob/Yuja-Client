@@ -204,9 +204,10 @@ const Required = ({ location, history }) => {
           setPasswordValidateDesc("비밀번호는 영문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.");
         } else if (isValidateInput.pass !== passCheckNum) {
           if (e.target.className === "signUpPw") {
-            setPasswordValidateDesc("비밀번호를 확인해주세요.");
+            setPasswordValidateDesc("비밀번호가 일치하지 않습니다.");
           } else {
-            setCheckPasswordValidateDesc("비밀번호를 확인해주세요.");
+            setPasswordValidateDesc("");
+            setCheckPasswordValidateDesc("비밀번호가 일치하지 않습니다.");
           }
         } else if (passCheck.test(isValidateInput.pass) === true) {
           setPasswordValidateDesc("");

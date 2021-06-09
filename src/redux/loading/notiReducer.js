@@ -26,6 +26,12 @@ export const deleteNotification = (noti_id) => {
     payload: noti_id,
   };
 };
+export const deleteNotificationWithoutAPI = (noti_id) => {
+  return {
+    type: DELETE_NOTIFICATION,
+    payload: noti_id,
+  };
+};
 
 const getNotificationsRequest = () => {
   return {

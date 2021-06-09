@@ -260,11 +260,7 @@ function App() {
             onClick={modalIsOpen === false ? () => setModalIsOpen(true) : () => setModalIsOpen(false)}
           />
 
-          {modalIsOpen === true ? (
-            <ChatFrame modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} userData={userData} />
-          ) : (
-            ""
-          )}
+          {modalIsOpen === true ? <ChatFrame modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} /> : ""}
         </>
       )}
       {exceptArray.indexOf(location.pathname) < 0 && (

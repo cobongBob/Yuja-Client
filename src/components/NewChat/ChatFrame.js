@@ -2,18 +2,18 @@ import React, { useCallback } from "react";
 import "./ChatFrame.scss";
 import SmallChat from "./SmallChat";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteNotification } from "../../redux/loading/notiReducer";
+import { deleteNotificationWithoutAPI } from "../../redux/loading/notiReducer";
 
-const ChatFrame = ({ userData, setModalIsOpen, modalIsOpen }) => {
+const ChatFrame = ({ setModalIsOpen, modalIsOpen }) => {
   const { userLoginStatus } = useSelector((state) => state.loginReducer);
   const dispatch = useDispatch();
   window.addEventListener("message", (event) => {
     if (event.origin.startsWith("https://api.withyuja.com")) {
       if (event.data && event.data.exit === "exit") {
         setModalIsOpen(false);
+      } else if (event.data && event.data.notiId > 0) {
+        dispatch(deleteNotificationWithoutAPI(event.data.notiId));
       }
-    } else if (event.data && event.data.notiId > 0) {
-      dispatch(deleteNotification(event.data.notiId));
     } else {
       return;
     }
