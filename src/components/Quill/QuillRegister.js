@@ -130,8 +130,9 @@ const QuillRegister = ({ register, addingFileList, qData, setQData, board_type }
       let url = prompt("유튜브 URL를 입력해주세요. ");
       if (url != null) {
         url = getVideoUrl(url);
-        let range = quill.getSelection();
+        const range = quill.getSelection(true) !== null ? quill.getSelection(true) : 0;
         quill.insertEmbed(range, "video", url);
+        quill.setSelection(range.index + 1);
       }
     };
 

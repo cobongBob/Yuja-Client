@@ -49,6 +49,7 @@ const ThumbRegister = ({ match }) => {
   const payAmountRef = useRef();
   const receptionMethodRef = useRef();
   const workerRef = useRef();
+  const careerYearRef = useRef();
 
   const refsArray = useMemo(
     () => [titleRef, null, null, payTypeRef, payAmountRef, null, receptionMethodRef, workerRef],
@@ -67,6 +68,11 @@ const ThumbRegister = ({ match }) => {
       workerRef.current.focus();
       return ToastCenter("빈칸을 모두 적어주세요.");
     }
+    if (inputData.career === "경력" && totalCareer.length < 3) {
+      careerYearRef.current.focus();
+      return ToastCenter("빈칸을 모두 적어주세요.");
+    }
+
     let reg = /https:\/\/api.withyuja.com\/files\/temp\/[0-9]+.[a-z]+/g;
     let imgSrcArr = String(qData).match(reg);
     if (imgSrcArr) {
@@ -218,6 +224,7 @@ const ThumbRegister = ({ match }) => {
                     maxLength='2'
                     onChange={careerYear}
                     onInput={contactCheck}
+                    ref={careerYearRef}
                   />
                   년
                 </div>

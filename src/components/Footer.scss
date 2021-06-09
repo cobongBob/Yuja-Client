@@ -37,6 +37,29 @@
 .copyright-text {
   margin: 0;
 }
+.footer-Else-Text {
+  text-align: right;
+}
+.footer-Else-Text > button {
+  background: inherit;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  overflow: visible;
+  cursor: pointer;
+  color: #737373;
+}
+.footer-Else-Text > button > a {
+  text-decoration: none;
+  color: #737373;
+  outline: none;
+}
+.personalInfoHeader {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 5%;
+}
 @media screen and (max-width: 991px) {
   .site-footer [class^="col-"] {
     margin-bottom: 30px;

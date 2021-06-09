@@ -74,7 +74,7 @@ const EboardModify = ({ match }) => {
       });
       setcheckBoxInput(checkBoxConvert(res.data.tools));
       checkedlist.current = res.data.tools;
-      setCombine({combine:res.data.career.substr(3,res.data.career.length-4)})
+      setCombine({ combine: res.data.career.substr(3, res.data.career.length - 4) });
     });
   }, [userData, history, match.params.board_id]);
 
@@ -83,6 +83,7 @@ const EboardModify = ({ match }) => {
   const payAmountRef = useRef();
   const receptionMethodRef = useRef();
   const workerRef = useRef();
+  const careerYearRef = useRef();
 
   const refsArray = useMemo(
     () => [titleRef, null, null, payTypeRef, payAmountRef, null, receptionMethodRef, workerRef],
@@ -100,6 +101,11 @@ const EboardModify = ({ match }) => {
       }
       if (checkedlist.current.length === 0 || !input.career) {
         workerRef.current.focus();
+        return ToastCenter("빈칸을 모두 적어주세요.");
+      }
+
+      if (input.career.startsWith("경력") && combine.combine < 1) {
+        careerYearRef.current.focus();
         return ToastCenter("빈칸을 모두 적어주세요.");
       } else {
         let reg = new RegExp(`https://api.withyuja.com/files/${board_type.current}/[0-9]+.[a-z]+`, "gi");
@@ -290,6 +296,7 @@ const EboardModify = ({ match }) => {
                       target.value = target.value.replace(/[^0-9]/g, "");
                       target.value = target.value.replace(/,/g, "");
                     }}
+                    ref={careerYearRef}
                   />
                   년
                 </div>
