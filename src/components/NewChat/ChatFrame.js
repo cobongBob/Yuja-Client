@@ -1,14 +1,19 @@
 import React, { useCallback } from "react";
 import "./ChatFrame.scss";
 import SmallChat from "./SmallChat";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteNotification } from "../../redux/loading/notiReducer";
 
-const ChatFrame = (props) => {
+const ChatFrame = ({ userData, setModalIsOpen, modalIsOpen }) => {
+  const { userLoginStatus } = useSelector((state) => state.loginReducer);
+  const dispatch = useDispatch();
   window.addEventListener("message", (event) => {
     if (event.origin.startsWith("https://api.withyuja.com")) {
       if (event.data && event.data.exit === "exit") {
-        props.setModalIsOpen(false);
+        setModalIsOpen(false);
       }
+    } else if (event.data && event.data.notiId > 0) {
+      dispatch(deleteNotification(event.data.notiId));
     } else {
       return;
     }
@@ -18,26 +23,12 @@ const ChatFrame = (props) => {
     e.target.contentWindow.postMessage({ enter: "enter" }, "*");
   }, []);
 
-  const { userLoginStatus } = useSelector((state) => state.loginReducer);
-
-  if (props.modalIsOpen === true && userLoginStatus === true) {
+  if (modalIsOpen === true && userLoginStatus === true) {
     return (
       <React.Fragment>
         <div className='chatFrameFrag'>
           <div className='chatFrameOverlay'>
-            {window.screen.width > 770 ? (
-              ""
-            ) : (
-              <span
-                className='closeChatBtn'
-                onClick={() => {
-                  props.setModalIsOpen(false);
-                }}
-              >
-                &times;
-              </span>
-            )}
-            <SmallChat frameOnload={frameOnload} />
+            <SmallChat frameOnload={frameOnload} setModalIsOpen={setModalIsOpen} />
           </div>
         </div>
       </React.Fragment>
