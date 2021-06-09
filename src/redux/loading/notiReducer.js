@@ -77,9 +77,7 @@ const NotiReducer = (state = initialState, action) => {
     case DELETE_NOTIFICATION:
       return {
         ...state,
-        allNotifications: state.allNotifications.filter((data) => {
-          return data.notiId !== action.payload;
-        }),
+        allNotifications: state.allNotifications.filter((data) => data.notiId !== action.payload),
       };
     default:
       return state;

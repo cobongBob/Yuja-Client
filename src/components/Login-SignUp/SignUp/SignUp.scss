@@ -468,17 +468,31 @@ input[type="number"]::-webkit-inner-spin-button {
     margin-top: 5%;
   }
   .authenticationCodeSendBox {
-    padding:0;
-    width:100%;
-    right:-30%;
+    padding: 0;
+    width: 100%;
+    right: -30%;
   }
-  .authenticationCodeBox  {
-    width:83%;
+  .authenticationCodeBox {
+    width: 83%;
   }
   .authenticationCodeResend {
-    padding-left:45%;
+    padding-left: 45%;
   }
   .inputWrapper {
-    margin-left:8%;
+    margin-left: 8%;
+  }
+  .youtuberPic_PreviewBox {
+    transform: none;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    &:hover {
+      transform: none;
+      -webkit-transform: none;
+      -moz-transform: none;
+      -ms-transform: none;
+      -o-transform: none;
+    }
   }
 }
