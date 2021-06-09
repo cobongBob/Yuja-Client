@@ -136,15 +136,15 @@ const EDetail = ({ match }) => {
                   {userData && detailData.user && userData.id === detailData.user.id ? (
                     <div>
                       <Link to={`/EboardModify/Editor/${detailData.id}/1`} className='in-detail-update-btn2'>
-                        포트폴리오 수정하기
+                        수정하기
                       </Link>
                       <button className='in-detail-update-btn' onClick={deleteBoard}>
-                        포트폴리오 삭제하기
+                        삭제하기
                       </button>
                     </div>
                   ) : userData && detailData.user && authorities.includes("ADMIN") ? (
                     <button className='in-detail-update-btn' onClick={deleteBoard}>
-                      포트폴리오 삭제하기
+                      삭제하기
                     </button>
                   ) : (
                     <Report
