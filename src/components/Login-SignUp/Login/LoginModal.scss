@@ -84,6 +84,15 @@ input::placeholder {
   border-radius: 3px;
   border-style: none;
 }
+/* 아이디 저장 */
+.idSaveBox {
+  font-size: 14px;
+  color: #8d8d8d;
+  line-height: 3;
+  & label {
+    margin-bottom: 0;
+  }
+}
 /* 구글 로그인 관련 */
 .googleLoginBtn {
   height: 40px;

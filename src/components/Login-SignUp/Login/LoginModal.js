@@ -17,7 +17,7 @@ import NotificationDropdown from "../../Navi/NotificationDropdown";
 import { IoMdNotifications, IoMdNotificationsOutline } from "react-icons/io";
 import "../../Navi/Notification.scss";
 import { Nav } from "react-bootstrap";
-import { getCookie } from "../../../modules/CookieModule";
+import { useCookies } from "react-cookie";
 
 toast.configure();
 Modal.setAppElement("#root");
@@ -52,6 +52,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
   });
 
   const [rememberData, setRememberData] = useState({ rememberMe: false });
+  const [cookies, setCookie, removeCookie] = useCookies(["rememberMeCookie"]);
 
   /* 리덕스 관련 */
   const { userLoginStatus, userData } = useSelector((state) => state.loginReducer);
@@ -59,22 +60,22 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
   const [passwordFocus, setPasswordFocus] = useState(false);
 
   const openModal = useCallback(() => {
-    const rememberMeCookie = getCookie("rememberMeCookie");
-    if (rememberMeCookie) {
+    if (cookies.rememberMeCookie) {
       setPasswordFocus(true);
       setLoginData({
         ...loginData,
-        username: rememberMeCookie,
+        username: cookies.rememberMeCookie,
       });
       setRememberData({
         ...rememberData,
         rememberMe: true,
       });
-    } else if (!rememberMeCookie) {
+    } else {
       setPasswordFocus(false);
     }
+
     setIsOpen(true);
-  }, [loginData, rememberData]);
+  }, [loginData, rememberData, cookies]);
 
   function closeModal() {
     setLoginValidateDesc("");
@@ -157,7 +158,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
         [e.target.name]: e.target.checked,
       });
     },
-    [rememberData]
+    [rememberData, loginData.username, removeCookie, setCookie]
   );
   const logInHandler = useCallback(async () => {
     userLogin({ ...loginData, ...rememberData }).then((res) => {
@@ -166,6 +167,11 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
         setIsOpen(true);
         setLoginValidateDesc("이메일이나 비밀번호가 일치하지 않습니다.");
       } else {
+        if (rememberData.rememberMe) {
+          setCookie("rememberMeCookie", loginData.username, { maxAge: 60 * 60 * 24 * 365 });
+        } else {
+          removeCookie("rememberMeCookie");
+        }
         setLoginValidateDesc("");
         loginNotify();
         dispatch(getLoading(res.payload.id));
