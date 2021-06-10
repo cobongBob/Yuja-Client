@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react';
+import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import Modal from 'react-modal';
 import './LoginModal.scss';
 import '../../Navi/Navi.scss';
@@ -21,6 +21,7 @@ import NotificationDropdown from '../../Navi/NotificationDropdown';
 import { IoMdNotifications, IoMdNotificationsOutline } from 'react-icons/io';
 import '../../Navi/Notification.scss';
 import { Nav } from 'react-bootstrap';
+import { getCookie } from '../../../modules/CookieModule';
 
 toast.configure();
 Modal.setAppElement('#root');
@@ -49,9 +50,38 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
   };
   const [modalIsOpen, setIsOpen] = useState();
 
-  function openModal() {
+  const [loginData, setLoginData] = useState({
+    username: '',
+    password: '',
+  });
+
+  const [rememberData, setRememberData] = useState({rememberMe: false})
+
+  /* 리덕스 관련 */
+  const { userLoginStatus, userData } = useSelector(
+    (state) => state.loginReducer
+  );
+  const dispatch = useDispatch();
+  const [passwordFocus, setPasswordFocus] = useState(false);
+
+  const openModal = useCallback(() => {
+    const rememberMeCookie = getCookie('rememberMeCookie');
+    if(rememberMeCookie) {
+      setPasswordFocus(true)
+      setLoginData({
+        ...loginData,
+        username: rememberMeCookie
+      })
+      setRememberData({
+        ...rememberData,
+        rememberMe: true
+      })
+    } else if(!rememberMeCookie) {
+      setPasswordFocus(false)
+    }
     setIsOpen(true);
-  }
+  }, [loginData, rememberData])
+
   function closeModal() {
     setLoginValidateDesc('');
     setIsOpen(false);
@@ -79,12 +109,9 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
   };
   /* form, submit 새로고침 방지용 끝 */
 
-  /* 리덕스 관련 */
-  const { userLoginStatus, userData } = useSelector(
-    (state) => state.loginReducer
-  );
-  const dispatch = useDispatch();
+
   useEffect(() => {
+
     userCheck().then((res) => {
       dispatch(res);
       if (res.userLoginStatus === false) {
@@ -122,10 +149,6 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
     });
   }, [dispatch, history, logoutNotify, setModalIsOpen]);
 
-  const [loginData, setLoginData] = useState({
-    username: '',
-    password: '',
-  });
   const inputHandler = useCallback(
     (e) => {
       setLoginData({
@@ -135,8 +158,17 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
     },
     [loginData]
   );
+  const rememberMeHandler = useCallback(
+    (e) => {
+      setRememberData({
+        ...rememberData,
+        [e.target.name]: e.target.checked
+      });
+    },
+    [loginData]
+  );
   const logInHandler = useCallback(async () => {
-    userLogin(loginData).then((res) => {
+    userLogin({...loginData, ...rememberData}).then((res) => {
       dispatch(res);
       if (res.userLoginStatus === false) {
         setIsOpen(true);
@@ -299,20 +331,34 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
                 className='loginId'
                 type='text'
                 placeholder='아이디'
+                value={loginData.username}
                 onChange={inputHandler}
                 maxLength='30'
                 autoFocus
               />
               <input
+                id='password'
                 name='password'
                 className='loginPw'
                 type='password'
                 placeholder='비밀번호'
                 onChange={inputHandler}
                 maxLength='15'
+                autoFocus={passwordFocus}
               />
               <div className='loginMid'>
-                <div className='warningBox'>{loginValidateDesc}</div>
+                <div className='idSaveBox'>
+                  <label htmlFor='rememberMe'>
+                    <input
+                      id='rememberMe'
+                      name='rememberMe'
+                      className='rememberMe'
+                      type='checkbox'
+                      checked={rememberData.rememberMe}
+                      onChange={rememberMeHandler}
+                    /> 아이디 기억하기
+                  </label>
+                </div>
                 <div className='findPasswordBox'>
                   <Link
                     className='findPassword'
@@ -323,12 +369,13 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
                   </Link>
                 </div>
               </div>
+              <div className='warningBox'>{loginValidateDesc}</div>
               <input
                 type='submit'
                 className='loginBtn'
                 value='로그인'
                 onClick={logInHandler}
-              ></input>
+              />
               <GoogleLogin
                 className='googleLoginBtn'
                 clientId={process.env.REACT_APP_GOOGLE_OAUTH_KEY}
