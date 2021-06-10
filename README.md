@@ -23,4 +23,4 @@
 - yarn add @looop/quill-image-resize-module-react
 - yarn add react-daum-postcode (다음 주소 api)
 - yarn add react-chartjs-2 chart-js
-- 
+- yarn add react-cookie
