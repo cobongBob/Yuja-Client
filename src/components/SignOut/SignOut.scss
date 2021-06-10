@@ -3,7 +3,7 @@
   margin-left: 10vw;
   margin-top: 1%;
   margin-bottom: 1%;
-  font-family: "scdream4";
+  font-family: 'scdream4';
 }
 .signOutTitleBox {
   text-align: center;
@@ -15,18 +15,15 @@
   color: #ffb963;
   &:hover {
     text-decoration: none;
-    color:#ffb963;
+    color: #ffb963;
   }
 }
 .signOutContentBox {
   text-align: center;
 }
-.modifyBox {
-
-}
 .signOutDescBox {
-  margin-bottom:10%;
-  &>span {
+  margin-bottom: 10%;
+  & > span {
     color: #ffb963;
   }
 }

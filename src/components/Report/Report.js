@@ -77,8 +77,7 @@ const Report = ({ board_id, modalIsOpen, setModalIsOpen, board_code }) => {
       <Modal
         isOpen={modalIsOpen}
         style={reportcustomStyles}
-        onRequestClose={closeModal}
-      >
+        onRequestClose={closeModal}>
         <form id='ReportForm' onSubmit={(e) => onSubmit(e)}>
           <AiFillAlert
             size={50}
@@ -93,8 +92,7 @@ const Report = ({ board_id, modalIsOpen, setModalIsOpen, board_code }) => {
             name='content'
             id='ReportContent'
             placeholder='신고내용'
-            onChange={onChange}
-          ></textarea>
+            onChange={onChange}></textarea>
           <ul className='BtnWrapper'>
             <li>
               <input id='ReportSubmit' type='submit' value='신고하기' />
