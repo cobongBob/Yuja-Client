@@ -10,18 +10,20 @@
   margin-left: 1%;
   margin-right: 1%;
   margin-bottom: 4%;
-  display: flex;
+  display: inline-flex;
 }
 .myPage-youtuberbox {
   font-family: scdream5;
   margin-left: 1%;
   margin-right: 1%;
+  width: 130%;
 }
 
 .myPage-freebox {
   font-family: scdream5;
   margin-left: 1%;
   margin-right: 1%;
+  width: 70%;
 }
 
 .myPage-portfoliobox {
@@ -51,17 +53,8 @@
 }
 // 유튜버 공고 즐겨찾기 테이블
 
-.myPage-youtuberbox .myPage-title {
-  margin-left: 30%;
-}
-
-.myPage-youtuber-paging {
-  margin-left: 30%;
-  margin-right: -25px;
-}
-
 .myPage-youtuberbox > table {
-  width: 130%;
+  width: 100%;
   table-layout: fixed;
   font-family: scdream4;
   line-height: 2rem;
@@ -144,22 +137,13 @@
 }
 
 // 자유게시판 즐겨찾기 테이블
-.myPage-freebox .myPage-title {
-  margin-left: 30%;
-}
-
-.myPage-free-paging {
-  margin-left: 30%;
-  margin-right: -25px;
-}
 
 .myPage-freebox > table {
-  width: 70%;
+  width: 100%;
   table-layout: fixed;
   font-family: scdream4;
   line-height: 2rem;
   white-space: nowrap;
-  margin-left: 30%;
 }
 
 .myPage-freebox > table > thead {
@@ -198,10 +182,6 @@
 }
 
 // 포르폴리오 즐겨찾기 테이블
-
-.myPage-portfolio-paging {
-  margin-right: -25px;
-}
 
 .myPage-portfoliobox > table {
   width: 100%;
@@ -262,7 +242,7 @@
   }
 
   .myPage-tableBox {
-    display: inline-block;
+    display: block;
     margin: 0;
     text-align: center;
     width: 100%;
@@ -273,6 +253,13 @@
   }
 
   // 즐겨찾기 유튜버 테이블
+  .myPage-youtuberbox {
+    font-family: scdream5;
+    margin-left: 1%;
+    margin-right: 1%;
+    width: 100%;
+  }
+
   .myPage-youtuberbox .myPage-title {
     margin-top: 1%;
     margin-left: 0;
@@ -289,6 +276,7 @@
   }
 
   .myPage-freebox {
+    width: 100%;
     display: block;
     margin-left: 1%;
     margin-right: 1%;
