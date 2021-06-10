@@ -9,6 +9,7 @@ import ReReplyComment from "./ReReplyComment";
 const ChildComments = ({
   writer,
   userData,
+  authorities,
   comment,
   deleteReply,
   reReplyOpen,
@@ -64,6 +65,14 @@ const ChildComments = ({
                           className='delete_icon comment_icon'
                         />
                       </>
+                    ) : authorities.includes("ADMIN") ? (
+                      <>
+                        <AiTwotoneDelete
+                          onClick={() => deleteReply(comment.commentId)}
+                          size='22'
+                          className='delete_icon comment_icon'
+                        />
+                      </>
                     ) : null}
                   </>
                 )}
@@ -95,6 +104,7 @@ const ChildComments = ({
             <ChildComments
               writer={writer}
               userData={userData}
+              authorities={authorities}
               comment={childComment}
               deleteReply={deleteReply}
               reReplyOpen={reReplyOpen}

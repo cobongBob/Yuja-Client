@@ -7,7 +7,7 @@ import ParentsComments from "./ParentsComments";
 const RootComment = ({ board_id, writer }) => {
   const dispatch = useDispatch();
 
-  const { userData } = useSelector((state) => state.loginReducer);
+  const { userData, authorities } = useSelector((state) => state.loginReducer);
   useEffect(() => {
     if (board_id) {
       fetchComments(board_id).then((res) => {
@@ -139,6 +139,7 @@ const RootComment = ({ board_id, writer }) => {
               <ParentsComments
                 writer={writer}
                 userData={userData}
+                authorities={authorities}
                 comment={comment}
                 deleteReply={deleteReply}
                 reReplyOpen={reReplyOpen}
