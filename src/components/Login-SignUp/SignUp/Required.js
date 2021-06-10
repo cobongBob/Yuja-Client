@@ -160,10 +160,10 @@ const Required = ({ location, history }) => {
   const { current: nameCheck } = useRef(/^[a-zA-Z가-힣]{2,20}$/);
   const { current: birthCheck } = useRef(/^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/);
 
-  const getPassCheckNum = (e) => {
+  const getPassCheckNum = useCallback((e) => {
     setpassCheckNum(e.target.value);
     requiredNextBtnHandler();
-  };
+  }, [passCheckNum, setpassCheckNum]);
 
   const checkEmailValidate = useCallback(() => {
     axios.post("http://localhost:8888/api/auth/checkemail", requiredData).then((res) => {
@@ -199,14 +199,15 @@ const Required = ({ location, history }) => {
 
   const passwordTotalCheck = useCallback(
     (e) => {
-      if (isValidateInput.password !== "" && passCheckNum !== "") {
+      if (( isValidateInput.pass !== undefined || "") && passCheckNum !== "") {
         if (passCheck.test(isValidateInput.pass) === false) {
           setPasswordValidateDesc("비밀번호는 영문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.");
         } else if (isValidateInput.pass !== passCheckNum) {
           if (e.target.className === "signUpPw") {
-            setPasswordValidateDesc("비밀번호를 확인해주세요.");
+            setPasswordValidateDesc("비밀번호가 일치하지 않습니다.");
           } else {
-            setCheckPasswordValidateDesc("비밀번호를 확인해주세요.");
+            setPasswordValidateDesc("");
+            setCheckPasswordValidateDesc("비밀번호가 일치하지 않습니다.");
           }
         } else if (passCheck.test(isValidateInput.pass) === true) {
           setPasswordValidateDesc("");
@@ -214,7 +215,8 @@ const Required = ({ location, history }) => {
         if (isValidateInput.pass === passCheckNum) {
           setCheckPasswordValidateDesc("");
         }
-      } else {
+      } else if (passCheckNum === "") {
+        setCheckPasswordValidateDesc("비밀번호가 일치하지 않습니다.");
       }
     },
     [isValidateInput, passCheck, passCheckNum]

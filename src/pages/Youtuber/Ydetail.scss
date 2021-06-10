@@ -92,22 +92,6 @@
   }
 }
 
-.detail-btn-box > div > button {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  display: inline-block;
-  border: 1px solid #d62d20;
-  padding: 0.5rem;
-  border-radius: 20px;
-  background-color: white;
-  color: #d62d20;
-  &:hover {
-    background-color: #d62d20;
-    color: white;
-  }
-}
-
 .detail-title {
   display: flex;
   font-family: 'scdream5';
