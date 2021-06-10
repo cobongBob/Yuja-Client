@@ -13,7 +13,7 @@ const Winwin = ({ match, history }) => {
   const lastPageNum = path.substr(path.lastIndexOf("/") + 1);
   const board_type = useRef(match.params.board_type);
   const pageNum = useRef(lastPageNum ? lastPageNum : 1);
-  const { userData } = useSelector((state) => state.loginReducer);
+  const { userData, authorities } = useSelector((state) => state.loginReducer);
   const winBoard = useSelector((state) => state.winBoardReducer);
   //검색
   const [searchTerm, setSearchTerm] = useState("");
@@ -70,6 +70,7 @@ const Winwin = ({ match, history }) => {
             currentPage={currentPage}
             allNotices={allNotices}
             userData={userData}
+            authorities={authorities}
           />
           <Search
             boardData={searchTerm.length < 1 ? winBoard.wFilterData : null}

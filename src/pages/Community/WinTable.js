@@ -10,7 +10,7 @@ import SortingComment from "../../components/Sorting/Community/SortingComment";
 import "./Winwin.scss";
 import { ToastCenter } from "../../modules/ToastModule";
 
-const WinTable = ({ currentData, board_type, lastIdx, currentPage, allNotices, userData }) => {
+const WinTable = ({ currentData, board_type, lastIdx, currentPage, allNotices, userData, authorities }) => {
   let board_name = "";
   switch (board_type) {
     case "Winwin":
@@ -97,7 +97,13 @@ const WinTable = ({ currentData, board_type, lastIdx, currentPage, allNotices, u
                       <RiGitRepositoryPrivateFill />
                     ) : null}
                     <Link className='table_link' to={`/BoardDetail/${board_type}/${board.id}/${currentPage}`}>
-                      {board.title}
+                      {board.isPrivate &&
+                      board.boardType.boardName !== "NoticeBoard" &&
+                      !(authorities?.includes("ADMIN") || userData.id === board.user.id) ? (
+                        <>비밀글 입니다</>
+                      ) : (
+                        <>{board.title}</>
+                      )}
                       <span className='commentNum'> [{board.comments}] </span>
                     </Link>
                     {board.createDate.substr(0, 10) === getFormatDate(new Date()) ? (
