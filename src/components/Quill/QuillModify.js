@@ -129,7 +129,7 @@ const QuillModify = ({ modify, addingFileList, qModiData, setQModiData, board_ty
       if (url != null) {
         url = getVideoUrl(url);
         const range = quill.getSelection(true) !== null ? quill.getSelection(true) : 0;
-        quill.insertEmbed(range, "video", url);
+        quill.insertEmbed(range.index, "video", url);
         quill.setSelection(range.index + 1);
       }
     };
