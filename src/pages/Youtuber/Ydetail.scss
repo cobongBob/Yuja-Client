@@ -81,7 +81,7 @@
   appearance: none;
   display: inline-block;
   border: 1px solid #d62d20;
-  padding: 0.47rem;
+  padding: 0.462rem;
   border-radius: 20px;
   background-color: white;
   color: #d62d20;
@@ -199,6 +199,7 @@
   }
   .detail-btn-box {
     width: 100%;
+    font-size: 1rem !important;
   }
   .detail-title {
     display: block;
@@ -209,19 +210,16 @@
   #reportBtnBox > button {
     font-size: 0.9rem;
   }
-}
-
-@media all and (min-width: 400px) and (max-width: 770px) {
-  .detail-btn-box {
-    font-size: 1rem !important;
-  }
   .in-detail-update-btn {
     font-size: 1rem !important;
-    padding: 0.461rem;
+    padding: 0.462rem;
   }
   .in-detail-update-btn2 {
     font-size: 1rem;
   }
+}
+
+@media all and (min-width: 400px) and (max-width: 770px) {
   #reportBtnBox > button {
     font-size: 1rem;
   }
