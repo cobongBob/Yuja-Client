@@ -231,15 +231,15 @@ a {
   .winTable-Table-Wrapper {
     width: 100%;
     text-align: center;
-    margin-top: 25px;
+    margin-top: 40px;
   }
 
   .li-winwin {
     display: inline-block;
-    font-size: 12px;
+    font-size: 13px;
     width: 20%;
-    margin-right: 4%;
-    font-weight: 100;
+    margin-right: 2%;
+    font-weight: bold;
     &:hover {
       width: 22%;
       text-decoration: none;
@@ -251,10 +251,10 @@ a {
   }
   .li-link-disabled {
     display: inline-block;
-    font-size: 12px;
+    font-size: 13px;
     width: 20%;
-    margin-right: 4%;
-    font-weight: 100;
+    margin-right: 2%;
+    font-weight: bold;
     &:hover {
       width: 22%;
       text-decoration: none;

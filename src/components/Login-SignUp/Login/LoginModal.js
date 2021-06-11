@@ -158,7 +158,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
         [e.target.name]: e.target.checked,
       });
     },
-    [rememberData, loginData.username, removeCookie, setCookie]
+    [rememberData]
   );
   const logInHandler = useCallback(async () => {
     userLogin({ ...loginData, ...rememberData }).then((res) => {
@@ -182,7 +182,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
         dispatch(getLoaded());
       }
     });
-  }, [loginData, dispatch, loginNotify, rememberData]);
+  }, [loginData, dispatch, loginNotify, rememberData, removeCookie, setCookie]);
 
   const resGoogle = useCallback(
     async (response) => {
