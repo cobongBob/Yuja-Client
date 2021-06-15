@@ -37,7 +37,6 @@
   padding-left: 0;
   text-align: center;
   list-style: none;
-  width: 12rem;
 }
 
 .li-winwin {
@@ -106,6 +105,7 @@ a {
   margin: auto;
   top: 19vh;
   position: relative;
+  left: 3%;
 }
 .sideMenu {
   border-radius: 2px;
@@ -197,7 +197,7 @@ a {
 }
 
 .winwin-wrapper {
-  margin-left: 6%;
+  margin-left: 4%;
 }
 
 @media screen and (max-width: 770px) {
@@ -315,6 +315,9 @@ a {
     table-layout: fixed;
     width: 100%;
   }
+  .winwin-Table-Wrapper .card-paging {
+    margin-right: 45px;
+  }
 
   .winwinFrag .search-form {
     margin-left: auto;
@@ -333,11 +336,7 @@ a {
     margin-left: -2%;
   }
   .sideUl {
-    margin-left: 2.5%;
-  }
-
-  .sideMenu > div > ul {
-    width: 100%;
+    margin-left: 4%;
   }
   .community-options .sortingBtn {
     width: 17%;
