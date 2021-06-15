@@ -17,7 +17,7 @@ const Required = ({ location, history }) => {
     isMarketingChecked: location.state ? location.state.next : null,
     username: location.state && location.state.googleSignupData ? location.state.googleSignupData.username : "",
     password: location.state && location.state.googleSignupData ? location.state.googleSignupData.password : "",
-    realName: location.state && location.state.googleSignupData ? location.state.googleSignupData.realName : "",
+    realName: location.state && location.state.googleSignupData ? location.state.googleSignupData.realName : " ",
     provider: location.state && location.state.googleSignupData ? location.state.googleSignupData.provider : "",
     providedId: location.state && location.state.googleSignupData ? location.state.googleSignupData.providerId : "",
     bday: "",
@@ -41,7 +41,6 @@ const Required = ({ location, history }) => {
       [e.target.name]: e.target.value,
     });
   };
-
   /* 값 넘겨주기 끝 */
 
   /* 인증코드 통신 및 확인 */
@@ -125,6 +124,7 @@ const Required = ({ location, history }) => {
       checkPasswordValidateDesc === "" &&
       nameValidateDesc === "" &&
       birthValidateDesc === "" &&
+      requiredData.realName !== undefined &&
       isValidateInput.nick !== "" &&
       isValidateInput.birth !== "" &&
       isValidateInput.id !== "" &&
@@ -271,15 +271,13 @@ const Required = ({ location, history }) => {
             {/*구글로그인으로 왔을 때 */}
             {location.state && location.state.googleSignupData ? (
               <>
+
                 <tr>
                   <td>
-                    <div className='labelWrapper'>
-                      <label htmlFor='signUpId'>이메일</label>
-                    </div>
                     <input
                       className='signUpId'
                       name='username'
-                      type='email'
+                      type='hidden'
                       placeholder='이메일을 입력해주세요'
                       onChange={changeValue}
                       onKeyUp={checkEmailValidate}
@@ -296,13 +294,10 @@ const Required = ({ location, history }) => {
                 </tr>
                 <tr>
                   <td>
-                    <div className='labelWrapper'>
-                      <label htmlFor='signUpPw'>비밀번호</label>
-                    </div>
                     <input
                       className='signUpPw'
                       name='password'
-                      type='password'
+                      type='hidden'
                       placeholder='비밀번호'
                       onChange={changeValue}
                       onKeyUp={checkPasswordValidate}
@@ -318,13 +313,10 @@ const Required = ({ location, history }) => {
                 </tr>
                 <tr>
                   <td>
-                    <div className='labelWrapper'>
-                      <label htmlFor='signUpPwCheck'>비밀번호 확인</label>
-                    </div>
                     <input
                       className='signUpPwCheck'
                       name='passwordCheckNum'
-                      type='password'
+                      type='hidden'
                       placeholder='비밀번호 확인'
                       onChange={getPassCheckNum}
                       onKeyUp={checkPasswordCheckValidate}
@@ -338,6 +330,8 @@ const Required = ({ location, history }) => {
                     <div className='warningBox'>{checkPasswordValidateDesc}</div>
                   </td>
                 </tr>
+
+
                 <tr>
                   <td>
                     <div className='labelWrapper'>
@@ -350,9 +344,14 @@ const Required = ({ location, history }) => {
                       placeholder='이름(실명)'
                       onChange={changeValue}
                       onKeyUp={checkNameValidate}
-                      disabled={true}
+                      disabled={
+                        !!(location.state && location.state.googleSignupData.realName)
+                      }
                       value={
-                        location.state && location.state.googleSignupData && location.state.googleSignupData.realName
+                        location.state && location.state.googleSignupData && location.state.googleSignupData.providerId === 'google' ?
+                          location.state.googleSignupData.realName
+                          :
+                          requiredData.realName
                       }
                       autoComplete='off'
                       maxLength='20'
@@ -363,7 +362,6 @@ const Required = ({ location, history }) => {
               </>
             ) : (
               // 그냥 로그인으로 왔을 때
-
               <>
                 <tr>
                   <td>

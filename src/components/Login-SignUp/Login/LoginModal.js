@@ -18,6 +18,8 @@ import { IoMdNotifications, IoMdNotificationsOutline } from "react-icons/io";
 import "../../Navi/Notification.scss";
 import { Nav } from "react-bootstrap";
 import { useCookies } from "react-cookie";
+import kakaoLoginIcon from "./kakao_login_large_wide.png";
+import KakaoLogin from 'react-kakao-login';
 
 toast.configure();
 Modal.setAppElement("#root");
@@ -208,6 +210,30 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
     },
     [dispatch, history, loginNotify]
   );
+
+  const resKakao = useCallback(
+    async (response) => {
+      await auth.kakaoLoginService(response).then((res) => {
+        if (res.providerId === null) {
+          userLogin(res).then((respon) => {
+            dispatch(respon);
+            loginNotify();
+            respon.userLoginStatus === false ? setIsOpen(true) : setIsOpen(false);
+          });
+          closeModal();
+        } else {
+          closeModal();
+          history.push({
+            pathname: "/SignUp",
+            resData: {
+              res,
+            },
+          });
+        }
+      });
+    },
+    [dispatch, history, loginNotify]
+  );
   /* 로그인 관련 끝 */
 
   /* 로그인 워닝 박스 */
@@ -365,6 +391,15 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
                     <img src={googleLoginIcon} alt='안보임' className='googleIcon' />
                     구글 로그인
                   </button>
+                )}
+              />
+              <KakaoLogin
+                token={process.env.REACT_APP_KAKAO_OAUTH_KEY}
+                onSuccess={resKakao}
+                onFail={resKakao}
+                getProfile={true}
+                render={(renderProps) => (
+                  <img src={kakaoLoginIcon} onClick={renderProps.onClick} className='kakaoLoginIconClass'/>
                 )}
               />
             </form>
