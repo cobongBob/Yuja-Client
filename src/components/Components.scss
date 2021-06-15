@@ -176,4 +176,19 @@
   .card-paging {
     margin-right: 25px;
   }
+
+  #ReportContent {
+    width: 90%;
+    height: 350px;
+  }
+
+  .BtnWrapper {
+    float: right;
+    margin-top: 3%;
+    list-style: none;
+    margin-right: 25%;
+  }
+  .BtnWrapper > li {
+    float: left;
+  }
 }
