@@ -1,20 +1,26 @@
-import React, { useCallback, useMemo, useState } from "react";
-import "./AdminUser.scss";
-import Modal from "react-modal";
-Modal.setAppElement("#root");
-const AdminUsersTable = ({ currentData, userSetBan, userRemove, userRecovery }) => {
+import React, { useCallback, useMemo, useState } from 'react';
+import './AdminUser.scss';
+import Modal from 'react-modal';
+import { FaUserAstronaut } from 'react-icons/fa';
+Modal.setAppElement('#root');
+const AdminUsersTable = ({
+  currentData,
+  userSetBan,
+  userRemove,
+  userRecovery,
+}) => {
   const reportcustomStyles = useMemo(
     () => ({
       content: {
-        top: "50%",
-        left: "50%",
-        right: "auto",
-        bottom: "auto",
-        marginRight: "-50%",
-        transform: "translate(-50%, -50%)",
-        background: "#edfcfc",
-        width: "60%",
-        height: "80%",
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        background: '#edfcfc',
+        width: '60%',
+        height: '80%',
       },
       overlay: { zIndex: 9999 },
     }),
@@ -48,7 +54,11 @@ const AdminUsersTable = ({ currentData, userSetBan, userRemove, userRecovery }) 
           <tbody>
             {currentData &&
               currentData.map((user, idx) => (
-                <tr key={idx} className='user_table_tr' onClick={() => openModal(idx)}>
+                <tr
+                  key={idx}
+                  className='user_table_tr'
+                  onClick={() => openModal(idx)}
+                >
                   <td>{user.id}</td>
                   <td>{user.username}</td>
                   <td>{user.nickname}</td>
@@ -58,18 +68,18 @@ const AdminUsersTable = ({ currentData, userSetBan, userRemove, userRecovery }) 
                       if (idx === user.authorities.length - 1) {
                         return auth.authority;
                       } else {
-                        return auth.authority + ", ";
+                        return auth.authority + ', ';
                       }
                     })}
                   </td>
                   <td>
                     <span>
                       {user.deleted ? (
-                        <span style={{ color: "gray" }}>탈퇴됨</span>
+                        <span style={{ color: 'gray' }}>탈퇴됨</span>
                       ) : user.banned ? (
-                        <span style={{ color: "red" }}>정지됨</span>
+                        <span style={{ color: 'red' }}>정지됨</span>
                       ) : (
-                        <span style={{ color: "blue" }}>활동중</span>
+                        <span style={{ color: 'blue' }}>활동중</span>
                       )}
                     </span>
                   </td>
@@ -78,20 +88,48 @@ const AdminUsersTable = ({ currentData, userSetBan, userRemove, userRecovery }) 
           </tbody>
         </table>
         {currentData && currentData.length > 0 && currentData[seleted] && (
-          <Modal closeTimeoutMS={200} isOpen={modalIsOpen} style={reportcustomStyles} onRequestClose={closeModal}>
+          <Modal
+            closeTimeoutMS={200}
+            isOpen={modalIsOpen}
+            style={reportcustomStyles}
+            onRequestClose={closeModal}
+          >
             <div>
               <div>
+                <div>
+                  {currentData[seleted].profilePic ? (
+                    <img
+                      className='admin_user_details_profilePic'
+                      src={`${currentData[seleted].profilePic}`}
+                      alt=''
+                    />
+                  ) : (
+                    <FaUserAstronaut
+                      size={140}
+                      className='admin_user_details_profilePic'
+                    />
+                  )}
+                </div>
                 <table className='editordetail-wrapper admin_user_details'>
                   <tbody>
                     <tr className='editordetail-header-wrapper'>
                       <td className='admindetail-header'>
                         회원정보
                         {currentData[seleted].deleted ? (
-                          <span style={{ color: "gray", fontSize: "1rem" }}> 탈퇴됨</span>
+                          <span style={{ color: 'gray', fontSize: '1rem' }}>
+                            {' '}
+                            탈퇴됨
+                          </span>
                         ) : currentData[seleted].banned ? (
-                          <span style={{ color: "red", fontSize: "1rem" }}> 정지됨</span>
+                          <span style={{ color: 'red', fontSize: '1rem' }}>
+                            {' '}
+                            정지됨
+                          </span>
                         ) : (
-                          <span style={{ color: "blue", fontSize: "1rem" }}> 활동중</span>
+                          <span style={{ color: 'blue', fontSize: '1rem' }}>
+                            {' '}
+                            활동중
+                          </span>
                         )}
                       </td>
                     </tr>
@@ -114,12 +152,15 @@ const AdminUsersTable = ({ currentData, userSetBan, userRemove, userRecovery }) 
                     <tr>
                       <th className='admin_user_detail'>권한 </th>
                       <td>
-                        {" "}
+                        {' '}
                         {currentData[seleted].authorities.map((auth, idx) => {
-                          if (idx === currentData[seleted].authorities.length - 1) {
+                          if (
+                            idx ===
+                            currentData[seleted].authorities.length - 1
+                          ) {
                             return auth.authority;
                           } else {
-                            return auth.authority + ", ";
+                            return auth.authority + ', ';
                           }
                         })}
                       </td>
@@ -151,13 +192,19 @@ const AdminUsersTable = ({ currentData, userSetBan, userRemove, userRecovery }) 
                     {currentData[seleted].banned && (
                       <tr>
                         <th className='admin_user_detail'>밴 날짜</th>
-                        <td> {currentData[seleted].updatedDate.substr(0, 10)}</td>
+                        <td>
+                          {' '}
+                          {currentData[seleted].updatedDate.substr(0, 10)}
+                        </td>
                       </tr>
                     )}
                     {currentData[seleted].deleted && (
                       <tr>
                         <th className='admin_user_detail'>탈퇴일</th>
-                        <td> {currentData[seleted].updatedDate.substr(0, 10)}</td>
+                        <td>
+                          {' '}
+                          {currentData[seleted].updatedDate.substr(0, 10)}
+                        </td>
                       </tr>
                     )}
                   </tbody>
@@ -180,15 +227,19 @@ const AdminUsersTable = ({ currentData, userSetBan, userRemove, userRecovery }) 
                 {!currentData[seleted].deleted && (
                   <button
                     onClick={() => {
-                      userSetBan(currentData[seleted].id, currentData[seleted].username, currentData[seleted].banned);
+                      userSetBan(
+                        currentData[seleted].id,
+                        currentData[seleted].username,
+                        currentData[seleted].banned
+                      );
                       closeModal();
                     }}
                     className='YCBtn'
                   >
                     {!currentData[seleted].banned ? (
-                      <span style={{ color: "red" }}>밴 하기</span>
+                      <span style={{ color: 'red' }}>밴 하기</span>
                     ) : (
-                      <span style={{ color: "blue" }}>밴 해제</span>
+                      <span style={{ color: 'blue' }}>밴 해제</span>
                     )}
                   </button>
                 )}
@@ -199,7 +250,7 @@ const AdminUsersTable = ({ currentData, userSetBan, userRemove, userRecovery }) 
                   }}
                   className='YCBtn'
                 >
-                  <span style={{ color: "red" }}>유저 삭제</span>
+                  <span style={{ color: 'red' }}>유저 삭제</span>
                 </button>
 
                 <button className='YCBtn' onClick={closeModal}>
