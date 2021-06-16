@@ -18,7 +18,7 @@ import { IoMdNotifications, IoMdNotificationsOutline } from "react-icons/io";
 import "../../Navi/Notification.scss";
 import { Nav } from "react-bootstrap";
 import { useCookies } from "react-cookie";
-import kakaoLoginIcon from "./kakao_login_large_wide.png";
+import kakaoLoginIcon from "./kakao_login_medium_wide.png";
 import KakaoLogin from 'react-kakao-login';
 
 toast.configure();
@@ -388,8 +388,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
                 cookiePolicy={"single_host_origin"}
                 render={(renderProps) => (
                   <button onClick={renderProps.onClick} style={customStyle}>
-                    <img src={googleLoginIcon} alt='안보임' className='googleIcon' />
-                    구글 로그인
+                    <div className='btnIconBox'><img src={googleLoginIcon} alt='안보임' className='googleIcon'/><div className='btnTextBox'>구글 로그인</div></div>
                   </button>
                 )}
               />
