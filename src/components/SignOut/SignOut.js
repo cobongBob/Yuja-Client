@@ -9,6 +9,8 @@ import { useDispatch } from "react-redux";
 import { ToastTopRight } from "../../modules/ToastModule";
 import GoogleLogin from "react-google-login";
 import googleLoginIcon from "../Login-SignUp/Login/googleLoginIcon2.svg";
+import KakaoLogin from "react-kakao-login";
+import kakaoLoginIcon from "../Login-SignUp/Login/kakao_login_medium_wide.png";
 
 const SignOut = ({ history }) => {
   const loggedInUserData = getLoggedInUserData();
@@ -19,13 +21,13 @@ const SignOut = ({ history }) => {
     providedId: loggedInUserData.providedId,
   });
   const [passwordDesc, setPasswordDesc] = useState();
-  const [getProviderId, setGetProviderId] = useState();
+  const [getProvider, setGetProvider] = useState();
   const [googleSubmitHandler, setGoogleSubmitHandler] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
     getUserData(loggedInUserData.id).then((res) => {
-      setGetProviderId(res.data.providedId);
+      setGetProvider(res.data.provider);
     });
   }, [loggedInUserData.id]);
 
@@ -78,6 +80,23 @@ const SignOut = ({ history }) => {
     [dispatch, setPasswordDesc]
   );
 
+  const resKakao = useCallback(
+    async (response) => {
+      await auth
+        .kakaoLoginService(response)
+        .then((res) => {
+          userLogin(res).then((respon) => {
+            dispatch(respon);
+            setGoogleSubmitHandler(false);
+          });
+        })
+        .catch(() => {
+          setPasswordDesc("오류가 발생했습니다.");
+        });
+    },
+    [dispatch, setPasswordDesc]
+  );
+
   const googleSignOut = useCallback(async () => {
     await deleteUser(loggedInUserData.id);
     await userLogout()
@@ -114,7 +133,7 @@ const SignOut = ({ history }) => {
       </div>
       <div className='signOutContentBox'>
         <div className='overlay'>
-          {getProviderId === null || getProviderId === undefined || getProviderId === "" ? (
+          {getProvider === null || getProvider === undefined || getProvider === "" ? (
             <div className='signOutBox'>
               <div className='signOutDescBox'>
                 <span>{loggedInUserData.nickname}</span>
@@ -168,20 +187,37 @@ const SignOut = ({ history }) => {
                 탈퇴 하시려면 다시 한번 로그인 해주세요.
               </div>
               <div className='SignOutGoogleBtnBox'>
-                <GoogleLogin
-                  className='googleLoginBtn'
-                  clientId={process.env.REACT_APP_GOOGLE_OAUTH_KEY}
-                  buttonText='구글 로그인'
-                  onSuccess={resGoogle}
-                  onFailure={resGoogle}
-                  cookiePolicy={"single_host_origin"}
-                  render={(renderProps) => (
-                    <button onClick={renderProps.onClick} style={customStyle}>
-                      <img src={googleLoginIcon} alt='안보임' className='googleIcon' />
-                      구글 로그인
-                    </button>
-                  )}
-                />
+                {getProvider === "google" ? (
+                  <GoogleLogin
+                    className='googleLoginBtn'
+                    clientId={process.env.REACT_APP_GOOGLE_OAUTH_KEY}
+                    buttonText='구글 로그인'
+                    onSuccess={resGoogle}
+                    onFailure={resGoogle}
+                    cookiePolicy={"single_host_origin"}
+                    render={(renderProps) => (
+                      <button onClick={renderProps.onClick} style={customStyle}>
+                        <img src={googleLoginIcon} alt='안보임' className='googleIcon' />
+                        구글 로그인
+                      </button>
+                    )}
+                  />
+                ) : (
+                  <KakaoLogin
+                    token={process.env.REACT_APP_KAKAO_OAUTH_KEY}
+                    onSuccess={resKakao}
+                    onFail={resKakao}
+                    getProfile={true}
+                    render={(renderProps) => (
+                      <img
+                        src={kakaoLoginIcon}
+                        onClick={renderProps.onClick}
+                        className='ModifykakaoLoginIcon'
+                        alt='카카오이미지'
+                      />
+                    )}
+                  />
+                )}
               </div>
               <div className='warningBox'>{passwordDesc}</div>
               <div className='beforeModifyBtnBox'>
@@ -190,7 +226,6 @@ const SignOut = ({ history }) => {
                   className='btn btn-warning'
                   value='회원탈퇴'
                   onClick={() => {
-                    resGoogle();
                     googleSignOut();
                   }}
                   disabled={googleSubmitHandler}
