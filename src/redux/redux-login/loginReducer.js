@@ -7,6 +7,7 @@ const USER_CHECK = "userCheck";
 const USER_STATUS = "userStatus";
 const ADD_AUTHORITY = "ADD_AUTHORITY";
 const DELETE_AUTHORITY = "DELETE_AUTHORITY";
+const CHANGE_NICKNAME = "CHANGE_NICKNAME";
 
 /* 액션 함수 */
 export const userLogin = async (loginData) => {
@@ -58,6 +59,13 @@ export const delAuthority = async (auth) => {
   return {
     type: DELETE_AUTHORITY,
     payload: auth,
+  };
+};
+
+export const changeNickname = async (newNickname) => {
+  return {
+    type: CHANGE_NICKNAME,
+    payload: newNickname,
   };
 };
 
@@ -114,6 +122,11 @@ export default function loginReducer(state = initialState, action) {
       return {
         ...state,
         authorities: state.authorities.filter((auth) => auth !== action.payload),
+      };
+    case CHANGE_NICKNAME:
+      return {
+        ...state,
+        userData: { ...state.userData, nickname: action.payload },
       };
     default:
       return state;

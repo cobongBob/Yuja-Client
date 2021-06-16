@@ -142,7 +142,7 @@ const ThumbDetail = ({ match }) => {
                       </button>
                     </div>
                   ) : userData && detailData.user && authorities.includes("ADMIN") ? (
-                    <button className='in-detail-update-btn2' onClick={deleteBoard}>
+                    <button className='in-detail-update-btn' onClick={deleteBoard}>
                       삭제하기
                     </button>
                   ) : (

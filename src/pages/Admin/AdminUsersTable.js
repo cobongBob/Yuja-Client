@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useState } from "react";
 import "./AdminUser.scss";
 import Modal from "react-modal";
+import { FaUserAstronaut } from "react-icons/fa";
 Modal.setAppElement("#root");
 const AdminUsersTable = ({ currentData, userSetBan, userRemove, userRecovery }) => {
   const reportcustomStyles = useMemo(
@@ -81,6 +82,13 @@ const AdminUsersTable = ({ currentData, userSetBan, userRemove, userRecovery }) 
           <Modal closeTimeoutMS={200} isOpen={modalIsOpen} style={reportcustomStyles} onRequestClose={closeModal}>
             <div>
               <div>
+                <div>
+                  {currentData[seleted].profilePic ? (
+                    <img className='admin_user_details_profilePic' src={`${currentData[seleted].profilePic}`} alt='' />
+                  ) : (
+                    <FaUserAstronaut size={140} className='admin_user_details_profilePic' />
+                  )}
+                </div>
                 <table className='editordetail-wrapper admin_user_details'>
                   <tbody>
                     <tr className='editordetail-header-wrapper'>

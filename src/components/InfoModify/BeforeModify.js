@@ -13,6 +13,8 @@ import { getUserData } from "../../apiService/UserApiService";
 import GoogleLogin from "react-google-login";
 import googleLoginIcon from "../Login-SignUp/Login/googleLoginIcon2.svg";
 import { ToastPreventAccess } from "../../modules/ToastModule";
+import KakaoLogin from "react-kakao-login";
+import kakaoLoginIcon from "../Login-SignUp/Login/kakao_login_medium_wide.png";
 
 const BeforeModify = ({ history }) => {
   /* 잘못된 접근 막기 */
@@ -32,7 +34,7 @@ const BeforeModify = ({ history }) => {
 
   const { authorities } = useSelector((state) => state.loginReducer);
   const [passwordDesc, setPasswordDesc] = useState();
-  const [getProviderId, setGetProviderId] = useState();
+  const [getProvider, setGetProvider] = useState();
   const dispatch = useDispatch();
   const userId = loggedInUserData && loggedInUserData.id ? loggedInUserData.id : null;
 
@@ -79,6 +81,23 @@ const BeforeModify = ({ history }) => {
     [dispatch, setPasswordDesc, history]
   );
 
+  const resKakao = useCallback(
+    async (response) => {
+      await auth
+        .kakaoLoginService(response)
+        .then((res) => {
+          userLogin(res).then((respon) => {
+            dispatch(respon);
+            history.push("/InfoModify");
+          });
+        })
+        .catch(() => {
+          setPasswordDesc("비밀번호를 확인해주세요.");
+        });
+    },
+    [dispatch, history, setPasswordDesc]
+  );
+
   // 구글 아이콘 스타일
   const customStyle = {
     background: "royalblue",
@@ -95,7 +114,7 @@ const BeforeModify = ({ history }) => {
 
   useEffect(() => {
     getUserData(userId).then((res) => {
-      setGetProviderId(res.data.providedId);
+      setGetProvider(res.data.provider);
     });
   }, [userId]);
 
@@ -108,7 +127,7 @@ const BeforeModify = ({ history }) => {
       </div>
       <div className='beforeModifyContentBox'>
         <div className='overlay'>
-          {getProviderId === null || getProviderId === undefined || getProviderId === "" ? (
+          {getProvider === null || getProvider === undefined || getProvider === "" ? (
             <div className='modifyBox'>
               <div className='beforeModifyDescBoxDescBox'>
                 <span>{loggedInUserData.nickname}</span>
@@ -152,7 +171,7 @@ const BeforeModify = ({ history }) => {
               </div>
             </div>
           ) : (
-            /* ===================================== 여기부터 구글 유저일때 */
+            /* ===================================== 여기부터 소셜 유저일때 */
             <div className='modifyBox'>
               <div className='beforeModifyDescBoxDescBox'>
                 <span>{loggedInUserData.nickname}</span>
@@ -162,20 +181,37 @@ const BeforeModify = ({ history }) => {
               <div className='labelWrapper'></div>
               <div className='warningBox'>{passwordDesc}</div>
               <div className='beforeModifyBtnBox'>
-                <GoogleLogin
-                  className='googleLoginBtn'
-                  clientId={process.env.REACT_APP_GOOGLE_OAUTH_KEY}
-                  buttonText='구글 로그인'
-                  onSuccess={resGoogle}
-                  onFailure={resGoogle}
-                  cookiePolicy={"single_host_origin"}
-                  render={(renderProps) => (
-                    <button onClick={renderProps.onClick} style={customStyle}>
-                      <img src={googleLoginIcon} alt='안보임' className='googleIcon' />
-                      구글 로그인
-                    </button>
-                  )}
-                />
+                {getProvider === "google" ? (
+                  <GoogleLogin
+                    className='googleLoginBtn'
+                    clientId={process.env.REACT_APP_GOOGLE_OAUTH_KEY}
+                    buttonText='구글 로그인'
+                    onSuccess={resGoogle}
+                    onFailure={resGoogle}
+                    cookiePolicy={"single_host_origin"}
+                    render={(renderProps) => (
+                      <button onClick={renderProps.onClick} style={customStyle}>
+                        <img src={googleLoginIcon} alt='안보임' className='googleIcon' />
+                        구글 로그인
+                      </button>
+                    )}
+                  />
+                ) : (
+                  <KakaoLogin
+                    token={process.env.REACT_APP_KAKAO_OAUTH_KEY}
+                    onSuccess={resKakao}
+                    onFail={resKakao}
+                    getProfile={true}
+                    render={(renderProps) => (
+                      <img
+                        src={kakaoLoginIcon}
+                        onClick={renderProps.onClick}
+                        className='ModifykakaoLoginIcon'
+                        alt='카카오이미지'
+                      />
+                    )}
+                  />
+                )}
               </div>
               <div className='beforeModifyOtherBoxDesc'>다른 서비스가 필요하신가요?</div>
               <div className='beforeModifyOtherBox'>

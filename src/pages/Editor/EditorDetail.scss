@@ -165,7 +165,7 @@
   appearance: none;
   display: inline-block;
   border: 1px solid #d62d20;
-  padding: 0.5rem;
+  padding: 0.461rem;
   border-radius: 20px;
   background-color: white;
   color: #d62d20;
@@ -222,23 +222,5 @@
   }
   .pr-content {
     margin: 5px;
-  }
-  .in-detail-update-btn {
-    font-size: 1rem;
-  }
-  .in-detail-update-btn2 {
-    font-size: 1rem;
-  }
-}
-
-@media all and (min-width: 400px) and (max-width: 770px) {
-  .detail-btn-box {
-    font-size: 1.2rem !important;
-  }
-  .in-detail-update-btn {
-    font-size: 1.2rem !important;
-  }
-  .in-detail-update-btn2 {
-    font-size: 1.2rem;
   }
 }

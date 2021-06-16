@@ -18,6 +18,8 @@ import { IoMdNotifications, IoMdNotificationsOutline } from "react-icons/io";
 import "../../Navi/Notification.scss";
 import { Nav } from "react-bootstrap";
 import { useCookies } from "react-cookie";
+import kakaoLoginIcon from "./kakao_login_medium_wide.png";
+import KakaoLogin from "react-kakao-login";
 
 toast.configure();
 Modal.setAppElement("#root");
@@ -158,7 +160,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
         [e.target.name]: e.target.checked,
       });
     },
-    [rememberData]
+    [rememberData, loginData.username, removeCookie, setCookie]
   );
   const logInHandler = useCallback(async () => {
     userLogin({ ...loginData, ...rememberData }).then((res) => {
@@ -182,11 +184,35 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
         dispatch(getLoaded());
       }
     });
-  }, [loginData, dispatch, loginNotify, rememberData, removeCookie, setCookie]);
+  }, [loginData, dispatch, loginNotify, rememberData]);
 
   const resGoogle = useCallback(
     async (response) => {
       await auth.googleLoginService(response).then((res) => {
+        if (res.providerId === null) {
+          userLogin(res).then((respon) => {
+            dispatch(respon);
+            loginNotify();
+            respon.userLoginStatus === false ? setIsOpen(true) : setIsOpen(false);
+          });
+          closeModal();
+        } else {
+          closeModal();
+          history.push({
+            pathname: "/SignUp",
+            resData: {
+              res,
+            },
+          });
+        }
+      });
+    },
+    [dispatch, history, loginNotify]
+  );
+
+  const resKakao = useCallback(
+    async (response) => {
+      await auth.kakaoLoginService(response).then((res) => {
         if (res.providerId === null) {
           userLogin(res).then((respon) => {
             dispatch(respon);
@@ -361,9 +387,25 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
                 cookiePolicy={"single_host_origin"}
                 render={(renderProps) => (
                   <button onClick={renderProps.onClick} style={customStyle}>
-                    <img src={googleLoginIcon} alt='안보임' className='googleIcon' />
-                    구글 로그인
+                    <div className='btnIconBox'>
+                      <img src={googleLoginIcon} alt='안보임' className='googleIcon' />
+                      <div className='btnTextBox'>구글 로그인</div>
+                    </div>
                   </button>
+                )}
+              />
+              <KakaoLogin
+                token={process.env.REACT_APP_KAKAO_OAUTH_KEY}
+                onSuccess={resKakao}
+                onFail={resKakao}
+                getProfile={true}
+                render={(renderProps) => (
+                  <img
+                    src={kakaoLoginIcon}
+                    onClick={renderProps.onClick}
+                    className='kakaoLoginIconClass'
+                    alt='카카오이미지'
+                  />
                 )}
               />
             </form>

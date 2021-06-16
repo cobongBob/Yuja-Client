@@ -109,9 +109,17 @@ input::placeholder {
   border-style: none;
 }
 .googleIcon {
-  height: 40px;
-  margin-left: -20px;
-  margin-right: 10px;
+  height: 100%;
+}
+.btnIconBox {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+}
+.btnTextBox {
+  display: inline-block;
+  margin-left: 28%;
 }
 /* 구글 로그인 끝 */
 section > footer {
@@ -128,6 +136,12 @@ section > footer {
     text-decoration: underline;
     cursor: pointer;
   }
+}
+/* 카카오 로그인 관련 */
+.kakaoLoginIconClass {
+  height: 44px;
+  width: 100%;
+  cursor: pointer;
 }
 /* 수정 버튼 */
 
