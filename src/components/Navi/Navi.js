@@ -78,6 +78,14 @@ const Navi = ({ allNotifications, setModalIsOpen }) => {
                 고객센터
               </li>
             </Nav.Link>
+            <Nav.Link href='#' as={Link} to='/ChatNode'>
+              <li
+                className={
+                  pathname === '/ChatNode' ? 'nav-link-disabled' : 'nav-link'
+                }>
+                  chat
+              </li>
+            </Nav.Link>
             <Nav.Link href='#' as={Link} to='/Admin/AdminUsers'>
               {authorities && authorities.includes('ADMIN') && (
                 <>

@@ -161,7 +161,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
         [e.target.name]: e.target.checked,
       });
     },
-    [rememberData, loginData.username, removeCookie, setCookie]
+    [rememberData]
   );
   const logInHandler = useCallback(async () => {
     userLogin({ ...loginData, ...rememberData }).then((res) => {
@@ -185,7 +185,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
         dispatch(getLoaded());
       }
     });
-  }, [loginData, dispatch, loginNotify, rememberData]);
+  }, [loginData, dispatch, loginNotify, rememberData, removeCookie, setCookie]);
 
   const resGoogle = useCallback(
     async (response) => {
@@ -267,9 +267,9 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
             <button className='welcomeBox' onClick={showMenu} ref={menu}>
               {userData.nickname}
               {allNotifications.length > 0 &&
-              userData &&
-              userData.id !== 0 &&
-              allNotifications[0].resipeint.id === userData.id ? (
+                userData &&
+                userData.id !== 0 &&
+                allNotifications[0].resipeint.id === userData.id ? (
                 <span id='dropdown-basic'>
                   <IoMdNotifications className='noti_icon' size='30' />
                 </span>
@@ -388,7 +388,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
                 cookiePolicy={"single_host_origin"}
                 render={(renderProps) => (
                   <button onClick={renderProps.onClick} style={customStyle}>
-                    <div className='btnIconBox'><img src={googleLoginIcon} alt='안보임' className='googleIcon'/><div className='btnTextBox'>구글 로그인</div></div>
+                    <div className='btnIconBox'><img src={googleLoginIcon} alt='안보임' className='googleIcon' /><div className='btnTextBox'>구글 로그인</div></div>
                   </button>
                 )}
               />
@@ -398,7 +398,7 @@ function LoginModal({ allNotifications, setModalIsOpen }) {
                 onFail={resKakao}
                 getProfile={true}
                 render={(renderProps) => (
-                  <img src={kakaoLoginIcon} onClick={renderProps.onClick} className='kakaoLoginIconClass'/>
+                  <img src={kakaoLoginIcon} onClick={renderProps.onClick} className='kakaoLoginIconClass' alt="카카오" />
                 )}
               />
             </form>

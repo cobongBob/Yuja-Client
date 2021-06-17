@@ -61,6 +61,7 @@ import { getAllNotifications } from './redux/loading/notiReducer';
 import RouteIf from './routerif/RouteIf';
 import ChatFrame from './components/NewChat/ChatFrame';
 import MyPage from './pages/MyPage/MyPage';
+import ChatNode from './ChatNode';
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ['/SignUp', '/SignUp/Required', '/SignUp/NonRequired'];
 
@@ -453,6 +454,7 @@ function App() {
           <Route path='/MyPage' component={MyPage} />
           <Route path='/Help' component={Help} />
           <Route path='/SignOut' component={SignOut} />
+          <Route path='/ChatNode' component={ChatNode} />
           <Redirect to='/' />
         </Switch>
       </div>

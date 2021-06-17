@@ -94,7 +94,7 @@ const SignOut = ({ history }) => {
           setPasswordDesc("오류가 발생했습니다.");
         })
     },
-    [dispatch, history, setPasswordDesc]
+    [dispatch, setPasswordDesc]
   );
 
   const googleSignOut = useCallback(async () => {
@@ -188,28 +188,28 @@ const SignOut = ({ history }) => {
               </div>
               <div className='SignOutGoogleBtnBox'>
                 {getProvider === 'google' ?
-                <GoogleLogin
-                  className='googleLoginBtn'
-                  clientId={process.env.REACT_APP_GOOGLE_OAUTH_KEY}
-                  buttonText='구글 로그인'
-                  onSuccess={resGoogle}
-                  onFailure={resGoogle}
-                  cookiePolicy={"single_host_origin"}
-                  render={(renderProps) => (
-                    <button onClick={renderProps.onClick} style={customStyle}>
-                      <img src={googleLoginIcon} alt='안보임' className='googleIcon' />
-                      구글 로그인
-                    </button>
-                  )}
-                />
-                :
+                  <GoogleLogin
+                    className='googleLoginBtn'
+                    clientId={process.env.REACT_APP_GOOGLE_OAUTH_KEY}
+                    buttonText='구글 로그인'
+                    onSuccess={resGoogle}
+                    onFailure={resGoogle}
+                    cookiePolicy={"single_host_origin"}
+                    render={(renderProps) => (
+                      <button onClick={renderProps.onClick} style={customStyle}>
+                        <img src={googleLoginIcon} alt='안보임' className='googleIcon' />
+                        구글 로그인
+                      </button>
+                    )}
+                  />
+                  :
                   <KakaoLogin
                     token={process.env.REACT_APP_KAKAO_OAUTH_KEY}
                     onSuccess={resKakao}
                     onFail={resKakao}
                     getProfile={true}
                     render={(renderProps) => (
-                      <img src={kakaoLoginIcon} onClick={renderProps.onClick} className='ModifykakaoLoginIcon'/>
+                      <img src={kakaoLoginIcon} onClick={renderProps.onClick} className='ModifykakaoLoginIcon' alt="" />
                     )}
                   />
                 }

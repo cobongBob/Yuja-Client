@@ -116,6 +116,22 @@ const Required = ({ location, history }) => {
 
   const [nextBtnDisabledHandler, setNextBtnDisabledHandler] = useState(false);
 
+
+  const requiredNextBtnHandler = useCallback(() => {
+    if (
+      [
+        isValidateInput.id,
+        isValidateInput.nick,
+        isValidateInput.birth,
+        isValidateInput.name,
+        isValidateInput.pass,
+      ].includes("")
+    ) {
+      setNextBtnDisabledHandler(true);
+    }
+  }, [isValidateInput]);
+
+
   const totalCheck = useCallback(() => {
     if (
       EmailValidateResData === "" &&
@@ -145,6 +161,7 @@ const Required = ({ location, history }) => {
     birthValidateDesc,
     isValidateInput,
     btnTextHandler,
+    requiredData.realName
   ]);
 
   const backSpaceCheck = useCallback(() => {
@@ -163,7 +180,7 @@ const Required = ({ location, history }) => {
   const getPassCheckNum = useCallback((e) => {
     setpassCheckNum(e.target.value);
     requiredNextBtnHandler();
-  }, [passCheckNum, setpassCheckNum]);
+  }, [setpassCheckNum, requiredNextBtnHandler]);
 
   const checkEmailValidate = useCallback(() => {
     axios.post("http://localhost:8888/api/auth/checkemail", requiredData).then((res) => {
@@ -199,7 +216,7 @@ const Required = ({ location, history }) => {
 
   const passwordTotalCheck = useCallback(
     (e) => {
-      if (( isValidateInput.pass !== undefined || "") && passCheckNum !== "") {
+      if ((isValidateInput.pass !== undefined || "") && passCheckNum !== "") {
         if (passCheck.test(isValidateInput.pass) === false) {
           setPasswordValidateDesc("비밀번호는 영문자, 숫자, 하나 이상의 특수문자를 포함한 8글자 이상이여야 합니다.");
         } else if (isValidateInput.pass !== passCheckNum) {
@@ -235,20 +252,6 @@ const Required = ({ location, history }) => {
       ? setBirthValidateDesc("-을 제외한 생년월일 6자리만 입력해주세요.")
       : setBirthValidateDesc("");
   }, [birthCheck, isValidateInput]);
-
-  const requiredNextBtnHandler = useCallback(() => {
-    if (
-      [
-        isValidateInput.id,
-        isValidateInput.nick,
-        isValidateInput.birth,
-        isValidateInput.name,
-        isValidateInput.pass,
-      ].includes("")
-    ) {
-      setNextBtnDisabledHandler(true);
-    }
-  }, [isValidateInput]);
 
   //유효성 검사 on/off
   useEffect(() => {
@@ -527,7 +530,7 @@ const Required = ({ location, history }) => {
                 },
               }}
               className='btn btn-warning'
-              //onClick={checkRequiredUserData}
+            //onClick={checkRequiredUserData}
             >
               다음
             </Link>

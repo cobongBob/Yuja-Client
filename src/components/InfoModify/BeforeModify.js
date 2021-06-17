@@ -89,7 +89,7 @@ const BeforeModify = ({ history }) => {
             dispatch(respon);
             history.push("/InfoModify");
           });
-      })
+        })
         .catch(() => {
           setPasswordDesc("비밀번호를 확인해주세요.");
         })
@@ -197,13 +197,13 @@ const BeforeModify = ({ history }) => {
                   />
                   :
                   <KakaoLogin
-                  token={process.env.REACT_APP_KAKAO_OAUTH_KEY}
-                  onSuccess={resKakao}
-                  onFail={resKakao}
-                  getProfile={true}
-                  render={(renderProps) => (
-                  <img src={kakaoLoginIcon} onClick={renderProps.onClick} className='ModifykakaoLoginIcon'/>
-                  )}
+                    token={process.env.REACT_APP_KAKAO_OAUTH_KEY}
+                    onSuccess={resKakao}
+                    onFail={resKakao}
+                    getProfile={true}
+                    render={(renderProps) => (
+                      <img src={kakaoLoginIcon} onClick={renderProps.onClick} className='ModifykakaoLoginIcon' alt="카카오" />
+                    )}
                   />
                 }
               </div>

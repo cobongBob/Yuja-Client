@@ -280,8 +280,8 @@ const InfoModify = ({ history }) => {
       .then((r) => {
         if (r) {
           ToastTopRight("🎉 정보가 수정 되었습니다.");
-          console.log(r.data&&r.data.nickname)
-          changeNickname(r.data&&r.data.nickname).then(
+          console.log(r.data && r.data.nickname)
+          changeNickname(r.data && r.data.nickname).then(
             (res) => dispatch(res)
           )
           history.push("/");
@@ -292,7 +292,7 @@ const InfoModify = ({ history }) => {
       .catch((error) => {
         ToastCenter(error.response ? error.response.message : "Server Error!");
       });
-  }, [userId, history, userData]);
+  }, [userId, history, userData, dispatch]);
 
   return (
     userData && (
