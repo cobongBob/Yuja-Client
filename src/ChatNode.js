@@ -17,6 +17,7 @@ const ChatNode = () => {
   //쓰고있는 글
   const [input, setInput] = useState({ msg: '' });
   const [chatList, setChatList] = useState(false);
+  const textArea = useRef(null);
 
   const inputHandle = useCallback(
     (e) => {
@@ -103,8 +104,10 @@ const ChatNode = () => {
         })
       );
       setInput({ msg: '' });
+      textArea.current && textArea.current.scrollIntoView();
+      console.log(123, textArea.current.scrollIntoView);
     },
-    [input, receiver, totalMsg, userData]
+    [input, totalMsg, userData]
   );
 
   return (
@@ -140,8 +143,9 @@ const ChatNode = () => {
                 </div>
                 <div className='RoomWrapper' id='chatList'>
                   {userList?.map((data, idx) => {
+                    console.log(data);
                     return (
-                      data !== userData.nickname && (
+                      data.name !== userData.nickname && (
                         <div className='userList' key={idx}>
                           <div className='chatUser'>
                             <div className='ChatImg'>
@@ -153,11 +157,8 @@ const ChatNode = () => {
                             <div
                               className='chatUserName'
                               onClick={() => openChatRoom(data)}>
-                              {data}
-                              <div
-                                className='newChatNotice'
-                                id='enterRoom'
-                                onClick=''>
+                              {data.name}
+                              <div className='newChatNotice' id='enterRoom'>
                                 📧
                               </div>
                             </div>
@@ -177,6 +178,7 @@ const ChatNode = () => {
                 input={input}
                 send={send}
                 inputHandle={inputHandle}
+                textArea={textArea}
               />
             )}
           </div>
