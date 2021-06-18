@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import "./ChatFrame.scss";
 import SmallChat from "./SmallChat";
 import { useSelector } from "react-redux";
+import ChatNode from '../../ChatNode';
 
 const ChatFrame = (props) => {
   window.addEventListener("message", (event) => {
@@ -25,7 +26,7 @@ const ChatFrame = (props) => {
       <React.Fragment>
         <div className='chatFrameFrag'>
           <div className='chatFrameOverlay'>
-            <SmallChat frameOnload={frameOnload} />
+            <ChatNode/>
           </div>
         </div>
       </React.Fragment>

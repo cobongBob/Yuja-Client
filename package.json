@@ -65,6 +65,7 @@
   "devDependencies": {
     "@material-ui/core": "^4.11.4",
     "cross-env": "^7.0.3",
-    "react-cookie": "^4.0.3"
+    "react-cookie": "^4.0.3",
+    "socket.io-client": "^4.1.2"
   }
 }

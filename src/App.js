@@ -455,7 +455,7 @@ function App() {
           <Route path='/Help' component={Help} />
           <Route path='/SignOut' component={SignOut} />
           <Route path='/ChatNode' component={ChatNode} />
-          <Redirect to='/' />
+          <Redirect to='/'/>
         </Switch>
       </div>
       <Footer />
