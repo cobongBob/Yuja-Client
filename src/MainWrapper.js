@@ -13,7 +13,7 @@ const MainWrapper = () => {
   }, [dispatch]);
   return (
     <>
-      <div className="allBoard">
+      <div className='allBoard'>
         <VideoBox />
         <MainBoard />
         <Wboard />

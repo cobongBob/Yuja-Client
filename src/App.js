@@ -350,7 +350,7 @@ function App() {
         />
       )}
       {exceptArray.indexOf(location.pathname) < 0 && <Logo />}
-      <div>
+      <div style={{ minHeight: '550px' }}>
         {loading && <Loader type='spin' color='#ff9411' />}
         <Switch>
           <Route exact path='/' component={MainWrapper} />
