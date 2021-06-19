@@ -72,8 +72,7 @@ export const kakaoLoginService = async (response) => {
     {
       headers: { 'Content-Type': 'application/json; charset=utf-8' },
     }
-  )
-  console.log('kakaoLoginService', resFromServer)
+  );
   if (resFromServer.status === 201) {
     const userDetail = {
       username: resFromServer.data.email,
@@ -109,11 +108,9 @@ export const resetPassword = async ({ username, password }) => {
 };
 
 export const resetPasswordConfirmationService = async (username) => {
-  await axios
-    .post(USER_API_BASE_URL + '/resetPassword', username)
-    .then((res) => {
-      alert(res.data);
-    });
+  await axios.post(USER_API_BASE_URL + '/resetPassword', username).then((res) => {
+    alert(res.data);
+  });
 
   /* 회원정보 수정 관련 */
 };

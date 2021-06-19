@@ -166,8 +166,6 @@ function App() {
               history
             )
           );
-        } else if (notification.type === 'chatNoti' && notification.resipeint.id === userData.id) {
-          ToastAlertNoDupl(`${notification.sender.nickname}님으로부터 새로운 채팅이 있습니다.`);
         } else if (notification.type === 'editNoti' && notification.resipeint.id === userData.id) {
           ToastAlertNoDupl(`에디터로 등록되셨습니다.`);
           addAuthority('EDITOR').then((res) => {
@@ -280,9 +278,9 @@ function App() {
               modalIsOpen === false ? () => setModalIsOpen(true) : () => setModalIsOpen(false)
             }
           />
-          <ChatWrapper modalIsOpen={modalIsOpen} userData={userData} />
         </>
       )}
+      <ChatWrapper modalIsOpen={modalIsOpen} userData={userData} />
       {exceptArray.indexOf(location.pathname) < 0 && (
         <Navi allNotifications={allNotifications} setModalIsOpen={setModalIsOpen} />
       )}

@@ -13,6 +13,7 @@ const ChatNode = ({
   input,
   send,
   inputHandle,
+  backToChatNode,
 }) => {
   return (
     <>
@@ -25,25 +26,17 @@ const ChatNode = ({
               </div>
               <div id='ErrorMsg'></div>
               <div className='ChatForm'>
-                <form onSubmit='return findRoom()'>
-                  <input
-                    className='ChatSearch'
-                    type='text'
-                    id='receiver'
-                    name='receiver'
-                    placeholder='상대방 닉네임을 입력하세요'
-                    maxLength='20'
-                    autoComplete='off'
-                    autoFocus
-                  />
-                  <input
-                    className='ChatSubmit'
-                    id='ChatSubmitIcon'
-                    type='submit'
-                    value='🔍'
-                    onClick='return findRoom()'
-                  />
-                </form>
+                <input
+                  className='ChatSearch'
+                  type='text'
+                  id='receiver'
+                  name='receiver'
+                  placeholder='상대방 닉네임을 입력하세요'
+                  maxLength='20'
+                  autoComplete='off'
+                  autoFocus
+                />
+                <input className='ChatSubmit' id='ChatSubmitIcon' type='submit' value='🔍' />
               </div>
               <div className='RoomWrapper' id='chatList'>
                 {userList?.map((data, idx) => {
@@ -79,6 +72,7 @@ const ChatNode = ({
               input={input}
               send={send}
               inputHandle={inputHandle}
+              backToChatNode={backToChatNode}
             />
           )}
         </div>

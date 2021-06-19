@@ -1,13 +1,18 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import './Chat.scss';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import ChatLog from './ChatLog';
 
-const ChatRoom = ({ receiver, totalMsg, sender, setChatList, send, inputHandle, input }) => {
-  const backToChatNode = useCallback(() => {
-    setChatList(false);
-  }, [setChatList]);
-
+const ChatRoom = ({
+  receiver,
+  totalMsg,
+  sender,
+  setChatList,
+  send,
+  inputHandle,
+  input,
+  backToChatNode,
+}) => {
   return (
     <>
       <div className='whoBox'>
@@ -28,7 +33,7 @@ const ChatRoom = ({ receiver, totalMsg, sender, setChatList, send, inputHandle, 
       </div>
       <div className='MessageInputWrapper'>
         <div className='submitBox'>
-          <button className='MessageButtonL' type='button' onClick={backToChatNode}>
+          <button className='MessageButtonL' type='button' onClick={() => backToChatNode(receiver)}>
             ◀
           </button>
           <input

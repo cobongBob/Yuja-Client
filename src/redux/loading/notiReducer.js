@@ -1,17 +1,17 @@
-import * as MainApiService from "../../apiService/MainApiService";
+import * as MainApiService from '../../apiService/MainApiService';
 
 // 액션
-const GET_NOTICES_REQUEST = "GET_NOTICES_REQUEST";
-const GET_NOTICES_SUCCESS = "GET_NOTICES_SUCCESS";
-const GET_NOTICES_FAILURE = "GET_NOTICES_FAILURE";
-const DELETE_NOTIFICATION = "DELETE_NOTIFICATION";
-
+const GET_NOTICES_REQUEST = 'GET_NOTICES_REQUEST';
+const GET_NOTICES_SUCCESS = 'GET_NOTICES_SUCCESS';
+const GET_NOTICES_FAILURE = 'GET_NOTICES_FAILURE';
+const DELETE_NOTIFICATION = 'DELETE_NOTIFICATION';
+const ADD_CHAT_NOTIFICATION = 'ADD_CHAT_NOTIFICATION';
 // 액션 함수
 
 export const getAllNotifications = (user_id) => {
   return (dispatch) => {
     if (!user_id || user_id === 0) {
-      dispatch(getNotificationsFailure(""));
+      dispatch(getNotificationsFailure(''));
     }
     dispatch(getNotificationsRequest());
     MainApiService.fetchAllNotifications(user_id)
@@ -20,10 +20,19 @@ export const getAllNotifications = (user_id) => {
   };
 };
 export const deleteNotification = (noti_id) => {
-  MainApiService.removeNotiPermanently(noti_id);
+  if (typeof noti_id !== 'string') {
+    MainApiService.removeNotiPermanently(noti_id);
+  }
   return {
     type: DELETE_NOTIFICATION,
     payload: noti_id,
+  };
+};
+
+export const addChatNotification = (data) => {
+  return {
+    type: ADD_CHAT_NOTIFICATION,
+    payload: data,
   };
 };
 
@@ -51,7 +60,8 @@ const getNotificationsFailure = (error) => {
 const initialState = {
   notiLoading: false,
   allNotifications: [],
-  error: "",
+  error: '',
+  chatNoti: [],
 };
 
 // 리듀서
@@ -64,15 +74,17 @@ const NotiReducer = (state = initialState, action) => {
       };
     case GET_NOTICES_SUCCESS:
       return {
-        allNotifications: action.payload,
+        ...state,
+        allNotifications: action.payload.concat(...state.chatNoti),
         notiLoading: false,
-        error: "",
+        error: '',
       };
     case GET_NOTICES_FAILURE:
       return {
         allNotifications: [],
         error: action.payload,
         notiLoading: false,
+        chatNoti: [],
       };
     case DELETE_NOTIFICATION:
       return {
@@ -80,7 +92,20 @@ const NotiReducer = (state = initialState, action) => {
         allNotifications: state.allNotifications.filter((data) => {
           return data.notiId !== action.payload;
         }),
+        chatNoti: state.chatNoti.filter((data) => {
+          return data.notiId !== action.payload;
+        }),
       };
+    case ADD_CHAT_NOTIFICATION:
+      if (state.chatNoti.filter((notice) => notice.notiId === action.payload.notiId).length === 0) {
+        return {
+          ...state,
+          chatNoti: state.chatNoti.concat(action.payload),
+          allNotifications: state.allNotifications.concat(...state.chatNoti.concat(action.payload)),
+        };
+      } else {
+        return state;
+      }
     default:
       return state;
   }

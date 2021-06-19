@@ -13,6 +13,7 @@ const ChatFrame = ({
   input,
   send,
   inputHandle,
+  backToChatNode,
 }) => {
   return (
     <React.Fragment>
@@ -29,6 +30,7 @@ const ChatFrame = ({
             input={input}
             send={send}
             inputHandle={inputHandle}
+            backToChatNode={backToChatNode}
           />
         </div>
       </div>
