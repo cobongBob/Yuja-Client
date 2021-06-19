@@ -13,19 +13,13 @@ const Navi = ({ allNotifications, setModalIsOpen }) => {
     <div className='nav'>
       <Navbar className='NavWrapper' collapseOnSelect bg='light' expand='lg'>
         <Navbar.Brand>
-          <LoginModal
-            allNotifications={allNotifications}
-            setModalIsOpen={setModalIsOpen}
-          />
+          <LoginModal allNotifications={allNotifications} setModalIsOpen={setModalIsOpen} />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='responsive-navbar-nav' />
         <Navbar.Collapse id='responsive-navbar-nav'>
           <Nav className='mr-auto'>
             <Nav.Link href='#' as={Link} to='/'>
-              <li
-                className={pathname === '/' ? 'nav-link-disabled' : 'nav-link'}>
-                메인
-              </li>
+              <li className={pathname === '/' ? 'nav-link-disabled' : 'nav-link'}>메인</li>
             </Nav.Link>
             <Nav.Link href='#' as={Link} to='/Youtuber/1'>
               <li
@@ -41,20 +35,12 @@ const Navi = ({ allNotifications, setModalIsOpen }) => {
               </li>
             </Nav.Link>
             <Nav.Link href='#' as={Link} to='/Eboard/Editor/1'>
-              <li
-                className={
-                  pathname.includes('/Editor')
-                    ? 'nav-link-disabled'
-                    : 'nav-link'
-                }>
+              <li className={pathname.includes('/Editor') ? 'nav-link-disabled' : 'nav-link'}>
                 편집자
               </li>
             </Nav.Link>
             <Nav.Link href='#' as={Link} to='/Thboard/Thumb/1'>
-              <li
-                className={
-                  pathname.includes('/Thumb') ? 'nav-link-disabled' : 'nav-link'
-                }>
+              <li className={pathname.includes('/Thumb') ? 'nav-link-disabled' : 'nav-link'}>
                 썸네일러
               </li>
             </Nav.Link>
@@ -71,30 +57,12 @@ const Navi = ({ allNotifications, setModalIsOpen }) => {
               </li>
             </Nav.Link>
             <Nav.Link href='#' as={Link} to='/Help'>
-              <li
-                className={
-                  pathname === '/Help' ? 'nav-link-disabled' : 'nav-link'
-                }>
-                고객센터
-              </li>
-            </Nav.Link>
-            <Nav.Link href='#' as={Link} to='/ChatNode'>
-              <li
-                className={
-                  pathname === '/ChatNode' ? 'nav-link-disabled' : 'nav-link'
-                }>
-                  chat
-              </li>
+              <li className={pathname === '/Help' ? 'nav-link-disabled' : 'nav-link'}>고객센터</li>
             </Nav.Link>
             <Nav.Link href='#' as={Link} to='/Admin/AdminUsers'>
               {authorities && authorities.includes('ADMIN') && (
                 <>
-                  <li
-                    className={
-                      pathname.includes('/Admin')
-                        ? 'nav-link-disabled'
-                        : 'nav-link'
-                    }>
+                  <li className={pathname.includes('/Admin') ? 'nav-link-disabled' : 'nav-link'}>
                     관리페이지
                   </li>
                 </>

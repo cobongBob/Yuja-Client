@@ -42,13 +42,16 @@ const ChatRoom = ({ receiver, totalMsg, sender, setChatList, send, inputHandle, 
             maxLength='2000'
             onChange={inputHandle}
             onKeyPress={(e) => {
-              if (e.key === 'Enter') {
+              if (e.key === 'Enter' && input.msg !== '') {
                 send(receiver);
               }
             }}
             autoFocus
           />
-          <button className='MessageButtonR' type='button' onClick={() => send(receiver)}>
+          <button
+            className='MessageButtonR'
+            type='button'
+            onClick={() => input.msg !== '' && send(receiver)}>
             💬
           </button>
         </div>
