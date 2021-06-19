@@ -106,6 +106,7 @@ a {
   margin: auto;
   top: 19vh;
   position: relative;
+  display: inline-block;
 }
 .sideMenu {
   border-radius: 2px;
@@ -198,6 +199,7 @@ a {
 
 .winwin-wrapper {
   margin-left: 6%;
+  min-height: 650px;
 }
 
 @media screen and (max-width: 770px) {
@@ -322,7 +324,7 @@ a {
     width: 80%;
   }
 
-  .winwinFrag .search-form > form > input[type="text"] {
+  .winwinFrag .search-form > form > input[type='text'] {
     width: 100%;
     margin-left: 0;
     font-size: 11px !important;
