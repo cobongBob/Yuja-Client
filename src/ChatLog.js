@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import useScrollToBottom from 'react-scroll-to-bottom/lib/hooks/useScrollToBottom';
 import useSticky from 'react-scroll-to-bottom/lib/hooks/useSticky';
 
-const ChatLog = ({ sender, totalMsg, receiver, textArea }) => {
+const ChatLog = ({ sender, totalMsg, receiver }) => {
   const scrollToBottom = useScrollToBottom();
   const [sticky] = useSticky();
+  const lastRef = useRef();
+  useEffect(() => {
+    lastRef.current && lastRef.current.scrollIntoView({ behavior: 'smooth' });
+  }, [totalMsg]);
   return (
-    <div id='chatLog' ref={textArea}>
+    <div id='chatLog'>
       {totalMsg?.map((data, index) =>
         data.sender !== sender ? (
           <>
-            <div className='ChatReceiverBigWrapper'>
+            <div className='ChatReceiverBigWrapper' ref={lastRef}>
               <div className='ChatReceiverWrapper'>
                 <div className='ReceiverImgWrapper'>
                   <img className='ChatReceiverProfileImg' src='' alt='' />
@@ -25,7 +29,7 @@ const ChatLog = ({ sender, totalMsg, receiver, textArea }) => {
           </>
         ) : (
           <>
-            <div className='ChatSenderBigWrapper'>
+            <div className='ChatSenderBigWrapper' ref={lastRef}>
               <div className='ChatSenderWrapper'>
                 <div className='SenderChatMessageContent'>
                   <p className='ChatContent'>{data.msg}</p>
@@ -36,9 +40,7 @@ const ChatLog = ({ sender, totalMsg, receiver, textArea }) => {
           </>
         )
       )}
-      {!sticky && (
-        <button onClick={scrollToBottom}>Click me to scroll to bottom</button>
-      )}
+      {!sticky && <button onClick={scrollToBottom}>Click me to scroll to bottom</button>}
     </div>
   );
 };

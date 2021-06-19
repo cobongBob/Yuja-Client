@@ -3,16 +3,7 @@ import './Chat.scss';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import ChatLog from './ChatLog';
 
-const ChatRoom = ({
-  receiver,
-  totalMsg,
-  sender,
-  setChatList,
-  send,
-  inputHandle,
-  input,
-  textArea,
-}) => {
+const ChatRoom = ({ receiver, totalMsg, sender, setChatList, send, inputHandle, input }) => {
   const backToChatNode = useCallback(() => {
     setChatList(false);
   }, [setChatList]);
@@ -32,20 +23,12 @@ const ChatRoom = ({
 
       <div id='ChatLogsWrapper'>
         <ScrollToBottom>
-          <ChatLog
-            sender={sender}
-            totalMsg={totalMsg}
-            receiver={receiver}
-            textArea={textArea}
-          />
+          <ChatLog sender={sender} totalMsg={totalMsg} receiver={receiver} />
         </ScrollToBottom>
       </div>
       <div className='MessageInputWrapper'>
         <div className='submitBox'>
-          <button
-            className='MessageButtonL'
-            type='button'
-            onClick={backToChatNode}>
+          <button className='MessageButtonL' type='button' onClick={backToChatNode}>
             ◀
           </button>
           <input
@@ -63,11 +46,9 @@ const ChatRoom = ({
                 send(receiver);
               }
             }}
+            autoFocus
           />
-          <button
-            className='MessageButtonR'
-            type='button'
-            onClick={() => send(receiver)}>
+          <button className='MessageButtonR' type='button' onClick={() => send(receiver)}>
             💬
           </button>
         </div>

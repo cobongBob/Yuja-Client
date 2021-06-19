@@ -17,7 +17,6 @@ const ChatNode = () => {
   //쓰고있는 글
   const [input, setInput] = useState({ msg: '' });
   const [chatList, setChatList] = useState(false);
-  const textArea = useRef(null);
 
   const inputHandle = useCallback(
     (e) => {
@@ -41,9 +40,11 @@ const ChatNode = () => {
   useEffect(() => {
     socket.current &&
       socket.current.on('enteredSucc', (lobby) => {
-        console.log(lobby);
         setUserList(lobby);
       });
+    return () => {
+      socket.current.off('enteredSucc');
+    };
   }, []);
 
   useEffect(() => {
@@ -51,6 +52,9 @@ const ChatNode = () => {
       socket.current.on('newConn', (data) => {
         setUserList(userList.concat(data));
       });
+    return () => {
+      socket.current.off('newConn');
+    };
   }, [userList]);
 
   //disconnect event => remove the personal's info
@@ -59,6 +63,9 @@ const ChatNode = () => {
       socket.current.on('disConn', (data) => {
         setUserList(userList.filter((data) => data.name !== data.disConnName));
       });
+    return () => {
+      socket.current.off('disConn');
+    };
   }, [userList]);
 
   //채팅 상대 결정
@@ -82,20 +89,18 @@ const ChatNode = () => {
   useEffect(() => {
     socket.current &&
       socket.current.on('chatReceive', (data) => {
-        setTotalMsg(totalMsg.concat(data));
+        setTotalMsg(totalMsg.concat({ ...data, time: getFormatTime(new Date()) }));
       });
+    return () => {
+      socket.current.off('chatReceive');
+    };
   }, [totalMsg]);
 
   //보내기 및 보내는사람 화면의 msg조정
   const send = useCallback(
     (receiver) => {
       socket.current &&
-        socket.current.emit(
-          'chat msg',
-          input.msg,
-          userData.nickname,
-          receiver.name
-        );
+        socket.current.emit('chat msg', input.msg, userData.nickname, receiver.name);
       setTotalMsg(
         totalMsg.concat({
           sender: userData.nickname,
@@ -104,8 +109,6 @@ const ChatNode = () => {
         })
       );
       setInput({ msg: '' });
-      textArea.current && textArea.current.scrollIntoView();
-      console.log(123, textArea.current.scrollIntoView);
     },
     [input, totalMsg, userData]
   );
@@ -131,6 +134,7 @@ const ChatNode = () => {
                       placeholder='상대방 닉네임을 입력하세요'
                       maxLength='20'
                       autoComplete='off'
+                      autoFocus
                     />
                     <input
                       className='ChatSubmit'
@@ -143,7 +147,6 @@ const ChatNode = () => {
                 </div>
                 <div className='RoomWrapper' id='chatList'>
                   {userList?.map((data, idx) => {
-                    console.log(data);
                     return (
                       data.name !== userData.nickname && (
                         <div className='userList' key={idx}>
@@ -154,9 +157,7 @@ const ChatNode = () => {
                                 alt=''
                               />
                             </div>
-                            <div
-                              className='chatUserName'
-                              onClick={() => openChatRoom(data)}>
+                            <div className='chatUserName' onClick={() => openChatRoom(data)}>
                               {data.name}
                               <div className='newChatNotice' id='enterRoom'>
                                 📧
@@ -178,7 +179,6 @@ const ChatNode = () => {
                 input={input}
                 send={send}
                 inputHandle={inputHandle}
-                textArea={textArea}
               />
             )}
           </div>
