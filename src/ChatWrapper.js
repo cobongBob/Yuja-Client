@@ -4,7 +4,7 @@ import { io } from 'socket.io-client';
 import ChatFrame from './components/NewChat/ChatFrame';
 import { getFormatTime } from './modules/getFormatTime';
 import { ToastAlert } from './modules/ToastModule';
-import { addChatNotification } from './redux/loading/notiReducer';
+import { addChatNotification, deleteNotification } from './redux/loading/notiReducer';
 
 const ChatWrapper = ({ modalIsOpen, userData }) => {
   const dispatch = useDispatch();
@@ -87,17 +87,18 @@ const ChatWrapper = ({ modalIsOpen, userData }) => {
         data.name
       );
       socket.current?.emit('chatNoti', userData, data.name);
+      dispatch(deleteNotification(data.name));
       setTotalMsg([]);
       setChatList(true);
     },
-    [userData]
+    [userData, dispatch]
   );
 
   //받는사람에게 채팅 알림
   useEffect(() => {
     if (userData && userData.id > 0) {
       socket.current?.on('chatNotification', ({ msg, sender }) => {
-        if (receiver.name !== sender) {
+        if (receiver.name !== sender.nickname) {
           ToastAlert(msg);
           dispatch(
             addChatNotification({

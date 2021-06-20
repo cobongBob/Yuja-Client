@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import ChatRoom from './ChatRoom';
 import './Chat.scss';
 
@@ -15,6 +15,21 @@ const ChatNode = ({
   inputHandle,
   backToChatNode,
 }) => {
+  const [resultList, setResultList] = useState([]);
+
+  const [keyword, setKeyword] = useState('');
+  const keywordHandler = useCallback((e) => {
+    setKeyword(e.target.value);
+  }, []);
+
+  useEffect(() => {
+    setResultList(
+      userList.filter((user) => {
+        return user.name.toLowerCase().includes(keyword.toLowerCase());
+      })
+    );
+  }, [userList, keyword]);
+
   return (
     <>
       <div className='chatRoomFrag'>
@@ -30,16 +45,17 @@ const ChatNode = ({
                   className='ChatSearch'
                   type='text'
                   id='receiver'
-                  name='receiver'
                   placeholder='상대방 닉네임을 입력하세요'
                   maxLength='20'
                   autoComplete='off'
                   autoFocus
+                  onChange={keywordHandler}
+                  value={keyword}
                 />
-                <input className='ChatSubmit' id='ChatSubmitIcon' type='submit' value='🔍' />
+                <input className='ChatSubmit' id='ChatSubmitIcon' type='button' value='🔍' />
               </div>
               <div className='RoomWrapper' id='chatList'>
-                {userList?.map((data, idx) => {
+                {resultList?.map((data, idx) => {
                   return (
                     data.name !== userData.nickname && (
                       <div className='userList' key={idx}>
