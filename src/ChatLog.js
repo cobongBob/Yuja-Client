@@ -25,7 +25,10 @@ const ChatLog = ({ sender, totalMsg, receiver }) => {
                       alt=''
                     />
                   ) : (
-                    <FaUserAstronaut className='ChatReceiverProfileImg' />
+                    <FaUserAstronaut
+                      size={30}
+                      className='ChatReceiverProfileImg'
+                    />
                   )}
                 </div>
                 <div className='ChatMessageReceiver'>{receiver.name}</div>
@@ -49,7 +52,9 @@ const ChatLog = ({ sender, totalMsg, receiver }) => {
           </React.Fragment>
         )
       )}
-      {!sticky && <button onClick={scrollToBottom}>Click me to scroll to bottom</button>}
+      {!sticky && (
+        <button onClick={scrollToBottom}>Click me to scroll to bottom</button>
+      )}
     </div>
   );
 };

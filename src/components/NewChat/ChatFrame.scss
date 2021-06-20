@@ -3,16 +3,16 @@
   margin-left: 1vw;
   margin-top: 1%;
   margin-bottom: 1%;
-  font-family: "scdream4";
+  font-family: 'scdream4';
   position: fixed;
   z-index: 99;
-  left: 76%;
+  left: 72%;
   bottom: 11%;
   -moz-animation: fadein 0.5s; /* Firefox */
   -webkit-animation: fadein 0.5s; /* Safari and Chrome */
   -o-animation: fadein 0.5s; /* Opera */
-  height: 60%;
   width: 20%;
+  height: 600px;
 }
 .chatFrameOverlay {
   margin: auto;
@@ -30,7 +30,9 @@
 }
 @media all and (max-width: 770px) {
   .chatFrameFrag {
-    left: 40%;
+    left: 22%;
+    width: 300px;
+    min-height: 85vh;
   }
 }
 @media all and (max-width: 480px) {
@@ -38,6 +40,11 @@
     margin: 0 auto;
     left: 0;
     right: 0;
+  }
+}
+@media all and (max-height: 700px) {
+  .chatFrameFrag {
+    height: 70%;
   }
 }
 

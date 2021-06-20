@@ -16,20 +16,41 @@ const ChatNode = ({
   inputHandle,
   backToChatNode,
 }) => {
-  const [resultList, setResultList] = useState([]);
+  const [resultList, setResultList] = useState([
+    { name: '유저1', profilePic: '' },
+    { name: '유저2', profilePic: '' },
+    { name: '유저3', profilePic: '' },
+    { name: '유저4', profilePic: '' },
+    { name: '유저5', profilePic: '' },
+    { name: '유저6', profilePic: '' },
+    { name: '유저7', profilePic: '' },
+    { name: '유저8', profilePic: '' },
+    { name: '유저9', profilePic: '' },
+    { name: '유저10', profilePic: '' },
+    { name: '유저11', profilePic: '' },
+    { name: '유저12', profilePic: '' },
+    { name: '유저13', profilePic: '' },
+    { name: '유저14', profilePic: '' },
+    { name: '유저15', profilePic: '' },
+    { name: '유저16', profilePic: '' },
+    { name: '유저17', profilePic: '' },
+    { name: '유저18', profilePic: '' },
+    { name: '유저19', profilePic: '' },
+    { name: '유저20', profilePic: '' },
+  ]);
 
   const [keyword, setKeyword] = useState('');
   const keywordHandler = useCallback((e) => {
     setKeyword(e.target.value);
   }, []);
 
-  useEffect(() => {
-    setResultList(
-      userList.filter((user) => {
-        return user.name.toLowerCase().includes(keyword.toLowerCase());
-      })
-    );
-  }, [userList, keyword]);
+  // useEffect(() => {
+  //   setResultList(
+  //     userList.filter((user) => {
+  //       return user.name.toLowerCase().includes(keyword.toLowerCase());
+  //     })
+  //   );
+  // }, [userList, keyword]);
 
   return (
     <>
@@ -53,7 +74,12 @@ const ChatNode = ({
                   onChange={keywordHandler}
                   value={keyword}
                 />
-                <input className='ChatSubmit' id='ChatSubmitIcon' type='button' value='🔍' />
+                <input
+                  className='ChatSubmit'
+                  id='ChatSubmitIcon'
+                  type='button'
+                  value='🔍'
+                />
               </div>
               <div className='RoomWrapper' id='chatList'>
                 {resultList?.map((data, idx) => {
@@ -68,10 +94,13 @@ const ChatNode = ({
                                 alt=''
                               />
                             ) : (
-                              <FaUserAstronaut />
+                              <FaUserAstronaut size={45} />
                             )}
                           </div>
-                          <div className='chatUserName' onClick={() => openChatRoom(data)}>
+                          <div
+                            className='chatUserName'
+                            onClick={() => openChatRoom(data)}
+                          >
                             {data.name}
                             <div className='newChatNotice' id='enterRoom'>
                               📧

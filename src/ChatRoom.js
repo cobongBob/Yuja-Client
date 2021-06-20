@@ -38,7 +38,11 @@ const ChatRoom = ({
       </div>
       <div className='MessageInputWrapper'>
         <div className='submitBox'>
-          <button className='MessageButtonL' type='button' onClick={() => backToChatNode(receiver)}>
+          <button
+            className='MessageButtonL'
+            type='button'
+            onClick={() => backToChatNode(receiver)}
+          >
             ◀
           </button>
           <input
@@ -61,7 +65,8 @@ const ChatRoom = ({
           <button
             className='MessageButtonR'
             type='button'
-            onClick={() => input.msg !== '' && send(receiver)}>
+            onClick={() => input.msg !== '' && send(receiver)}
+          >
             💬
           </button>
         </div>
