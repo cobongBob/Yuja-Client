@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import ChatRoom from './ChatRoom';
 import './Chat.scss';
+import { FaUserAstronaut } from 'react-icons/fa';
 
 const ChatNode = ({
   chatList,
@@ -61,10 +62,14 @@ const ChatNode = ({
                       <div className='userList' key={idx}>
                         <div className='chatUser'>
                           <div className='ChatImg'>
-                            <img
-                              src={`http://localhost:8888/files/profiles/${data.profilePic}`}
-                              alt=''
-                            />
+                            {data.profilePic ? (
+                              <img
+                                src={`http://localhost:8888/files/profiles/${data.profilePic}`}
+                                alt=''
+                              />
+                            ) : (
+                              <FaUserAstronaut />
+                            )}
                           </div>
                           <div className='chatUserName' onClick={() => openChatRoom(data)}>
                             {data.name}

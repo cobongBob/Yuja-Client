@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import useScrollToBottom from 'react-scroll-to-bottom/lib/hooks/useScrollToBottom';
 import useSticky from 'react-scroll-to-bottom/lib/hooks/useSticky';
+import { FaUserAstronaut } from 'react-icons/fa';
 
 const ChatLog = ({ sender, totalMsg, receiver }) => {
   const scrollToBottom = useScrollToBottom();
@@ -13,11 +14,19 @@ const ChatLog = ({ sender, totalMsg, receiver }) => {
     <div id='chatLog'>
       {totalMsg?.map((data, index) =>
         data.sender !== sender ? (
-          <>
+          <React.Fragment key={index}>
             <div className='ChatReceiverBigWrapper' ref={lastRef}>
               <div className='ChatReceiverWrapper'>
                 <div className='ReceiverImgWrapper'>
-                  <img className='ChatReceiverProfileImg' src='' alt='' />
+                  {receiver.profilePic ? (
+                    <img
+                      className='ChatReceiverProfileImg'
+                      src={`http://localhost:8888/files/profiles/${receiver.profilePic}`}
+                      alt=''
+                    />
+                  ) : (
+                    <FaUserAstronaut className='ChatReceiverProfileImg' />
+                  )}
                 </div>
                 <div className='ChatMessageReceiver'>{receiver.name}</div>
                 <div className='ReceiverChatMessageContent'>
@@ -26,9 +35,9 @@ const ChatLog = ({ sender, totalMsg, receiver }) => {
                 </div>
               </div>
             </div>
-          </>
+          </React.Fragment>
         ) : (
-          <>
+          <React.Fragment key={index}>
             <div className='ChatSenderBigWrapper' ref={lastRef}>
               <div className='ChatSenderWrapper'>
                 <div className='SenderChatMessageContent'>
@@ -37,7 +46,7 @@ const ChatLog = ({ sender, totalMsg, receiver }) => {
                 </div>
               </div>
             </div>
-          </>
+          </React.Fragment>
         )
       )}
       {!sticky && <button onClick={scrollToBottom}>Click me to scroll to bottom</button>}

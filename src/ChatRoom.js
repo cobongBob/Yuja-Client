@@ -2,6 +2,7 @@ import React from 'react';
 import './Chat.scss';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import ChatLog from './ChatLog';
+import { FaUserAstronaut } from 'react-icons/fa';
 
 const ChatRoom = ({
   receiver,
@@ -17,11 +18,15 @@ const ChatRoom = ({
     <>
       <div className='whoBox'>
         <div className='ChatWho'>
-          <img
-            className='ChatWhoImg'
-            src={`http://localhost:8888/files/profiles/${receiver.profilePic}`}
-            alt=''
-          />
+          {receiver.profilePic ? (
+            <img
+              className='ChatWhoImg'
+              src={`http://localhost:8888/files/profiles/${receiver.profilePic}`}
+              alt=''
+            />
+          ) : (
+            <FaUserAstronaut className='ChatWhoImg' />
+          )}
         </div>
         <div className='chatWhoName'>{receiver.name}</div>
       </div>
