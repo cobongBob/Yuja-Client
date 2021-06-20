@@ -292,7 +292,7 @@ const InfoModify = ({ history }) => {
       .then((r) => {
         if (r) {
           ToastTopRight('🎉 정보가 수정 되었습니다.');
-          changeNickname(r.data && r.data.nickname).then((res) => dispatch(res));
+          changeNickname(r.data).then((res) => dispatch(res));
           history.push('/');
         } else {
           ToastTopRight('❌ 오류가 발생했습니다.');
