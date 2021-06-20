@@ -1,13 +1,13 @@
-import * as auth from "../../apiService/AuthenticationService";
+import * as auth from '../../apiService/AuthenticationService';
 
 /* 액션 */
-const USER_LOGIN = "userLogin";
-const USER_LOGOUT = "userLogout";
-const USER_CHECK = "userCheck";
-const USER_STATUS = "userStatus";
-const ADD_AUTHORITY = "ADD_AUTHORITY";
-const DELETE_AUTHORITY = "DELETE_AUTHORITY";
-const CHANGE_NICKNAME = "CHANGE_NICKNAME";
+const USER_LOGIN = 'userLogin';
+const USER_LOGOUT = 'userLogout';
+const USER_CHECK = 'userCheck';
+const USER_STATUS = 'userStatus';
+const ADD_AUTHORITY = 'ADD_AUTHORITY';
+const DELETE_AUTHORITY = 'DELETE_AUTHORITY';
+const CHANGE_NICKNAME = 'CHANGE_NICKNAME';
 
 /* 액션 함수 */
 export const userLogin = async (loginData) => {
@@ -62,10 +62,10 @@ export const delAuthority = async (auth) => {
   };
 };
 
-export const changeNickname = async (newNickname) => {
+export const changeNickname = async (newData) => {
   return {
     type: CHANGE_NICKNAME,
-    payload: newNickname,
+    payload: newData,
   };
 };
 
@@ -126,7 +126,11 @@ export default function loginReducer(state = initialState, action) {
     case CHANGE_NICKNAME:
       return {
         ...state,
-        userData: { ...state.userData, nickname: action.payload },
+        userData: {
+          ...state.userData,
+          nickname: action.payload.nickname,
+          profilePic: action.payload.profilePic,
+        },
       };
     default:
       return state;

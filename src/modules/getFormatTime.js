@@ -10,5 +10,8 @@ export const getFormatTime = (day) => {
   } else {
     abc = '오전';
   }
+  if (minutes < 10) {
+    minutes = '0' + minutes;
+  }
   return `${hours} : ${minutes} ${abc}`;
 };
