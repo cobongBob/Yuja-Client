@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { io } from 'socket.io-client';
-import ChatFrame from './components/NewChat/ChatFrame';
-import { getFormatTime } from './modules/getFormatTime';
-import { ToastAlert } from './modules/ToastModule';
-import { addChatNotification, deleteNotification } from './redux/loading/notiReducer';
+import ChatFrame from './ChatFrame';
+import { getFormatTime } from '../../modules/getFormatTime';
+import { ToastAlert } from '../../modules/ToastModule';
+import { addChatNotification, deleteNotification } from '../../redux/loading/notiReducer';
 
 const ChatWrapper = ({ modalIsOpen, userData }) => {
   const dispatch = useDispatch();

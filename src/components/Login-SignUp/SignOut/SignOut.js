@@ -1,16 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
 import "./SignOut.scss";
 import { Link } from "react-router-dom";
-import { executeJwtAuthenticationService, getLoggedInUserData } from "../../apiService/AuthenticationService";
-import * as auth from "../../apiService/AuthenticationService";
-import { deleteUser, getUserData } from "../../apiService/UserApiService";
-import { userLogin, userLogout } from "../../redux/redux-login/loginReducer";
+import { executeJwtAuthenticationService, getLoggedInUserData } from "../../../apiService/AuthenticationService";
+import * as auth from "../../../apiService/AuthenticationService";
+import { deleteUser, getUserData } from "../../../apiService/UserApiService";
+import { userLogin, userLogout } from "../../../redux/redux-login/loginReducer";
 import { useDispatch } from "react-redux";
-import { ToastTopRight } from "../../modules/ToastModule";
+import { ToastTopRight } from "../../../modules/ToastModule";
 import GoogleLogin from "react-google-login";
-import googleLoginIcon from "../Login-SignUp/Login/googleLoginIcon2.svg";
+import googleLoginIcon from "../Login/googleLoginIcon2.svg";
 import KakaoLogin from 'react-kakao-login';
-import kakaoLoginIcon from '../Login-SignUp/Login/kakao_login_medium_wide.png';
+import kakaoLoginIcon from '../Login/kakao_login_medium_wide.png';
 
 const SignOut = ({ history }) => {
   const loggedInUserData = getLoggedInUserData();

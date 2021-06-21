@@ -1,6 +1,6 @@
 import React from 'react';
 import './ChatFrame.scss';
-import ChatNode from '../../ChatNode';
+import ChatNode from './ChatNode';
 
 const ChatFrame = ({
   chatList,
