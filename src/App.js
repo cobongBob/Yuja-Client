@@ -38,15 +38,15 @@ import PasswordModify from './components/InfoModify/PasswordModify';
 import InfoModify from './components/InfoModify/InfoModify';
 import EboardModify from './pages/Editor/EboardModify';
 import ThumbModify from './pages/Thumbnailer/ThumbModify';
-import SignOut from './components/SignOut/SignOut';
+import SignOut from './components/Login-SignUp/SignOut/SignOut';
 import { deleteNotifications } from './apiService/MainApiService';
 import { RiChat1Fill } from 'react-icons/ri';
 import { toastWithPush } from './modules/ToastWithPush';
 import YoutuberRequest from './components/InfoModify/YoutuberRequest';
 import { getAllNotifications } from './redux/loading/notiReducer';
 import RouteIf from './routerif/RouteIf';
-import ChatFrame from './components/NewChat/ChatFrame';
 import MyPage from './pages/MyPage/MyPage';
+import ChatWrapper from './components/NewChat/ChatWrapper';
 /* Logo 컴포넌트 제외할 페이지들 담아놓은 배열 */
 const exceptArray = ['/SignUp', '/SignUp/Required', '/SignUp/NonRequired'];
 
@@ -287,14 +287,9 @@ function App() {
               modalIsOpen === false ? () => setModalIsOpen(true) : () => setModalIsOpen(false)
             }
           />
-
-          {modalIsOpen === true ? (
-            <ChatFrame modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
-          ) : (
-            ''
-          )}
         </>
       )}
+      <ChatWrapper modalIsOpen={modalIsOpen} userData={userData} />
       {exceptArray.indexOf(location.pathname) < 0 && (
         <Navi allNotifications={allNotifications} setModalIsOpen={setModalIsOpen} />
       )}
