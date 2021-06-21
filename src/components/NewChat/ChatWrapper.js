@@ -87,6 +87,7 @@ const ChatWrapper = ({ modalIsOpen, userData }) => {
         data.name
       );
       socket.current?.emit('chatNoti', userData, data.name);
+      socket.current?.emit('handshaker', userData, data);
       dispatch(deleteNotification(data.name));
       setTotalMsg([]);
       setChatList(true);

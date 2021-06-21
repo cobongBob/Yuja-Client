@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './Chat.scss';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import ChatLog from './ChatLog';
@@ -14,6 +14,7 @@ const ChatRoom = ({
   input,
   backToChatNode,
 }) => {
+  const inputRef = useRef();
   return (
     <>
       <div className='whoBox'>
@@ -42,6 +43,7 @@ const ChatRoom = ({
             ◀
           </button>
           <input
+            ref={inputRef}
             className='MessageInput'
             type='text'
             id='message'
@@ -61,7 +63,10 @@ const ChatRoom = ({
           <button
             className='MessageButtonR'
             type='button'
-            onClick={() => input.msg !== '' && send(receiver)}>
+            onClick={() => {
+              input.msg !== '' && send(receiver);
+              inputRef?.current.focus();
+            }}>
             💬
           </button>
         </div>
