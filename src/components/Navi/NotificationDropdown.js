@@ -5,11 +5,7 @@ import { noticeWithPush } from '../../modules/ToastWithPush';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { deleteNotification } from '../../redux/loading/notiReducer';
 
-const NotificationDropdown = ({
-  allNotifications,
-  setHideMenu,
-  setModalIsOpen,
-}) => {
+const NotificationDropdown = ({ allNotifications, setHideMenu, setModalIsOpen }) => {
   const { userData } = useSelector((state) => state.loginReducer);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -38,8 +34,7 @@ const NotificationDropdown = ({
                         onClick={() => {
                           setHideMenu(false);
                           noticeWithPush(notice, history);
-                        }}
-                      >
+                        }}>
                         <span>{`${notice.sender.nickname}
                         님께서 
                         `}</span>
@@ -62,8 +57,7 @@ const NotificationDropdown = ({
                         onClick={() => {
                           setHideMenu(false);
                           noticeWithPush(notice, history);
-                        }}
-                      >
+                        }}>
                         <span>{`${notice.sender.nickname}
                         님께서 
                         `}</span>
@@ -86,8 +80,7 @@ const NotificationDropdown = ({
                         onClick={() => {
                           setModalIsOpen(true);
                           setHideMenu(false);
-                        }}
-                      >{`${notice.sender.nickname}님으로부터 새로운 채팅이 있습니다. `}</span>
+                        }}>{`${notice.sender.nickname}님으로부터 채팅요청이 있었습니다. `}</span>
                       <span>
                         <RiDeleteBin6Line
                           onClick={() => deleteNoti(notice.notiId)}
@@ -170,9 +163,7 @@ const NotificationDropdown = ({
             </ul>
           </div>
         ) : (
-          <li style={{ cursor: 'default', fontSize: '17px' }}>
-            새로운 알림이 없습니다.
-          </li>
+          <li style={{ cursor: 'default', fontSize: '17px' }}>새로운 알림이 없습니다.</li>
         )}
       </div>
     )

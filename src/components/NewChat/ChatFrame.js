@@ -1,39 +1,40 @@
-import React, { useCallback } from "react";
-import "./ChatFrame.scss";
-import SmallChat from "./SmallChat";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteNotificationWithoutAPI } from "../../redux/loading/notiReducer";
+import React from 'react';
+import './ChatFrame.scss';
+import ChatNode from './ChatNode';
 
-const ChatFrame = ({ setModalIsOpen, modalIsOpen }) => {
-  const { userLoginStatus } = useSelector((state) => state.loginReducer);
-  const dispatch = useDispatch();
-  window.addEventListener("message", (event) => {
-    if (event.origin.startsWith("https://api.withyuja.com")) {
-      if (event.data && event.data.exit === "exit") {
-        setModalIsOpen(false);
-      } else if (event.data && event.data.notiId > 0) {
-        dispatch(deleteNotificationWithoutAPI(event.data.notiId));
-      }
-    } else {
-      return;
-    }
-  });
-
-  const frameOnload = useCallback((e) => {
-    e.target.contentWindow.postMessage({ enter: "enter" }, "*");
-  }, []);
-
-  if (modalIsOpen === true && userLoginStatus === true) {
-    return (
-      <React.Fragment>
-        <div className='chatFrameFrag'>
-          <div className='chatFrameOverlay'>
-            <SmallChat frameOnload={frameOnload} setModalIsOpen={setModalIsOpen} />
-          </div>
+const ChatFrame = ({
+  chatList,
+  userList,
+  userData,
+  openChatRoom,
+  receiver,
+  totalMsg,
+  setChatList,
+  input,
+  send,
+  inputHandle,
+  backToChatNode,
+}) => {
+  return (
+    <React.Fragment>
+      <div className='chatFrameFrag'>
+        <div className='chatFrameOverlay'>
+          <ChatNode
+            chatList={chatList}
+            userList={userList}
+            userData={userData}
+            openChatRoom={openChatRoom}
+            receiver={receiver}
+            totalMsg={totalMsg}
+            setChatList={setChatList}
+            input={input}
+            send={send}
+            inputHandle={inputHandle}
+            backToChatNode={backToChatNode}
+          />
         </div>
-      </React.Fragment>
-    );
-  }
+      </div>
+    </React.Fragment>
+  );
 };
-
 export default ChatFrame;

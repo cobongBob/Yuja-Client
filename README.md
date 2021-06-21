@@ -13,10 +13,12 @@
 - yarn add react-bootstrap bootstrap
 - yarn add react-loading
 - yarn add react-toastify
-- yarn add axios
-- yarn add node-sass
+- yarn add react-google-login
+- yarn add react-kakao-login
 - yarn add react-slick
 - yarn add slick-carousel
+- yarn add axios
+- yarn add node-sass
 - yarn add date-fns
 - yarn add react-quill
 - yarn add quill-image-drop-and-paste
@@ -24,3 +26,4 @@
 - yarn add react-daum-postcode (다음 주소 api)
 - yarn add react-chartjs-2 chart-js
 - yarn add react-cookie
+- yarn add socket.io-client
