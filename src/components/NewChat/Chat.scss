@@ -48,16 +48,18 @@
   height: 100%;
   width: 100%;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .chatUserName {
   height: 20%;
-  width: 50%;
+  width: 70%;
   display: inline-block;
   font-size: 1.5rem;
   text-align: left;
   vertical-align: middle;
   margin-left: 5%;
+  overflow: hidden;
 }
 .newChatNotice {
   display: inline-block;
@@ -148,8 +150,8 @@
 
 .whoBox {
   display: inline-block;
-  border-bottom: 3px solid #c4302b;
-  width: 100%;
+  width: 90%;
+  overflow: hidden;
   // height: 8vh;
   background: transparent;
 }
@@ -188,6 +190,7 @@
 
 #ChatLogsWrapper {
   height: 55vh;
+  border-top: 3px solid #c4302b;
 }
 #chatLog {
   height: 54vh;
@@ -372,7 +375,6 @@
   .ChatImg {
     display: inline-block;
     width: 25%;
-    height: 70%;
   }
   #ChatLogsWrapper {
     height: 63vh;
