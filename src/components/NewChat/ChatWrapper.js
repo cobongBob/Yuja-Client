@@ -6,7 +6,7 @@ import { getFormatTime } from '../../modules/getFormatTime';
 import { ToastAlert } from '../../modules/ToastModule';
 import { addChatNotification, deleteNotification } from '../../redux/loading/notiReducer';
 
-const ChatWrapper = ({ modalIsOpen, userData }) => {
+const ChatWrapper = ({ modalIsOpen, userData, setModalIsOpen }) => {
   const dispatch = useDispatch();
   const socket = useRef();
   //로비에서의 유저 리스트
@@ -171,6 +171,7 @@ const ChatWrapper = ({ modalIsOpen, userData }) => {
           send={send}
           inputHandle={inputHandle}
           backToChatNode={backToChatNode}
+          setModalIsOpen={setModalIsOpen}
         />
       ) : null}
     </>

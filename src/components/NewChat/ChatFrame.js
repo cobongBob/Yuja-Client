@@ -14,12 +14,14 @@ const ChatFrame = ({
   send,
   inputHandle,
   backToChatNode,
+  setModalIsOpen,
 }) => {
   return (
     <React.Fragment>
       <div className='chatFrameFrag'>
         <div className='chatFrameOverlay'>
           <ChatNode
+            setModalIsOpen={setModalIsOpen}
             chatList={chatList}
             userList={userList}
             userData={userData}

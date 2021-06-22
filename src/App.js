@@ -265,7 +265,7 @@ function App() {
 
   window.onpopstate = useCallback(
     (e) => {
-      if (modalIsOpen && window.screen.width < 770) {
+      if (modalIsOpen && window.screen.width < 700) {
         history.go(1);
         setModalIsOpen(false);
       }
@@ -289,7 +289,7 @@ function App() {
           />
         </>
       )}
-      <ChatWrapper modalIsOpen={modalIsOpen} userData={userData} />
+      <ChatWrapper modalIsOpen={modalIsOpen} userData={userData} setModalIsOpen={setModalIsOpen} />
       {exceptArray.indexOf(location.pathname) < 0 && (
         <Navi allNotifications={allNotifications} setModalIsOpen={setModalIsOpen} />
       )}

@@ -15,6 +15,7 @@ const ChatNode = ({
   send,
   inputHandle,
   backToChatNode,
+  setModalIsOpen,
 }) => {
   const [resultList, setResultList] = useState([]);
 
@@ -34,6 +35,9 @@ const ChatNode = ({
   return (
     <>
       <div className='chatRoomFrag'>
+        <span className='chatClose' onClick={() => setModalIsOpen(false)}>
+          &times;
+        </span>
         <div className='ChatRoomsWrapper'>
           {chatList === false ? (
             <>
