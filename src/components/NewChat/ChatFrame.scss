@@ -12,12 +12,18 @@
   -webkit-animation: fadein 0.5s; /* Safari and Chrome */
   -o-animation: fadein 0.5s; /* Opera */
   width: 20%;
-  height: 580px;
 }
 .chatFrameOverlay {
   margin: auto;
   width: 100%;
   height: 100%;
+}
+.chatClose {
+  float: right;
+  font-size: 1.5em;
+  margin-right: 5%;
+  outline: none;
+  cursor: pointer;
 }
 
 /* 채팅 반응형 */
@@ -44,7 +50,7 @@
 }
 @media all and (max-height: 700px) {
   .chatFrameFrag {
-    height: 70%;
+    height: 75%;
   }
 }
 @media all and (max-height: 480px) {
