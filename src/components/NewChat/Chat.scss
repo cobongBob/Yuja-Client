@@ -150,7 +150,7 @@
   display: inline-block;
   border-bottom: 3px solid #c4302b;
   width: 100%;
-  height: 60px;
+  // height: 8vh;
   background: transparent;
 }
 .ChatWho {
@@ -187,10 +187,10 @@
 }
 
 #ChatLogsWrapper {
-  height: 45vh;
+  height: 62vh;
 }
 #chatLog {
-  height: 45vh;
+  height: 61vh;
 }
 
 .ChatSenderBigWrapper {
@@ -308,7 +308,7 @@
   padding: 2%;
   font-size: 0.9rem;
   width: 60%;
-  height: 1vh;
+  height: 3vh;
   text-align: center;
   font-family: nanumGothic;
   opacity: 0.9;
@@ -375,13 +375,10 @@
     height: 70%;
   }
   #ChatLogsWrapper {
-    height: 70vh;
-  }
-  .MessageInput {
-    height: 3vh;
+    height: 63vh;
   }
   #chatLog {
-    height: 65vh;
+    height: 59vh;
   }
   .RoomWrapper {
     height: 60vh;
@@ -400,5 +397,11 @@
   .RoomWrapper {
     height: 35vh;
     overflow-y: auto;
+  }
+  #ChatLogsWrapper {
+    height: 50vh;
+  }
+  #chatLog {
+    height: 45vh;
   }
 }
