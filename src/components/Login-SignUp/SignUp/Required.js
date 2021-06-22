@@ -289,7 +289,7 @@ const Required = ({ location, history }) => {
                         location.state && location.state.googleSignupData && location.state.googleSignupData.username
                       }
                       autoComplete='off'
-                      maxLength='30'
+                      maxLength='20'
                       autoFocus
                     />
                     <div className='warningBox'>{EmailValidateResData}</div>
