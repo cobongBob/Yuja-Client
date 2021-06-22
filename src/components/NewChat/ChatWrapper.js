@@ -80,13 +80,15 @@ const ChatWrapper = ({ modalIsOpen, userData }) => {
   const openChatRoom = useCallback(
     (data) => {
       setReceiver(data);
+      socket.current?.emit('chatNoti', userData, data.name);
+      socket.current?.emit('handshaker', userData, data);
       socket.current?.emit(
         'chat msg',
         `${userData.nickname}님이 입장하셨습니다.`,
         userData.nickname,
         data.name
       );
-      socket.current?.emit('chatNoti', userData, data.name);
+
       dispatch(deleteNotification(data.name));
       setTotalMsg([]);
       setChatList(true);
