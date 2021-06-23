@@ -1,11 +1,11 @@
-import React, { useCallback } from "react";
-import { Card } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
-import "../Youtuber/Ylist.scss";
-import BackToList from "../../components/Sorting/BackToList";
-import SortingToLiked from "../../components/Sorting/SortingToLiked";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import { ToastCenter } from "../../modules/ToastModule";
+import React, { useCallback } from 'react';
+import { Card } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
+import '../Youtuber/Ylist.scss';
+import BackToList from '../../components/Sorting/BackToList';
+import SortingToLiked from '../../components/Sorting/SortingToLiked';
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
+import { ToastCenter } from '../../modules/ToastModule';
 
 export default function EditorTable({
   userData,
@@ -57,8 +57,7 @@ export default function EditorTable({
                 <Card.Img
                   className='thumbnail-for-Main'
                   onClick={() => history.push(`/EDetail/${board_type}/${data.id}/${currentPage}`)}
-                  src={`${data.previewImage}`}
-                ></Card.Img>
+                  src={`${data.previewImage}`}></Card.Img>
               </div>
               <Card.Header>
                 <Card.Title className='editerTitle'>
@@ -69,10 +68,13 @@ export default function EditorTable({
                     <span>희망급여</span> {data.payType} {data.payAmount}원
                   </div>
                   <div>
-                    <span>경력</span> {data.career.startsWith("경력") ? data.career.substr(2).trim() : data.career}
+                    <span>경력</span>{' '}
+                    {data.career && data.career.startsWith('경력')
+                      ? data.career.substr(2).trim()
+                      : data.career}
                   </div>
                   <div>
-                    <span>사용기술</span> {data.tools && data.tools.join(", ")}
+                    <span>사용기술</span> {data.tools && data.tools.join(', ')}
                   </div>
                 </Card.Title>
                 <div className='card-like'>
