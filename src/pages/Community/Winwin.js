@@ -1,22 +1,22 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getWinBoard, getSearchData } from "../../redux/board/winwin/winBoardReducer";
-import "./Winwin.scss";
-import WinTable from "./WinTable";
-import Pagination from "../../components/Pagination";
-import Search from "../../components/Search";
-import WSide from "./WSide";
-import { fetchAllNoticeBoards } from "../../apiService/AdminApiService";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getWinBoard, getSearchData } from '../../redux/board/winwin/winBoardReducer';
+import './Winwin.scss';
+import WinTable from './WinTable';
+import Pagination from '../../components/Pagination';
+import Search from '../../components/Search';
+import WSide from './WSide';
+import { fetchAllNoticeBoards } from '../../apiService/AdminApiService';
 const Winwin = ({ match, history }) => {
   const dispatch = useDispatch();
   const path = history.location.pathname;
-  const lastPageNum = path.substr(path.lastIndexOf("/") + 1);
+  const lastPageNum = path.substr(path.lastIndexOf('/') + 1);
   const board_type = useRef(match.params.board_type);
   const pageNum = useRef(lastPageNum ? lastPageNum : 1);
   const { userData, authorities } = useSelector((state) => state.loginReducer);
   const winBoard = useSelector((state) => state.winBoardReducer);
   //검색
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const searchHandler = (keyword) => {
     setSearchTerm(keyword);
     getSearchData(keyword).then((res) => {
@@ -37,8 +37,12 @@ const Winwin = ({ match, history }) => {
   useEffect(() => {
     board_type.current = match.params.board_type;
     dispatch(getWinBoard(board_type.current));
-    setSearchTerm("");
+    setSearchTerm('');
   }, [userData, dispatch, match.params.board_type]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [match.params.board_type]);
 
   //공지 가져오기
   const [allNotices, setAllNotices] = useState([]);

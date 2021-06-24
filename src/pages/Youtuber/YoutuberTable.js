@@ -16,15 +16,18 @@ const YoutuberTable = ({
   board_type,
   wrote,
   userData,
+  authorities,
 }) => {
   const history = useHistory();
   const writeBoard = useCallback(() => {
     if (userData && userData.id > 0) {
       history.push('/YoutuberRegister');
+    } else if (authorities && !authorities.includes('YOUTUBER')) {
+      ToastCenter(`유튜버 신청을 해주세요`);
     } else {
       ToastCenter(`로그인 해주세요`);
     }
-  }, [userData, history]);
+  }, [userData, history, authorities]);
   return (
     <div className='youtuber-card-container'>
       <div id='YregisterBtn_' className='card-options'>
@@ -57,9 +60,7 @@ const YoutuberTable = ({
               <div className='CardImageWrapper'>
                 <Card.Img
                   className='Card_Image'
-                  onClick={() =>
-                    history.push(`/Ydetail/${data.id}/${currentPage}`)
-                  }
+                  onClick={() => history.push(`/Ydetail/${data.id}/${currentPage}`)}
                   src={`${data.previewImage}`}></Card.Img>
               </div>
               <Card.Header>
@@ -80,25 +81,18 @@ const YoutuberTable = ({
                     {data.ywhen !== '마감일' ? (
                       <span>{data.ywhen}</span>
                     ) : (
-                      <span>
-                        마감일{' '}
-                        {format(new Date(data.expiredDate), 'yyyy-MM-dd')}
-                      </span>
+                      <span>마감일 {format(new Date(data.expiredDate), 'yyyy-MM-dd')}</span>
                     )}
                   </div>
                 </Card.Title>
                 <div className='card-like'>
                   {data && data.liked ? (
-                    <button
-                      onClick={() => likeHandler(data.id)}
-                      className='starButton'>
+                    <button onClick={() => likeHandler(data.id)} className='starButton'>
                       <AiFillStar size={30} />
                       <span>{data.likes}</span>
                     </button>
                   ) : (
-                    <button
-                      onClick={() => dislikeHandler(data.id)}
-                      className='starButton'>
+                    <button onClick={() => dislikeHandler(data.id)} className='starButton'>
                       <AiOutlineStar size={30} />
                       <span>{data.likes}</span>
                     </button>

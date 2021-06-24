@@ -1,63 +1,64 @@
-import instance from "../AxiosConfig.js";
-import BoardTypeConvert from "../modules/BoardTypeConvert.js";
+import axios from 'axios';
+import instance from '../AxiosConfig.js';
+import BoardTypeConvert from '../modules/BoardTypeConvert.js';
+const USER_API_BASE_URL = 'https://api.withyuja.com/api';
 
 export const fetchYujaStatistics = async () => {
   return await instance({
-    url: "/yujastats",
-    method: "get",
+    url: '/yujastats',
+    method: 'get',
   });
 };
 export const fetchUsers = async () => {
   return await instance({
-    url: "/user",
-    method: "get",
+    url: '/user',
+    method: 'get',
   });
 };
 export const fetchAllUnauthYoutuber = async () => {
   return await instance({
-    url: "/admin/promote/youtuber",
-    method: "get",
+    url: '/admin/promote/youtuber',
+    method: 'get',
   });
 };
 
 export const fetchAllNoticeBoards = async () => {
-  return await instance({
-    url: 9 + "/board",
-    method: "get",
+  return await axios.get(`${USER_API_BASE_URL}/9/board`, {
+    withCredentials: true,
   });
 };
 export const fetchAllQnABoards = async () => {
   return await instance({
-    url: 10 + "/board",
-    method: "get",
+    url: 10 + '/board',
+    method: 'get',
   });
 };
 
 export const banUser = async (user_id) => {
   return await instance({
     url: `/banned/${user_id}`,
-    method: "put",
+    method: 'put',
   });
 };
 export const promoteUserService = async (data) => {
   return await instance({
     url: `/admin/promote/youtuber`,
-    method: "post",
+    method: 'post',
     data: data,
   });
 };
 export const rejectUserService = async (youtubeConfirmId) => {
   return await instance({
     url: `/admin/promote/youtuber/${youtubeConfirmId}`,
-    method: "delete",
+    method: 'delete',
   });
 };
 
 export const deleteReportedBoard = async (board_id, board_type) => {
   let board_code = BoardTypeConvert(board_type);
   return await instance({
-    url: board_code + "/board/" + board_id,
-    method: "delete",
+    url: board_code + '/board/' + board_id,
+    method: 'delete',
   });
 };
 
@@ -70,12 +71,12 @@ export const noticePrivateSwitch = async (board_id) => {
 export const removeUserData = async (user_id) => {
   return await instance({
     url: `/user/remove/${user_id}`,
-    method: "delete",
+    method: 'delete',
   });
 };
 export const removeQnA = async (qna_ia) => {
   return await instance({
-    url: 10 + "/board/" + qna_ia,
-    method: "delete",
+    url: 10 + '/board/' + qna_ia,
+    method: 'delete',
   });
 };

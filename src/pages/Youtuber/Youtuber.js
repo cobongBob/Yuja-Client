@@ -28,10 +28,7 @@ const Youtuber = ({ match }) => {
 
   const indexOfLastData = currentPage * boardPerPage;
   const indexOfFirstData = indexOfLastData - boardPerPage;
-  const currentData = yBoardData.filterData.slice(
-    indexOfFirstData,
-    indexOfLastData
-  );
+  const currentData = yBoardData.filterData.slice(indexOfFirstData, indexOfLastData);
 
   const clickPage = (pages) => {
     setCurrentPage(pages);
@@ -127,6 +124,7 @@ const Youtuber = ({ match }) => {
         board_type={board_type.current}
         wrote={wrote}
         userData={userData}
+        authorities={authorities}
       />
       <Pagination
         boardPerPage={boardPerPage}
