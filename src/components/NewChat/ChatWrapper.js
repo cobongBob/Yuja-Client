@@ -30,6 +30,15 @@ const ChatWrapper = ({ modalIsOpen, userData, setModalIsOpen }) => {
     [input]
   );
 
+  //로그아웃 처리
+  useEffect(() => {
+    if (!userData || userData.id === 0) {
+      socket.current?.emit('logout', userData, receiver.name);
+      setInput({ msg: '' });
+      setChatList(false);
+    }
+  }, [userData, receiver]);
+
   //소켓 연결
   useEffect(() => {
     if (userData && userData.id > 0) {
@@ -66,15 +75,6 @@ const ChatWrapper = ({ modalIsOpen, userData, setModalIsOpen }) => {
       socket.current?.off('disConn');
     };
   }, [userList, userData]);
-
-  //로그아웃 처리
-  useEffect(() => {
-    if (!userData || userData.id === 0) {
-      socket.current?.emit('logout', userData, receiver.name);
-      setInput({ msg: '' });
-      setChatList(false);
-    }
-  }, [userData, receiver]);
 
   //채팅 상대 결정
   const openChatRoom = useCallback(
