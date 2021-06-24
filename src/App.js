@@ -222,7 +222,7 @@ function App() {
   const logout = useCallback(() => {
     userLogout().then((res) => {
       dispatch(res);
-      ToastAlert(`장시간 입력이 없어 안전하게 자동 로그아웃 되셨습니다.`);
+      ToastAlert(`장시간 입력이 없어 안전하게 로그아웃 되셨습니다.`);
     });
   }, [dispatch]);
   const setTimeouts = useCallback(() => {
